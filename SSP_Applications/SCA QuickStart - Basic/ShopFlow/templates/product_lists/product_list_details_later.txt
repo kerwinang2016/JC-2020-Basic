@@ -1,0 +1,175 @@
+<%
+	var config = view.application.Configuration.product_lists
+	,	items = view.model.get('items')
+	, out_of_stock_items = items.filter(function(product_list_item) { return !product_list_item.get('item').ispurchasable; })
+	,	type = view.model.get('type').name
+	,	items_length = items.length
+	,	items_length_message = '';
+
+	if (items_length === 0)
+	{
+		items_length_message = _('(No items yet)').translate();
+	}
+	else if (items_length === 1)
+	{
+		items_length_message = _('($(0) Item)').translate(items_length);
+	}
+	else if (items_length > 1)
+	{
+		items_length_message = _('($(0) Items)').translate(items_length);
+	}
+	var filteredItems = items.models;
+	var fitter =[];
+	_.each(items.models,function(a){
+	var sfitter = _.find(fitter,function(index){return a.get('fitterid') == index.id;})
+	if(!sfitter)
+		fitter.push({id:a.get('fitterid'),name:a.get('fitter')})
+	});
+	if(!view.showarchiveditems)
+	filteredItems = _.filter(items.models, function(item){ return item.get('custrecord_ns_pl_pli_isarchived') == 'F'; });
+	var arrObjFilteredItems = [];
+	var arrObjFilteredItemsTotal = 0;
+	var hasArrObjFilteredItems = false;
+	var stFilterSaveForLaterRef = '';//view.model.get('swx_filter_save_for_later_client');
+	var hasStFilterSaveForLaterRef = false;//(!_.isNullOrEmpty(stFilterSaveForLaterRef)) ? true : false;
+
+	var collpaseClass = "collapse";
+
+
+	if (hasStFilterSaveForLaterRef)
+	{
+		var stItems = JSON.stringify(items);
+		var arrObjItems = JSON.parse(stItems)
+		arrObjFilteredItems = _.getArrObjFilteredSaveForLaterItems(arrObjItems, stFilterSaveForLaterRef);
+		arrObjFilteredItemsTotal = (!_.isNullOrEmpty(arrObjFilteredItems)) ? arrObjFilteredItems.length : 0;
+		hasArrObjFilteredItems = (arrObjFilteredItemsTotal != 0) ? true : false;
+		collpaseClass = "in collapse";
+	}
+%>
+<style>
+    .list-header-title .accordion-toggle:after {
+        font-family: FontAwesome;
+        font-style: normal;
+        font-weight: normal;
+        content: "\f054";
+        /*Font awesome icon chevron right*/
+        float: right;
+        color: grey;
+    }
+
+    .list-header-title .accordion-toggle:hover {
+        text-decoration: none;
+        color: grey;
+    }
+
+    .list-header-title .accordion-toggle.collapsed:after {
+        content: "\f078";
+        /* Font awesome chevron down*/
+    }
+		::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+	    color: #555;
+	    opacity: 1; /* Firefox */
+		}
+
+		:-ms-input-placeholder { /* Internet Explorer 10-11 */
+		    color: #555;
+		}
+
+		::-ms-input-placeholder { /* Microsoft Edge */
+		    color: #555;
+		}
+</style>
+    <header style="width:75%">
+      <h3 class="list-header-title" style="padding-bottom: 20px;border-bottom: 1px solid #eee;">
+        <a data-toggle="collapse" data-target="#saveForLaterItemsCart" aria-expanded="true" aria-controls="collapseOne" class="accordion-toggle" style="text-decoration:none;color:grey;">
+            <!--<%= (type === 'predefined' || type === 'later') ? _(view.model.get('name')).translate() : view.model.get('name') %>-->
+            Saved Items
+        </a>
+			</h3>
+			<div data-confirm-message class="confirm-message"></div>
+
+      <% if(view.model) {
+					var items = view.model.get('items');
+					if(items_length > 0){
+							var productListDisplay = null;
+
+							if (!hasStFilterSaveForLaterRef){
+								productListDisplay = function (row){
+									return SC.macros['productListDisplayLater'](row, view);
+								}
+							}
+						}
+					}
+				%>
+    </header>
+
+    <div id="saveForLaterItemsCart" style="width:75%;" class="<%=collpaseClass%>">
+
+    <% if (items_length > 0) { %>
+        <% if (!hasStFilterSaveForLaterRef) { %>
+          <div class="row-fluid">
+              <div class="span3">
+                  <span><%= _('To order an item now, click "Add"').translate() %></span>
+              </div>
+              <div class="span9">
+                <div class="row-fluid">
+                  <div class="span-w-21">
+                        <input style="color:#999;padding:4px;width:100%;" type="text" value="<%=stFilterSaveForLaterRef%>" name="swx_filter_save_for_later_client" id="swx_filter_save_for_later_client" placeholder="<%= _('Filter by client name').translate() %>" >
+                  </div>
+									<div class="span-w-25">
+										<select style="margin:0;padding:4px;color:#999;width:100%" type="text" name="filter_fitter" id="filter_fitter" >
+											<option selected value="-1">Filter by fitter name</option>
+											<% for(var ik=0;ik<fitter.length;ik++){ %>
+												<option value="<%= fitter[ik].id%>"><%= fitter[ik].name %></option>
+											<% } %>
+										</select>
+									</div>
+                  <div class="span-w-10">
+                      <button id="swx-butt-save-for-later-filter" class="btn btn-primary" style="width: 100%;">Filter</button>
+                  </div>
+
+                  <div class="span-w-10">
+                      <button id="swx-butt-save-for-later-filter-clear" class="btn btn-primary" style="width: 100%;">Clear</button>
+                  </div>
+									<div class="span-w-10">
+											<button data-action="archive" class="btn btn-primary" style="width: 100%;padding:4px 0px;">Archive</button>
+									</div>
+									<div class="span-w-10">
+											<button id="add-multiple-save-for-later" class="btn btn-primary" style="width: 100%;">Add</button>
+									</div>
+                </div>
+              </div>
+          </div>
+					<div class="row-fluid">
+							<div style="float:right;padding-right:20px;">
+								<label style="display:inline;">Show archived Items</label><input  style="margin-left:20px;" id="show-archived-items" data-action="show-archived-items" type="checkbox">
+							</div>
+					</div>
+        <% } %>
+
+
+        <div class="product-list-items" data-type="product-list-items">
+					<div class="row-fluid">
+						<div class="span-w-10">
+							<strong>Date</strong>
+						</div>
+						<div class="span2">
+							<strong>Client</strong>
+						</div>
+						<div class="span3">
+							<strong>Item</strong>
+						</div>
+						<div class="span-w-20-75">
+							<strong>Comment</strong>
+						</div>
+						<div class="span-w-26">
+						</div>
+					</div>
+            <%= displayInRows(filteredItems, productListDisplay, 1) %>
+        </div>
+        <% } else { %>
+            	<span class="product-list-header-no-items">
+								<%= _('You don\'t have items in this list yet.').translate() %>
+							</span>
+					<% } %>
+    </div>

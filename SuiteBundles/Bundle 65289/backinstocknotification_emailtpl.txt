@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <title><%= translate( "Item $(0) is back in stock at $(1). Hurry up!", itemAttributes('name'), website.displayname )%></title>
+    </head>
+    <body>
+    	<table>
+    		<tr>
+    			<td>
+    			<h1>Back in Stock</h1>
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>
+    				<p><%= translate("Hello $(0) $(1)", backinstocknotification.firstname, backinstocknotification.lastname ) %></p>
+    				<p><%= translate("You requested to be notified when a product was back in stock.") %></p>
+    				<p><%= translate("The following product is back in stock and is available for purcahse at $(0) (while supplies last):", website.displayname)%></p>
+    			</td>
+    		</tr>
+    		<tr>
+    			<td>
+    				<table>
+    					<% if (itemAttributes('imageurl')){ %>
+    					<tr>
+    						<td><%= translate("<img src=\"$(0)\" alt=\"$(1)\"/>",itemAttributes('imageurl'), itemAttributes('imagealt')) %></td>
+    					</tr>
+    					<% }%>
+    					<tr>
+    						<td>
+    							<p><%= translate("<a href=\"$(0)\">$(1)</a>",itemAttributes('urlcomponent'), itemAttributes('name')) %><p>
+    							<p style="font-size: 15px"><%= translate("$(0)",itemAttributes('price_formatted')) %></p>
+    						</td>
+    					</tr>
+    				</table>
+    			</td>
+    		</tr>
+    	</table>
+    </body>
+</html>

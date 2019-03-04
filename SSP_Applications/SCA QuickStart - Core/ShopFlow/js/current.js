@@ -1,0 +1,1 @@
+BDQ.currentTemplatesUrl = '/Web Site Hosting Files/Live Hosting Files/SSP Applications/SCA QuickStart - Core/ShopFlow/js/Application-01672eb090e1.js';

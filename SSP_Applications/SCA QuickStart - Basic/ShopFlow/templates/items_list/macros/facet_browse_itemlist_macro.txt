@@ -1,0 +1,110 @@
+<% registerMacro('facetBrowseItemList', function (view) { %>
+<%
+	var model = view.model
+	,	items = model.get('items')
+	,	facets = model.get('facets')
+	,	translator = view.translator;
+
+	var	isOrderPage = "Item Types" == SC._applications.Shopping.getLayout().currentView.category.itemid
+	,	span = isOrderPage ? "span12" : "span9"
+		// Some calls to macros so we have can reuse them
+	,	facetsDisplayResults = SC.macros.facetsDisplay(translator)
+
+	,	itemListSummaryResult = SC.macros.itemListSummary({
+			totalItems: model.get('total')
+		,	currentPage: translator.getOptionValue('page')
+		,	itemsPerPage: translator.getOptionValue('show')
+		})
+
+	,	paginationResult = SC.macros.pagination(_.extend({}, view.options.application.getConfig('defaultPaginationSettings'), {
+			currentPage: translator.getOptionValue('page')
+		,	totalPages: view.totalPages
+		,	extraClass: 'pagination-small pull-right'
+		,	pager: function (page, rawClientID) {
+				var result = "";
+				if (rawClientID){ // fix for pagination not handling the client parameter
+					var url = translator.cloneForOption('page', page).getUrl();
+					var arr = url.split("?")
+					arr.splice(1,0, "?" + rawClientID + "&")
+					result = arr.join("");
+				} else {
+					result = translator.cloneForOption('page', page).getUrl();
+				}
+				return result;
+			}
+		}))
+
+	,	itemListDisplaySelectorResult = SC.macros.itemListDisplaySelector({
+			translator: translator
+		,	classes: 'pull-right'
+		,	options: view.options.application.getConfig('itemsDisplayOptions')
+		})
+
+	,	itemListSortSelectorResult = SC.macros.itemListSortSelector({
+			translator: translator
+		,	options: view.options.application.getConfig('sortOptions')
+		})
+
+	,	itemListShowSelectorResult = SC.macros.itemListShowSelector({
+			translator: translator
+		,	options: view.options.application.getConfig('resultsPerPage')
+		})
+
+
+	,	page_header = _(view.page_header).substitute({
+			itemscount: model.get('total')
+		});
+		var hash = window.location.hash;
+		if(hash.indexOf('Inventory/Fabrics') == -1 && hash.indexOf('Inventory/Inventory-Accessories') == -1 && hash.indexOf('Inventory/Packaging') == -1){
+			var paramarr = hash.split('item-types/')[1];
+			var product = paramarr.split('?')[0];
+			var client = paramarr.split('?')[1];
+		}
+%>
+<meta itemprop="name" content="<%- view.getTitle() %>">
+<div id="banner-section-top" class="content-banner banner-section-top"></div>
+  <header>
+    <!-- visible-phone -->
+    <p class="h1 visible-phone">
+      <%= page_header %>
+    </p>
+    <% if (view.subtitle) { %>
+      <h4><%- _(view.subtitle).translate() %></h4>
+    <% } %>
+    <!-- /visible-phone -->
+    <div class="facet-header <%= translator.facets.length ? 'no-facets-selected' : '' %>">
+      <%= paginationResult %>
+      <% if (items.length && facets.length) { %>
+        <button class="btn btn-inverse pull-left narrow-by-btn" data-toggle="facet-navigation">
+          <span><%= _('Narrow By').translate() %></span>
+          <i class="icon-plus-sign"></i>
+          <i class="icon-minus-sign"></i>
+        </button>
+      <% } %>
+
+      <div class="hidden-phone pull-left">
+        <%= itemListShowSelectorResult %>
+      </div>
+    </div>
+    <%= facetsDisplayResults %>
+    <div id="banner-section-middle" class="content-banner banner-section-middle"></div>
+  </header>
+  <!-- Item List -->
+  <div id="item-list" class="item-list">
+    <%
+      var displayOption = _.find(view.options.application.getConfig('itemsDisplayOptions'), function (option)
+        {
+          return option.id === view.options.translator.getOptionValue('display');
+        })
+      ,	cellWrap = function cellWrap (item)
+        {
+          return SC.macros[displayOption.macro](item, view);
+        };
+    %>
+    <%= SC.macros.displayInRows(items.models, cellWrap, displayOption.columns) %>
+    <div class="bottom-pagination">
+      <%= paginationResult %>
+    </div>
+    <div class="clearfix"></div>
+  </div>
+<% }) %>

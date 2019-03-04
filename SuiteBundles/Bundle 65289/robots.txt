@@ -1,0 +1,7 @@
+# Change Disallow to this when going to production:
+#   Disallow: /shopflow/
+# And remove the Crawl-Delay entry
+
+User-agent: *
+Disallow: /
+Crawl-Delay: 10

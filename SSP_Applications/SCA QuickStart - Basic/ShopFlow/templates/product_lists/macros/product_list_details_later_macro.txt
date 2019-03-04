@@ -1,0 +1,97 @@
+<% registerMacro('productListDisplayLater', function(item, view, options, paramFilteredItems, paramIsFiltered) {
+	var product = item.get('item')
+	,	quantity = item.get('quantity')
+	,	description = item.get('description')
+	,	item_details = item.get('itemDetails')
+	,	thumbnail = item_details.get('_thumbnail')
+	,	stock_info = item_details.getStockInfo()
+	,	internalid = item.get('internalid');
+
+	var plSku = item_details.get('_sku');
+
+	//var application = view.application;
+	//var model = view.model;
+
+	//var stItem = JSON.stringify(item);
+	//var objItem = JSON.parse(stItem);
+
+	var clientFullName = '';
+	var objClient = item.get('client');
+	var clientFirstName = objClient.firstname;
+	var clientLastName = objClient.lastname;
+
+	var hasClientFirstName = (clientFirstName != '' && clientFirstName != null) ? true : false;
+	var hasClientLastName = (clientLastName != '' && clientLastName != null) ? true : false;
+
+	if (hasClientFirstName || hasClientLastName)
+	{
+		if (hasClientFirstName)
+		{
+			clientFullName += clientFirstName + ' ';
+		}
+
+		if (hasClientLastName)
+		{
+			clientFullName += clientLastName;
+		}
+
+	}
+
+	var hasClientFullName = (clientFullName != '' && clientFullName != null) ? true : false;
+
+
+	var isDisplay = true;
+
+	var arrFilteredItems = paramFilteredItems;
+	var arrFilteredItemsTotal = (!_.isNullOrEmpty(arrFilteredItems)) ? arrFilteredItems.length : 0;
+	var hasFilteredItems = (arrFilteredItemsTotal != 0) ? true : false;
+	var isFiltered = (paramIsFiltered == 'T') ? true : false;
+
+	if (isFiltered)
+	{
+		isDisplay = false;
+
+		var arrObjSaveForLaterInternalidsMapping = _.getArrFilteredSaveForLaterInternalIdMapping(arrFilteredItems);
+		var stSaveForLaterInternalId = internalid.toString();
+
+		var isStSaveForLaterInternalIdExistInMapping = (_.isObjectExist(arrObjSaveForLaterInternalidsMapping['' + stSaveForLaterInternalId + ''])) ? true : false;
+
+		if (isStSaveForLaterInternalIdExistInMapping)
+		{
+			isDisplay = true;
+		}
+	}
+
+
+%>
+
+<% if (isDisplay) { %>
+<tr>
+<article data-id=<%= item.get('internalid') %> data-item-id=<%= item_details.get('internalid') %> >
+	<div class="row-fluid">
+	<div class="span-w-10">
+		<%= item.get('lastmodified').split(' ')[0]%>
+	</div>
+	<div class="span2">
+		<%= clientFullName %>
+	</div>
+	<div class="span3">
+		<%= plSku %>
+	</div>
+	<div class="span-w-20-75">
+		<input type="text" style="padding:4px 0;width:100%" id="comment_<%= item.get('internalid') %>" value="<%= item.get('options').custcol_saved_for_later_comment?item.get('options').custcol_saved_for_later_comment.value:'' %>">
+	</div>
+	<div class="span-w-26 fl-r margin-0">
+		<% if(!options || !options.hide_actions) { %>
+		<button class="btn btn-expanded" data-id="<%=item.id %>" data-action="update-item"><%= _('Update').translate() %></button>
+		<button class="btn btn-expanded remove" data-action="delete-item"><%= _('Remove').translate() %></button>
+		<button data-action="add-to-cart" class="btn btn-primary btn-expanded add-to-cart <%= !product.ispurchasable ? 'disabled' : ''%>" <%= !product.ispurchasable ? 'disabled' : ''%>><%= _('Add').translate() %></button>
+		<input data-tag="saved-item" data-id=<%= item.get('internalid') %> data-item-id=<%= item_details.get('internalid') %> type="checkbox">
+		<% } %>
+	</div>
+	</div>
+</article>
+</tr>
+<% } %>
+
+<% }) %>

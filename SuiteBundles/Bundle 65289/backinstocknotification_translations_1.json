@@ -1,0 +1,12 @@
+{
+  "en": {
+    "Item $(0) is back in stock! - hurry up": "$(0) is back, come on!",
+    "Hello $(0) $(1)": "Hello $(0) $(1)",
+    "Item <a href=\"$(0)\">$(1)</a> <img src=\"$(1)\" /> is back in stock at $(2)": " Item <a href=\"$(0)\">$(1)</a> <img src=\"$(1)\" /> is back in stock at $(2)"
+  },
+  "es-AR": {
+    "Item $(0) is back in stock! - hurry up": "$(0) volvió a stock, apúrate!",
+    "Hello $(0) $(1)": "Hola $(0) $(1)",
+    "Item <a href=\"$(0)\">$(1)</a> <img src=\"$(1)\" /> is back in stock at $(2)": "El artículo <a href=\"$(0)\">$(1)</a> <img src=\"$(1)\" /> está de nuevo en stock a tan solo $(2)"
+  }
+}

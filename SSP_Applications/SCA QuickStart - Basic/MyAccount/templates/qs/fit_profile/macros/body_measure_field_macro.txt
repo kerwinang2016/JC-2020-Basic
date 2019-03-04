@@ -1,0 +1,141 @@
+<!--
+Change History    
+-------------- 
+Date: 15-01-2019
+Changed by:Salman Khan
+Change /Jira Ticket #: JHD-6
+Change Description: Expand room for fit tool names
+-->
+<% registerMacro('bodyMeasureField', function (field, value, fieldset, baseAllowance, allowance,selectedItemType) {
+
+	var type = field.type
+	,	label = field.label
+	, optional = field.optional == 'true'? true:false
+	,	name = field.name
+	,	inputHtml = ""
+	,	finishValue = 0;
+
+	var range = {
+		"Neck" :{min:31,max:59},
+		"Shoulder" :{min:37,max:67},
+		"Chest" :{min:86,max:184},
+		"Waist" :{min:76,max:182},
+		"Hips" :{min:82,max:184},
+		"Upperarm" :{min:32,max:60},
+		"Sleeve-Left" :{min:52,max:79},
+		"Sleeve-Right" :{min:52,max:79},
+		"Cuff-Left" :{min:21,max:33},
+		"Cuff-Right" :{min:21,max:33},
+		"Back-Length" :{min:67,max:95}
+	};
+
+
+
+	var measurementConfiguration = window.itemRangeConfig;
+
+	var selectedProductType = selectedItemType;
+	if(selectedProductType==='' || selectedProductType === null || selectedProductType === undefined){
+		//selectedProductType = window.selectedProductType;
+		selectedProductType = jQuery( "#custrecord_fp_product_type option:selected").val();
+	}
+	var selectedMeasurementConfig = _.findWhere(measurementConfiguration,{ type: selectedProductType });
+	var config = _.findWhere(selectedMeasurementConfig.config,{ name: name});
+	if(config === null || config === undefined){
+		if(name==="Sleeve L" || name ==="Sleeve-L"){
+			config = _.findWhere(selectedMeasurementConfig.config,{ name: "Sleeve L"});
+		}
+		if(name==="Sleeve R"|| name ==="Sleeve-R"){
+			config = _.findWhere(selectedMeasurementConfig.config,{ name: "Sleeve R"});
+		}
+	}
+
+	if(config!=null){
+	}
+
+	if(type == "select"){
+		inputHtml = '<select class="input" id="' + name + '" name="' + name + '">';
+		if(field.options && field.options.length){
+			_.each(field.options, function(option){
+				if(value !=null){
+					if(value.toString().replace(/\+/g,' ') == option.replace(/\+/g,' ')){
+						inputHtml = inputHtml + '<option value="' + option + '" selected>' + option + '</option>'
+					}else{
+						inputHtml = inputHtml + '<option value="' + option + '" >' + option + '</option>'
+					}
+				}
+				 else {
+					inputHtml = inputHtml + '<option value="' + option + '" >' + option + '</option>'
+				}
+
+			});
+		}
+		inputHtml = inputHtml + '</select>'
+	} else {
+		inputHtml = '<input class="input input-small body-measure-fld" type="number" step="any" id="' + name + '" name="' + name + '" value="' + value + '"/>'
+	}
+
+
+	if(value) {
+		if(allowance){
+			finishValue = parseFloat(value) + parseFloat(allowance);
+		} else {
+			if(baseAllowance){
+				allowance = baseAllowance;//(parseFloat(value) * (parseFloat(baseAllowance) / 100))
+				//finishValue = (parseFloat(value) * (parseFloat(baseAllowance) / 100)) + parseFloat(value);
+				finishValue = parseFloat(value) + parseFloat(baseAllowance);
+			} else {
+				finishValue = value;
+			}
+		}
+		finishValue = Math.round(finishValue * 10) / 10;
+	}
+
+	if(isNaN(finishValue)){
+		finishValue = 0;
+	}
+
+	if(finishValue=='NaN'){
+		finishValue = 0;
+	}
+
+	if(!finishValue){
+		finishValue = 0;
+	}
+%>
+<!-- JHD-6 Start -->
+	<div class="row-fluid">
+	<% if(fieldset == "body-measurement"){ %>
+		<div  style="width : 30%;margin:0;" class="span2 measurement"><%= label %></div>
+		<div style="width : 20%;margin:0;" class="span3-profile measurement">
+				<%= inputHtml %>
+			</div>
+		<div style="width : 20%;margin:0;" class="span3-profile measurement">
+			<input class="input input-small allowance-fld" type="number" step="any" id="allowance_<%= name %>" name="allowance-<%= name %>" value="<%= allowance ? allowance : baseAllowance %>"/>
+						</div>
+		<div style="width : 20%;margin:0;text-align:center;" class="span3-profile measurement">
+							<% if(config!=null){ %>
+								<span data-optional="<%= optional %>" min-value="<%= config.min %>" max-value="<%= config.max %>" id="finish_<%= name %>"><%= finishValue %></span>
+								<% }else{ %>
+
+									<span data-optional="<%= optional %>" id="finish_<%= name %>"><%= finishValue %></span>
+									<% } %>
+						</div>
+		<div style="width : 10%;margin:0;" class="span3-profile measurement">
+							<% if(config != null){ %>
+								<span id="range_<%= name %>">(<%= config.min %>-<%= config.max %>)</span>
+								<% } %>
+						</div>
+		<% } else if(fieldset == "body-profile") { %>
+		<div  style="width : 30%;margin:0;" class="span2 measurement"><%= label %></div>
+		<div  style="width : 20%;margin:0;" class="span3-profile measurement">
+			<%= inputHtml %>
+		</div>
+	<% } else{ %>
+		<div  class="span2 measurement"><%= label %></div>
+		<div  class="span3-profile measurement">
+			<%= inputHtml %>
+		</div>
+						<% } %>
+	</div>
+<!-- JHD-6 End -->
+	<% }) %>

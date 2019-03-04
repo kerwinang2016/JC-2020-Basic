@@ -1,0 +1,42 @@
+/*
+ avoid people registering twice or more
+
+*/
+var Handler = (function(){
+
+
+    /* Private */
+    var onCreate = function(newRecord)
+    {
+
+        var BackInStockNotification = Application.getModel('BackInStockNotification');
+
+        //avoid people registering twice or more
+        if(BackInStockNotification.alreadySubscribed(
+                newRecord.getFieldValue(BackInStockNotification.columns.email.fieldName),
+                newRecord.getFieldValue(BackInStockNotification.columns.item.fieldName),
+                newRecord.getFieldValue(BackInStockNotification.columns.website.fieldName)
+            )
+        )
+        {
+            throw nlapiCreateError('-100', 'Duplicated Subscription', true);
+        }
+    };
+
+    /* Public */
+    var beforeSubmit  = function(type){
+
+        var record = nlapiGetNewRecord();
+
+        switch(type.toString()){
+            case 'create':
+                onCreate(record);
+                break;
+        }
+    };
+
+    return {
+        beforeSubmit: beforeSubmit
+    };
+
+}());

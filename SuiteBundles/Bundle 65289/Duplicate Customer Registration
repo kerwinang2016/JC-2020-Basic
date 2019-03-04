@@ -1,0 +1,42 @@
+Application.defineModel('DuplicateCustomerManagement.Customer', {
+    record: 'customer',
+    columns: {
+        internalid: {fieldName: 'internalid'},
+        email : {fieldName: 'email'},
+        isinactive: {fieldName: 'isinactive'},
+        language: {fieldName: 'language'},
+        currency: {fieldName: 'currency'},
+        giveaccess: {fieldName: 'giveaccess'},
+        subsidiary: {fieldName: 'subsidiary'}
+    },
+    fieldsets: {
+        duplicated: ['internalid','email','isinactive','language','currency']
+    },
+    /*
+     data: user to register data
+     ignoreKeys: (optional) to avoid in specific case
+
+     SC.Configuration.Efficiencies.DuplicateCustomerManagement.duplicate_criteria
+     */
+    getDuplicated: function (data, ignoreKeys) {
+
+
+        var Search = new SearchHelper(this.record, null, this.columns, this.fieldsets.duplicated),
+            self = this;
+
+        _.each(SC.Configuration.Efficiencies.DuplicateCustomerManagement.criteria, function (value, key) {
+            if (!_.contains(ignoreKeys, key)) {
+                Search.addFilter({fieldName: self.columns[key].fieldName, operator: 'is', value1: data[key]});
+            }
+        });
+
+        if(ignoreKeys && !_.contains(ignoreKeys,'giveaccess'))
+        {
+            Search.addFilter({fieldName: self.columns.giveaccess.fieldName, operator: 'is', value1: 'T'});
+        }
+        Search.setSort('createdat').setSortOrder('asc');
+
+        return Search.search().getResults();
+
+    }
+});

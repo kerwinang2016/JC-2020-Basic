@@ -38,13 +38,12 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             , 'click': 'contentClick'
 
             , 'focus .display-option-dropdown': 'propertyValueChange'
-            , 'change .display-option-dropdown': 'propertyValueChange'
 
             , 'click [data-action="show-productlist-control"]': 'setCustomOptions'
-            , 'change .designoption-message': 'designOptionMessageChange'
-
             , 'click [id="swx-modal-butt-close"]': 'closeModalManually'
 
+            , 'change .designoption-message': 'designOptionMessageChange'
+            , 'change .display-option-dropdown': 'propertyValueChange'
             //Fit profile change
             , 'change #fitprofile-details select.profiles-options': 'fitProfileChange'
 
@@ -52,8 +51,9 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             , 'change .input-mini.quantity': 'quantityChange'
             //Fit profile message change
             , 'change #fitprofile-message': 'fitProfileMessageChange'
-
+            , 'change #fabric-cmt-vendor': 'fabricVendorChange'
         }
+
         , initialize: function (options) {
             var self = this;
             jQuery.get(_.getAbsoluteUrl('js/extraQuantity.json')).done(function (data) {
@@ -241,6 +241,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             }
             return status;
         }
+
         // view.addToCart:
         // Updates the Cart to include the current model
         // also takes care of updateing the cart if the current model is a cart item
@@ -278,6 +279,9 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                   collection:jQuery('#fabric-cmt-collection').val(),
                   vendor:jQuery('#fabric-cmt-vendor').val()
                 }
+
+                self.model.setOption('custcol_othervendorname', jQuery('#fabric-cmt-othervendorname').val());
+
                 self.model.setOption('custcol_custom_fabric_details', JSON.stringify(fabricdetails));
                 self.model.setOption('custcol_vendorpicked', fabricdetails.vendor);
                 var categories = _.where(self.model.get("facets"), { id: "category" })[0].values[0].values;
@@ -446,9 +450,12 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
           var error_message = "";
           if(internalid == '253776'){
             if(jQuery('#fabric-cmt-code').val() == "" || jQuery('#fabric-cmt-vendor').val() == '' || jQuery('#fabric-cmt-collection').val() == ''){
-              error_message += 'CMT Vendor, Code and Quantity is required for CMT item<br/>';
+              error_message += 'CMT Vendor, Code and Collection is required for CMT item<br/>';
             }
 
+            if(jQuery('#fabric-cmt-vendor').val() == '33' && !jQuery('#fabric-cmt-othervendorname').val()){
+                error_message += 'You must enter a vendor name when Other is selected';
+            }
           }
           if(clothingTypes.indexOf('Jacket')!=-1){
             if((jQuery('#design-option-Jacket #li-vnd').val() != 'Please select') || (jQuery('#design-option-Jacket #li-code').val() != '')){
@@ -844,12 +851,19 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                         else if( options[x].id == 'CUSTCOL_FABRIC_EXTRA'){
                           optionsHolder['CUSTCOL_FABRIC_EXTRA'] = options[x];//jQuery("#fabric_extra option[name=" + options[x].value +"]").prop("selected",true) ;
                         }
+                        else if( options[x].id == 'CUSTCOL_OTHERVENDORNAME'){
+
+                          jQuery('#fabric-cmt-othervendorname').val(options[x].value);
+                        }
                         else if( options[x].id == 'CUSTCOL_CUSTOM_FABRIC_DETAILS'){
                           if(options[x].value){
                             var fabdetails = JSON.parse(options[x].value);
                             jQuery('#fabric-cmt-vendor').val(fabdetails.vendor);
                             jQuery('#fabric-cmt-collection').val(fabdetails.collection);
                             jQuery('#fabric-cmt-code').val(fabdetails.code);
+                            if(fabdetails.vendor == '33'){
+                              jQuery('#fabric-cmt-othervendorname').parent().show();
+                            }
                           }
                         }
                     }
@@ -957,6 +971,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     window.tempFitProfileMessage = jQuery("textarea#fitprofile-message").html();
                     window.tempOptionsNotes = jQuery("textarea#designoption-message").html();
                 }, 1000);
+				
             });
             this.application.on('profileRefresh', function () {
               if(self.cid == SC._applications.Shopping.getLayout().currentView.cid){
@@ -1041,9 +1056,10 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                         jQuery('[name="custcol_fabric_quantity"]').val((qty + extra).toFixed(2));
                     }
                 });
-
+                self.displayMonogramDependency();
               }
             });
+
         }
         , updateFitProfileDetails: function ($el) {
 
@@ -1179,7 +1195,105 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 jQuery(e.target).nextAll('#liningstatusimage').html('');
               }
             }
+
             this.application.trigger('profileRefresh');
+        }
+        , displayMonogramDependency: function(){
+
+          // if(jQuery(e.target).attr("id") == 'T010243'){
+            if(jQuery('#T010243').val() == 'T01024302'){
+              //hide stuff
+              jQuery('#T010235').parent().parent().hide();
+              jQuery('#T010236').parent().parent().hide();
+              jQuery('#T010238').parent().parent().hide();
+            }
+            else{
+              //show
+              jQuery('#T010235').parent().parent().show();
+              jQuery('#T010236').parent().parent().show();
+              jQuery('#T010238').parent().parent().show();
+            }
+          // }
+          // else if(jQuery(e.target).attr("id") == 'T010244'){
+            if(jQuery('#T010244').val() == 'T01024402'){
+              //hide stuff
+              jQuery('#T010245').parent().parent().hide();
+              jQuery('#T010237').parent().parent().hide();
+              jQuery('#T010239').parent().parent().hide();
+              jQuery('#T010240').parent().parent().hide();
+            }
+            else{
+              //show
+              jQuery('#T010245').parent().parent().show();
+              jQuery('#T010237').parent().parent().show();
+              jQuery('#T010239').parent().parent().show();
+              jQuery('#T010240').parent().parent().show();
+            }
+          // }
+          // else if(jQuery(e.target).attr("id") == 'T010522'){
+            if(jQuery('#T010522').val() == 'T01052202'){
+              //hide stuff
+              jQuery('#T010523').parent().parent().hide();
+              jQuery('#T010524').parent().parent().hide();
+              jQuery('#T010525').parent().parent().hide();
+            }
+            else{
+              //show
+              jQuery('#T010523').parent().parent().show();
+              jQuery('#T010524').parent().parent().show();
+              jQuery('#T010525').parent().parent().show();
+            }
+          // }
+          // else if(jQuery(e.target).attr("id") == 'T010419'){
+            if(jQuery('#T010419').val() == 'T01041902'){
+              //hide stuff
+              jQuery('#T010420').parent().parent().hide();
+              jQuery('#T010421').parent().parent().hide();
+              jQuery('#T010422').parent().parent().hide();
+            }
+            else{
+              //show
+              jQuery('#T010420').parent().parent().show();
+              jQuery('#T010421').parent().parent().show();
+              jQuery('#T010422').parent().parent().show();
+            }
+          // }
+          // else if(jQuery(e.target).attr("id") == 'T010423'){
+            if(jQuery('#T010423').val() == 'T01042302'){
+              //hide stuff
+              jQuery('#T010424').parent().parent().hide();
+              jQuery('#T010425').parent().parent().hide();
+              jQuery('#T010426').parent().parent().hide();
+              jQuery('#T010427').parent().parent().hide();
+              jQuery('#T010428').parent().parent().hide();
+            }
+            else{
+              //show
+              jQuery('#T010424').parent().parent().show();
+              jQuery('#T010425').parent().parent().show();
+              jQuery('#T010426').parent().parent().show();
+              jQuery('#T010427').parent().parent().show();
+              jQuery('#T010428').parent().parent().show();
+            }
+          // }
+          // else if(jQuery(e.target).attr("id") == 'T010633'){
+            if(jQuery('#T010633').val() == 'T01063302'){
+              //hide stuff
+              jQuery('#T010634').parent().parent().hide();
+              jQuery('#T010635').parent().parent().hide();
+              jQuery('#T010636').parent().parent().hide();
+              jQuery('#T010637').parent().parent().hide();
+              jQuery('#T010638').parent().parent().hide();
+            }
+            else{
+              //show
+              jQuery('#T010634').parent().parent().show();
+              jQuery('#T010635').parent().parent().show();
+              jQuery('#T010636').parent().parent().show();
+              jQuery('#T010637').parent().parent().show();
+              jQuery('#T010638').parent().parent().show();
+            }
+          // }
         }
         , designOptionMessageChange: function (e) {
             window.tempOptionsNotes = jQuery("#designoption-message").val();
@@ -1288,6 +1402,13 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
         }
         , quantityChange: function (e) {
             window.tempQuantity = jQuery(e.target).val();
+        }
+        , fabricVendorChange: function(e){
+          if(jQuery(e.target).val() == '33'){
+            jQuery('#fabric-cmt-othervendorname').parent().show();
+          }else{
+            jQuery('#fabric-cmt-othervendorname').parent().hide();
+          }
         }
         , fitProfileMessageChange: function (e) {
             window.tempFitProfileMessage = jQuery(e.target).val();

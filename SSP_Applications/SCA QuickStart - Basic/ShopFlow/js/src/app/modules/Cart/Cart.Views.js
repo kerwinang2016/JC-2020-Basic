@@ -5,6 +5,13 @@ Change History
 -------------- 
 Date: 31-01-2019
 Changed by:Salman Khan
+Change /Jira Ticket #: JHD-8// Cart.Views.js
+// -------------
+/*
+Change History
+--------------
+Date: 31-01-2019
+Changed by:Salman Khan
 Change /Jira Ticket #: JHD-8
 Change: Tailor can't enter Date Needed that is earlier than the expected delivery date
 */

@@ -188,25 +188,6 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 
 							var currentFavouriteOption = favouriteOptions ? favouriteOptions[field.name] : "";
 
-
-							//console.log('field.type: ' + field.type)
-
-							/**
-							if (field.type == 'text')
-							{
-									// instantiate if object does not exist yet
-									if (!designOptions[clothingType.item_type]){
-										designOptions[clothingType.item_type] = {};
-									}
-
-									designOptions[clothingType.item_type][component.label][field.label] = {
-											type 	:	field.type,
-											label	:	field.label,
-											name	: 	field.name
-									};
-							}
-							**/
-
 							// set restrictions
 							for(var i = 0; i < field.values.length; i++){
 								var currentFieldValue = field.values[i];
@@ -315,6 +296,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 						application.getUser().setUserOptionConfig(function(userOptions){
 							application.getUser().displayDesignOptions(view, userOptions);
 							jQuery("#designoption-message").val(designOptionMessage);
+							view.displayMonogramDependency();
 						}, window.tempOptions);
 					} else if (application.getLayout().currentView.template == "product_details" && view.model && view.model.get('custitem_clothing_type')){
 						var values = new Object();
@@ -388,6 +370,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 									application.getUser().setUserOptionConfig(function(userOptions){
 										application.getUser().displayDesignOptions(view, userOptions);
 										jQuery("#designoption-message").val(designOptionMessage);
+										view.displayMonogramDependency();
 									}, values);
 								});
 							// }else{
@@ -420,6 +403,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 								application.getUser().setUserOptionConfig(function(userOptions){
 									application.getUser().displayDesignOptions(view, userOptions);
 									jQuery("#designoption-message").val(designOptionMessage);
+									view.displayMonogramDependency();
 								}, values);
 							} else if (_.isUndefined(item)){ //If Item is undefined, try to load it again. This will only happen if the user decides to refresh the page.
 								setTimeout(function(){
@@ -460,6 +444,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 										application.getUser().setUserOptionConfig(function(userOptions){
 											application.getUser().displayDesignOptions(view, userOptions);
 											jQuery("#designoption-message").val(designOptionMessage);
+											view.displayMonogramDependency();
 										}, values);
 									}
 								}, 1000);
@@ -468,6 +453,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 						} else {
 							application.getUser().setUserOptionConfig(function(userOptions){
 								application.getUser().displayDesignOptions(view, userOptions);
+								view.displayMonogramDependency();
 							}, values);
 
 						}

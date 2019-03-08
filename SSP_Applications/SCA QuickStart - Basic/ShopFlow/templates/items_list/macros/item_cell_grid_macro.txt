@@ -43,6 +43,11 @@
 				</span>
 			</a>
 		</h2>
+		<h4 class="item-cell-vendorname">
+				<span itemprop="vendorname" >
+					<%= item.get('vendorname') %>
+				</span>
+		</h2>
 		<% if(item.get('outofstockmessage') == "Low Stock" || item.get('outofstockmessage') == "Out of Stock" ){ %>
 		<h2 class="item-cell-stockstatus">
 				<span itemprop="outofstockmessage" class="outofstockmessage">
@@ -58,7 +63,7 @@
 		<% }else{ %>
 		<h2 class="item-cell-stockstatus">
 				<span itemprop="instockmessage" class="checkstockmessage">
-					<% if(item.get('custitem_checkstockmessage')){ %> 
+					<% if(item.get('custitem_checkstockmessage')){ %>
 						<%= item.get('custitem_checkstockmessage') %>
 					<% }else{ %>
 						Check Stock

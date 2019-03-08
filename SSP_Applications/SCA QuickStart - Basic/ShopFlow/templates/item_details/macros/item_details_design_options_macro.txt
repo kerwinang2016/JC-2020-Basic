@@ -110,7 +110,7 @@
 
 											<% if (isTextType) {%>
 												<div class="controls" style="margin-bottom: 15px;display:inline">
-													<input type="text" fieldname="<%= field %>" id="<%= currentField.name %>" class="input-xlarge" name="<%= currentField.name %>" value="<%= currentField.value %>" data-type="fav-option-customization">
+													<input placeholder="<%= currentField.placeholder%>" type="text" maxlength="<%= currentField.maxlength%>" fieldname="<%= field %>" id="<%= currentField.name %>" class="input-xlarge" name="<%= currentField.name %>" value="<%= currentField.value %>" data-type="fav-option-customization">
 												</div>
 												<div class="show-options-img" id="more-info_<%= currentField.name %>">
 															<%= SC.macros.displayMoreInfo(currentField.name+"|"+currentField.label)%>

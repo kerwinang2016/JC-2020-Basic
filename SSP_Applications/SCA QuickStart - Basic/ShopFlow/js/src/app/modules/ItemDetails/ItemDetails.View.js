@@ -267,7 +267,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 _.displayModalWindow(modalTitleErrConflictCode, modalContentErrConflictCode, true)
                 return false;
             }
-            if (this.model.isReadyForCart() && this.fabricChecked() && this.validateFitProfile() && this.validateCMTQuantity() ) {
+            if (this.model.isReadyForCart() && this.fabricChecked() && this.validateFitProfile() && this.validateCMT() ) {
                 var self = this
                     , cart = this.application.getCart()
                     , layout = this.application.getLayout()
@@ -443,7 +443,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 }
             }
         }
-        , validateCMTQuantity: function(){
+        , validateCMT: function(){
           var self = this;
           var clothingTypes = this.model.get('custitem_clothing_type').split(', ');
           var internalid = this.model.get('internalid');
@@ -971,7 +971,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     window.tempFitProfileMessage = jQuery("textarea#fitprofile-message").html();
                     window.tempOptionsNotes = jQuery("textarea#designoption-message").html();
                 }, 1000);
-				
+
             });
             this.application.on('profileRefresh', function () {
               if(self.cid == SC._applications.Shopping.getLayout().currentView.cid){

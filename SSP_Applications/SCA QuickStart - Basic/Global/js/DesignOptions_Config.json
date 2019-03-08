@@ -2366,6 +2366,8 @@
 						"label":"Monogram Underside Text"
 					,	"name":"T010238"
 					,	"type":"text"
+					, "maxlength": "11"
+					, "placeholder": "Maximum of 11 characters only"
 					,	"values":["avttext"]
 					}
 				]
@@ -2463,12 +2465,16 @@
 						"label":"Monogram Text Line 1"
 					,	"name":"T010239"
 					,	"type":"text"
+					, "maxlength": "11"
+					, "placeholder": "Maximum of 11 characters only"
 					,	"values":["avttext"]
 					}
 				,	{
 						"label":"Monogram Text Line 2"
 					,	"name":"T010240"
 					,	"type":"text"
+					, "maxlength": "11"
+					, "placeholder": "Maximum of 11 characters only"
 					,	"values":["avttext"]
 					}
 				]
@@ -3470,11 +3476,13 @@
 						"label":"Monogram Text"
 					,	"name":"T010525"
 					,	"type":"text"
+					, "maxlength": "11"
+					, "placeholder": "Maximum of 11 characters only"
 					,	"values":["avttext"]
 					}
 				]
 			}
-		,	{		
+		,	{
 				"label": "Branding"
 			,	"name": "fs-j"
 			,	"fields": [
@@ -6073,6 +6081,8 @@
 						"label":"Monogram Text"
 					,	"name":"T010422"
 					,	"type":"text"
+					, "maxlength": "11"
+					, "placeholder": "Maximum of 11 characters only"
 					,	"values":["avttext"]
 					}
 				]
@@ -6179,12 +6189,16 @@
 						"label":"Monogram Text Line 1"
 					,	"name":"T010427"
 					,	"type":"text"
+					, "maxlength": "11"
+					, "placeholder": "Maximum of 11 characters only"
 					,	"values":["avttext"]
 					}
 				,	{
 						"label":"Monogram Text Line 2"
 					,	"name":"T010428"
 					,	"type":"text"
+					, "maxlength": "11"
+					, "placeholder": "Maximum of 11 characters only"
 					,	"values":["avttext"]
 					}
 				]
@@ -6206,7 +6220,7 @@
 						,	"T01043102"
 						]
 					}
-				,	{	
+				,	{
 						"label":"Fabric Supplier Label"
 					,	"name":"T010432"
 					,	"type":"select"
@@ -6216,7 +6230,7 @@
 						]
 					,	"values": [
 							"T01043201"
-						,	"T01043202"	
+						,	"T01043202"
 						]
 					}
 				]
@@ -10978,13 +10992,15 @@
 						]
 					}
 				,	{
-                        "label":"Monogram Text"
+          	"label":"Monogram Text"
 					,	"name":"T010634"
 					,	"type":"text"
+					, "maxlength": "11"
+					, "placeholder": "Maximum of 11 characters only"
 					,	"values":["avttext"]
 					}
 				,	{
-                        "label":"Monogram Type"
+            "label":"Monogram Type"
 					,	"name":"T010635"
 					,	"type":"select"
 					,	"texts": [
@@ -10999,7 +11015,7 @@
 						]
 					}
 				,	{
-                        "label":"Font Size"
+            "label":"Font Size"
 					,	"name":"T010636"
 					,	"type":"select"
 					,	"texts": [
@@ -11014,7 +11030,7 @@
 						]
 					}
 				,	{
-                        "label":"Monogram Position"
+            "label":"Monogram Position"
 					,	"name":"T010637"
 					,	"type":"select"
 					,	"texts": [
@@ -11051,7 +11067,7 @@
 						]
 					}
 				,	{
-                        "label":"Monogram Color"
+            "label":"Monogram Color"
 					,	"name":"T010638"
 					,	"type":"select"
 					,	"texts": [
@@ -11160,4 +11176,3 @@
 		]
 	}
 ]
-

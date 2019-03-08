@@ -248,6 +248,8 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 											type 	:	field.type,
 											label	:	field.label,
 											name	: 	field.name,
+											maxlength: field.maxlength?field.maxlength:"",
+											placeholder: field.placeholder?field.placeholder:"",
 											value	: 	currentFavouriteOption?currentFavouriteOption:(_.isObjectExist(objCartDesignOptionsMapping['' + field.name + ''])) ? objCartDesignOptionsMapping['' + field.name + ''] : ''
 									};
 								}

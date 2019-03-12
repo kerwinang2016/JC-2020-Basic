@@ -1,3 +1,40 @@
+<!--
+Change History   
+-------------- 
+Date: 04-03-2019
+Changed by:Shoaib Iqbal
+Change /Jira Ticket #: JHD-26
+Change Description: Remove address book section
+-->
+
+<!--
+Change History   
+-------------- 
+Date: 04-03-2019
+Changed by:Shoaib Iqbal
+Change /Jira Ticket #: JHD-27
+Change Description: Remove Email Preferences section
+-->
+
+<!--
+Change History   
+-------------- 
+Date: 04-03-2019
+Changed by:Shoaib Iqbal
+Change /Jira Ticket #: JHD-29
+Change Description: Updates to �Cases� section on myaccount
+-->
+
+<!--
+Change History   
+-------------- 
+Date: 05-03-2019
+Changed by: Salman Khan
+Change /Jira Ticket #: JHD-32
+Change Description: Same Drop down of "My account" and "Your account"
+-->
+
+
 <% registerMacro('headerProfile', function (application) { %>
 <% var Profile = application.getUser(); %>
 
@@ -95,16 +132,16 @@
 							<%= _('Profile Information').translate() %>
 						</a>
 					</li>
-					<li>
+					<!-- <li> JHD-27
 						<a href="#" data-touchpoint="customercenter" data-hashtag="#emailpreferences">
 							<%= _('Email Preferences').translate() %>
 						</a>
-					</li>
-					<li>
+					</li> -->
+					<!-- <li> JHD-26
 						<a href="#" data-touchpoint="customercenter" data-hashtag="#addressbook">
 							<%= _('Address Book').translate() %>
 						</a>
-					</li>
+					</li> -->
 					<li>
 						<a href="#" data-touchpoint="customercenter" data-hashtag="#creditcards">
 							<%= _('Credit Cards').translate() %>
@@ -125,21 +162,40 @@
 							<%= _('Favourite Options').translate() %>
 						</a>
 					</li>
+					<li> <!-- JHD-11 -->
+						<a href="#" data-touchpoint="customercenter" data-hashtag="#favouritefittools">
+							<%= _('Favourite Fit Tools').translate() %>
+						</a>
+					</li>
 				</ul>
 			</li>
 
-			<% if (application.CaseModule && application.CaseModule.isEnabled()) { %>
-			<li class="my-account-item-cell dropdown-submenu" data-permissions="lists.listCase.1">
-				<a tabindex="-1" href="#"><%= _('Cases').translate() %></a>
-				<ul class="dropdown-menu">
-					<li><a tabindex="-1" href="#" data-touchpoint="customercenter" data-hashtag="#cases" ><%= _('All My Cases').translate() %></a></li>
-					<li><a tabindex="-1" href="#" data-touchpoint="customercenter" data-hashtag="#newcase"><%= _('Submit New Case').translate() %></a></li>
-				</ul>
-			</li>
-			<% } %>
 			<li class="my-account-item-cell">
 				<a tabindex="-1" href="#" data-touchpoint="customercenter" data-hashtag="#fitprofile"><%= _('Client Profiles').translate() %></a>
 			</li>
+			<li class="my-account-item-cell dropdown-submenu" data-permissions="lists.listCase.1">
+				<a tabindex="-1" href="#"><%= _('Support').translate() %></a>
+				<ul class="dropdown-menu">
+				<!-- JHD-29 Start -->
+				<!--
+					<li><a tabindex="-1" href="#" data-touchpoint="customercenter" data-hashtag="#cases" ><%= _('All My Cases').translate() %></a></li>
+					<li><a tabindex="-1" href="#" data-touchpoint="customercenter" data-hashtag="#newcase"><%= _('Submit New Case').translate() %></a></li>
+					 -->
+					<!-- JHD-29 End -->
+					<li><a tabindex="-1" href="#" data-touchpoint="customercenter" data-hashtag="#trainingguides"><%= _('Training Guides').translate() %></a></li> <!-- JHD-32 -->
+				</ul>
+			</li>
+			 <!-- JHD-32 Start -->
+			<li class="my-account-item-cell">
+				<a tabindex="-1" href="#" data-touchpoint="customercenter" data-hashtag="#stocklist"><%= _('Stock List').translate() %></a>
+			</li>
+			<li class="my-account-item-cell">
+				<a tabindex="-1" href="#" data-touchpoint="customercenter" data-hashtag="#termsandconditions"><%= _('Terms and Conditions').translate() %></a>
+			</li>
+			<li class="my-account-item-cell">
+				<a tabindex="-1" href="#" data-touchpoint="customercenter" data-hashtag="#contactus"><%= _('Contact Us').translate() %></a>
+			</li>
+			 <!-- JHD-32 End -->
 			<li class="divider"></li>
 			<li class="my-account-item-cell">
 				<a href="#" data-touchpoint="logout">

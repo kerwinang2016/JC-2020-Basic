@@ -21,7 +21,7 @@
 %>
 
 <div class="container">
-	<h3>Tailor's Client</h3>
+	<h3>Tailor's Client 1</h3>
 	<% if(view.model.client_collection){ %>
 		<div style="display: none;">
 			<%= clientsOptionDropdown(view.model.client_collection, view.options.application.getUser().get("internalid")) %>

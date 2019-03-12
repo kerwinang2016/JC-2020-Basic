@@ -1,5 +1,13 @@
 // Profile.Views.js
 // -----------------------
+/*
+Change History   
+-------------- 
+Date: 28-02-2019
+Changed by:Salman Khan
+Change /Jira Ticket #: JHD-11
+Change Description: Default fit tools can be inputted into the my account section
+*/
 // Views for profile's operations
 define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory.Collection', 'ItemDetails.Model', 'ProductList.Model', 'ProductListItem.Model', 'ProductListDetails.View'], function (ClientModel, ProfileModel, Collection, ItemDetailsModel, ProductListModel, ProductListItemModel, ProductListDetailsView) {
 	'use strict';
@@ -87,9 +95,17 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			jQuery.get(_.getAbsoluteUrl('services/influences.ss')).done(function (data) {
 				self.influences = data;
 			});
-			jQuery.get(_.getAbsoluteUrl('services/bodyBlockMeasurements.ss')).done(function (data) {
-				window.bodyBlockMeasurements = data;
+			 //JHD-11 Start
+			var param = new Object();
+			param.type = "get_favourite_fit_tools";
+			param.id = this.options.application.getUser().get("internalid");
+			_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "GET", param).always(function(data){
+				if(data){
+					self.defaultfavfittools = data;
+				}
 			});
+			 //JHD-11 End
+
 
 		}
 
@@ -363,7 +379,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 
 
 		, swxFitProfileViewEdit: function (e) {
-
+			var self = this;
 			var $ = jQuery;
 			var selectedProfileIdValue = e.target.getAttribute('swx-fitprofile-id');
 
@@ -373,8 +389,49 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			$("[id='butt-modal-submit']").show();
 			$("[id='butt-modal-remove']").show();
 			$("[id='butt-modal-copy']").show();
-
 			$("[id='butt-modal']").click();
+			var measureType = jQuery('#custrecord_fp_measure_type option:selected').text();
+
+			if(measureType == 'Block'){
+				//JHD-11 Start
+				var data = self.options.application._layoutInstance.currentView.defaultfavfittools;
+				if(data){
+					var tempFavFitToolsData = JSON.parse(data);
+					var favDefaultData = tempFavFitToolsData[0];
+						if (favDefaultData) {
+							jQuery("label").removeClass( "fav-fit-tools-default");
+							var defaultFields = '';
+							favDefaultData = JSON.parse(favDefaultData);
+							var itemType = jQuery('#custrecord_fp_product_type option:selected').text();
+							for(var j = 0; j < favDefaultData.length; j++){
+								if(favDefaultData[j].itemType == itemType){
+									defaultFields = favDefaultData[j].measurementValues;
+								}
+									if(defaultFields){
+										for(var i = 0; i < defaultFields.length; i++ ){
+											var name = defaultFields[i].name;
+											var value = defaultFields[i].value;
+											if(value != 'select'){
+												var defaultId = name.replace('max', 'default').replace('min', 'default').replace('%', '/').replace('F2', '');
+												if(parseFloat(value) != 0){
+													jQuery('[id="'+ defaultId + '"]').html(value);
+
+												} else {
+													if(name.indexOf('min') != -1){
+														var defaultValue = jQuery('[id="'+ defaultId + '"]').text();
+														if(defaultValue.length == 0){
+															jQuery('[id="'+ defaultId + '"]').html('---');
+														}
+													}
+												}
+											}
+										}
+									}
+							}
+						}
+				}
+				//JHD-11 End
+		}
 
 		}
 
@@ -750,6 +807,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 		}
 
 		, disableCounterBlockField: function (e) {
+			jQuery('[class="fav-fit-tools-default"]').html('---'); //JHD-11
 			var currentField = jQuery(e.target)
 				, counterField = currentField.prop("id").indexOf('-max') > -1 ? currentField.prop("id").replace('-max', '-min') : currentField.prop("id").replace('-min', '-max');
 
@@ -777,6 +835,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 					var mdvalue = a.custrecord_md_value ?parseFloat(a.custrecord_md_value).toFixed(1):'---';
 					jQuery('[data-container="'+blockfield.dataset.field+'-block"]').html(mdvalue);
 					jQuery('[data-container="'+blockfield.dataset.field+'-finished"]').html(mdvalue);
+					//jQuery('[class="fav-fit-tools-default"]').html('---'); //JHD-11
 				}
 
 			});
@@ -830,6 +889,57 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			 	jQuery("#measure-form").html(SC.macros.measureForm(fieldsForm));
 
 			 	jQuery("[id='butt-modal-submit']").show();
+				 if(measureType == 'Block'){
+					//JHD-11 Start
+					var data = self.options.application._layoutInstance.currentView.defaultfavfittools;
+					if(data){
+						var tempFavFitToolsData = JSON.parse(data);
+						var favDefaultData = tempFavFitToolsData[0];
+							if (favDefaultData) {
+								jQuery("label").removeClass( "fav-fit-tools-default");
+								var defaultFields = '';
+								favDefaultData = JSON.parse(favDefaultData);
+								for(var j = 0; j < favDefaultData.length; j++){
+									if(favDefaultData[j].itemType == itemType){
+										defaultFields = favDefaultData[j].measurementValues;
+										if(defaultFields){
+											for(var i = 0; i < defaultFields.length; i++ ){
+												var name = defaultFields[i].name;
+												var value = defaultFields[i].value;
+												if(value != 'select' ){
+													var defaultId = name.replace('max', 'default').replace('min', 'default').replace('%', '/').replace('F2', '');
+													if(parseFloat(value) != 0){
+														var selectMaxMinId = name.replace('%', '/').replace('F2', '');
+														jQuery('[id="'+ defaultId + '"]').html(value);
+														jQuery('select[name="' + selectMaxMinId + '"]').val(value);
+														var tempFiledId =  selectMaxMinId.split('-');
+														var index = tempFiledId.length - 1;
+														if(tempFiledId[index] == 'max'){
+															tempFiledId[index] = 'min';
+															var disabledFiledId = tempFiledId.join('-');
+															jQuery('select[id="' + disabledFiledId + '"]').prop("disabled", true);
+														} else {
+															tempFiledId[index] = 'max';
+															var disabledFiledId = tempFiledId.join('-');
+															jQuery('select[id="' + disabledFiledId + '"]').prop("disabled", true);
+														}	
+													} else {
+														if(name.indexOf('min') != -1){
+															var defaultValue = jQuery('[id="'+ defaultId + '"]').text();
+															if(defaultValue.length == 0){
+																jQuery('[id="'+ defaultId + '"]').html('---');
+															}
+														}
+													}
+												}
+											}
+										}
+									}
+								}
+							}
+					}
+					//JHD-11 End				
+				}
 
 			 } else {
 			 	jQuery("#measure-form").html("");

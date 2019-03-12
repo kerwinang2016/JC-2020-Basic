@@ -1,3 +1,11 @@
+/*
+Change History   
+-------------- 
+Date: 05-03-2019
+Changed by:Saad Nawaz
+Change /Jira Ticket #: JHD-31
+Change Description: Change title of header
+*/
 (function (SC) {
 
     'use strict';
@@ -36,7 +44,7 @@
 	        		}
 	        	}
 	        ,	{
-	        		text: _('Inventory').translate()
+	        		text: _('Materials').translate() //JHD-31
 	        	,	href: '#'
 	        	,	data: {
 	        			touchpoint: 'home'

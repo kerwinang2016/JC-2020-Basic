@@ -1,9 +1,26 @@
 // Case.js
 // -----------------
+
+/*
+Change History   
+-------------- 
+Date: 04-03-2019
+Changed by:Shoaib Iqbal
+Change /Jira Ticket #: JHD-29
+Change Description: Updates to Cases section on myaccount
+*/
+/*
+Change History   
+-------------- 
+Date: 06-03-2019
+Changed by: Salman Khan
+Change /Jira Ticket #: JHD-30
+Change Description: Training Guides section to contain links to download the PDF
+*/
 // Defines the Case module. (Model, Views, Router)
 define('Case', 
-['CaseDetail.View', 'Case.Collection','Case.Model', 'Case.Router', 'CaseCreate.View', 'CaseList.View'],
-function (CaseDetailView, CaseCollection, CaseModel, CaseRouter, CaseCreateView, CaseList) 
+['CaseDetail.View', 'Case.Collection','Case.Model', 'Case.Router', 'CaseCreate.View', 'CaseList.View', 'TrainingGuides.View'],
+function (CaseDetailView, CaseCollection, CaseModel, CaseRouter, CaseCreateView, CaseList, TrainingGuide) //JHD-30
 {
 	'use strict';
 
@@ -22,7 +39,7 @@ function (CaseDetailView, CaseCollection, CaseModel, CaseRouter, CaseCreateView,
 
 		,	name: function ()
 			{
-				return _('Cases').translate();
+				return _('Support').translate();
 			}
 
 		,	index: 5
@@ -30,7 +47,7 @@ function (CaseDetailView, CaseCollection, CaseModel, CaseRouter, CaseCreateView,
 		,	children: function () 
 			{
 				var items = [
-					{
+					/*{ JHD-29
 						parent: 'cases'
 					,	id: 'cases_all'
 					,	name: _('All My Cases').translate()
@@ -44,7 +61,7 @@ function (CaseDetailView, CaseCollection, CaseModel, CaseRouter, CaseCreateView,
 					,	name: _('Submit New Case').translate()
 					,	url: 'newcase'
 					,	index: 2
-					}
+				}*/
 				,	{
 						parent: 'cases'
 					,	id: 'faqs'
@@ -54,9 +71,9 @@ function (CaseDetailView, CaseCollection, CaseModel, CaseRouter, CaseCreateView,
 					}
 				,	{
 						parent: 'cases'
-					,	id: 'training-guides'
+					,	id: 'trainingguides'
 					,	name: _('Training Guides').translate()
-					,	url: ''
+					,	url: 'trainingguides' //JHD-30
 					,	index: 4
 					}
 				];
@@ -78,6 +95,7 @@ function (CaseDetailView, CaseCollection, CaseModel, CaseRouter, CaseCreateView,
 				CaseDetail: CaseDetailView
 			,	NewCase: CaseCreateView
 			,	CaseList: CaseList
+			,	TrainingGuides : TrainingGuide //JHD-30
 			}
 
 		,	models = {

@@ -1,9 +1,17 @@
+<!--
+Change History   
+-------------- 
+Date: 04-03-2019
+Changed by: Shoaib Iqbal
+Change /Jira Ticket #: JHD-22
+Change Description: Remove �edit� from profile and shipping address in the front-end
+-->
 <% registerMacro('homeShipping', function(view) { %>
 	<article class="box-wells home-shipping">
 		<div class="box-wells-header">
 			<h3><%= _('Shipping').translate() %>
 				<% if (view.defaultShippingAddress) { %>
-                <a href="/addressbook/<%= view.defaultShippingAddress.get('internalid') %>" class="btn btn-mini pull-right" data-toggle="show-in-modal"><i class="fa fa-pencil pull-left"></i><%= _('Edit').translate() %></a>
+               <!-- <a href="/addressbook/<%= view.defaultShippingAddress.get('internalid') %>" class="btn btn-mini pull-right" data-toggle="show-in-modal"><i class="fa fa-pencil pull-left"></i><%= _('Edit').translate() %></a> --> <!-- JHD-22 -->
 				<% } %>
             </h3>
 		</div>

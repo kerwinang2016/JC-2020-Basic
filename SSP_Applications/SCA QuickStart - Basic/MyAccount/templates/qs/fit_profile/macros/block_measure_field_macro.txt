@@ -6,6 +6,14 @@ Changed by:Salman Khan
 Change /Jira Ticket #: JHD-6
 Change Description: Expand room for fit tool names
 -->
+<!--
+Change History   
+-------------- 
+Date: 28-02-2019
+Changed by:Salman Khan
+Change /Jira Ticket #: JHD-11
+Change Description: Default fit tools can be inputted into the my account section
+-->
 <% registerMacro('blockMeasureField', function (field, value, increment,fieldset) {
 	var type = field.type
 	,	label = field.label
@@ -39,9 +47,15 @@ Change Description: Expand room for fit tool names
 				}
 				inputHtml = inputHtml + '</select></div>'
 			}
-			if(fieldset.name == 'length' || fieldset.name == 'horizontals') {
-			inputHtml = inputHtml + '<span style="width:10%;margin:0;padding-right: 20px;" class="span-w-10 offset5p" data-container="'+name+'-block"></span>'
-			inputHtml = inputHtml + '<span style="width:20%;margin:0;padding-right: 20px;" class="span-w-10" data-container="'+name+'-finished"></span>'
+			if(fieldset.name == 'length' || fieldset.name == 'horizontals') { <!-- JHD-11 -->
+			inputHtml = inputHtml + '<div style="width:11%;margin:0;float:left;text-align:left; color:#c1c1c1;" class="span3"><label class="fav-fit-tools-default" id="' + name + '-default"></label></div>'
+			inputHtml = inputHtml + '<span style="width:9%;margin:0;padding-right: 20px; color:#c1c1c1;" class="span-w-10 offset5p" data-container="'+name+'-block"></span>'
+			inputHtml = inputHtml + '<span style="width:10%;margin:0;padding-right: 20px; color:#c1c1c1;" class="span-w-10" data-container="'+name+'-finished"></span>'
+			} else {
+				inputHtml = inputHtml + '<div style="width:11%;margin:0;text-align:left; color:#c1c1c1;" class="span3"><label class="fav-fit-tools-default" id="' + name + '-default"></label></div>'
+				inputHtml = inputHtml + '<div style="width:9%;margin:0;" class="span3">&nbsp;</div>'
+				inputHtml = inputHtml + '<div style="width:10%;margin:0;" class="span3">&nbsp;</div>'
+
 			}
 		}
 

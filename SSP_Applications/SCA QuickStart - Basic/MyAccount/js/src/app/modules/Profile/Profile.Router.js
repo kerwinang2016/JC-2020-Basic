@@ -1,5 +1,22 @@
 // Profile.Router.js
 // -----------------------
+/*
+Change History   
+-------------- 
+Date: 28-02-2019
+Changed by:Salman Khan
+Change /Jira Ticket #: JHD-11
+Change Description: Default fit tools can be inputted into the my account section
+*/
+
+/*
+Change History   
+-------------- 
+Date: 04-03-2019
+Changed by:Shoaib Iqbal
+Change /Jira Ticket #: JHD-27
+Change Description: Remove Email Preferences section
+*/
 // Router for handling profile view/update
 define('Profile.Router',  ['Profile.Views','PlacedOrder.Collection','Profile.UpdatePassword.Model'], function (Views, PlacedOrderCollection, UpdatePasswordModel)
 {
@@ -18,6 +35,7 @@ define('Profile.Router',  ['Profile.Views','PlacedOrder.Collection','Profile.Upd
 		, 'stocklist': 'stockList'
 		, 'termsandconditions' : 'termsAndConditions'
 		, 'contactus' : 'contactUs'
+		, 'favouritefittools' : 'favouritefittools' ////JHD-11
 		}
 
 	,	initialize: function (application)
@@ -44,6 +62,24 @@ define('Profile.Router',  ['Profile.Views','PlacedOrder.Collection','Profile.Upd
 			});
 			view.showContent();
 
+	}	
+	, favouritefittools: function(){ //JHD-11
+		var self = this;
+			jQuery.get(_.getAbsoluteUrl('js/FitProfile_Config.json')).done(function(data){
+				var options_config = data
+				,	view = null;
+
+				if(options_config){
+					view = new Views.FavouriteFitTools({
+						application: self.application
+					,	model: self.application.getUser()
+					,	options_config: options_config
+					,	mode: "multi"
+					});
+
+					view.showContent();
+				}
+			});
 	}
 		// load the home page
 	,	home: function ()
@@ -92,20 +128,20 @@ define('Profile.Router',  ['Profile.Views','PlacedOrder.Collection','Profile.Upd
 
 
 		// view/edit user's email preferences
-	,	emailPreferences: function ()
-		{
-			var model = this.application.getUser()
+	// ,	emailPreferences: function () JHD-27
+	// 	{
+	// 		var model = this.application.getUser()
 
-			,	view = new Views.EmailPreferences({
-					application: this.application
-				,	model: model
-				});
+	// 		,	view = new Views.EmailPreferences({
+	// 				application: this.application
+	// 			,	model: model
+	// 			});
 
-			view.useLayoutError = true;
+	// 		view.useLayoutError = true;
 
-			model.on('save', view.showSuccess, view);
-			view.showContent();
-		}
+	// 		model.on('save', view.showSuccess, view);
+	// 		view.showContent();
+	// 	}
 
 		// update your password
 	,	updateYourPassword: function ()

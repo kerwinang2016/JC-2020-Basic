@@ -1,5 +1,13 @@
 // Profile.Views.js
 // -----------------------
+/*
+Change History   
+-------------- 
+Date: 28-02-2019
+Changed by:Salman Khan
+Change /Jira Ticket #: JHD-11
+Change Description: Default fit tools can be inputted into the my account section
+*/
 // Views for profile's operations
 define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection'], function (ClientModel, ProfileModel, ProfileCollection) {
 	'use strict';
@@ -267,6 +275,16 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 			jQuery.get(_.getAbsoluteUrl('js/itemRangeConfigInches.json')).done(function (data) {
 				window.inchConfig = data;
 			});
+			 //JHD-11 Start
+			var param = new Object();
+			param.type = "get_favourite_fit_tools";
+			param.id = this.options.application.getUser().get("internalid");
+			_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "GET", param).always(function(data){
+				if(data){
+					window.defaultfavfittools = data;
+				}
+			});
+			 //JHD-11 End
 		}
 		, swxFitProfileCopy: function (e) {
 			e.preventDefault();
@@ -413,6 +431,58 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 				if(this.fitprofile.get("current_profile") == null)
 				currentfunction = 'add';
 				jQuery("[id*='measure-form']").html(SC.macros.measureForm(fieldsForm,null,null,currentfunction));
+
+				 //JHD-11 Start
+				var data = window.defaultfavfittools;
+				if(data){
+					var tempFavFitToolsData = JSON.parse(data);
+					var favDefaultData = tempFavFitToolsData[0];
+							if (favDefaultData) {
+										jQuery("label").removeClass( "fav-fit-tools-default");
+										var defaultFields = '';
+										favDefaultData = JSON.parse(favDefaultData);
+										if(measureType == 'Block'){
+												var defaultFields = '';
+												for(var j = 0; j < favDefaultData.length; j++){
+														if(favDefaultData[j].itemType == itemType){
+															var defaultFields = favDefaultData[j].measurementValues;
+														}
+												}
+												for(var i = 0; i < defaultFields.length; i++ ){
+														var name = defaultFields[i].name;
+														var value = defaultFields[i].value;
+														if(value != 'select'){
+															var defaultId = name.replace('max', 'default').replace('min', 'default').replace('%', '/').replace('F2', '');
+															if(parseFloat(value) != 0){
+																var selectMaxMinId = name.replace('%', '/').replace('F2', '');
+																jQuery('[id="'+ defaultId + '"]').html(value);
+																jQuery('select[name="' + selectMaxMinId + '"]').val(value);
+																var tempFiledId =  selectMaxMinId.split('-');
+																var index = tempFiledId.length - 1;
+																if(tempFiledId[index] == 'max'){
+																	tempFiledId[index] = 'min';
+																	var disabledFiledId = tempFiledId.join('-');
+																	jQuery('select[id="' + disabledFiledId + '"]').prop("disabled", true);
+																} else {
+																	tempFiledId[index] = 'max';
+																	var disabledFiledId = tempFiledId.join('-');
+																	jQuery('select[id="' + disabledFiledId + '"]').prop("disabled", true);
+																}
+															} else {
+																if(name.indexOf('min') != -1){
+																	var defaultValue = jQuery('[id="'+ defaultId + '"]').text();
+																	if(defaultValue.length == 0){
+																		jQuery('[id="'+ defaultId + '"]').html('---');
+																	}
+																}
+															}
+													}
+												}
+										}
+								}	
+				 	}
+					//JHD-11 End
+
 			} else {
 				jQuery("[id*='measure-form']").html("");
 			}
@@ -459,6 +529,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 		}
 
 		, disableCounterBlockField: function (e) {
+			jQuery('[class="fav-fit-tools-default"]').html('---'); //JHD-11
 			var currentField = jQuery(e.target)
 				, counterField = currentField.prop("id").indexOf('-max') > -1 ? currentField.prop("id").replace('-max', '-min') : currentField.prop("id").replace('-min', '-max');
 
@@ -506,6 +577,42 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 				}
 			});
 
+			 //JHD-11 Start
+			var data = window.defaultfavfittools;
+			if(data){
+				var tempFavFitToolsData = JSON.parse(data);
+				var favDefaultData = tempFavFitToolsData[0];
+					if (favDefaultData) {
+							jQuery("label").removeClass( "fav-fit-tools-default");
+							var defaultFields = '';
+							favDefaultData = JSON.parse(favDefaultData);							
+							var defaultFields = '';
+							for(var j = 0; j < favDefaultData.length; j++){
+								if(favDefaultData[j].itemType == producttype){
+									var defaultFields = favDefaultData[j].measurementValues;
+								}
+							}
+							for(var i = 0; i < defaultFields.length; i++ ){
+								var name = defaultFields[i].name;
+								var value = defaultFields[i].value;
+								if(value != 'select'){
+									var defaultId = name.replace('max', 'default').replace('min', 'default').replace('%', '/').replace('F2', '');
+									defaultId = 'in-modal-' + defaultId;
+									if(parseFloat(value) != 0){
+										jQuery('[id="'+ defaultId + '"]').html(value);
+									} else {
+										if(name.indexOf('min') != -1){
+											var defaultValue = jQuery('[id="'+ defaultId + '"]').text();
+											if(defaultValue.length == 0){
+												jQuery('[id="'+ defaultId + '"]').html('---');
+											}
+										}
+									}
+								}
+							}
+						}
+				}
+				 //JHD-11 End
 		}
 		, fitBlockChanged: function(e){
 

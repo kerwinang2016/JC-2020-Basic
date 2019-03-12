@@ -1,3 +1,12 @@
+<!--
+Change History   
+-------------- 
+Date: 04-03-2019
+Changed by:Salman Khan
+Change /Jira Ticket #: JHD-22
+Change Description: Remove �edit� from profile and shipping address in the front-end
+-->
+
 <%
 	var is_same_as_enabled = view.isSameAsEnabled
 	,	selected_address = view.address
@@ -11,7 +20,7 @@
 <% } %>
 
 <% if (is_same_as_enabled) { %>
-	<label class="checkbox same-as-address">
+	<!-- <label class="checkbox same-as-address"> JHD-22
 		<input
 			<%= view.disableSameAsCheckBox ? 'disabled="disabled"' : '' %>
 			type="checkbox"
@@ -21,7 +30,7 @@
 			<%= view.sameAs ? 'checked' : '' %>
 		>
 		<%= view.sameAsMessage %>
-	</label>
+	</label> --> 
 <% } %>
 
 <% if ((is_same_as_enabled && view.sameAs) || view.addressId && !selected_address.isNew()) { %>

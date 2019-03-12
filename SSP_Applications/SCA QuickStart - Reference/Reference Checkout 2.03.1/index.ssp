@@ -158,8 +158,8 @@
 		window.location.hash = !~window.location.hash.indexOf('login-register') && !'<%= parameters.fragment %>' ? window.location.hash : '<%= parameters.fragment %>';
 	</script>
 
-	<script src="<%= session.getAbsoluteUrl('checkout', 'js/Application-016705e68e01.js') %>"></script>
-	<script src="<%= session.getAbsoluteUrl('checkout', 'templates/Templates-016705e716ad.js') %>"></script>
+	<script src="<%= session.getAbsoluteUrl('checkout', 'js/Application-016970e71cf3.js') %>"></script>
+	<script src="<%= session.getAbsoluteUrl('checkout', 'templates/Templates-016970e7443f.js') %>"></script>
 
 	<script>
 		<% if (login) { %>

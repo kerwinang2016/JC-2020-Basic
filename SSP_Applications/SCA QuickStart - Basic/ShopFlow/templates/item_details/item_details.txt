@@ -138,6 +138,10 @@
 																			<% }); %>
 																			</select>
 																	</div>
+																	<div class="control-group" style="display: none;">
+																		<label class="control-label" for="fabric-cmt-othervendorname" style="font-size: 13px;font-weight: normal;line-height: 18px;width:30%;">*Other Fabric Vendor </label>
+																			<input type="text" value="" name="fabric-cmt-othervendorname" id="fabric-cmt-othervendorname" class="input-large" style="width:40%;" value="">
+																	</div>
 																	<div class="control-group">
 																		<label class="control-label" for="fabric-cmt-collection" style="font-size: 13px;font-weight: normal;line-height: 18px;width:30%;">Fabric Collection </label>
 																			<input type="text" value="" name="fabric-cmt-collection" id="fabric-cmt-collection" class="input-large" style="width:40%;" value="">

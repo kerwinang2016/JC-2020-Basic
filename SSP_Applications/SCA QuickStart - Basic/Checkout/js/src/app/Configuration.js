@@ -1,5 +1,13 @@
 // Configuration.js
 // ----------------
+/*
+Change History   
+-------------- 
+Date: 04-03-2019
+Changed by:Salman Khan
+Change /Jira Ticket #: JHD-22
+Change Description: Remove �edit� from profile and shipping address in the front-end
+*/
 // All of the applications configurable defaults
 // Each section is comented with a title, please continue reading
 (function (application)
@@ -276,7 +284,7 @@ checkoutSteps: [											//an array with the step groups conforming The Checko
 							,	{
 									hide_if_valid_addresses: true
 								,	hide_title: true //All SUB-MODULES does not show its titles
-								,	title: _('Enter Shipping Address').translate()
+								,	title: _('Shipping Address').translate() // JHD-22
 								}
 							]
 						,	'OrderWizard.Module.MultiShipTo.NonShippableItems'
@@ -285,7 +293,7 @@ checkoutSteps: [											//an array with the step groups conforming The Checko
 									is_read_only: false
 								,	hide_title: true //All SUB-MODULES does not show its titles
 								,	hide_items: true
-								,	title: _('Choose delivery method').translate()
+								,	title: _('Delivery method').translate() // JHD-22
 								}
 							]
 						,	['OrderWizard.Module.PaymentMethod.GiftCertificates', {title: _('Choose Payment Method').translate()}]

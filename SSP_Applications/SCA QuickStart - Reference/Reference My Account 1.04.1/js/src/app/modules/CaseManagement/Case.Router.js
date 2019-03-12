@@ -1,5 +1,13 @@
 // Case.Router.js
 // -----------------------
+/*
+Change History   
+-------------- 
+Date: 06-03-2019
+Changed by: Salman Khan
+Change /Jira Ticket #: JHD-30
+Change Description: Training Guides section to contain links to download the PDF
+*/
 // Router for handling Cases
 define('Case.Router', ['Case.Model', 'Case.Collection', 'CaseFields.Model'], function (CaseModel, CaseCollection, CaseFieldsModel)
 {
@@ -13,6 +21,7 @@ define('Case.Router', ['Case.Model', 'Case.Collection', 'CaseFields.Model'], fun
 		,	'cases?:options': 'showCasesList'
 		,	'cases/:id': 'showCase'
 		,	'newcase': 'createNewCase'
+		,	'trainingguides': 'trainingGuides' //JHD-30
 		}
 
 	,	initialize: function (application)
@@ -88,6 +97,16 @@ define('Case.Router', ['Case.Model', 'Case.Collection', 'CaseFields.Model'], fun
 			});
 
 			jQuery.when(case_fields.fetch()).then(jQuery.proxy(view, 'showContent'));
+		}
+
+		// Training Guide
+	,	trainingGuides: function (id, options) //JHD-30
+		{
+			var view = new this.application.CaseModule.Views.TrainingGuides({
+					application: this.application
+			});
+
+		view.showContent();
 		}
 	});
 });

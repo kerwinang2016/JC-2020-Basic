@@ -1,3 +1,12 @@
+<!--
+Change History   
+-------------- 
+Date: 04-03-2019
+Changed by:Shoaib Iqbal
+Change /Jira Ticket #: JHD-25
+Change Description: Remove State
+-->
+
 <% registerMacro('swxOrderClientList', function (paramClientList) { %>
 
 	<%
@@ -16,7 +25,7 @@
 					<div class="span3" style="padding-bottom: 8px;"><div style="font-weight: 600;">Client Name</div></div>
 					<div class="span4"><div style="font-weight: 600;">Email</div></div>
 					<div class="span3"><div style="font-weight: 600;">Phone</div></div>
-					<div class="span2"><div style="font-weight: 600;">State</div></div>
+					<!-- <div class="span2"><div style="font-weight: 600;">State</div></div> --> <!-- JHD-25 -->
 				</div>
 			</div>
 			<div class="span2">
@@ -70,11 +79,11 @@
 							<div style="clear: both;"></div>
 						</div>
 		
-						<div class="span2">
+						<!-- <div class="span2">
 							<div id="mobile-only" style="float: left; font-size: 12px; font-weight: 600; padding-right: 8px; white-space: nowrap;">State:</div>
 							<div style="float: left; font-size: 12px;"><%= clientState %></div>
 							<div style="clear: both;"></div>
-						</div>
+						</div> --> <!-- JHD-25 -->
 		
 					</div>
 						

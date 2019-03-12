@@ -1,5 +1,22 @@
 // Profile.js
 // -----------------
+/*
+Change History   
+-------------- 
+Date: 28-02-2019
+Changed by:Salman Khan
+Change /Jira Ticket #: JHD-11
+Change Description: Default fit tools can be inputted into the my account section
+*/
+
+/*
+Change History   
+-------------- 
+Date: 04-03-2019
+Changed by:Shoaib Iqbal
+Change /Jira Ticket #: JHD-27
+Change Description: Remove Email Preferences section
+*/
 // Defines the Profile module (Collection, Views, Router)
 // As the profile is instanciated in the application (without definining a model)
 // the validation is configured here in the mountToApp
@@ -48,12 +65,12 @@ define('Profile', ['Profile.Views','Profile.Router','User.Model'], function (Vie
 					,	url: 'profileinformation'
 					,	index: 1
 					}
-				,	{
-						id: 'emailpreferences'
-					,	name: _('Email Preferences').translate()
-					,	url: 'emailpreferences'
-					,	index: 2
-					}
+				// ,	{  JHD-27
+				// 		id: 'emailpreferences'
+				// 	,	name: _('Email Preferences').translate()
+				// 	,	url: 'emailpreferences'
+				// 	,	index: 2
+				// 	}
 				,	{
 						id: 'updateyourpassword'
 					,	name: _('Update Your Password').translate()
@@ -71,6 +88,12 @@ define('Profile', ['Profile.Views','Profile.Router','User.Model'], function (Vie
 					,	name: _('Favourite Options').translate()
 					,	url: 'favouriteoptions'
 					,	index: 7
+					}					
+				,	{ //JHD-11
+						id: 'favouritefittools'
+					,	name: _('Favourite Fit Tools').translate()
+					,	url: 'favouritefittools'
+					,	index: 8
 					}
 				]
 			}

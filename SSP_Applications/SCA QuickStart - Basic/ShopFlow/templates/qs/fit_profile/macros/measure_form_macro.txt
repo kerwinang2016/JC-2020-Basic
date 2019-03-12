@@ -6,6 +6,15 @@ Changed by:Salman Khan
 Change /Jira Ticket #: JHD-6
 Change Description: Expand room for fit tool names
 -->
+<!--
+Change History   
+-------------- 
+Date: 28-02-2019
+Changed by:Salman Khan
+Change /Jira Ticket #: JHD-11
+Change Description: Default fit tools can be inputted into the my account section
+-->
+
 <% registerMacro('measureForm', function (fields, values,selectedItemType, paramEvent) { %>
 <%
 	var eventValue = (!_.isNullOrEmpty(paramEvent) && paramEvent == 'add') ? 'add' : 'viewedit';
@@ -114,9 +123,14 @@ Change Description: Expand room for fit tool names
 						<div style="width:30%;float:left;">&nbsp;</div>
 							<div style="width:20%;margin:0;" class="span2 offset3"><%= fieldset["max-label"] %></div>
 							<div style="width:20%;margin:0;" class="span2 offset5p"><%= fieldset["min-label"] %></div>
-							<% if(fieldset.name == 'length' || fieldset.name == 'horizontals') { %>
-							<div style="width:10%;margin:0;" class="span-w-10 offset5p"><%= _('Block').translate() %></div>
-							<div style="width:20%;margin:0;" class="span-w-10"><%= _('Finished').translate() %></div>
+							<% if(fieldset.name == 'length' || fieldset.name == 'horizontals') { %> <!-- JHD-11 -->
+							<div style="width:10%;margin:0; color:#c1c1c1;" class="span-w-10"><%= _('Default').translate() %></div>
+							<div style="width:10%;margin:0;padding-left: 7px; color:#c1c1c1;" class="span-w-10 offset5p"><%= _('Block').translate() %></div>
+							<div style="width:10%;margin:0; color:#c1c1c1;" class="span-w-10"><%= _('Finished').translate() %></div>
+							<% } else { %>
+							<div style="width:10%;text-align:center;float: left; color:#c1c1c1;"><%= _('Default').translate() %></div>
+							<div style="width:10%;margin:0;" class="span3">&nbsp;</div>
+							<div style="width:10%;margin:0;" class="span3">&nbsp;</div>
 							<% } %>
 						</div>
 						<!-- JHD-6 End -->

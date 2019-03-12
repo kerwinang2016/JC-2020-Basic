@@ -1,0 +1,93 @@
+ <!--
+Change History   
+-------------- 
+Date: 28-02-2019
+Changed by:Salman Khan
+Change /Jira Ticket #: JHD-11
+Change Description: Default fit tools can be inputted into the my account section
+-->
+ <!-- JHD-11 Start -->
+ <h3 class="no-margin-top"><%= view.page_header %></h3>
+<% var fields = view.options.options_config;
+ %>
+
+<form id="favourite_fit_tools">
+
+<% if (fields && fields.length > 1) { %>
+		<ul class="nav nav-tabs fav-fit-tools-list" id="favourite_fit_tools_us">
+		<% _.each(fields, function (field, count) { %>
+			<li class="<%= count == 0 ? 'active' : '' %>">
+				<a data-target="#fav-fit-tools-div-<%= field["item_type"] %>" data-toggle="tab" data-type="<%- field["item_type"] %>" href="#">
+					<%= field["item_type"] %>
+				</a>
+			</li>
+		<% }) %>
+		</ul>
+<% }  %>
+
+<div class="tab-content"> 
+	<% _.each(fields, function (field, count) { %>
+		<div class="tab-pane <%= count == 0 ? 'active' : '' %> fav-fit-tools-<%= field["item_type"] %>" id="fav-fit-tools-div-<%= field["item_type"] %>">
+			<% if(view.options.mode == "multi"){ %>
+				<%= SC.macros.measureForm(field.measurement[0], '', '', '', true) %>					
+			<% } %>
+			<input type="hidden" name="fav-fit-tools-itemtype" value="<%= field["item_type"] %>">
+		</div>
+ 
+	<% }) %>
+</div>
+<div class="form-actions">
+	<button class="btn btn-primary" type="submit">Submit</button>
+	<button data-action="reset" class="btn hide" type="reset">Cancel</button>
+</div>
+</form>
+
+<% 
+	var param = {};
+	param.type = "get_favourite_fit_tools";
+	param.id = view.options.application.getUser().get("internalid");
+	_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "GET", param).always(function (data) {
+		if (data) {
+			var tempFavFitToolsData = JSON.parse(data);
+			var favFitToolsData = tempFavFitToolsData[0];
+			var isFavFitToolsEnable = tempFavFitToolsData[1];
+				if (favFitToolsData) {
+					jQuery('select').prop("disabled", false);
+					jQuery('button').prop("disabled", false);
+					var favFitToolsData = JSON.parse(favFitToolsData);
+					for (var i = 0; i < favFitToolsData.length; i++) {
+						var itemType = favFitToolsData[i].itemType;
+						var tempMeasurementValues = favFitToolsData[i].measurementValues;
+						for (var j = 0; j < tempMeasurementValues.length; j++) {
+							var fieldId = tempMeasurementValues[j].name;
+							var fieldValue = tempMeasurementValues[j].value;
+
+							if (fieldValue != 'Select' && parseFloat(fieldValue) != 0) {
+								fieldId = fieldId.replace('%', '/').replace('F2', '');
+								var id = "fav-fit-tools-div-" + itemType;
+								jQuery('#' + id + ' select[name="' + fieldId + '"]').val(fieldValue);
+								var tempFiledId = fieldId.split('-');
+								var index = tempFiledId.length - 1;
+								if (tempFiledId[index] == 'max') {
+									tempFiledId[index] = 'min';
+									var disabledFiledId = tempFiledId.join('-');
+									jQuery('#fav-fit-tools-div-' + itemType + ' select[id="' + disabledFiledId + '"]').prop("disabled", true);
+								} else {
+									tempFiledId[index] = 'max';
+									var disabledFiledId = tempFiledId.join('-');
+									jQuery('#fav-fit-tools-div-' + itemType + ' select[id="' + disabledFiledId + '"]').prop("disabled", true);
+								}
+							}
+						}
+
+					}
+				}
+
+			if (isFavFitToolsEnable == 'F') {
+				jQuery('select').prop("disabled", true);
+				jQuery('button').prop("disabled", true);
+			}
+		}
+	});
+%>
+<!-- JHD-11 End -->

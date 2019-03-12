@@ -1,5 +1,22 @@
 // Profile.Views.js
 // -----------------------
+/*
+Change History   
+-------------- 
+Date: 28-02-2019
+Changed by:Salman Khan
+Change /Jira Ticket #: JHD-11
+Change Description: Default fit tools can be inputted into the my account section
+*/
+
+/*
+Change History   
+-------------- 
+Date: 04-03-2019
+Changed by:Shoaib Iqbal
+Change /Jira Ticket #: JHD-27
+Change Description: Remove Email Preferences section
+*/
 // Views for profile's operations
 define('Profile.Views', function ()
 {
@@ -17,6 +34,89 @@ define('Profile.Views', function ()
 			this.application = options.application;
 			this.model = options.model;
 		}
+	});
+	Views.FavouriteFitTools = Backbone.View.extend({
+		 //JHD-11 Start
+		template: 'favouritefittools'
+	,	title: _('Favourite Fit Tools').translate()
+	,	page_header: _('Favourite Fit Tools').translate()
+	,	attributes: {'class': 'FavouriteFitTools'}
+	, events: {
+		'submit #favourite_fit_tools': 'submitFormData'
+		, 'change .block-measurement-fld': 'disableCounterBlockField'
+	}
+	,	showContent: function (isShow)
+	{		
+		var self = this
+			,param = new Object();
+		
+		self.options.application.getLayout().showContent(self, 'favouritefittools', [{
+			text: self.title
+		,	href: 'favouritefittools'
+		}]);
+		if(isShow == true){
+			self.showConfirmationMessage(_('Your Favourite Fit Tools was successfully saved').translate());
+		}		
+
+	}
+	,	submitFormData: function (e)
+	{
+		e.preventDefault();
+		jQuery('input:disabled').removeAttr('disabled'); 
+		jQuery('select:disabled').removeAttr('disabled'); 
+		var itemType;
+		var regex = new RegExp("\\+","g");
+		var formValues = jQuery(e.target).serialize().split("&")
+			, self = this
+			, dataToSend = new Array()
+			, tempMeasurementValues = new Array();
+			for(var i =0; i< formValues.length; i++){
+				var formValue = formValues[i];
+				var field = formValue.split("=")[0]
+					, value = formValue.split("=")[1];
+				if(field == 'fav-fit-tools-itemtype'){ 
+					var obj = {};
+					obj.itemType = value;
+					obj.measurementValues = tempMeasurementValues;
+					dataToSend.push(obj);
+					tempMeasurementValues = [];
+				} else {
+					var measureData = new Object();
+					measureData.name = field;
+					measureData.value = value;
+					tempMeasurementValues.push(measureData);
+				}
+			};
+			var param = new Object();
+			param.data = JSON.stringify(dataToSend);
+			param.type = "save_favourite_fit_tools";
+			param.id = this.options.application.getUser().get("internalid");
+			_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "POST", param).always(function(data){
+				if(data.replace(/\"/g, "") == self.options.application.getUser().get("internalid").toString()){
+					self.options.application.getLayout().currentView.showContent(true)
+				} else {
+					self.showError(_('Your Favourite Fit Tools not saved').translate())
+				}
+
+			});
+	}
+	, disableCounterBlockField: function (e) {
+		var currentField = jQuery(e.target)
+			, counterField = currentField.prop("id").indexOf('-max') > -1 ? currentField.prop("id").replace('-max', '-min') : currentField.prop("id").replace('-min', '-max');
+
+		if (counterField && currentField.val() != "0") {
+			jQuery("[id='"+counterField+"']").prop("disabled", true);
+		} else {
+			jQuery("[id='"+counterField+"']").removeProp("disabled");
+		}
+
+		// if(jQuery('[id*="body-block"]').val() != 'Select' && jQuery('[id*="body-fit"]').val() != 'Select'){
+		// 	this.updateBlockAndFinished(jQuery('[id*="body-fit"]').val(),jQuery('[id*="body-block"]').val())
+		// }else{
+		// 	//this.clearBlockAndFinished();
+		// }
+	}
+	 //JHD-11 End
 	});
 	Views.TermsAndConditions = Backbone.View.extend({
 			template: 'termsandconditions'
@@ -197,7 +297,7 @@ define('Profile.Views', function ()
 
 
 	// view for updating emai prefeneces
-	Views.EmailPreferences = Backbone.View.extend({
+	/*Views.EmailPreferences = Backbone.View.extend({ JHD-27
 
 		template: 'email_preferences'
 	,	title: _('Email Preferences').translate()
@@ -273,7 +373,7 @@ define('Profile.Views', function ()
 
 			self.$('input[type=checkbox].subscription').prop('disabled', disabled);
 		}
-	});
+	});*/
 
 	Views.DesignOptionsRestriction = Backbone.View.extend({
 

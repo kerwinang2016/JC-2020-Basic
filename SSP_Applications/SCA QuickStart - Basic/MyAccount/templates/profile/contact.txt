@@ -1,6 +1,15 @@
 
+<!--
+Change History   
+-------------- 
+Date: 04-03-2019
+Changed by:Shoaib Iqbal
+Change /Jira Ticket #: JHD-28
+Change Description: Remove text on Contact Us form
+-->
+
 <h1 class="no-margin-top"><%= view.title %></h1>
-<address>For all enquiries, please contact your account manager, or alternatively email us at <a href="mailto:contact@jeromeclothiers.com">contact@jeromeclothiers.com</a>
+<address>For all enquiries, please contact your account manager. <!-- JHD-28 -->
 <br/><br/>
 Registered Address:</div>
 <br/><br/>

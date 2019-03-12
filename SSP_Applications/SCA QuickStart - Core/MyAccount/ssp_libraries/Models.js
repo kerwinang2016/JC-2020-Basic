@@ -476,7 +476,7 @@ Application.defineModel('PlacedOrder', {
 			columns.push(new nlobjSearchColumn('custcol_fabric_delivery_days'))
 			columns.push(new nlobjSearchColumn('custcol_custom_fabric_details'))
 			columns.push(new nlobjSearchColumn('custcol_producttype'));
-
+			columns.push(new nlobjSearchColumn('custcol_othervendorname'));
 			var flagcol = new nlobjSearchColumn('custcol_flag');
 			columns.push(flagcol)
 			columns.push(new nlobjSearchColumn('custcol_flag_comment'))
@@ -658,6 +658,7 @@ Application.defineModel('PlacedOrder', {
 				, fabricstatus: record.getValue('custcol_avt_fabric_text')
 				, cmtstatus: cmtstatustext//record.getValue('custcol_avt_cmt_status_text')
 				, solinekey: record.getValue('custcol_avt_saleorder_line_key')
+				, othervendorname: record.getValue('custcol_othervendorname')
 			};
 		});
 		var results_per_page = SC.Configuration.results_per_page;
@@ -1002,6 +1003,7 @@ Application.defineModel('PlacedOrder', {
 						, value: placed_order.getLineItemText('item', 'custcol_flag', i)
 					});
 				// }
+
 				if (placed_order.getLineItemValue('item', 'custcol_designoption_message', i)) {
 					lineOption.push({
 						id: 'custcol_designoption_message'
@@ -1125,9 +1127,14 @@ Application.defineModel('PlacedOrder', {
 						, value: placed_order.getLineItemValue('item', 'custcol_vendorpicked', i)
 					});
 				}
-				nlapiLogExecution('debug','SET LINES custcol_producttype',placed_order.getLineItemValue('item', 'custcol_producttype', i))
-				nlapiLogExecution('debug','SET LINES custcol_vendorpicked',placed_order.getLineItemValue('item', 'custcol_vendorpicked', i))
-				nlapiLogExecution('debug','SET LINES custcol_custom_fabric_details',placed_order.getLineItemValue('item', 'custcol_custom_fabric_details', i))
+				lineOption.push({
+					id: 'custcol_othervendorname'
+					, name: 'Other Vendor Name'
+					, value: placed_order.getLineItemValue('item', 'custcol_othervendorname', i)
+				});
+				//nlapiLogExecution('debug','SET LINES custcol_producttype',placed_order.getLineItemValue('item', 'custcol_producttype', i))
+				//nlapiLogExecution('debug','SET LINES custcol_vendorpicked',placed_order.getLineItemValue('item', 'custcol_vendorpicked', i))
+				//nlapiLogExecution('debug','SET LINES custcol_custom_fabric_details',placed_order.getLineItemValue('item', 'custcol_custom_fabric_details', i))
 
 				/** end date needed, hold fabric, hold production **/
 

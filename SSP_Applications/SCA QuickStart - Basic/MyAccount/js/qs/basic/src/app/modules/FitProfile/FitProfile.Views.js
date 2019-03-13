@@ -98,6 +98,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 
 			jQuery.get(_.getAbsoluteUrl('services/bodyBlockMeasurements.ss')).done(function (data) {
 				window.bodyBlockMeasurements = data;
+				});
 			 //JHD-11 Start
 			var param = new Object();
 			param.type = "get_favourite_fit_tools";

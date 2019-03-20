@@ -323,8 +323,8 @@
 
 	function formatCurrency (value, symbol)
 	{
-		symbol = _.where(SC._applications.Checkout.getConfig("siteSettings").currencies, {internalid: SC.ENVIRONMENT.LOGOBRAND.cur})[0].symbol;
-		
+		//symbol = _.where(SC._applications.Checkout.getConfig("siteSettings").currencies, {internalid: SC.ENVIRONMENT.LOGOBRAND.cur})[0].symbol;
+		symbol = SC.getSessionInfo('currency').symbol; //Added salman JHD-37
 		var value_float = parseFloat(value);
 
 		if (isNaN(value_float))

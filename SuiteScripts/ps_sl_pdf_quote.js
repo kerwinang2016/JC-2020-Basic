@@ -40,12 +40,27 @@ function suiteletPdfQuote(request, response){
 
 function hasTailorEstimateId(custID){
 	//get tailor record with this id
+	var isExist = false;
 	var estId = getEstimateId(custID);
-	return estId > 0 ? true : false;
+
+	if(estId > 0){
+		var isExist = checkRecordExist(estId);
+	}
+	nlapiLogExecution('debug', 'isExist: ', isExist);
+	return isExist;
 }
 
 function getEstimateId(custID) {
 	return nlapiLookupField("customer", custID, "custentity_tailor_est_id");
+}
+
+function checkRecordExist(estRecId){
+	r = nlapiSearchRecord('estimate', null, new nlobjSearchFilter('internalid', null, 'is', estRecId));
+	if(r == null || r.length == 0) {
+		return false;
+	} else {
+		return true;
+	}
 }
 
 function setEstimateId(custID, estId) {
@@ -84,7 +99,8 @@ function removeOldEstimateRecord(estRecord, count) {
 function setNewValues(estimateRecord, requestData, method) {
 	nlapiLogExecution('debug','ReQUEST items length',requestData.items.length);
 	if(estimateRecord.getLineItemCount('item') >0){
-		for(var i=1; i<=estimateRecord.getLineItemCount('item'); i++){
+		var lineNum = estimateRecord.getLineItemCount('item');
+		for(i=lineNum; i>= 1; i--){
 			estimateRecord.removeLineItem('item',i);
 		}
 	}
@@ -118,6 +134,8 @@ function setNewValues(estimateRecord, requestData, method) {
 		estimateRecord.setLineItemValue('item', 'custcol_custom_fabric_details', 1, requestData.items[index].customFabricDetails);
 		//Quantity
 		estimateRecord.setLineItemValue('item', 'custcol_fabric_quantity', 1, requestData.items[index].fabricQuantity);
+		var lineItemTotal = requestData.items[index].lineItemTotal ? requestData.items[index].lineItemTotal : 0.00;
+		estimateRecord.setLineItemValue('item', 'custcol_order_list_line_item_total', 1, lineItemTotal); //JHD-35
 	}
 	
 	//Subtotal

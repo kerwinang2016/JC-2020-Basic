@@ -1,3 +1,11 @@
+<!--
+Change History   
+-------------- 
+Date: 14-03-2019
+Changed by:Salman Khan
+Change /Jira Ticket #: JHD-34
+Change Description: Price in the items matches the total in The order summary
+-->
 <%
 	//TODO REMOVE current_position USE!!
 	var current_position = view.wizard.getStepPosition()
@@ -17,12 +25,27 @@
 
 	var objConfirmation = cart.get('confirmation') || {};
 	var hasObjConfirmation = (!_.isNullOrEmptyObject(objConfirmation)) ? true : false;
+	var sum = 0.00;
 
 	if (hasObjConfirmation)
 	{
 		orderId = objConfirmation.internalid || '';
 		hasOrderId = (!_.isNullOrEmpty(orderId)) ? true : false;
 	}
+
+	//JHD-34 Start
+	cart.get('lines').each(function (line) {
+		if(line.get("options")){
+			var tempLineTotal = _.where(line.get("options"), {id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL"});
+			if(!tempLineTotal[0]){
+				line.get("options").push({name: "Item Total", id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL", value: "0.00", displayvalue: "0.00"});
+				tempLineTotal =  _.where(line.get("options"), {id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL"});
+			}
+			var lineTotal = tempLineTotal[0] ? tempLineTotal[0].value : 0.00;
+			sum = sum + parseFloat(lineTotal);
+		}
+	});
+	//JHD-34 End
 
 %>
 <div class="checkout-cart-summary box-wells">
@@ -53,6 +76,15 @@
 				var customPrice = 0;
 
 				if(line.get("options")){
+					//JHD-34 Start
+					var tempLineTotal = _.where(line.get("options"), {id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL"});
+					if(!tempLineTotal[0]){
+						line.get("options").push({name: "Item Total", id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL", value: "0.00", displayvalue: "0.00"});
+						tempLineTotal =  _.where(line.get("options"), {id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL"});
+					}
+					var lineTotal = tempLineTotal[0] ? tempLineTotal[0].value : 0.00;
+					//JHD-34 End
+
 					var customPrices = _.where(line.get("options"), {id: "CUSTCOL_TAILOR_CUST_PRICING"});
 					if(customPrices[0].value && !_.isNaN(customPrices[0].value)){
 						customPrice = parseFloat(customPrices[0].value);
@@ -80,7 +112,11 @@
 						<div class="cart-summary-item-price">
 							<span itemtype="http://schema.org/Offer" itemscope="" itemprop="offers">
 								<meta content="AUD" itemprop="priceCurrency">
+								<% if(lineTotal) {%> <!-- JHD-34 -->
+									<span data-rate="10" itemprop="price" class="lead-price"><%= _.formatCurrency(lineTotal) %></span>								
+								<%} else{%>
 								<span data-rate="10" itemprop="price" class="lead-price"><%= _.formatCurrency(customPrice) %></span>
+								<% } %>
 								<link href="http://schema.org/OutOfStock" itemprop="availability">
 							</span>
 						</div>
@@ -92,9 +128,15 @@
 		<% } %>
 		<div class="cart-summary-subtotal">
 			<p class="strong">
+				<% if(sum) {%> <!-- JHD-34 -->
+					<span class="pull-right cart-summary-subtotal-formatted" >
+						<%= _.formatCurrency(sum) %>
+					</span>							
+				<%} else{%>
 				<span class="pull-right cart-summary-subtotal-formatted" >
 					<%= _.formatCurrency(cart.get("options").custbody_total_tailor_price) %>
 				</span>
+				<% } %>
 				<span class="cart-summary-subtotal-label">
 					<%= _('Subtotal (<span data-type="cart-summary-subtotal-count">$(0)</span> $(1))').translate(item_count, item_count === 1 ? _('item').translate() : _('items').translate()) %>
 				</span>
@@ -177,9 +219,15 @@
 
 		<div class="cart-summary-total">
 			<p class="strong">
+				<% if(sum) {%> <!-- JHD-34 -->
+					<span class="pull-right cart-summary-total-formatted" >
+						<%= _.formatCurrency(parseFloat(sum) + summary.shippingcost) %>
+					</span>						
+				<%} else{%>
 				<span class="pull-right cart-summary-total-formatted" >
 					<%= _.formatCurrency(parseFloat(cart.get("options").custbody_total_tailor_price) + summary.shippingcost) %>
 				</span>
+				<% } %>
 				<%= _('Total').translate() %>
 			</p>
 		</div>
@@ -231,7 +279,7 @@
 <% if (hasObjConfirmation && hasOrderId) {%>
 
 	<div>
-		<a id="btn-download-pdf" class="btn btn-large btn-block btn-primary btn-download-pdf" target="_blank" href="<%= window.location.origin %>/app/site/hosting/scriptlet.nl?script=121&deploy=1&custparam_record_id=<%=orderId%>&custparam_record_type=salesorder&custparam_template=5" style="display: block;">Download as PDF</a>
+		<a id="btn-download-pdf" class="btn btn-large btn-block btn-primary btn-download-pdf" target="_blank" href="<%= window.location.origin %>/app/site/hosting/scriptlet.nl?script=121&deploy=1&custparam_record_id=<%=orderId%>&custparam_record_type=salesorder&custparam_template=14" style="display: block;">Download as PDF</a> <!-- JHD-34 -->
 	</div>
 
 <% } %>

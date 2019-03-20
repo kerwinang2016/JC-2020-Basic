@@ -1,3 +1,11 @@
+<!--
+Change History   
+-------------- 
+Date: 14-03-2019
+Changed by:Salman Khan
+Change /Jira Ticket #: JHD-34
+Change Description: Price in the items matches the total in The order summary
+-->
 <%
 	var lines = view.model.get('lines')
 	,	application = view.options.application
@@ -26,6 +34,22 @@
 		//jQuery("li[class='mini-cart-summary-container']").find("[data-hashtag='#cart']").click()
 		jQuery("[id='swx-minicart-gotocart']").click();
 	}
+
+    //JHD-34 Start
+    var sum = 0.00;
+    lines.each(function (line, index) { 
+        var tempLineTotal =  _.where(line.get("options"), {id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL"});
+        if(!tempLineTotal[0]){
+            if(line.get("options")){
+            line.get("options").push({name: "Item Total", id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL", value: "0.00", displayvalue: "0.00"});
+            tempLineTotal =  _.where(line.get("options"), {id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL"});
+            }
+		}
+        var lineTotal = tempLineTotal[0] ? tempLineTotal[0].value : 0;
+        sum = sum + parseFloat(lineTotal);
+    });
+    var linesTotalSum = parseFloat(sum).toFixed(2);
+    //JHD-34 End
 
 %>
 
@@ -85,7 +109,7 @@
                     checkout: application.getConfig('siteSettings.checkout')
                 ,	continueURL: continueURL
                 ,	showActions: true
-                }) %>
+                }, linesTotalSum) %> <!-- JHD-34 -->
             </section>
         </div>
         <div class="view-footer">

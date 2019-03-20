@@ -22,7 +22,16 @@ Change History
 Date: 04-03-2019
 Changed by:Shoaib Iqbal
 Change /Jira Ticket #: JHD-23
-Change Description: Remove �Chinese New Year� text and other info
+Change Description: Remove "Chinese New Year" text and other info
+-->
+
+<!--
+Change History   
+-------------- 
+Date: 13-03-2019
+Changed by: Salman Khan
+Change /Jira Ticket #: JHD-33
+Change Description: Order List add Tailor currency symbol and insert box for price
 -->
 
 <% registerMacro('itemListNavigable', function (options) { %>
@@ -56,7 +65,6 @@ Change Description: Remove �Chinese New Year� text and other info
 			if (xhttp.readyState == 4 && xhttp.status == 200) {
 				var oResponse = JSON.parse(xhttp.responseText);
 				expectedDate =  oResponse.expecteddate;
-				console.log('id: ' + "expected-date-" + line_id )
 				jQuery("#expected-date-" + line_id).text(expectedDate);
 				line.set("expecteddate", expectedDate);
 			}
@@ -90,6 +98,17 @@ Change Description: Remove �Chinese New Year� text and other info
 	}
 %>
 
+	<style> /* JHD-33 */
+		input[type='number'] {
+    		-moz-appearance:textfield;
+		}
+
+		input::-webkit-outer-spin-button,
+		input::-webkit-inner-spin-button {
+			-webkit-appearance: none;
+		}
+	</style>
+	
 <article id="<%- line_id %>" class="item-list-navigable <%= line_id %>" data-id=<%= item.get('internalid') %>>
 	<div class="item">
 		<div class="thumbnail">
@@ -103,7 +122,7 @@ Change Description: Remove �Chinese New Year� text and other info
 		</div>
 		<div class="info">
 				<div class="details"> 
-					<div class="name item-name" > <!-- JHD-3-->
+					<div class="name item-name" style="float:left;" > <!-- JHD-3-->
 				<% if (options.showActions && false) { %>
 					<a <%= link_attributes %>>
 						<%= item.get('_name') %>
@@ -113,6 +132,23 @@ Change Description: Remove �Chinese New Year� text and other info
 				<% } %>
 				</div>
 				<div class="name">
+					<!-- JHD-33 Start-->
+					<%
+						var lineItemTotal;
+						try
+						{
+							lineItemTotal =  _.where(line.get("options"), {id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL"})[0].value;
+						}
+							catch(ex)
+						{
+							lineItemTotal =  0.00;
+						}   
+					%>
+					<input type="number" id="order_list_line_item_total_<%= line_id %>" onkeypress="return event.charCode != 45" name="order_list_line_item_total" value="<%= lineItemTotal %>" min="0" style="float: right; width: 45px; height: 15px; font-size: 12px;">
+					<span id="tailor_currency_symbol" style="float: right; padding: 4px; font-weight: normal; "><%= SC.getSessionInfo('currency').symbol %></span>
+					<!-- JHD-33 End--></input>
+					</div>
+					<div class="name" style="clear:both;">
 				<%
 					var producttype = _.find(line.get("options"), function(o){
 						return o.id == "CUSTCOL_PRODUCTTYPE"});

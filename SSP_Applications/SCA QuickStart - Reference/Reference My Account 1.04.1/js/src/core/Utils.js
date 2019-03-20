@@ -324,6 +324,7 @@
 	function formatCurrency (value, symbol)
 	{
 		var value_float = parseFloat(value);
+		symbol = SC.getSessionInfo('currency').symbol; //Added salman JHD-37
 
 		if (isNaN(value_float))
 		{

@@ -1,3 +1,11 @@
+<!--
+Change History   
+-------------- 
+Date: 18-03-2019
+Changed by:Salman Khan
+Change /Jira Ticket #: JHD-37
+Change Description: Incorrect currency symbol showing in many places
+-->
 <%
 	var model = view.model
 	,	lines = model.get('lines')
@@ -35,7 +43,7 @@
 <h3>
 	<%= _('Order <b>#<span class="order-number">$(0)</span></b>').translate(model.get('order_number')) %>
 	<span class="pull-right hidden-phone strong total-formatted">
-		<%= model.get('summary').total_formatted %>
+		<%= _.formatCurrency(model.get('summary').total) %>
 	</span>
 </h3>
 <div data-type="alert-placeholder"></div>
@@ -178,7 +186,7 @@
 					<tbody>
 						<tr>
 							<td class="order-sumary-name order-subtotal-name"><%= _('Order Subtotal').translate() %></td>
-							<td class="order-sumary-value order-subtotal-value"><%= model.get('summary').subtotal_formatted %></td>
+							<td class="order-sumary-value order-subtotal-value"><%= _.formatCurrency(model.get('summary').subtotal) %></td>
 						</tr>
 						<%
 						var discounttotal = parseFloat(model.get('summary').discounttotal);
@@ -189,35 +197,35 @@
 									<p><span class="promocode-name"><%= _('Promo Code').translate() %></span>:&nbsp;<span class="promocode-value"><%= model.get('promocode').code %></span></p>
 								<% } %>
 							</td>
-							<td class="order-sumary-value"><span class="discounttotal"><%= discounttotal ? model.get('summary').discounttotal_formatted : '&nbsp;' %></span></td>
+							<td class="order-sumary-value"><span class="discounttotal"><%= discounttotal ? _.formatCurrency(model.get('summary').discounttotal) : '&nbsp;' %></span></td>
 						</tr>
 						<% } %>
 						<% if (parseFloat(model.get('summary').shippingcost)) { %>
 						<tr>
 							<td class="order-sumary-name shipping-total-name"><%= _('Shipping Total').translate() %></td>
-							<td class="order-sumary-value shipping-total-value"><%= model.get('summary').shippingcost_formatted %></td>
+							<td class="order-sumary-value shipping-total-value"><%= _.formatCurrency(model.get('summary').shippingcost) %></td>
 						</tr>
 						<% } %>
 						<% if (parseFloat(model.get('summary').handlingcost)) { %>
 						<tr>
 							<td class="order-sumary-name handling-total-name"><%= _('Handling Total').translate() %></td>
-							<td class="order-sumary-value handling-total-value"><%= model.get('summary').handlingcost_formatted %></td>
+							<td class="order-sumary-value handling-total-value"><%= _.formatCurrency(model.get('summary').handlingcost) %></td>
 						</tr>
 						<% } %>
 
 						<% if (parseFloat(model.get('summary').giftcertapplied)) { %>
 						<tr>
 							<td class="order-sumary-name gift-cert-total-name"><%= _('Gift Cert Total').translate() %></td>
-							<td class="order-sumary-value gift-cert-total-value"><%= model.get('summary').giftcertapplied_formatted %></td>
+							<td class="order-sumary-value gift-cert-total-value"><%=  _.formatCurrency(model.get('summary').giftcertapplied) %></td>
 						</tr>
 						<% } %>
 						<tr>
 							<td class="order-sumary-name tax-total-name"><%= _('Tax Total').translate() %></td>
-							<td class="order-sumary-value tax-total-value"><%= model.get('summary').taxtotal_formatted %></td>
+							<td class="order-sumary-value tax-total-value"><%= _.formatCurrency(model.get('summary').taxtotal) %></td>
 						</tr>
 						<tr>
 							<th class="order-sumary-name total-name"><%= _('Order Total').translate() %></th>
-							<th class="order-sumary-value total-value"><%= model.get('summary').total_formatted %></th>
+							<th class="order-sumary-value total-value"><%=  _.formatCurrency(model.get('summary').total) %></th>
 						</tr>
 					</tbody>
 			</table>

@@ -405,6 +405,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 self.holdproduction = 'F';
                 self.model.setOption('custcol_avt_date_needed', self.dateneeded);
                 self.model.setOption('custcol_fabric_extra',jQuery('#fabric_extra option:selected').text());
+                self.model.setOption('custcol_order_list_line_item_total', '0.00'); //JHD-34
                 //self.model.setOption('custcolcustcol_item_check','T');
               self.model.setOption('custcolcustcol_item_check', jQuery("#chkItem").is(':checked')?'T':'F');
 

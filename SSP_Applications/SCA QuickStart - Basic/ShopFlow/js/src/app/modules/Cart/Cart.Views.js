@@ -8,6 +8,15 @@ Changed by:Salman Khan
 Change /Jira Ticket #: JHD-8
 Change: Tailor can't enter Date Needed that is earlier than the expected delivery date
 */
+
+/*
+Change History   
+-------------- 
+Date: 14-03-2019
+Changed by:Salman Khan
+Change /Jira Ticket #: JHD-34
+Change Description: Price in the items matches the total in The order summary
+*/
 // Cart and Cart Confirmation views
 define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model','Session','ProductList.Model', 'Client.Collection'], function (ErrorManagement, FitProfileModel, ItemDetailsModel,Session,ProductListModel, ClientCollection)
 {
@@ -49,6 +58,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 		//,	'keyup [name="custcol_avt_date_needed"]': 'swxSetDateNeeded'
 		//,	'submit [data-action="update-dateneeded"]': 'swxSetDateNeededFormSubmit'
 		, 'change [name="custcol_avt_date_needed"]': 'swxSetDateNeeded'
+		, 'change [name="order_list_line_item_total"]': 'swxSetLineItemTotal' //JHD-34
 		,	'click [id="swx-butt-save-for-later-filter"]': 'swxFilterSaveForLaterClick'
 		,	'click [id="swx-butt-save-for-later-filter-clear"]': 'swxFilterSaveForLaterClearClick'
 		, 'click [id="add-multiple-save-for-later"]': 'addMultipleItemsToCart'
@@ -209,7 +219,6 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				var dateExpected = new Date(tempDateExpected);
 				var dateNeeded = new Date(tempDateNeeded);
 				if (dateNeeded < dateExpected) {
-					console.log('dateNeeded : dateExpected' + dateNeeded + ' : ' + dateExpected);
 					hasError = true;
 					jQuery("#" + line.get('internalid') + " .item .alert-placeholder").append(SC.macros.message('You cannot process an item where the date needed is earlier than the expected delivery date', 'error', true));
 				}
@@ -590,6 +599,26 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 
 			}
 		}
+	,	swxSetLineItemTotal: function (e) { //JHD-34
+			e.preventDefault();
+			var self = this;
+			var item = jQuery(e.target).closest('article')[0].id;
+			var lineItemTotal = jQuery(e.target).val() ? jQuery(e.target).val() : 0;
+			lineItemTotal = parseFloat(lineItemTotal).toFixed(2);
+			var a = _.find(this.model.get('lines').models, function (m) {return m.id == item;});
+			var b = _.find(a.get('options'), function (op) {return op.id == 'CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL'});
+			if(!b){
+				a.get('options').push({name: "Item Total", id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL", value: "0.00", displayvalue: "0.00"});
+				b = _.find(a.get('options'), function (op) {return op.id == 'CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL'});
+			}
+			b.value = lineItemTotal;
+			b.displayvalue = lineItemTotal;
+			a.save().done(function () {
+					self.model.save().done(function (data) {
+							self.showContent();
+					});
+			});	
+	}
 	,	validateDateNeeded: function (date_needed)
 		{
 			var is_valid = true;
@@ -1109,7 +1138,8 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				,	fitProfileWaistcoat = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_WAISTCOAT"})
 				,	fitProfileOvercoat = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_OVERCOAT"})
 				,	fitProfileShirt = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_SHIRT"})
-				,	customFabricDetails = _.where(line.get("options"), {id: "CUSTCOL_CUSTOM_FABRIC_DETAILS"});
+				,	customFabricDetails = _.where(line.get("options"), {id: "CUSTCOL_CUSTOM_FABRIC_DETAILS"})
+				,	lineItemTotal = _.where(line.get("options"), {id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL"}); //JHD-35
 				cartLine.itemName = line.get('item').get('_name');
 				cartLine.internalid = line.get('item').get('internalid');
 
@@ -1147,6 +1177,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				//cartLine.fitProfile = line.get('fitProfileOptions');
 				cartLine.fitProfileNotes = self.getColumnValue(fitProfileNotesColumn);
 				cartLine.fabricQuantity = self.getColumnValue(quantityColumn);
+				cartLine.lineItemTotal = self.getColumnValue(lineItemTotal); //JHD-35
 
 				liveOrderDetails.push(cartLine);
 			});

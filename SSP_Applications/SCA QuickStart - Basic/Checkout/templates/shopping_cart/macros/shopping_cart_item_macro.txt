@@ -1,3 +1,11 @@
+<!--
+Change History   
+-------------- 
+Date: 14-03-2019
+Changed by:Salman Khan
+Change /Jira Ticket #: JHD-34
+Change Description: Price in the items matches the total in The order summary
+-->
 <% registerMacro('shoppingCartItem', function(line, view, options) { %>
 <%
 var item = line.get('item');
@@ -38,6 +46,14 @@ else if (url)
 var customPrice = 0;
 
 if(line.get("options")){
+	//JHD-34 Start
+	var tempLineTotal = _.where(line.get("options"), {id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL"});
+	if(!tempLineTotal[0]){
+		line.get("options").push({name: "Item Total", id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL", value: "0.00", displayvalue: "0.00"});
+		tempLineTotal =  _.where(line.get("options"), {id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL"});
+	}
+	var lineTotal = tempLineTotal[0] ? tempLineTotal[0].value : 0.00;
+	//JHD-34 End
 	var customPrices = _.where(line.get("options"), {id: "CUSTCOL_TAILOR_CUST_PRICING"});
 	if(customPrices[0].value && !_.isNaN(customPrices[0].value)){
 		customPrice = parseFloat(customPrices[0].value);
@@ -87,7 +103,11 @@ if(line.get("options")){
 			</div>
 
 			<div class="span3 amount">
+			<%if(lineTotal){%>
+				<%= _.formatCurrency(lineTotal) %>
+			<%} else{%>
 				<%= _.formatCurrency(customPrice) %>
+			<%} %>
 			</div>
 			<div class="clearfix"></div>
 

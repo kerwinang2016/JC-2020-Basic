@@ -712,10 +712,22 @@ OBJ_CONFLICT['T01021304']['CONFLICT']['T010214']['T01021401']['ERROR'] = 'NO tic
 OBJ_CONFLICT['T01021305'] = {};
 OBJ_CONFLICT['T01021305']['CONFLICT'] = [];
 
-OBJ_CONFLICT['T01021305']['CONFLICT']['T010214']= [];
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']= [];
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021101']={};
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021101']['ERROR'] = 'Ticket pocket design must match side pocket design';
 
-OBJ_CONFLICT['T01021305']['CONFLICT']['T010214']['T01021401']={};
-OBJ_CONFLICT['T01021305']['CONFLICT']['T010214']['T01021401']['ERROR'] = 'NO ticket pocket flap size cannot be selected with flap slanted ticket pocket';
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021103']={};
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021103']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021104']={};
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021104']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021105']={};
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021105']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021106']={};
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021106']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021107']={};
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021107']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021108']={};
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021108']['ERROR'] = 'Ticket pocket design must match side pocket design';
 
 /** ####  END CONFLICT CODE -  T01021305  #### **/
 
@@ -2916,6 +2928,25 @@ OBJ_CONFLICT['T01021302']['CONFLICT']['T010214']['T01021403']['ERROR'] = 'Only n
 
 OBJ_CONFLICT['T01021302']['CONFLICT']['T010214']['T01021404']={};
 OBJ_CONFLICT['T01021302']['CONFLICT']['T010214']['T01021404']['ERROR'] = 'Only no ticket pocket flap size can be selected with jetted straight ticket pockets';
+
+
+OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']= [];
+
+OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021101']={};
+OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021101']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021102']={};
+OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021102']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021103']={};
+OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021103']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021104']={};
+OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021104']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021105']={};
+OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021105']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021106']={};
+OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021106']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021108']={};
+OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021108']['ERROR'] = 'Ticket pocket design must match side pocket design';
+
 /**  end conflicts -  T010214  **/
 
 /** ####  END CONFLICT CODE -  T01021302  #### **/
@@ -2937,6 +2968,25 @@ OBJ_CONFLICT['T01021303']['CONFLICT']['T010214']['T01021403']['ERROR'] = 'Only n
 
 OBJ_CONFLICT['T01021303']['CONFLICT']['T010214']['T01021404']={};
 OBJ_CONFLICT['T01021303']['CONFLICT']['T010214']['T01021404']['ERROR'] = 'Only no ticket pocket flap size can be selected with jetted slanted ticket pockets';
+
+
+OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']= [];
+
+OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021101']={};
+OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021101']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021102']={};
+OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021102']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021103']={};
+OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021103']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021104']={};
+OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021104']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021105']={};
+OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021105']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021106']={};
+OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021106']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021107']={};
+OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021107']['ERROR'] = 'Ticket pocket design must match side pocket design';
+
 /**  end conflicts -  T010214  **/
 
 /** ####  END CONFLICT CODE -  T01021303  #### **/
@@ -3080,28 +3130,29 @@ OBJ_CONFLICT['T01052201']['CONFLICT'] = [];
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']= [];
 
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051701']={};
-OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051701']['ERROR'] = 'Only plain hem with fabric heel tape can be selected with monogram heel tape';
+OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051701']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
 
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051702']={};
-OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051702']['ERROR'] = 'Only plain hem with fabric heel tape can be selected with monogram heel tape';
+OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051702']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
 
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051703']={};
-OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051703']['ERROR'] = 'Only plain hem with fabric heel tape can be selected with monogram heel tape';
+OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051703']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
 
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051704']={};
-OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051704']['ERROR'] = 'Only plain hem with fabric heel tape can be selected with monogram heel tape';
+OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051704']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
 
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051705']={};
-OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051705']['ERROR'] = 'Only plain hem with fabric heel tape can be selected with monogram heel tape';
+OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051705']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
 
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051706']={};
-OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051706']['ERROR'] = 'Only plain hem with fabric heel tape can be selected with monogram heel tape';
+OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051706']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
 
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051707']={};
-OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051707']['ERROR'] = 'Only plain hem with fabric heel tape can be selected with monogram heel tape';
+OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051707']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
 
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051708']={};
-OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051708']['ERROR'] = 'Only plain hem with fabric heel tape can be selected with monogram heel tape';
+OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051708']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
+
 
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010523'] = {};
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010523']['NA']={};
@@ -3353,6 +3404,60 @@ OBJ_CONFLICT['T01060204']['CONFLICT']['T010604']['T01060415']['ERROR'] = 'Only N
 
 /** ####  END CONFLICT CODE -  T01060204  #### **/
 
+/** #### START CONFLICT CODE - T01021306 #### **/
+
+OBJ_CONFLICT['T01021306'] = {};
+OBJ_CONFLICT['T01021306']['CONFLICT'] = [];
+
+OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']= [];
+OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021101']={};
+OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021101']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021102']={};
+OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021102']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021103']={};
+OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021103']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021104']={};
+OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021104']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021106']={};
+OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021106']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021107']={};
+OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021107']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021108']={};
+OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021108']['ERROR'] = 'Ticket pocket design must match side pocket design';
+/** ####  END CONFLICT CODE -  T01021306  #### **/
+/** #### START CONFLICT CODE - T01021307 #### **/
+
+OBJ_CONFLICT['T01021307'] = {};
+OBJ_CONFLICT['T01021307']['CONFLICT'] = [];
+
+OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']= [];
+
+OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021101']={};
+OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021101']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021102']={};
+OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021102']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021105']={};
+OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021105']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021104']={};
+OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021104']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021106']={};
+OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021106']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021107']={};
+OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021107']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021108']={};
+OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021108']['ERROR'] = 'Ticket pocket design must match side pocket design';
+/** ####  END CONFLICT CODE -  T01021307  #### **/
+
+/** #### START CONFLICT CODE - T01060708 #### **/
+
+OBJ_CONFLICT['T01060708'] = {};
+OBJ_CONFLICT['T01060708']['CONFLICT'] = [];
+
+OBJ_CONFLICT['T01060708']['CONFLICT']['T010642']= [];
+
+OBJ_CONFLICT['T01060708']['CONFLICT']['T010642']['T01064201']={};
+OBJ_CONFLICT['T01060708']['CONFLICT']['T010642']['T01064201']['ERROR'] = 'Formal Front NA cannot be selected with Formal Front with Studs';
+/** ####  END CONFLICT CODE -  T01060708  #### **/
 
 /** #### START CONFLICT CODE - T01060205 #### **/
 
@@ -4827,20 +4932,25 @@ OBJ_CONFLICT['T01043101']['CONFLICT']['li-bl-o']['Please select']['ERROR'] = 'Pl
 
 OBJ_CONFLICT['T01043102'] = {};
 OBJ_CONFLICT['T01043102']['CONFLICT'] = {};
-
 OBJ_CONFLICT['T01043102']['CONFLICT']['T010414'] = {};
-
 OBJ_CONFLICT['T01043102']['CONFLICT']['T010414']['Please select'] = {};
 OBJ_CONFLICT['T01043102']['CONFLICT']['T010414']['Please select']['ERROR'] = 'Please select cannot be chosen for button';
 
 OBJ_CONFLICT['T01043102']['CONFLICT']['T010415'] = {};
-
 OBJ_CONFLICT['T01043102']['CONFLICT']['T010415']['Please select'] = {};
 OBJ_CONFLICT['T01043102']['CONFLICT']['T010415']['Please select']['ERROR'] = 'Please select cannot be chosen for interior pocket piping';
 
 OBJ_CONFLICT['T01043102']['CONFLICT']['li-bl-o'] = {};
-
 OBJ_CONFLICT['T01043102']['CONFLICT']['li-bl-o']['Please select'] = {};
 OBJ_CONFLICT['T01043102']['CONFLICT']['li-bl-o']['Please select']['ERROR'] = 'Please select cannot be chosen for lining';
 
 /** ####  END CONFLICT CODE - T01043102  #### **/
+
+/** #### START CONFLICT CODE - Elbow Patches #### **/
+OBJ_CONFLICT['T01061501'] = {};
+OBJ_CONFLICT['T01061501']['CONFLICT'] = {};
+OBJ_CONFLICT['T01061501']['CONFLICT']['T010630'] = {};
+OBJ_CONFLICT['T01061501']['CONFLICT']['T010630']['No'] = {};
+OBJ_CONFLICT['T01061501']['CONFLICT']['T010630']['No']['ERROR'] = 'No cannot be chosen for Contrast Elbow Patches when Elbow Patches is Yes';
+
+/** ####  END CONFLICT CODE - Elbow Patches  #### **/

@@ -1199,7 +1199,13 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             this.application.trigger('profileRefresh');
         }
         , displayMonogramDependency: function(){
-
+            if(jQuery('#T010257').val() == "T01025702"){
+              jQuery('#T010258').parent().parent().hide();
+              jQuery('#T010259').parent().parent().hide();
+            }else{
+              jQuery('#T010258').parent().parent().show();
+              jQuery('#T010259').parent().parent().show();
+            }
           // if(jQuery(e.target).attr("id") == 'T010243'){
             if(jQuery('#T010243').val() == 'T01024302'){
               //hide stuff

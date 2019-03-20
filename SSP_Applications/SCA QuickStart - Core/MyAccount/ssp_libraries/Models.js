@@ -3194,6 +3194,7 @@ Application.defineModel('Receipts', _.extend({}, PlacedOrder, {
 				, new nlobjSearchColumn('total')
 				, new nlobjSearchColumn('taxtotal')
 				, new nlobjSearchColumn('fxamount')
+				, new nlobjSearchColumn('exchangerate')
 			]
 
 			, mainline = Application.getAllSearchResults('transaction', filters, columns);
@@ -3232,11 +3233,11 @@ Application.defineModel('Receipts', _.extend({}, PlacedOrder, {
 			id: mainline[0].getValue(columns[1])
 			, name: mainline[0].getText(columns[1])
 		};
-
+		var taxtotal = parseFloat(mainline[0].getValue('taxtotal'))/parseFloat(mainline[0].getValue('exchangerate'));
 		result.summary.total = toCurrency(mainline[0].getValue('fxamount'));
 		result.summary.total_formatted = formatCurrency(mainline[0].getValue('fxamount'));
-		result.summary.taxtotal = toCurrency(mainline[0].getValue('taxtotal'));
-		result.summary.taxtotal_formatted = formatCurrency(mainline[0].getValue('taxtotal'));
+		result.summary.taxtotal = toCurrency(taxtotal);
+		result.summary.taxtotal_formatted = formatCurrency(taxtotal);
 
 		// convert the obejcts to arrays
 		result.addresses = _.values(result.addresses);

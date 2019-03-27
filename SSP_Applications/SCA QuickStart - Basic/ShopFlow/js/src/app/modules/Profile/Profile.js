@@ -250,6 +250,8 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 											name	: 	field.name,
 											maxlength: field.maxlength?field.maxlength:"",
 											placeholder: field.placeholder?field.placeholder:"",
+											dataplaceholder: field.dataplaceholder? field.dataplaceholder: "",
+											datatype: field.datatype? field.datatype: "",
 											value	: 	currentFavouriteOption?currentFavouriteOption:(_.isObjectExist(objCartDesignOptionsMapping['' + field.name + ''])) ? objCartDesignOptionsMapping['' + field.name + ''] : ''
 									};
 								}
@@ -298,7 +300,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 						application.getUser().setUserOptionConfig(function(userOptions){
 							application.getUser().displayDesignOptions(view, userOptions);
 							jQuery("#designoption-message").val(designOptionMessage);
-							view.displayMonogramDependency();
+							view.showHideGroupedOptions();
 						}, window.tempOptions);
 					} else if (application.getLayout().currentView.template == "product_details" && view.model && view.model.get('custitem_clothing_type')){
 						var values = new Object();
@@ -372,7 +374,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 									application.getUser().setUserOptionConfig(function(userOptions){
 										application.getUser().displayDesignOptions(view, userOptions);
 										jQuery("#designoption-message").val(designOptionMessage);
-										view.displayMonogramDependency();
+										view.showHideGroupedOptions();
 									}, values);
 								});
 							// }else{
@@ -405,7 +407,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 								application.getUser().setUserOptionConfig(function(userOptions){
 									application.getUser().displayDesignOptions(view, userOptions);
 									jQuery("#designoption-message").val(designOptionMessage);
-									view.displayMonogramDependency();
+									view.showHideGroupedOptions();
 								}, values);
 							} else if (_.isUndefined(item)){ //If Item is undefined, try to load it again. This will only happen if the user decides to refresh the page.
 								setTimeout(function(){
@@ -446,7 +448,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 										application.getUser().setUserOptionConfig(function(userOptions){
 											application.getUser().displayDesignOptions(view, userOptions);
 											jQuery("#designoption-message").val(designOptionMessage);
-											view.displayMonogramDependency();
+											view.showHideGroupedOptions();
 										}, values);
 									}
 								}, 1000);
@@ -455,7 +457,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 						} else {
 							application.getUser().setUserOptionConfig(function(userOptions){
 								application.getUser().displayDesignOptions(view, userOptions);
-								view.displayMonogramDependency();
+								view.showHideGroupedOptions();
 							}, values);
 
 						}

@@ -267,6 +267,12 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 _.displayModalWindow(modalTitleErrConflictCode, modalContentErrConflictCode, true)
                 return false;
             }
+
+            if(this.model.pricenotset){
+                this.showError(_('There is an error with this item. Please re-submit as a CMT item').translate());
+                return false;
+            }
+
             if (this.model.isReadyForCart() && this.fabricChecked() && this.validateFitProfile() && this.validateCMT() ) {
                 var self = this
                     , cart = this.application.getCart()
@@ -1057,7 +1063,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                         jQuery('[name="custcol_fabric_quantity"]').val((qty + extra).toFixed(2));
                     }
                 });
-                self.displayMonogramDependency();
+                self.showHideGroupedOptions();
               }
             });
 
@@ -1142,11 +1148,20 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             if (clothingType !== '&nbsp;') {
                 var designOptionsList = [];
                 jQuery("div#design-option-" + clothingType + "").find(":input").each(function () {
-                    var currentDesignOptions = {
-                        'name': jQuery(this).attr("id"),
-                        'value': jQuery(this).val()
-                    };
-                    designOptionsList.push(currentDesignOptions);
+                    if(jQuery(this).data().type == 'placeholder'){}
+                    else{
+                      var optionvalue = jQuery(this).val();
+                      if(optionvalue == 'Other'){
+                        if(jQuery('#'+jQuery(this).attr("id")+"_other").length != 0){
+                          optionvalue = jQuery('#'+jQuery(this).attr("id")+"_other").val();
+                        }
+                      }
+                      var currentDesignOptions = {
+                          'name': jQuery(this).attr("id"),
+                          'value': jQuery(this).val()
+                      };
+                      designOptionsList.push(currentDesignOptions);
+                    }
                 });
             }
             return designOptionsList;
@@ -1199,13 +1214,76 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
 
             this.application.trigger('profileRefresh');
         }
-        , displayMonogramDependency: function(){
+        , showHideGroupedOptions: function(){
+            // if(jQuery('#T010622').val() == "Other"){
+            //   jQuery('#T010622_other').parent().parent().show();
+            // }else{
+            //   jQuery('#T010622_other').parent().parent().hide();
+            // }
+            // if(jQuery('#T010623').val() == "Other"){
+            //   jQuery('#T010623_other').parent().parent().show();
+            // }else{
+            //   jQuery('#T010623_other').parent().parent().hide();
+            // }
+            // if(jQuery('#T010624').val() == "Other"){
+            //   jQuery('#T010624_other').parent().parent().show();
+            // }else{
+            //   jQuery('#T010624_other').parent().parent().hide();
+            // }
+            // if(jQuery('#T010625').val() == "Other"){
+            //   jQuery('#T010625_other').parent().parent().show();
+            // }else{
+            //   jQuery('#T010625_other').parent().parent().hide();
+            // }
+            // if(jQuery('#T010626').val() == "Other"){
+            //   jQuery('#T010626_other').parent().parent().show();
+            // }else{
+            //   jQuery('#T010626_other').parent().parent().hide();
+            // }
+            // if(jQuery('#T010627').val() == "Other"){
+            //   jQuery('#T010627_other').parent().parent().show();
+            // }else{
+            //   jQuery('#T010627_other').parent().parent().hide();
+            // }
+            // if(jQuery('#T010628').val() == "Other"){
+            //   jQuery('#T010628_other').parent().parent().show();
+            // }else{
+            //   jQuery('#T010628_other').parent().parent().hide();
+            // }
+            // if(jQuery('#T010629').val() == "Other"){
+            //   jQuery('#T010629_other').parent().parent().show();
+            // }else{
+            //   jQuery('#T010629_other').parent().parent().hide();
+            // }
+            // if(jQuery('#T010630').val() == "Other"){
+            //   jQuery('#T010630_other').parent().parent().show();
+            // }else{
+            //   jQuery('#T010630_other').parent().parent().hide();
+            // }
+            // if(jQuery('#T010631').val() == "Other"){
+            //   jQuery('#T010631_other').parent().parent().show();
+            // }else{
+            //   jQuery('#T010631_other').parent().parent().hide();
+            // }
+            // if(jQuery('#T010632').val() == "Other"){
+            //   jQuery('#T010632_other').parent().parent().show();
+            // }else{
+            //   jQuery('#T010632_other').parent().parent().hide();
+            // }
+
             if(jQuery('#T010257').val() == "T01025702"){
               jQuery('#T010258').parent().parent().hide();
               jQuery('#T010259').parent().parent().hide();
             }else{
               jQuery('#T010258').parent().parent().show();
               jQuery('#T010259').parent().parent().show();
+            }
+            if(jQuery('#T010643').val() == "T01064302"){
+              jQuery('#T010644').parent().parent().hide();
+              jQuery('#T010645').parent().parent().hide();
+            }else{
+              jQuery('#T010644').parent().parent().show();
+              jQuery('#T010645').parent().parent().show();
             }
           // if(jQuery(e.target).attr("id") == 'T010243'){
             if(jQuery('#T010243').val() == 'T01024302'){

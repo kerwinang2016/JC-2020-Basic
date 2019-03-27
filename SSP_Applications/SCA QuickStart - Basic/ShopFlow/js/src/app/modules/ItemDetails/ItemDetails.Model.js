@@ -189,10 +189,16 @@ define('ItemDetails.Model', ['ItemOptionsHelper', 'Session'], function (ItemOpti
 				// }
 				// );
 				url+= '&item='+this.get("internalid")+'&pricelevel='+SC.ENVIRONMENT.PROFILE.customPriceLevel+'&currency='+SC.ENVIRONMENT.currentCurrency.internalid;
+				url+= '&customerpricelevel='+SC.ENVIRONMENT.PROFILE.priceLevel;
 				if(url){
-					jQuery.get(url).done(function(data){
+					jQuery.get(url).done(function(datastr){
 						// var customPrice = data.items[0]['pricelevel' + SC.ENVIRONMENT.PROFILE.customPriceLevel];
+						var data = JSON.parse(datastr);
 						var customPrice = data.price;
+						if(data.pricenotset == 'T')
+							self.pricenotset = true;
+						else
+							self.pricenotset	= false;
 						if(SC._applications.Shopping.getLayout().currentView.attributes){
 						if(SC._applications.Shopping.getLayout().currentView.attributes.id == "facet-browse"){
 							if(customPrice){

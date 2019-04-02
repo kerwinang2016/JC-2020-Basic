@@ -4954,3 +4954,13 @@ OBJ_CONFLICT['T01061501']['CONFLICT']['T010630']['No'] = {};
 OBJ_CONFLICT['T01061501']['CONFLICT']['T010630']['No']['ERROR'] = 'No cannot be chosen for Contrast Elbow Patches when Elbow Patches is Yes';
 
 /** ####  END CONFLICT CODE - Elbow Patches  #### **/
+
+
+/** #### START CONFLICT CODE - Elbow Patches #### **/
+OBJ_CONFLICT['T01061501'] = {};
+OBJ_CONFLICT['T01061501']['CONFLICT'] = {};
+OBJ_CONFLICT['T01061501']['CONFLICT']['T010630'] = {};
+OBJ_CONFLICT['T01061501']['CONFLICT']['T010630']['No'] = {};
+OBJ_CONFLICT['T01061501']['CONFLICT']['T010630']['No']['ERROR'] = 'No cannot be chosen for Contrast Elbow Patches when Elbow Patches is Yes';
+
+/** ####  END CONFLICT CODE - Elbow Patches  #### **/

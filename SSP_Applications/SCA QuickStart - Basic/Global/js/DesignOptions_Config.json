@@ -7049,6 +7049,7 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
 					,	"values": [
 							"No"
@@ -7113,7 +7114,16 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
+					}
+				,	{
+						"label":"*Other Text Whole Collar and Neckband"
+					,	"name":"T010622_other"
+					,	"type":"text"
+					, "dataplaceholder": "T010622"
+					, "datatype" : "placeholder"
+					,	"values":["avttext"]
 					}
 				,	{
 						"label":"Inside Neckband"
@@ -7182,6 +7192,7 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
 					,	"values": [
 							"No"
@@ -7246,8 +7257,17 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
-	                }
+	        }
+				,	{
+						"label":"*Other Text Inside Neckband"
+					,	"name":"T010623_other"
+					,	"type":"text"
+					, "dataplaceholder": "T010623"
+					, "datatype" : "placeholder"
+					,	"values":["avttext"]
+					}
 				,	{
 						"label":"Whole Neckband"
 					,	"name":"T010624"
@@ -7315,6 +7335,7 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
 					,	"values": [
 							"No"
@@ -7379,7 +7400,16 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
+					}
+				,	{
+						"label":"*Other Text Whole Neckband"
+					,	"name":"T010624_other"
+					,	"type":"text"
+					, "dataplaceholder": "T010624"
+					, "datatype" : "placeholder"
+					,	"values":["avttext"]
 					}
 				,	{
 						"label":"Bottom Neckband (Piping)"
@@ -7448,6 +7478,7 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
 					,	"values": [
 							"No"
@@ -7512,7 +7543,16 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
+					}
+				,	{
+						"label":"*Other Text Bottom Neckband"
+					,	"name":"T010625_other"
+					,	"type":"text"
+					, "dataplaceholder": "T010625"
+					, "datatype" : "placeholder"
+					,	"values":["avttext"]
 					}
 				,	{
 						"label":"Total Cuff"
@@ -7581,6 +7621,7 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
 					,	"values": [
 							"No"
@@ -7645,7 +7686,16 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
+					}
+				,	{
+						"label":"*Other Text Total Cuff"
+					,	"name":"T010626_other"
+					,	"type":"text"
+					, "dataplaceholder": "T010626"
+					, "datatype" : "placeholder"
+					,	"values":["avttext"]
 					}
 				,	{
 						"label":"Inside Cuff"
@@ -7714,6 +7764,7 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
 					,	"values": [
 							"No"
@@ -7778,7 +7829,16 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
+					}
+				,	{
+						"label":"*Other Text Inside Cuff"
+					,	"name":"T010627_other"
+					,	"type":"text"
+					, "dataplaceholder": "T010627"
+					, "datatype" : "placeholder"
+					,	"values":["avttext"]
 					}
 				,	{
 						"label":"Buttonholes Side Placket"
@@ -7847,6 +7907,7 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
 					,	"values": [
 							"No"
@@ -7911,7 +7972,16 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
+					}
+				,	{
+						"label":"*Other Text Buttonholes Side Placket"
+					,	"name":"T010628_other"
+					,	"type":"text"
+					, "dataplaceholder": "T010628"
+					, "datatype" : "placeholder"
+					,	"values":["avttext"]
 					}
 				,	{
 						"label":"Button Side Placket"
@@ -7980,6 +8050,7 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
 					,	"values": [
 							"No"
@@ -8044,7 +8115,16 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
+					}
+				,	{
+						"label":"*Other Text Button Side Placket"
+					,	"name":"T010629_other"
+					,	"type":"text"
+					, "dataplaceholder": "T010629"
+					, "datatype" : "placeholder"
+					,	"values":["avttext"]
 					}
 				,	{
 						"label":"Elbow Patches"
@@ -8113,6 +8193,7 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
 					,	"values": [
 							"No"
@@ -8177,7 +8258,16 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
+					}
+				,	{
+						"label":"*Other Text Elbow Patches"
+					,	"name":"T010630_other"
+					,	"type":"text"
+					, "dataplaceholder": "T010630"
+					, "datatype" : "placeholder"
+					,	"values":["avttext"]
 					}
 				,	{
 						"label":"Sleeve Placket"
@@ -8246,6 +8336,7 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
 					,	"values": [
 							"No"
@@ -8310,7 +8401,16 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
+					}
+				,	{
+						"label":"*Other Text Sleeve Placket"
+					,	"name":"T010631_other"
+					,	"type":"text"
+					, "dataplaceholder": "T010631"
+					, "datatype" : "placeholder"
+					,	"values":["avttext"]
 					}
 				,	{
 						"label":"Handkerchief"
@@ -8379,6 +8479,7 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
+						, "Other"
 						]
 					,	"values": [
 							"No"
@@ -8443,8 +8544,17 @@
 						,	"TST07"
 						,	"TST08"
 						,	"CMT"
-                        ]
-	                }
+						, "Other"
+            ]
+	        }
+				,	{
+						"label":"*Other Text Handkerchief"
+					,	"name":"T010632_other"
+					,	"type":"text"
+					, "dataplaceholder": "T010632"
+					, "datatype" : "placeholder"
+					,	"values":["avttext"]
+					}
 				]
 			}
 		,	{
@@ -8465,7 +8575,7 @@
 						]
 					}
 				,	{
-                        "label":"Monogram Text"
+            "label":"Monogram Text"
 					,	"name":"T010634"
 					,	"type":"text"
 					, "maxlength": "14"
@@ -8473,7 +8583,7 @@
 					,	"values":["avttext"]
 					}
 				,	{
-                        "label":"Monogram Type"
+            "label":"Monogram Type"
 					,	"name":"T010635"
 					,	"type":"select"
 					,	"texts": [
@@ -8488,7 +8598,7 @@
 						]
 					}
 				,	{
-                        "label":"Font Size"
+            "label":"Font Size"
 					,	"name":"T010636"
 					,	"type":"select"
 					,	"texts": [
@@ -8503,7 +8613,7 @@
 						]
 					}
 				,	{
-                        "label":"Monogram Position"
+            "label":"Monogram Position"
 					,	"name":"T010637"
 					,	"type":"select"
 					,	"texts": [
@@ -8585,7 +8695,7 @@
 						,	"Sand"
 						,	"NA"
 						]
-	                }
+	        }
 				]
 			}
 		,	{

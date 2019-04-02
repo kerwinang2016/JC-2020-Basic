@@ -85,9 +85,14 @@
       <div class="hidden-phone pull-left">
         <%= itemListShowSelectorResult %>
       </div>
+			<div style="clear:both;"></div>
+			<div style="margin-bottom:10px;">
+				* The following vendors are searchable: AC Shirt, Ariston, Dormeuil, Dugdale Bros, Filarte, Loro Piana, Solbiati, Thomas Mason
+			</div>
     </div>
     <%= facetsDisplayResults %>
     <div id="banner-section-middle" class="content-banner banner-section-middle"></div>
+
   </header>
   <!-- Item List -->
   <div id="item-list" class="item-list">

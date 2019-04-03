@@ -10,8 +10,8 @@ Change: Tailor can't enter Date Needed that is earlier than the expected deliver
 */
 
 /*
-Change History   
--------------- 
+Change History
+--------------
 Date: 14-03-2019
 Changed by:Salman Khan
 Change /Jira Ticket #: JHD-34
@@ -110,7 +110,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				return;
 			}
 			cart.get('lines').each(function (line){
-				var r = new RegExp(/^[TR]{2}\d{3}($|-+\w*)/)
+				var r = new RegExp(/^[TR]{2}\d{3}($|-+\w*)/);
 				/*check for lining status */
 				var options = line.get('item').get('options');
 
@@ -119,7 +119,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 					var doJSON = JSON.parse(designoption.value);
 					//Jacket
 					var lfab = _.find(doJSON,function(b){return b.name == 'li-b-j';});
-					if(lfab && r.test(jQuery(lfab.value))){
+					if(lfab && r.test(lfab.value)){
 						var found = _.find(self.liningfabrics,function(d){
 							return d.custrecord_flf_ftcode == lfab.value;
 							});
@@ -617,7 +617,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 					self.model.save().done(function (data) {
 							self.showContent();
 					});
-			});	
+			});
 	}
 	,	validateDateNeeded: function (date_needed)
 		{

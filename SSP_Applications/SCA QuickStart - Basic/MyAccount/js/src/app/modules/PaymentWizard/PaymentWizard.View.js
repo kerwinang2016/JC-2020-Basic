@@ -45,9 +45,18 @@ define('PaymentWizard.View', ['Wizard.View'], function (WizardView)
 				invoiceids += "_"+curr_invoice.get('internalid');
 				items.push({name:curr_invoice.get('tranid'), quantity:1, unitPrice: curr_invoice.get('amount')})
 			}
+			for(var i=0;i<this.wizard.model.getAppliedTransactions('credits').length;i++){
+				var credit = this.wizard.model.getAppliedTransactions('credits').models[i];
+				items.push({name:credit.get('refnum'), quantity:1, unitPrice: parseFloat(credit.get('amount'))*-1})
+			}
+			// for(var i=0;i<this.wizard.model.getAppliedTransactions('deposits').length;i++){
+			// 	var deposit = this.wizard.model.getAppliedTransactions('deposits').models[i];
+			// 	items.push({name:credit.get('refnum'), quantity:1, unitPrice: parseFloat(credit.get('amount'))*-1})
+			// }
 			var a = new Date();
 			var orderid = SC.ENVIRONMENT.customer_internalid+"_"+a.getTime();
-			var data = {'apiOperation':'CREATE_CHECKOUT_SESSION','order':{'currency':SC.ENVIRONMENT.currentCurrency.code,'id':orderid,'amount':self.model.get('invoices_total')}}
+			var data = {'apiOperation':'CREATE_CHECKOUT_SESSION','order':{'currency':SC.ENVIRONMENT.currentCurrency.code,'id':orderid,'amount':self.model.get('payment')}}
+
 
 			jQuery.ajax({
 			    url: _.getAbsoluteUrl('services/paymentintegration.ss'),

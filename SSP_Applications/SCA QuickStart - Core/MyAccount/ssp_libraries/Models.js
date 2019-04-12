@@ -4530,13 +4530,8 @@ Application.defineModel('ProductList', {
 					}
 					, created: productListSearchRecord.getValue('created')
 					, lastmodified: productListSearchRecord.getValue('lastmodified')
-					, items: ProductListItem.search(productListSearchRecord.getId(), include_store_items, {
-						sort: 'created'
-						, order: '-1'
-						, page: -1
-					},parentparam)
+					, items: []
 				};
-
 			if (template_ids && productList.templateid) {
 				template_ids.push(productList.templateid);
 			}
@@ -4544,6 +4539,39 @@ Application.defineModel('ProductList', {
 			productLists.push(productList);
 		});
 
+		var plitems = ProductListItem.search(null, include_store_items, {
+			sort: 'created'
+			, order: '-1'
+			, page: -1
+		},parentparam);
+
+		for(var i=0; i<productLists.length; i++){
+
+			var items = _.filter(plitems, function(pli){
+				return pli.productListId == productLists[i].internalid;
+			});
+			productLists[i].items = items;
+		}
+
+		//Sort the product list.. get the first name by splitting space, sort if number
+		var numberedlists = [];
+		var textlist = [];
+		for(var i=0; i<productLists.length; i++){
+			if(isNaN(productLists[i].name.split(' ')[0])){
+				textlist.order = productLists[i].name.split(' ')[0];
+				textlist.push(productLists[i]);
+			}else{
+				productLists[i].order = productLists[i].name.split(' ')[0];
+				numberedlists.push(productLists[i]);
+			}
+		}
+		textlist.sort(function(a,b){
+			return (a.order === b.order )? 0 : a.order < b.order? -1 : 1;
+		});
+		numberedlists.sort(function(a,b){
+			return (a.order === b.order )? 0 : parseFloat(a.order) < parseFloat(b.order)? -1 : 1;
+		});
+		productLists = numberedlists.concat(textlist);
 		return productLists;
 	}
 
@@ -4838,17 +4866,19 @@ Application.defineModel('ProductListItem', {
 		else {
 			parent = parentparam;
 		}
-		if (!product_list_id) {
-			return []; //it may happens when target list is a template and don't have a record yet.
-		}
+		// if (!product_list_id) {
+		// 	return []; //it may happens when target list is a template and don't have a record yet.
+		// }
 		var filters = [
-			new nlobjSearchFilter('custrecord_ns_pl_pli_productlist', null, 'is', product_list_id)
-			, new nlobjSearchFilter('isinactive', null, 'is', 'F')
+			new nlobjSearchFilter('isinactive', null, 'is', 'F')
 			, new nlobjSearchFilter('custrecord_ns_pl_pl_owner', 'custrecord_ns_pl_pli_productlist', 'is', parent)
 			,	new nlobjSearchFilter('isinactive', 'custrecord_ns_pl_pli_item', 'is', 'F' )]
 			, sort_column = sort_and_paging_data.sort
 			, sort_direction = sort_and_paging_data.order;
 
+		if(product_list_id){
+      filters.push(new nlobjSearchFilter('custrecord_ns_pl_pli_productlist', null, 'is', product_list_id));
+    }
 		if (!sort_column) {
 			sort_column = 'created';
 		}

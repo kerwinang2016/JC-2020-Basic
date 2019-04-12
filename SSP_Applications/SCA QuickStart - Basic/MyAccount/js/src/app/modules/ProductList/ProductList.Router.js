@@ -24,7 +24,6 @@ define('ProductList.Router', ['ProductList.Model'], function (ProductListModel)
 		// /productlist/tmpl_$(templateid) in the case the record doesn't exist yet (predefined lists)
 	,	showProductListDetails: function (id, options)
 		{
-			console.log('DATA')
 			var prefix = 'tmpl_'
 			,	self = this
 

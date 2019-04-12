@@ -2017,12 +2017,7 @@ Application.defineModel('ProductList', {
 					}
 				,	created: productListSearchRecord.getValue('created')
 				,	lastmodified: productListSearchRecord.getValue('lastmodified')
-				,	items: ProductListItem.search(productListSearchRecord.getId(), include_store_items, {
-							sort: 'created'
-						,	order: '-1'
-						,	page: -1
-					}, parent,plifilters
-        )
+				,	items: []
 				};
 
 			if (template_ids && productList.templateid)
@@ -2033,6 +2028,20 @@ Application.defineModel('ProductList', {
 			productLists.push(productList);
 		});
 
+    var plitems = ProductListItem.search(null, include_store_items, {
+          sort: 'created'
+        ,	order: '-1'
+        ,	page: -1
+      }, parent,plifilters
+    )
+    nlapiLogExecution("debug","plitems length", plitems.length);
+    for(var i=0; i<productLists.length; i++){
+
+      var items = _.filter(plitems, function(pli){
+        return pli.productListId == productLists[i].internalid;
+      });
+      productLists[i].items = items;
+    }
 		return productLists;
 	}
 
@@ -2392,15 +2401,12 @@ Application.defineModel('ProductListItem', {
     }else{
       parent = parentparam;
     }
-		if (!product_list_id)
-		{
-			return []; //it may happens when target list is a template and don't have a record yet.
-		}
-    nlapiLogExecution('debug','PLID ', product_list_id);
-    nlapiLogExecution('debug','Parent ', parent);
+		// if (!product_list_id)
+		// {
+		// 	return []; //it may happens when target list is a template and don't have a record yet.
+		// }
 		var filters = [
-			new nlobjSearchFilter('custrecord_ns_pl_pli_productlist', null, 'is', product_list_id)
-		,	new nlobjSearchFilter('isinactive', null, 'is', 'F')
+      new nlobjSearchFilter('isinactive', null, 'is', 'F')
 		,	new nlobjSearchFilter('custrecord_ns_pl_pl_owner', 'custrecord_ns_pl_pli_productlist', 'is', parent )
     ,	new nlobjSearchFilter('isinactive', 'custrecord_ns_pl_pli_item', 'is', 'F' )]
 		,	sort_column = sort_and_paging_data.sort
@@ -2408,7 +2414,9 @@ Application.defineModel('ProductListItem', {
     if(plifilters && plifilters.custrecord_ns_pl_pli_fitter){
       filters.push(new nlobjSearchFilter('custrecord_ns_pl_pli_fitter',null,'anyof',plifilters.custrecord_ns_pl_pli_fitter))
     }
-
+    if(product_list_id){
+      filters.push(new nlobjSearchFilter('custrecord_ns_pl_pli_productlist', null, 'is', product_list_id));
+    }
 		if (!sort_column)
 		{
 			sort_column = 'created';
@@ -2534,6 +2542,7 @@ Application.defineModel('ProductListItem', {
     , custrecord_ns_pl_pli_isarchived: new nlobjSearchColumn('custrecord_ns_pl_pli_isarchived')
     //, comment: new nlobjSearchColumn('custrecord_ns_pl_pli_comment')
     , parent: new nlobjSearchColumn('custrecord_ns_pl_pl_owner','custrecord_ns_pl_pli_productlist')
+    , productListId: new nlobjSearchColumn('custrecord_ns_pl_pli_productlist')
 		};
 
 		productListItemColumns[sort_column] && productListItemColumns[sort_column].setSort(sort_direction === 'DESC');
@@ -2584,6 +2593,7 @@ Application.defineModel('ProductListItem', {
 				,	created: productListItemSearchRecord.getValue('created')
         , fitter: productListItemSearchRecord.getText('custrecord_ns_pl_pli_fitter')?productListItemSearchRecord.getText('custrecord_ns_pl_pli_fitter'):productListItemSearchRecord.getText('custrecord_ns_pl_pl_owner','custrecord_ns_pl_pli_productlist')
         , fitterid:productListItemSearchRecord.getValue('custrecord_ns_pl_pli_fitter')?productListItemSearchRecord.getValue('custrecord_ns_pl_pli_fitter'):productListItemSearchRecord.getValue('custrecord_ns_pl_pl_owner','custrecord_ns_pl_pli_productlist')
+        , productListId: productListItemSearchRecord.getValue('custrecord_ns_pl_pli_productlist')
         //, comment: productListItemSearchRecord.getValue('custrecord_ns_pl_pli_comment')
 				,	lastmodified: productListItemSearchRecord.getValue('lastmodified')
 					// we temporary store the item reference, after this loop we use StoreItem.preloadItems instead doing multiple StoreItem.get()

@@ -93,6 +93,7 @@ function (ProductListControlViews, ProductListDetailsView, ProductListCollection
 				// Then add all the lists
 				product_lists.each(function (productlist)
 				{
+
 					items.push({
 						id: 'productlist_' + (productlist.get('internalid') || 'tmpl_' + productlist.get('templateid'))
 					,	url: 'productlist/' + (productlist.get('internalid') || 'tmpl_' + productlist.get('templateid'))
@@ -157,6 +158,7 @@ function (ProductListControlViews, ProductListDetailsView, ProductListCollection
 			app = application;
 			var customerid = SC.Application('MyAccount').getUser().get('parent');
 			// Loads Product Lists collection model singleton
+
 			application.getProductListsPromise = function ()
 			{
 				if (!application.productListsInstancePromise)
@@ -166,6 +168,7 @@ function (ProductListControlViews, ProductListDetailsView, ProductListCollection
 					application.productListsInstance.application = application;
 					application.productListsInstance.fetch({data:jQuery.param({customerid:customerid})}).done(function(jsonCollection)
 					{
+
 						application.productListsInstance.set(jsonCollection);
 						application.productListsInstancePromise.resolve(application.productListsInstance);
 					});

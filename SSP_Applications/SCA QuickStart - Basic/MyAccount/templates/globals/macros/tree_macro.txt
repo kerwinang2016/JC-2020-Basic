@@ -22,7 +22,7 @@
 	</div>
 	<% level++;	%>
 	<ul class="nav nav-tabs nav-stacked tree-level-<%=level%>" data-type="sub-menu">
-	<% var ordered_children = _(model.children).sortBy(function(item){return item.index + item.name; });
+	<% var ordered_children = _(model.children).sortBy(function(item){return item.index?item.index:item.name; });
 		_.each(ordered_children, function (tree_item, index){ %>
 		<%=self(tree_item, self, level) %>
 	<%})%>

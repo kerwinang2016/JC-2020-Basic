@@ -617,6 +617,19 @@ OBJ_CONFLICT['T01021004']['CONFLICT']['T010211']['T01021107']['ERROR'] = 'Jetted
 
 OBJ_CONFLICT['T01021004']['CONFLICT']['T010211']['T01021108']={};
 OBJ_CONFLICT['T01021004']['CONFLICT']['T010211']['T01021108']['ERROR'] = 'Jetted slanted side pockets cannot be selected with patch chest pocket';
+
+OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025801']={};
+OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025801']['ERROR'] = 'You can only select "jacket breast pocket" (T01025801,T01025802,T01025803,T01025804) with "patch pocket" (T01021004)';
+
+OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025802']={};
+OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025802']['ERROR'] = 'You can only select "jacket breast pocket" (T01025801,T01025802,T01025803,T01025804) with "patch pocket" (T01021004)';
+
+OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025803']={};
+OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025803']['ERROR'] = 'You can only select "jacket breast pocket" (T01025801,T01025802,T01025803,T01025804) with "patch pocket" (T01021004)';
+
+OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025804']={};
+OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025804']['ERROR'] = 'You can only select "jacket breast pocket" (T01025801,T01025802,T01025803,T01025804) with "patch pocket" (T01021004)';
+
 /**  end conflicts -  T010211  **/
 
 /** ####  END CONFLICT CODE -  T01021004  #### **/
@@ -3130,7 +3143,7 @@ OBJ_CONFLICT['T01052201']['CONFLICT'] = [];
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']= [];
 
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051701']={};
-OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051701']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
+OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051701']['ERROR'] = 'Cannot have plain hem with heel tape (T01051701) with monogram heel tape yes (T01052201)';
 
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051702']={};
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051702']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';

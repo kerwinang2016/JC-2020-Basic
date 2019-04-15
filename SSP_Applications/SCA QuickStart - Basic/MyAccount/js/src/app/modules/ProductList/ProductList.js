@@ -91,14 +91,14 @@ function (ProductListControlViews, ProductListDetailsView, ProductListCollection
 					}
 				];
 				// Then add all the lists
+				var indexInc = 2;
 				product_lists.each(function (productlist)
 				{
-
 					items.push({
 						id: 'productlist_' + (productlist.get('internalid') || 'tmpl_' + productlist.get('templateid'))
 					,	url: 'productlist/' + (productlist.get('internalid') || 'tmpl_' + productlist.get('templateid'))
 					,	name: productlist.get('name')// + '&nbsp;(' + productlist.get('items').length + ')'
-					,	index: 2
+					,	index: indexInc++
 					});
 				});
 

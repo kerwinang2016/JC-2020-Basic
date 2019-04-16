@@ -1308,8 +1308,11 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             if(jQuery('#T010243').val() == 'T01024302'){
               //hide stuff
               jQuery('#T010235').parent().parent().hide();
+              jQuery('#T010235').val('NA');
               jQuery('#T010236').parent().parent().hide();
+              jQuery('#T010236').val('NA');
               jQuery('#T010238').parent().parent().hide();
+              jQuery('#T010238').val('');
             }
             else{
               //show
@@ -1322,9 +1325,13 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             if(jQuery('#T010244').val() == 'T01024402'){
               //hide stuff
               jQuery('#T010245').parent().parent().hide();
+              jQuery('#T010245').val('NA');
               jQuery('#T010237').parent().parent().hide();
+              jQuery('#T010237').val('NA');
               jQuery('#T010239').parent().parent().hide();
+              jQuery('#T010239').val('');
               jQuery('#T010240').parent().parent().hide();
+              jQuery('#T010240').val('');
             }
             else{
               //show
@@ -1338,8 +1345,11 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             if(jQuery('#T010522').val() == 'T01052202'){
               //hide stuff
               jQuery('#T010523').parent().parent().hide();
+              jQuery('#T010523').val('NA');
               jQuery('#T010524').parent().parent().hide();
+              jQuery('#T010524').val('NA');
               jQuery('#T010525').parent().parent().hide();
+              jQuery('#T010525').val('');
             }
             else{
               //show
@@ -1352,8 +1362,11 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             if(jQuery('#T010419').val() == 'T01041902'){
               //hide stuff
               jQuery('#T010420').parent().parent().hide();
+              jQuery('#T010420').val('NA');
               jQuery('#T010421').parent().parent().hide();
+              jQuery('#T010421').val('NA');
               jQuery('#T010422').parent().parent().hide();
+              jQuery('#T010422').val('');
             }
             else{
               //show
@@ -1366,10 +1379,15 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             if(jQuery('#T010423').val() == 'T01042302'){
               //hide stuff
               jQuery('#T010424').parent().parent().hide();
+              jQuery('#T010424').val('NA');
               jQuery('#T010425').parent().parent().hide();
+              jQuery('#T010425').val('NA');
               jQuery('#T010426').parent().parent().hide();
+              jQuery('#T010426').val('NA');
               jQuery('#T010427').parent().parent().hide();
+              jQuery('#T010427').val('');
               jQuery('#T010428').parent().parent().hide();
+              jQuery('#T010428').val('');
             }
             else{
               //show
@@ -1384,10 +1402,15 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             if(jQuery('#T010633').val() == 'T01063302'){
               //hide stuff
               jQuery('#T010634').parent().parent().hide();
+              jQuery('#T010634').val('');
               jQuery('#T010635').parent().parent().hide();
+              jQuery('#T010635').val('NA');
               jQuery('#T010636').parent().parent().hide();
+              jQuery('#T010636').val('NA');
               jQuery('#T010637').parent().parent().hide();
+              jQuery('#T010637').val('NA');
               jQuery('#T010638').parent().parent().hide();
+              jQuery('#T010638').val('NA');
             }
             else{
               //show

@@ -115,29 +115,6 @@ OBJ_CONFLICT['T01063301']['CONFLICT']['T010634']['']['ERROR'] = 'Monogram Text i
 
 /** ####  END CONFLICT CODE - T01024401  #### **/
 
-/** #### START CONFLICT CODE - T01020201 #### **/
-
-OBJ_CONFLICT['T01020201'] = {};
-OBJ_CONFLICT['T01020201']['CONFLICT'] = {};
-
-/** start conflicts -  T010203 **/
-OBJ_CONFLICT['T01020201']['CONFLICT']['T010203'] = {};
-
-OBJ_CONFLICT['T01020201']['CONFLICT']['T010203']['T01020322'] = {};
-OBJ_CONFLICT['T01020201']['CONFLICT']['T010203']['T01020322']['ERROR'] = 'Peak lapel DB 8cm cannot be selected with 2 button closure';
-
-OBJ_CONFLICT['T01020201']['CONFLICT']['T010203']['T01020323']={};
-OBJ_CONFLICT['T01020201']['CONFLICT']['T010203']['T01020323']['ERROR'] = 'Peak lapel DB 9cm cannot be selected with 2 button closure';
-
-OBJ_CONFLICT['T01020201']['CONFLICT']['T010203']['T01020309'] = {};
-OBJ_CONFLICT['T01020201']['CONFLICT']['T010203']['T01020309']['ERROR'] = 'Peak lapel DB 10cm cannot be selected with 2 button closure';
-
-OBJ_CONFLICT['T01020201']['CONFLICT']['T010203']['T01020324']={};
-OBJ_CONFLICT['T01020201']['CONFLICT']['T010203']['T01020324']['ERROR'] = 'Peak lapel DB 11cm cannot be selected with 2 button closure';
-/**  end conflicts -  T010203  **/
-
-/** ####  END CONFLICT CODE - T01020201  #### **/
-
 
 /** #### START CONFLICT CODE - T01020101 #### **/
 
@@ -209,47 +186,11 @@ OBJ_CONFLICT['T01020202']['CONFLICT'] = [];
 /** start conflicts -  T010203 **/
 OBJ_CONFLICT['T01020202']['CONFLICT']['T010203']= [];
 
-OBJ_CONFLICT['T01020202']['CONFLICT']['T010203']['T01020322']={};
-OBJ_CONFLICT['T01020202']['CONFLICT']['T010203']['T01020322']['ERROR'] = 'Peak lapel DB 8cm cannot be selected with 3 button closure';
-
-OBJ_CONFLICT['T01020202']['CONFLICT']['T010203']['T01020323']={};
-OBJ_CONFLICT['T01020202']['CONFLICT']['T010203']['T01020323']['ERROR'] = 'Peak lapel DB 9cm cannot be selected with 3 button closure';
-
-OBJ_CONFLICT['T01020202']['CONFLICT']['T010203']['T01020309']={};
-OBJ_CONFLICT['T01020202']['CONFLICT']['T010203']['T01020309']['ERROR'] = 'Peak lapel DB 10cm cannot be selected with 3 button closure';
-
-OBJ_CONFLICT['T01020202']['CONFLICT']['T010203']['T01020324']={};
-OBJ_CONFLICT['T01020202']['CONFLICT']['T010203']['T01020324']['ERROR'] = 'Peak lapel DB 11cm cannot be selected with 3 button closure';
-
 OBJ_CONFLICT['T01020202']['CONFLICT']['T010203']['T01020320']={};
 OBJ_CONFLICT['T01020202']['CONFLICT']['T010203']['T01020320']['ERROR'] = 'Peak lapel 11cm cannot be selected with 3 button closure';
 /**  end conflicts -  T010203  **/
 
 /** ####  END CONFLICT CODE -  T01020202  #### **/
-
-
-/** #### START CONFLICT CODE - T01020204 #### **/
-
-OBJ_CONFLICT['T01020204'] = {};
-OBJ_CONFLICT['T01020204']['CONFLICT'] = [];
-
-/** start conflicts -  T010203 **/
-OBJ_CONFLICT['T01020204']['CONFLICT']['T010203']= [];
-
-OBJ_CONFLICT['T01020204']['CONFLICT']['T010203']['T01020322']={};
-OBJ_CONFLICT['T01020204']['CONFLICT']['T010203']['T01020322']['ERROR'] = 'Peak lapel DB 8cm cannot be selected with 1 button closure';
-
-OBJ_CONFLICT['T01020204']['CONFLICT']['T010203']['T01020323']={};
-OBJ_CONFLICT['T01020204']['CONFLICT']['T010203']['T01020323']['ERROR'] = 'Peak lapel DB 9cm cannot be selected with 1 button closure';
-
-OBJ_CONFLICT['T01020204']['CONFLICT']['T010203']['T01020309']={};
-OBJ_CONFLICT['T01020204']['CONFLICT']['T010203']['T01020309']['ERROR'] = 'Peak lapel DB 10cm cannot be selected with 1 button closure';
-
-OBJ_CONFLICT['T01020204']['CONFLICT']['T010203']['T01020324']={};
-OBJ_CONFLICT['T01020204']['CONFLICT']['T010203']['T01020324']['ERROR'] = 'Peak lapel DB 11cm cannot be selected with 1 button closure';
-/**  end conflicts -  T010203  **/
-
-/** ####  END CONFLICT CODE -  T01020204  #### **/
 
 
 /** #### START CONFLICT CODE - T01020203 #### **/
@@ -259,18 +200,6 @@ OBJ_CONFLICT['T01020203']['CONFLICT'] = [];
 
 /** start conflicts -  T010203 **/
 OBJ_CONFLICT['T01020203']['CONFLICT']['T010203']= [];
-
-OBJ_CONFLICT['T01020203']['CONFLICT']['T010203']['T01020322']={};
-OBJ_CONFLICT['T01020203']['CONFLICT']['T010203']['T01020322']['ERROR'] = 'Peak lapel DB 8cm cannot be selected with 3 button rollover closure';
-
-OBJ_CONFLICT['T01020203']['CONFLICT']['T010203']['T01020323']={};
-OBJ_CONFLICT['T01020203']['CONFLICT']['T010203']['T01020323']['ERROR'] = 'Peak lapel DB 9cm cannot be selected with 3 button rollover closure';
-
-OBJ_CONFLICT['T01020203']['CONFLICT']['T010203']['T01020309']={};
-OBJ_CONFLICT['T01020203']['CONFLICT']['T010203']['T01020309']['ERROR'] = 'Peak lapel DB 10cm cannot be selected with 3 button rollover closure';
-
-OBJ_CONFLICT['T01020203']['CONFLICT']['T010203']['T01020324']={};
-OBJ_CONFLICT['T01020203']['CONFLICT']['T010203']['T01020324']['ERROR'] = 'Peak lapel DB 11cm cannot be selected with 3 button rollover closure';
 
 OBJ_CONFLICT['T01020203']['CONFLICT']['T010203']['T01020320']={};
 OBJ_CONFLICT['T01020203']['CONFLICT']['T010203']['T01020320']['ERROR'] = 'Peak lapel 11cm cannot be selected with 3 button rollover closure';
@@ -309,19 +238,6 @@ OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020206']['ERROR'] = '4 butt
 /**  end conflicts -  T010202  **/
 
 /** ####  END CONFLICT CODE -  T01020310  #### **/
-
-
-/** #### START CONFLICT CODE - T01020309 #### **/
-
-OBJ_CONFLICT['T01020309'] = {};
-OBJ_CONFLICT['T01020309']['CONFLICT'] = [];
-
-OBJ_CONFLICT['T01020309']['CONFLICT']['T010221']= [];
-
-OBJ_CONFLICT['T01020309']['CONFLICT']['T010221']['Fabric']={};
-OBJ_CONFLICT['T01020309']['CONFLICT']['T010221']['Fabric']['ERROR'] = 'Fabric melton cannot be selected with peak lapel DB 10cm';
-
-/** ####  END CONFLICT CODE -  T01020309  #### **/
 
 
 /** #### START CONFLICT CODE - T01020311 #### **/
@@ -618,17 +534,18 @@ OBJ_CONFLICT['T01021004']['CONFLICT']['T010211']['T01021107']['ERROR'] = 'Jetted
 OBJ_CONFLICT['T01021004']['CONFLICT']['T010211']['T01021108']={};
 OBJ_CONFLICT['T01021004']['CONFLICT']['T010211']['T01021108']['ERROR'] = 'Jetted slanted side pockets cannot be selected with patch chest pocket';
 
+OBJ_CONFLICT['T01021004']['CONFLICT']['T010258'] = [];
 OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025801']={};
-OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025801']['ERROR'] = 'You can only select "jacket breast pocket" (T01025801,T01025802,T01025803,T01025804) with "patch pocket" (T01021004)';
+OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025801']['ERROR'] = 'You can only select jacket breast pocket (T01025801,T01025802,T01025803,T01025804) with patch pocket (T01021004)';
 
 OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025802']={};
-OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025802']['ERROR'] = 'You can only select "jacket breast pocket" (T01025801,T01025802,T01025803,T01025804) with "patch pocket" (T01021004)';
+OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025802']['ERROR'] = 'You can only select jacket breast pocket (T01025801,T01025802,T01025803,T01025804) with patch pocket (T01021004)';
 
 OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025803']={};
-OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025803']['ERROR'] = 'You can only select "jacket breast pocket" (T01025801,T01025802,T01025803,T01025804) with "patch pocket" (T01021004)';
+OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025803']['ERROR'] = 'You can only select jacket breast pocket (T01025801,T01025802,T01025803,T01025804) with patch pocket (T01021004)';
 
 OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025804']={};
-OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025804']['ERROR'] = 'You can only select "jacket breast pocket" (T01025801,T01025802,T01025803,T01025804) with "patch pocket" (T01021004)';
+OBJ_CONFLICT['T01021004']['CONFLICT']['T010258']['T01025804']['ERROR'] = 'You can only select jacket breast pocket (T01025801,T01025802,T01025803,T01025804) with patch pocket (T01021004)';
 
 /**  end conflicts -  T010211  **/
 
@@ -728,19 +645,12 @@ OBJ_CONFLICT['T01021305']['CONFLICT'] = [];
 OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']= [];
 OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021101']={};
 OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021101']['ERROR'] = 'Ticket pocket design must match side pocket design';
-
 OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021103']={};
 OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021103']['ERROR'] = 'Ticket pocket design must match side pocket design';
-OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021104']={};
-OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021104']['ERROR'] = 'Ticket pocket design must match side pocket design';
 OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021105']={};
 OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021105']['ERROR'] = 'Ticket pocket design must match side pocket design';
-OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021106']={};
-OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021106']['ERROR'] = 'Ticket pocket design must match side pocket design';
 OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021107']={};
 OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021107']['ERROR'] = 'Ticket pocket design must match side pocket design';
-OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021108']={};
-OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021108']['ERROR'] = 'Ticket pocket design must match side pocket design';
 
 /** ####  END CONFLICT CODE -  T01021305  #### **/
 
@@ -1550,6 +1460,42 @@ OBJ_CONFLICT['T01171402']['CONFLICT']['T011710']['Fabric']['ERROR'] = 'NA smokin
 
 /** ####  END CONFLICT CODE -  T01170404  #### **/
 
+
+/** #### START CONFLICT CODE - T01020207 #### **/
+
+OBJ_CONFLICT['T01020207'] = {};
+OBJ_CONFLICT['T01020207']['CONFLICT'] = [];
+
+/** start conflicts -  T010203 **/
+OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']= [];
+
+OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020306']={};
+OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020306']['ERROR'] = 'Lapel option cannot be selected with 2 button DB closure';
+
+OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020307']={};
+OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020307']['ERROR'] = 'Lapel option cannot be selected with 2 button DB closure';
+
+OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020308']={};
+OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020308']['ERROR'] = 'Lapel option cannot be selected with 2 button DB closure';
+
+OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020310']={};
+OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020310']['ERROR'] = 'Lapel option cannot be selected with 2 button DB closure';
+
+OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020311']={};
+OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020311']['ERROR'] = 'Lapel option cannot be selected with 2 button DB closure';
+
+OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020312']={};
+OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020312']['ERROR'] = 'Lapel option cannot be selected with 2 button DB closure';
+
+OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020321']={};
+OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020321']['ERROR'] = 'Lapel option cannot be selected with 2 button DB closure';
+
+OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020325']={};
+OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020325']['ERROR'] = 'Lapel option cannot be selected with 2 button DB closure';
+/**  end conflicts -  T010203  **/
+
+/** ####  END CONFLICT CODE -  T01020207  #### **/
+
 /** #### START CONFLICT CODE - T01020206 #### **/
 
 OBJ_CONFLICT['T01020206'] = {};
@@ -1558,50 +1504,26 @@ OBJ_CONFLICT['T01020206']['CONFLICT'] = [];
 /** start conflicts -  T010203 **/
 OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']= [];
 
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020311']={};
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020311']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 4 button DB closure';
-
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020312']={};
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020312']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 4 button DB closure';
-
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020313']={};
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020313']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 4 button DB closure';
-
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020314']={};
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020314']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 4 button DB closure';
-
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020315']={};
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020315']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 4 button DB closure';
-
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020316']={};
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020316']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 4 button DB closure';
-
 OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020306']={};
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020306']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 4 button DB closure';
-
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020317']={};
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020317']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 4 button DB closure';
-
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020310']={};
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020310']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 4 button DB closure';
-
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020318']={};
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020318']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 4 button DB closure';
-
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020319']={};
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020319']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 4 button DB closure';
-
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020320']={};
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020320']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 4 button DB closure';
+OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020306']['ERROR'] = 'Lapel option cannot be selected with 4 button DB closure';
 
 OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020307']={};
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020307']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 4 button DB closure';
+OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020307']['ERROR'] = 'Lapel option cannot be selected with 4 button DB closure';
 
 OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020308']={};
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020308']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 4 button DB closure';
+OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020308']['ERROR'] = 'Lapel option cannot be selected with 4 button DB closure';
+
+OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020311']={};
+OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020311']['ERROR'] = 'Lapel option cannot be selected with 4 button DB closure';
+
+OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020312']={};
+OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020312']['ERROR'] = 'Lapel option cannot be selected with 4 button DB closure';
 
 OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020321']={};
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020321']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 4 button DB closure';
+OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020321']['ERROR'] = 'Lapel option cannot be selected with 4 button DB closure';
+
+OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020325']={};
+OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020325']['ERROR'] = 'Lapel option cannot be selected with 4 button DB closure';
 /**  end conflicts -  T010203  **/
 
 /** ####  END CONFLICT CODE -  T01020206  #### **/
@@ -1628,50 +1550,26 @@ OBJ_CONFLICT['T01020205']['CONFLICT']['T010210']['T01021007']['ERROR'] = 'Patch 
 /** start conflicts -  T010203 **/
 OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']= [];
 
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020311']={};
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020311']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 6 button DB closure';
-
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020312']={};
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020312']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 6 button DB closure';
-
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020313']={};
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020313']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 6 button DB closure';
-
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020314']={};
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020314']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 6 button DB closure';
-
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020315']={};
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020315']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 6 button DB closure';
-
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020316']={};
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020316']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 6 button DB closure';
-
 OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020306']={};
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020306']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 6 button DB closure';
-
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020317']={};
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020317']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 6 button DB closure';
-
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020310']={};
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020310']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 6 button DB closure';
-
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020318']={};
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020318']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 6 button DB closure';
-
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020319']={};
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020319']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 6 button DB closure';
-
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020320']={};
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020320']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 6 button DB closure';
+OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020306']['ERROR'] = 'Lapel option cannot be selected with 6 button DB closure';
 
 OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020307']={};
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020307']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 6 button DB closure';
+OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020307']['ERROR'] = 'Lapel option cannot be selected with 6 button DB closure';
 
 OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020308']={};
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020308']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 6 button DB closure';
+OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020308']['ERROR'] = 'Lapel option cannot be selected with 6 button DB closure';
+
+OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020311']={};
+OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020311']['ERROR'] = 'Lapel option cannot be selected with 6 button DB closure';
+
+OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020312']={};
+OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020312']['ERROR'] = 'Lapel option cannot be selected with 6 button DB closure';
 
 OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020321']={};
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020321']['ERROR'] = ' Only peak lapel DB 10cm can be selected with 6 button DB closure';
+OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020321']['ERROR'] = 'Lapel option cannot be selected with 6 button DB closure';
+
+OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020325']={};
+OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020325']['ERROR'] = 'Lapel option cannot be selected with 6 button DB closure';
 /**  end conflicts -  T010203  **/
 
 /** ####  END CONFLICT CODE -  T01020205  #### **/
@@ -2945,20 +2843,10 @@ OBJ_CONFLICT['T01021302']['CONFLICT']['T010214']['T01021404']['ERROR'] = 'Only n
 
 OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']= [];
 
-OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021101']={};
-OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021101']['ERROR'] = 'Ticket pocket design must match side pocket design';
 OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021102']={};
-OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021102']['ERROR'] = 'Ticket pocket design must match side pocket design';
-OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021103']={};
-OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021103']['ERROR'] = 'Ticket pocket design must match side pocket design';
-OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021104']={};
-OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021104']['ERROR'] = 'Ticket pocket design must match side pocket design';
-OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021105']={};
-OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021105']['ERROR'] = 'Ticket pocket design must match side pocket design';
-OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021106']={};
-OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021106']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021102']['ERROR'] = 'Ticket pocket design conflicts with side pocket design';
 OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021108']={};
-OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021108']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021302']['CONFLICT']['T010211']['T01021108']['ERROR'] = 'Ticket pocket design conflicts with side pocket design';
 
 /**  end conflicts -  T010214  **/
 
@@ -2987,16 +2875,10 @@ OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']= [];
 
 OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021101']={};
 OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021101']['ERROR'] = 'Ticket pocket design must match side pocket design';
-OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021102']={};
-OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021102']['ERROR'] = 'Ticket pocket design must match side pocket design';
 OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021103']={};
 OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021103']['ERROR'] = 'Ticket pocket design must match side pocket design';
-OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021104']={};
-OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021104']['ERROR'] = 'Ticket pocket design must match side pocket design';
 OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021105']={};
 OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021105']['ERROR'] = 'Ticket pocket design must match side pocket design';
-OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021106']={};
-OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021106']['ERROR'] = 'Ticket pocket design must match side pocket design';
 OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021107']={};
 OBJ_CONFLICT['T01021303']['CONFLICT']['T010211']['T01021107']['ERROR'] = 'Ticket pocket design must match side pocket design';
 
@@ -3143,7 +3025,7 @@ OBJ_CONFLICT['T01052201']['CONFLICT'] = [];
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']= [];
 
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051701']={};
-OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051701']['ERROR'] = 'Cannot have plain hem with heel tape (T01051701) with monogram heel tape yes (T01052201)';
+OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051701']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
 
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051702']={};
 OBJ_CONFLICT['T01052201']['CONFLICT']['T010517']['T01051702']['ERROR'] = 'Monogram on heel tape can only be selected with plain hem with fabric heel tape';
@@ -3429,15 +3311,12 @@ OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021102']={};
 OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021102']['ERROR'] = 'Ticket pocket design must match side pocket design';
 OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021103']={};
 OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021103']['ERROR'] = 'Ticket pocket design must match side pocket design';
-OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021104']={};
-OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021104']['ERROR'] = 'Ticket pocket design must match side pocket design';
-OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021106']={};
-OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021106']['ERROR'] = 'Ticket pocket design must match side pocket design';
 OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021107']={};
 OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021107']['ERROR'] = 'Ticket pocket design must match side pocket design';
 OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021108']={};
 OBJ_CONFLICT['T01021306']['CONFLICT']['T010211']['T01021108']['ERROR'] = 'Ticket pocket design must match side pocket design';
 /** ####  END CONFLICT CODE -  T01021306  #### **/
+
 /** #### START CONFLICT CODE - T01021307 #### **/
 
 OBJ_CONFLICT['T01021307'] = {};
@@ -3451,10 +3330,6 @@ OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021102']={};
 OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021102']['ERROR'] = 'Ticket pocket design must match side pocket design';
 OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021105']={};
 OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021105']['ERROR'] = 'Ticket pocket design must match side pocket design';
-OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021104']={};
-OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021104']['ERROR'] = 'Ticket pocket design must match side pocket design';
-OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021106']={};
-OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021106']['ERROR'] = 'Ticket pocket design must match side pocket design';
 OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021107']={};
 OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021107']['ERROR'] = 'Ticket pocket design must match side pocket design';
 OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021108']={};
@@ -4958,16 +4833,6 @@ OBJ_CONFLICT['T01043102']['CONFLICT']['li-bl-o']['Please select'] = {};
 OBJ_CONFLICT['T01043102']['CONFLICT']['li-bl-o']['Please select']['ERROR'] = 'Please select cannot be chosen for lining';
 
 /** ####  END CONFLICT CODE - T01043102  #### **/
-
-/** #### START CONFLICT CODE - Elbow Patches #### **/
-OBJ_CONFLICT['T01061501'] = {};
-OBJ_CONFLICT['T01061501']['CONFLICT'] = {};
-OBJ_CONFLICT['T01061501']['CONFLICT']['T010630'] = {};
-OBJ_CONFLICT['T01061501']['CONFLICT']['T010630']['No'] = {};
-OBJ_CONFLICT['T01061501']['CONFLICT']['T010630']['No']['ERROR'] = 'No cannot be chosen for Contrast Elbow Patches when Elbow Patches is Yes';
-
-/** ####  END CONFLICT CODE - Elbow Patches  #### **/
-
 
 /** #### START CONFLICT CODE - Elbow Patches #### **/
 OBJ_CONFLICT['T01061501'] = {};

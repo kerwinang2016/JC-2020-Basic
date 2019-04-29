@@ -16,60 +16,72 @@ var PDF_INVOICE_TEMPLATE = '4'
 var context = nlapiGetContext();
 var site = "https://system.na2.netsuite.com";
 if (context.getEnvironment() == 'SANDBOX') {
-  site = "https://system.netsuite.com"
+	site = "https://system.netsuite.com"
 }
-function suiteletAdvPdfPrinting(request, response){
-	var logoUrl = '';
 
+function suiteletAdvPdfPrinting(request, response) {
+	var logoUrl = '';
+	var vatreversecharge = '';
 	var recordId = request.getParameter('custparam_record_id');
 	var recordType = request.getParameter('custparam_record_type');
 	var templateId = request.getParameter('custparam_template');
 
 	var objTransaction = nlapiLoadRecord(recordType, recordId);
-    if(recordType == 'salesorder'){
-			var tailorId = objTransaction.getFieldValue('entity');
-			if(tailorId){
-				var tailorRecField = nlapiLookupField('customer', tailorId, ['custentity_avt_tailor_logo_url', 'currency']);
-				if(tailorRecField.currency){
-					var currencyRec = nlapiLoadRecord('currency', tailorRecField.currency);
-					currencySymbol = currencyRec.getFieldValue('displaysymbol');
-				}
-				logoUrl  = tailorRecField.custentity_avt_tailor_logo_url;
-				logoUrl = logoUrl.replace(/&/g, '&amp;');	
+	if (recordType == 'salesorder') {
+		var tailorId = objTransaction.getFieldValue('entity');
+		if (tailorId) {
+			var tailorRecField = nlapiLookupField('customer', tailorId, ['custentity_avt_tailor_logo_url', 'currency']);
+			if (tailorRecField.currency) {
+				var currencyRec = nlapiLoadRecord('currency', tailorRecField.currency);
+				currencySymbol = currencyRec.getFieldValue('displaysymbol');
 			}
-			
-		var prefmeasurement = nlapiLookupField('customer',objTransaction.getFieldValue('entity'),'custentity_preferredmeasurement');
-		if(prefmeasurement == '2'){
-			if(templateId == '14'){
+			logoUrl = tailorRecField.custentity_avt_tailor_logo_url;
+			logoUrl = logoUrl.replace(/&/g, '&amp;');
+		}
+
+		var prefmeasurement = nlapiLookupField('customer', objTransaction.getFieldValue('entity'), 'custentity_preferredmeasurement');
+		if (prefmeasurement == '2') {
+			if (templateId == '14') {
 				templateId = '15';
 
 			} else {
-			templateId = '12';
-	}
+				templateId = '12';
+			}
 		}
 	}
-		
+
+	if (recordType == 'invoice') {
+		var tailorId = objTransaction.getFieldValue('entity');
+		nlapiLogExecution('debug', 'tailorId', tailorId);
+		var vatListId = nlapiLookupField('customer', tailorId, 'custentity_vat_reverse_charge_message');
+		nlapiLogExecution('debug', 'vatListId', vatListId);
+		if (vatListId) {
+			vatreversecharge = nlapiLookupField('customlist_vat_reverse_charge', vatListId, 'name');
+		}
+
+	}
+
 	nlapiLogExecution('DEBUG', 'ps_sl_custom_adv_pdf_printing.js>objTransaction', JSON.stringify(objTransaction));
-  
+
 	var renderer = nlapiCreateTemplateRenderer();
 
 	var pdfHtmlTemplateDetails = getTemplateDetails(templateId);
 	var searchesArr = pdfHtmlTemplateDetails.searches;
 	if (!Function.isUndefinedNullOrEmpty(searchesArr)) {
-		
+
 		for (var int = 0; int < searchesArr.length; int++) {
 			var templateDetails = searchesArr[int];
 			var filterFieldValue = '';
 			if (templateDetails.searchvaluefield == 'internalid') {
-				filterFieldValue =  recordId;
+				filterFieldValue = recordId;
 			} else {
-				filterFieldValue =  objTransaction.getFieldValue(templateDetails.searchvaluefield);
+				filterFieldValue = objTransaction.getFieldValue(templateDetails.searchvaluefield);
 			}
-			
-			
+
+
 			if (!Function.isUndefinedNullOrEmpty(templateDetails.search)) {
 				var filters = [];
-				
+
 				if (!Function.isUndefinedNullOrEmpty(filterFieldValue)) {
 					if (!Function.isUndefinedNullOrEmpty(templateDetails.searchfilter)) {
 						if (!Function.isUndefinedNullOrEmpty(templateDetails.searchjoin)) {
@@ -80,13 +92,13 @@ function suiteletAdvPdfPrinting(request, response){
 					} else {
 						filters.push(new nlobjSearchFilter('internalid', null, 'anyof', filterFieldValue));
 					}
-					
+
 					var results = nlapiSearchRecord(null, templateDetails.search, filters, null);
 					if (templateDetails.isgroupedsearch == 'T') {
 
-						var dummyRecordForSearchResult =  nlapiCreateRecord('customrecord_dummy_record');
+						var dummyRecordForSearchResult = nlapiCreateRecord('customrecord_dummy_record');
 						var psObjectArray = [];
-						psObjectArray = generateSaveSearchObject (results, psObjectArray);
+						psObjectArray = generateSaveSearchObject(results, psObjectArray);
 
 						dummyRecordForSearchResult.setFieldValue('custrecord_json', JSON.stringify(psObjectArray));
 						if (!Function.isUndefinedNullOrEmpty(templateDetails.searchobject)) {
@@ -110,45 +122,45 @@ function suiteletAdvPdfPrinting(request, response){
 	// special processing to retrieve payment method value of the payments associated to the record
 	if (templateId == PDF_INVOICE_TEMPLATE) {
 		var paymentMethodObj = getPaymentMethod(objTransaction);
-		var dummyRecordPaymentMethod =  nlapiCreateRecord('customrecord_dummy_record');
+		var dummyRecordPaymentMethod = nlapiCreateRecord('customrecord_dummy_record');
 		dummyRecordPaymentMethod.setFieldValue('custrecord_json', JSON.stringify(paymentMethodObj));
 		renderer.addRecord('paymentmethod', dummyRecordPaymentMethod);
 	}
 	// end 
-	var templateXml = pdfHtmlTemplateDetails.xml;	
+	var templateXml = pdfHtmlTemplateDetails.xml;
 	templateXml = templateXml.replace("{replacelogoUrl}", logoUrl);
-	
+	templateXml = templateXml.replace("{replacevatreversecharge}", vatreversecharge);
+
 	renderer.setTemplate(templateXml);
 	renderer.addRecord('record', objTransaction);
 	// add subdiary support
 	var isOneWorld;
 	var companyInfo = nlapiLoadConfiguration('userpreferences'); //gets user preferences
 	var acctSubsidiary = companyInfo.getFieldValue('subsidiary'); //gets subsidiary from user preferences
-  
-  
-  
-	if(acctSubsidiary!=null){ //if subsidiary is not null
-	   isOneWorld = true; //account is a OneWorld account
-	}else{
-	   isOneWorld = false; //account is NOT a OneWorld account
+
+
+
+	if (acctSubsidiary != null) { //if subsidiary is not null
+		isOneWorld = true; //account is a OneWorld account
+	} else {
+		isOneWorld = false; //account is NOT a OneWorld account
 	}
 	if (isOneWorld) {
 		var subsidiary = objTransaction.getFieldValue('subsidiary');
 		if (!Function.isUndefinedNullOrEmpty(subsidiary)) {
-			var subsidiaryObj =  nlapiLoadRecord('subsidiary', subsidiary);
+			var subsidiaryObj = nlapiLoadRecord('subsidiary', subsidiary);
 			renderer.addRecord('subsidiary', subsidiaryObj);
 		}
 	}
 
 	var xml = renderer.renderToString();
-    xml = xml.replace('system.netsuite.com','system.na2.netsuite.com');
-  nlapiLogExecution('DEBUG', 'ps_sl_custom_adv_pdf_printing.js>xml', xml);
+	xml = xml.replace('system.netsuite.com', 'system.na2.netsuite.com');
+	nlapiLogExecution('DEBUG', 'ps_sl_custom_adv_pdf_printing.js>xml', xml);
 
 	nlapiLogExecution('DEBUG', 'USAGE REMAINING BEFORE', nlapiGetContext().getRemainingUsage());
 	var file = nlapiXMLToPDF(xml);
 	nlapiLogExecution('DEBUG', 'USAGE REMAINING AFTER', nlapiGetContext().getRemainingUsage());
 
-	response.setContentType('PDF', objTransaction.getFieldValue('tranid')+'.pdf', 'inline');
+	response.setContentType('PDF', objTransaction.getFieldValue('tranid') + '.pdf', 'inline');
 	response.write(file.getValue());
 }
-

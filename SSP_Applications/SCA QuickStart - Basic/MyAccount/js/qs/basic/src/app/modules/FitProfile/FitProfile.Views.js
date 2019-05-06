@@ -25,14 +25,21 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 		, events: {
 			'change select#clients-options': 'getFitProfile'
 			, 'change select#profiles-options': 'getProfileDetails'
+			, 'change select#alteration-options': 'getAlterationsDetail' //Added salman 4/3/2019 alteration
 			, 'click [data-action=remove-rec]': 'removeRec'
+			, 'click [id=alteration-modal-remove]': 'removeAlterationRec' //Added salman 4/4/2019 alteration
+			, 'click [id=alteration-modal-print]': 'printAlterationRec' //Added salman 4/4/2019 alteration
+			, 'click [id=alteration-modal-download]': 'downloadAlterationRec' //Added salman 4/4/2019 alteration
 			, 'click [data-action=copy-profile]': 'copyProfile'
 			, 'click [data-action=add-profile]': 'addProfile'
+			, 'click [data-action=add-alterations]': 'addAlterations' //Added salman 4/1/2019 alteration
 			, 'click [id=swx-order-client-search]': 'swxOrderClientSearch'
 			, 'click [id=swx-client-profile-select]': 'swxClientProfileSelect'
 			, 'click [id=swx-back-to-client-profile-search]': 'swxBackToClientSearch'
 			, 'click [id=swx-fitprofile-butt-add]': 'swxFitProfileAdd'
+			, 'click [id=swx-alterations-add]': 'swxAlterationsAdd' //Added salman 4/1/2019 alteration
 			, 'click [id=swx-fitprofile-viewedit]': 'swxFitProfileViewEdit'
+			, 'click [id=swx-alteration-viewedit]': 'swxAlterationsViewEdit' //Added salman 4/3/2019 alteration
 			, 'click [id=swx-fitprofile-copy]': 'swxFitProfileCopy'
 			, 'click [id=swx-fitprofile-remove]': 'swxFitProfileRemove'
 
@@ -43,6 +50,9 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			, 'blur [name="oh_dateneeded"]': 'updateDateNeeded'
 			,	'change [data-name="flag"]': 'updateFlag'
 			, 'click #modalContainerSave' : 'updateFlagDetails'
+			,	'click [id=alteration-modal-submit]': 'submitAlterationForm' //added salman 4/2/2019 alteration
+			,	'click [id=alteration-modal-submit-with-pdf]': 'submitAlterationFormAndGenratePDF' //added salman 4/2/2019 alteration
+			,	'click [id=generate-alterations-form]': 'generateAlterationsForm' //added salman 4/2/2019 alteration
 			//, 'keypress [id="swx-order-client-name"]':'keyPressSwxOrderClientSearch'
 			//, 'keypress [id="swx-order-client-email"]':'keyPressSwxOrderClientSearch'
 			//, 'keypress [id="swx-order-client-phone"]':'keyPressSwxOrderClientSearch'
@@ -98,7 +108,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 
 			jQuery.get(_.getAbsoluteUrl('services/bodyBlockMeasurements.ss')).done(function (data) {
 				window.bodyBlockMeasurements = data;
-				});
+            });
 			 //JHD-11 Start
 			var param = new Object();
 			param.type = "get_favourite_fit_tools";
@@ -365,6 +375,14 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			$("[id='butt-modal']").click();
 		}
 
+		, swxAlterationsAdd: function (e) { //Added Salman 4/1/2019 alteration
+			var $ = jQuery;
+			jQuery("a[id='swx-alterations-dropdown-add']").click();
+			$("[id='alteration-modal']").click();
+			$("[id='alteration-modal-submit']").show();
+			$("[id='alteration-modal-submit-with-pdf']").show();
+		}
+
 		, swxFitProfileCopy: function (e) {
 			var $ = jQuery;
 			jQuery("[id='swx-fitprofile-dropdown-copy']").click();
@@ -439,6 +457,23 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 
 		}
 
+		, swxAlterationsViewEdit: function (e) {
+			var self = this;
+			var $ = jQuery;
+			var selectedAlterationIdValue = e.target.getAttribute('swx-alteration-id');
+			$("select[id='alteration-options']").val(selectedAlterationIdValue);
+			$("select[id='alteration-options']").change();
+
+			$("[id='alteration-modal-submit']").show();
+			$("[id='alteration-modal-remove']").show();
+			$("[id='alteration-modal-print']").show();
+			$("[id='alteration-modal-download']").show();
+			$("[id='alteration-modal']").click();
+			
+
+		}
+
+
 		, swxFitProfileModalButtSubmit: function (e) {
 			var $ = jQuery;
 			jQuery("[id='swx-fitprofile-submit']").click();
@@ -459,15 +494,17 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			jQuery("[id='swx-fitprofile-copy']").click();
 		}
 
-		, getFitProfile: function (e) {
-			var clientID = jQuery(e.target).val();
+		, getFitProfile: function (e, clientID) {
+			if(!clientID){ //Added salman 4/3/2019 alteration
+				clientID = jQuery(e.target).val();
+			}
 			var self = this;
 			this.model.set("current_profile", null);
 			this.model.set("current_client", clientID);
 
 			this.model.on("afterProfileFetch", function () {
 				jQuery("#fit-profile").html(SC.macros.fitProfileOptionDropdown(self.model.profile_collection, clientID));
-
+				jQuery("#alterations-form").html(SC.macros.alterationsOptionDropdown(self.model.alteration_collection, clientID)); //Added salman 4/1/2019 alteration
 				var profileView = new Views.Profile({
 					model: new ProfileModel()
 					, application: self.application
@@ -512,6 +549,27 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			this.getProfileDetails(e);
 			jQuery("#profiles-options").val("");
 		}
+
+		, addAlterations: function (e) {
+			var clientID = jQuery("#clients-options").val();
+			this.model.set("current_client", clientID);
+
+			//var currentClientId = this.model.get("current_client");
+			//this.model.set("current_client", currentClientId);
+
+			var profileView = new Views.Profile({
+				model: new ProfileModel()
+				, application: this.application
+				, fitprofile: this.model
+			});
+
+			profileView.render();
+			jQuery("#profile-section").html(profileView.$el);
+
+			this.model.set("current_profile", null);
+			this.getAlterationsDetail(e);
+			jQuery("#profiles-options").val("");
+		}
 		, removeRec: function (e) {
 			e.preventDefault();
 			// April CSD Issue #036
@@ -533,14 +591,67 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			}
 		}
 
+		, removeAlterationRec: function (e) { //Added salman 4/4/2019 alteration
+			var self = this;
+			e.preventDefault();
+			var message = _("Are you sure that you want to delete this alteration form?").translate()
+				var isTrue = window.confirm(message);
+
+			if (isTrue) {
+				var id = jQuery("#alteration_rec_id").val();
+
+				if(id){			
+					var clientId = jQuery('#alteration_client_id').val(); 
+					var param = new Object();
+					param.type = "remove_alteration";
+					param.id = id;
+				_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "POST", param).always(function (data) {
+						if (data.status) {
+								var profileView = new Views.Profile({
+									model: new ProfileModel()
+									, application: self.application
+									, fitprofile: self.model
+								});
+								profileView.render();
+								jQuery("[id='alteration-modal-close']").click();
+								setTimeout(function() {
+								self.model.fetchalterations();
+								self.getFitProfile('', clientId);
+									
+								}, 1000);
+						}
+				});
+				}
+			}
+		}
+
+		, printAlterationRec: function (e) { //Added salman 4/4/2019 alteration
+				var alterationRecId = jQuery( "#alteration_rec_id" ).val();
+				if (alterationRecId) {
+					var scriptLink = 'https://forms.netsuite.com/app/site/hosting/scriptlet.nl?script=279&deploy=1&compid=3857857_SB1&h=3626d9a04cfa34c16466';
+					var link = scriptLink + '&recid=' + alterationRecId;
+					window.open(link);
+				}
+		}
+
+		, downloadAlterationRec: function(e){
+				var alterationRecId = jQuery( "#alteration_rec_id" ).val();
+				if (alterationRecId) {
+					var scriptLink = 'https://forms.netsuite.com/app/site/hosting/scriptlet.nl?script=279&deploy=1&compid=3857857_SB1&h=3626d9a04cfa34c16466';
+					var link = scriptLink + '&recid=' + alterationRecId;
+					window.open(link);
+				}
+		}
+
 		, getProfileDetails: function (e) {
 			var profileID = jQuery(e.target).val();
 			var self = this;
 			this.model.set("current_profile", profileID);
 			var $ = jQuery;
 
-			if (profileID) {
+			if (profileID) { 
 				jQuery("#profile-actions").html("<a id='swx-fitprofile-dropdown-add' data-action='add-profile' data-toggle='show-in-modal' data-type='profile'>Add</a> | <a id='swx-fitprofile-dropdown-copy' data-action='copy-profile' data-type='profile' data-id='" + profileID + "'>Copy</a> | <a id='swx-fitprofile-dropdown-remove' data-action='remove-rec' data-type='profile' data-id='" + profileID + "'>Remove</a>");
+				
 				var profileView = new Views.Profile({
 					model: self.model.profile_collection.get(self.model.get("current_profile"))
 					, application: self.application
@@ -565,6 +676,102 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 					jQuery("#profile-section").html("");
 				}
 			}
+		}
+
+		, getAlterationsDetail: function (e) {
+			var self = this;
+			var alterationID = jQuery(e.target).val();
+			var $ = jQuery;
+
+			if (alterationID) { 
+				var clientID = jQuery("#clients-options").val();
+				this.model.set("current_client", clientID);
+	
+				//var currentClientId = this.model.get("current_client");
+				//this.model.set("current_client", currentClientId);
+	
+				var profileView = new Views.Profile({
+					model: new ProfileModel()
+					, application: this.application
+					, fitprofile: this.model
+				});
+	
+				profileView.render();
+				jQuery("#profile-section").html(profileView.$el);
+	
+				this.model.set("current_profile", null);
+				var dataArr;
+				var alterationsData = self.model.alteration_collection;
+				jQuery("#alterations-actions").html("<a id='swx-alterations-dropdown-add' data-action='add-alterations' data-toggle='show-in-modal' data-type='profile'>Add</a> | <a id='swx-fitprofile-dropdown-copy' data-action='copy-profile' data-type='profile' data-id='" + alterationID + "'>Copy</a> | <a id='swx-fitprofile-dropdown-remove' data-action='remove-rec' data-type='profile' data-id='" + alterationID + "'>Remove</a>");
+				
+				alterationsData.each(function(alteration){
+					var alterationInternalId = alteration.get('internalid');
+						if(alterationInternalId == alterationID){
+							dataArr = alteration.get('custrecord_alterations_measure_values');
+							//break;
+						}
+				});
+
+				if(dataArr){
+					var obj = {};
+					dataArr = dataArr.replace(/\+/g, " ");
+					dataArr = JSON.parse(dataArr);			
+					var clientName = jQuery('#fitProfileClientName').html();
+
+					for(var i = 0; i < dataArr.length; i++){
+						if(dataArr[i].name == "alteration_jkt"){
+							var jktNumOfSectionGenerate = dataArr[i].value ? dataArr[i].value : 0;
+						} else if(dataArr[i].name == "alteration_trs"){
+							obj.trsNumOfSectionGenerate = dataArr[i].value ? dataArr[i].value : 0;
+						}  else if(dataArr[i].name == "alteration_wst"){
+							obj.wstNumOfSectionGenerate = dataArr[i].value ? dataArr[i].value : 0;
+						}  else if(dataArr[i].name == "alteration_sht"){
+							obj.shtNumOfSectionGenerate = dataArr[i].value ? dataArr[i].value : 0;
+						}  else if(dataArr[i].name == "alteration_ovc"){
+							var ovcNumOfSectionGenerate = dataArr[i].value ? dataArr[i].value : 0;
+							obj.jckOvcNumGenerate = parseInt(jktNumOfSectionGenerate) + parseInt(ovcNumOfSectionGenerate);
+							break;
+						} 
+					}
+					jQuery("#profile-details").html(SC.macros.alterationsForm(self.model, '', clientName));
+					jQuery("#alterations-measurements-html").html(SC.macros.alterationsMeasurement(self.model, obj));
+					if(obj.trsNumOfSectionGenerate != 0 || obj.wstNumOfSectionGenerate != 0 || obj.shtNumOfSectionGenerate != 0 || obj.jckOvcNumGenerate != 0){
+					jQuery("[id='modal-fotar-form']").show();
+					jQuery("[id='generate-alterations-form']").hide();
+					jQuery("[id='alteration_jkt']").prop("disabled", true);
+					jQuery("[id='alteration_trs']").prop("disabled", true);
+					jQuery("[id='alteration_sht']").prop("disabled", true);
+					jQuery("[id='alteration_ovc']").prop("disabled", true);
+					jQuery("[id='alteration_wst']").prop("disabled", true);
+					}
+					
+					for(var i=0; i < dataArr.length; i++){
+							jQuery("[id='" + dataArr[i].name + "']").val(dataArr[i].value);
+						
+					}
+					jQuery("#alteration_rec_id").val(alterationID);
+					var image = jQuery('#site-logo img')[0];
+					var imageSrc = image.src;
+					if(imageSrc){
+						jQuery("#image-logo-id").attr("src", imageSrc);
+					}
+
+				}
+				
+
+			} else {
+					jQuery("#alterations-actions").html("<a id='swx-alterations-dropdown-add' data-action='add-alterations' data-toggle='show-in-modal' data-type='profile'>Add</a>");
+					// check if event was triggered by add button
+					if (e.target.innerText === "Add") {
+						//display profile details
+						var clientName = jQuery('#fitProfileClientName').html();
+						jQuery("#profile-details").html(SC.macros.alterationsForm(self.model, 'add', clientName));
+					} else {
+						//hide profile section
+						jQuery("#profile-section").html("");
+					}
+			}				
+			
 		}
 
 		, resetForm: function () {
@@ -672,6 +879,129 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 					});
 					jQuery("#profile-actions").html("<a href='/fitprofile' id='swx-fitprofile-dropdown-add' data-action='add-profile' data-toggle='show-in-modal' data-type='profile'>Add</a> | <a id='swx-fitprofile-dropdown-copy' data-action='copy-profile' data-type='profile' data-id='" + resData.id + "'>Copy</a> | <a id='swx-fitprofile-dropdown-remove' data-action='remove-rec' data-type='profile' data-id='" + resData.id + "'>Remove</a>");
 				}, 500);
+			}
+		}
+
+		, submitAlterationForm: function(e){ //Added salman 4/2/2019 alteration
+			var self = this;
+			var alterationInternalId;
+			jQuery('input:disabled').removeAttr('disabled'); 
+			jQuery('select:disabled').removeAttr('disabled'); 
+			var formValues = jQuery('#alteration-form').serialize().split("&");
+			var clientId = jQuery('#alteration_client_id').val(); 
+			var dataToSend = new Array();
+			for(var i =0; i< formValues.length; i++){
+				var obj = {};
+				var formValue = formValues[i];
+				var field = formValue.split("=")[0]
+					, value = formValue.split("=")[1];
+					if(field == "alteration_rec_id" && value != '-999'){
+						alterationInternalId = value;
+					} else {
+						obj.name = field;
+						obj.value = value;
+						dataToSend.push(obj);	
+					}			
+			};
+			var param = new Object();
+			var tempArr = [];
+			tempArr.push({"name": "custrecord_alterations_client" , "value": clientId , "type": "field"});
+			tempArr.push({"name": "custrecord_alterations_measure_values" , "value": JSON.stringify(dataToSend) , "type": "field"});
+			tempArr.push({"name": "name" , "value": "Alterations Form" , "type": "field"});
+			param.data = JSON.stringify(tempArr);
+			
+			if(alterationInternalId){
+				param.type = "update_alteration";
+				param.id = alterationInternalId;
+
+			} else {
+				param.type = "create_alteration_form";
+				param.id = clientId;
+			}
+			_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "POST", param).always(function (data) {
+				if (data.status) {
+					var profileView = new Views.Profile({
+						model: new ProfileModel()
+						, application: self.application
+						, fitprofile: self.model
+					});
+					profileView.render();
+					jQuery("[id='alteration-modal-close']").click();
+					setTimeout(function() {
+					self.model.fetchalterations();
+					self.getFitProfile('', clientId);
+						
+					}, 1000);
+				}
+			});
+
+		}
+
+		, submitAlterationFormAndGenratePDF: function(e){ //Added salman 4/2/2019 alteration
+			var self = this;
+			var alterationInternalId;
+			jQuery('input:disabled').removeAttr('disabled'); 
+			jQuery('select:disabled').removeAttr('disabled'); 
+			var formValues = jQuery('#alteration-form').serialize().split("&");
+			var clientId = jQuery('#alteration_client_id').val(); 
+			var dataToSend = new Array();
+			for(var i =0; i< formValues.length; i++){
+				var obj = {};
+				var formValue = formValues[i];
+				var field = formValue.split("=")[0]
+					, value = formValue.split("=")[1];
+					if(field == "alteration_rec_id" && value != '-999'){
+						alterationInternalId = value;
+					} else {
+						obj.name = field;
+						obj.value = value;
+						dataToSend.push(obj);	
+					}			
+			};
+			var param = new Object();
+			var tempArr = [];
+			tempArr.push({"name": "custrecord_alterations_client" , "value": clientId , "type": "field"});
+			tempArr.push({"name": "custrecord_alterations_measure_values" , "value": JSON.stringify(dataToSend) , "type": "field"});
+			tempArr.push({"name": "name" , "value": "Alterations Form" , "type": "field"});
+			param.data = JSON.stringify(tempArr);
+			param.type = "create_alteration_form";
+			param.id = clientId;
+
+			_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "POST", param).always(function (data) {
+				data = JSON.parse(data.responseText);
+				if (data.status) {
+					var profileView = new Views.Profile({
+						model: new ProfileModel()
+						, application: self.application
+						, fitprofile: self.model
+					});
+					profileView.render();
+					jQuery("[id='alteration-modal-close']").click();
+					setTimeout(function() {
+					self.model.fetchalterations();
+					self.getFitProfile('', clientId);
+					var scriptLink = 'https://forms.netsuite.com/app/site/hosting/scriptlet.nl?script=279&deploy=1&compid=3857857_SB1&h=3626d9a04cfa34c16466';
+					var link = scriptLink + '&recid=' + data.id;
+					window.open(link);
+						
+					}, 1000);
+				}
+			});
+
+		}
+		,	generateAlterationsForm: function() {
+			var obj = {};
+			jktNumOfSectionGenerate = jQuery("[id='alteration_jkt']").val() ? jQuery("[id='alteration_jkt']").val() : 0;
+			obj.trsNumOfSectionGenerate = jQuery("[id='alteration_trs']").val() ? jQuery("[id='alteration_trs']").val() : 0;
+			obj.wstNumOfSectionGenerate = jQuery("[id='alteration_wst']").val() ? jQuery("[id='alteration_wst']").val() : 0;
+			obj.shtNumOfSectionGenerate = jQuery("[id='alteration_sht']").val() ? jQuery("[id='alteration_sht']").val() : 0;
+			var ovcNumOfSectionGenerate = jQuery("[id='alteration_ovc']").val() ? jQuery("[id='alteration_ovc']").val() : 0;
+			obj.jckOvcNumGenerate = parseInt(jktNumOfSectionGenerate) + parseInt(ovcNumOfSectionGenerate);
+			jQuery("#alterations-measurements-html").html(SC.macros.alterationsMeasurement(this.model, obj));
+			if(obj.trsNumOfSectionGenerate != 0 || obj.wstNumOfSectionGenerate != 0 || obj.shtNumOfSectionGenerate != 0 || obj.jckOvcNumGenerate != 0){
+			jQuery("[id='modal-fotar-form']").show();
+			} else {
+				jQuery("[id='modal-fotar-form']").hide();
 			}
 		}
 	});

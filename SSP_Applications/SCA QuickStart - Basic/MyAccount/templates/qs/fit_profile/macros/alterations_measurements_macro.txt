@@ -1,0 +1,609 @@
+<% registerMacro('alterationsMeasurement', function (model, objNumOFGenerate) { 
+    var clientId = model.get("current_client");
+if(objNumOFGenerate){
+    var notesFlag = false;
+    var infoFlag = false;
+    var trsNumOfSectionGenerate = parseInt(objNumOFGenerate.trsNumOfSectionGenerate);
+    var wstNumOfSectionGenerate = parseInt(objNumOFGenerate.wstNumOfSectionGenerate);
+    var shtNumOfSectionGenerate = parseInt(objNumOFGenerate.shtNumOfSectionGenerate);
+    var jckOvcNumGenerate = parseInt(objNumOFGenerate.jckOvcNumGenerate);
+    if(trsNumOfSectionGenerate != 0 || wstNumOfSectionGenerate != 0 || shtNumOfSectionGenerate != 0 || jckOvcNumGenerate != 0){
+        notesFlag = true;
+        infoFlag = true;
+    }
+
+}
+%>
+<% if(infoFlag){%>
+<br style="clear:both;">
+<hr>
+<br>
+
+<div class="col-md-6 col-sm-12 col-xs-12">
+    <p style="text-align: center;margin-bottom: 22px;"><b>Alterations</b></p>
+</div>
+<div class="col-md-6 col-sm-12 col-xs-12">
+    <p style="text-align: center;margin-bottom: 22px;"><b>Fit Profile Updates</b></p>
+</div>
+<% } %>
+<% if(jckOvcNumGenerate && jckOvcNumGenerate != 0){ %>
+<% for(var i = 0; i < jckOvcNumGenerate; i++){ %>
+<div class="col-md-12 col-sm-12 col-xs-12 section-two-info">
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for=""><b>JACKET/OVERCOAT</b></label>
+            <input style="width: 180px;margin-bottom: 20px;" type="text" class="form-control pull-right"
+                id="alteration_jck_ovc_<%= i %>" name="alteration_jck_ovc_<%= i %>" placeholder="Insert item details">
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 section-two-fields">
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Erect/Stooping</label>
+            <input type="text" maxlength="24" class="form-control pull-right" id="alteration_erect_stooping_<%= i %>"
+                name="alteration_erect_stooping_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Sleeve Position</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_sleeve_<%= i %>"
+                name="alteration_sleeve_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Collar Height</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_collar_height_<%= i %>"
+                name="alteration_collar_height_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Shorten Lapels</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_shorten_lapels_<%= i %>"
+                name="alteration_shorten_lapels_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Shoulder Height</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_shoulder_height_<%= i %>"
+                name="alteration_shoulder_height_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Shoulder Position</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_shoulder_position_<%= i %>"
+                name="alteration_shoulder_position_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Shoulder Height</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_Shoulder_height2_<%= i %>"
+                name="alteration_Shoulder_height2_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="alterationClientName">Left Shoulder Height</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_left_shoulder_<%= i %>"
+                name="alteration_left_shoulder_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="Date">Back</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_back_<%= i %>"
+                name="alteration_back_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Right Shoulder Height</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_right_shoulder_<%= i %>"
+                name="alteration_right_shoulder_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Chest</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_Chest_<%= i %>"
+                name="alteration_Chest_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Closing Button Height</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_clos_btn_ht_<%= i %>"
+                name="alteration_clos_btn_ht_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Waist</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_waist_<%= i %>"
+                name="alteration_waist_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="alterationClientName">Skirt</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_skirt_<%= i %>"
+                name="alteration_skirt_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Hips</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_hips_<%= i %>"
+                name="alteration_hips_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Upper Arm</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_upper_arm_<%= i %>"
+                name="alteration_upper_arm_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Upper Arm</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_upper_arm2_<%= i %>"
+                name="alteration_upper_arm2_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Hand Width</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_hand_width_<%= i %>"
+                name="alteration_hand_width_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Hand Width</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_hand_width2_<%= i %>"
+                name="alteration_hand_width2_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Sway Back</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_sway_back_<%= i %>"
+                name="alteration_sway_back_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Jacket Length</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_jacket_length_<%= i %>"
+                name="alteration_jacket_length_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Stooped</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_stooped_<%= i %>"
+                name="alteration_stooped_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Sleeve Length</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_sleeve_length_<%= i %>"
+                name="alteration_sleeve_length_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Erect</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_erect_<%= i %>"
+                name="alteration_erect_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="Date">Other</label>
+            <input type="text"  maxlength="24" class="form-control pull-right" id="alteration_other_<%= i %>"
+                name="alteration_other_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        &nbsp;
+    </div>
+
+</div>
+<br style="clear:both;">
+<hr>
+<% } %>
+<% } %>
+
+<% if(trsNumOfSectionGenerate && trsNumOfSectionGenerate != 0){ %>
+<% for(var i = 0; i < trsNumOfSectionGenerate; i++){ %>
+<div class="col-md-12 col-sm-12 col-xs-12 section-three-info">
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for=""><b>TROUSER</b></label>
+            <input style="width: 180px;margin-bottom: 20px;" type="text" class="form-control pull-right"
+                id="alteration_trouser_<%= i %>" name="alteration_trouser_<%= i %>" placeholder="Insert item details">
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 section-three-fields">
+
+
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Waist</label>
+            <input type="text"  maxlength="24" class="form-control pull-right" id="alteration_Trouser_waist_<%= i %>"
+                name="alteration_Trouser_waist_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Total Rise</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_total_raise_<%= i %>"
+                name="alteration_total_raise_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Seat</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_seat_<%= i %>"
+                name="alteration_seat_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Front Rise</label>
+            <input type="text"  maxlength="24" class="form-control pull-right" id="alteration_front_rise_<%= i %>"
+                name="alteration_front_rise_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Hip</label>
+            <input type="text"  maxlength="24" class="form-control pull-right" id="alteration_trouser_hip_<%= i %>"
+                name="alteration_trouser_hip_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Back Rise</label>
+            <input type="text"  maxlength="24" class="form-control pull-right" id="alteration_back_rise_<%= i %>"
+                name="alteration_back_rise_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Crotch</label>
+            <input type="text"  maxlength="24" class="form-control pull-right" id="alteration_trouser_crotch_<%= i %>"
+                name="alteration_trouser_crotch_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Flat Seat</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_flat_seat_<%= i %>"
+                name="alteration_flat_seat_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12" style="clear:both;">
+        <div class="">
+            <label for="">Thigh</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_trouser_thigh_<%= i %>"
+                name="alteration_trouser_thigh_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        &nbsp;
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12" style="clear:both;">
+        <div class="">
+            <label for="">Knee</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_trouser_knee_<%= i %>"
+                name="alteration_trouser_knee_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        &nbsp;
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12" style="clear:both;">
+        <div class="">
+            <label for="">Hem</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_trouser_hem_<%= i %>"
+                name="alteration_trouser_hem_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        &nbsp;
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12" style="clear:both;">
+        <div class="">
+            <label for="">Length</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_trouser_length_<%= i %>"
+                name="alteration_trouser_length_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        &nbsp;
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12" style="clear:both;">
+        <div class="">
+            <label for="">Other</label>
+            <input type="text"  maxlength="24" class="form-control pull-right" id="alteration_trouser_other_<%= i %>"
+                name="alteration_trouser_other_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        &nbsp;
+    </div>
+</div>
+<br style="clear:both;">
+<hr>
+<% } %>
+<% } %>
+
+<% if(shtNumOfSectionGenerate && shtNumOfSectionGenerate != 0){ %>
+<% for(var i = 0; i < shtNumOfSectionGenerate; i++){ %>
+<div class="col-md-12 col-sm-12 col-xs-12 section-four-info">
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for=""><b>SHIRT</b></label>
+            <input style="width: 180px;margin-bottom: 20px;" type="text" class="form-control pull-right"
+                id="alteration_shirt_<%= i %>" name="alteration_shirt_<%= i %>" placeholder="Insert item details">
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 section-four-fields">
+
+
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Neck</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_shirt_neck_<%= i %>"
+                name="alteration_shirt_neck_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Chest</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_shirt_chest_<%= i %>"
+                name="alteration_shirt_chest_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Chest</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_shirt_chest1_<%= i %>"
+                name="alteration_shirt_chest1_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Shoulder</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_shirt_shoulder_<%= i %>"
+                name="alteration_shirt_shoulder_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class=""><label for="">Waist</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_waist1_<%= i %>"
+                name="alteration_waist1_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Waist</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_waist2_<%= i %>"
+                name="alteration_waist2_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Seat</label>
+            <input type="text"  maxlength="24" class="form-control pull-right" id="alteration_seat1_<%= i %>"
+                name="alteration_seat1_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Seat</label>
+            <input type="text"  maxlength="24" class="form-control pull-right" id="alteration_shirt_seat2_<%= i %>"
+                name="alteration_shirt_seat2_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Bicep</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_bicep_<%= i %>"
+                name="alteration_bicep_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Sleeve L</label>
+            <input type="text"  maxlength="24" class="form-control pull-right" id="alteration_shirt_sleeve_left_<%= i %>"
+                name="alteration_shirt_sleeve_left_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Cuff</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_cuff_<%= i %>"
+                name="alteration_cuff_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Sleeve R</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_shirt_sleeve_r_<%= i %>"
+                name="alteration_shirt_sleeve_r_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12" style="clear:both;">
+        <div class="">
+            <label for="">Sleeve Length</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_shirt_sleeve_length_<%= i %>"
+                name="alteration_shirt_sleeve_length_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        &nbsp;
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12" style="clear:both;">
+        <div class="">
+            <label for="">Length</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_shirt_length_<%= i %>"
+                name="alteration_shirt_length_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        &nbsp;
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12" style="clear:both;">
+        <div class="">
+            <label for="">Other</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_shirt_other_<%= i %>"
+                name="alteration_shirt_other_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        &nbsp;
+    </div>
+</div>
+<br style="clear:both;">
+<hr>
+<% } %>
+<% } %>
+
+<% if(wstNumOfSectionGenerate && wstNumOfSectionGenerate != 0){ %>
+<% for(var i = 0; i < wstNumOfSectionGenerate; i++){%>
+
+<div class="col-md-12 col-sm-12 col-xs-12 section-five-info">
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for=""><b>WAISTCOAT</b></label>
+            <input style="width: 180px;margin-bottom: 20px;" type="text" class="form-control pull-right"
+                id="alteration_waistcoat_<%= i %>" name="alteration_waistcoat_<%= i %>" placeholder="Insert item details">
+        </div>
+    </div>
+</div>
+<div class="col-md-12 col-sm-12 col-xs-12 section-five-fields">
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Chest</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_wc_chest_<%= i %>"
+                name="alteration_wc_chest_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Posture</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_wc_posture_<%= i %>"
+                name="alteration_wc_posture_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Waist</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_wc_waist_<%= i %>"
+                name="alteration_wc_waist_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Shoulder Height L</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_wc_shoulder_left_<%= i %>"
+                name="alteration_wc_shoulder_left_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Seat</label>
+            <input type="text"  maxlength="24" class="form-control pull-right" id="alteration_wc_seat_<%= i %>"
+                name="alteration_wc_seat_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Shoulder Height R</label>
+            <input type="text"  maxlength="24" class="form-control pull-right" id="alteration_wc_shoulder_r_<%= i %>"
+                name="alteration_wc_shoulder_r_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Back</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_wc_back_<%= i %>"
+                name="alteration_wc_back_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Armhole</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_wc_armhole_<%= i %>"
+                name="alteration_wc_armhole_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Length</label>
+            <input type="text"  maxlength="24" class="form-control pull-right" id="alteration_wc_length_<%= i %>"
+                name="alteration_wc_length_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="">
+            <label for="">Closing Button Height</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_wc_btn_<%= i %>"
+                name="alteration_wc_btn_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12" style="clear:both;">
+        <div class="">
+            <label for="">Shoulder</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_wc_shoulder_<%= i %>"
+                name="alteration_wc_shoulder_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        &nbsp;
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12" style="clear:both;">
+        <div class="">
+            <label for="">Other</label>
+            <input type="text" maxlength="24"  class="form-control pull-right" id="alteration_wc_other_<%= i %>"
+                name="alteration_wc_other_<%= i %>">
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        &nbsp;
+    </div>
+</div>
+<br style="clear:both;">
+<hr>
+<% } %>
+<% } %>
+<% if(notesFlag){%>
+<div class="col-md-12 col-sm-12 col-xs-12 section-six-info"><p><b style="margin-left: 15px;">Notes</b></p></div>
+<div class="col-md-12 col-sm-12 col-xs-12 section-six-fields">
+    <div class="col-md-6 col-sm-12 col-xs-12" style="clear:both;">
+        <div class="">
+            <textarea class="form-control" rows="5" id="notes_comment" name="notes_comment"></textarea>
+        </div>
+    </div>
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        &nbsp;
+    </div>
+</div>
+<input type="hidden" id="alteration_client_id" name="alteration_client_id" value="<%= clientId %>">
+<input type="hidden" id="alteration_rec_id" name="alteration_rec_id" value="-999">
+<% } %>
+
+<% }) %>

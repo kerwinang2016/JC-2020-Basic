@@ -12,6 +12,7 @@ define('FitProfile.Model', ['Client.Model', 'Client.Collection', 'Profile.Model'
 	,	measurement_config: null
 	,	selected_measurement: null
 	,	orderhistory_collection: null
+	,	alteration_collection: null //Added salman 4/3/2019 alteration
 
 	,	initialize: function(userID){
 			var self = this;
@@ -34,6 +35,7 @@ define('FitProfile.Model', ['Client.Model', 'Client.Collection', 'Profile.Model'
 
 			this.on("change:current_client", this.fetchProfile);
 			this.on("change:current_profile", this.fetchMeasure);
+			this.on("change:current_client", this.fetchalterations); //Added salman 4/3/2019 alteration
 		}
 	,	fetchProfile : function(){
 			var clientID = this.get("current_client");
@@ -48,6 +50,24 @@ define('FitProfile.Model', ['Client.Model', 'Client.Collection', 'Profile.Model'
 				_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "GET", param).always(function(data){
 					if(data){
 						self.profile_collection = new ProfileCollection().add(JSON.parse(data));
+						self.trigger("afterProfileFetch");
+					}
+				});
+			}
+		}
+	,	fetchalterations : function(){ //Added salman 4/3/2019 alteration
+			var clientID = this.get("current_client");
+			var self = this;
+			if(clientID){
+				//var currentUser = this.application.getUser().get("internalid");
+				var currentUser = this.get("current_user");
+
+				var param = new Object();
+				param.type = "get_alterations";
+				param.data = JSON.stringify({filters: ["custrecord_alterations_client||anyof|list|" + clientID], columns: ["internalid", "name", "lastmodified", "custrecord_alterations_measure_values"]});
+				_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "GET", param).always(function(data){
+					if(data){
+						self.alteration_collection = new ProfileCollection().add(JSON.parse(data));
 						self.trigger("afterProfileFetch");
 					}
 				});

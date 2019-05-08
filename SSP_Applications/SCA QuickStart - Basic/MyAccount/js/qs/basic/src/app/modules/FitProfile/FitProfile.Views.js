@@ -628,7 +628,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 		, printAlterationRec: function (e) { //Added salman 4/4/2019 alteration
 				var alterationRecId = jQuery( "#alteration_rec_id" ).val();
 				if (alterationRecId) {
-					var scriptLink = 'https://forms.netsuite.com/app/site/hosting/scriptlet.nl?script=279&deploy=1&compid=3857857_SB1&h=3626d9a04cfa34c16466';
+					var scriptLink = 'https://forms.na2.netsuite.com/app/site/hosting/scriptlet.nl?script=279&deploy=1&compid=3857857&h=7146800f2cdac0a8e1b9';
 					var link = scriptLink + '&recid=' + alterationRecId;
 					window.open(link);
 				}
@@ -637,7 +637,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 		, downloadAlterationRec: function(e){
 				var alterationRecId = jQuery( "#alteration_rec_id" ).val();
 				if (alterationRecId) {
-					var scriptLink = 'https://forms.netsuite.com/app/site/hosting/scriptlet.nl?script=279&deploy=1&compid=3857857_SB1&h=3626d9a04cfa34c16466';
+					var scriptLink = 'https://forms.na2.netsuite.com/app/site/hosting/scriptlet.nl?script=279&deploy=1&compid=3857857&h=7146800f2cdac0a8e1b9';
 					var link = scriptLink + '&recid=' + alterationRecId;
 					window.open(link);
 				}
@@ -980,7 +980,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 					setTimeout(function() {
 					self.model.fetchalterations();
 					self.getFitProfile('', clientId);
-					var scriptLink = 'https://forms.netsuite.com/app/site/hosting/scriptlet.nl?script=279&deploy=1&compid=3857857_SB1&h=3626d9a04cfa34c16466';
+					var scriptLink = 'https://forms.na2.netsuite.com/app/site/hosting/scriptlet.nl?script=279&deploy=1&compid=3857857&h=7146800f2cdac0a8e1b9';
 					var link = scriptLink + '&recid=' + data.id;
 					window.open(link);
 						

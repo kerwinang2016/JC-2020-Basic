@@ -693,8 +693,9 @@ Application.defineModel('PlacedOrder', {
 			// 	var body = JSON.parse(res.getBody());
 			// 	customerid = body[0];
 			var url = myaccountsuiteleturl;
-				var res = nlapiRequestURL(url+"&action=getorder&user="+customerid+"&id="+id),
-				result = JSON.parse(res.getBody());
+				var res = nlapiRequestURL(url+"&action=getorder&user="+customerid+"&id="+id);
+
+				var result = JSON.parse(res.getBody());
 
 				//We have a parent.. then we need to just get the orders from the script
 

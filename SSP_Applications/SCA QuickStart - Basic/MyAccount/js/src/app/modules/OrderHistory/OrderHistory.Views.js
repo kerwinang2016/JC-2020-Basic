@@ -197,7 +197,11 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices'], function
 		, goToCart: function () {
 			window.location = this.options.application.getConfig('siteSettings.touchpoints.viewcart');
 		}
-
+		, htmlDecode: function(input){
+		  var e = document.createElement('div');
+		  e.innerHTML = input;
+		  return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+		}
 		// reorder one item from an order (including quantity and options)
 		, reorderItem: function (e) {
 			e.preventDefault();
@@ -249,7 +253,10 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices'], function
 
 					// Test issue #102
 					item_to_cart.set('quantity', 1);
-
+					var sitecogs = _.findWhere(selected_line.get('options'), { id: 'custcol_site_cogs' }).value;
+					if(sitecogs)
+						sitecogs = self.htmlDecode(unescape(sitecogs));
+					item_to_cart.setOption('custcol_site_cogs', sitecogs);
 					item_to_cart.setOption('custcol_avt_date_needed', '1/1/1900');
 					item_to_cart.setOption('custcol_avt_wbs_copy_key', item_to_cart.get('internalid').toString() + '_' + new Date().getTime());
 
@@ -277,8 +284,6 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices'], function
 					});
 				}
 			});
-
-
 		}
 
 		// togle the view of the order's returns (if available)

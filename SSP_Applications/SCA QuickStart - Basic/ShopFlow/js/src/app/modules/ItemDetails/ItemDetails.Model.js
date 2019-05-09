@@ -193,31 +193,33 @@ define('ItemDetails.Model', ['ItemOptionsHelper', 'Session'], function (ItemOpti
 				if(url){
 					jQuery.get(url).done(function(datastr){
 						// var customPrice = data.items[0]['pricelevel' + SC.ENVIRONMENT.PROFILE.customPriceLevel];
-						var data = JSON.parse(datastr);
-						var customPrice = data.price;
-						if(data.pricenotset == 'T')
-							self.pricenotset = true;
-						else
-							self.pricenotset	= false;
-						if(SC._applications.Shopping.getLayout().currentView.attributes){
-						if(SC._applications.Shopping.getLayout().currentView.attributes.id == "facet-browse"){
-							if(customPrice){
-								jQuery("[data-item-id=" + self.id + "] .lead-price").html(_.formatCurrency(customPrice));
-								jQuery("[data-item-id=" + self.id + "] .lead-price").data("rate", customPrice);
-							} else {
-								jQuery("[data-item-id=" + self.id + "] .lead-price").html("");
-								jQuery("[data-item-id=" + self.id + "] .lead-price").data("rate", 0);
-							}
-						} else {
-							if(customPrice){
-								jQuery('.lead-price').html(_.formatCurrency(customPrice));
-								jQuery('.lead-price:first').attr("data-rate", customPrice);
-							} else {
-								jQuery('.lead-price').html("");
-								jQuery('.lead-price').data("rate", 0);
+						if(datastr){
+							var data = JSON.parse(datastr);
+							var customPrice = data.price;
+							if(data.pricenotset == 'T')
+								self.pricenotset = true;
+							else
+								self.pricenotset	= false;
+							if(SC._applications.Shopping.getLayout().currentView.attributes){
+								if(SC._applications.Shopping.getLayout().currentView.attributes.id == "facet-browse"){
+									if(customPrice){
+										jQuery("[data-item-id=" + self.id + "] .lead-price").html(_.formatCurrency(customPrice));
+										jQuery("[data-item-id=" + self.id + "] .lead-price").data("rate", customPrice);
+									} else {
+										jQuery("[data-item-id=" + self.id + "] .lead-price").html("");
+										jQuery("[data-item-id=" + self.id + "] .lead-price").data("rate", 0);
+									}
+								} else {
+									if(customPrice){
+										jQuery('.lead-price').html(_.formatCurrency(customPrice));
+										jQuery('.lead-price:first').attr("data-rate", customPrice);
+									} else {
+										jQuery('.lead-price').html("");
+										jQuery('.lead-price').data("rate", 0);
+									}
+								}
 							}
 						}
-					}
 					});
 					result.price = "0";
 					result.price_formatted = "loading...";

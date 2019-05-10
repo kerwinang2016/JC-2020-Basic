@@ -1,6 +1,6 @@
 <!--
-Change History   
--------------- 
+Change History
+--------------
 Date: 30-01-2019
 Changed by:Salman Khan
 Change /Jira Ticket #: JHD-7
@@ -8,8 +8,8 @@ Change Calculate "expected delivery date" and to be visible in the cart in the S
 -->
 
 <!--
-Change History   
--------------- 
+Change History
+--------------
 Date: 31-01-2019
 Changed by:Salman Khan
 Change /Jira Ticket #: JHD-10
@@ -17,8 +17,8 @@ Change Make some cosmetic changes on Cart
 -->
 
 <!--
-Change History   
--------------- 
+Change History
+--------------
 Date: 04-03-2019
 Changed by:Shoaib Iqbal
 Change /Jira Ticket #: JHD-23
@@ -26,8 +26,8 @@ Change Description: Remove "Chinese New Year" text and other info
 -->
 
 <!--
-Change History   
--------------- 
+Change History
+--------------
 Date: 13-03-2019
 Changed by: Salman Khan
 Change /Jira Ticket #: JHD-33
@@ -50,7 +50,7 @@ Change Description: Order List add Tailor currency symbol and insert box for pri
 	,	thumbnail = item.get('_thumbnail')
 	,	link_attributes = _.getItemLinkAttributes(item)
 	, fitprofile = line.get('fitProfileOptions');
-	
+
 		//JHD-7 Start
 		var expectedDate = '';
 		var item = line.get('item');
@@ -73,7 +73,7 @@ Change Description: Order List add Tailor currency symbol and insert box for pri
 		xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhttp.send("itemid=" + itemId + "&customerid=" + customerId);
 	  //JHD-7 End
-	
+
 	var formtype = "Jacket";
 	if(fitprofile){
 		if(fitprofile.length == 3)
@@ -108,7 +108,7 @@ Change Description: Order List add Tailor currency symbol and insert box for pri
 			-webkit-appearance: none;
 		}
 	</style>
-	
+
 <article id="<%- line_id %>" class="item-list-navigable <%= line_id %>" data-id=<%= item.get('internalid') %>>
 	<div class="item">
 		<div class="thumbnail">
@@ -121,7 +121,7 @@ Change Description: Order List add Tailor currency symbol and insert box for pri
 		<% } %>
 		</div>
 		<div class="info">
-				<div class="details"> 
+				<div class="details">
 					<div class="name item-name" style="float:left;" > <!-- JHD-3-->
 				<% if (options.showActions && false) { %>
 					<a <%= link_attributes %>>
@@ -142,7 +142,7 @@ Change Description: Order List add Tailor currency symbol and insert box for pri
 							catch(ex)
 						{
 							lineItemTotal =  0.00;
-						}   
+						}
 					%>
 					<input type="number" id="order_list_line_item_total_<%= line_id %>" onkeypress="return event.charCode != 45" name="order_list_line_item_total" value="<%= lineItemTotal %>" min="0" style="float: right; width: 45px; height: 15px; font-size: 12px;">
 					<span id="tailor_currency_symbol" style="float: right; padding: 4px; font-weight: normal; "><%= SC.getSessionInfo('currency').symbol %></span>
@@ -207,7 +207,7 @@ Change Description: Order List add Tailor currency symbol and insert box for pri
 						<%= _('Estimated Delivery Date :').translate()%> <!-- JHD-23 -->
 						<span id="expected-date-<%= line_id %>"></span>
 					</div>
-	
+
 
 				<% if (isDisplayDateNeededHoldFabricHoldProduction) { %>
 						<!-- start avt date needed, hold fabric, hold production -->
@@ -264,6 +264,23 @@ Change Description: Order List add Tailor currency symbol and insert box for pri
 				<div class="item-option selected-options-display">
 					<%= SC.macros.displayDesignOptions(line) %>
 				</div>
+				<% var sitecogs = _.where(line.get('options'), {id: "CUSTCOL_SITE_COGS"})[0]; %>
+				<% if(sitecogs){ %>
+				<div class="item-cogs">
+					<div class="accordion" id="item-cogs-<%= line.id %>">
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse" data-target="#item-cogs-body-<%= line.id %>" data-parent="#item-cogs-<%= line.id %>">
+									COGS
+								</a>
+							</div>
+							<div id="item-cogs-body-<%= line.id %>" style="padding-left: 50px; height: 0;" class="accordion-body collapse">
+									<%= sitecogs.value %>
+							</div>
+						</div>
+					</div>
+				</div>
+				<% } %>
 			</div>
 			<div class="summary">
 				<% if (false) { // hardcoded to remove quantity and amount %>
@@ -297,7 +314,7 @@ Change Description: Order List add Tailor currency symbol and insert box for pri
 					<%= macros.itemDetailsStock(stock_info) %>
 				</div>
 			</div>
-				
+
 				<!-- <small style="position: relative;bottom: -5px;"><i>* This date may be impacted by Chinese New Year</i></small> --> <!--JHD-23 -->
 		</div>
 			<div class="alert-placeholder" data-type="alert-placeholder" style="position: relative; top: 8px"> <!-- JHD-10 -->
@@ -340,8 +357,7 @@ Change Description: Order List add Tailor currency symbol and insert box for pri
 		</a>
 	</div>
 	<% } %>
-		
-		
+
+
 </article>
 <% }) %>
-	

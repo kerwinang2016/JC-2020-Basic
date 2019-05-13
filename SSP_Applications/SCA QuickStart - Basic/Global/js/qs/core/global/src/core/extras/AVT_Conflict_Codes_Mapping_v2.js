@@ -15,12 +15,6 @@ OBJ_CONFLICT['T01024401']['CONFLICT']['T010237'] = {};
 OBJ_CONFLICT['T01024401']['CONFLICT']['T010237']['NA'] = {};
 OBJ_CONFLICT['T01024401']['CONFLICT']['T010237']['NA']['ERROR'] = 'Monogram Inside Lining Color cannot be NA if Monogram Inside Lining is Yes';
 
-OBJ_CONFLICT['T01024401']['CONFLICT']['T010239'] = {};
-
-OBJ_CONFLICT['T01024401']['CONFLICT']['T010239'][''] = {};
-OBJ_CONFLICT['T01024401']['CONFLICT']['T010239']['']['ERROR'] = 'Monogram Text Line 1 is required if Monogram Inside Lining is Yes';
-
-
 /** ####  END CONFLICT CODE - T01024401  #### **/
 
 /** #### START CONFLICT CODE - T01024301 #### **/

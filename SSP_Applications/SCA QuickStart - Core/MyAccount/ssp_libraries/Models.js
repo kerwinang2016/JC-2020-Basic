@@ -436,6 +436,7 @@ Application.defineModel('PlacedOrder', {
 		var url = myaccountsuiteleturl;
 
 		if(true){//customerid != nlapiGetUser()){
+			if(!customerid) customerid = nlapiGetUser();
 			//We have a parent.. then we need to just get the orders from the script
 			var res = nlapiRequestURL(url+"&action=getorders&user="+customerid+"&page="+page+"&clientname="+clientName+"&soid="+soid+"&sort="+sort+"&clientid="+clientId);
 			return JSON.parse(res.getBody());
@@ -693,6 +694,7 @@ Application.defineModel('PlacedOrder', {
 			// 	var body = JSON.parse(res.getBody());
 			// 	customerid = body[0];
 			var url = myaccountsuiteleturl;
+			if(!customerid) customerid = nlapiGetUser();
 				var res = nlapiRequestURL(url+"&action=getorder&user="+customerid+"&id="+id);
 
 				var result = JSON.parse(res.getBody());

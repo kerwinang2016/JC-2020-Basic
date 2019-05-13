@@ -82,6 +82,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             jQuery.get(_.getAbsoluteUrl('services/blockQuantity.ss')).done(function (data) {
       				window.blockQuantity = data;
       			});
+
             this.application = options.application;
             this.counted_clicks = {};
             SC.sessioncheck();
@@ -258,6 +259,19 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
 
             var objConflictCodeMapping = OBJ_CONFLICT;
             var arrErrConflictCodes = _.getArrConflictCodesError(objConflictCodeMapping, arrSelectedValues, objSelectSelectedValues);
+            if(jQuery('#T010244')[0]){
+              if(jQuery('#T010244').val() == 'T01024401'){
+                if(!jQuery('#T010239').val() && !jQuery('#T010250').val()){
+                  arrErrConflictCodes.push("Monogram Text Line 1 or Monogram Text Above Pocket is required when Monogram Inside Lining is Yes");
+                }
+                if(jQuery('#T010239').val() && jQuery('#T010250').val()){
+                  arrErrConflictCodes.push("Monogram Text Line 1 and Monogram Text Above Pocket cannot both have values");
+                }
+                if(jQuery('#T010223').val() != 'T01022301' && jQuery('#T010250').val()){
+                  arrErrConflictCodes.push("Interior Construction should be Curved French Facing when Monogram Text Above Pocket has text");
+                }
+              }
+            }
             var arrErrConflictCodesTotal = (!_.isNullOrEmpty(arrErrConflictCodes)) ? arrErrConflictCodes.length : 0;
             var hasConflictCodes = (arrErrConflictCodesTotal != 0) ? true : false;
 
@@ -353,6 +367,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     });
 
                     // Updates the quantity of the model
+
                     self.model.setOption('custcol_fabric_quantity', this.$('[name="custcol_fabric_quantity"]').val());
                     self.model.setOption('custcol_ps_cart_item_id', "ITEM_" + (Date.now() / 1000 | 0)); // creates timestamp
 
@@ -1332,6 +1347,8 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
               jQuery('#T010239').val('');
               jQuery('#T010240').parent().parent().hide();
               jQuery('#T010240').val('');
+              jQuery('#T010250').parent().parent().hide();
+              jQuery('#T010250').val('');
             }
             else{
               //show
@@ -1339,6 +1356,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
               jQuery('#T010237').parent().parent().show();
               jQuery('#T010239').parent().parent().show();
               jQuery('#T010240').parent().parent().show();
+              jQuery('#T010250').parent().parent().show();
             }
           // }
           // else if(jQuery(e.target).attr("id") == 'T010522'){

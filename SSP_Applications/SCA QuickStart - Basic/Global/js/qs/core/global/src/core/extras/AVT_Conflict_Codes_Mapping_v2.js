@@ -1267,16 +1267,44 @@ OBJ_CONFLICT['T01170101']['CONFLICT'] = [];
 
 /** start conflicts -  T011702 **/
 OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']= [];
-
 OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170201']={};
 OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170201']['ERROR'] = 'No lapel cannot be selected with 4 button V closure';
-
 OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170204']={};
 OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170204']['ERROR'] = 'Peak lapel standard cannot be selected with 4 button V closure';
 /**  end conflicts -  T011702  **/
-
+/** start conflicts -  T011702 **/
+OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170208']={};
+OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170208']['ERROR'] = 'You cannot select Peak 6cm lapel with 4 Button V closure';
+OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170209']={};
+OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170209']['ERROR'] = 'You cannot select Peak 7cm lapel with 4 Button V closure';
+OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170210']={};
+OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170210']['ERROR'] = 'You cannot select Peak 8cm lapel with 4 Button V closure';
+/**  end conflicts -  T011702  **/
 /** ####  END CONFLICT CODE -  T01170101  #### **/
+/** #### START CONFLICT CODE - T01170101 #### **/
 
+OBJ_CONFLICT['T01170102'] = {};
+OBJ_CONFLICT['T01170102']['CONFLICT'] = [];
+/** start conflicts -  T011702 **/
+OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']= [];
+OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170202']={};
+OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170202']['ERROR'] = 'You cannot select Notch 5cm lapel with 5 Button V closure';
+OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170203']={};
+OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170203']['ERROR'] = 'You cannot select U lapel with 5 Button V closure';
+OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170205']={};
+OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170205']['ERROR'] = 'You cannot select Notch 6cm lapel with 5 Button V closure';
+OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170206']={};
+OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170206']['ERROR'] = 'You cannot select Notch 7cm lapel with 5 Button V closure';
+OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170207']={};
+OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170207']['ERROR'] = 'You cannot select Notch 8cm lapel with 5 Button V closure';
+OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170208']={};
+OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170208']['ERROR'] = 'You cannot select Peak 6cm lapel with 5 Button V closure';
+OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170209']={};
+OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170209']['ERROR'] = 'You cannot select Peak 7cm lapel with 5 Button V closure';
+OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170210']={};
+OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170210']['ERROR'] = 'You cannot select Peak 8cm lapel with 5 Button V closure';
+/**  end conflicts -  T011702  **/
+/** ####  END CONFLICT CODE -  T01170101  #### **/
 
 /** #### START CONFLICT CODE - T01170103 #### **/
 
@@ -1285,12 +1313,22 @@ OBJ_CONFLICT['T01170103']['CONFLICT'] = [];
 
 /** start conflicts -  T011702 **/
 OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']= [];
-
 OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170202']={};
-OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170202']['ERROR'] = 'Notch lapel cannot be selected with 6 button V closure';
-
+OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170202']['ERROR'] = 'You cannot select Notch 5cm lapel with 6 Button V closure';
 OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170203']={};
-OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170203']['ERROR'] = 'U lapel cannot be selected with 6 button V closure';
+OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170203']['ERROR'] = 'You cannot select U lapel with 6 Button V closure';
+OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170205']={};
+OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170205']['ERROR'] = 'You cannot select Notch 6cm lapel with 6 Button V closure';
+OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170206']={};
+OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170206']['ERROR'] = 'You cannot select Notch 7cm lapel with 6 Button V closure';
+OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170207']={};
+OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170207']['ERROR'] = 'You cannot select Notch 8cm lapel with 6 Button V closure';
+OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170208']={};
+OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170208']['ERROR'] = 'You cannot select Peak 6cm lapel with 6 Button V closure';
+OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170209']={};
+OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170209']['ERROR'] = 'You cannot select Peak 7cm lapel with 6 Button V closure';
+OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170210']={};
+OBJ_CONFLICT['T01170103']['CONFLICT']['T011702']['T01170210']['ERROR'] = 'You cannot select Peak 8cm lapel with 6 Button V closure';
 /**  end conflicts -  T011702  **/
 
 /** ####  END CONFLICT CODE -  T01170103  #### **/
@@ -1305,10 +1343,10 @@ OBJ_CONFLICT['T01170104']['CONFLICT'] = [];
 OBJ_CONFLICT['T01170104']['CONFLICT']['T011702']= [];
 
 OBJ_CONFLICT['T01170104']['CONFLICT']['T011702']['T01170202']={};
-OBJ_CONFLICT['T01170104']['CONFLICT']['T011702']['T01170202']['ERROR'] = 'Notch lapel cannot be selected with DB 8 button closure';
+OBJ_CONFLICT['T01170104']['CONFLICT']['T011702']['T01170202']['ERROR'] = 'You cannot select Notch 5cm lapel with DB 8 Button closure';
 
 OBJ_CONFLICT['T01170104']['CONFLICT']['T011702']['T01170203']={};
-OBJ_CONFLICT['T01170104']['CONFLICT']['T011702']['T01170203']['ERROR'] = 'U lapel cannot be selected with DB 8 button closure';
+OBJ_CONFLICT['T01170104']['CONFLICT']['T011702']['T01170203']['ERROR'] = 'You cannot select U lapel with DB 8 Button closure';
 /**  end conflicts -  T011702  **/
 
 /** ####  END CONFLICT CODE -  T01170104  #### **/
@@ -1320,13 +1358,24 @@ OBJ_CONFLICT['T01170105'] = {};
 OBJ_CONFLICT['T01170105']['CONFLICT'] = [];
 
 /** start conflicts -  T011702 **/
+
 OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']= [];
-
 OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170202']={};
-OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170202']['ERROR'] = 'Notch lapel cannot be selected with 5 and 1 button closure';
-
+OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170202']['ERROR'] = 'You cannot select Notch 5cm lapel with 5+1 Button closure';
 OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170203']={};
-OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170203']['ERROR'] = 'U lapel cannot be selected with 5 and 1 button closure';
+OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170203']['ERROR'] = 'You cannot select U lapel with 5+1 Button closure';
+OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170205']={};
+OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170205']['ERROR'] = 'You cannot select Notch 6cm lapel with 5+1 Button closure';
+OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170206']={};
+OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170206']['ERROR'] = 'You cannot select Notch 7cm lapel with 5+1 Button closure';
+OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170207']={};
+OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170207']['ERROR'] = 'You cannot select Notch 8cm lapel with 5+1 Button closure';
+OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170208']={};
+OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170208']['ERROR'] = 'You cannot select Peak 6cm lapel with 5+1 Button closure';
+OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170209']={};
+OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170209']['ERROR'] = 'You cannot select Peak 7cm lapel with 5+1 Button closure';
+OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170210']={};
+OBJ_CONFLICT['T01170105']['CONFLICT']['T011702']['T01170210']['ERROR'] = 'You cannot select Peak 8cm lapel with 5+1 Button closure';
 /**  end conflicts -  T011702  **/
 
 /** ####  END CONFLICT CODE -  T01170105  #### **/
@@ -1339,13 +1388,10 @@ OBJ_CONFLICT['T01170204']['CONFLICT'] = [];
 
 /** start conflicts -  T011701 **/
 OBJ_CONFLICT['T01170204']['CONFLICT']['T011701']= [];
-
 OBJ_CONFLICT['T01170204']['CONFLICT']['T011701']['T01170103']={};
 OBJ_CONFLICT['T01170204']['CONFLICT']['T011701']['T01170103']['ERROR'] = '6 button V closure cannot be selected with peak lapel standard';
-
 OBJ_CONFLICT['T01170204']['CONFLICT']['T011701']['T01170104']={};
 OBJ_CONFLICT['T01170204']['CONFLICT']['T011701']['T01170104']['ERROR'] = 'DB 8 button closure cannot be selected with peak lapel standard';
-
 OBJ_CONFLICT['T01170204']['CONFLICT']['T011701']['T01170105']={};
 OBJ_CONFLICT['T01170204']['CONFLICT']['T011701']['T01170105']['ERROR'] = '5 and 1 button cannot be selected with peak lapel standard';
 /**  end conflicts -  T011701  **/
@@ -4836,3 +4882,102 @@ OBJ_CONFLICT['T01061501']['CONFLICT']['T010630']['No'] = {};
 OBJ_CONFLICT['T01061501']['CONFLICT']['T010630']['No']['ERROR'] = 'No cannot be chosen for Contrast Elbow Patches when Elbow Patches is Yes';
 
 /** ####  END CONFLICT CODE - Elbow Patches  #### **/
+
+/** #### START CONFLICT CODE - TST04 Thin pleat black #### **/
+OBJ_CONFLICT['T01064202'] = {};
+OBJ_CONFLICT['T01064202']['CONFLICT'] = {};
+OBJ_CONFLICT['T01064202']['CONFLICT']['T010607'] = {};
+OBJ_CONFLICT['T01064202']['CONFLICT']['T010607']['T01060701'] = {};
+OBJ_CONFLICT['T01064202']['CONFLICT']['T010607']['T01060701']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064202']['CONFLICT']['T010607']['T01060702'] = {};
+OBJ_CONFLICT['T01064202']['CONFLICT']['T010607']['T01060702']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064202']['CONFLICT']['T010607']['T01060703'] = {};
+OBJ_CONFLICT['T01064202']['CONFLICT']['T010607']['T01060703']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064202']['CONFLICT']['T010607']['T01060704'] = {};
+OBJ_CONFLICT['T01064202']['CONFLICT']['T010607']['T01060704']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064202']['CONFLICT']['T010607']['T01060705'] = {};
+OBJ_CONFLICT['T01064202']['CONFLICT']['T010607']['T01060705']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+
+/** ####  END CONFLICT CODE - TST04 Thin pleat black  #### **/
+
+/** #### START CONFLICT CODE - TST04 Thin pleat black #### **/
+OBJ_CONFLICT['T01064203'] = {};
+OBJ_CONFLICT['T01064203']['CONFLICT'] = {};
+OBJ_CONFLICT['T01064203']['CONFLICT']['T010607'] = {};
+OBJ_CONFLICT['T01064203']['CONFLICT']['T010607']['T01060701'] = {};
+OBJ_CONFLICT['T01064203']['CONFLICT']['T010607']['T01060701']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064203']['CONFLICT']['T010607']['T01060702'] = {};
+OBJ_CONFLICT['T01064203']['CONFLICT']['T010607']['T01060702']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064203']['CONFLICT']['T010607']['T01060703'] = {};
+OBJ_CONFLICT['T01064203']['CONFLICT']['T010607']['T01060703']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064203']['CONFLICT']['T010607']['T01060704'] = {};
+OBJ_CONFLICT['T01064203']['CONFLICT']['T010607']['T01060704']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064203']['CONFLICT']['T010607']['T01060705'] = {};
+OBJ_CONFLICT['T01064203']['CONFLICT']['T010607']['T01060705']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+
+/** ####  END CONFLICT CODE - TST04 Thin pleat black  #### **/
+
+/** #### START CONFLICT CODE - TST04 Thin pleat black #### **/
+OBJ_CONFLICT['T01064204'] = {};
+OBJ_CONFLICT['T01064204']['CONFLICT'] = {};
+OBJ_CONFLICT['T01064204']['CONFLICT']['T010607'] = {};
+OBJ_CONFLICT['T01064204']['CONFLICT']['T010607']['T01060701'] = {};
+OBJ_CONFLICT['T01064204']['CONFLICT']['T010607']['T01060701']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064204']['CONFLICT']['T010607']['T01060702'] = {};
+OBJ_CONFLICT['T01064204']['CONFLICT']['T010607']['T01060702']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064204']['CONFLICT']['T010607']['T01060703'] = {};
+OBJ_CONFLICT['T01064204']['CONFLICT']['T010607']['T01060703']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064204']['CONFLICT']['T010607']['T01060704'] = {};
+OBJ_CONFLICT['T01064204']['CONFLICT']['T010607']['T01060704']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064204']['CONFLICT']['T010607']['T01060705'] = {};
+OBJ_CONFLICT['T01064204']['CONFLICT']['T010607']['T01060705']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+
+/** ####  END CONFLICT CODE - TST04 Thin pleat black  #### **/
+/** #### START CONFLICT CODE - TST04 Thin pleat black #### **/
+OBJ_CONFLICT['T01064205'] = {};
+OBJ_CONFLICT['T01064205']['CONFLICT'] = {};
+OBJ_CONFLICT['T01064205']['CONFLICT']['T010607'] = {};
+OBJ_CONFLICT['T01064205']['CONFLICT']['T010607']['T01060701'] = {};
+OBJ_CONFLICT['T01064205']['CONFLICT']['T010607']['T01060701']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064205']['CONFLICT']['T010607']['T01060702'] = {};
+OBJ_CONFLICT['T01064205']['CONFLICT']['T010607']['T01060702']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064205']['CONFLICT']['T010607']['T01060703'] = {};
+OBJ_CONFLICT['T01064205']['CONFLICT']['T010607']['T01060703']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064205']['CONFLICT']['T010607']['T01060704'] = {};
+OBJ_CONFLICT['T01064205']['CONFLICT']['T010607']['T01060704']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064205']['CONFLICT']['T010607']['T01060705'] = {};
+OBJ_CONFLICT['T01064205']['CONFLICT']['T010607']['T01060705']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+
+/** ####  END CONFLICT CODE - TST04 Thin pleat black  #### **/
+/** #### START CONFLICT CODE - TST04 Thin pleat black #### **/
+OBJ_CONFLICT['T01064206'] = {};
+OBJ_CONFLICT['T01064206']['CONFLICT'] = {};
+OBJ_CONFLICT['T01064206']['CONFLICT']['T010607'] = {};
+OBJ_CONFLICT['T01064206']['CONFLICT']['T010607']['T01060701'] = {};
+OBJ_CONFLICT['T01064206']['CONFLICT']['T010607']['T01060701']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064206']['CONFLICT']['T010607']['T01060702'] = {};
+OBJ_CONFLICT['T01064206']['CONFLICT']['T010607']['T01060702']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064206']['CONFLICT']['T010607']['T01060703'] = {};
+OBJ_CONFLICT['T01064206']['CONFLICT']['T010607']['T01060703']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064206']['CONFLICT']['T010607']['T01060704'] = {};
+OBJ_CONFLICT['T01064206']['CONFLICT']['T010607']['T01060704']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064206']['CONFLICT']['T010607']['T01060705'] = {};
+OBJ_CONFLICT['T01064206']['CONFLICT']['T010607']['T01060705']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+
+/** ####  END CONFLICT CODE - TST04 Thin pleat black  #### **/
+/** #### START CONFLICT CODE - TST04 Thin pleat black #### **/
+OBJ_CONFLICT['T01064207'] = {};
+OBJ_CONFLICT['T01064207']['CONFLICT'] = {};
+OBJ_CONFLICT['T01064207']['CONFLICT']['T010607'] = {};
+OBJ_CONFLICT['T01064207']['CONFLICT']['T010607']['T01060701'] = {};
+OBJ_CONFLICT['T01064207']['CONFLICT']['T010607']['T01060701']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064207']['CONFLICT']['T010607']['T01060702'] = {};
+OBJ_CONFLICT['T01064207']['CONFLICT']['T010607']['T01060702']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064207']['CONFLICT']['T010607']['T01060703'] = {};
+OBJ_CONFLICT['T01064207']['CONFLICT']['T010607']['T01060703']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064207']['CONFLICT']['T010607']['T01060704'] = {};
+OBJ_CONFLICT['T01064207']['CONFLICT']['T010607']['T01060704']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+OBJ_CONFLICT['T01064207']['CONFLICT']['T010607']['T01060705'] = {};
+OBJ_CONFLICT['T01064207']['CONFLICT']['T010607']['T01060705']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
+
+/** ####  END CONFLICT CODE - TST04 Thin pleat black  #### **/

@@ -828,7 +828,7 @@ Application.defineModel('LiveOrder', {
 					}else if(fpsJSON[0].name == 'Waistcoat'){
 						singlesurcharge = self.getSurcharge(1,'Waistcoat',line_data.options.custcol_designoptions_waistcoat,fabric_surcharges);
 					}else if(fpsJSON[0].name == 'Overcoat'){
-						singlesurcharge = self.getSurcharge(1,'Overcoat',line_data.options.custcol_designoptions_overcoat,fabric_surcharge);
+						singlesurcharge = self.getSurcharge(1,'Overcoat',line_data.options.custcol_designoptions_overcoat,fabric_surcharges);
 					}
 					if(singlesurcharge.rate != 0){
 						returnObj.fabrictext += "<li>"+singlesurcharge.description + " ";
@@ -1184,8 +1184,9 @@ Application.defineModel('LiveOrder', {
     var self = this;
     var Profile = Application.getModel('Profile')
     ,	customer_values = Profile.get();
-    var tailorID = customer_values.parent;
 
+    var tailorID = customer_values.parent?customer_values.parent:nlapiGetUser();
+    var parent = tailorID;
     var surcharges = this.getDesignOptionSurcharges();
     var shippingsurcharges = this.getShippingSurcharges();
     var fabricsurcharges = this.getFabricSurcharges();

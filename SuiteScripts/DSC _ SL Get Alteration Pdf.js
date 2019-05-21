@@ -303,7 +303,7 @@ function mainFunction(request, response) {
                 template += '<table width="100%" style="border-bottom:1px solid #ccc;padding-bottom:15px;padding-top:15px;">';
                 template += '<tr  font-size="11pt" width="100%">';
                 template += '<td width="21%"><b>SHIRT</b></td>';
-                template += '<td width="29%"><input type="text" width="170px"   readonly="true" name="alterationShirt' + i + '" id="alteration_shirt_' + i + '" value="&nbsp;{alteration_shirt_' + i + '}"/></td>';
+                template += '<td width="29%"><input type="text" width="170px"   readonly="true" name="alterationShirtName' + i + '" id="alteration_shirt_' + i + '" value="&nbsp;{alteration_shirt_' + i + '}"/></td>';
                 template += '<td width="25%">&nbsp;</td>';
                 template += '<td width="25%">&nbsp;</td>';
                 template += '</tr>';
@@ -315,7 +315,7 @@ function mainFunction(request, response) {
                 template += '</tr>';
                 template += '<tr  font-size="11pt" width="100%">';
                 template += '<td width="21%">Neck</td>';
-                template += '<td width="29%"><input type="text" width="170px"  readonly="true"  name="alterationShirt' + i + '" id="alter_shirt_neck' + i + '" value="&nbsp;{alteration_shirt_neck_' + i + '}"/></td>';
+                template += '<td width="29%"><input type="text" width="170px"  readonly="true"  name="alterationShirtNeck' + i + '" id="alter_shirt_neck' + i + '" value="&nbsp;{alteration_shirt_neck_' + i + '}"/></td>';
                 template += '<td width="25%">&nbsp;&nbsp;Chest</td>';
                 template += '<td width="25%"><input type="text" width="170px"  readonly="true"  name="alterationShirtChest' + i + '" id="alter_shirt_chest' + i + '" value="&nbsp;{alteration_shirt_chest_' + i + '}"/></td>';
                 template += '</tr>';

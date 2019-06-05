@@ -231,12 +231,10 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices'], function
 			param.data = JSON.stringify({ filters: ["custrecord_fp_client||anyof|list|" + clientId], columns: ["internalid", "name", "created", "lastmodified", "custrecord_fp_product_type", "custrecord_fp_measure_type", "custrecord_fp_measure_value"] });
 			_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "GET", param).always(function (data) {
 				if (data) {
-
 					_.each(fitProfiles, function (el) {
-						var selectedFitProfile = _.findWhere(JSON.parse(data), { name: el.value });
+						var selectedFitProfile = _.findWhere(JSON.parse(data), { internalid: el.id });
 						fitProfileCollection.push(selectedFitProfile);
 					});
-
 					_.each(fitProfileCollection, function (el) {
 						try{
 						var fitColumn = "custcol_fitprofile_" + el.custrecord_fp_product_type.toLowerCase();

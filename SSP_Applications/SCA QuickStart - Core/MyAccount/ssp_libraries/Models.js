@@ -2994,6 +2994,7 @@ Application.defineModel('Receipts', _.extend({}, PlacedOrder, {
 				, new nlobjSearchColumn('mainline')
 				, new nlobjSearchColumn('duedate').setSort()
 				, new nlobjSearchColumn(amount_field)
+				, new nlobjSearchColumn('tranid','createdfrom')
 				, new nlobjSearchColumn('custbody_customer_name','createdfrom')
 			]
 			, amount_remaining;
@@ -3071,6 +3072,7 @@ Application.defineModel('Receipts', _.extend({}, PlacedOrder, {
 				, closedateInMilliseconds: close_date?nlapiStringToDate(close_date).getTime():0//new Date(close_date).getTime()
 				, trandate: tran_date
 				, custbody_customer_name: record.getValue('custbody_customer_name','createdfrom')
+				, createdfrom: record.getValue('tranid','createdfrom')
 				, tranDateInMilliseconds: tran_date?nlapiStringToDate(tran_date).getTime():0//new Date(tran_date).getTime()
 				, duedate: due_date
 				, dueinmilliseconds: due_in_milliseconds
@@ -3083,6 +3085,7 @@ Application.defineModel('Receipts', _.extend({}, PlacedOrder, {
 					internalid: record.getValue('currency')
 					, name: record.getText('currency')
 				}
+
 			};
 		});
 
@@ -3197,7 +3200,9 @@ Application.defineModel('Receipts', _.extend({}, PlacedOrder, {
 				, new nlobjSearchColumn('total')
 				, new nlobjSearchColumn('taxtotal')
 				, new nlobjSearchColumn('fxamount')
+				, new nlobjSearchColumn('custbody_customer_name')
 				, new nlobjSearchColumn('exchangerate')
+
 			]
 
 			, mainline = Application.getAllSearchResults('transaction', filters, columns);
@@ -3266,6 +3271,7 @@ Application.defineModel('Receipts', _.extend({}, PlacedOrder, {
 			, memo: placed_order.getFieldValue('memo')
 			, date: placed_order.getFieldValue('trandate')
 			, status: placed_order.getFieldValue('status')
+			, customername: placed_order.getFieldValue('custbody_customer_name')
 			, isReturnable: this.isReturnable(placed_order)
 			, summary: {
 				subtotal: toCurrency(placed_order.getFieldValue('subtotal'))
@@ -4998,6 +5004,8 @@ Application.defineModel('TransactionHistory', {
 				, new nlobjSearchColumn('status')
 				, new nlobjSearchColumn('total')
 				, new nlobjSearchColumn(amount_field)
+				, new nlobjSearchColumn('tranid','createdfrom')
+				, new nlobjSearchColumn('custbody_customer_name')
 			];
 
 		switch (data.filter) {
@@ -5064,6 +5072,8 @@ Application.defineModel('TransactionHistory', {
 				, status: record.getText('status')
 				, amount: toCurrency(record.getValue(amount_field))
 				, amount_formatted: formatCurrency(record.getValue(amount_field))
+				, createdfrom: record.getValue('tranid','createdfrom')
+				, customername: record.getValue('custbody_customer_name')
 			};
 		});
 

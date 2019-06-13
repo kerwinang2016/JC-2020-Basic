@@ -272,6 +272,23 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 }
               }
             }
+            var clothingTypes = this.model.get('custitem_clothing_type').split(', ');
+            if(clothingTypes.length == 3){
+              //Check if the linings of the waistcoat and jacket are the same
+              var waistcoatlining = jQuery('#li-bl-w').val();
+              var jacketlining = jQuery('#li-b-j').val();
+              if(waistcoatlining != jacketlining){
+                arrErrConflictCodes.push("Jacket and Waistcoat Lining Fabric should be the same.");
+              }else if(waistcoatlining == 'CMT Lining'){
+                var jdesignOptions = this.getDesignOptions("Jacket");
+                var wdesignOptions = this.getDesignOptions("Waistcoat");
+                var jobj = _.find(jdesignOptions,function(x){return x.name == 'li-code';});
+                var wobj = _.find(wdesignOptions,function(x){return x.name == 'li-code';});
+                if(jobj.value != wobj.value){
+                  arrErrConflictCodes.push("Jacket and Waistcoat Lining Fabric should be the same.");
+                }
+              }
+            }
             var arrErrConflictCodesTotal = (!_.isNullOrEmpty(arrErrConflictCodes)) ? arrErrConflictCodes.length : 0;
             var hasConflictCodes = (arrErrConflictCodesTotal != 0) ? true : false;
 
@@ -319,7 +336,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
 
                 // update design option hidden fields
                 if (this.model.get('custitem_clothing_type') && this.model.get('custitem_clothing_type') != "&nbsp;") {
-                    var clothingTypes = this.model.get('custitem_clothing_type').split(', ');
+                    clothingTypes = this.model.get('custitem_clothing_type').split(', ');
 
                     var selectedUnits = "CM";
 

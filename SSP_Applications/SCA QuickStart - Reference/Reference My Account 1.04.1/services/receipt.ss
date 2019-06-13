@@ -17,7 +17,7 @@ function service (request)
 			,	type = request.getParameter('type')
 				// Receipts model is defined on ssp library Models.js
 			,	Receipt = Application.getModel('Receipts');
-			
+
 			switch (method)
 			{
 				case 'GET':
@@ -29,7 +29,7 @@ function service (request)
 
 				break;
 
-				default: 
+				default:
 					// methodNotAllowedError is defined in ssp library commons.js
 					Application.sendError(methodNotAllowedError);
 			}

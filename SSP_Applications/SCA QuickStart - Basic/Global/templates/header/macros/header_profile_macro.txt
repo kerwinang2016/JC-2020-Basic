@@ -1,6 +1,6 @@
 <!--
-Change History   
--------------- 
+Change History
+--------------
 Date: 04-03-2019
 Changed by:Shoaib Iqbal
 Change /Jira Ticket #: JHD-26
@@ -8,8 +8,8 @@ Change Description: Remove address book section
 -->
 
 <!--
-Change History   
--------------- 
+Change History
+--------------
 Date: 04-03-2019
 Changed by:Shoaib Iqbal
 Change /Jira Ticket #: JHD-27
@@ -17,8 +17,8 @@ Change Description: Remove Email Preferences section
 -->
 
 <!--
-Change History   
--------------- 
+Change History
+--------------
 Date: 04-03-2019
 Changed by:Shoaib Iqbal
 Change /Jira Ticket #: JHD-29
@@ -26,8 +26,8 @@ Change Description: Updates to �Cases� section on myaccount
 -->
 
 <!--
-Change History   
--------------- 
+Change History
+--------------
 Date: 05-03-2019
 Changed by: Salman Khan
 Change /Jira Ticket #: JHD-32
@@ -86,11 +86,12 @@ Change Description: Same Drop down of "My account" and "Your account"
 							<%= _('Reorder Items').translate() %>
 						</a>
 					</li>
-					<li data-permissions="transactions.tranFind.1,transactions.tranEstimate.1">
+					<!-- <li data-permissions="transactions.tranFind.1,transactions.tranEstimate.1">
 						<a href="#" data-touchpoint="customercenter" data-hashtag="#quotes">
 							<%= _('Quotes').translate() %>
 						</a>
 					</li>
+					-->
 				</ul>
 			</li>
 

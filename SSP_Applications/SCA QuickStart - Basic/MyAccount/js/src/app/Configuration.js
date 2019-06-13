@@ -57,7 +57,7 @@
 		,	'TransactionHistory'
 		,	'ProductList'
 		,	'PrintStatement'
-		,	'Quote'
+		//,	'Quote'
 
 		,	'Case'
 		]

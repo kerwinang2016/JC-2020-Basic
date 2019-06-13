@@ -49,13 +49,16 @@
 					<div class="span2">
 						<span><%= _('Due date').translate() %></span>
 					</div>
-					<div class="span2">
+					<div class="span1">
 						<span><%= _('Amount').translate() %></span>
+					</div>
+					<div class="span1">
+						<span><%= _('Order').translate() %></span>
 					</div>
 					<div class="span2">
 						<span><%= _('Customer').translate() %></span>
 					</div>
-					<div class="span2">
+					<div class="span1">
 						<span><%= _('Type').translate() %></span>
 					</div>
 				</div>

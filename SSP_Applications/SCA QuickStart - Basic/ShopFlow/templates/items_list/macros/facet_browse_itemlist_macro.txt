@@ -87,7 +87,7 @@
       </div>
 			<div style="clear:both;"></div>
 			<div style="margin-bottom:10px;">
-				* The following vendors are searchable: AC Shirt, Ariston, Dormeuil, Dugdale Bros, Filarte, Loro Piana, Solbiati, Thomas Mason
+				* The following vendors are searchable: AC Shirt, Ariston, Carnet, Dormeuil, Dugdale Bros, Filarte, Loro Piana, Solbiati, Thomas Mason
 			</div>
     </div>
     <%= facetsDisplayResults %>

@@ -42,7 +42,7 @@
 						<% } %>
 					</label>
 					<div class="controls">
-						<input type="tel" class="input-large" id="phone" name="phone" data-type="phone" value="<%- view.model.get('phone') || '' %>">
+						<span type="tel" class="input-large" id="phone" name="phone" data-type="phone" ><%- view.model.get('phone') || '' %></span>
 					</div>
 				</div>
 

@@ -158,7 +158,7 @@
 							<div class="col-md-4 col-sm-12 col-xs-12">
 								<div class="form-group">
 									<label for="Date">Date</label>
-									<input style="width: 185px;" type="date" id="alteration_date"  name="alteration_date">
+									<input style="width: 185px;" type="date" class="form-control" id="alteration_date" name="alteration_date">
 								</div>
 							</div>
 							<div class="col-md-4 col-sm-12 col-xs-12">

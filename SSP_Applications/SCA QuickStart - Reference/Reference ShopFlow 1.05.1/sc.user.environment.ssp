@@ -50,7 +50,7 @@ if (SC.PROFILE_PROMISE)
 /*
 loadScript([
 	'<%= session.getAbsoluteUrl("shopping", 'js/libs/Libraries-01624173afbc.js') %>'
-,	'<%= session.getAbsoluteUrl("shopping", 'templates/Templates-016971525adf.js') %>'
-,	'<%= session.getAbsoluteUrl("shopping", 'js/Application-0169715da3d5.js') %>'
+,	'<%= session.getAbsoluteUrl("shopping", 'templates/Templates-016e2b2f8580.js') %>'
+,	'<%= session.getAbsoluteUrl("shopping", 'js/Application-016e2b3986fb.js') %>'
 ]);
 */

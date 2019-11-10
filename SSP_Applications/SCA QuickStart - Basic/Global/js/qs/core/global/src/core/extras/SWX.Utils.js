@@ -272,8 +272,8 @@
 				for (var dx = 0; dx < arrObjClientListTotal; dx++)
 				{
 					var isAlreadyAdded = false;
-					var refFirstNameValue = (!isNullOrEmpty(arrObjClientList[dx]['custrecord_tc_first_name'])) ?  replaceChars($.trim(arrObjClientList[dx]['custrecord_tc_first_name']), ' ', '').toUpperCase() : '';
-					var refLastNameValue = (!isNullOrEmpty(arrObjClientList[dx]['custrecord_tc_last_name'])) ? replaceChars($.trim(arrObjClientList[dx]['custrecord_tc_last_name']), ' ', '').toUpperCase() : '';
+					var refFirstNameValue = (!isNullOrEmpty(arrObjClientList[dx]['custrecord_tc_first_name'])) ?  $.trim(arrObjClientList[dx]['custrecord_tc_first_name']).toUpperCase() : '';
+					var refLastNameValue = (!isNullOrEmpty(arrObjClientList[dx]['custrecord_tc_last_name'])) ? $.trim(arrObjClientList[dx]['custrecord_tc_last_name']).toUpperCase() : '';
 					var refEmailValue = (!isNullOrEmpty(arrObjClientList[dx]['custrecord_tc_email'])) ?  $.trim(arrObjClientList[dx]['custrecord_tc_email']).toUpperCase() : '';
 					var refPhoneValue = (!isNullOrEmpty(arrObjClientList[dx]['custrecord_tc_phone'])) ?  replaceChars($.trim(arrObjClientList[dx]['custrecord_tc_phone']), ' ', '').toUpperCase() : '';
 					var hasRefFirstName = (!isNullOrEmpty(refFirstNameValue)) ? true : false;
@@ -308,21 +308,22 @@
 							{
 								if(!checkFullName){
 									var stFilterName = arrFilterName[xj];
-									if (!isAlreadyAdded && stFilterName == refFirstNameValue)
+									if (!isAlreadyAdded && refFirstNameValue.indexOf(stFilterName) != -1)
 									{
 										retArrObj.push(arrObjClientList[dx]);
 										isAlreadyAdded = true;
 									}
 
-									if (!isAlreadyAdded && stFilterName == refLastNameValue)
+									if (!isAlreadyAdded && refLastNameValue.indexOf(stFilterName)!= -1)
 									{
 										retArrObj.push(arrObjClientList[dx]);
 										isAlreadyAdded = true;
 									}
 								}
 								else{
-									var completename = refFirstNameValue + ' ' + refLastNameValue
-									if (!isAlreadyAdded && filterName == completename )
+									var completename = refFirstNameValue + ' ' + refLastNameValue;
+
+									if (!isAlreadyAdded && completename.indexOf(filterName) != -1 )
 									{
 										retArrObj.push(arrObjClientList[dx]);
 										isAlreadyAdded = true;

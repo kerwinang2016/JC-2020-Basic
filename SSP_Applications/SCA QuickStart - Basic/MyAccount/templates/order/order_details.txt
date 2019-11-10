@@ -1,6 +1,6 @@
 <!--
-Change History   
--------------- 
+Change History
+--------------
 Date: 18-03-2019
 Changed by:Salman Khan
 Change /Jira Ticket #: JHD-37
@@ -51,7 +51,11 @@ Change Description: Incorrect currency symbol showing in many places
 <hr class="divider-small">
 
 <%= displayHeaderInformation(elements) %>
-
+<table >
+<tr><td>
+Order created by : <%= model.get('createdby') %>
+</td></tr>
+</table>
 <!-- Order Header Ends -->
 <% if (return_authorizations && return_authorizations.length) { %>
 	<div class="returnauthorizations-warning alert alert-warning"><%=_('You have returns associated with this order. <a href="#">View Details</a>').translate()%></div>

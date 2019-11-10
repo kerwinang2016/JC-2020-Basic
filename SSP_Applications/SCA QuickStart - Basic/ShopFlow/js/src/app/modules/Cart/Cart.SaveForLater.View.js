@@ -40,6 +40,7 @@ define('Cart.SaveForLater.View', ['ErrorManagement', 'ProductListDetails.View', 
 			this.product_list_details_view = new application.ProductListModule.Views.Details({ application: application, model: pl_model, sflMode:true, addToCartCallback:function() {self.addToCart(); } } );
 			this.product_list_details_view.template = 'product_list_details_later';
 			this.product_list_details_view.showarchiveditems = false;
+			this.product_list_details_view.showinactiveitems = false;
 			this.$('[data-type=saved-for-later-placeholder]').empty();
 			this.$('[data-type=saved-for-later-placeholder]').append(this.product_list_details_view.render().el);
 		}

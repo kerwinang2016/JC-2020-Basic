@@ -61,6 +61,9 @@ Change Invoice frontend changes
 					<p class="info invoice-created-from">
 						<%= _('Created from: <a href="/ordershistory/view/$(0)">$(1)</a>').translate(invoice.get('createdfrom').id, invoice.get('createdfrom').name) %>
 					</p>
+					<p class="info invoice-created-by">
+						<%= _('Created by: $(0)').translate(invoice.get('createdby')) %>
+					</p>
 					<% } %>
 					<p class="info invoice-customername">
 						<%= _('Customer name: $(0)').translate(invoice.get('customername')) %>

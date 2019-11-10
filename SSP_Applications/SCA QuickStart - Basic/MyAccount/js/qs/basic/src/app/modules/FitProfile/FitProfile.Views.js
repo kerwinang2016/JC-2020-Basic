@@ -1,8 +1,8 @@
 // Profile.Views.js
 // -----------------------
 /*
-Change History   
--------------- 
+Change History
+--------------
 Date: 28-02-2019
 Changed by:Salman Khan
 Change /Jira Ticket #: JHD-11
@@ -195,7 +195,6 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			this.model.set('swx_client_profile_order_history', '');
 			var self = this;
 			jQuery("div[data-type='alert-placeholder']").empty();
-
 			var param = new Object();
 			param.type = "get_client";
 			var tailor = SC.Application('MyAccount').getUser().get('parent')!= null? SC.Application('MyAccount').getUser().get('parent'):SC.Application('MyAccount').getUser().id;
@@ -283,6 +282,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			jQuery("div[data-type='alert-placeholder']").empty();
 			var currentUser = this.application.getUser().get("internalid");
 			var clientOptionsSelectId = 'clients-options';
+
 			var clientCollection = this.model.client_collection
 			var stClientCollection = JSON.stringify(clientCollection);
 			var arrObjClientCollection = (!_.isNullOrEmpty(stClientCollection)) ? JSON.parse(stClientCollection) : [];
@@ -434,7 +434,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 											var name = defaultFields[i].name;
 											var value = defaultFields[i].value;
 											if(value != 'select'){
-												var defaultId = name.replace('max', 'default').replace('min', 'default').replace('%', '/').replace('F2', '');
+												var defaultId = name.replace('max', 'default').replace('min', 'default').replace('%', '/').replace('2F', '');
 												if(parseFloat(value) != 0){
 													jQuery('[id="'+ defaultId + '"]').html(value);
 
@@ -469,7 +469,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			$("[id='alteration-modal-print']").show();
 			$("[id='alteration-modal-download']").show();
 			$("[id='alteration-modal']").click();
-			
+
 
 		}
 
@@ -600,8 +600,8 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			if (isTrue) {
 				var id = jQuery("#alteration_rec_id").val();
 
-				if(id){			
-					var clientId = jQuery('#alteration_client_id').val(); 
+				if(id){
+					var clientId = jQuery('#alteration_client_id').val();
 					var param = new Object();
 					param.type = "remove_alteration";
 					param.id = id;
@@ -617,7 +617,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 								setTimeout(function() {
 								self.model.fetchalterations();
 								self.getFitProfile('', clientId);
-									
+
 								}, 1000);
 						}
 				});
@@ -649,9 +649,9 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			this.model.set("current_profile", profileID);
 			var $ = jQuery;
 
-			if (profileID) { 
+			if (profileID) {
 				jQuery("#profile-actions").html("<a id='swx-fitprofile-dropdown-add' data-action='add-profile' data-toggle='show-in-modal' data-type='profile'>Add</a> | <a id='swx-fitprofile-dropdown-copy' data-action='copy-profile' data-type='profile' data-id='" + profileID + "'>Copy</a> | <a id='swx-fitprofile-dropdown-remove' data-action='remove-rec' data-type='profile' data-id='" + profileID + "'>Remove</a>");
-				
+
 				var profileView = new Views.Profile({
 					model: self.model.profile_collection.get(self.model.get("current_profile"))
 					, application: self.application
@@ -683,27 +683,27 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			var alterationID = jQuery(e.target).val();
 			var $ = jQuery;
 
-			if (alterationID) { 
+			if (alterationID) {
 				var clientID = jQuery("#clients-options").val();
 				this.model.set("current_client", clientID);
-	
+
 				//var currentClientId = this.model.get("current_client");
 				//this.model.set("current_client", currentClientId);
-	
+
 				var profileView = new Views.Profile({
 					model: new ProfileModel()
 					, application: this.application
 					, fitprofile: this.model
 				});
-	
+
 				profileView.render();
 				jQuery("#profile-section").html(profileView.$el);
-	
+
 				this.model.set("current_profile", null);
 				var dataArr;
 				var alterationsData = self.model.alteration_collection;
 				jQuery("#alterations-actions").html("<a id='swx-alterations-dropdown-add' data-action='add-alterations' data-toggle='show-in-modal' data-type='profile'>Add</a> | <a id='swx-fitprofile-dropdown-copy' data-action='copy-profile' data-type='profile' data-id='" + alterationID + "'>Copy</a> | <a id='swx-fitprofile-dropdown-remove' data-action='remove-rec' data-type='profile' data-id='" + alterationID + "'>Remove</a>");
-				
+
 				alterationsData.each(function(alteration){
 					var alterationInternalId = alteration.get('internalid');
 						if(alterationInternalId == alterationID){
@@ -714,8 +714,8 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 
 				if(dataArr){
 					var obj = {};
-					dataArr = dataArr.replace(/\+/g, " ");
-					dataArr = JSON.parse(dataArr);			
+					//dataArr = dataArr.replace(/\+/g, " ");
+					dataArr = JSON.parse(dataArr);
 					var clientName = jQuery('#fitProfileClientName').html();
 
 					for(var i = 0; i < dataArr.length; i++){
@@ -731,7 +731,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 							var ovcNumOfSectionGenerate = dataArr[i].value ? dataArr[i].value : 0;
 							obj.jckOvcNumGenerate = parseInt(jktNumOfSectionGenerate) + parseInt(ovcNumOfSectionGenerate);
 							break;
-						} 
+						}
 					}
 					jQuery("#profile-details").html(SC.macros.alterationsForm(self.model, '', clientName));
 					jQuery("#alterations-measurements-html").html(SC.macros.alterationsMeasurement(self.model, obj));
@@ -744,10 +744,10 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 					jQuery("[id='alteration_ovc']").prop("disabled", true);
 					jQuery("[id='alteration_wst']").prop("disabled", true);
 					}
-					
+
 					for(var i=0; i < dataArr.length; i++){
 							jQuery("[id='" + dataArr[i].name + "']").val(dataArr[i].value);
-						
+
 					}
 					jQuery("#alteration_rec_id").val(alterationID);
 					var image = jQuery('#site-logo img')[0];
@@ -757,7 +757,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 					}
 
 				}
-				
+
 
 			} else {
 					jQuery("#alterations-actions").html("<a id='swx-alterations-dropdown-add' data-action='add-alterations' data-toggle='show-in-modal' data-type='profile'>Add</a>");
@@ -770,8 +770,8 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 						//hide profile section
 						jQuery("#profile-section").html("");
 					}
-			}				
-			
+			}
+
 		}
 
 		, resetForm: function () {
@@ -885,23 +885,24 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 		, submitAlterationForm: function(e){ //Added salman 4/2/2019 alteration
 			var self = this;
 			var alterationInternalId;
-			jQuery('input:disabled').removeAttr('disabled'); 
-			jQuery('select:disabled').removeAttr('disabled'); 
+			jQuery('input:disabled').removeAttr('disabled');
+			jQuery('select:disabled').removeAttr('disabled');
 			var formValues = jQuery('#alteration-form').serialize().split("&");
-			var clientId = jQuery('#alteration_client_id').val(); 
+			var clientId = jQuery('#alteration_client_id').val();
 			var dataToSend = new Array();
 			for(var i =0; i< formValues.length; i++){
 				var obj = {};
 				var formValue = formValues[i];
 				var field = formValue.split("=")[0]
-					, value = formValue.split("=")[1];
+					, value = jQuery('#' + formValue.split("=")[0]).val().replace(/\%0D%0A/g, ' ').replace(/\s+/g, ' ').trim();
+					console.log('value: ', value);
 					if(field == "alteration_rec_id" && value != '-999'){
 						alterationInternalId = value;
 					} else {
 						obj.name = field;
 						obj.value = value;
-						dataToSend.push(obj);	
-					}			
+						dataToSend.push(obj);
+					}
 			};
 			var param = new Object();
 			var tempArr = [];
@@ -909,7 +910,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			tempArr.push({"name": "custrecord_alterations_measure_values" , "value": JSON.stringify(dataToSend) , "type": "field"});
 			tempArr.push({"name": "name" , "value": "Alterations Form" , "type": "field"});
 			param.data = JSON.stringify(tempArr);
-			
+
 			if(alterationInternalId){
 				param.type = "update_alteration";
 				param.id = alterationInternalId;
@@ -930,7 +931,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 					setTimeout(function() {
 					self.model.fetchalterations();
 					self.getFitProfile('', clientId);
-						
+
 					}, 1000);
 				}
 			});
@@ -940,23 +941,24 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 		, submitAlterationFormAndGenratePDF: function(e){ //Added salman 4/2/2019 alteration
 			var self = this;
 			var alterationInternalId;
-			jQuery('input:disabled').removeAttr('disabled'); 
-			jQuery('select:disabled').removeAttr('disabled'); 
+			jQuery('input:disabled').removeAttr('disabled');
+			jQuery('select:disabled').removeAttr('disabled');
 			var formValues = jQuery('#alteration-form').serialize().split("&");
-			var clientId = jQuery('#alteration_client_id').val(); 
+			var clientId = jQuery('#alteration_client_id').val();
 			var dataToSend = new Array();
 			for(var i =0; i< formValues.length; i++){
 				var obj = {};
 				var formValue = formValues[i];
 				var field = formValue.split("=")[0]
-					, value = formValue.split("=")[1];
+					, value = jQuery('#' + formValue.split("=")[0]).val().replace(/\%0D%0A/g, ' ').replace(/\s+/g, ' ').trim();
+					console.log('value: ', value);
 					if(field == "alteration_rec_id" && value != '-999'){
 						alterationInternalId = value;
 					} else {
 						obj.name = field;
 						obj.value = value;
-						dataToSend.push(obj);	
-					}			
+						dataToSend.push(obj);
+					}
 			};
 			var param = new Object();
 			var tempArr = [];
@@ -983,7 +985,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 					var scriptLink = 'https://forms.na2.netsuite.com/app/site/hosting/scriptlet.nl?script=279&deploy=1&compid=3857857&h=7146800f2cdac0a8e1b9';
 					var link = scriptLink + '&recid=' + data.id;
 					window.open(link);
-						
+
 					}, 1000);
 				}
 			});
@@ -1241,9 +1243,9 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 												var name = defaultFields[i].name;
 												var value = defaultFields[i].value;
 												if(value != 'select' ){
-													var defaultId = name.replace('max', 'default').replace('min', 'default').replace('%', '/').replace('F2', '');
+													var defaultId = name.replace('max', 'default').replace('min', 'default').replace('%', '/').replace('2F', '');
 													if(parseFloat(value) != 0){
-														var selectMaxMinId = name.replace('%', '/').replace('F2', '');
+														var selectMaxMinId = name.replace('%', '/').replace('2F', '');
 														jQuery('[id="'+ defaultId + '"]').html(value);
 														jQuery('select[name="' + selectMaxMinId + '"]').val(value);
 														var tempFiledId =  selectMaxMinId.split('-');
@@ -1256,7 +1258,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 															tempFiledId[index] = 'max';
 															var disabledFiledId = tempFiledId.join('-');
 															jQuery('select[id="' + disabledFiledId + '"]').prop("disabled", true);
-														}	
+														}
 													} else {
 														if(name.indexOf('min') != -1){
 															var defaultValue = jQuery('[id="'+ defaultId + '"]').text();
@@ -1272,7 +1274,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 								}
 							}
 					}
-					//JHD-11 End				
+					//JHD-11 End
 				}
 
 			 } else {

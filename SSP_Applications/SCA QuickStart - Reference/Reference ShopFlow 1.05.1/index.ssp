@@ -218,8 +218,8 @@ if (!SC.isCrossOrigin())
 	// to the sc.environment.ssp (Moderate cacheing) or to the sc.user.environment.ssp (No cache but less performant)
 	loadScript([
 		'<%= session.getAbsoluteUrl("shopping", 'js/libs/Libraries-01624173afbc.js') %>'
-	,	'<%= session.getAbsoluteUrl("shopping", 'templates/Templates-016971525adf.js') %>'
-	,	'<%= session.getAbsoluteUrl("shopping", 'js/Application-0169715da3d5.js') %>'
+	,	'<%= session.getAbsoluteUrl("shopping", 'templates/Templates-016e2b2f8580.js') %>'
+	,	'<%= session.getAbsoluteUrl("shopping", 'js/Application-016e2b3986fb.js') %>'
 	]);
 
 	if (SC.ENVIRONMENT.jsEnvironment == 'browser')

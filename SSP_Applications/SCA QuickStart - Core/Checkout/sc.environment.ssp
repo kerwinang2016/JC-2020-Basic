@@ -20,10 +20,11 @@
 		cart_bootstrap = request.getParameter('cart-bootstrap');
 		Profile = Application.getModel('Profile').get();
 		siteId = SiteSettings.siteid;
-        if(SC.projectConfig.site.categories.enable && SC.projectConfig.site.categories.secure_enable) {
-            Categories = Application.getModel('Category').get();
-        }
-            logoBrand = Application.getModel('Taylor').getLogo();
+    if(SC.projectConfig.site.categories.enable && SC.projectConfig.site.categories.secure_enable) {
+        Categories = Application.getModel('Category').get();
+    }
+		if(Profile.internalid)
+    logoBrand = Application.getModel('Taylor').getLogo();
 
 		// Check if cart bootstrapping is required
 		Cart = cart_bootstrap ? Application.getModel('LiveOrder').get() : {};

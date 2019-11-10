@@ -43,8 +43,8 @@ define('SiteSearch', ['Facets.Translator', 'TypeAhead.Model', 'Session'], functi
 			var inputvalue = jQuery(e.target).find('input').val();
 			if(inputvalue.startsWith("LP"))
 				inputvalue = inputvalue.substring(2);
-			if(inputvalue.startsWith("N"))
-				inputvalue = inputvalue.substring(1);
+			// if(inputvalue.startsWith("N"))
+			// 	inputvalue = inputvalue.substring(1);
 			this.search(inputvalue);
 		}
 

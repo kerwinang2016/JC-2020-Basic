@@ -492,7 +492,9 @@ Application.defineModel('Profile', {
 			profile.balance_available = profile.creditlimit - profile.balance;
 			profile.balance_available_formatted = formatCurrency(profile.balance_available);
 			var customerFieldValues = customer.getCustomFieldValues();
-
+			profile.hidebillingandcogs = _.find(customerFieldValues, function(field){
+				return field.name === 'custentity_hide_billingandcogs';
+			}).value;
 			profile.LogoUrl = _.find(customerFieldValues, function(field){
 				return field.name === 'custentity_avt_tailor_logo_url';
 			}).value || '/c.3857857/assets/images/avt/default-logo.jpg';

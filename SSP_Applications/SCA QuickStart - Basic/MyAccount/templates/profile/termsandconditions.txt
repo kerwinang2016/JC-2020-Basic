@@ -1,4 +1,3 @@
-
 <h1 class="no-margin-top"><%= view.title %></h1>
 
 <div id="accordion" role="tablist" aria-multiselectable="true">
@@ -194,7 +193,7 @@
     </div>
     <div id="delivery" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingFourteen">
       <div class="card-block">
-        All items will be dispatched from our manufacturing partner within four weeks from receipt of the fabric. Jerome will not be responsible for the delivery of any fabrics to our manufacturing partner. This liability rests with the fabric supplier(s). Jerome will take responsibility for the delivery of the finished items from the manufacturing partner to you (the customer), where you choose to use our freight account.
+        All items will be dispatched from our manufacturing partner within four weeks from receipt of the fabric. Jerome will not be responsible for the delivery of any fabrics to our manufacturing partner. This liability rests with the fabric supplier(s). Jerome will also not take responsibility for the delivery of the finished items from the manufacturing partner to you (the customer). This liability rests with the manufacturing partner and/or the freight forwarder.
       </div>
     </div>
   </div>

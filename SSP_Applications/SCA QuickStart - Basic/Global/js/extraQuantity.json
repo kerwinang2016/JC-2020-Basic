@@ -150,7 +150,10 @@
 	{
 	"code":"Jacket",
 	"design":
-		[
+		[{
+			"code":"Plain",
+			"value":"0"
+			},
 			{
 			"code":"Plaid 2cm x 2cm",
 			"value":"0.2"
@@ -176,7 +179,14 @@
 	{
 	"code":"Trouser",
 	"design":
-		[
+		[{
+			"code":"Plain",
+			"value":"0"
+			},
+			{
+			"code":"Plaid Fabric",
+			"value":"0.06"
+			},
 			{
 			"code":"Stripe",
 			"value":"0.05"
@@ -186,7 +196,14 @@
 	{
 	"code":"Waistcoat",
 	"design":
-		[
+		[{
+			"code":"Plain",
+			"value":"0"
+			},
+			{
+			"code":"Plaid Fabric",
+			"value":"0.02"
+			},
 			{
 			"code":"Stripe",
 			"value":"0.05"
@@ -196,7 +213,10 @@
 	{
 	"code":"Overcoat",
 	"design":
-		[
+		[{
+			"code":"Plain",
+			"value":"0"
+			},
 			{
 			"code":"Plaid 5cm x 5cm",
 			"value":"0.2"
@@ -214,7 +234,10 @@
 	{
 	"code":"3-Piece Suit",
 	"design":
-		[
+		[{
+			"code":"Plain",
+			"value":"0"
+			},
 			{
 			"code":"Plaid 2cm x 2cm",
 			"value":"0.2"
@@ -240,7 +263,10 @@
 	{
 	"code":"2-Piece Suit",
 	"design":
-		[
+		[{
+			"code":"Plain",
+			"value":"0"
+			},
 			{
 			"code":"Plaid 2cm x 2cm",
 			"value":"0.2"
@@ -266,7 +292,10 @@
 	{
 	"code":"Shirt",
 	"design":
-		[
+		[{
+			"code":"Plain",
+			"value":"0"
+			},
 			{
 			"code":"Stripe",
 			"value":"0.14"

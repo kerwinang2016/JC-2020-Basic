@@ -315,7 +315,9 @@ Application.defineModel('Profile', {
 			profile.balance_available_formatted = formatCurrency(profile.balance_available);
 
 			var customerFieldValues = customer.getCustomFieldValues();
-
+			profile.hidebillingandcogs = _.find(customerFieldValues, function(field){
+				return field.name === 'custentity_hide_billingandcogs';
+			}).value;
 			profile.LogoUrl = _.find(customerFieldValues, function (field) {
 				return field.name === 'custentity_avt_tailor_logo_url';
 			}).value || '/c.3857857/assets/images/avt/default-logo.jpg';
@@ -3202,7 +3204,10 @@ Application.defineModel('Receipts', _.extend({}, PlacedOrder, {
 				, new nlobjSearchColumn('fxamount')
 				, new nlobjSearchColumn('custbody_customer_name')
 				, new nlobjSearchColumn('exchangerate')
-
+				, new nlobjSearchColumn('altname','custbody_so_created_by')
+				// , new nlobjSearchColumn('firstname','custbody_so_created_by')
+				// , new nlobjSearchColumn('lastname','custbody_so_created_by')
+				// , new nlobjSearchColumn('parent','custbody_so_created_by')
 			]
 
 			, mainline = Application.getAllSearchResults('transaction', filters, columns);
@@ -3250,7 +3255,7 @@ Application.defineModel('Receipts', _.extend({}, PlacedOrder, {
 		// convert the obejcts to arrays
 		result.addresses = _.values(result.addresses);
 		result.lines = _.values(result.lines);
-
+		result.createdby = mainline[0].getValue('altname','custbody_so_created_by');
 		this.setReturnAuthorizations(result, receipt);
 
 		return result;

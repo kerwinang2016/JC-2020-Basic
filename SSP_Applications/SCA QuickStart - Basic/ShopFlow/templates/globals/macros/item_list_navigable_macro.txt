@@ -73,9 +73,9 @@ Change Description: Order List add Tailor currency symbol and insert box for pri
 		xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhttp.send("itemid=" + itemId + "&customerid=" + customerId);
 	  //JHD-7 End
-
-	var formtype = "Jacket";
-	if(fitprofile){
+  //var ptype = _.where(item.get("options"), {id: "CUSTCOL_PRODUCTTYPE"})[0].value;
+	var formtype = _.where(item.get("options"), {id: "CUSTCOL_PRODUCTTYPE"})[0].value;
+	/*if(fitprofile){
 		if(fitprofile.length == 3)
 			formtype = '3-Piece-Suit';
 		else if(fitprofile.length == 2)
@@ -84,6 +84,7 @@ Change Description: Order List add Tailor currency symbol and insert box for pri
 			formtype = fitprofile[0].name;
 		}
 	}
+	*/
 	var item_details = item.get('itemDetails')
 
 	var isDisplayDateNeededHoldFabricHoldProduction = true;
@@ -264,8 +265,9 @@ Change Description: Order List add Tailor currency symbol and insert box for pri
 				<div class="item-option selected-options-display">
 					<%= SC.macros.displayDesignOptions(line) %>
 				</div>
-				<% var sitecogs = _.where(line.get('options'), {id: "CUSTCOL_SITE_COGS"})[0]; %>
-				<% if(sitecogs){ %>
+				<% var sitecogs = _.where(line.get('options'), {id: "CUSTCOL_SITE_COGS"})[0];%>
+
+				<% if(sitecogs && application.getUser() && application.getUser().get('hidebillingandcogs') == 'F'){ %>
 				<div class="item-cogs">
 					<div class="accordion" id="item-cogs-<%= line.id %>">
 						<div class="accordion-group">

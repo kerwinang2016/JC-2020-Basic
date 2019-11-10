@@ -23,12 +23,12 @@ define('FitProFile.Router',  ['FitProFile.Views', 'FitProfile.Model', 'FormRende
 		{
 			var application = this.application;
 
-
 			var	view = new Views.Home({
 				application: application
 			,	model: new Model(application.getUser().get("internalid"))
 			});
 			view.model.on("afterInitialize", function(){
+				//console.log('TESTING')
 				view.showContent();
 			})
 		}

@@ -452,9 +452,9 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 														var name = defaultFields[i].name;
 														var value = defaultFields[i].value;
 														if(value != 'select'){
-															var defaultId = name.replace('max', 'default').replace('min', 'default').replace('%', '/').replace('F2', '');
+															var defaultId = name.replace('max', 'default').replace('min', 'default').replace('%', '/').replace('2F', '');
 															if(parseFloat(value) != 0){
-																var selectMaxMinId = name.replace('%', '/').replace('F2', '');
+																var selectMaxMinId = name.replace('%', '/').replace('2F', '');
 																jQuery('[id="'+ defaultId + '"]').html(value);
 																jQuery('select[name="' + selectMaxMinId + '"]').val(value);
 																var tempFiledId =  selectMaxMinId.split('-');
@@ -596,7 +596,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 								var name = defaultFields[i].name;
 								var value = defaultFields[i].value;
 								if(value != 'select'){
-									var defaultId = name.replace('max', 'default').replace('min', 'default').replace('%', '/').replace('F2', '');
+									var defaultId = name.replace('max', 'default').replace('min', 'default').replace('%', '/').replace('2F', '');
 									defaultId = 'in-modal-' + defaultId;
 									if(parseFloat(value) != 0){
 										jQuery('[id="'+ defaultId + '"]').html(value);

@@ -110,7 +110,7 @@
 
 											<% if (isTextType) {%>
 												<div class="controls" style="margin-bottom: 15px;display:inline">
-													<input data-type="<%= currentField.datatype %>" data-placeholder="<%= currentField.dataplaceholder %>" placeholder="<%= currentField.placeholder%>" type="text" maxlength="<%= currentField.maxlength%>" fieldname="<%= field %>" id="<%= currentField.name %>" class="input-xlarge" name="<%= currentField.name %>" value="<%= currentField.value %>" data-type="fav-option-customization">
+													<input data-type="<%= currentField.datatype %>" data-placeholder="<%= currentField.dataplaceholder %>" placeholder="<%= currentField.placeholder%>" type="text" maxlength="<%= currentField.maxlength%>" fieldname="<%= field %>" id="<%= currentField.name %>" class="input-xlarge" name="<%= currentField.name %>" value="<%= currentField.value %>" data-type="fav-option-customization" onkeypress="return (event.charCode >= 32 && event.charCode < 128)">
 												</div>
 												<div class="show-options-img" id="more-info_<%= currentField.name %>">
 															<%= SC.macros.displayMoreInfo(currentField.name+"|"+currentField.label)%>
@@ -137,7 +137,7 @@
 			</div>
 		</div>
 		<div class="control-group" data-input="designoption-message">
-			<label class="control-label" for="designoption-message">Notes</label>
+			<label class="control-label" for="designoption-message">Notes (Internal use only. Notes not actioned by Jerome)</label>
 			<div class="controls">
 				<textarea class="input-xxlarge designoption-message" id="designoption-message" name="designoption-message"></textarea>
 			</div>

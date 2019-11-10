@@ -216,19 +216,6 @@ OBJ_CONFLICT['T01020310']['CONFLICT']['T010221']['Fabric']={};
 OBJ_CONFLICT['T01020310']['CONFLICT']['T010221']['Fabric']['ERROR'] = 'Fabric melton cannot be selected with notch low gorge 8.2cm lapel';
 
 /** start conflicts -  T010202 **/
-OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']= [];
-
-OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020202']={};
-OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020202']['ERROR'] = '3 button closure cannot be selected with notch low gorge 8.2cm lapel';
-
-OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020204']={};
-OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020204']['ERROR'] = '1 button closure cannot be selected with notch low gorge 8.2cm lapel';
-
-OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020205']={};
-OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020205']['ERROR'] = '6 button DB closure cannot be selected with notch low gorge 8.2cm lapel';
-
-OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020206']={};
-OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020206']['ERROR'] = '4 button DB closure cannot be selected with notch low gorge 8.2cm lapel';
 /**  end conflicts -  T010202  **/
 
 /** ####  END CONFLICT CODE -  T01020310  #### **/
@@ -1267,12 +1254,6 @@ OBJ_CONFLICT['T01170101']['CONFLICT'] = [];
 
 /** start conflicts -  T011702 **/
 OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']= [];
-OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170201']={};
-OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170201']['ERROR'] = 'No lapel cannot be selected with 4 button V closure';
-OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170204']={};
-OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170204']['ERROR'] = 'Peak lapel standard cannot be selected with 4 button V closure';
-/**  end conflicts -  T011702  **/
-/** start conflicts -  T011702 **/
 OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170208']={};
 OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170208']['ERROR'] = 'You cannot select Peak 6cm lapel with 4 Button V closure';
 OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170209']={};
@@ -1283,28 +1264,6 @@ OBJ_CONFLICT['T01170101']['CONFLICT']['T011702']['T01170210']['ERROR'] = 'You ca
 /** ####  END CONFLICT CODE -  T01170101  #### **/
 /** #### START CONFLICT CODE - T01170101 #### **/
 
-OBJ_CONFLICT['T01170102'] = {};
-OBJ_CONFLICT['T01170102']['CONFLICT'] = [];
-/** start conflicts -  T011702 **/
-OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']= [];
-OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170202']={};
-OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170202']['ERROR'] = 'You cannot select Notch 5cm lapel with 5 Button V closure';
-OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170203']={};
-OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170203']['ERROR'] = 'You cannot select U lapel with 5 Button V closure';
-OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170205']={};
-OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170205']['ERROR'] = 'You cannot select Notch 6cm lapel with 5 Button V closure';
-OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170206']={};
-OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170206']['ERROR'] = 'You cannot select Notch 7cm lapel with 5 Button V closure';
-OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170207']={};
-OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170207']['ERROR'] = 'You cannot select Notch 8cm lapel with 5 Button V closure';
-OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170208']={};
-OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170208']['ERROR'] = 'You cannot select Peak 6cm lapel with 5 Button V closure';
-OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170209']={};
-OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170209']['ERROR'] = 'You cannot select Peak 7cm lapel with 5 Button V closure';
-OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170210']={};
-OBJ_CONFLICT['T01170102']['CONFLICT']['T011702']['T01170210']['ERROR'] = 'You cannot select Peak 8cm lapel with 5 Button V closure';
-/**  end conflicts -  T011702  **/
-/** ####  END CONFLICT CODE -  T01170101  #### **/
 
 /** #### START CONFLICT CODE - T01170103 #### **/
 
@@ -1344,9 +1303,6 @@ OBJ_CONFLICT['T01170104']['CONFLICT']['T011702']= [];
 
 OBJ_CONFLICT['T01170104']['CONFLICT']['T011702']['T01170202']={};
 OBJ_CONFLICT['T01170104']['CONFLICT']['T011702']['T01170202']['ERROR'] = 'You cannot select Notch 5cm lapel with DB 8 Button closure';
-
-OBJ_CONFLICT['T01170104']['CONFLICT']['T011702']['T01170203']={};
-OBJ_CONFLICT['T01170104']['CONFLICT']['T011702']['T01170203']['ERROR'] = 'You cannot select U lapel with DB 8 Button closure';
 /**  end conflicts -  T011702  **/
 
 /** ####  END CONFLICT CODE -  T01170104  #### **/
@@ -1515,9 +1471,6 @@ OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020306']['ERROR'] = 'Lapel 
 OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020307']={};
 OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020307']['ERROR'] = 'Lapel option cannot be selected with 2 button DB closure';
 
-OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020308']={};
-OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020308']['ERROR'] = 'Lapel option cannot be selected with 2 button DB closure';
-
 OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020310']={};
 OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020310']['ERROR'] = 'Lapel option cannot be selected with 2 button DB closure';
 
@@ -1527,12 +1480,27 @@ OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020311']['ERROR'] = 'Lapel 
 OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020312']={};
 OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020312']['ERROR'] = 'Lapel option cannot be selected with 2 button DB closure';
 
-OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020321']={};
-OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020321']['ERROR'] = 'Lapel option cannot be selected with 2 button DB closure';
-
 OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020325']={};
 OBJ_CONFLICT['T01020207']['CONFLICT']['T010203']['T01020325']['ERROR'] = 'Lapel option cannot be selected with 2 button DB closure';
 /**  end conflicts -  T010203  **/
+
+/** ####  END CONFLICT CODE -  T01020207  #### **/
+/** #### START CONFLICT CODE - T01020206 #### **/
+OBJ_CONFLICT['T01020325'] = {};
+OBJ_CONFLICT['T01020325']['CONFLICT'] = [];
+OBJ_CONFLICT['T01020325']['CONFLICT']['T010202']= [];
+OBJ_CONFLICT['T01020325']['CONFLICT']['T010202']['T01020201']={};
+OBJ_CONFLICT['T01020325']['CONFLICT']['T010202']['T01020201']['ERROR'] = '1 Button Bib Shawl can only have a 1 button closure';
+OBJ_CONFLICT['T01020325']['CONFLICT']['T010202']['T01020203']={};
+OBJ_CONFLICT['T01020325']['CONFLICT']['T010202']['T01020203']['ERROR'] = '1 Button Bib Shawl can only have a 1 button closure';
+OBJ_CONFLICT['T01020325']['CONFLICT']['T010202']['T01020202']={};
+OBJ_CONFLICT['T01020325']['CONFLICT']['T010202']['T01020202']['ERROR'] = '1 Button Bib Shawl can only have a 1 button closure';
+OBJ_CONFLICT['T01020325']['CONFLICT']['T010202']['T01020206']={};
+OBJ_CONFLICT['T01020325']['CONFLICT']['T010202']['T01020206']['ERROR'] = '1 Button Bib Shawl can only have a 1 button closure';
+OBJ_CONFLICT['T01020325']['CONFLICT']['T010202']['T01020205']={};
+OBJ_CONFLICT['T01020325']['CONFLICT']['T010202']['T01020205']['ERROR'] = '1 Button Bib Shawl can only have a 1 button closure';
+OBJ_CONFLICT['T01020325']['CONFLICT']['T010202']['T01020207']={};
+OBJ_CONFLICT['T01020325']['CONFLICT']['T010202']['T01020207']['ERROR'] = '1 Button Bib Shawl can only have a 1 button closure';
 
 /** ####  END CONFLICT CODE -  T01020207  #### **/
 
@@ -1550,17 +1518,11 @@ OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020306']['ERROR'] = 'Lapel 
 OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020307']={};
 OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020307']['ERROR'] = 'Lapel option cannot be selected with 4 button DB closure';
 
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020308']={};
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020308']['ERROR'] = 'Lapel option cannot be selected with 4 button DB closure';
-
 OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020311']={};
 OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020311']['ERROR'] = 'Lapel option cannot be selected with 4 button DB closure';
 
 OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020312']={};
 OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020312']['ERROR'] = 'Lapel option cannot be selected with 4 button DB closure';
-
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020321']={};
-OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020321']['ERROR'] = 'Lapel option cannot be selected with 4 button DB closure';
 
 OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020325']={};
 OBJ_CONFLICT['T01020206']['CONFLICT']['T010203']['T01020325']['ERROR'] = 'Lapel option cannot be selected with 4 button DB closure';
@@ -1596,17 +1558,11 @@ OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020306']['ERROR'] = 'Lapel 
 OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020307']={};
 OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020307']['ERROR'] = 'Lapel option cannot be selected with 6 button DB closure';
 
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020308']={};
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020308']['ERROR'] = 'Lapel option cannot be selected with 6 button DB closure';
-
 OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020311']={};
 OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020311']['ERROR'] = 'Lapel option cannot be selected with 6 button DB closure';
 
 OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020312']={};
 OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020312']['ERROR'] = 'Lapel option cannot be selected with 6 button DB closure';
-
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020321']={};
-OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020321']['ERROR'] = 'Lapel option cannot be selected with 6 button DB closure';
 
 OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020325']={};
 OBJ_CONFLICT['T01020205']['CONFLICT']['T010203']['T01020325']['ERROR'] = 'Lapel option cannot be selected with 6 button DB closure';
@@ -1658,20 +1614,11 @@ OBJ_CONFLICT['T01020307']['CONFLICT']['T010202']['T01020205']['ERROR'] = ' Only 
 
 OBJ_CONFLICT['T01020307']['CONFLICT']['T010202']['T01020206']={};
 OBJ_CONFLICT['T01020307']['CONFLICT']['T010202']['T01020206']['ERROR'] = ' Only 1 button closure can be selected with shawl collar 5cm';
+
+OBJ_CONFLICT['T01020307']['CONFLICT']['T010202']['T01020207']={};
+OBJ_CONFLICT['T01020307']['CONFLICT']['T010202']['T01020207']['ERROR'] = ' Only 1 button closure can be selected with shawl collar 5cm';
 /**  end conflicts -  T010202  **/
 
-/** start conflicts -  T010204 **/
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010204']= [];
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010204']['T01020401']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010204']['T01020401']['ERROR'] = ' Only no lapel buttonhole can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010204']['T01020402']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010204']['T01020402']['ERROR'] = ' Only no lapel buttonhole can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010204']['T01020404']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010204']['T01020404']['ERROR'] = ' Only no lapel buttonhole can be selected with shawl collar 5cm';
-/**  end conflicts -  T010204  **/
 
 /** start conflicts -  T010221 **/
 OBJ_CONFLICT['T01020307']['CONFLICT']['T010221']= [];
@@ -1809,110 +1756,7 @@ OBJ_CONFLICT['T01020307']['CONFLICT']['T010221']['Suede T30']={};
 OBJ_CONFLICT['T01020307']['CONFLICT']['T010221']['Suede T30']['ERROR'] = ' Only fabric melton can be selected with shawl collar 5cm';
 /**  end conflicts -  T010221  **/
 
-/** start conflicts -  T010231 **/
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']= [];
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['Tone on tone']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['Tone on tone']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C1']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C1']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C2']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C2']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C3']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C3']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C4']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C4']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C5']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C5']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C6']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C6']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C7']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C7']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C8']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C8']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C9']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C9']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C10']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C10']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C11']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C11']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C12']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C12']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C13']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C13']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C14']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C14']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C15']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C15']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C16']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C16']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C17']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C17']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C18']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C18']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C19']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C19']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C20']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C20']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C21']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C21']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C22']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C22']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C23']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C23']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C24']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C24']['ERROR'] = '0 Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C25']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C25']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C26']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C26']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C27']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C27']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C28']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C28']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C29']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C29']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C30']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C30']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C31']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C31']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C32']={};
-OBJ_CONFLICT['T01020307']['CONFLICT']['T010231']['C32']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 5cm';
-/**  end conflicts -  T010231  **/
-
-/** ####  END CONFLICT CODE -  T01020307  #### **/
+/** #### END CONFLICT CODE - T01020307 #### **/
 
 
 /** #### START CONFLICT CODE - T01020308 #### **/
@@ -1945,33 +1789,14 @@ OBJ_CONFLICT['T01020308']['CONFLICT']['T010211']['T01021106']['ERROR'] = 'Patch 
 OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']= [];
 
 OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020201']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020201']['ERROR'] = ' Only 1 button closure can be selected with shawl collar 6cm';
+OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020201']['ERROR'] = ' Selected button closure cannot be chosen with shawl collar 6cm';
 
 OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020202']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020202']['ERROR'] = ' Only 1 button closure can be selected with shawl collar 6cm';
+OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020202']['ERROR'] = ' Selected button closure cannot be chosen with shawl collar 6cm';
 
 OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020203']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020203']['ERROR'] = ' Only 1 button closure can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020205']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020205']['ERROR'] = ' Only 1 button closure can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020206']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020206']['ERROR'] = ' Only 1 button closure can be selected with shawl collar 6cm';
+OBJ_CONFLICT['T01020308']['CONFLICT']['T010202']['T01020203']['ERROR'] = ' Selected button closure cannot be chosen with shawl collar 6cm';
 /**  end conflicts -  T010202  **/
-
-/** start conflicts -  T010204 **/
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010204']= [];
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010204']['T01020401']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010204']['T01020401']['ERROR'] = ' Only no lapel buttonhole can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010204']['T01020402']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010204']['T01020402']['ERROR'] = ' Only no lapel buttonhole can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010204']['T01020404']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010204']['T01020404']['ERROR'] = ' Only no lapel buttonhole can be selected with shawl collar 6cm';
-/**  end conflicts -  T010204  **/
 
 /** start conflicts -  T010221 **/
 OBJ_CONFLICT['T01020308']['CONFLICT']['T010221']= [];
@@ -2109,109 +1934,6 @@ OBJ_CONFLICT['T01020308']['CONFLICT']['T010221']['Suede T30']={};
 OBJ_CONFLICT['T01020308']['CONFLICT']['T010221']['Suede T30']['ERROR'] = ' Only fabric melton can be selected with shawl collar 6cm';
 /**  end conflicts -  T010221  **/
 
-/** start conflicts -  T010231 **/
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']= [];
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['Tone on tone']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['Tone on tone']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C1']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C1']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C2']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C2']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C3']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C3']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C4']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C4']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C5']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C5']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C6']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C6']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C7']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C7']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C8']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C8']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C9']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C9']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C10']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C10']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C11']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C11']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C12']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C12']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C13']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C13']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C14']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C14']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C15']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C15']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C16']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C16']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C17']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C17']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C18']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C18']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C19']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C19']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C20']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C20']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C21']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C21']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C22']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C22']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C23']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C23']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C24']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C24']['ERROR'] = '0 Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C25']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C25']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C26']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C26']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C27']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C27']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C28']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C28']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C29']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C29']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C30']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C30']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C31']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C31']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C32']={};
-OBJ_CONFLICT['T01020308']['CONFLICT']['T010231']['C32']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 6cm';
-/**  end conflicts -  T010231  **/
-
 /** ####  END CONFLICT CODE -  T01020308  #### **/
 
 
@@ -2245,33 +1967,14 @@ OBJ_CONFLICT['T01020321']['CONFLICT']['T010211']['T01021106']['ERROR'] = 'Patch 
 OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']= [];
 
 OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020201']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020201']['ERROR'] = ' Only 1 button closure can be selected with shawl collar 7.6cm';
+OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020201']['ERROR'] = ' Selected button closure cannot be chosen with shawl collar 7.6cm';
 
 OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020202']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020202']['ERROR'] = ' Only 1 button closure can be selected with shawl collar 7.6cm';
+OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020202']['ERROR'] = ' Selected button closure cannot be chosen with shawl collar 7.6cm';
 
 OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020203']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020203']['ERROR'] = ' Only 1 button closure can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020205']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020205']['ERROR'] = ' Only 1 button closure can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020206']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020206']['ERROR'] = ' Only 1 button closure can be selected with shawl collar 7.6cm';
+OBJ_CONFLICT['T01020321']['CONFLICT']['T010202']['T01020203']['ERROR'] = ' Selected button closure cannot be chosen with shawl collar 7.6cm';
 /**  end conflicts -  T010202  **/
-
-/** start conflicts -  T010204 **/
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010204']= [];
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010204']['T01020401']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010204']['T01020401']['ERROR'] = ' Only no lapel buttonhole can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010204']['T01020402']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010204']['T01020402']['ERROR'] = ' Only no lapel buttonhole can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010204']['T01020404']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010204']['T01020404']['ERROR'] = ' Only no lapel buttonhole can be selected with shawl collar 7.6cm';
-/**  end conflicts -  T010204  **/
 
 /** start conflicts -  T010221 **/
 OBJ_CONFLICT['T01020321']['CONFLICT']['T010221']= [];
@@ -2408,109 +2111,6 @@ OBJ_CONFLICT['T01020321']['CONFLICT']['T010221']['Suede T29']['ERROR'] = ' Only 
 OBJ_CONFLICT['T01020321']['CONFLICT']['T010221']['Suede T30']={};
 OBJ_CONFLICT['T01020321']['CONFLICT']['T010221']['Suede T30']['ERROR'] = ' Only fabric melton can be selected with shawl collar 7.6cm';
 /**  end conflicts -  T010221  **/
-
-/** start conflicts -  T010231 **/
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']= [];
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['Tone on tone']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['Tone on tone']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C1']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C1']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C2']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C2']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C3']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C3']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C4']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C4']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C5']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C5']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C6']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C6']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C7']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C7']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C8']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C8']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C9']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C9']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C10']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C10']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C11']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C11']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C12']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C12']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C13']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C13']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C14']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C14']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C15']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C15']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C16']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C16']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C17']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C17']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C18']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C18']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C19']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C19']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C20']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C20']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C21']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C21']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C22']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C22']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C23']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C23']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C24']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C24']['ERROR'] = '0 Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C25']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C25']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C26']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C26']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C27']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C27']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C28']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C28']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C29']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C29']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C30']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C30']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C31']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C31']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C32']={};
-OBJ_CONFLICT['T01020321']['CONFLICT']['T010231']['C32']['ERROR'] = ' Only no lapel buttonhole color can be selected with shawl collar 7.6cm';
-/**  end conflicts -  T010231  **/
 
 /** ####  END CONFLICT CODE -  T01020321  #### **/
 
@@ -4106,6 +3706,23 @@ OBJ_CONFLICT['T01060707']['CONFLICT']['T010612']['T01061205']['ERROR'] = 'Only n
 OBJ_CONFLICT['T01060705'] = {};
 OBJ_CONFLICT['T01060705']['CONFLICT'] = [];
 
+/** **/
+OBJ_CONFLICT['T01060705']['CONFLICT']['T010642']= [];
+
+OBJ_CONFLICT['T01060705']['CONFLICT']['T010642']['T01064202']={};
+OBJ_CONFLICT['T01060705']['CONFLICT']['T010642']['T01064202']['ERROR'] = 'Only NA for formal front can be selected with smoking with studs front placket';
+OBJ_CONFLICT['T01060705']['CONFLICT']['T010642']['T01064203']={};
+OBJ_CONFLICT['T01060705']['CONFLICT']['T010642']['T01064203']['ERROR'] = 'Only NA for formal front can be selected with smoking with studs front placket';
+OBJ_CONFLICT['T01060705']['CONFLICT']['T010642']['T01064204']={};
+OBJ_CONFLICT['T01060705']['CONFLICT']['T010642']['T01064204']['ERROR'] = 'Only NA for formal front can be selected with smoking with studs front placket';
+OBJ_CONFLICT['T01060705']['CONFLICT']['T010642']['T01064205']={};
+OBJ_CONFLICT['T01060705']['CONFLICT']['T010642']['T01064205']['ERROR'] = 'Only NA for formal front can be selected with smoking with studs front placket';
+OBJ_CONFLICT['T01060705']['CONFLICT']['T010642']['T01064206']={};
+OBJ_CONFLICT['T01060705']['CONFLICT']['T010642']['T01064206']['ERROR'] = 'Only NA for formal front can be selected with smoking with studs front placket';
+OBJ_CONFLICT['T01060705']['CONFLICT']['T010642']['T01064207']={};
+OBJ_CONFLICT['T01060705']['CONFLICT']['T010642']['T01064207']['ERROR'] = 'Only NA for formal front can be selected with smoking with studs front placket';
+
+/** **/
 /** start conflicts -  T010628 **/
 OBJ_CONFLICT['T01060705']['CONFLICT']['T010628']= [];
 
@@ -4981,3 +4598,28 @@ OBJ_CONFLICT['T01064207']['CONFLICT']['T010607']['T01060705'] = {};
 OBJ_CONFLICT['T01064207']['CONFLICT']['T010607']['T01060705']['ERROR'] = 'Formal front for front placket must be selected with formal front fabric';
 
 /** ####  END CONFLICT CODE - TST04 Thin pleat black  #### **/
+
+/** #### START CONFLICT CODE - T01020403 Lapel No buttonhole #### **/
+OBJ_CONFLICT['T01020403'] = {};
+OBJ_CONFLICT['T01020403']['CONFLICT'] = {};
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251'] = {};
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025101'] = {};
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025101']['ERROR'] = 'Only NA can be selected for Lapel Buttonhole Style when Lapel Buttonhole is No Buttonhole';
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025102'] = {};
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025102']['ERROR'] = 'Only NA can be selected for Lapel Buttonhole Style when Lapel Buttonhole is No Buttonhole';
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025103'] = {};
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025103']['ERROR'] = 'Only NA can be selected for Lapel Buttonhole Style when Lapel Buttonhole is No Buttonhole';
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025104'] = {};
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025104']['ERROR'] = 'Only NA can be selected for Lapel Buttonhole Style when Lapel Buttonhole is No Buttonhole';
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025105'] = {};
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025105']['ERROR'] = 'Only NA can be selected for Lapel Buttonhole Style when Lapel Buttonhole is No Buttonhole';
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025106'] = {};
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025106']['ERROR'] = 'Only NA can be selected for Lapel Buttonhole Style when Lapel Buttonhole is No Buttonhole';
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025107'] = {};
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025107']['ERROR'] = 'Only NA can be selected for Lapel Buttonhole Style when Lapel Buttonhole is No Buttonhole';
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025108'] = {};
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025108']['ERROR'] = 'Only NA can be selected for Lapel Buttonhole Style when Lapel Buttonhole is No Buttonhole';
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025110'] = {};
+OBJ_CONFLICT['T01020403']['CONFLICT']['T010251']['T01025110']['ERROR'] = 'Only NA can be selected for Lapel Buttonhole Style when Lapel Buttonhole is No Buttonhole';
+
+/** ####  END CONFLICT CODE - T01020403 Lapel No Buttonhole  #### **/

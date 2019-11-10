@@ -10,18 +10,19 @@
 		var req = jQuery.ajax({
 			method: type,
 			url: url,
-			data: params
+			data: params,
+			async: true
 		});
 
 		return req;
 	};
-	
+
 	// add size() method to object
 	Object.size = function(obj){
 	    var size = 0, key;
 	    for (key in this) {
 	        if (this.hasOwnProperty(key)){
-	        	size++;	
+	        	size++;
 	        }
 	    }
 	    return size;

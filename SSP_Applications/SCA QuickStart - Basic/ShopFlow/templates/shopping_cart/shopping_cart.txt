@@ -1,6 +1,6 @@
 <!--
-Change History   
--------------- 
+Change History
+--------------
 Date: 14-03-2019
 Changed by:Salman Khan
 Change /Jira Ticket #: JHD-34
@@ -37,7 +37,7 @@ Change Description: Price in the items matches the total in The order summary
 
     //JHD-34 Start
     var sum = 0.00;
-    lines.each(function (line, index) { 
+    lines.each(function (line, index) {
         var tempLineTotal =  _.where(line.get("options"), {id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL"});
         if(!tempLineTotal[0]){
             if(line.get("options")){

@@ -1,6 +1,6 @@
  <!--
-Change History   
--------------- 
+Change History
+--------------
 Date: 28-02-2019
 Changed by:Salman Khan
 Change /Jira Ticket #: JHD-11
@@ -25,15 +25,15 @@ Change Description: Default fit tools can be inputted into the my account sectio
 		</ul>
 <% }  %>
 
-<div class="tab-content"> 
+<div class="tab-content">
 	<% _.each(fields, function (field, count) { %>
 		<div class="tab-pane <%= count == 0 ? 'active' : '' %> fav-fit-tools-<%= field["item_type"] %>" id="fav-fit-tools-div-<%= field["item_type"] %>">
 			<% if(view.options.mode == "multi"){ %>
-				<%= SC.macros.measureForm(field.measurement[0], '', '', '', true) %>					
+				<%= SC.macros.measureForm(field.measurement[0], '', '', '', true) %>
 			<% } %>
 			<input type="hidden" name="fav-fit-tools-itemtype" value="<%= field["item_type"] %>">
 		</div>
- 
+
 	<% }) %>
 </div>
 <div class="form-actions">
@@ -42,7 +42,7 @@ Change Description: Default fit tools can be inputted into the my account sectio
 </div>
 </form>
 
-<% 
+<%
 	var param = {};
 	param.type = "get_favourite_fit_tools";
 	param.id = view.options.application.getUser().get("internalid");
@@ -55,6 +55,7 @@ Change Description: Default fit tools can be inputted into the my account sectio
 					jQuery('select').prop("disabled", false);
 					jQuery('button').prop("disabled", false);
 					var favFitToolsData = JSON.parse(favFitToolsData);
+          console.log(favFitToolsData);
 					for (var i = 0; i < favFitToolsData.length; i++) {
 						var itemType = favFitToolsData[i].itemType;
 						var tempMeasurementValues = favFitToolsData[i].measurementValues;
@@ -63,7 +64,7 @@ Change Description: Default fit tools can be inputted into the my account sectio
 							var fieldValue = tempMeasurementValues[j].value;
 
 							if (fieldValue != 'Select' && parseFloat(fieldValue) != 0) {
-								fieldId = fieldId.replace('%', '/').replace('F2', '');
+								fieldId = fieldId.replace('%', '/').replace('2F', '');
 								var id = "fav-fit-tools-div-" + itemType;
 								jQuery('#' + id + ' select[name="' + fieldId + '"]').val(fieldValue);
 								var tempFiledId = fieldId.split('-');

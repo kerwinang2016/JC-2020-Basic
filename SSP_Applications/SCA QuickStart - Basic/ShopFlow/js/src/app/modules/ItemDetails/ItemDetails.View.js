@@ -261,7 +261,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             var arrErrConflictCodes = _.getArrConflictCodesError(objConflictCodeMapping, arrSelectedValues, objSelectSelectedValues);
             if(jQuery('#T010244')[0]){
               if(jQuery('#T010244').val() == 'T01024401'){
-                if(!jQuery('#T010239').val() && !jQuery('#T010250').val()){
+                if(!jQuery('#T010239').val() && !jQuery('#T010250').val() && !jQuery('#T010261').val()){
                   arrErrConflictCodes.push("Monogram Text Line 1 or Monogram Text Above Pocket is required when Monogram Inside Lining is Yes");
                 }
                 if(jQuery('#T010239').val() && jQuery('#T010250').val()){
@@ -289,6 +289,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 }
               }
             }
+
             var arrErrConflictCodesTotal = (!_.isNullOrEmpty(arrErrConflictCodes)) ? arrErrConflictCodes.length : 0;
             var hasConflictCodes = (arrErrConflictCodesTotal != 0) ? true : false;
 
@@ -303,6 +304,12 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
               _.displayModalWindow("Contrast Option Other Text Required", arrOptionsTextCodes, true)
               return false;
             }
+
+            if(jQuery('#fabric_extra').val() == "Please Select" || jQuery('#fabric_extra').val() == ""){
+              _.displayModalWindow("Fabric Quantity Design", "You must select a design under fabric quantity", true)
+              return false;
+            }
+
             if(this.model.pricenotset){
                 _.displayModalWindow("Error on Item", ["There is an error with this item. Please re-submit as a CMT item"], true);
                 return false;
@@ -313,8 +320,8 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     , cart = this.application.getCart()
                     , layout = this.application.getLayout()
                     , cart_promise
-                    , error_message = _('Sorry, there is a problem with this Item and can not be purchased at this time. Please check back later.').translate();
-
+                    , error_message = _('Sorry, there is a problem with this Item and can not be purchased at this time. Please check back later.').translate()
+                    , hasNoFitProfile = false;
                 var fabricdetails = {
                   code:jQuery('#fabric-cmt-code').val(),
                   collection:jQuery('#fabric-cmt-collection').val(),
@@ -400,6 +407,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                         , measureType = ""
                         , currentFitProfile = window.currentFitProfile;
 
+
                     jQuery(".profiles-options").each(function (index) {
                         var $el = jQuery(this);
                         if ($el.find(":selected").text() != "Select a profile") {
@@ -420,6 +428,8 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                                 'id': mid,
                                 'blockvalue': blockvalue
                             });
+                        }else{
+                          hasNoFitProfile = true;
                         }
                     });
 
@@ -449,11 +459,11 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 self.model.setOption('custcol_fabric_extra',jQuery('#fabric_extra option:selected').text());
                 self.model.setOption('custcol_order_list_line_item_total', '0.00'); //JHD-34
                 //self.model.setOption('custcolcustcol_item_check','T');
-              self.model.setOption('custcolcustcol_item_check', jQuery("#chkItem").is(':checked')?'T':'F');
+                self.model.setOption('custcolcustcol_item_check', jQuery("#chkItem").is(':checked')?'T':'F');
 
                 cart_promise = cart.addItem(this.model).success(function () {
                     if (cart.getLatestAddition()) {
-                        layout.showCartConfirmation();
+                        layout.showCartConfirmation(hasNoFitProfile);
                     }
                     else {
                         self.showError(error_message);
@@ -518,6 +528,12 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 error_message += 'CMT Lining for Jacket has minimim quantity of 0.88.<br/>';
               }
             }
+			if(jQuery('#li-b-j').val() == 'CMT Lining'){
+				if((jQuery('#design-option-Jacket #li-vnd').val() == 'Please select') || (jQuery('#design-option-Jacket #li-code').val() == '') ||
+				jQuery('#design-option-Jacket #li-qty').val() == ""){
+					error_message += 'CMT Lining Vendor, Code and Quantity is required when Lining Fabric is CMT Lining<br/>';
+				}
+			}
           }
           if(clothingTypes.indexOf('Waistcoat')!=-1){
             if((jQuery('#design-option-Waistcoat #li-vnd').val() != 'Please select') || (jQuery('#design-option-Waistcoat #li-code').val() != '')){
@@ -525,6 +541,20 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 error_message += 'CMT Lining for Waistcoat has minimum quantity of 0.84.<br/>';
               }
             }
+			if(jQuery('#li-bl-w').val() == 'CMT Lining'){
+				if((jQuery('#design-option-Waistcoat #li-vnd').val() == 'Please select') || (jQuery('#design-option-Waistcoat #li-code').val() == '') ||
+				jQuery('#design-option-Waistcoat #li-qty').val() == ""){
+					error_message += 'CMT Lining Vendor, Code and Quantity is required when Lining Fabric is CMT Lining<br/>';
+				}
+			}
+          }
+		  if(clothingTypes.indexOf('Overcoat')!=-1){
+			if(jQuery('#li-bl-o').val() == 'CMT Lining'){
+				if((jQuery('#design-option-Overcoat #li-code').val() == '') ||
+				jQuery('#design-option-Overcoat #li-qty').val() == ""){
+					error_message += 'CMT Code and Quantity is required when Lining Fabric is CMT Lining<br/>';
+				}
+			}
           }
           if(error_message != "")
             self.showError(error_message);
@@ -540,91 +570,98 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     status = false
                 }
             });
-            //"Jacket, Trouser, Waistcoat","Jacket","Overcoat","Shirt","Jacket, Trouser"
-            switch (this.model.get('custitem_clothing_type')) {
-                case "Jacket, Trouser, Waistcoat":
-                    if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 3.4) {
-                        self.showError(_('Quantity should be greater than 3.4 for 3 Piece Suit').translate());
-                        status = false;
-                    }
-                    var measureType = "";
-                    //Check the fitprofile if they are all block or body
-                    jQuery(".profiles-options").each(function (index) {
-                        var $el = jQuery(this);
-                        if ($el.find(":selected").text() != "Select a profile") {
-                            var measureList = window.currentFitProfile.profile_collection.models;
+            if(status){
+              //"Jacket, Trouser, Waistcoat","Jacket","Overcoat","Shirt","Jacket, Trouser"
+              switch (this.model.get('custitem_clothing_type')) {
+                  case "Jacket, Trouser, Waistcoat":
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 3.4) {
+                          self.showError(_('Quantity should be greater than 3.4 for 3 Piece Suit').translate());
+                          status = false;
+                      }
+                      var measureType = "";
+                      //Check the fitprofile if they are all block or body
+                      jQuery(".profiles-options").each(function (index) {
+                          var $el = jQuery(this);
+                          if ($el.find(":selected").text() != "Select a profile") {
+                              var measureList = window.currentFitProfile.profile_collection.models;
 
-                            _.each(measureList, function (lineItem) {
-                                if (lineItem.get('internalid') == $el.find(":selected").val()) {
-                                    if(!measureType){
-                                      measureType = lineItem.get("custrecord_fp_measure_type");
-                                    }else if(measureType && measureType != lineItem.get("custrecord_fp_measure_type")){
-                                      self.showError(_('Measurement Type should be the same for all products').translate());
-                                      status = false;
-                                    }
-                                }
-                            });
-                        }
-                    });
-                    break;
-                case "Jacket":
-                    if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 2) {
-                        self.showError(_('Quantity should be greater than 2 for Jacket').translate());
-                        status = false;
-                    }
-                    break;
-                case "Trouser":
-                    if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 1.5) {
-                        self.showError(_('Quantity should be greater than 1.5 for Trouser').translate());
-                        status = false;
-                    }
-                    break;
-                case "Waistcoat":
-                    if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 1) {
-                        self.showError(_('Quantity should be greater than 1 for Waistcoat').translate());
-                        status = false;
-                    }
-                    break;
-                case "Overcoat":
-                    if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 2.21) {
-                        self.showError(_('Quantity should be greater than 2.4 for Overcoat').translate());
-                        status = false;
-                    }
-                    break;
-                case "Shirt":
-                    if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 1.6) {
-                        self.showError(_('Quantity should be greater than 2 for Shirt').translate());
-                        status = false;
-                    }
-                    break;
-                case "Jacket, Trouser":
-                    if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 3) {
-                        self.showError(_('Quantity should be greater than 3 for 2 Piece Suit').translate());
-                        status = false;
-                    }
-                    var measureType = "";
-                    //Check the fitprofile if they are all block or body
-                    jQuery(".profiles-options").each(function (index) {
-                        var $el = jQuery(this);
-                        if ($el.find(":selected").text() != "Select a profile") {
-                            var measureList = window.currentFitProfile.profile_collection.models;
+                              _.each(measureList, function (lineItem) {
+                                  if (lineItem.get('internalid') == $el.find(":selected").val()) {
+                                      if(!measureType){
+                                        measureType = lineItem.get("custrecord_fp_measure_type");
+                                      }else if(measureType && measureType != lineItem.get("custrecord_fp_measure_type")){
+                                        self.showError(_('Measurement Type should be the same for all products').translate());
+                                        status = false;
+                                      }
+                                  }
+                              });
+                          }
+                      });
+                      break;
+                  case "Jacket":
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 2) {
+                          self.showError(_('Quantity should be greater than 2 for Jacket').translate());
+                          status = false;
+                      }
+                      break;
+                  case "Trouser":
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 1.5) {
+                          self.showError(_('Quantity should be greater than 1.5 for Trouser').translate());
+                          status = false;
+                      }
+                      break;
+                  case "Waistcoat":
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 1) {
+                          self.showError(_('Quantity should be greater than 1 for Waistcoat').translate());
+                          status = false;
+                      }
+                      break;
+                  case "Overcoat":
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 2.21) {
+                          self.showError(_('Quantity should be greater than 2.4 for Overcoat').translate());
+                          status = false;
+                      }
+                      break;
+                  case "Shirt":
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 1.6) {
+                          self.showError(_('Quantity should be greater than 2 for Shirt').translate());
+                          status = false;
+                      }
+                      break;
+                  case "Jacket, Trouser":
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 3) {
+                          self.showError(_('Quantity should be greater than 3 for 2 Piece Suit').translate());
+                          status = false;
+                      }
+                      var measureType = "";
+                      //Check the fitprofile if they are all block or body
+                      jQuery(".profiles-options").each(function (index) {
+                          var $el = jQuery(this);
+                          if ($el.find(":selected").text() != "Select a profile") {
+                              var measureList = window.currentFitProfile.profile_collection.models;
 
-                            _.each(measureList, function (lineItem) {
-                                if (lineItem.get('internalid') == $el.find(":selected").val()) {
-                                    if(!measureType){
-                                      measureType = lineItem.get("custrecord_fp_measure_type");
-                                    }else if(measureType && measureType != lineItem.get("custrecord_fp_measure_type")){
-                                      self.showError(_('Measurement Type should be the same for all products').translate());
-                                      status = false;
-                                    }
-                                }
-                            });
-                        }
-                    });
-                    break;
-                default:
+                              _.each(measureList, function (lineItem) {
+                                  if (lineItem.get('internalid') == $el.find(":selected").val()) {
+                                      if(!measureType){
+                                        measureType = lineItem.get("custrecord_fp_measure_type");
+                                      }else if(measureType && measureType != lineItem.get("custrecord_fp_measure_type")){
+                                        self.showError(_('Measurement Type should be the same for all products').translate());
+                                        status = false;
+                                      }
+                                  }
+                              });
+                          }
+                      });
+                      break;
+                  default:
+              }
+            }else{
+              //Set this to true so it prevets the fitprofile requirement check
+              status = true;
+              //self.showError(_('Please note that you have not selected a fit profile(s)').translate());
+              //_.displayModalWindow("Please note that you have not selected a fit profile(s)")
+
             }
-
             if (status) {
                 self.hideError();
             }
@@ -1090,7 +1127,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                             }
                         }
                         var extra = 0;
-                        if(jQuery('#fabric_extra').val() != "")
+                        if(jQuery('#fabric_extra').val() != "" && jQuery('#fabric_extra').val() != "Please Select")
                           extra = parseFloat(jQuery('#fabric_extra').val())
                         for (var i = 0; i < window.tempFitProfile.length; i++) {
                           var ptype = window.tempFitProfile[i].name;
@@ -1324,14 +1361,18 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
 
             if(jQuery('#T010257').val() == "T01025702"){
               jQuery('#T010258').parent().parent().hide();
+              jQuery('#T010258').val('');
               jQuery('#T010259').parent().parent().hide();
+              jQuery('#T010259').val('NA');
             }else{
               jQuery('#T010258').parent().parent().show();
               jQuery('#T010259').parent().parent().show();
             }
             if(jQuery('#T010643').val() == "T01064302"){
               jQuery('#T010644').parent().parent().hide();
+              jQuery('#T010644').val('');
               jQuery('#T010645').parent().parent().hide();
+              jQuery('#T010645').val('');
             }else{
               jQuery('#T010644').parent().parent().show();
               jQuery('#T010645').parent().parent().show();
@@ -1366,6 +1407,8 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
               jQuery('#T010240').val('');
               jQuery('#T010250').parent().parent().hide();
               jQuery('#T010250').val('');
+              jQuery('#T010261').parent().parent().hide();
+              jQuery('#T010261').val('');
             }
             else{
               //show
@@ -1374,6 +1417,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
               jQuery('#T010239').parent().parent().show();
               jQuery('#T010240').parent().parent().show();
               jQuery('#T010250').parent().parent().show();
+              jQuery('#T010261').parent().parent().show();
             }
           // }
           // else if(jQuery(e.target).attr("id") == 'T010522'){
@@ -1477,7 +1521,6 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
     			}else{
     				//Should be a body
     				//3:Jacket, 4:Trouser, 6:Waistcoat, 7:Shirt, 8:Overcoat
-
             var result;
     				switch(ptype){
     					case 'Jacket':
@@ -1503,6 +1546,27 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
     						result = filtered.reduce(function(prev, curr){
     				        return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
     				    });
+    						break;
+    					case 'Waistcoat':
+                var partvalue = 0, partmeasure = 0;
+                var mValue = JSON.parse(pModel.get('custrecord_fp_measure_value'));
+                var mUnits = mValue.find(function (e){return e.name == 'units';})
+                var a = _.filter(mValue,function(m){
+                  return m.name == "Waist" || m.name == "allowance-Waist" || m.name == "waist" || m.name == "allowance-waist";
+                });
+                for(var i=0;i<a.length;i++){
+                  partvalue += parseFloat(a[i].value);
+                }
+    						if(partmeasure)
+    						partvalue = jQuery('[name="units"]').val() == 'CM'?partmeasure:parseFloat(partmeasure)*2.54;
+    						partvalue = parseFloat(partvalue)/2
+    						var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+    						return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partvalue) && data.custrecord_bbm_producttypetext == ptype;
+    						})
+    						if(filtered && filtered.length>0)
+    						result = filtered.reduce(function(prev, curr){
+    								return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+    						});
     						break;
     					case 'Trouser':
                 var partvalue = 0, partmeasure = 0;

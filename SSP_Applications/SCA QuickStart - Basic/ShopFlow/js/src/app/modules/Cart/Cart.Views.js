@@ -18,7 +18,7 @@ Change /Jira Ticket #: JHD-34
 Change Description: Price in the items matches the total in The order summary
 */
 // Cart and Cart Confirmation views
-define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model','Session','ProductList.Model', 'Client.Collection'], function (ErrorManagement, FitProfileModel, ItemDetailsModel,Session,ProductListModel, ClientCollection)
+define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model','Session','ProductList.Model', 'Client.Collection','Profile.Collection'], function (ErrorManagement, FitProfileModel, ItemDetailsModel,Session,ProductListModel, ClientCollection, ProfileCollection)
 {
 	'use strict';
 
@@ -67,6 +67,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 
 		, 'click [data-action="archive"]': 'archiveItems'
 		, 'click [data-action="show-archived-items"]': 'filterArchivedItems'
+		, 'click [data-action="show-inactive-items"]': 'filterInactiveItems'
 		}
 	,	initialize: function (options)
 		{
@@ -93,6 +94,59 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 			jQuery.get(_.getAbsoluteUrl('services/liningfabrics.ss')).done(function (data) {
 				self.liningfabrics = data;
 			});
+
+			// var cart = SC.Application('Shopping').getCart();
+			// cart.get('lines').each(function (line){
+			// 	var clientID = _.where(line.get("options"), {id: "CUSTCOL_TAILOR_CLIENT"})[0].value;
+			//
+			// 	if(clientID){
+			// 		var param = new Object();
+			// 		param.type = "get_profile";
+			// 		param.data = JSON.stringify({filters: ["custrecord_fp_client||anyof|list|" + clientID], columns: ["internalid", "name", "custrecord_fp_product_type", "custrecord_fp_measure_type", "custrecord_fp_measure_value","custrecord_fp_block_value"]});
+			// 		_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "GET", param).always(function(data){
+			// 			if(data){
+			// 				self.profile_collection = new ProfileCollection().add(JSON.parse(data));
+			// 			}
+			// 		});
+			//
+			// 		var fpSummary = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_SUMMARY"})[0].value;
+			// 		var fpSummaryJSON = JSON.parse(fpSummary);
+			//
+			// 		// console.log('profile_collection');
+			// 		// console.log(self.profile_collection);
+			// 		for(var i=0; i<fpSummaryJSON.length; i++){
+			// 			var mdl = self.profile_collection.models.find(function(d){ return d.get('internalid') == fpSummaryJSON[i].id;});
+			// 			switch(mdl.get('custrecord_fp_product_type')){
+			// 				case 'Shirt': //Check if the fitprofile values match
+			// 											var fp = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_SHIRT"})[0];
+			// 											if(mdl.get('custrecord_fp_measure_value') != fp.value)
+			// 												fp.value = mdl.get('custrecord_fp_measure_value');
+			// 											break;
+			// 				case 'Jacket':
+			// 											var fp = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_JACKET"})[0];
+			// 											if(mdl.get('custrecord_fp_measure_value') != fp.value)
+			// 												fp.value = mdl.get('custrecord_fp_measure_value');
+			// 											break;
+			// 				case 'Trouser':
+			// 											var fp = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_TROUSER"})[0];
+			// 											if(mdl.get('custrecord_fp_measure_value') != fp.value)
+			// 												fp.value = mdl.get('custrecord_fp_measure_value');
+			// 											break;
+			// 				case 'Waistcoat':
+			// 											var fp = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_WAISTCOAT"})[0];
+			// 											if(mdl.get('custrecord_fp_measure_value') != fp.value)
+			// 												fp.value = mdl.get('custrecord_fp_measure_value');
+			// 											break;
+			// 				case 'Overcoat':
+			// 											var fp = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_OVERCOAT"})[0];
+			// 											if(mdl.get('custrecord_fp_measure_value') != fp.value)
+			// 												fp.value = mdl.get('custrecord_fp_measure_value');
+			// 											break;
+			// 			}
+			// 		}
+			// 	}
+			// });
+			SC.sessioncheck();
 		}
 	, validateItems: function(e){
 			e.preventDefault();
@@ -104,6 +158,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 			var previousLineInternalId = '';
 			var previousClientId = '';
 			var differentClientIdError = false;
+
 			//Checking for Vendor Picked is Jerome Clothiers
 			if(self.application.getUser().get('isoverdue') == 'T'){
 				jQuery("#cart-alert-placeholder").append(SC.macros.message('You cannot process orders until you have paid your outstanding invoices.', 'error', true));
@@ -259,14 +314,15 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				}
 				var fpSummary = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_SUMMARY"})[0].value;
 				var fpSummaryJSON = JSON.parse(fpSummary);
-
-				if(fpSummaryJSON[0].name == 'Shirt' && fpSummaryJSON[0].type == 'Body'){
-					var shirtProfile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_SHIRT"});
-					var shirtProfileJSON = JSON.parse(shirtProfile[0].value);
-					var flength = _.where(shirtProfileJSON,{name: 'Front-Length'});
-					if(!flength || flength.length==0 || flength[0].value == '0'){
-						hasError = true;
-						jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Please update shirt fit profile to include front length measurement', 'error', true));
+				if(fpSummaryJSON && fpSummaryJSON.length>0){
+					if(fpSummaryJSON[0].name == 'Shirt' && fpSummaryJSON[0].type == 'Body'){
+						var shirtProfile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_SHIRT"});
+						var shirtProfileJSON = JSON.parse(shirtProfile[0].value);
+						var flength = _.where(shirtProfileJSON,{name: 'Front-Length'});
+						if(!flength || flength.length==0 || flength[0].value == '0'){
+							hasError = true;
+							jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Please update shirt fit profile to include front length measurement', 'error', true));
+						}
 					}
 				}
 				for(var i=0;i<itemoptions.length;i++){
@@ -279,7 +335,78 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 						}
 					}
 				}
+				//Add a check for fitprofile
 
+				var ptype = _.where(line.get("options"), {id: "CUSTCOL_PRODUCTTYPE"})[0].value;
+				if(ptype){
+
+					switch(ptype){
+						case 'Jacket':
+								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_JACKET"});
+								if(!ptype_profile || ptype_profile.length == 0){
+									hasError = true;
+									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
+								}
+								 break;
+						case 'Trouser':
+								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_TROUSER"});
+								if(!ptype_profile || ptype_profile.length == 0){
+									hasError = true;
+									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
+								}
+								break;
+						case 'Waistcoat':
+								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_WAISTCOAT"});
+								if(!ptype_profile || ptype_profile.length == 0){
+									hasError = true;
+									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
+								}
+								break;
+						case 'Overcoat':
+								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_OVERCOAT"});
+								if(!ptype_profile || ptype_profile.length == 0){
+									hasError = true;
+									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
+								}
+								break;
+						case 'Shirt':
+								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_SHIRT"});
+								if(!ptype_profile || ptype_profile.length == 0){
+									hasError = true;
+									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
+								}
+								break;
+						case '2-Piece-Suit':
+								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_JACKET"});
+								if(!ptype_profile || ptype_profile.length == 0){
+									hasError = true;
+									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
+								}
+								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_TROUSER"});
+								if(!ptype_profile || ptype_profile.length == 0){
+									hasError = true;
+									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
+								}
+								break;
+						case '3-Piece-Suit':
+								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_JACKET"});
+								if(!ptype_profile || ptype_profile.length == 0){
+									hasError = true;
+									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
+								}
+								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_TROUSER"});
+								if(!ptype_profile || ptype_profile.length == 0){
+									hasError = true;
+									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
+								}
+								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_WAISTCOAT"});
+								if(!ptype_profile || ptype_profile.length == 0){
+									hasError = true;
+									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
+								}
+								break;
+					}
+				}
 				previousLineInternalId = line.get('internalid');
 			});
 			if(hasError){
@@ -503,6 +630,31 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 			jQuery('#show-archived-items').prop('checked',self.product_list_details_view.showarchiveditems)
 		}
 	}
+	, filterInactiveItems: function(e){
+		e.preventDefault();
+		var self = this;
+		var $target = jQuery(e.target);
+		var fitterfilter = jQuery('#filter_fitter').val();
+		var stFilterSaveForLaterValue = jQuery("[id='swx_filter_save_for_later_client']").val();
+		var filters = {};
+		if(fitterfilter != -1){
+				filters.custrecord_ns_pl_pli_fitter = fitterfilter;
+		}
+		if(stFilterSaveForLaterValue != ""){
+			filters.client = stFilterSaveForLaterValue;
+		}
+		var filterinactive = jQuery('#show-inactive-items')[0].checked;
+		filters.filterinactive = filterinactive;
+
+		this.product_list_details_view.model.fetch({ data: ({filters:JSON.stringify(filters)})}).done(function(data2){
+			self.product_list_details_view.model = new ProductListModel(data2);
+			self.product_list_details_view.render();
+			jQuery('#saveForLaterItemsCart').collapse('show');
+			jQuery('#filter_fitter').val(fitterfilter);
+			jQuery("[id='swx_filter_save_for_later_client']").val(stFilterSaveForLaterValue);
+			jQuery('#show-inactive-items')[0].checked = filterinactive;
+		});
+	}
 	, filterArchivedItems: function(e){
 			e.preventDefault();
 			var self = this;
@@ -526,12 +678,16 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 			if(stFilterSaveForLaterValue != ""){
 				filters.client = stFilterSaveForLaterValue;
 			}
+			var filterinactive = jQuery('#show-inactive-items')[0].checked;
+			filters.filterinactive = filterinactive;
+
 			this.product_list_details_view.model.fetch({ data: ({filters:JSON.stringify(filters)})}).done(function(data2){
 				self.product_list_details_view.model = new ProductListModel(data2);
 				self.product_list_details_view.render();
 				jQuery('#saveForLaterItemsCart').collapse('show');
 				jQuery('#filter_fitter').val(fitterfilter);
 				jQuery("[id='swx_filter_save_for_later_client']").val(stFilterSaveForLaterValue);
+				jQuery('#show-inactive-items')[0].checked = filterinactive;
 			});
 		}
 
@@ -546,6 +702,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				jQuery('#saveForLaterItemsCart').collapse('show');
 				jQuery('#filter_fitter').val('-1');
 				jQuery("[id='swx_filter_save_for_later_client']").val('');
+				jQuery('#show-inactive-items')[0].checked = false;
 			});
 		}
 	,	swxSetDateNeeded: function (e){
@@ -1242,6 +1399,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 	,	initialize: function (options)
 		{
 			this.line = options.model.getLatestAddition();
+			this.hasNoFitProfile = options.hasNoFitProfile;
 		}
 
 

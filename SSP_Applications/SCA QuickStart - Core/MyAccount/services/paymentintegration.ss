@@ -1,7 +1,17 @@
 function service (request)
 {
   'use strict';
-  var data = JSON.parse(request.getBody() || '{}');
+  nlapiLogExecution('debug','payment requestbody',request.getBody());
+  var body = unescape(request.getBody()).split('&');
+  var data = {};
+  data.apiOperation = body[0].split('=')[1];
+  
+  data.order = {
+    currency:body[1].split('=')[1],
+    id:body[2].split('=')[1],
+    amount:body[3].split('=')[1]
+  }
+  //var data = JSON.parse(request.getBody() || '{}');
   var method = request.getMethod()
   switch (method)
   {

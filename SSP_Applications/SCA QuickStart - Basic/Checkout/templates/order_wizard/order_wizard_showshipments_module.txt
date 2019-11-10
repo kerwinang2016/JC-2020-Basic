@@ -16,11 +16,6 @@
 				,	manage: 'shipaddress'
 				}) %>
 
-				<% if (view.options.edit_url) { %>
-					<a data-action="edit-module" href="<%- view.options.edit_url %>?force=true" class="btn-edit-address">
-						<%= _('Edit').translate() %>
-					</a>
-				<% } %>
 			<% } else { %>
 				<a data-action="edit-module" href="<%- view.options.edit_url %>?force=true" class="btn-edit-address">
 					<%= _('Please select a valid shipping address').translate() %>

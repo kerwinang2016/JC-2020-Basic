@@ -1542,10 +1542,18 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
     						var filtered = _.filter(window.bodyBlockMeasurements,function(data){
     						    return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partmeasure) && data.custrecord_bbm_producttypetext == ptype;
     						})
-                if(filtered && filtered.length>0)
-    						result = filtered.reduce(function(prev, curr){
-    				        return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
-    				    });
+                if(filtered && filtered.length>0){
+      						result = filtered.reduce(function(prev, curr){
+      				        return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+      				    });
+                }else{
+                  var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+      						    return data.custrecord_bbm_producttypetext == ptype;
+      						});
+                  result = filtered.reduce(function(prev, curr){
+      				        return parseFloat(prev['custrecord_bbm_bodymeasurement']) > parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+      				    });
+                }
     						break;
     					case 'Waistcoat':
                 var partvalue = 0, partmeasure = 0;
@@ -1563,10 +1571,18 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
     						var filtered = _.filter(window.bodyBlockMeasurements,function(data){
     						return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partvalue) && data.custrecord_bbm_producttypetext == ptype;
     						})
-    						if(filtered && filtered.length>0)
-    						result = filtered.reduce(function(prev, curr){
-    								return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
-    						});
+    						if(filtered && filtered.length>0){
+      						result = filtered.reduce(function(prev, curr){
+      								return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+      						});
+                }else{
+                  var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+      						    return data.custrecord_bbm_producttypetext == ptype;
+      						});
+                  result = filtered.reduce(function(prev, curr){
+      				        return parseFloat(prev['custrecord_bbm_bodymeasurement']) > parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+      				    });
+                }
     						break;
     					case 'Trouser':
                 var partvalue = 0, partmeasure = 0;
@@ -1584,10 +1600,18 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
     						var filtered = _.filter(window.bodyBlockMeasurements,function(data){
     						return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partmeasure) && data.custrecord_bbm_producttypetext == ptype;
     						})
-                if(filtered && filtered.length>0)
-    						result = filtered.reduce(function(prev, curr){
-    								return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
-    						});
+                if(filtered && filtered.length>0){
+      						result = filtered.reduce(function(prev, curr){
+      								return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+      						});
+                }else{
+                  var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+      						    return data.custrecord_bbm_producttypetext == ptype;
+      						});
+                  result = filtered.reduce(function(prev, curr){
+      				        return parseFloat(prev['custrecord_bbm_bodymeasurement']) > parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+      				    });
+                }
     						break;
     					default:
     				}

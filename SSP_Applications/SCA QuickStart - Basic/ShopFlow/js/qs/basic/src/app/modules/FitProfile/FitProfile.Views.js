@@ -1,8 +1,8 @@
 // Profile.Views.js
 // -----------------------
 /*
-Change History   
--------------- 
+Change History
+--------------
 Date: 28-02-2019
 Changed by:Salman Khan
 Change /Jira Ticket #: JHD-11
@@ -479,7 +479,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 													}
 												}
 										}
-								}	
+								}
 				 	}
 					//JHD-11 End
 
@@ -585,7 +585,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 					if (favDefaultData) {
 							jQuery("label").removeClass( "fav-fit-tools-default");
 							var defaultFields = '';
-							favDefaultData = JSON.parse(favDefaultData);							
+							favDefaultData = JSON.parse(favDefaultData);
 							var defaultFields = '';
 							for(var j = 0; j < favDefaultData.length; j++){
 								if(favDefaultData[j].itemType == producttype){
@@ -826,10 +826,18 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 						var filtered = _.filter(window.bodyBlockMeasurements,function(data){
 						return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partvalue) && data.custrecord_bbm_producttypetext == ptype;
 						})
-						if(filtered && filtered.length>0)
-						result = filtered.reduce(function(prev, curr){
-				        return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
-				    });
+						if(filtered && filtered.length>0){
+							result = filtered.reduce(function(prev, curr){
+					        return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+					    });
+						}else{
+							var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+								return data.custrecord_bbm_producttypetext == ptype;
+							});
+							result = filtered.reduce(function(prev, curr){
+									return parseFloat(prev['custrecord_bbm_bodymeasurement']) > parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+							});
+						}
 						break;
 					case 'Waistcoat':
 						var partvalue = 0;
@@ -841,10 +849,18 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 						var filtered = _.filter(window.bodyBlockMeasurements,function(data){
 						return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partvalue) && data.custrecord_bbm_producttypetext == ptype;
 						})
-						if(filtered && filtered.length>0)
-						result = filtered.reduce(function(prev, curr){
-								return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
-						});
+						if(filtered && filtered.length>0){
+							result = filtered.reduce(function(prev, curr){
+									return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+							});
+						}else{
+							var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+								return data.custrecord_bbm_producttypetext == ptype;
+							});
+							result = filtered.reduce(function(prev, curr){
+									return parseFloat(prev['custrecord_bbm_bodymeasurement']) > parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+							});
+						}
 						break;
 					case 'Trouser':
 						var partvalue = 0;
@@ -854,10 +870,18 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 						var filtered = _.filter(window.bodyBlockMeasurements,function(data){
 						return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partvalue) && data.custrecord_bbm_producttypetext == ptype;
 						})
-						if(filtered && filtered.length>0)
-						result = filtered.reduce(function(prev, curr){
-								return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
-						});
+						if(filtered && filtered.length>0){
+							result = filtered.reduce(function(prev, curr){
+									return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+							});
+						}else{
+							var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+								return data.custrecord_bbm_producttypetext == ptype;
+							});
+							result = filtered.reduce(function(prev, curr){
+									return parseFloat(prev['custrecord_bbm_bodymeasurement']) > parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+							});
+						}
 						break;
 					default:
 				}

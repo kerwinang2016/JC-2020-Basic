@@ -1520,15 +1520,23 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 						var partmeasure = jQuery('[id*="finish_Waist"]').html(), partvalue = 0;
 
 						if(partmeasure){
-						partvalue = jQuery('[name="units"]').val() == 'CM'?partmeasure:parseFloat(partmeasure)*2.54;
-						partvalue = parseFloat(partvalue)/2
-						var filtered = _.filter(window.bodyBlockMeasurements,function(data){
-						return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partvalue) && data.custrecord_bbm_producttypetext == ptype;
-						})
-						if(filtered && filtered.length>0)
-						result = filtered.reduce(function(prev, curr){
-				        return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
-				    });
+							partvalue = jQuery('[name="units"]').val() == 'CM'?partmeasure:parseFloat(partmeasure)*2.54;
+							partvalue = parseFloat(partvalue)/2
+							var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+							return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partvalue) && data.custrecord_bbm_producttypetext == ptype;
+							})
+							if(filtered && filtered.length>0){
+								result = filtered.reduce(function(prev, curr){
+						        return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+						    });
+							}else{
+								var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+									return data.custrecord_bbm_producttypetext == ptype;
+								});
+								result = filtered.reduce(function(prev, curr){
+						        return parseFloat(prev['custrecord_bbm_bodymeasurement']) > parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+						    });
+							}
 						}
 						break;
 					case 'Waistcoat':
@@ -1536,30 +1544,46 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 						var partmeasure = jQuery('[id*="finish_waist"]').html(), partvalue = 0;
 
 						if(partmeasure){
-						partvalue = jQuery('[name="units"]').val() == 'CM'?partmeasure:parseFloat(partmeasure)*2.54;
-						partvalue = parseFloat(partvalue)/2
-						var filtered = _.filter(window.bodyBlockMeasurements,function(data){
-						return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partvalue) && data.custrecord_bbm_producttypetext == ptype;
-						})
-						if(filtered && filtered.length>0)
-						result = filtered.reduce(function(prev, curr){
-								return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
-						});
-					}
+							partvalue = jQuery('[name="units"]').val() == 'CM'?partmeasure:parseFloat(partmeasure)*2.54;
+							partvalue = parseFloat(partvalue)/2
+							var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+							return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partvalue) && data.custrecord_bbm_producttypetext == ptype;
+							})
+							if(filtered && filtered.length>0){
+								result = filtered.reduce(function(prev, curr){
+										return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+								});
+							}else{
+								var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+									return data.custrecord_bbm_producttypetext == ptype;
+								});
+								result = filtered.reduce(function(prev, curr){
+										return parseFloat(prev['custrecord_bbm_bodymeasurement']) > parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+								});
+							}
+						}
 						break;
 					case 'Trouser':
 						var partvalue = 0;
 						var partmeasure = jQuery('[id*="finish_seat"]').html(), partvalue = 0;
 						if(partmeasure){
-						partvalue = jQuery('[name="units"]').val() == 'CM'?partmeasure:parseFloat(partmeasure)*2.54;
-						partvalue = parseFloat(partvalue)/2
-						var filtered = _.filter(window.bodyBlockMeasurements,function(data){
-						return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partvalue) && data.custrecord_bbm_producttypetext == ptype;
-						})
-						if(filtered && filtered.length>0)
-						result = filtered.reduce(function(prev, curr){
-								return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
-						});
+							partvalue = jQuery('[name="units"]').val() == 'CM'?partmeasure:parseFloat(partmeasure)*2.54;
+							partvalue = parseFloat(partvalue)/2
+							var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+							return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partvalue) && data.custrecord_bbm_producttypetext == ptype;
+							})
+							if(filtered && filtered.length>0){
+								result = filtered.reduce(function(prev, curr){
+										return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+								});
+							}else{
+								var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+									return data.custrecord_bbm_producttypetext == ptype;
+								});
+								result = filtered.reduce(function(prev, curr){
+						        return parseFloat(prev['custrecord_bbm_bodymeasurement']) > parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
+						    });
+							}
 						}
 						break;
 					default:

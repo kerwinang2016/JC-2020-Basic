@@ -238,7 +238,17 @@ Change Invoice frontend changes
 								<%= summary.subtotal_formatted %>
 							</div>
 						</div>
+						<% if(summary.discounttotal != 0){ %>
+						<div class="row-fluid control-group">
+							<div class="span8 invoice-details-count">
+								<%= _('Discounts').translate() %>
+							</div>
 
+							<div class="span4 text-right sub-total">
+								<%= summary.discounttotal_formatted %>
+							</div>
+						</div>
+						<% } %>
 						<div class="row-fluid control-group">
 							<div class="span8">
 								<%= _('Tax Total').translate() %>

@@ -137,6 +137,8 @@ define('ItemDetails.Router', [], function ()
 						{
 							model.set('quantity', model.get('_minimumQuantity'));
 						}
+						console.log('options');
+						console.log(options);
 						if(options && options['product']){
 							if(options['product'] == '2-Piece-Suit'){
 									model.set('custitem_clothing_type','Jacket, Trouser');

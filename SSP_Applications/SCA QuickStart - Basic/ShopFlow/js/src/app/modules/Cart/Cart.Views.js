@@ -1383,9 +1383,6 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 			,	"currency_symbol" : (_.where(SC._applications.Shopping.getConfig("siteSettings").currencies, {internalid: SC.ENVIRONMENT.LOGOBRAND.cur})[0].symbol).charCodeAt(0)
 			,	"dateString" : dateString
 			});
-			console.log('showcart');
-			console.log(this.model.get('isLoggedIn'));
-			console.log(this.model.get('lines').models.length)
 			if(this.model.get('isLoggedIn') && this.model.get('lines').models.length > 0){
 				_.requestUrl("customscript_ps_sl_pdf_quote", "customdeploy_ps_sl_pdf_quote", "POST", param).always(function(data){
 					if(data){

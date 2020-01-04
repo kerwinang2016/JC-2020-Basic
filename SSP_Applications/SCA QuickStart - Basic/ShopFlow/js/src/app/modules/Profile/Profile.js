@@ -314,12 +314,6 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 										itemID = application.getLayout().currentView.model.get("internalid").toString(),
 										listId = application.getLayout().currentView.itemList,
 										designOptionMessage = window.tempOptionsNotes ? window.tempOptionsNotes : "";
-										console.log("productList");
-										console.log(application.getLayout().currentView.application.productListsInstance);
-										console.log(productList);
-										console.log(listId);
-										console.log(itemID);
-										console.log(application.getLayout().currentView.productList)
 									if(productList){
 										productList.each(function(item){
 											if(item.get("internalid") == listId){ //If option internal ID is equal to selected list ID

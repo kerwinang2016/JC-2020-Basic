@@ -89,16 +89,8 @@
 				// so we are going to use the facet values instead
 				var categories = _.findWhere(item.get('facets'), {id: 'category'});
 				// var productType = item.get('custcol_producttype'),
-				var product = item.get('custcol_producttype');
-				
-				// if(productType == 'Jacket, Trouser, Waistcoat'){
-				// 	product = '3-Piece-Suit';
-				// }
-				// else if(productType == 'Jacket, Trouser'){
-				// 	product = '2-Piece-Suit';
-				// }else{
-				// 	product = productType;
-				// }
+				var product = item.itemOptions.custcol_producttype.internalid;
+
 				var	walkCategories = function walkCategories(category)
 					{
 						var hasProductList = (!_.isNullOrEmpty(productList)) ? true : false;
@@ -113,6 +105,7 @@
 						});
 
 						if( category.url == 'Item Types' && category.values && category.values.length > 0){
+							console.log(category)
 							for(var i=0;i<category.values.length; i++){
 								if(category.values[i].id.indexOf(product) != -1){
 										idx = i;

@@ -128,7 +128,6 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             var self = this
                 , breadcrumb = []
                 , translator = new FacetsTranslator(null, null, this.application.translatorConfig);
-
             _.each(this.application.getConfig('productDetailsBreadcrumbFacets'), function (product_details_breadcrumb_facet) {
                 var value = self.model.get(product_details_breadcrumb_facet.facetId);
 

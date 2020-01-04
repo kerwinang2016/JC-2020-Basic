@@ -629,8 +629,8 @@ Application.defineModel('LiveOrder', {
   var ptype = line_data.options.custcol_producttype;
 	if(ptype){
 		switch(ptype){
-			case "2-Piece-Suit": clothingtype = "3,4"; break;
-			case "3-Piece-Suit": clothingtype = "3,4,6"; break;
+			case "2-Piece-Suit": clothingtype = "10"; break;
+			case "3-Piece-Suit": clothingtype = "9"; break;
 			case "Shirt": clothingtype = "7"; break;
 			case "Jacket": clothingtype = "3"; break;
 			case "Trouser": clothingtype = "4"; break;
@@ -876,6 +876,7 @@ Application.defineModel('LiveOrder', {
   var fabrictext = '<div><b>CMT</b><div style="padding-left:10px;"><ul>';
   var arItemType = line_data.options.custcol_producttype;
   nlapiLogExecution('debug','cmtcogs ptype', arItemType);
+  var tailorCMTDisc = 0;
 	if(arItemType){
 		if(arItemType == '2-Piece-Suit'){
 			tailorCMTDisc = customerfields.custentity_cmt_discount_2pc;
@@ -1071,6 +1072,30 @@ Application.defineModel('LiveOrder', {
 					else if(arItemType == 'Overcoat'){
 						cmtServiceItem = '9908';
 					}
+          else if(arItemType == 'Trenchcoat'){
+						cmtServiceItem = '292322';
+					}
+          else if(arItemType == 'Short-Sleeves-Shirt'){
+						cmtServiceItem = '292339';
+					}
+          else if(arItemType == 'Ladies-Skirt'){
+						cmtServiceItem = '292334';
+					}
+          else if(arItemType == 'Ladies-Jacket'){
+						cmtServiceItem = '292336';
+					}
+          else if(arItemType == 'Ladies-Pants'){
+						cmtServiceItem = '292335';
+					}
+          else if(arItemType == 'L-3PC-Suit'){
+						cmtServiceItem = '292333';
+					}
+          else if(arItemType == 'L-2PC-Pants'){
+						cmtServiceItem = '292338';
+					}
+          else if(arItemType == 'L-2PC-Skirt'){
+						cmtServiceItem = '292337';
+					}
 				}
         //TODO: Lookup the item price for the cmt item
         var serviceitemfieldsStr = nlapiRequestURL(nlapiResolveURL('suitelet','customscript_myaccountsuitelet','customdeploy1','external'),
@@ -1101,6 +1126,30 @@ Application.defineModel('LiveOrder', {
 					}
 					else if(arItemType == 'Overcoat'){
 						cmtServiceItem = '9901';
+					}
+          else if(arItemType == 'Trenchcoat'){
+						cmtServiceItem = '292321';
+					}
+          else if(arItemType == 'Short-Sleeves-Shirt'){
+						cmtServiceItem = '292329';
+					}
+          else if(arItemType == 'Ladies-Skirt'){
+						cmtServiceItem = '292326';
+					}
+          else if(arItemType == 'Ladies-Jacket'){
+						cmtServiceItem = '292328';
+					}
+          else if(arItemType == 'Ladies-Pants'){
+						cmtServiceItem = '292327';
+					}
+          else if(arItemType == 'L-3PC-Suit'){
+						cmtServiceItem = '292332';
+					}
+          else if(arItemType == 'L-2PC-Pants'){
+						cmtServiceItem = '292331';
+					}
+          else if(arItemType == 'L-2PC-Skirt'){
+						cmtServiceItem = '292330';
 					}
 				}
         var serviceitemfieldsStr = nlapiRequestURL(nlapiResolveURL('suitelet','customscript_myaccountsuitelet','customdeploy1','external'),

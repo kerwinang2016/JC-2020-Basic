@@ -6,12 +6,22 @@
 	var Waistcoat = ['Trims','Branding'];
 	var Overcoat = ['Trims','Monogram Under Collar','Monogram Interior Lining','Branding'];
 	var Shirt = ['Trims','Contrast','Monogram','Branding and Presentation'];
+	var Trenchcoat = [];
+	var LadiesJacket = [];
+	var LadiesSkirt = [];
+	var LadiesPants = [];
+	var ShortSleevesShirt = [];
 	var collapse = [];
 	collapse['Jacket'] = Jacket;
 	collapse['Trouser'] = Trouser;
 	collapse['Waistcoat'] = Waistcoat;
 	collapse['Overcoat'] = Overcoat;
 	collapse['Shirt'] = Shirt;
+	collapse['Trenchcoat'] = Trenchcoat;
+	collapse['Ladies-Jacket'] = Trenchcoat;
+	collapse['Ladies-Skirt'] = Trenchcoat;
+	collapse['Ladies-Pants'] = Trenchcoat;
+	collapse['Short-Sleeves-Shirt'] = Trenchcoat;
 		%>
 
 	<% if (designOptions && Object.keys(designOptions).length > 0) { %>
@@ -25,6 +35,7 @@
 	    <div class="accordion" id="design-option">
 			<% var count = 0; %>
 			<% for (var clothingType in designOptions){
+			console.log('clothingtype ' + clothingType)
 				var currentClothingType = designOptions[clothingType];
 
 
@@ -96,7 +107,7 @@
 													<div class="show-options-img" id="more-info_<%= currentField.name %>">
 														<% _.each(currentField.values, function (option, index) { %>
 															<% if (option.isFavourite == true || option.isFavourite == "true"){ %>
-																<%= SC.macros.displayMoreInfo(option.value + "|" + currentField.label)%>
+																<%= SC.macros.displayMoreInfo(option.value + "|" + currentField.label +"|"+ currentField.name)%>
 															<% } %>
 														<% }) %>
 													</div>
@@ -113,7 +124,7 @@
 													<input data-type="<%= currentField.datatype %>" data-placeholder="<%= currentField.dataplaceholder %>" placeholder="<%= currentField.placeholder%>" type="text" maxlength="<%= currentField.maxlength%>" fieldname="<%= field %>" id="<%= currentField.name %>" class="input-xlarge" name="<%= currentField.name %>" value="<%= currentField.value %>" data-type="fav-option-customization" onkeypress="return (event.charCode >= 32 && event.charCode < 128)">
 												</div>
 												<div class="show-options-img" id="more-info_<%= currentField.name %>">
-															<%= SC.macros.displayMoreInfo(currentField.name+"|"+currentField.label)%>
+															<%= SC.macros.displayMoreInfo(currentField.name+"|"+currentField.label+"|"+ currentField.name)%>
 												</div>
 											<% 	}  %>
 											<% if (isNumberType) {%>
@@ -121,7 +132,7 @@
 													<input type="number" fieldname="<%= field %>" step="0.01" min="<%= clothingType == 'Jacket'?0.88:clothingType == 'Waistcoat'? 0.84:0 %>" id="<%= currentField.name %>" class="input-xlarge" name="<%= currentField.name %>" value="<%= currentField.value %>" data-type="fav-option-customization">
 												</div>
 												<div class="show-options-img" id="more-info_<%= currentField.name %>">
-															<%= SC.macros.displayMoreInfo(currentField.name+"|"+currentField.label)%>
+															<%= SC.macros.displayMoreInfo(currentField.name+"|"+currentField.label +"|"+ currentField.name)%>
 												</div>
 											<% 	}  %>
 											</div>

@@ -309,6 +309,162 @@
 			"value":"0.36"
 			}
 		]
+	},
+	{
+	"code":"Trenchcoat",
+	"design":
+		[{
+			"code":"Plain",
+			"value":"0"
+			},
+			{
+			"code":"Plaid 5cm x 5cm",
+			"value":"0.2"
+			},
+			{
+			"code":"Stripe",
+			"value":"0.1"
+			},
+			{
+			"code":"Large Herringbone",
+			"value":"1"
+			}
+		]
+	},
+	{
+	"code":"Ladies-Pants",
+	"design":
+		[{
+			"code":"Plain",
+			"value":"0"
+			},
+			{
+			"code":"Plaid Fabric",
+			"value":"0.06"
+			},
+			{
+			"code":"Stripe",
+			"value":"0.05"
+			}
+		]
+	},
+	{
+	"code":"Ladies-Skirt",
+	"design":
+		[{
+			"code":"Plain",
+			"value":"0"
+			},
+			{
+			"code":"Plaid Fabric",
+			"value":"0.06"
+			},
+			{
+			"code":"Stripe",
+			"value":"0.05"
+			}
+		]
+	},
+	{
+	"code":"L-3PC-Suit",
+	"design":
+		[{
+			"code":"Plain",
+			"value":"0"
+			},
+			{
+			"code":"Plaid Fabric",
+			"value":"0.06"
+			},
+			{
+			"code":"Stripe",
+			"value":"0.05"
+			}
+		]
+	},
+	{
+	"code":"L-2PC-Trouser",
+	"design":
+		[{
+			"code":"Plain",
+			"value":"0"
+			},
+			{
+			"code":"Plaid Fabric",
+			"value":"0.06"
+			},
+			{
+			"code":"Stripe",
+			"value":"0.05"
+			}
+		]
+	},
+	{
+	"code":"L-2PC-Skirt",
+	"design":
+		[{
+			"code":"Plain",
+			"value":"0"
+			},
+			{
+			"code":"Plaid Fabric",
+			"value":"0.06"
+			},
+			{
+			"code":"Stripe",
+			"value":"0.05"
+			}
+		]
+	},
+  {
+	"code":"Ladies-Jacket",
+	"design":
+		[{
+			"code":"Plain",
+			"value":"0"
+			},
+			{
+			"code":"Plaid 2cm x 2cm",
+			"value":"0.2"
+			},
+			{
+			"code":"Plaid 4cm x 4cm",
+			"value":"0.4"
+			},
+			{
+			"code":"Plaid 10cm x 10cm",
+			"value":"0.6"
+			},
+      {
+			"code":"Plaid 30cm x 30cm",
+			"value":"1"
+			},
+			{
+			"code":"Stripe",
+			"value":"0.05"
+			}
+		]
+	},
+	{
+	"code":"Short-Sleeves-Shirt",
+	"design":
+		[{
+			"code":"Plain",
+			"value":"0"
+			},
+			{
+			"code":"Stripe",
+			"value":"0.14"
+			},
+			{
+			"code":"Plaid < 1cm x 1cm",
+			"value":"0.22"
+			},
+			{
+			"code":"Plaid > 1cm x 1cm",
+			"value":"0.36"
+			}
+		]
 	}
 ]
 }

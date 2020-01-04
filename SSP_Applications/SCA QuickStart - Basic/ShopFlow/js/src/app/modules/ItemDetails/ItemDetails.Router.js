@@ -144,6 +144,15 @@ define('ItemDetails.Router', [], function ()
 							}else if(options['product'] == '3-Piece-Suit'){
 									model.set('custitem_clothing_type','Jacket, Trouser, Waistcoat');
 									model.setOption('custcol_producttype',options['product']);
+							}else if(options['product'] == 'L-2PC-Skirt'){
+									model.set('custitem_clothing_type','Ladies-Jacket, Ladies-Skirt');
+									model.setOption('custcol_producttype',options['product']);
+							}else if(options['product'] == 'L-2PC-Pants'){
+									model.set('custitem_clothing_type','Ladies-Jacket, Ladies-Pants');
+									model.setOption('custcol_producttype',options['product']);
+							}else if(options['product'] == 'L-3PC-Suit'){
+									model.set('custitem_clothing_type','Ladies-Jacket, Ladies-Pants, Ladies-Skirt');
+									model.setOption('custcol_producttype',options['product']);
 							}else{
 								model.set('custitem_clothing_type',options['product']);
 								model.setOption('custcol_producttype',options['product']);
@@ -155,6 +164,15 @@ define('ItemDetails.Router', [], function ()
 							}else if(plist.split('|')[3] == '3-Piece-Suit'){
 									model.set('custitem_clothing_type','Jacket, Trouser, Waistcoat');
 									model.setOption('custcol_producttype',plist.split('|')[3]);
+							}else if(plist.split('|')[3] == 'L-2PC-Skirt'){
+									model.set('custitem_clothing_type','Ladies-Jacket, Ladies-Skirt');
+									model.setOption('custcol_producttype',options['product']);
+							}else if(plist.split('|')[3] == 'L-2PC-Pants'){
+									model.set('custitem_clothing_type','Ladies-Jacket, Ladies-Pants');
+									model.setOption('custcol_producttype',options['product']);
+							}else if(plist.split('|')[3] == 'L-3PC-Suit'){
+									model.set('custitem_clothing_type','Ladies-Jacket, Ladies-Pants, Ladies-Skirt');
+									model.setOption('custcol_producttype',options['product']);
 							}else{
 								model.set('custitem_clothing_type',plist.split('|')[3]);
 								model.setOption('custcol_producttype',plist.split('|')[3]);
@@ -169,7 +187,6 @@ define('ItemDetails.Router', [], function ()
 								// then we show the content
 								view.showContent();
             });
-
 					}
 					else
 					{

@@ -17,6 +17,7 @@ define('ModalGallery.Views',  ['Client.Model'], function (ClientModel)
 			this.title = options.key == jQuery("#" + options.title) ? jQuery("#" + options.title).find("option:selected").attr("name"): _(options.title).translate();
 			this.application = options.application;
 			this.key = options.key;
+			this.designOption = options.designOption;
 		}
 	, 	getImageArray: function () {
 
@@ -26,7 +27,9 @@ define('ModalGallery.Views',  ['Client.Model'], function (ClientModel)
 			,	imageArray = new Array()
 			,	key = this.key
 			,	baseUrl = "http://store.jeromeclothiers.com/assets/images/item_options_images/";
-
+			if(this.title == 'Button Code')
+				key = "Button Code";
+			console.log(key + ' The key')
 			jQuery.get(_.getAbsoluteUrl('js/DesignOptionsImages_Config.json?nocache=T')).done(function(data){
 
 					var optionsConfig = data;

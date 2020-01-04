@@ -21,9 +21,9 @@
 	,	"T01020205": ["Jacket_Closure_6Button_DB.png"]
 	,	"T01020207": ["J_2 Button DB.png"]
 	,	"T01020502": ["J_Formal-Treatment-Yes.png"]
-	
+
 	,	"T01025601": ["J_Closurebuttonhole_left.png"]
-	
+
 	,	"T01020501": ["J_Formal-Treatment-No.png"]
 
 	,	"T01020801": ["J_Shouldertype-Std.png"]
@@ -172,7 +172,7 @@
 
 	,	"T01022601": ["J_Mob Ph Pocket.png"]
 	,	"T01022602": ["J_No Mob Ph Pocket.png"]
-	
+
 	,	"TR133": ["TR133.png"]
 	,	"TR135": ["TR135.jpg"]
 	,	"TR136": ["TR136.jpg"]
@@ -247,7 +247,7 @@
 	,	"TR436": ["TR436.jpg"]
 	,	"TR449": ["TR449.jpg"]
 	,	"TR458": ["TR458.jpg"]
-								
+
 	,	"T01021601": ["J_Vents-1Center.png"]
 	,	"T01021602": ["J_Vents-2Sides.png"]
 	,	"T01021603": ["J_Vents-None.png"]
@@ -333,7 +333,7 @@
 	,	"Traditional": ["T_W_O_S_Traditional.png"]
 	,	"Traditional with pleated waistband": ["T_Traditional pleated waistband.png"]
 	,	"Self fabric waistband": ["T_Self Fabric Waistband.png"]
-	
+
 	,	"T01053501": ["T_Grippers.png"]
 	,	"T01053502": ["NoGrippers.png"]
 
@@ -369,7 +369,7 @@
 
 	,	"T01051401": ["T_Fly Closing-Zipper.png"]
 	,	"T01051402": ["T_Fly Closing-Buttons.png"]
-	
+
 	,	"T01052901": ["T_Waistband V Split_Yes.png"]
 	,	"T01052902": ["T_Waistband V Split_No.png"]
 
@@ -409,7 +409,7 @@
 	,	"T01051207": ["T_Right back pocket - JettedWithZipper.png"]
 	,	"T01051208": ["T_Right back pocket - Patch.png"]
 	,	"T01051201": ["T_Right back pocket - None.png"]
-	
+
 	,	"T01053202": ["T_WatchPocket_NA.png"]
 	,	"T01053203": ["T_WatchPocket_NoFlap.png"]
 	,	"T01053204": ["T_WatchPocket_Flap.png"]
@@ -430,7 +430,7 @@
 	,	"T01051801": ["T_Pick Stitching - No.png"]
 	,	"T01051802": ["T_Pick Stitching - 2mm.png"]
 	,	"T01051803": ["T_Pick Stitching - 6mm.png"]
-	
+
 	,	"T01026002": ["Interior left pocket zipper.png"]
 
 	,	"T01052801": ["T_Leg pressing- Crease.png"]
@@ -1087,5 +1087,7 @@
 	, 	"SCF002": ["image_1.png", "image_2.png", "image_1.png"]
 	,		"FABQTY": ["size_chart.jpg"]
 	,		"li-qty": ["CMT_lining_consumption.jpg"]
+	,		"Button Code": ["Jacketbuttons14.jpg","Jacketbuttons13.jpg","Jacketbuttons12.jpg","Jacketbuttons11.jpg","Jacketbuttons10.jpg","Jacketbuttons9.jpg","Jacketbuttons8.jpg",
+		"Jacketbuttons7.jpg","Jacketbuttons6.jpg","Jacketbuttons5.jpg", "Jacketbuttons4.jpg","Jacketbuttons3.jpg","Jacketbuttons2.jpg","Jacketbuttons1.jpg"]
 	}
 ]

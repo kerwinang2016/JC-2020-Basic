@@ -67,6 +67,7 @@ define('ItemDetails.Model', ['ItemOptionsHelper', 'Session'], function (ItemOpti
 
 	,	setOption: function (option_name, value, dont_validate)
 		{
+			//console.log('option_name ' + option_name)
 			// Setting it to null means you dont wan a value for it
 			if (option_name === 'quantity')
 			{

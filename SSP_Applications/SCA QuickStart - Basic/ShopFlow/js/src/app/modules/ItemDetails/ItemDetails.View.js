@@ -272,8 +272,8 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 }
               }
             }
-            var clothingTypes = this.model.get('custitem_clothing_type').split(', ');
-            if(clothingTypes.length == 3){
+            var clothingTypes = this.model.itemOptions.custcol_producttype.internalid;//this.model.get('custitem_clothing_type').split(', ');
+            if(clothingTypes == '3-Piece-Suit'){
               //Check if the linings of the waistcoat and jacket are the same
               var waistcoatlining = jQuery('#li-bl-w').val();
               var jacketlining = jQuery('#li-b-j').val();
@@ -348,13 +348,22 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     var selectedUnits = "CM";
 
                     _.each(clothingTypes, function (clothingType) {
+                        var usedClothingType = clothingType;
+                        if(clothingType == 'Ladies-Jacket')
+                          clothingType = 'LadiesJacket';
+                        else if(clothingType == 'Ladies-Skirt')
+                          clothingType = 'LadiesSkirt';
+                        else if(clothingType == 'Ladies-Pants')
+                          clothingType = 'LadiesPants';
+                        else if(clothingType == 'Short-Sleeves-Shirt')
+                          clothingType = 'SSShirt';
                         //Design Option
                         var internalId = "custcol_designoptions_" + clothingType.toLowerCase();
-                        var designOptions = self.getDesignOptions(clothingType);
+                        var designOptions = self.getDesignOptions(usedClothingType);
 
                         self.model.setOption(internalId, JSON.stringify(designOptions));
                         //Fit Profile
-                        var selectedProfile = jQuery('#profiles-options-' + clothingType).val()
+                        var selectedProfile = jQuery('#profiles-options-' + usedClothingType).val()
                         if (selectedProfile) {
                             var fitColumn = "custcol_fitprofile_" + clothingType.toLowerCase();
                             var fitValue = window.currentFitProfile.profile_collection.get(selectedProfile).get('custrecord_fp_measure_value');
@@ -675,14 +684,23 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             if (this.model.get('custitem_clothing_type') && this.model.get('custitem_clothing_type') != "&nbsp;") {
                 var clothingTypes = this.model.get('custitem_clothing_type').split(', ');
                 _.each(clothingTypes, function (clothingType) {
+                  var usedClothingType = clothingType;
+                  if(clothingType == 'Ladies-Jacket')
+                    clothingType = 'LadiesJacket';
+                  else if(clothingType == 'Ladies-Skirt')
+                    clothingType = 'LadiesSkirt';
+                  else if(clothingType == 'Ladies-Pants')
+                    clothingType = 'LadiesPants';
+                  else if(clothingType == 'Short-Sleeves-Shirt')
+                    clothingType = 'SSShirt';
                     //Design Option
                     var internalId = "custcol_designoptions_" + clothingType.toLowerCase();
-                    var designOptions = self.getDesignOptions(clothingType);
+                    var designOptions = self.getDesignOptions(usedClothingType);
                     //var designOptions = self.getAvtDesignOptions(clothingType);
 
                     self.model.setOption(internalId, JSON.stringify(designOptions));
                     //Fit Profile
-                    var selectedProfile = jQuery('#profiles-options-' + clothingType).val()
+                    var selectedProfile = jQuery('#profiles-options-' + usedClothingType).val()
                     if (selectedProfile) {
                         var fitColumn = "custcol_fitprofile_" + clothingType.toLowerCase();
                         var fitValue = window.currentFitProfile.profile_collection.get(selectedProfile).get('custrecord_fp_measure_value');
@@ -960,6 +978,8 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                         }
                     }
                 }
+                //console.log('options holder');
+                //console.log(optionsHolder)
                 var profileView = new FitProfileViews.ProfileSelector({
                     application: self.application
                     , model: new FitProfileModel(self.application.getUser().get("internalid"))
@@ -1142,7 +1162,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                             if(val && val.value != "")
                               extra+= parseFloat(val.value);
 
-                          })
+                          });
                           }
                         }
                         jQuery('[name="custcol_fabric_quantity"]').val((qty + extra).toFixed(2));

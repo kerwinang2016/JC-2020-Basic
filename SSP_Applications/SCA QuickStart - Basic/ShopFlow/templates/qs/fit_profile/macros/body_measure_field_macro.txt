@@ -1,12 +1,13 @@
 <!--
-Change History    
--------------- 
+Change History
+--------------
 Date: 15-01-2019
 Changed by:Salman Khan
 Change /Jira Ticket #: JHD-6
 Change Description: Expand room for fit tool names
 -->
 <% registerMacro('bodyMeasureField', function (field, value, fieldset, baseAllowance, allowance,selectedItemType) {
+
 	var type = field.type
 	,	label = field.label
 	,	name = field.name

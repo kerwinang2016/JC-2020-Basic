@@ -353,8 +353,6 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 												}
 												if(item.get("options").custcol_designoptions_shirt){
 													var opValues = JSON.parse(item.get("options").custcol_designoptions_shirt.value);
-													console.log("opValues");
-													console.log(opValues);
 													_.each(opValues, function(value){
 														if(value){
 															values[value.name] = value.value;
@@ -370,6 +368,51 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 														}
 													});
 												}
+												if(item.get("options").custcol_designoptions_trenchcoat){
+													var opValues = JSON.parse(item.get("options").custcol_designoptions_trenchcoat.value);
+
+													_.each(opValues, function(value){
+														if(value){
+															values[value.name] = value.value;
+														}
+													});
+												}
+												if(item.get("options").custcol_designoptions_ladiesjacket){
+													var opValues = JSON.parse(item.get("options").custcol_designoptions_ladiesjacket.value);
+
+													_.each(opValues, function(value){
+														if(value){
+															values[value.name] = value.value;
+														}
+													});
+												}
+												if(item.get("options").custcol_designoptions_ladiespants){
+													var opValues = JSON.parse(item.get("options").custcol_designoptions_ladiespants.value);
+
+													_.each(opValues, function(value){
+														if(value){
+															values[value.name] = value.value;
+														}
+													});
+												}
+												if(item.get("options").custcol_designoptions_ladiesskirt){
+													var opValues = JSON.parse(item.get("options").custcol_designoptions_ladiesskirt.value);
+
+													_.each(opValues, function(value){
+														if(value){
+															values[value.name] = value.value;
+														}
+													});
+												}
+												if(item.get("options").custcol_designoptions_ssshirt){
+													var opValues = JSON.parse(item.get("options").custcol_designoptions_ssshirt.value);
+
+													_.each(opValues, function(value){
+														if(value){
+															values[value.name] = value.value;
+														}
+													});
+												}
 												if(item.get("options").custcol_designoption_message){
 													designOptionMessage = item.get("options").custcol_designoption_message.value;
 												}
@@ -378,8 +421,6 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 										})
 
 									}
-									console.log("values");
-									console.log(values);
 									application.getUser().setUserOptionConfig(function(userOptions){
 										application.getUser().displayDesignOptions(view, userOptions);
 										jQuery("#designoption-message").val(designOptionMessage);
@@ -400,7 +441,12 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 									_.each(options, function(option){
 										var internalid = option.id.toLowerCase();
 
-										if(internalid == "custcol_designoptions_jacket" || internalid == "custcol_designoptions_trouser" || internalid == "custcol_designoptions_waistcoat" || internalid == "custcol_designoptions_shirt" || internalid == "custcol_designoptions_overcoat"){
+										if(internalid == "custcol_designoptions_jacket" || internalid == "custcol_designoptions_trouser"
+										|| internalid == "custcol_designoptions_waistcoat"
+										|| internalid == "custcol_designoptions_shirt" || internalid == "custcol_designoptions_overcoat"
+										|| internalid == "custcol_designoptions_ladiesjacket" || internalid == "custcol_designoptions_ladiespants"
+										|| internalid == "custcol_designoptions_ladiesskirt" || internalid == "custcol_designoptions_trenchcoat"
+										|| internalid == "custcol_designoptions_ssshirt" ){
 											var opValues = JSON.parse(option.value);
 
 											_.each(opValues, function(value){

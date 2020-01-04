@@ -197,6 +197,71 @@
                 "name": "top-button",
                 "min": 20,
                 "max": 58
+     	    }
+        ]
+    },
+    {
+	"type": "Short-Sleeves-Shirt",
+        "config": [
+            {
+                "name": "Neck",
+                "min": 22,
+                "max": 68
+            },
+            {
+                "name": "Shoulder",
+                "min": 26,
+                "max": 78
+            },
+            {
+                "name": "Chest",
+                "min": 52,
+                "max": 220
+            },
+            {
+                "name": "Waist",
+                "min": 50,
+                "max": 218
+            },
+            {
+                "name": "Hips",
+                "min": 42,
+                "max": 230
+            },
+            {
+                "name": "Upperarm",
+                "min": 26,
+                "max":77
+            },
+            {
+                "name": "Sleeve-Left",
+                "min": 18,
+                "max": 38
+            },
+            {
+                "name": "Sleeve-Right",
+                "min": 18,
+                "max": 38
+            },
+            {
+                "name": "Cuff-Left",
+                "min": 26,
+                "max": 66
+            },
+            {
+                "name": "Cuff-Right",
+                "min": 26,
+                "max": 66
+            },
+            {
+                "name": "Back-Length",
+                "min": 49,
+                "max": 112
+            },
+            {
+                "name": "Front-Length",
+                "min": 49,
+                "max": 103
             }
         ]
     }

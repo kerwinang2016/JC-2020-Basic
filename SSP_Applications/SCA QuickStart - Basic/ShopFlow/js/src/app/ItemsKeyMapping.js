@@ -88,15 +88,17 @@
 				// defaultcategory_detail attribute of the item is not consistent with the facets values,
 				// so we are going to use the facet values instead
 				var categories = _.findWhere(item.get('facets'), {id: 'category'});
-				var productType = item.get('custitem_clothing_type'),product = "";
-				if(productType == 'Jacket, Trouser, Waistcoat'){
-					product = '3-Piece-Suit';
-				}
-				else if(productType == 'Jacket, Trouser'){
-					product = '2-Piece-Suit';
-				}else{
-					product = productType;
-				}
+				// var productType = item.get('custcol_producttype'),
+				var product = item.get('custcol_producttype');
+				
+				// if(productType == 'Jacket, Trouser, Waistcoat'){
+				// 	product = '3-Piece-Suit';
+				// }
+				// else if(productType == 'Jacket, Trouser'){
+				// 	product = '2-Piece-Suit';
+				// }else{
+				// 	product = productType;
+				// }
 				var	walkCategories = function walkCategories(category)
 					{
 						var hasProductList = (!_.isNullOrEmpty(productList)) ? true : false;

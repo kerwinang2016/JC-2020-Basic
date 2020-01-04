@@ -4,7 +4,7 @@
 		if (Backbone.history.fragment.split("?").length > 1) {
 			var fragmentArray = Backbone.history.fragment.split("?")
 			,	clientId = Backbone.history.fragment.split("?")[1].split("=")[1].split("&")[0] || "";
-		 
+
 			for(var i = fragmentArray.length -1; i >= 0; i--){
 				if(fragmentArray[i].match('client')){
 					clientId = fragmentArray[i].split("=")[1].split("&")[0];
@@ -32,23 +32,10 @@
 						</a>
 					</div>
 					<% } %>
-					<%= displayInRows(facet.values.values, categoryCell, 4) %>
+					<%= displayInRows(facet.values.values, categoryCell, 4, facet.values.id == 'category', clientId) %>
 				<% }) %>
 				<div id="banner-section-bottom" class="content-banner banner-section-bottom"></div>
 			</section>
 		</div>
-		<%if (view.category.itemid != "Inventory"){ %>
-			<div class="row-fluid view-body">
-				<div class="span3">
-					<div class="category-cell">
-						<div class="category-cell-name">
-							<a data-hashtag="#productlists/?id=<%=clientId%>" data-touchpoint="customercenter" href="#" class="btn">
-								<%= _('My Product List').translate() %>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		<% } %>
     </div>
 </div>

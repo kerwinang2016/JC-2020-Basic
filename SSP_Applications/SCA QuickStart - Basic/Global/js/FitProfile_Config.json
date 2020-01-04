@@ -528,11 +528,11 @@
 						,	{"label":"Front Length", "name":"Front-Length", "type":"select", "min":-10, "max":10, "slim": {"min":-10, "max":10}, "regular": {"min":-10, "max":10}}
 						,	{"label":"Sleeve Left", "name":"Sleeve-Length-Left", "type":"select", "min":-15, "max":15, "slim": {"min":-15, "max":15}, "regular": {"min":-15, "max":15}}
 						,	{"label":"Sleeve Right", "name":"Sleeve-Length-Right", "type":"select", "min":-15, "max":15, "slim": {"min":-15, "max":15}, "regular": {"min":-15, "max":15}}
-						,	{"label":"Top Button", "name":"Top-Button-Position", "type":"select", "min":-4, "max":0, "slim": {"min":-4, "max":0}, "regular": {"min":-4, "max":0}}		
+						,	{"label":"Top Button", "name":"Top-Button-Position", "type":"select", "min":-4, "max":0, "slim": {"min":-4, "max":0}, "regular": {"min":-4, "max":0}}
 						]
 
 					}
-				]			
+				]
 			}
 		,	{
 				"type": "Body"
@@ -603,6 +603,399 @@
 						,	{"label":"Chest", "name":"chest-stature", "type":"select", "options": ["","Full Min 0.5","Full Avg 1","Full Max 1.5","Flat Min 0.5","Flat Avg 1","Flat Max 1.5"]}
 						,	{"label":"Armhole", "name":"armhole", "type":"select", "options": ["","Raise Min 1","Raise Avg 2.5","Raise Max 4","Lower Min 1","Lower Avg 2.5","Lower Max 4"]}
 						,	{"label":"Collar Position", "name":"collar-position", "type":"select", "options": ["","Raise Min 1","Raise Avg 1.5","Raise Max 2","Lower Min 1","Lower Avg 1.5","Lower Max 2"]}
+						]
+					}
+				]
+			}
+		]
+	}
+,	{
+		"item_type": "Short-Sleeves-Shirt"
+	,	"measurement": [
+			{
+				"type": "Block"
+			,	"increment": 0.5
+			,	"fieldset": [
+
+					{
+						"label": ""
+					,	"name": "main"
+					,	"fields": [
+							{"label":"Fit", "name":"fit", "type":"select", "fieldset": "Main", "options": ["Select","Regular","Slim"]}
+						,	{"label":"Block", "name":"block", "type":"select", "fieldset": "Main", "options": ["Select", 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61]}
+						]
+					}
+
+				,	{
+						"label": "Stature & Build"
+					,	"name": "Posture"
+					,	"max-label": "Higher"
+					,	"min-label": "Lower"
+					,	"fields": [
+							{"label":"Neckband", "name":"Neckband-Position", "type":"select", "min":-3, "max":1, "slim": {"min":-3, "max":1}, "regular": {"min":-3, "max":1}}
+						,	{"label":"Shoulder Left", "name":"Shoulder-Height-Left", "type":"select", "min":-2.5, "max":2.5, "slim": {"min":-2.5, "max":2.5}, "regular": {"min":-2.5, "max":2.5}}
+						,	{"label":"Shoulder Right", "name":"Shoulder-Height-Right", "type":"select", "min":-2.5, "max":2.5, "slim": {"min":-2.5, "max":2.5}, "regular": {"min":-2.5, "max":2.5}}
+	                    ,	{"label":"Armhole Depth", "name":"Armhole-Depth", "type":"select", "min":-2, "max":2, "slim": {"min":-2, "max":2}, "regular": {"min":-2, "max":2}}
+						]
+					}
+
+				,	{
+						"label": "Horizontals"
+					,	"name": "horizontals"
+					,	"max-label": "Let out"
+					,	"min-label": "Take in"
+					,	"fields": [
+							{"label":"Collar Size", "name":"Collar-Size", "type":"select", "min":-7, "max":7, "slim": {"min":-7, "max":7}, "regular": {"min":-7, "max":7}}
+						,	{"label":"1/2 Shoulder", "name":"1/2-Shoulder", "type":"select", "min":-5, "max":5, "slim": {"min":-5, "max":5}, "regular": {"min":-5, "max":5}}
+						,	{"label":"1/2 Chest", "name":"1/2-Chest", "type":"select", "min":-10, "max":10, "slim": {"min":-10, "max":10}, "regular": {"min":-10, "max":10}}
+						,	{"label":"1/2 Chest Front", "name":"1/2-Chest-Front", "type":"select", "min":-1.5, "max":1.5, "slim": {"min":-1.5, "max":1.5}, "regular": {"min":-1.5, "max":1.5}}
+						,	{"label":"1/2 Waist", "name":"1/2-Waist", "type":"select", "min":-10, "max":10, "slim": {"min":-10, "max":10}, "regular": {"min":-10, "max":10}}
+						,	{"label":"1/2 Hip", "name":"1/2-Hip", "type":"select", "min":-15, "max":15, "slim": {"min":-15, "max":15}, "regular": {"min":-15, "max":15}}
+						,	{"label":"1/2 Upper Arm", "name":"Upper-Arm/Armhole", "type":"select", "min":-5, "max":5, "slim": {"min":-5, "max":5}, "regular": {"min":-5, "max":5}}
+						,	{"label":"Cuff Left", "name":"Cuff-Width-Left", "type":"select", "min":-4, "max":4, "slim": {"min":-4, "max":4}, "regular": {"min":-4, "max":4}}
+						,	{"label":"Cuff Right", "name":"Cuff-Width-Right", "type":"select", "min":-4, "max":4, "slim": {"min":-4, "max":4}, "regular": {"min":-4, "max":4}}
+						]
+					}
+
+				,	{
+						"label": "Length"
+					,	"name": "length"
+					,	"max-label": "Lengthen"
+					,	"min-label": "Shorten"
+					,	"fields": [
+							{"label":"Total Length", "name":"Length", "type":"select", "min":-15, "max":15, "slim": {"min":-15, "max":15}, "regular": {"min":-15, "max":15}}
+						,	{"label":"Front Length", "name":"Front-Length", "type":"select", "min":-10, "max":10, "slim": {"min":-10, "max":10}, "regular": {"min":-10, "max":10}}
+						,	{"label":"Sleeve Left", "name":"Sleeve-Length-Left", "type":"select", "min":-4, "max":4, "slim": {"min":-4, "max":4}, "regular": {"min":-4, "max":4}}
+						,	{"label":"Sleeve Right", "name":"Sleeve-Length-Right", "type":"select", "min":-4, "max":4, "slim": {"min":-4, "max":4}, "regular": {"min":-4, "max":4}}
+						,	{"label":"Top Button", "name":"Top-Button-Position", "type":"select", "min":-4, "max":0, "slim": {"min":-4, "max":0}, "regular": {"min":-4, "max":0}}
+						]
+
+					}
+				]
+			}
+		,	{
+				"type": "Body"
+			,	"lookup-key": "fit"
+			,	"lookup-value": {
+					"Slim": [
+						{"field":"Neck", "value": 0.8}
+					,	{"field":"Chest", "value": 9.8}
+					,	{"field":"1/2 Waist", "value": 7.8}
+					,	{"field":"Hips", "value": 5.0}
+					,	{"field":"Cuff-Left", "value": 6.3}
+					,	{"field":"Cuff-Right", "value": 6.3}
+					,	{"field":"Upperarm", "value": 4.3}
+					],
+					"Regular": [
+						{"field":"Neck", "value": 1.0}
+					,	{"field":"Chest", "value": 12.8}
+					,	{"field":"1/2 Waist", "value": 10.8}
+					,	{"field":"Hips", "value": 8.0}
+					,	{"field":"Cuff-Left", "value": 6.3}
+					,	{"field":"Cuff-Right", "value": 6.3}
+					,	{"field":"Upperarm", "value": 5.8}
+					],
+					"Comfortable": [
+						{"field":"Neck", "value": 1.2}
+					,	{"field":"Chest", "value": 15.8}
+					,	{"field":"1/2 Waist", "value": 13.8}
+					,	{"field":"Hips", "value": 11.0}
+					,	{"field":"Cuff-Left", "value": 6.3}
+					,	{"field":"Cuff-Right", "value": 6.3}
+					,	{"field":"Upperarm", "value": 7.3}
+					],
+					"Finished": []
+				}
+			,	"fieldset": [
+					{
+						"label": ""
+					,	"name": "main"
+					,	"fields": [
+							{"label":"Units", "name":"units", "type":"select", "options": ["CM","Inches"]}
+						,	{"label":"Fit", "name":"fit", "type":"select", "options": ["Slim", "Regular", "Comfortable", "Finished"]}
+						]
+					}
+				,	{
+						"label": "Body measurement"
+					,	"name": "body-measurement"
+					,	"fields": [
+							{"label":"Neck", "name":"Neck", "type":"text"}
+						,	{"label":"Shoulder", "name":"Shoulder", "type":"text"}
+						,	{"label":"Chest", "name":"Chest", "type":"text"}
+						,	{"label":"Waist", "name":"Waist", "type":"text"}
+						,	{"label":"Hips", "name":"Hips", "type":"text"}
+						,	{"label":"Upperarm", "name":"Upperarm", "type":"text"}
+						,	{"label":"Sleeve Left", "name":"Sleeve-Left", "type":"text"}
+						,	{"label":"Sleeve Right", "name":"Sleeve-Right", "type":"text"}
+						,	{"label":"Cuff Left", "name":"Cuff-Left", "type":"text"}
+						,	{"label":"Cuff Right", "name":"Cuff-Right", "type":"text"}
+                    	,	{"label":"Back Length", "name":"Back-Length", "type":"text"}
+                    	,	{"label":"Front Length", "name":"Front-Length", "type":"text"}
+						]
+					}
+				,	{
+						"label": "Body profile"
+					,	"name": "body-profile"
+					,	"fields": [
+							{"label":"Shoulder Left", "name":"shoulder-description-l", "type":"select", "options": ["","High Min  0.5","High Avg 1","High Ext 1.5","High Max 2","Sloping Min 0.5","Sloping Avg 1","Sloping Ext 1.5","Sloping Max 2"]}
+						,	{"label":"Shoulder Right", "name":"shoulder-description-r", "type":"select", "options": ["","High Min  0.5","High Avg 1","High Ext 1.5","High Max 2","Sloping Min 0.5","Sloping Avg 1","Sloping Ext 1.5","Sloping Max 2"]}
+						,	{"label":"Chest", "name":"chest-stature", "type":"select", "options": ["","Full Min 0.5","Full Avg 1","Full Max 1.5","Flat Min 0.5","Flat Avg 1","Flat Max 1.5"]}
+						,	{"label":"Armhole", "name":"armhole", "type":"select", "options": ["","Raise Min 1","Raise Avg 2.5","Raise Max 4","Lower Min 1","Lower Avg 2.5","Lower Max 4"]}
+						,	{"label":"Collar Position", "name":"collar-position", "type":"select", "options": ["","Raise Min 1","Raise Avg 1.5","Raise Max 2","Lower Min 1","Lower Avg 1.5","Lower Max 2"]}
+						]
+					}
+				]
+			}
+		]
+	}
+,	{
+		"item_type": "Trenchcoat"
+	,	"measurement": [
+			{
+				"type": "Block"
+			,	"increment": 0.5
+			,	"fieldset": [
+
+					{
+						"label": ""
+					,	"name": "main"
+					,	"fields": [
+							{"label":"Fit", "name":"fit", "type":"select", "fieldset": "Main", "options": ["Select","Regular"]}
+						,	{"label":"Block", "name":"block", "type":"select", "fieldset": "Main", "options": ["Select", 42, 44, 46, 48, 50, 52, 54, 56, 58, 60,62, 64, 66, 68, 70]}
+						]
+					}
+
+				,	{
+						"label": "Stature & Build"
+					,	"name": "posture"
+					,	"max-label": "Higher"
+					,	"min-label": "Lower"
+					,	"fields": [
+							{"label":"Stooped(+)/Erect(-)", "name":"Posture", "type":"select", "min":-2, "max":2}
+						,	{"label":"Collar", "name":"Collar", "type":"select", "min":-5, "max":5}
+						,	{"label":"Collar Height", "name":"Collar-Height", "type":"select", "min":-1, "max":1}
+						,	{"label":"Shoulder Right", "name":"Shoulder-Height-R", "type":"select", "min":-3, "max":2.5}
+						,	{"label":"Shoulder Left", "name":"Shoulder-Height-L", "type":"select", "min":-3, "max":2.5}
+						,	{"label":"Armhole Depth", "name":"Armhole-Depth", "type":"select", "min":-2, "max":2}
+						,	{"label":"Sleeve Pitch", "name":"Sleeve-Position", "type":"select", "min":-4, "max":4}
+						]
+					}
+
+				,	{
+						"label": "Horizontals"
+					,	"name": "horizontals"
+					,	"max-label": "Let out"
+					,	"min-label": "Take in"
+					,	"fields": [
+							{"label":"1/2 Collar", "name":"1/2-Collar", "type":"select", "min":-2, "max":1}
+						,	{"label":"1/2 Shoulder", "name":"1/2-Shoulder", "type":"select", "min":-1.5, "max":1.5}
+						,	{"label":"1/2 Back", "name":"1/2-Back", "type":"select", "min":-1.5, "max":1.5}
+						,	{"label":"1/2 Chest", "name":"1/2-Chest", "type":"select", "min":-2, "max":2}
+						,	{"label":"1/2 Chest Front", "name":"1/2-Chest-Front", "type":"select", "min":-1.5, "max":1.5}
+						,	{"label":"1/2 Waist", "name":"1/2-Girth", "type":"select", "min":-4, "max":4}
+						,	{"label":"1/2 Hip", "name":"1/2-Hip", "type":"select", "min":-4, "max":4}
+						,	{"label":"1/2 Upper Arm", "name":"Upper-Arm/Armhole", "type":"select", "min":-1, "max":2}
+						,	{"label":"1/2 Hand", "name":"1/2-Hand-Width", "type":"select", "min":-2, "max":2}
+						]
+					}
+
+				,	{
+						"label": "Length"
+					,	"name": "length"
+					,	"max-label": "Lengthen"
+					,	"min-label": "Shorten"
+					,	"fields": [
+							{"label":"Front Length", "name":"Front-Length", "type":"select", "min":-3, "max":3}
+						,	{"label":"Total Length", "name":"Length", "type":"select", "min":-7, "max":10}
+						,	{"label":"Sleeve Right", "name":"Sleeve-Length-Right", "type":"select", "min":-10, "max":10}
+						,	{"label":"Sleeve Left", "name":"Sleeve-Length-Left", "type":"select", "min":-10, "max":10}
+						]
+					}
+				]
+			}
+		]
+	}
+,	{
+		"item_type": "Ladies-Jacket"
+	,	"measurement": [
+			{
+				"type": "Block"
+			,	"increment": 0.5
+			,	"fieldset": [
+
+					{
+						"label": ""
+					,	"name": "main"
+					,	"fields": [
+							{"label":"Fit", "name":"fit", "type":"select", "fieldset": "Main", "options": ["Select","Regular"]}
+						,	{"label":"Block", "name":"block", "type":"select", "fieldset": "Main", "options": ["Select", 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70]}
+						]
+					}
+
+				,	{
+						"label": "Stature & Build"
+					,	"name": "Posture"
+					,	"max-label": "Higher"
+					,	"min-label": "Lower"
+					,	"fields": [
+							{"label":"Stooped(+)/Erect(-)", "name":"Posture", "type":"select", "min":-2.5, "max":2, "very-slim": {"min":-2.5, "max":2}, "slim": {"min":-2.5, "max":2}, "regular": {"min":-2.5, "max":2}}
+						,	{"label":"Collar Height", "name":"Collar-Height", "type":"select", "min":-2.5, "max":2, "very-slim": {"min":-2.5, "max":2}, "slim": {"min":-2.5, "max":2}, "regular": {"min":-2.5, "max":2}}
+						,	{"label":"Shoulder Left", "name":"Shoulder-Height-Left", "type":"select", "min":-3, "max":2.5, "very-slim": {"min":-3, "max":2.5}, "slim": {"min":-3, "max":2.5}, "regular": {"min":-3, "max":2.5}}
+						,	{"label":"Shoulder Right", "name":"Shoulder-Height-Right", "type":"select", "min":-3, "max":2.5, "very-slim": {"min":-3, "max":2.5}, "slim": {"min":-3, "max":2.5}, "regular": {"min":-3, "max":2.5}}
+						,	{"label":"Armhole Depth", "name":"Armhole-Depth", "type":"select", "min":-2, "max":2, "very-slim": {"min":-2, "max":2}, "slim": {"min":-2, "max":2}, "regular": {"min":-2, "max":2}}
+						,	{"label":"Sleeve Pitch", "name":"Sleeve-Position", "type":"select", "min":-4, "max":4, "very-slim": {"min":-4, "max":4}, "slim": {"min":-4, "max":4}, "regular": {"min":-4, "max":4}}
+						,	{"label":"Lapel Length", "name":"Lapel-Length", "type":"select", "min":-1.5, "max":1.5, "very-slim": {"min":-1.5, "max":1.5}, "slim": {"min":-1.5, "max":1.5}, "regular": {"min":-1.5, "max":1.5}}
+						,	{"label":"Shoulder Position", "name":"Shoulder-Position", "type":"select", "min":-1, "max":1, "very-slim": {"min":-1, "max":1}, "slim": {"min":-1, "max":1}, "regular": {"min":-1, "max":1}}
+						,	{"label":"Center Back", "name":"Center-Back-Seam", "type":"select", "min":-0.5, "max":0, "very-slim": {"min":-0.5, "max":0}, "slim": {"min":-0.5, "max":0}, "regular": {"min":-0.5, "max":0}}
+						]
+					}
+
+				,	{
+						"label": "Horizontals"
+					,	"name": "horizontals"
+					,	"max-label": "Let out"
+					,	"min-label": "Take in"
+					,	"fields": [
+							{"label":"1/2 Collar", "name":"1/2-Collar", "type":"select", "min":-1.5, "max":0, "very-slim": {"min":-1.5, "max":0}, "slim": {"min":-1.5, "max":0}, "regular": {"min":-1.5, "max":0}}
+						,	{"label":"1/2 Shoulder", "name":"1/2-Shoulder", "type":"select", "min":-2, "max":2, "very-slim": {"min":-2, "max":2}, "slim": {"min":-2, "max":2}, "regular": {"min":-2, "max":2}}
+						,	{"label":"1/2 Back", "name":"1/2-Back", "type":"select", "min":-2, "max":2, "very-slim": {"min":-2, "max":2}, "slim": {"min":-2, "max":2}, "regular": {"min":-2, "max":2}}
+						,	{"label":"1/2 Chest", "name":"1/2-Chest", "type":"select", "min":-3, "max":3, "very-slim": {"min":-3, "max":3}, "slim": {"min":-3, "max":3}, "regular": {"min":-3, "max":3}}
+						,	{"label":"1/2 Chest Front", "name":"1/2-Chest-Front", "type":"select", "min":-1.5, "max":1.5, "very-slim": {"min":-1.5, "max":1.5}, "slim": {"min":-1.5, "max":1.5}, "regular": {"min":-1.5, "max":1.5}}
+						,	{"label":"1/2 Waist", "name":"1/2-Girth", "type":"select", "min":-5, "max":5, "very-slim": {"min":-5, "max":5}, "slim": {"min":-5, "max":5}, "regular": {"min":-5, "max":5}}
+						,	{"label":"1/2 Front", "name":"1/2-Front", "type":"select", "min":-2.5, "max":2.5, "very-slim": {"min":-2.5, "max":2.5}, "slim": {"min":-2.5, "max":2.5}, "regular": {"min":-2.5, "max":2.5}}
+						,	{"label":"1/2 Hip", "name":"1/2-Hip", "type":"select", "min":-4, "max":4, "very-slim": {"min":-4, "max":4}, "slim": {"min":-4, "max":4}, "regular": {"min":-4, "max":4}}
+						,	{"label":"1/2 Front Skirt", "name":"1/2-Front-Skirt", "type":"select", "min":-2, "max":0, "very-slim": {"min":-2, "max":0}, "slim": {"min":-2, "max":0}, "regular": {"min":-2, "max":0}}
+						,	{"label":"1/2 Upper Arm", "name":"Upper-Arm", "type":"select", "min":-1, "max":2, "very-slim": {"min":-1, "max":2}, "slim": {"min":-1, "max":2}, "regular": {"min":-1, "max":2}}
+						,	{"label":"1/2 Hand", "name":"1/2-Hand", "type":"select", "min":-1.5, "max":2, "very-slim": {"min":-1.5, "max":2}, "slim": {"min":-1.5, "max":2}, "regular": {"min":-1.5, "max":2}}
+						]
+					}
+
+				,	{
+						"label": "Length"
+					,	"name": "length"
+					,	"max-label": "Lengthen"
+					,	"min-label": "Shorten"
+					,	"fields": [
+							{"label":"Total Length", "name":"Length", "type":"select", "min":-6, "max":8, "very-slim": {"min":-6, "max":8}, "slim": {"min":-6, "max":8}, "regular": {"min":-6, "max":8}}
+						,	{"label":"Front Length", "name":"Front-Length", "type":"select", "min":-3, "max":3, "very-slim": {"min":-3, "max":3}, "slim": {"min":-3, "max":3}, "regular": {"min":-3, "max":3}}
+						,	{"label":"Sleeve Left", "name":"Sleeve-Length-Left", "type":"select", "min":-10.0, "max":10.0, "very-slim": {"min":-10, "max":10}, "slim": {"min":-10, "max":10}, "regular": {"min":-10, "max":10}}
+						,	{"label":"Sleeve Right", "name":"Sleeve-Length-Right", "type":"select", "min":-10.0, "max":10.0, "very-slim": {"min":-10, "max":10}, "slim": {"min":-10, "max":10}, "regular": {"min":-10, "max":10}}
+						]
+					}
+
+				,	{
+						"label": "Others"
+					,	"name": "others"
+					,	"max-label": "Raise"
+					,	"min-label": "Lower"
+					,	"fields": [
+								{"label":"Button Height", "name":"Closing-Button-Height", "type":"select", "min":-3, "max":3, "very-slim": {"min":-3, "max":3}, "slim": {"min":-3, "max":3}, "regular": {"min":-3, "max":3}}
+							,	{"label":"Chest Pocket", "name":"Chest-Pocket-Position", "type":"select", "min":0, "max":3, "very-slim": {"min":0, "max":3}, "slim": {"min":0, "max":3}, "regular": {"min":0, "max":3}}
+							,	{"label":"Vent Length", "name":"Vent-Length", "type":"select", "min":-3, "max":3, "very-slim": {"min":-3, "max":3}, "slim": {"min":-3, "max":3}, "regular": {"min":-3, "max":3}}
+						]
+					}
+				]
+			}
+		]
+	}
+,	{
+		"item_type": "Ladies-Pants"
+	,	"measurement": [
+			{
+				"type": "Block"
+			,	"increment": 0.5
+			,	"fieldset": [
+
+					{
+						"label": ""
+					,	"name": "main"
+					,	"fields": [
+							{"label":"Fit", "name":"fit", "type":"select", "fieldset": "Main", "options": ["Select","Regular"]}
+						,	{"label":"Block", "name":"block", "type":"select", "fieldset": "Main", "options": ["Select", 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62]}
+						]
+					}
+
+				,	{
+						"label": "Stature & Build"
+					,	"name": "posture"
+					,	"max-label": "Raise"
+					,	"min-label": "Lower"
+					,	"fields": [
+							{"label":"Total Rise", "name":"Total-Rise", "type":"select", "min":-2, "max":7, "very-slim": {"min":-2, "max":7}, "slim": {"min":-2, "max":7}, "regular": {"min":-2, "max":7}}
+						,	{"label":"Front Rise", "name":"Front-Rise", "type":"select", "min":-2, "max":4, "very-slim": {"min":-2, "max":4}, "slim": {"min":-2, "max":4}, "regular": {"min":-2, "max":4}}
+						,	{"label":"Back Rise", "name":"Back-Rise", "type":"select", "min":-2, "max":4, "very-slim": {"min":-2, "max":4}, "slim": {"min":-2, "max":4}, "regular": {"min":-2, "max":4}}
+						,	{"label":"Flat Seat", "name":"Flat-Seat", "type":"select", "min":-2, "max":0, "very-slim": {"min":-2, "max":0}, "slim": {"min":-2, "max":0}, "regular": {"min":-2, "max":0}}
+						,	{"label":"Back Curve", "name":"Back-Rise-Curve", "type":"select", "min":-1, "max":0, "very-slim": {"min":-1, "max":0}, "slim": {"min":-1, "max":0}, "regular": {"min":-1, "max":0}}
+						]
+					}
+
+				,	{
+						"label": "Horizontals"
+					,	"name": "horizontals"
+					,	"max-label": "Let out"
+					,	"min-label": "Take in"
+					,	"fields": [
+							{"label":"Crotch", "name":"Crotch", "type":"select", "min":-2.5, "max":2.5, "very-slim": {"min":-2.5, "max":2.5}, "slim": {"min":-2.5, "max":2.5}, "regular": {"min":-2.5, "max":2.5}}
+						,	{"label":"1/2 Waist", "name":"1/2-Waist", "type":"select", "min":-4, "max":6, "very-slim": {"min":-4, "max":6}, "slim": {"min":-4, "max":6}, "regular": {"min":-4, "max":6}}
+						,	{"label":"1/2 Seat", "name":"1/2-Seat", "type":"select", "min":-3.5, "max":3.5, "very-slim": {"min":-3.5, "max":3.5}, "slim": {"min":-3.5, "max":3.5}, "regular": {"min":-3.5, "max":3.5}}
+						,	{"label":"1/2 Hip", "name":"1/2-Hip", "type":"select", "min":-1.5, "max":1, "very-slim": {"min":-1.5, "max":1}, "slim": {"min":-1.5, "max":1}, "regular": {"min":-1.5, "max":1}}
+						,	{"label":"1/2 Thigh", "name":"1/2-Thigh", "type":"select", "min":-2.5, "max":2.5, "very-slim": {"min":-2.5, "max":2.5}, "slim": {"min":-2.5, "max":2.5}, "regular": {"min":-2.5, "max":2.5}}
+						,	{"label":"1/2 Knee", "name":"1/2-Knee", "type":"select", "min":-3, "max":4, "very-slim": {"min":-3, "max":4}, "slim": {"min":-3, "max":4}, "regular": {"min":-3, "max":4}}
+						,	{"label":"1/2 Foot", "name":"1/2-Foot", "type":"select", "min":-3, "max":6, "very-slim": {"min":-3, "max":6}, "slim": {"min":-3, "max":6}, "regular": {"min":-3, "max":6}}
+						]
+					}
+
+				,	{
+						"label": "Length"
+					,	"name": "length"
+					,	"max-label": "Lengthen"
+					,	"min-label": "Shorten"
+					,	"fields": [
+							{"label":"Leg Left", "name":"Leg-Length-L", "type":"select", "min":-15, "max":15, "very-slim": {"min":-15, "max":15}, "slim": {"min":-15, "max":15}, "regular": {"min":-15, "max":15}}
+						,	{"label":"Leg Right", "name":"Leg-Length-R", "type":"select", "min":-15, "max":15, "very-slim": {"min":-15, "max":13}, "slim": {"min":-15, "max":15}, "regular": {"min":-15, "max":15}}
+						]
+					}
+				]
+			}
+		]
+	}
+,	{
+		"item_type": "Ladies-Skirt"
+	,	"measurement": [
+			{
+				"type": "Block"
+			,	"increment": 0.5
+			,	"fieldset": [
+
+					{
+						"label": ""
+					,	"name": "main"
+					,	"fields": [
+							{"label":"Fit", "name":"fit", "type":"select", "fieldset": "Main", "options": ["Select","Regular"]}
+						,	{"label":"Block", "name":"block", "type":"select", "fieldset": "Main", "options": ["Select", 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62]}
+						]
+					}
+
+				,	{
+						"label": "Horizontals"
+					,	"name": "horizontals"
+					,	"max-label": "Let out"
+					,	"min-label": "Take in"
+					,	"fields": [
+							{"label":"1/2 Waist", "name":"1/2-Waist", "type":"select", "min":-4, "max":6, "very-slim": {"min":-4, "max":6}, "slim": {"min":-4, "max":6}, "regular": {"min":-4, "max":6}}
+						,	{"label":"1/2 Seat", "name":"1/2-Hip", "type":"select", "min":-2.5, "max":2.5, "very-slim": {"min":-2.5, "max":2.5}, "slim": {"min":-2.5, "max":2.5}, "regular": {"min":-2.5, "max":2.5}}
+						,	{"label":"1/2 Hip", "name":"1/2-Side-Hip", "type":"select", "min":-1.5, "max":1, "very-slim": {"min":-1.5, "max":1}, "slim": {"min":-1.5, "max":1}, "regular": {"min":-1.5, "max":1}}
+						,	{"label":"1/2 Bottom", "name":"1/2-Hip2", "type":"select", "min":-4, "max":4, "very-slim": {"min":-4, "max":4}, "slim": {"min":-4, "max":4}, "regular": {"min":-4, "max":4}}
+						]
+					}
+
+				,	{
+						"label": "Length"
+					,	"name": "length"
+					,	"max-label": "Lengthen"
+					,	"min-label": "Shorten"
+					,	"fields": [
+							{"label":"Length", "name":"Length", "type":"select", "min":-15, "max":15, "very-slim": {"min":-15, "max":15}, "slim": {"min":-15, "max":15}, "regular": {"min":-15, "max":15}}
 						]
 					}
 				]

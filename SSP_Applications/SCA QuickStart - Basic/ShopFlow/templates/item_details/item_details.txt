@@ -195,8 +195,7 @@
 																return fextra.code == '3-Piece Suit';
 															});
 
-															if(results){
-															console.log('results');
+															if(results && results.length > 0){
 															_.each(results[0].design,function(option){
 																console.log('each results');
 															%>
@@ -209,7 +208,7 @@
 																var results = _.filter(extra, function(fextra){
 																	return fextra.code == '2-Piece Suit';
 																});
-																if(results){
+																if(results && results.length > 0){
 																_.each(results[0].design,function(option){ %>
 																<option
 																	value="<%= option.value %>"
@@ -219,7 +218,7 @@
 																var results = _.filter(extra, function(fextra){
 																	return fextra.code == item[0];
 																});
-																if(results){
+																if(results && results.length > 0){
 																_.each(results[0].design,function(option){ %>
 																<option
 																	value="<%= option.value %>"

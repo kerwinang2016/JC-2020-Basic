@@ -88,9 +88,9 @@
 			<div style="clear:both;"></div>
 
 			<div style="margin-bottom:10px;">
-			<!-- <strong>The factory will be closed from 1st-7th October. This will impact all orders placed from Thursday 19th September or orders that fabric has not arrived by this date</strong>  
+			<!-- <strong>The factory will be closed from 1st-7th October. This will impact all orders placed from Thursday 19th September or orders that fabric has not arrived by this date</strong>
 			<br/>-->
-				* The following vendors are searchable: AC Shirt, Ariston, Carnet, Dormeuil, Drago, Dugdale Bros, Filarte, Loro Piana, Solbiati, Thomas Mason
+				* The following vendors are searchable: AC Shirt, Ariston, Carnet, Dormeuil, Drago, Dugdale Bros, Filarte, Harrisons, Loro Piana, Solbiati, Thomas Mason
 			</div>
     </div>
     <%= facetsDisplayResults %>

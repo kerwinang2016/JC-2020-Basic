@@ -2015,3 +2015,27 @@ margin-left:5%;
   font-size: 16px;
   font-weight: bold;
 }
+.womensbanner{
+  border-bottom: solid 1px black;
+    font-size: 20px;
+    width: 300px;
+    font-weight: bold;
+    line-height: 50px;
+}
+.womensbanner:after{
+  content: "\f078";
+}
+.womensbanner.collapsed:after{
+  content: "\f054";
+}
+.mensbanner{
+  border-bottom: solid 1px black;
+    font-size: 20px;
+    width: 300px;
+    font-weight: bold;
+    line-height: 50px;
+}
+.category-cell-thumbnail img{
+  width: 168px;
+  height: 168px;
+}

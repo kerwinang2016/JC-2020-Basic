@@ -142,6 +142,52 @@
 			"value":"0.05"
 			}
 		]
+	},
+	{
+	"code":"Short-Sleeves-Shirt",
+	"design":
+		[
+			{
+			"code":"T01060410",
+			"value":"0.05"
+			},
+			{
+			"code":"T01060411",
+			"value":"0.05"
+			},
+			{
+			"code":"T01060412",
+			"value":"0.05"
+			},
+			{
+			"code":"T01060413",
+			"value":"0.05"
+			},
+			{
+			"code":"T01060414",
+			"value":"0.05"
+			}
+		]
+	},
+	{
+	"code":"Trenchcoat",
+	"design":
+		[
+			{
+			"code":"T01160601",
+			"value":"0.25"
+			}
+		]
+	},
+	{
+	"code":"Ladies-Jacket",
+	"design":
+		[
+			{
+			"code":"T02720304",
+			"value":"0.1"
+			}
+		]
 	}
 ]}
 ,
@@ -232,7 +278,7 @@
 		]
 	},
 	{
-	"code":"3-Piece Suit",
+	"code":"3-Piece-Suit",
 	"design":
 		[{
 			"code":"Plain",
@@ -261,7 +307,7 @@
 		]
 	},
 	{
-	"code":"2-Piece Suit",
+	"code":"2-Piece-Suit",
 	"design":
 		[{
 			"code":"Plain",
@@ -318,16 +364,12 @@
 			"value":"0"
 			},
 			{
-			"code":"Plaid 5cm x 5cm",
-			"value":"0.2"
+			"code":"Plaid 3cm x 3cm",
+			"value":"0.15"
 			},
 			{
 			"code":"Stripe",
 			"value":"0.1"
-			},
-			{
-			"code":"Large Herringbone",
-			"value":"1"
 			}
 		]
 	},

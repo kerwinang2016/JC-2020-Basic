@@ -79,6 +79,7 @@ Change Description: Price in the items matches the total in The order summary
 	</div>
 <div class="gradient-content">
     <div class="container">
+			<div class="row-fluid" style="padding:10px;color:red;">IMPORTANT: Dates effected by Chinese New Year. Please refer to your CNY calendar for an estimated shipping date</div>
         <div class="row-fluid view-body">
             <section class="span9">
 								<div id="cart-alert-placeholder" class="alert-placeholder" data-type="alert-placeholder">

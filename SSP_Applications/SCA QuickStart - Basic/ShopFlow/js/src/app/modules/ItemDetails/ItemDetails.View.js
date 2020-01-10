@@ -536,12 +536,12 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 error_message += 'CMT Lining for Jacket has minimim quantity of 0.88.<br/>';
               }
             }
-			if(jQuery('#li-b-j').val() == 'CMT Lining'){
-				if((jQuery('#design-option-Jacket #li-vnd').val() == 'Please select') || (jQuery('#design-option-Jacket #li-code').val() == '') ||
-				jQuery('#design-option-Jacket #li-qty').val() == ""){
-					error_message += 'CMT Lining Vendor, Code and Quantity is required when Lining Fabric is CMT Lining<br/>';
-				}
-			}
+      			if(jQuery('#li-b-j').val() == 'CMT Lining'){
+      				if((jQuery('#design-option-Jacket #li-vnd').val() == 'Please select') || (jQuery('#design-option-Jacket #li-code').val() == '') ||
+      				jQuery('#design-option-Jacket #li-qty').val() == ""){
+      					error_message += 'CMT Lining Vendor, Code and Quantity is required when Lining Fabric is CMT Lining<br/>';
+      				}
+      			}
           }
           if(clothingTypes.indexOf('Waistcoat')!=-1){
             if((jQuery('#design-option-Waistcoat #li-vnd').val() != 'Please select') || (jQuery('#design-option-Waistcoat #li-code').val() != '')){
@@ -549,20 +549,20 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 error_message += 'CMT Lining for Waistcoat has minimum quantity of 0.84.<br/>';
               }
             }
-			if(jQuery('#li-bl-w').val() == 'CMT Lining'){
-				if((jQuery('#design-option-Waistcoat #li-vnd').val() == 'Please select') || (jQuery('#design-option-Waistcoat #li-code').val() == '') ||
-				jQuery('#design-option-Waistcoat #li-qty').val() == ""){
-					error_message += 'CMT Lining Vendor, Code and Quantity is required when Lining Fabric is CMT Lining<br/>';
-				}
-			}
+      			if(jQuery('#li-bl-w').val() == 'CMT Lining'){
+      				if((jQuery('#design-option-Waistcoat #li-vnd').val() == 'Please select') || (jQuery('#design-option-Waistcoat #li-code').val() == '') ||
+      				jQuery('#design-option-Waistcoat #li-qty').val() == ""){
+      					error_message += 'CMT Lining Vendor, Code and Quantity is required when Lining Fabric is CMT Lining<br/>';
+      				}
+      			}
           }
-		  if(clothingTypes.indexOf('Overcoat')!=-1){
-			if(jQuery('#li-bl-o').val() == 'CMT Lining'){
-				if((jQuery('#design-option-Overcoat #li-code').val() == '') ||
-				jQuery('#design-option-Overcoat #li-qty').val() == ""){
-					error_message += 'CMT Code and Quantity is required when Lining Fabric is CMT Lining<br/>';
-				}
-			}
+    		  if(clothingTypes.indexOf('Overcoat')!=-1){
+      			if(jQuery('#li-bl-o').val() == 'CMT Lining'){
+      				if((jQuery('#design-option-Overcoat #li-code').val() == '') ||
+      				jQuery('#design-option-Overcoat #li-qty').val() == ""){
+      					error_message += 'CMT Code and Quantity is required when Lining Fabric is CMT Lining<br/>';
+      				}
+      			}
           }
           if(error_message != "")
             self.showError(error_message);
@@ -1103,7 +1103,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     //Hack on setting the profile
                     if (window.tempFitProfile) {
                         //What is the item??
-                        var item = self.model.get("custitem_clothing_type").split(",");
+                        var item = self.model.itemOptions.custcol_producttype.internalid;
                         var qty = 0;
                         for (var i = 0; i < window.tempFitProfile.length; i++) {
 
@@ -1113,32 +1113,13 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                                 jQuery("#profile-actions-" + window.tempFitProfile[i].name).html("<a data-backdrop='static' data-keyboard='false' data-toggle='show-in-modal' href='/fitprofile/new'>Add</a> | <a data-backdrop='static' data-keyboard='false' data-toggle='show-in-modal' href='/fitprofile/" + profileID + "'>Edit</a> | <a data-action='remove-rec' data-type='profile' data-id='" + profileID + "'>Remove</a>");
                                 //Update Quantity when Profile Refreshes, during add edit and delete....What if the item was already on cart
                                 if(window.tempFitProfile[i].block){
-                                  if(item.length == 3){
                                     var bq = _.find(window.blockQuantity,function(q){
-                                      return q.custrecord_bqm_producttext == '3-Piece Suit' && q.custrecord_bqm_block == window.tempFitProfile[i].block;
+                                      return q.custrecord_bqm_producttext == item && q.custrecord_bqm_block == window.tempFitProfile[i].block;
                                     })
                                     if(bq){
                                       if(qty < parseFloat(bq.custrecord_bqm_quantity))
                                         qty = parseFloat(bq.custrecord_bqm_quantity);
                                     }
-                                  }
-                                  else if(item.length == 2){
-                                    var bq = _.find(window.blockQuantity,function(q){
-                                      return q.custrecord_bqm_producttext == '2-Piece Suit' && q.custrecord_bqm_block == window.tempFitProfile[i].block;
-                                    })
-                                    if(bq){
-                                      if(qty < parseFloat(bq.custrecord_bqm_quantity))
-                                        qty = parseFloat(bq.custrecord_bqm_quantity);
-                                    }
-                                  }else{
-                                    var bq = _.find(window.blockQuantity,function(q){
-                                      return q.custrecord_bqm_producttext == item[0] && q.custrecord_bqm_block == window.tempFitProfile[i].block;
-                                    })
-                                    if(bq){
-                                      if(qty < parseFloat(bq.custrecord_bqm_quantity))
-                                        qty = parseFloat(bq.custrecord_bqm_quantity);
-                                    }
-                                  }
                                 }
                             }
                             else{
@@ -1545,6 +1526,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
     					case 'Jacket':
     					case 'Shirt':
     					case 'Overcoat':
+              case 'Short-Sleeves-Shirt':
     						var partvalue = 0, partmeasure = 0;
                 var mValue = JSON.parse(pModel.get('custrecord_fp_measure_value'));
                 var mUnits = mValue.find(function (e){return e.name == 'units';})
@@ -1584,11 +1566,11 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 for(var i=0;i<a.length;i++){
                   partvalue += parseFloat(a[i].value);
                 }
-    						if(partmeasure)
-    						partvalue = jQuery('[name="units"]').val() == 'CM'?partmeasure:parseFloat(partmeasure)*2.54;
-    						partvalue = parseFloat(partvalue)/2
+    						if(partvalue)
+    						partmeasure = jQuery('[name="units"]').val() == 'CM'?partvalue:parseFloat(partvalue)*2.54;
+    						partmeasure = parseFloat(partmeasure)/2
     						var filtered = _.filter(window.bodyBlockMeasurements,function(data){
-    						return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partvalue) && data.custrecord_bbm_producttypetext == ptype;
+    						return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partmeasure) && data.custrecord_bbm_producttypetext == ptype;
     						})
     						if(filtered && filtered.length>0){
       						result = filtered.reduce(function(prev, curr){

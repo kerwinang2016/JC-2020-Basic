@@ -18,7 +18,7 @@
 		});
 	}
  %>
-<% pages = _.isUndefined(pages) || _.isArray(pages) ? pages : [pages]; %>
+<% pages = _.isUndefined(pages) || _.isArray(pages) ? pages : [pages];  %>
 <div id="banner-breadcrumb-top" class="content-banner banner-breadcrumb-top"></div>
 <ul style="display:inline-block;width:50%;" class="breadcrumb hidden-phone" itemprop="breadcrumb">
 <% _.each(pages, function(link, index) { %>

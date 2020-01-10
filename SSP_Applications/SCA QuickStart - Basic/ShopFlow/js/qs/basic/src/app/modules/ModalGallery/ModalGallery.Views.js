@@ -29,7 +29,7 @@ define('ModalGallery.Views',  ['Client.Model'], function (ClientModel)
 			,	baseUrl = "http://store.jeromeclothiers.com/assets/images/item_options_images/";
 			if(this.title == 'Button Code')
 				key = "Button Code";
-			console.log(key + ' The key')
+
 			jQuery.get(_.getAbsoluteUrl('js/DesignOptionsImages_Config.json?nocache=T')).done(function(data){
 
 					var optionsConfig = data;

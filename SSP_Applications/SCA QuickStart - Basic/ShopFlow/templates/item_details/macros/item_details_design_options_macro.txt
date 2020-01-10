@@ -35,7 +35,6 @@
 	    <div class="accordion" id="design-option">
 			<% var count = 0; %>
 			<% for (var clothingType in designOptions){
-			console.log('clothingtype ' + clothingType)
 				var currentClothingType = designOptions[clothingType];
 
 

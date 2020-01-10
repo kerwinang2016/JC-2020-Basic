@@ -1,39 +1,3 @@
-<!--
-Change History
---------------
-Date: 30-01-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-7
-Change Calculate "expected delivery date" and to be visible in the cart in the SCA, Priop to the order being processed
--->
-
-<!--
-Change History
---------------
-Date: 31-01-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-10
-Change Make some cosmetic changes on Cart
--->
-
-<!--
-Change History
---------------
-Date: 04-03-2019
-Changed by:Shoaib Iqbal
-Change /Jira Ticket #: JHD-23
-Change Description: Remove "Chinese New Year" text and other info
--->
-
-<!--
-Change History
---------------
-Date: 13-03-2019
-Changed by: Salman Khan
-Change /Jira Ticket #: JHD-33
-Change Description: Order List add Tailor currency symbol and insert box for price
--->
-
 <% registerMacro('itemListNavigable', function (options) { %>
 <%
 	var macros = SC.macros
@@ -75,16 +39,7 @@ Change Description: Order List add Tailor currency symbol and insert box for pri
 	  //JHD-7 End
   //var ptype = _.where(item.get("options"), {id: "CUSTCOL_PRODUCTTYPE"})[0].value;
 	var formtype = _.where(item.get("options"), {id: "CUSTCOL_PRODUCTTYPE"})[0].value;
-	/*if(fitprofile){
-		if(fitprofile.length == 3)
-			formtype = '3-Piece-Suit';
-		else if(fitprofile.length == 2)
-			formtype = '2-Piece-Suit';
-		else if(fitprofile.length>0){
-			formtype = fitprofile[0].name;
-		}
-	}
-	*/
+
 	var item_details = item.get('itemDetails')
 
 	var isDisplayDateNeededHoldFabricHoldProduction = true;

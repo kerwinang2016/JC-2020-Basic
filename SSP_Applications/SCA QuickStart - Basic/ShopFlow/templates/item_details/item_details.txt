@@ -3,7 +3,7 @@
 	var application = view.application;
 	var cart = application.getCart();
 	var cartLines = cart.get('lines');
-	var item = view.model.get('custitem_clothing_type').split(', ');
+	var item = view.model.itemOptions.custcol_producttype.internalid;
 	var itemoptions_detail = model.get('_optionsDetails');
 	var vendorpick = _.find(itemoptions_detail.fields,function(f){return f.internalid == "custcol_vendorpicked";});
 	var vendorpicklist = [];
@@ -11,6 +11,7 @@
 		vendorpicklist = vendorpick.values;
 %>
 	<div class="view-header container" itemscope itemtype="http://schema.org/WebPage">
+
 		<%= breadcrumb(model.get('_breadcrumb')) %>
 			<div id="banner-content-top" class="content-banner banner-content-top"></div>
 	</div>
@@ -179,7 +180,7 @@
 																<% 	}
 										} %>
 
-																	<div id="quantity" style="margin-bottom:30px;">
+																	<div style="margin-bottom:30px;">
 
 																		<% if (model.get('_itemType') !== 'GiftCert'){
 												var minimum_quantity = model.get('_minimumQuantity', true);
@@ -189,45 +190,20 @@
 													<select id="fabric_extra" style="width:220px;" class="display-option-dropdown" name="fabric_extra" data-type="fabric_extra">
 														<option value="Please Select" name="Please Select">	Please Select</option>
 														<%
-														var extra = window.extraQuantity[1].values;
-														if(item.length == 3){
+															var extra = window.extraQuantity[1].values;
 															var results = _.filter(extra, function(fextra){
-																return fextra.code == '3-Piece Suit';
+																return fextra.code == item;
 															});
 
 															if(results && results.length > 0){
 															_.each(results[0].design,function(option){
-																console.log('each results');
 															%>
 															<option
 																value="<%= option.value %>"
 																name="<%=option.code%>"><%= option.code %></option>
-															<% });
-															}
-															}else if(item.length == 2){
-																var results = _.filter(extra, function(fextra){
-																	return fextra.code == '2-Piece Suit';
-																});
-																if(results && results.length > 0){
-																_.each(results[0].design,function(option){ %>
-																<option
-																	value="<%= option.value %>"
-																	name="<%=option.code%>"><%= option.code %></option>
-																<% });}
-															}else{
-																var results = _.filter(extra, function(fextra){
-																	return fextra.code == item[0];
-																});
-																if(results && results.length > 0){
-																_.each(results[0].design,function(option){ %>
-																<option
-																	value="<%= option.value %>"
-																	name="<%=option.code%>"><%= option.code %></option>
-																<% });%>
-																<% }
-																} %>
+															<% });} %>
 																</select>
-											</div>
+																</div>
 																			<% if(model.get('itemtype') === 'NonInvtPart') { %>
 																				<% if(model.get('custitem_clothing_type') !== "&nbsp;") { %>
 																					<label style="width:100px" for="quantity"> <%=_('Metres').translate(minimum_quantity)%></label>
@@ -255,7 +231,7 @@
 																														<%= itemDetailsStock(model.getStockInfo()) %>
 																												</div>
 
-																												<input type="hidden" name="custcol_avt_date_needed" id="quantity" value="">
+																												<input type="hidden" name="custcol_avt_date_needed" value="">
 
 																							</div>
 																							<button data-type="add-to-cart" class="btn btn-primary btn-large add-to-cart-btn" <% if (!model.isReadyForCart()) {%> disabled<%}%>>

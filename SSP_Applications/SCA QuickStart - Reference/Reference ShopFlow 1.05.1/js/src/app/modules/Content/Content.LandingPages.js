@@ -20,10 +20,10 @@ define(
 	}
 
 	// View:
-	// Tho most of the content is driven by the content service 
+	// Tho most of the content is driven by the content service
 	// we need a view to extend upon
 	var View = Backbone.View.extend({
-		
+
 		template: 'landing_page'
 	,	title: ''
 	,	page_header: ''
@@ -32,12 +32,12 @@ define(
 		,	'class': 'landing-page'
 		}
 	,	events: {}
-		
+
 	,	initialize: function ()
 		{
 			this.url = Backbone.history && Backbone.history.fragment;
 		}
-		
+
 		// View.showContent:
 	,	showContent: function (page)
 		{
@@ -45,7 +45,7 @@ define(
 			this.page = page;
 			this.options.layout.showContent(this);
 		}
-		
+
 		// View.getBreadcrumb:
 		// It will try to figure the breadcrumb out of the url
 	,	getBreadcrumb: function ()
@@ -54,14 +54,14 @@ define(
 					href: '/'
 				,	text: _('Home').translate()
 				}];
-			
+
 			if (this.url && Categories)
 			{
 				var category_path = '';
 				_.each(Categories.getBranchLineFromPath(this.url), function (cat)
 				{
 					category_path += '/'+cat.id;
-					
+
 					breadcrumb.push({
 						href: category_path
 					,	text: cat.title
@@ -70,28 +70,28 @@ define(
 			}
 
 			breadcrumb.push({
-				href: this.url 
+				href: this.url
 			,	text: this.page_header
 			});
 
 			return breadcrumb;
 		}
 	});
-	
+
 	// Router:
 	var Router = Backbone.Router.extend({
-		
+
 		// Routes are created based on the urls in the content.mountToApp
 		routes: {}
-		
+
 	,	initialize: function (Application)
 		{
 			this.Application = Application;
 		}
-		
+
 		// Router.displayLandingPage
 		// uses the DataModels.loadPage to load the data and create the model
-	,	displayLandingPage: function (option) 
+	,	displayLandingPage: function (option)
 		{
 			var self = this
 			,	page_url = option ? unescape(Backbone.history.fragment).replace('?' + option, '') : Backbone.history.fragment
@@ -99,13 +99,13 @@ define(
 					application: this.Application
 				,	layout: this.Application.getLayout()
 				});
-			
+
 			DataModels.loadPage('/' + page_url, function (page)
 			{
 				if (page)
 				{
 					EnhancedViews.overrideViewSettings(view, page);
-					view.showContent(page);					
+					view.showContent(page);
 				}
 				else
 				{
@@ -114,7 +114,7 @@ define(
 			});
 		}
 	});
-	
+
 	return {
 		View: View
 	,	Router: Router

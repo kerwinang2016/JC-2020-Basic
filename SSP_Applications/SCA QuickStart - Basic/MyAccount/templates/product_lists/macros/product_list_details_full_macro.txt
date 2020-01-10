@@ -1,4 +1,5 @@
 <% registerMacro('productListDisplayFull', function(item, view, options) {
+
 	var product = item.get('item')
 	,	quantity = item.get('quantity')
 	,	priority = item.get('priority')
@@ -15,28 +16,8 @@
 	}
 	var DesignOptions = {name:"Design Options", value: []};
 	var itemoptions = item.get('options');
-  var producttype = "";
-	if(itemoptions.custcol_designoptions_jacket && itemoptions.custcol_designoptions_trouser && itemoptions.custcol_designoptions_waistcoat){
-		producttype = "3-Piece-Suit";
-	}
-	else if(itemoptions.custcol_designoptions_jacket && itemoptions.custcol_designoptions_trouser){
-		producttype = "2-Piece-Suit";
-	}
-	else if(itemoptions.custcol_designoptions_jacket){
-		producttype = "Jacket";
-	}
-	else if(itemoptions.custcol_designoptions_trouser){
-		producttype = "Trouser";
-	}
-	else if(itemoptions.custcol_designoptions_waistcoat){
-		producttype = "Waistcoat";
-	}
-	else if(itemoptions.custcol_designoptions_overcoat){
-		producttype = "Overcoat";
-	}
-	else if(itemoptions.custcol_designoptions_shirt){
-		producttype = "Shirt";
-	}
+  var producttype = itemoptions.custcol_producttype.displayvalue;
+	var type = "";
 	if(itemoptions.custcol_designoptions_jacket){
 		type = "Jacket";
 		type_option = _.where(window.design_options, {item_type: type})[0];
@@ -207,7 +188,176 @@
 			value: formatted_values
 		});
 	}
+	if(itemoptions.custcol_designoptions_trenchcoat){
+		type = "Trenchcoat";
+		type_option = _.where(window.design_options, {item_type: type})[0];
+		option_values = JSON.parse(itemoptions.custcol_designoptions_trenchcoat.value);
+		var formatted_values = [];
+		_.each(option_values, function(option_value){
+			var fields = _.pluck(type_option.options, "fields")
+			_.each(fields, function(field){
+				var selectedField = _.where(field, {name: option_value.name})
 
+				if(selectedField && selectedField.length){
+					selectedField = selectedField[0]
+					for(var i = 0;i < selectedField.values.length; i++){
+						if(selectedField.label == 'CMT Lining Code' || selectedField.label == 'CMT Lining Quantity'){
+							var value = new Object();
+							value.label = selectedField.label;
+							value.value = option_value.value;
+							formatted_values.push(value);
+						}
+						else if(selectedField.values[i] == option_value.value){
+							var value = new Object();
+							value.label = selectedField.label;
+							value.value = selectedField.texts[i];
+							formatted_values.push(value);
+						}
+					}
+				}
+			});
+		});
+		DesignOptions.value.push({
+			name: type,
+			value: formatted_values
+		});
+	}
+	if(itemoptions.custcol_designoptions_trenchcoat){
+		type = "Short-Sleeves-Shirt";
+		type_option = _.where(window.design_options, {item_type: type})[0];
+		option_values = JSON.parse(itemoptions.custcol_designoptions_ssshirt.value);
+		var formatted_values = [];
+		_.each(option_values, function(option_value){
+			var fields = _.pluck(type_option.options, "fields")
+			_.each(fields, function(field){
+				var selectedField = _.where(field, {name: option_value.name})
+
+				if(selectedField && selectedField.length){
+					selectedField = selectedField[0]
+					for(var i = 0;i < selectedField.values.length; i++){
+						if(selectedField.label == 'CMT Lining Code' || selectedField.label == 'CMT Lining Quantity'){
+							var value = new Object();
+							value.label = selectedField.label;
+							value.value = option_value.value;
+							formatted_values.push(value);
+						}
+						else if(selectedField.values[i] == option_value.value){
+							var value = new Object();
+							value.label = selectedField.label;
+							value.value = selectedField.texts[i];
+							formatted_values.push(value);
+						}
+					}
+				}
+			});
+		});
+		DesignOptions.value.push({
+			name: type,
+			value: formatted_values
+		});
+	}
+	if(itemoptions.custcol_designoptions_ladiesskirt){
+		type = "Ladies-Skirt";
+		type_option = _.where(window.design_options, {item_type: type})[0];
+		option_values = JSON.parse(itemoptions.custcol_designoptions_ladiesskirt.value);
+		var formatted_values = [];
+		_.each(option_values, function(option_value){
+			var fields = _.pluck(type_option.options, "fields")
+			_.each(fields, function(field){
+				var selectedField = _.where(field, {name: option_value.name})
+
+				if(selectedField && selectedField.length){
+					selectedField = selectedField[0]
+					for(var i = 0;i < selectedField.values.length; i++){
+						if(selectedField.label == 'CMT Lining Code' || selectedField.label == 'CMT Lining Quantity'){
+							var value = new Object();
+							value.label = selectedField.label;
+							value.value = option_value.value;
+							formatted_values.push(value);
+						}
+						else if(selectedField.values[i] == option_value.value){
+							var value = new Object();
+							value.label = selectedField.label;
+							value.value = selectedField.texts[i];
+							formatted_values.push(value);
+						}
+					}
+				}
+			});
+		});
+		DesignOptions.value.push({
+			name: type,
+			value: formatted_values
+		});
+	}
+	if(itemoptions.custcol_designoptions_ladiesjacket){
+		type = "Ladies-Jacket";
+		type_option = _.where(window.design_options, {item_type: type})[0];
+		option_values = JSON.parse(itemoptions.custcol_designoptions_ladiesjacket.value);
+		var formatted_values = [];
+		_.each(option_values, function(option_value){
+			var fields = _.pluck(type_option.options, "fields")
+			_.each(fields, function(field){
+				var selectedField = _.where(field, {name: option_value.name})
+
+				if(selectedField && selectedField.length){
+					selectedField = selectedField[0]
+					for(var i = 0;i < selectedField.values.length; i++){
+						if(selectedField.label == 'CMT Lining Code' || selectedField.label == 'CMT Lining Quantity'){
+							var value = new Object();
+							value.label = selectedField.label;
+							value.value = option_value.value;
+							formatted_values.push(value);
+						}
+						else if(selectedField.values[i] == option_value.value){
+							var value = new Object();
+							value.label = selectedField.label;
+							value.value = selectedField.texts[i];
+							formatted_values.push(value);
+						}
+					}
+				}
+			});
+		});
+		DesignOptions.value.push({
+			name: type,
+			value: formatted_values
+		});
+	}
+	if(itemoptions.custcol_designoptions_ladiespants){
+		type = "Ladies-Pants";
+		type_option = _.where(window.design_options, {item_type: type})[0];
+		option_values = JSON.parse(itemoptions.custcol_designoptions_ladiespants.value);
+		var formatted_values = [];
+		_.each(option_values, function(option_value){
+			var fields = _.pluck(type_option.options, "fields")
+			_.each(fields, function(field){
+				var selectedField = _.where(field, {name: option_value.name})
+
+				if(selectedField && selectedField.length){
+					selectedField = selectedField[0]
+					for(var i = 0;i < selectedField.values.length; i++){
+						if(selectedField.label == 'CMT Lining Code' || selectedField.label == 'CMT Lining Quantity'){
+							var value = new Object();
+							value.label = selectedField.label;
+							value.value = option_value.value;
+							formatted_values.push(value);
+						}
+						else if(selectedField.values[i] == option_value.value){
+							var value = new Object();
+							value.label = selectedField.label;
+							value.value = selectedField.texts[i];
+							formatted_values.push(value);
+						}
+					}
+				}
+			});
+		});
+		DesignOptions.value.push({
+			name: type,
+			value: formatted_values
+		});
+	}
 	if(itemoptions.custcol_designoption_message){
 		type = "Message";
 		DesignOptions.value.push({

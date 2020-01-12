@@ -588,37 +588,32 @@ Application.defineModel('LiveOrder', {
 		return line_id;
 	}
 
-, getSurcharge:function (number, type,dop,fabric_surcharges){
+, getSurcharge:function (ptype,dop,fabric_surcharges,fabric_customsurcharges){
+    var additionalsurcharge = 0, description = "";
+  	if(dop){
+  		var surcharges = _.filter(fabric_surcharges,function(z){
+  			//surchargerate,code,name,min,max,producttype
+  			return z.producttype == ptype;
+  		});
+  		if(surcharges){
+  			for(var i=0;i<surcharges.length;i++){
+  				if(dop.indexOf(surcharges[i].name) != -1){
 
-	if(type == 'Jacket'){
-		if(number == 3 && dop.indexOf('T01022303') != -1){
-			return {description: "Unlined Surcharge", rate:.15};
-		}else if(number == 2 && dop.indexOf('T01022303') != -1){
-			return {description: "Unlined Surcharge", rate:.15};
-		}else if(number == 1 && dop.indexOf('T01022303') != -1){
-			return {description: "Unlined Surcharge", rate:.25};
-		}
-	}else if(type == 'Trouser'){
-		if(dop.indexOf('T01051703') != -1 || dop.indexOf('T01051704') != -1 || dop.indexOf('T01051705') != -1 || dop.indexOf('T01051707') != -1){
-			if(number == 3)
-				return {description: "Bottom Finishing Surcharge", rate:.05};
-			else if(number == 2)
-				return {description: "Bottom Finishing Surcharge", rate:.05};
-			else if(number = 1)
-				return {description: "Bottom Finishing Surcharge", rate:.10};
-		}
-	}else if(type == 'Waistcoat'){
-		if(dop.indexOf('T01170501') != -1 || dop.indexOf('T01170504') != -1 || dop.indexOf('T01170505') != -1){
-			if(number == 3)
-				return {description: "Backstyle Surcharge", rate:.15};
-			else if(number = 1)
-				return {description: "Backstyle Surcharge", rate:.40};
-		}
-	}else if(type == 'Overcoat'){
-		if(number == 1 && dop.indexOf('T01041102') != -1){
-			return {description: "Unlined Surcharge", rate:.20};
-		}
-	}
+  					var customSurcharge = _.find(fabric_customsurcharges,function(z){
+  						return z.fabricinvoicerecord == surcharges[i].internalid && tailor == nlapiGetUser();
+  					});
+  					if(customSurcharge){
+              description = description?", " + surcharges[i].code: surcharges[i].code;
+  						additionalsurcharge += parseFloat(customSurcharge.customsurcharge);
+  					}else{
+              description = description?", " + surcharges[i].code: surcharges[i].code;
+  						additionalsurcharge += parseFloat(surcharges[i].surchargerate?surcharges[i].surchargerate:0);
+  					}
+  				}
+  			}
+  		}
+      return {description: description, rate: additionalsurcharge};
+  	}
 	return {description: "No Surcharge", rate:0};
 }
 , getShippingCogs: function(tailorID, line_data, shippingcharges){
@@ -636,10 +631,18 @@ Application.defineModel('LiveOrder', {
 			case "Trouser": clothingtype = "4"; break;
 			case "Waistcoat": clothingtype = "6"; break;
 			case "Overcoat": clothingtype = "8"; break;
+      case "Short-Sleeves-Shirt": clothingtype = "12"; break;
+      case "Trenchcoat": clothingtype = "13"; break;
+      case "Ladies-Jacket": clothingtype = "14"; break;
+      case "Ladies-Pants": clothingtype = "15"; break;
+      case "Ladies-Skirt": clothingtype = "16"; break;
+      case "L-2PC-Skirt": clothingtype = "17"; break;
+      case "L-3PC-Suit": clothingtype = "18"; break;
+      case "L-2PC-Pants": clothingtype = "19"; break;
 		}
 		var custom = _.find(shippingcharges,function(x){return x.producttype == clothingtype && x.tailor == tailorID});
 		if(custom){
-      nlapiLogExecution('debug','Has Shipping Charge',custom.rate);
+      //nlapiLogExecution('debug','Has Shipping Charge',custom.rate);
 			// shippingamount = parseFloat(shippingamount) + parseFloat(custom.rate);
       returnObj.fabrictext += "<li>Shipping Charge  " + ptype + " ";
       returnObj.fabrictext += custom.rate + "</li>";
@@ -648,7 +651,7 @@ Application.defineModel('LiveOrder', {
 		else{
 			custom = _.find(shippingcharges,function(x){return x.producttype == clothingtype && x.tailor == ''});
 			if(custom){
-        nlapiLogExecution('debug','Has Default Shipping Charge',custom.rate);
+        //nlapiLogExecution('debug','Has Default Shipping Charge',custom.rate);
 				// shippingamount = parseFloat(shippingamount) + parseFloat(custom.rate);
         returnObj.fabrictext += "<li>Shipping Charge  " + ptype + " ";
         returnObj.fabrictext += custom.rate + "</li>";
@@ -659,8 +662,8 @@ Application.defineModel('LiveOrder', {
   returnObj.fabrictext += "</ul></div></div>";
   return {text: returnObj.fabrictext, amount: totaladditionalsurcharge};
 }
-, getFabricCogs: function(tailorID,line_data,requestfields, fabric_surcharges){
-  nlapiLogExecution('debug','GetFabric COGS');
+, getFabricCogs: function(tailorID,line_data,requestfields, fabric_surcharges,fabric_customsurcharges){
+  //nlapiLogExecution('debug','GetFabric COGS');
   var self = this;
   // var customerfieldsStr = requestfields.customerfields;
   var totaladditionalsurcharge = 0;
@@ -671,13 +674,13 @@ Application.defineModel('LiveOrder', {
   var returnObj = {};
 	returnObj.fabrictext = '<div><b>Fabric</b><div style="padding-left:10px;"><ul>';
   var ptype = line_data.options.custcol_producttype;
-  nlapiLogExecution('debug','itemfields.vendor',itemfields.vendor);
+  //nlapiLogExecution('debug','itemfields.vendor',itemfields.vendor);
 	if(itemfields.vendor == '17' || itemfields.vendor == '671'){
     var fabCollection = itemfields.custitem_fabric_collection;
 		var prodType = line_data.options.custcol_producttype;
 		var currentPricelevel = customerfields.pricelevel;
-    nlapiLogExecution('debug','pricelevel',currentPricelevel);
-    nlapiLogExecution('debug','custrecord_dtp_fab_collection',fabCollection);
+    //nlapiLogExecution('debug','pricelevel',currentPricelevel);
+    //nlapiLogExecution('debug','custrecord_dtp_fab_collection',fabCollection);
 		if(fabCollection && prodType && currentPricelevel != ""){
       var prodTypeId = "";
 			switch(prodType){
@@ -688,9 +691,17 @@ Application.defineModel('LiveOrder', {
 				case 'Shirt': prodTypeId = '7'; break;
 				case '3-Piece-Suit': prodTypeId = '9'; break;
 				case '2-Piece-Suit': prodTypeId = '10'; break;
+        case "Short-Sleeves-Shirt": clothingtype = "12"; break;
+        case "Trenchcoat": clothingtype = "13"; break;
+        case "Ladies-Jacket": clothingtype = "14"; break;
+        case "Ladies-Pants": clothingtype = "15"; break;
+        case "Ladies-Skirt": clothingtype = "16"; break;
+        case "L-2PC-Skirt": clothingtype = "17"; break;
+        case "L-3PC-Suit": clothingtype = "18"; break;
+        case "L-2PC-Pants": clothingtype = "19"; break;
 			}
 
-      nlapiLogExecution('debug','custrecord_dtp_producttype',prodTypeId);
+      //nlapiLogExecution('debug','custrecord_dtp_producttype',prodTypeId);
 			if(prodTypeId != ""){
 
 				var filters = [];
@@ -728,7 +739,15 @@ Application.defineModel('LiveOrder', {
 			'Trouser': '2',
 			'Waistcoat': '1',
 			'Overcoat': '2.5',
-			'Shirt': '2'
+			'Shirt': '2',
+			'Trenchcoat': '3',
+			'Short-Sleeves-Shirt': '2',
+			'Ladies-Jacket': '1.7',
+			'Ladies-Pants': '1.7',
+			'Ladies-Skirt': '1',
+			'L-2PC-Skirt': '2.4',
+			'L-3PC-Suit': '3.7',
+			'L-2PC-Pants': '3'
 		};
 		currency = customerfields.currency;
 		var currentPricelevel = customerfields.pricelevel;
@@ -736,7 +755,7 @@ Application.defineModel('LiveOrder', {
 		var currentRate = itemfields.price;
 		var currentAmount = itemfields.price;
 		var itemID = line_data.item.internalid;
-    nlapiLogExecution('debug','PRICE ', itemfields.price);
+    //nlapiLogExecution('debug','PRICE ', itemfields.price);
 		if(itemfields.price != ""){
 			var price = parseFloat(itemfields.price);
 			var itemtype = line_data.options.custcol_producttype;
@@ -748,6 +767,15 @@ Application.defineModel('LiveOrder', {
 				case 'Waistcoat': currentAmount = price * 1; break;
 				case 'Overcoat': currentAmount = price * 2.5; break;
 				case 'Shirt': currentAmount = price * 2; break;
+
+				case 'Trenchcoat' : currentAmount = price * 3; break;
+				case 'Short-Sleeves-Shirt': currentAmount = price * 2; break;
+				case 'Ladies-Jacket': currentAmount = price * 1.7; break;
+				case 'Ladies-Pants': currentAmount = price * 1.7; break;
+				case 'Ladies-Skirt': currentAmount = price * 1; break;
+				case 'L-2PC-Skirt': currentAmount = price * 2.4; break;
+				case 'L-3PC-Suit': currentAmount = price * 3.7; break;
+				case 'L-2PC-Pants': currentAmount = price * 3; break;
 				default:
 			}
 			currentRate = currentAmount/parseFloat(fabric_quantity);
@@ -756,7 +784,7 @@ Application.defineModel('LiveOrder', {
 			returnObj.fabrictext += currentAmount.toFixed(2) + "</li>";
       totaladditionalsurcharge += parseFloat(currentAmount);
 		}
-    nlapiLogExecution('debug','CURRENT RATE',currentRate);
+    //nlapiLogExecution('debug','CURRENT RATE',currentRate);
 		if(line_data.options.custcol_producttype){
 			//Check Fabric Prices based on block types 2/8/2019
 			var fpsummary = line_data.options.custcol_fitprofile_summary;
@@ -781,20 +809,20 @@ Application.defineModel('LiveOrder', {
 					if(blockSurcharges.length>0){
 						returnObj.fabrictext += "<li>Large Size Surcharge ";
 						returnObj.fabrictext += parseFloat(currentAmount * parseFloat(blockSurcharges[0].surchargerate)).toFixed(2) + "</li>";
-            nlapiLogExecution('debug','LARGE SIZE SURCHARGE ', blockSurcharges[0].surchargerate);
+
 						totaladditionalsurcharge += parseFloat(currentAmount * blockSurcharges[0].surchargerate);
 					}
 				}
 				var itemtypes = [];
-				//Design Options //Unlined Turnup, Backwith Fabric
-				if(fpsJSON.length == 3){
-					var j_surcharge = self.getSurcharge(3,'Jacket',line_data.options.custcol_designoptions_jacket,fabric_surcharges);
-					var t_surcharge = self.getSurcharge(3,'Trouser',line_data.options.custcol_designoptions_trouser,fabric_surcharges);
-					var w_surcharge = self.getSurcharge(3,'Waistcoat',line_data.options.custcol_designoptions_waistcoat,fabric_surcharges);
+        var ptype = line_data.options.custcol_producttype;
+        //Design Options //Unlined Turnup, Backwith Fabric
+				if(ptype == '3-Piece-Suit'){
+					var j_surcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_jacket,fabric_surcharges,fabric_customsurcharges);
+					var t_surcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_trouser,fabric_surcharges,fabric_customsurcharges);
+					var w_surcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_waistcoat,fabric_surcharges,fabric_customsurcharges);
 					if(j_surcharge.rate != 0){
 						returnObj.fabrictext += "<li>"+j_surcharge.description + " ";
 						returnObj.fabrictext += (currentAmount * j_surcharge.rate).toFixed(2) + "</li>";
-
             totaladditionalsurcharge += parseFloat(currentAmount * j_surcharge.rate);
 					}
 					if(t_surcharge.rate != 0){
@@ -807,32 +835,88 @@ Application.defineModel('LiveOrder', {
 						returnObj.fabrictext += (currentAmount * w_surcharge.rate).toFixed(2) + "</li>";
             totaladditionalsurcharge += (currentAmount *  w_surcharge.rate);
 					}
-				}else if(fpsJSON.length == 2){
-					var j_surcharge = self.getSurcharge(2,'Jacket',line_data.options.custcol_designoptions_jacket,fabric_surcharges);
-					var t_surcharge = self.getSurcharge(2,'Trouser',line_data.options.custcol_designoptions_trouser,fabric_surcharges);
+				}else if(ptype == '2-Piece-Suit'){
+					var j_surcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_jacket,fabric_surcharges,fabric_customsurcharges);
+					var t_surcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_trouser,fabric_surcharges,fabric_customsurcharges);
 					if(j_surcharge.rate != 0){
             // nlapiLogExecution('debug','JSURCHARGE',JSON.stringify(j_surcharge));
 						returnObj.fabrictext += "<li>"+j_surcharge.description + " ";
 						returnObj.fabrictext += (currentAmount * j_surcharge.rate).toFixed(2) + "</li>";
-            nlapiLogExecution('debug','j_surcharge.rate ', j_surcharge.rate);
             totaladditionalsurcharge += parseFloat(currentAmount * j_surcharge.rate);
 					}
 					if(t_surcharge.rate != 0){
 						returnObj.fabrictext += "<li>"+t_surcharge.description + " ";
 						returnObj.fabrictext += (currentAmount * t_surcharge.rate).toFixed(2) + "</li>";
-            nlapiLogExecution('debug','t_surcharge.rate ', t_surcharge.rate);
             totaladditionalsurcharge += parseFloat(currentAmount * t_surcharge.rate);
 					}
+				}else if(ptype == 'L-2PC-Pants'){
+					var j_surcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_ladiesjacket,fabric_surcharges,fabric_customsurcharges);
+					var t_surcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_ladiespants,fabric_surcharges,fabric_customsurcharges);
+          if(j_surcharge.rate != 0){
+            returnObj.fabrictext += "<li>"+j_surcharge.description + " ";
+            returnObj.fabrictext += (currentAmount * j_surcharge.rate).toFixed(2) + "</li>";
+            totaladditionalsurcharge += parseFloat(currentAmount * j_surcharge.rate);
+          }
+          if(t_surcharge.rate != 0){
+            returnObj.fabrictext += "<li>"+t_surcharge.description + " ";
+            returnObj.fabrictext += (currentAmount * t_surcharge.rate).toFixed(2) + "</li>";
+            totaladditionalsurcharge += parseFloat(currentAmount * t_surcharge.rate);
+          }
+
+				}
+				else if(ptype == 'L-3PC-Suit'){
+					var j_surcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_ladiesjacket,fabric_surcharges,fabric_customsurcharges);
+					var t_surcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_ladiespants,fabric_surcharges,fabric_customsurcharges);
+					var sk_surcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_ladiesskirt,fabric_surcharges,fabric_customsurcharges);
+          if(j_surcharge.rate != 0){
+            returnObj.fabrictext += "<li>"+j_surcharge.description + " ";
+            returnObj.fabrictext += (currentAmount * j_surcharge.rate).toFixed(2) + "</li>";
+            totaladditionalsurcharge += parseFloat(currentAmount * j_surcharge.rate);
+          }
+          if(t_surcharge.rate != 0){
+            returnObj.fabrictext += "<li>"+t_surcharge.description + " ";
+            returnObj.fabrictext += (currentAmount * t_surcharge.rate).toFixed(2) + "</li>";
+            totaladditionalsurcharge += parseFloat(currentAmount * t_surcharge.rate);
+          }
+          if(sk_surcharge.rate != 0){
+            returnObj.fabrictext += "<li>"+sk_surcharge.description + " ";
+            returnObj.fabrictext += (currentAmount * sk_surcharge.rate).toFixed(2) + "</li>";
+            totaladditionalsurcharge += parseFloat(currentAmount * sk_surcharge.rate);
+          }
+				}
+				else if(ptype == 'L-2PC-Skirt'){
+					var j_surcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_ladiesjacket,fabric_surcharges,fabric_customsurcharges);
+					var t_surcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_ladiesskirt,fabric_surcharges,fabric_customsurcharges);
+          if(j_surcharge.rate != 0){
+            returnObj.fabrictext += "<li>"+j_surcharge.description + " ";
+            returnObj.fabrictext += (currentAmount * j_surcharge.rate).toFixed(2) + "</li>";
+            totaladditionalsurcharge += parseFloat(currentAmount * j_surcharge.rate);
+          }
+          if(t_surcharge.rate != 0){
+            returnObj.fabrictext += "<li>"+t_surcharge.description + " ";
+            returnObj.fabrictext += (currentAmount * t_surcharge.rate).toFixed(2) + "</li>";
+            totaladditionalsurcharge += parseFloat(currentAmount * t_surcharge.rate);
+          }
 				}else{
 					var singlesurcharge = {rate:0};
 					if(fpsJSON[0].name == 'Jacket'){
-						singlesurcharge = self.getSurcharge(1,'Jacket',line_data.options.custcol_designoptions_jacket,fabric_surcharges);
+						singlesurcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_jacket,fabric_surcharges,fabric_customsurcharges);
 					}else if(fpsJSON[0].name == 'Trouser'){
-						singlesurcharge = self.getSurcharge(1,'Trouser',line_data.options.custcol_designoptions_trouser,fabric_surcharges);
+						singlesurcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_trouser,fabric_surcharges,fabric_customsurcharges);
 					}else if(fpsJSON[0].name == 'Waistcoat'){
-						singlesurcharge = self.getSurcharge(1,'Waistcoat',line_data.options.custcol_designoptions_waistcoat,fabric_surcharges);
+            singlesurcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_waistcoat,fabric_surcharges,fabric_customsurcharges);
 					}else if(fpsJSON[0].name == 'Overcoat'){
-						singlesurcharge = self.getSurcharge(1,'Overcoat',line_data.options.custcol_designoptions_overcoat,fabric_surcharges);
+            singlesurcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_overcoat,fabric_surcharges,fabric_customsurcharges);
+					}else if(fpsJSON[0].name == 'Ladies-Jacket'){
+						singlesurcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_ladiesjacket,fabric_surcharges,fabric_customsurcharges);
+					}else if(fpsJSON[0].name == 'Ladies-Pants'){
+						singlesurcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_ladiespants,fabric_surcharges,fabric_customsurcharges);
+					}else if(fpsJSON[0].name == 'Ladies-Skirt'){
+						singlesurcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_ladiesskirt,fabric_surcharges,fabric_customsurcharges);
+					}else if(fpsJSON[0].name == 'Trenchcoat'){
+						singlesurcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_trenchcoat,fabric_surcharges,fabric_customsurcharges);
+					}else if(fpsJSON[0].name == 'Short-Sleeves-Shirt'){
+						singlesurcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_ssshirt,fabric_surcharges,fabric_customsurcharges);
 					}
 					if(singlesurcharge.rate != 0){
 						returnObj.fabrictext += "<li>"+singlesurcharge.description + " ";
@@ -852,10 +936,10 @@ Application.defineModel('LiveOrder', {
 					z.name == fextra;
 				});
 				if(fextraSurcharges.length>0){
-          nlapiLogExecution('debug','HAS FaBric design',fextraSurcharges[0].name)
+          //nlapiLogExecution('debug','HAS FaBric design',fextraSurcharges[0].name)
 					returnObj.fabrictext += "<li>"+fextraSurcharges[0].name + " ";
 					returnObj.fabrictext += (currentAmount * parseFloat(fextraSurcharges[0].surchargerate)).toFixed(2) + "</li>";
-          nlapiLogExecution('debug','fextraSurcharges[0].surchargerate ', fextraSurcharges[0].surchargerate);
+          //nlapiLogExecution('debug','fextraSurcharges[0].surchargerate ', fextraSurcharges[0].surchargerate);
 					totaladditionalsurcharge += parseFloat(currentAmount * fextraSurcharges[0].surchargerate);
 				}
 			}
@@ -870,12 +954,12 @@ Application.defineModel('LiveOrder', {
   var tailorCMTPrefMasterID = customerfields.custentity_jerome_cmt_service_preference;
   var tailorCMTPrefMaster = tailorCMTPrefMasterID && tailorCMTPrefMasterID == 2 ? "Premium CMT":"Basic CMT";
   var totaladditionalsurcharge = 0;
-  nlapiLogExecution('debug','tailorCMTPrefMaster',tailorCMTPrefMaster)
+  //nlapiLogExecution('debug','tailorCMTPrefMaster',tailorCMTPrefMaster)
   var tailorSurchargeDisc = customerfields.custentity_surcharge_discount;
   if(!tailorSurchargeDisc) tailorSurchargeDisc = 0;
   var fabrictext = '<div><b>CMT</b><div style="padding-left:10px;"><ul>';
   var arItemType = line_data.options.custcol_producttype;
-  nlapiLogExecution('debug','cmtcogs ptype', arItemType);
+  //nlapiLogExecution('debug','cmtcogs ptype', arItemType);
   var tailorCMTDisc = 0;
 	if(arItemType){
 		if(arItemType == '2-Piece-Suit'){
@@ -898,6 +982,30 @@ Application.defineModel('LiveOrder', {
 		}
 		else if(arItemType == 'Overcoat'){
 			tailorCMTDisc = customerfields.custentity_cmt_discount_overcoat;
+		}
+    else if(arItemType == 'Short-Sleeves-Shirt'){
+			tailorCMTDisc = customerfields.custentity_cmt_discount_ss_shirt;
+		}
+    else if(arItemType == 'Trenchcoat'){
+			tailorCMTDisc = customerfields.custentity_cmt_discount_trenchcoat;
+		}
+    else if(arItemType == 'Ladies-Jacket'){
+			tailorCMTDisc = customerfields.custentity_cmt_discount_ladies_jacket;
+		}
+    else if(arItemType == 'Ladies-Pants'){
+			tailorCMTDisc = customerfields.custentity_cmt_discount_ladies_pants;
+		}
+    else if(arItemType == 'Ladies-Skirt'){
+			tailorCMTDisc = customerfields.custentity_cmt_discount_ladies_skirt;
+		}
+    else if(arItemType == 'L-2PC-Skirt'){
+			tailorCMTDisc = customerfields.custentity_cmt_discount_l2pc_skirt;
+		}
+    else if(arItemType == 'L-3PC-Suit'){
+			tailorCMTDisc = customerfields.custentity_cmt_discount_l3pc_suit;
+		}
+    else if(arItemType == 'L-2PC-Pants'){
+			tailorCMTDisc = customerfields.custentity_cmt_discount_l2pc_pants;
 		}
 	}
 	if (!tailorCMTDisc){
@@ -1040,6 +1148,143 @@ Application.defineModel('LiveOrder', {
   		}
   	}
   }
+  if(line_data.options.custcol_designoptions_ssshirt){
+  	var itemsurcharges = surcharges.filter(function(i){return i.type == "Short-Sleeves-Shirt";});
+  	var dop = JSON.parse(line_data.options.custcol_designoptions_ssshirt);
+  	for(var kk=0;kk<itemsurcharges.length;kk++){
+  		var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name})
+  		if(dop_value){
+  			var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value})
+  			if(dop_surcharge){
+          var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(currentUser.toString())!=-1?true:false;
+  			var surcharge = (parseFloat(dop_surcharge.surcharge)+ parseFloat(dop_surcharge.surcharge*tailorSurchargeDisc/100)).toFixed(2);
+        if(isExempt)
+								surcharge = 0;
+        surcharge = Math.round(surcharge);
+  			surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
+  			surchargedescription += "<li>Short-Sleeves-Shirt " + dop_surcharge.description + " " + parseFloat(surcharge).toFixed(2) +"</li>";}
+  		}
+  	}
+  }
+  if(line_data.options.custcol_designoptions_ladiesjacket){
+    var itemsurcharges = surcharges.filter(function(i){return i.type == "Ladies-Jacket";});
+    var dop = JSON.parse(line_data.options.custcol_designoptions_ladiesjacket);
+    //Lets get the lining surcharge and find out what type of surcharge it is
+    var dop_liningsurcharge = _.find(dop,function(x){return x.name == 'li-b-lj'});
+    var LiningSurcharge;
+
+    var itemsurcharge_Liningsurcharge = _.find(itemsurcharges,function(x){return x.name == 'li-b-lj'});
+    if(itemsurcharge_Liningsurcharge && dop_liningsurcharge){
+      LiningSurcharge = _.find(itemsurcharge_Liningsurcharge.values,function(x){ return x.code == dop_liningsurcharge.value;});
+    }
+    for(var kk=0;kk<itemsurcharges.length;kk++){
+      var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});
+      if(dop_value){
+        var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value});
+        //We have a match on design options and the value in the table.
+        if(dop_surcharge){
+          //Check for Sleeve Linings
+          var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(currentUser.toString())!=-1?true:false;
+          if(dop_surcharge.code == 'T02722801' && itemsurcharges[kk].name == 'T027228'){
+            //Find the Sleeve Dependent
+            if(LiningSurcharge){
+              var surcharge = (parseFloat(LiningSurcharge.sleeveliningsurcharge)+ parseFloat(LiningSurcharge.sleeveliningsurcharge*tailorSurchargeDisc/100)).toFixed(2);
+              if(isExempt)
+                surcharge = 0;
+              surcharge = Math.round(surcharge);
+              surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
+              surchargedescription += "<li>Ladies-Jacket Sleeve " + LiningSurcharge.description + " " + parseFloat(surcharge).toFixed(2)+"</li>";
+            }
+          }else{
+            var surcharge = (parseFloat(dop_surcharge.surcharge)+ parseFloat(dop_surcharge.surcharge*tailorSurchargeDisc/100)).toFixed(2);
+            if(isExempt)
+                surcharge = 0;
+            surcharge = Math.round(surcharge);
+            surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
+            surchargedescription += "<li>Ladies-Jacket " + dop_surcharge.description + " " + parseFloat(surcharge).toFixed(2)+"</li>";
+          }
+        }
+      }
+    }
+  }
+
+  if(line_data.options.custcol_designoptions_ladiespants){
+    var itemsurcharges = surcharges.filter(function(i){return i.type == "Ladies-Pants";});
+    var dop = JSON.parse(line_data.options.custcol_designoptions_ladiespants);
+    for(var kk=0;kk<itemsurcharges.length;kk++){
+      var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name})
+      if(dop_value){
+        var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value})
+        if(dop_surcharge){
+          var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(currentUser.toString())!=-1?true:false;
+        var surcharge = (parseFloat(dop_surcharge.surcharge)+ parseFloat(dop_surcharge.surcharge*tailorSurchargeDisc/100)).toFixed(2);
+        if(isExempt)
+                surcharge = 0;
+        surcharge = Math.round(surcharge);
+        surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
+        surchargedescription += "<li>Ladies-Pants " + dop_surcharge.description + " " + parseFloat(surcharge).toFixed(2) +"</li>";}
+      }
+    }
+  }
+  if(line_data.options.custcol_designoptions_ladiesskirt){
+    var itemsurcharges = surcharges.filter(function(i){return i.type == "Ladies-Skirt";});
+    var dop = JSON.parse(line_data.options.custcol_designoptions_ladiesskirt);
+    for(var kk=0;kk<itemsurcharges.length;kk++){
+      var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name})
+      if(dop_value){
+        var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value})
+        if(dop_surcharge){
+          var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(currentUser.toString())!=-1?true:false;
+        var surcharge = (parseFloat(dop_surcharge.surcharge)+ parseFloat(dop_surcharge.surcharge*tailorSurchargeDisc/100)).toFixed(2);
+        if(isExempt)
+                surcharge = 0;
+        surcharge = Math.round(surcharge);
+        surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
+        surchargedescription += "<li>Ladies-Skirt " + dop_surcharge.description + " " + parseFloat(surcharge).toFixed(2) +"</li>";}
+      }
+    }
+  }
+  if(line_data.options.custcol_designoptions_trenchcoat){
+    var itemsurcharges = surcharges.filter(function(i){return i.type == "Trenchcoat";});
+    var dop = JSON.parse(line_data.options.custcol_designoptions_trenchcoat);
+    //Lets get the lining surcharge and find out what type of surcharge it is
+    var dop_liningsurcharge = _.find(dop,function(x){return x.name == 'li-bl-tc'});
+    var LiningSurcharge;
+
+    var itemsurcharge_Liningsurcharge = _.find(itemsurcharges,function(x){return x.name == 'li-bl-tc'});
+    if(itemsurcharge_Liningsurcharge && dop_liningsurcharge){
+      LiningSurcharge = _.find(itemsurcharge_Liningsurcharge.values,function(x){ return x.code == dop_liningsurcharge.value;});
+    }
+    for(var kk=0;kk<itemsurcharges.length;kk++){
+      var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});
+      if(dop_value){
+        var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value});
+        //We have a match on design options and the value in the table.
+        if(dop_surcharge){
+          //Check for Sleeve Linings
+          var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(currentUser.toString())!=-1?true:false;
+          if(dop_surcharge.code == 'T01161402' && itemsurcharges[kk].name == 'T011614'){
+            //Find the Sleeve Dependent
+            if(LiningSurcharge){
+              var surcharge = (parseFloat(LiningSurcharge.sleeveliningsurcharge)+ parseFloat(LiningSurcharge.sleeveliningsurcharge*tailorSurchargeDisc/100)).toFixed(2);
+              if(isExempt)
+                surcharge = 0;
+              surcharge = Math.round(surcharge);
+              surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
+              surchargedescription += "<li>Trenchcoat Sleeve " + LiningSurcharge.description + " " + parseFloat(surcharge).toFixed(2)+"</li>";
+            }
+          }else{
+            var surcharge = (parseFloat(dop_surcharge.surcharge)+ parseFloat(dop_surcharge.surcharge*tailorSurchargeDisc/100)).toFixed(2);
+            if(isExempt)
+                surcharge = 0;
+            surcharge = Math.round(surcharge);
+            surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
+            surchargedescription += "<li>Trenchcoat " + dop_surcharge.description + " " + parseFloat(surcharge).toFixed(2)+"</li>";
+          }
+        }
+      }
+    }
+  }
   var tailorCMTPref;
   if (typeof arItemType === 'string' && arItemType == 'Shirt'){
   	tailorCMTPref = 'Basic CMT';
@@ -1073,28 +1318,28 @@ Application.defineModel('LiveOrder', {
 						cmtServiceItem = '9908';
 					}
           else if(arItemType == 'Trenchcoat'){
-						cmtServiceItem = '292322';
+						cmtServiceItem = '292321';
 					}
           else if(arItemType == 'Short-Sleeves-Shirt'){
-						cmtServiceItem = '292339';
+						cmtServiceItem = '292329';
 					}
           else if(arItemType == 'Ladies-Skirt'){
-						cmtServiceItem = '292334';
+						cmtServiceItem = '292326';
 					}
           else if(arItemType == 'Ladies-Jacket'){
-						cmtServiceItem = '292336';
+						cmtServiceItem = '292328';
 					}
           else if(arItemType == 'Ladies-Pants'){
-						cmtServiceItem = '292335';
+						cmtServiceItem = '292327';
 					}
           else if(arItemType == 'L-3PC-Suit'){
-						cmtServiceItem = '292333';
+						cmtServiceItem = '292332';
 					}
           else if(arItemType == 'L-2PC-Pants'){
-						cmtServiceItem = '292338';
+						cmtServiceItem = '292331';
 					}
           else if(arItemType == 'L-2PC-Skirt'){
-						cmtServiceItem = '292337';
+						cmtServiceItem = '292330';
 					}
 				}
         //TODO: Lookup the item price for the cmt item
@@ -1238,6 +1483,26 @@ Application.defineModel('LiveOrder', {
   }
   return shippingcharges;
 }
+, getFabricCustomSurcharges: function(){
+  var fabric_surcharges = [], filter = [];
+  filter.push(new nlobjSearchFilter('isinactive',null,'is','F'));
+  cols = [];
+ 			cols.push(new nlobjSearchColumn('custrecord_fi_record'));
+ 			cols.push(new nlobjSearchColumn('custrecord_fi_tailor'));
+ 			cols.push(new nlobjSearchColumn('custrecord_fi_surcharge_rate'));
+ 			var fabric_customsurcharges = [];
+ 			var fab_customsurcharges = nlapiSearchRecord('customrecord_fabric_invoice_custom_tailo',null,filter,cols);
+ 			if(fab_customsurcharges){
+ 			for(var k=0; k<fab_customsurcharges.length;k++){
+ 				fabric_customsurcharges.push({
+ 					fabricinvoicerecord:fab_customsurcharges[k].getValue("custrecord_fi_record")
+ 					,tailor:fab_customsurcharges[k].getValue("custrecord_fi_tailor")
+ 					,customsurcharge:fab_customsurcharges[k].getValue("custrecord_fi_surcharge_rate")
+ 				});
+ 			}
+		}
+    return fabric_customsurcharges;
+}
 , getFabricSurcharges: function(){
   var fabric_surcharges = [], filters = [], columns = [];
   columns.push(new nlobjSearchColumn('custrecord_fis_producttype'));
@@ -1273,6 +1538,7 @@ Application.defineModel('LiveOrder', {
     var surcharges = this.getDesignOptionSurcharges();
     var shippingsurcharges = this.getShippingSurcharges();
     var fabricsurcharges = this.getFabricSurcharges();
+    var fabric_customsurcharges = this.getFabricCustomSurcharges();
     var url = myaccountsuiteleturl;
 		var response = {};
 		// var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetUser());
@@ -1285,7 +1551,7 @@ Application.defineModel('LiveOrder', {
       var requestfieldsStr = nlapiRequestURL(nlapiResolveURL('suitelet','customscript_myaccountsuitelet','customdeploy1','external'),
       {action:'getfabriccmtdescriptions',user:tailorID,item:line_data.item.internalid,pricelevel:customer_values.priceLevel,currency:customer_values.currency.internalid}).getBody();
       var requestfields = JSON.parse(requestfieldsStr);
-      var f_cogs = self.getFabricCogs(tailorID,line_data,requestfields,fabricsurcharges);
+      var f_cogs = self.getFabricCogs(tailorID,line_data,requestfields,fabricsurcharges,fabric_customsurcharges);
       var cmt_cogs = self.getCMTCogs(tailorID,line_data,requestfields, surcharges);
       var shipping_cogs = self.getShippingCogs(tailorID,line_data,shippingsurcharges);
       var totalcogs = parseFloat(f_cogs.amount?f_cogs.amount:0);
@@ -1295,7 +1561,7 @@ Application.defineModel('LiveOrder', {
       fabrictext += cmt_cogs.text;
       fabrictext += shipping_cogs.text;
       fabrictext += "<div><b>Total COGS:</b> "+totalcogs.toFixed(2)+"</div>";
-      nlapiLogExecution('debug','data',fabrictext);
+      //nlapiLogExecution('debug','data',fabrictext);
       line_data.options.custcol_site_cogs = fabrictext.toString();
       var tcrec = nlapiLoadRecord('customrecord_sc_tailor_client',line_data.options.custcol_tailor_client);
       if(tcrec.getFieldValue('custrecord_tc_tailor') == nlapiGetContext().getUser() ||

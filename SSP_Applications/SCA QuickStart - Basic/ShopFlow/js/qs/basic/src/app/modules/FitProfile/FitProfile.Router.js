@@ -6,13 +6,13 @@ define('FitProFile.Router',  ['FitProFile.Views', 'FitProfile.Model', 'FormRende
 	'use strict';
 
 	return Backbone.Router.extend({
-		
+
 		routes: {
 			'tailorclient': 'fitProfile'
 		,	'tailorclientdetails/:id': 'renderForm'
 		,	'fitprofile/:id': 'renderProfile'
 		}
-				
+
 	,	initialize: function (application, clients)
 		{
 			this.application = application;
@@ -20,13 +20,11 @@ define('FitProFile.Router',  ['FitProFile.Views', 'FitProfile.Model', 'FormRende
 
 			this.route(new RegExp('^\\b(tailorclient)\\b(.*?)$'), 'fitProfile');
 		}
-		
+
 		// load the home page
 	,	fitProfile: function ()
 		{
 			var application = this.application;
-			
-
 			var	view = new Views.Client({
 				application: application
 			,	model: new Model(application.getUser().get("internalid"))
@@ -41,7 +39,7 @@ define('FitProFile.Router',  ['FitProFile.Views', 'FitProfile.Model', 'FormRende
 			var	view = new FormRenderer({
 				application: application
 			,	profileModel: application.getLayout().currentView.model
-			,	mode: id				
+			,	mode: id
 			});
 
 			view.showContent();
@@ -52,14 +50,14 @@ define('FitProFile.Router',  ['FitProFile.Views', 'FitProfile.Model', 'FormRende
 			} else {
 				window.currentFitProfile.set("current_profile", id);
 			}
-			
+
 			var application = this.application
 			,	profileView = new Views.Profile({
 					model: new ProfileModel()
 				,	application: application
 				,	fitprofile: window.currentFitProfile
 				});
-			
+
 			profileView.showContent();
 		}
 	});

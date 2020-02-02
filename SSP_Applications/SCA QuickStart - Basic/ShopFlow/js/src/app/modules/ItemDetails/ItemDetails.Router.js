@@ -168,13 +168,13 @@ define('ItemDetails.Router', [], function ()
 									model.setOption('custcol_producttype',plist.split('|')[3]);
 							}else if(plist.split('|')[3] == 'L-2PC-Skirt'){
 									model.set('custitem_clothing_type','Ladies-Jacket, Ladies-Skirt');
-									model.setOption('custcol_producttype',options['product']);
+									model.setOption('custcol_producttype',plist.split('|')[3]);
 							}else if(plist.split('|')[3] == 'L-2PC-Pants'){
 									model.set('custitem_clothing_type','Ladies-Jacket, Ladies-Pants');
-									model.setOption('custcol_producttype',options['product']);
+									model.setOption('custcol_producttype',plist.split('|')[3]);
 							}else if(plist.split('|')[3] == 'L-3PC-Suit'){
 									model.set('custitem_clothing_type','Ladies-Jacket, Ladies-Pants, Ladies-Skirt');
-									model.setOption('custcol_producttype',options['product']);
+									model.setOption('custcol_producttype',plist.split('|')[3]);
 							}else{
 								model.set('custitem_clothing_type',plist.split('|')[3]);
 								model.setOption('custcol_producttype',plist.split('|')[3]);

@@ -515,117 +515,117 @@ Application.defineModel('PlacedOrder', {
 			// result.totalRecordsFound = result.totalRecordsFound;
 			// result.records = result.records;
 			result.records = _.map(result.records || [], function (record) {
-			var dateneeded = record.getValue('custcol_avt_date_needed');//this
-			var expdeliverydate = record.getValue('custcol_expected_delivery_date');
-			var fabricstatus = record.getValue('custcol_avt_fabric_status');
-			var cmtstatus = record.getValue('custcol_avt_cmt_status');
-			var datesent = record.getValue('custcol_avt_cmt_date_sent');
-			var custcol_flag_comment = record.getValue('custcol_flag_comment');
-			var custcol_flag = record.getValue('custcol_flag');
-			var custcol_expected_production_date = record.getValue('custcol_expected_production_date');//this
-			var cmtstatuscheck = false, fabstatuscheck = false, expFabDateNeeded, dateNeeded, confirmedDate;
-			var custcol_tailor_delivery_days = record.getValue('custcol_tailor_delivery_days');
-			var today = new Date();
-			var cmtstatustext = "";
-			var customitemtext = record.getText('item');
-			var custcol_custom_fabric_details = record.getValue('custcol_custom_fabric_details');
-			if(record.getValue('item') == '28034' ||
-					record.getValue('item') == '28035' ||
-					record.getValue('item') == '28030' ||
-					record.getValue('item') == '28033' ||
-					record.getValue('item') == '28036' ||
-					record.getValue('item') == '28031' ||
-					record.getValue('item') == '28032'){
-						if(custcol_custom_fabric_details){
-							var custcol_custom_fabric_details_json = JSON.parse(custcol_custom_fabric_details);
-							if(custcol_custom_fabric_details_json)
-								customitemtext = customitemtext.replace('CMT Item',custcol_custom_fabric_details_json.collection+'-'+custcol_custom_fabric_details_json.code);
-						}
-			}
-			if(record.getValue('custcol_producttype')){
-				customitemtext += ' - ' + record.getValue('custcol_producttype');
-			}
-			today.setHours(0);
-			today.setMinutes(0);
-			today.setSeconds(0);
-			if (cmtstatus) {
-				cmtstatustext += record.getText('custcol_avt_cmt_status');
-			}
-			var morethan10days = false, clearstatus = false;
-			if (datesent) {
-				if (cmtstatustext != "") cmtstatustext += '-';
-				var cDate = nlapiStringToDate(datesent);
-				cDate.setDate(cDate.getDate());
-				datesent = nlapiDateToString(cDate);
-				cmtstatustext += datesent;
+				var dateneeded = record.getValue('custcol_avt_date_needed');//this
+				var expdeliverydate = record.getValue('custcol_expected_delivery_date');
+				var fabricstatus = record.getValue('custcol_avt_fabric_status');
+				var cmtstatus = record.getValue('custcol_avt_cmt_status');
+				var datesent = record.getValue('custcol_avt_cmt_date_sent');
+				var custcol_flag_comment = record.getValue('custcol_flag_comment');
+				var custcol_flag = record.getValue('custcol_flag');
+				var custcol_expected_production_date = record.getValue('custcol_expected_production_date');//this
+				var cmtstatuscheck = false, fabstatuscheck = false, expFabDateNeeded, dateNeeded, confirmedDate;
+				var custcol_tailor_delivery_days = record.getValue('custcol_tailor_delivery_days');
+				var today = new Date();
+				var cmtstatustext = "";
+				var customitemtext = record.getText('item');
+				var custcol_custom_fabric_details = record.getValue('custcol_custom_fabric_details');
+				if(record.getValue('item') == '28034' ||
+						record.getValue('item') == '28035' ||
+						record.getValue('item') == '28030' ||
+						record.getValue('item') == '28033' ||
+						record.getValue('item') == '28036' ||
+						record.getValue('item') == '28031' ||
+						record.getValue('item') == '28032'){
+							if(custcol_custom_fabric_details){
+								var custcol_custom_fabric_details_json = JSON.parse(custcol_custom_fabric_details);
+								if(custcol_custom_fabric_details_json)
+									customitemtext = customitemtext.replace('CMT Item',custcol_custom_fabric_details_json.collection+'-'+custcol_custom_fabric_details_json.code);
+							}
+				}
+				if(record.getValue('custcol_producttype')){
+					customitemtext += ' - ' + record.getValue('custcol_producttype');
+				}
+				today.setHours(0);
+				today.setMinutes(0);
+				today.setSeconds(0);
+				if (cmtstatus) {
+					cmtstatustext += record.getText('custcol_avt_cmt_status');
+				}
+				var morethan10days = false, clearstatus = false;
+				if (datesent) {
+					if (cmtstatustext != "") cmtstatustext += '-';
+					var cDate = nlapiStringToDate(datesent);
+					cDate.setDate(cDate.getDate());
+					datesent = nlapiDateToString(cDate);
+					cmtstatustext += datesent;
 
-				if((today - cDate) > 863999146){
-					morethan10days = true;
+					if((today - cDate) > 863999146){
+						morethan10days = true;
+					}
 				}
-			}
-			else if (custcol_expected_production_date) {
-				if (cmtstatustext != "") cmtstatustext += '-';
-				cmtstatustext += custcol_expected_production_date;
-				var cmtstatdate = nlapiStringToDate(custcol_expected_production_date);
-				if((today - cmtstatdate) > 863999146){
-					morethan10days = true;
+				else if (custcol_expected_production_date) {
+					if (cmtstatustext != "") cmtstatustext += '-';
+					cmtstatustext += custcol_expected_production_date;
+					var cmtstatdate = nlapiStringToDate(custcol_expected_production_date);
+					if((today - cmtstatdate) > 863999146){
+						morethan10days = true;
+					}
 				}
-			}
-			if (record.getValue('custcol_avt_cmt_tracking')) {
-				if (cmtstatustext != "") cmtstatustext += '-';
-				cmtstatustext += record.getValue('custcol_avt_cmt_tracking');
-			}
-			if((record.getText('status') == 'Cancelled' || record.getText('status') == 'Closed')//|| record.getText('status') == 'Billed'  Removed Billed
-			|| ((record.getText('custcol_avt_cmt_status') == 'Delivered' ||
-			record.getText('custcol_avt_cmt_status') == 'Left factory') && morethan10days)){
-				clearstatus = true;
-			}
-			if ((cmtstatus == 7 || cmtstatus == 8) && fabricstatus != 1) {
-				//check the dates of the fabric should be sent vs today
-				if (custcol_expected_production_date) {
-					expFabDateNeeded = nlapiStringToDate(custcol_expected_production_date);
-					expFabDateNeeded.setDate(expFabDateNeeded.getDate() - parseFloat(record.getValue('custcol_cmt_production_time')));
-					if (expFabDateNeeded < today)
-						fabstatuscheck = true;
-					else
+				if (record.getValue('custcol_avt_cmt_tracking')) {
+					if (cmtstatustext != "") cmtstatustext += '-';
+					cmtstatustext += record.getValue('custcol_avt_cmt_tracking');
+				}
+				if((record.getText('status') == 'Cancelled' || record.getText('status') == 'Closed')//|| record.getText('status') == 'Billed'  Removed Billed
+				|| ((record.getText('custcol_avt_cmt_status') == 'Delivered' ||
+				record.getText('custcol_avt_cmt_status') == 'Left factory') && morethan10days)){
+					clearstatus = true;
+				}
+				if ((cmtstatus == 7 || cmtstatus == 8) && fabricstatus != 1) {
+					//check the dates of the fabric should be sent vs today
+					if (custcol_expected_production_date) {
+						expFabDateNeeded = nlapiStringToDate(custcol_expected_production_date);
+						expFabDateNeeded.setDate(expFabDateNeeded.getDate() - parseFloat(record.getValue('custcol_cmt_production_time')));
+						if (expFabDateNeeded < today)
+							fabstatuscheck = true;
+						else
+							fabstatuscheck = false;
+					}
+					else {
 						fabstatuscheck = false;
+					}
+				}
+				else if (fabricstatus == 1) {
+					fabstatuscheck = true;
 				}
 				else {
 					fabstatuscheck = false;
 				}
-			}
-			else if (fabricstatus == 1) {
-				fabstatuscheck = true;
-			}
-			else {
-				fabstatuscheck = false;
-			}
-			if (cmtstatus == 4) {
-				cmtstatuscheck = true;
-			} else if (dateneeded) {
-				dateNeeded = nlapiStringToDate(dateneeded)
-				if (datesent) {
-					confirmedDate = nlapiStringToDate(datesent);
-					confirmedDate.setDate(confirmedDate.getDate() + parseFloat(custcol_tailor_delivery_days ? custcol_tailor_delivery_days : 0));
-				}
-				else if (custcol_expected_production_date) {
-					confirmedDate = nlapiStringToDate(custcol_expected_production_date);
-					confirmedDate.setDate(confirmedDate.getDate() + parseFloat(custcol_tailor_delivery_days ? custcol_tailor_delivery_days : 0));
-				}
-
-				if (confirmedDate) {
-					if (confirmedDate > dateNeeded){
-						cmtstatuscheck = true;
+				if (cmtstatus == 4) {
+					cmtstatuscheck = true;
+				} else if (dateneeded) {
+					dateNeeded = nlapiStringToDate(dateneeded)
+					if (datesent) {
+						confirmedDate = nlapiStringToDate(datesent);
+						confirmedDate.setDate(confirmedDate.getDate() + parseFloat(custcol_tailor_delivery_days ? custcol_tailor_delivery_days : 0));
 					}
-					else
-						cmtstatuscheck = false;
-				} else {
-					cmtstatuscheck = false
-				}
+					else if (custcol_expected_production_date) {
+						confirmedDate = nlapiStringToDate(custcol_expected_production_date);
+						confirmedDate.setDate(confirmedDate.getDate() + parseFloat(custcol_tailor_delivery_days ? custcol_tailor_delivery_days : 0));
+					}
 
-			} else {
-				cmtstatuscheck = false;
-			}
+					if (confirmedDate) {
+						if (confirmedDate > dateNeeded){
+							cmtstatuscheck = true;
+						}
+						else
+							cmtstatuscheck = false;
+					} else {
+						cmtstatuscheck = false
+					}
+
+				} else {
+					cmtstatuscheck = false;
+				}
 
 			if (record.getValue('custcol_avt_date_needed')) {
 				dateneeded = nlapiStringToDate(record.getValue('custcol_avt_date_needed'));
@@ -3048,7 +3048,6 @@ Application.defineModel('Receipts', _.extend({}, PlacedOrder, {
 		var results = Application.getAllSearchResults(options.type === 'invoice' ? 'invoice' : 'transaction', filters, columns)
 			, now = new Date().getTime();
 
-
 		return _.map(results || [], function (record) {
 
 			var due_date = record.getValue('duedate')
@@ -3090,7 +3089,6 @@ Application.defineModel('Receipts', _.extend({}, PlacedOrder, {
 					internalid: record.getValue('currency')
 					, name: record.getText('currency')
 				}
-
 			};
 		});
 

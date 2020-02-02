@@ -35,7 +35,6 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 			this.model.set('swx_order_client_name', '');
 			this.model.set('swx_order_client_email', '');
 			this.model.set('swx_order_client_phone', '');
-
 		}
 
 		, showContent: function () {

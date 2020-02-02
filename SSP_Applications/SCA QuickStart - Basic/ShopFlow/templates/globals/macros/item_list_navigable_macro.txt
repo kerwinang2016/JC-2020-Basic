@@ -1,3 +1,4 @@
+
 <% registerMacro('itemListNavigable', function (options) { %>
 <%
 	var macros = SC.macros
@@ -160,7 +161,7 @@
 				</div>
 
 					<div class="name"> <!-- JHD-10 -->
-						<%= _('Estimated Delivery Date :').translate()%> <!-- JHD-23 -->
+						<%= _('Estimated Shipping Date :').translate()%> <!-- JHD-23 -->
 						<span id="expected-date-<%= line_id %>"></span>
 					</div>
 

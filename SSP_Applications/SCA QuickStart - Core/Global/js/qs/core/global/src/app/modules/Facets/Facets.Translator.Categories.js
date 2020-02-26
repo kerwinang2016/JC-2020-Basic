@@ -28,8 +28,6 @@ define('Facets.Translator.Categories', ['Facets.Translator', 'Categories'], func
                 }
               // }
             });
-            console.log('this.options')
-            console.log(this.options);
             params.sort = this.options.order;
             params.limit = this.options.show;
             params.offset = (this.options.show * this.options.page) - this.options.show;

@@ -349,6 +349,8 @@
 	,	"T01051710": ["T_Bottom Finishing - Cuffs 3.5cm.png"]
 	,	"T01051711": ["T_Bottom Finishing - Standard.png"]
 
+	,	"T01053102": ["T_Formal Side Strip.png"]
+
 	,	"T01050901": ["T_Waistband-BeltLoops.png"]
 	,	"T01050902": ["T_Waistband-BuckleNStraps.png"]
 	,	"T01050903": ["T_Waistband-NoloopsNstraps.png"]
@@ -363,6 +365,8 @@
 	,	"T01050702": ["T_waistband closure 1 hook and bar.png"]
 	,	"T01050703": ["T_waistband closure 1 button.png"]
 	,	"T01050706": ["T_Self Fabric Waistband Closure.png"]
+
+	,	"T01053402": ["T_Formal Waistband.png"]
 
 	,	"T01050801": ["T_Buckleloop-Yes.png"]
 	,	"T01050802": ["T_Buckleloop-No.png"]
@@ -451,11 +455,27 @@
 
 	,	"T01170201": ["W_Lapel-None.png"]
 	,	"T01170202": ["W_Lapel-Notch.png"]
+	,	"T01170205": ["W_Notch Lapel.png"]
+	,	"T01170206": ["W_Notch Lapel.png"]
+	,	"T01170207": ["W_Notch Lapel.png"]
 	,	"T01170203": ["W_Lapel-U.png"]
-	,	"T01170204": ["W_Lapel-Peak.png"]
+	,	"T01170208": ["W_Peak Lapel.png"]
+	,	"T01170209": ["W_Peak Lapel.png"]
+	,	"T01170210": ["W_Peak Lapel.png"]
+	,	"T01170211": ["W_Shawl Lapel.png"]
+
+	,	"T01171202": ["W_Formal Lapel.png"]
+
+	,	"T01171502": ["W_Formal Collar.png"]
+
+	,	"T01171302": ["W_Formal Chest Pockets.png"]
+
+	,	"T01171402": ["W_Side Pocket.png"]
 
 	,	"T01170301": ["W_Chest Pocket - None.png"]
 	,	"T01170302": ["W_Chest Pocket - Welted.png"]
+	,	"T01170303": ["W_Chest Pocket Welted Left.png"]
+	,	"T01170304": ["W_Chest Pocket Welted Right.png"]
 
 	,	"T01170401": ["W_Side Pocket Welted.png"]
 	,	"T01170402": ["W_Side Pocket Jetted.png"]
@@ -465,6 +485,61 @@
 	,	"T01170801": ["W_Pick Stitching - 2mm.png"]
 	,	"T01170802": ["W_Pick Stitching - 6mm.png"]
 	,	"T01170803": ["W_Pick Stitching - No.png"]
+	,	"T01170804": ["W_Pick Double Stitching.png"]
+	,	"T01170805": ["W_Pick Top 6.png"]
+	,	"T01170806": ["W_Pick Top double.png"]
+
+	,	"T01040101": ["O_3 Button Notch Lapel.png"]
+	,	"T01040102": ["O_3 Button Notch Lapel Contrast Collar.png"]
+	,	"T01040103": ["O_3 Button fly Front with Notch Lapel.png"]
+	,	"T01040104": ["O_3 Button fly Front Notch Lapel Contrast Collar.png"]
+	,	"T01040105": ["O_3 Button Peak Lapel.png"]
+	,	"T01040106": ["O_3 Button Peak Lapel Contrast Collar.png"]
+	,	"T01040107": ["O_3 Button Fly Front Peak Lapel.png"]
+	,	"T01040108": ["O_3 Button fly Front Notch Lapel Contrast Collar.png"]
+	,	"T01040109": ["O_6 Btn Double breasted.png"]
+	,	"T01040110": ["O_6 Btn Double breasted Contrast Collar.png"]
+	,	"T01040111": ["O_5 Btn Car Coat Collar.png"]
+
+	,	"T01041001": ["O_Traditional Shoulder.png"]
+	,	"T01041002": ["O_Unconstructed Shoulder.png"]
+
+	,	"T01040401": ["O_Side Pocket Flap Straight.png"]
+	,	"T01040402": ["O_Side Pocket Flap Slanted.png"]
+	,	"T01040403": ["O_Side Pocket Patch with Flap.png"]
+	,	"T01040404": ["O_Side Pocket Patch round.png"]
+	,	"T01040405": ["O_Side Pocket Welted.png"]
+
+	,	"T01040601": ["O_Chest Pocket Welted.png"]
+	,	"T01040602": ["O_Chest Patch Round.png"]
+	,	"T01040603": ["O_Chest None.png"]
+
+	,	"T01040501": ["O_Ticket Pocket Flap Straight.png"]
+	,	"T01040502": ["O_Ticket Pocket Flap Slanted.png"]
+	,	"T01040503": ["O_Ticket Pocket None.png"]
+
+	,	"T01041301": ["O_Mobile Phone Pocket.png"]
+	,	"T01041302": ["O_No Mobile Phone Pocket.png"]
+
+	,	"T01040701": ["O_1 Center vents.png"]
+	,	"T01040702": ["O_1 Center Self Fabric Belt.png"]
+
+	,	"T01040801": ["O_Cuff Finishing 4 Open.png"]
+	,	"T01040803": ["O_4 Closed.png"]
+	,	"T01040805": ["O_5 open.png"]
+	,	"T01040807": ["O_5 Closed.png"]
+
+	,	"T01042901": ["O_Sleeve Button Kissing.png"]
+	,	"T01042902": ["O_Sleeve Non Kissing.png"]
+
+	,	"T01040901": ["O_Pick Stitching None.png"]
+	,	"T01040902": ["O_Pick Stitching 6mm.png"]
+	,	"T01040903": ["O_Pick Stitching 11mm.png"]
+
+	,	"T01041101": ["O_Classic with fabric  jetted pocket.png"]
+	,	"T01041102": ["O_Unlined with fabric facing.png"]
+
+	,	"T01041901": ["O_Monogram Undercollar.png"]
 
 	,	"T01060201": ["Shirt_Sleeves - Long.png"]
 	,	"T01060202": ["Shirt_Sleeves - LongWPleats.png"]
@@ -540,8 +615,7 @@
 	,	"T01060703": ["S_Front Placket - No Placket.png"]
 	,	"T01060704": ["S_Front Placket - Fly Front.png"]
 	,	"T01060705": ["S_Front Placket - Plain with Studs.png"]
-	,	"T01060706": ["S_Front Placket - Plain with Studs(pique front).png"]
-	,	"T01060707": ["S_Front Placket - Plain with Studs(pleated front).png"]
+	,	"T01060708": ["Shirt - Formal with studs.jpg"]
 
 	,	"T01060901": ["S_Back Pleats-Side.png"]
 	,	"T01060902": ["S_Back Pleats-Center.png"]
@@ -586,6 +660,209 @@
 	,	"T01063709": ["S_Monogram- LCuff.png"]
 	,	"T01063710": ["S_Monogram- RCuff.png"]
 	,	"T01063711": ["S_Monogram- RCuff.png"]
+
+	,	"T01064401": ["Shirt - Emblem.png"]
+	,	"T01064402": ["Shirt - Emblem.png"]
+	,	"T01064403": ["Shirt - Emblem.png"]
+
+	,	"T01064404": ["S_Monogram- RCuff.png"]
+
+	,	"T02720302": ["Closure-2 Button.jpg"]
+	,	"T02720301": ["Closure-1 Button.jpg"]
+	,	"T02720303": ["Closure-4 Button DB.jpg"]
+	,	"T02720304": ["Closure-6 Button DB.jpg"]
+
+	,	"T02721401": ["Ladies - STD Shoulder.jpg"]
+	,	"T02721402": ["Ladies - Roped Shoulder.jpg"]
+	,	"T02721403": ["Ladies - Soft Shoulder.jpg"]
+
+	,	"T02722101": ["Ladies - Bottom Finishing Normal"]
+	,	"T02722102": ["Ladies - Bottom Finishing Straight"]
+
+	,	"T02722001": ["Ladies - STD Back Style.jpg"]
+
+	,	"T01020502": ["Ladies - Formal Treatment Lapel.jpg"]
+
+	,	"T02720802": ["Ladies - Formal Treatment Collar.jpg"]
+
+	,	"T02720902": ["Ladies - Formal Treatment Breast Pocket.jpg"]
+
+	,	"T02721102": ["Ladies - Formal Treatment Flap Pocket.jpg"]
+
+	,	"T02721002": ["Ladies - Formal Treatment Pocket Jetting.jpg"]
+
+	,	"T02720401": ["Ladies - Notch Lapel.jpg"]
+	,	"T02720402": ["Ladies - Notch Lapel.jpg"]
+	,	"T02720403": ["Ladies - Notch Lapel.jpg"]
+	,	"T02720404": ["Ladies - Notch Lapel.jpg"]
+	,	"T02720411": ["Ladies - Peak Lapel.jpg"]
+	,	"T02720412": ["Ladies - Peak Lapel.jpg"]
+	,	"T02720413": ["Ladies - Peak Lapel.jpg"]
+	,	"T02720414": ["Ladies - Peak Lapel.jpg"]
+	,	"T02720421": ["Ladies - Shawl Lapel.jpg"]
+	,	"T02720422": ["Ladies - Shawl Lapel.jpg"]
+	,	"T02720423": ["Ladies - Shawl Lapel.jpg"]
+
+	,	"T02720501": ["Ladies - Right Buttonhole.jpg"]
+	,	"T02720502": ["Ladies - No Buttonhole.jpg"]
+
+	,	"T02720601": ["Ladies - Normal Buttonhole Style.jpg"]
+	,	"T02720602": ["Ladies - MB01 Buttonhole Style.jpg"]
+	,	"T02720609": ["Ladies - NA Buttonhole Style.jpg"]
+
+	,	"T02721601": ["Ladies - Flap Straight.jpg"]
+	,	"T02721602": ["Ladies - Flap Slanted.jpg"]
+	,	"T02721603": ["Ladies - jetted Straight.jpg"]
+	,	"T02721604": ["Ladies - jetted Slanted.jpg"]
+	,	"T02721605": ["Ladies - Patch.jpg"]
+
+	,	"T02721702": ["Ladies - Flap Size Reg 5.jpg"]
+	,	"T02721701": ["Ladies - Flap Size Narrow.jpg"]
+	,	"T02721703": ["Ladies - Flap Size NA.jpg"]
+
+	,	"T02721501": ["Ladies - Welted 2.1 Pocket.jpg"]
+	,	"T02721502": ["Ladies - Patch Pocket.jpg"]
+	,	"T02721503": ["Ladies - No Pocket.jpg"]
+
+	,	"T02721801": ["Ladies - No Ticket Pocket.jpg"]
+	,	"T02721802": ["Ladies - Jetted Straight Ticket Pocket.jpg"]
+	,	"T02721803": ["Ladies - Jetted Slanted Ticket Pocket.jpg"]
+	,	"T02721804": ["Ladies - Flap Straight Ticket Pocket.jpg"]
+	,	"T02721805": ["Ladies - Flap Slanted Ticket Pocket.jpg"]
+
+	,	"T02721901": ["Ladies - Ticket Flap Size NA.jpg"]
+	,	"T02721902": ["Ladies - Flap Size Narrow 3.5.jpg"]
+	,	"T02721903": ["Ladies - Regular 4.5.jpg"]
+
+	,	"T02722901": ["Ladies - Const - Interior pocket"]
+	,	"T02722902": ["Ladies - Const -No Interior pocket"]
+
+	,	"T02722203": ["Ladies - Vents 2 Sides.jpg"]
+	,	"T02722201": ["Ladies - Vents 0 None.jpg"]
+	,	"T02722202": ["Ladies - Vents 1 Center.jpg"]
+
+	,	"T02722301": ["Ladies - Cuff Working Buttonholes.jpg"]
+	,	"T02722302": ["Ladies - Imitation Buttonholes.jpg"]
+
+	,	"T02722401": ["Ladies - Sleeve Button 3.jpg"]
+	,	"T02722402": ["Ladies - Sleeve Button 4.jpg"]
+	,	"T02722403": ["Ladies - Sleeve Button 5.jpg"]
+	,	"T02722404": ["Ladies - Sleeve Button 6.jpg"]
+
+	,	"T02722501": ["Ladies - Sleeve Button Spacing Kissing.jpg"]
+	,	"T02722502": ["Ladies - Sleeve Button Spacing Non Kissing.jpg"]
+	,	"T02722503": ["Ladies - No Sleeve Button Spacing.jpg"]
+
+	,	"T02723101": ["Ladies - 2mm Pick Stitching.jpg"]
+	,	"T02723102": ["Ladies - 6mm Pick Stitching.jpg"]
+	,	"T02723103": ["Ladies - No Pick Stitching.jpg"]
+
+	,	"T02722701": ["Ladies - Fully Lined Placement.jpg"]
+	,	"T02722702": ["Ladies - Half Lined Placement.jpg"]
+
+	,	"T02722601": ["Ladies - Const - Classic with Jetted.jpg"]
+	,	"T02722602": ["Ladies - Const - Classic with Cloth.jpg"]
+
+	,	"T02724101": ["Ladies - Monogram On Lining.jpg"]
+	,	"T02724102": ["Ladies - Monogram On Label.jpg"]
+
+	,	"T02741902": ["Ladies-Pants-Bottom Finishing- Unfinished.png"]
+	,	"T02741903": ["Ladies-Pants-Bottom Finishing- Cuffs3cm.png"]
+	,	"T02741904": ["Ladies-Pants-Bottom Finishing- Cuffs4cm.png"]
+	,	"T02741905": ["Ladies-Pants-Bottom Finishing- Cuffs5cm.png"]
+	,	"T02741906": ["Ladies-Pants-Bottom Finishing- Casual 2.5cm.png"]
+
+	,	"T02740502": ["Ladies-Pants-Formal Waistband.png"]
+
+	,	"T02740602": ["Ladies-Pants-Formal Back Pocket Jett.png"]
+
+	,	"T02741301": ["Ladies-Pants-Belt Loops.png"]
+	,	"T02741302": ["Ladies-Pants-Side Elastic.png"]
+	,	"T02741303": ["Ladies-Pants-No Loops or Side Elastic.png"]
+
+	,	"T02741201": ["Ladies-Pants-WaistClosure 2 H&B.png"]
+	,	"T02741202": ["Ladies-Pants-WaistClosure 2B.png"]
+
+	,	"T02741101": ["Ladies-Pants-Waist Wide 4cm.png"]
+	,	"T02741102": ["Ladies-Pants-Waist Wide 5cm.png"]
+
+	,	"T02741401": ["Ladies-Pants-Slanted Side Pocket.png"]
+	,	"T02741402": ["Ladies-Pants-On Seam Side Pocket.png"]
+	,	"T02741403": ["Ladies-Pants-Western Side Pocket.png"]
+	,	"T02741404": ["Ladies-Pants-No Side Pocket.png"]
+
+	,	"T02741501": ["Ladies-Pants-Left Pocket Jetted Button.png"]
+	,	"T02741502": ["Ladies-Pants-Left Pocket Jetted No Button.png"]
+	,	"T02741503": ["Ladies-Pants-Welted with Button.png"]
+	,	"T02741504": ["Ladies-Pants-Welted with no Button.png"]
+	,	"T02741505": ["Ladies-Pants-Left Pocket Flap Button.png"]
+	,	"T02741506": ["Ladies-Pants-Left Pocket Patch.png"]
+	,	"T02741507": ["Ladies-Pants-Left Pocket None.png"]
+
+	,	"T02741601": ["Ladies-Pants-Right Pocket Jetted Button.png"]
+	,	"T02741602": ["Ladies-Pants-Right Pocket Jetted No Button.png"]
+	,	"T02741603": ["Ladies-Pants-Right Pocket Welted Button.png"]
+	,	"T02741604": ["Ladies-Pants-Right Pocket Welted No Button.png"]
+	,	"T02741605": ["Ladies-Pants-Right Pocket Flap & Button.png"]
+	,	"T02741606": ["Ladies-Pants-Right Pocket Patch.png"]
+	,	"T02741607": ["Ladies-Pants-Right Pocket None.png"]
+
+	,	"T02741701": ["Ladies-Pants-Lining Placement - Half Front lined.png"]
+	,	"T02741702": ["Ladies-Pants-Lining Placement - None.png"]
+
+	,	"T02742001": ["Ladies-Pants-Leg Pressing-Pick Stitching No.png"]
+	,	"T02742002": ["Ladies-Pants-Leg Pressing-Pick Stitching 2mm.png"]
+	,	"T02742003": ["Ladies-Pants-Leg Pressing-Pick Stitching 6mm.png"]
+	,	"T02742004": ["Ladies-Pants-Right Pocket None.png"]
+
+	,	"T02742201": ["Ladies-Pants-Leg Pressing-Front Crease.png"]
+	,	"T02742202": ["Ladies-Pants-Leg Pressing-No Front Crease.png"]
+
+	,	"T02730602": ["Ladies-Skirts-Waistband Style Std.png"]
+	,	"T02730601": ["Ladies-Skirts-Waistband Style Side Elastic.png"]
+
+	,	"T02730501": ["Ladies-Skirts-Waistband Closure Ext 3 cm.png"]
+	,	"T02730502": ["Ladies-Skirts-No Waistband Closure.png"]
+
+	,	"T02730402": ["Ladies-Skirts-With Vents.png"]
+	,	"T02730401": ["Ladies-Skirts-No Vents.png"]
+
+	,	"T01160201": ["Trench-10 BTN DB.png"]
+	,	"T01160202": ["Trench-4 Button Fly Front.png"]
+	,	"T01160203": ["Trench-5 Button Fly Front.png"]
+
+	,	"T01161001": ["Trench-Std Shoulder.png"]
+
+	,	"T01161101": ["Trench-With Shoulder Tab.png"]
+	,	"T01161102": ["Trench-No Shoulder Tab.png"]
+
+	,	"T01160301": ["Trench-Side Pocket Welted.png"]
+
+	,	"T01160401": ["Trench-1No Chest Pocket.png"]
+
+	,	"T01160501": ["Trench-Vents Center1.png"]
+
+	,	"T01160601": ["Trench-With Belt.png"]
+	,	"T01160602": ["Trench-No Belt.png"]
+
+	,	"T01160701": ["Trench-Plain Hem Cuff 2.5.png"]
+
+	,	"T01160801": ["Trench-With Cuff Tab.png"]
+	,	"T01160802": ["Trench-No Cuff Tab.png"]
+
+	,	"T01160901": ["Trench-Pick Stitching 0.15.png"]
+	,	"T01160902": ["Trench-Pick Stitching 0.6.png"]
+	,	"T01160903": ["Trench-Pick Stitching Double.png"]
+
+	,	"T01161201": ["Trench-Const Welted Pocket.png"]
+	,	"T01161202": ["Trench-Detachable Quilted Lining.png"]
+
+	,	"T01162001": ["Trench-Monogram Under Collar.png"]
+
+	,	"T01162401": ["Trench-Monogram On Lining.png"]
+
+	,	"T01162701": ["Trench-Monogram On Lining.png"]
+	,	"T01162702": ["Trench-Monogram On Label.png"]
 
 	,	"JM001": ["image_1.png", "image_2.png", "image_1.png"]
 	,	"JM002": ["image_2.png"]
@@ -1085,7 +1362,7 @@
 
 	, 	"SCF001": ["image_1.png"]
 	, 	"SCF002": ["image_1.png", "image_2.png", "image_1.png"]
-	,		"FABQTY": ["size_chart.jpg"]
+	,		"FABQTY": ["CMT_fabric_usage.jpg"]
 	,		"li-qty": ["CMT_lining_consumption.jpg"]
 	,		"Button Code": ["Jacketbuttons14.jpg","Jacketbuttons13.jpg","Jacketbuttons12.jpg","Jacketbuttons11.jpg","Jacketbuttons10.jpg","Jacketbuttons9.jpg","Jacketbuttons8.jpg",
 		"Jacketbuttons7.jpg","Jacketbuttons6.jpg","Jacketbuttons5.jpg", "Jacketbuttons4.jpg","Jacketbuttons3.jpg","Jacketbuttons2.jpg","Jacketbuttons1.jpg"]

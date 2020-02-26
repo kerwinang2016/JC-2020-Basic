@@ -34,7 +34,7 @@ var container = nlapiGetWebContainer()
 ,	context = nlapiGetContext()
 ,	order = session.getOrder()
 , myaccountsuiteleturl = nlapiResolveURL('SUITELET','customscript_myaccountsuitelet',1,true)
-, currentUser = nlapiGetContext().getUser();
+, currentUser = nlapiGetUser();
 
 //Model.js
 // SiteSettings.js
@@ -205,11 +205,11 @@ Application.defineModel('Profile', {
     profile.hidebillingandcogs = _.find(customerFieldValues, function(field){
 			return field.name === 'custentity_hide_billingandcogs';
 		}).value;
-		profile.internalid = nlapiGetContext().getUser();
+		profile.internalid = nlapiGetUser();
     if(session.isLoggedIn2()){
       var url = myaccountsuiteleturl;
 				var response = {};
-				var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetContext().getUser());
+				var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetUser());
         var body = JSON.parse(res.getBody());
         if(body != ""){
 				profile.parent = body[0];
@@ -243,7 +243,7 @@ Application.defineModel('LiveOrder', {
       var self = this;
       var url = myaccountsuiteleturl;
   				var response = {};
-  				var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetContext().getUser());
+  				var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetUser());
           var body = JSON.parse(res.getBody());
   				var parent = body[0];
 			result.lines = this.getLines(order_fields);
@@ -264,7 +264,7 @@ Application.defineModel('LiveOrder', {
                 var res = nlapiSearchRecord('customrecord_sc_tailor_client',null,new nlobjSearchFilter('internalid',null,'is',options1.value));
                 if(res){
                   var tcrec = nlapiLoadRecord('customrecord_sc_tailor_client',options1.value);
-                  if(tcrec.getFieldValue('custrecord_tc_tailor') != nlapiGetContext().getUser() && tcrec.getFieldValue('custrecord_tc_tailor') != parseInt(parent,10)){
+                  if(tcrec.getFieldValue('custrecord_tc_tailor') != nlapiGetUser() && tcrec.getFieldValue('custrecord_tc_tailor') != parseInt(parent,10)){
                     self.removeLine(line_data.internalid);
                     result.lines = self.getLines(order_fields);
                   }
@@ -1229,18 +1229,26 @@ Application.defineModel('LiveOrder', {
   if(line_data.options.custcol_designoptions_ladiesskirt){
     var itemsurcharges = surcharges.filter(function(i){return i.type == "Ladies-Skirt";});
     var dop = JSON.parse(line_data.options.custcol_designoptions_ladiesskirt);
+    //Lets get the lining surcharge and find out what type of surcharge it is
+    var dop_liningsurcharge = _.find(dop,function(x){return x.name == 'li-fo-ls'});
+
     for(var kk=0;kk<itemsurcharges.length;kk++){
-      var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name})
+      var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});
       if(dop_value){
-        var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value})
+        var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value});
+        //We have a match on design options and the value in the table.
         if(dop_surcharge){
+          //Check for Sleeve Linings
           var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(currentUser.toString())!=-1?true:false;
-        var surcharge = (parseFloat(dop_surcharge.surcharge)+ parseFloat(dop_surcharge.surcharge*tailorSurchargeDisc/100)).toFixed(2);
-        if(isExempt)
+
+            var surcharge = (parseFloat(dop_surcharge.surcharge)+ parseFloat(dop_surcharge.surcharge*tailorSurchargeDisc/100)).toFixed(2);
+            if(isExempt)
                 surcharge = 0;
-        surcharge = Math.round(surcharge);
-        surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
-        surchargedescription += "<li>Ladies-Skirt " + dop_surcharge.description + " " + parseFloat(surcharge).toFixed(2) +"</li>";}
+            surcharge = Math.round(surcharge);
+            surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
+            surchargedescription += "<li>Ladies-Skirt " + dop_surcharge.description + " " + parseFloat(surcharge).toFixed(2)+"</li>";
+
+        }
       }
     }
   }
@@ -1533,7 +1541,7 @@ Application.defineModel('LiveOrder', {
     var Profile = Application.getModel('Profile')
     ,	customer_values = Profile.get();
 
-    var tailorID = customer_values.parent?customer_values.parent:nlapiGetContext().getUser();
+    var tailorID = customer_values.parent?customer_values.parent:nlapiGetUser();
     var parent = tailorID;
     var surcharges = this.getDesignOptionSurcharges();
     var shippingsurcharges = this.getShippingSurcharges();
@@ -1563,21 +1571,21 @@ Application.defineModel('LiveOrder', {
       fabrictext += "<div><b>Total COGS:</b> "+totalcogs.toFixed(2)+"</div>";
       //nlapiLogExecution('debug','data',fabrictext);
       line_data.options.custcol_site_cogs = fabrictext.toString();
-      var tcrec = nlapiLoadRecord('customrecord_sc_tailor_client',line_data.options.custcol_tailor_client);
-      if(tcrec.getFieldValue('custrecord_tc_tailor') == nlapiGetContext().getUser() ||
-      tcrec.getFieldValue('custrecord_tc_tailor') == parent){
+      // var tcrec = nlapiLoadRecord('customrecord_sc_tailor_client',line_data.options.custcol_tailor_client);
+      // if(tcrec.getFieldValue('custrecord_tc_tailor') == nlapiGetUser() ||
+        // tcrec.getFieldValue('custrecord_tc_tailor') == parent){
 
-			var item = {
-					internalid: line_data.item.internalid.toString()
-				,	quantity:  _.isNumber(line_data.quantity) ? parseInt(line_data.quantity, 10) : 1
-				,	options: line_data.options || {}
-			};
+  			var item = {
+  					internalid: line_data.item.internalid.toString()
+  				,	quantity:  _.isNumber(line_data.quantity) ? parseInt(line_data.quantity, 10) : 1
+  				,	options: line_data.options || {}
+  			};
 
-			items.push(item);
-      }
-      else{
-
-      }
+  			items.push(item);
+      // }
+      // else{
+      //
+      // }
 		});
 		var lines_ids = order.addItems(items)
 		,	latest_addition = _.last(lines_ids).orderitemid
@@ -2869,10 +2877,10 @@ Application.defineModel('ProductList', {
 		}
     var url = myaccountsuiteleturl;
         var response = {};
-        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetContext().getUser());
+        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetUser());
         var body = JSON.parse(res.getBody());
         var parent = body[0];
-        var tailor = parent?parent:nlapiGetContext().getUser();
+        var tailor = parent?parent:nlapiGetUser();
 		var filters = [new nlobjSearchFilter('internalid', null, 'is', id)
 			,	new nlobjSearchFilter('isinactive', null, 'is', 'F')
 			,	new nlobjSearchFilter('custrecord_ns_pl_pl_owner', null, 'is', tailor)]
@@ -2896,10 +2904,10 @@ Application.defineModel('ProductList', {
 		this.verifySession();
     var url = myaccountsuiteleturl;
         var response = {};
-        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetContext().getUser());
+        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetUser());
         var body = JSON.parse(res.getBody());
         var parent = body[0];
-        var tailor = parent?parent:nlapiGetContext().getUser();
+        var tailor = parent?parent:nlapiGetUser();
 		var filters = [new nlobjSearchFilter('custrecord_ns_pl_pl_type', null, 'is', this.later_type_id)
 			,	new nlobjSearchFilter('custrecord_ns_pl_pl_owner', null, 'is', tailor)
 			,	new nlobjSearchFilter('isinactive', null, 'is', 'F')]
@@ -3021,10 +3029,10 @@ Application.defineModel('ProductList', {
 		}
     var url = myaccountsuiteleturl;
         var response = {};
-        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetContext().getUser());
+        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetUser());
         var body = JSON.parse(res.getBody());
         var parent = body[0];
-        var tailor = parent?parent:nlapiGetContext().getUser();
+        var tailor = parent?parent:nlapiGetUser();
 		var filters = [new nlobjSearchFilter('isinactive', null, 'is', 'F')
 			,	new nlobjSearchFilter('custrecord_ns_pl_pl_owner', null, 'is', tailor)]
 		,	template_ids = []
@@ -3092,11 +3100,11 @@ Application.defineModel('ProductList', {
 		this.verifySession();
     var url = myaccountsuiteleturl;
         var response = {};
-        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetContext().getUser());
+        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetUser());
         var body = JSON.parse(res.getBody());
         var parent = body[0];
-        var tailor = parent?parent:nlapiGetContext().getUser();
-        if(parent != nlapiGetContext().getUser()){
+        var tailor = parent?parent:nlapiGetUser();
+        if(parent != nlapiGetUser()){
     			var res = nlapiRequestURL(url+"&action=createproductlist&user="+parent,JSON.stringify(data));
     			var body = JSON.parse(res.getBody());
     			return body;
@@ -3124,11 +3132,11 @@ Application.defineModel('ProductList', {
 		var product_list = nlapiLoadRecord('customrecord_ns_pl_productlist', id);
     var url = myaccountsuiteleturl;
         var response = {};
-        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetContext().getUser());
+        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetUser());
         var body = JSON.parse(res.getBody());
         var parent = body[0];
-        var tailor = parent?parent:nlapiGetContext().getUser();
-		if (parseInt(product_list.getFieldValue('custrecord_ns_pl_pl_owner'), 10) !== nlapiGetContext().getUser() && parseInt(product_list.getFieldValue('custrecord_ns_pl_pl_owner'), 10) !== parseInt(parent,10))
+        var tailor = parent?parent:nlapiGetUser();
+		if (parseInt(product_list.getFieldValue('custrecord_ns_pl_pl_owner'), 10) !== nlapiGetUser() && parseInt(product_list.getFieldValue('custrecord_ns_pl_pl_owner'), 10) !== parseInt(parent,10))
 		{
 			throw unauthorizedError;
 		}
@@ -3150,13 +3158,13 @@ Application.defineModel('ProductList', {
 		this.verifySession();
     var url = myaccountsuiteleturl;
         var response = {};
-        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetContext().getUser());
+        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetUser());
         var body = JSON.parse(res.getBody());
         var parent = body[0];
-        var tailor = parent?parent:nlapiGetContext().getUser();
+        var tailor = parent?parent:nlapiGetUser();
 		var product_list = nlapiLoadRecord('customrecord_ns_pl_productlist', id);
 
-		if (parseInt(product_list.getFieldValue('custrecord_ns_pl_pl_owner'), 10) !== nlapiGetContext().getUser() && parseInt(product_list.getFieldValue('custrecord_ns_pl_pl_owner'), 10) !== parseInt(parent,10))
+		if (parseInt(product_list.getFieldValue('custrecord_ns_pl_pl_owner'), 10) !== nlapiGetUser() && parseInt(product_list.getFieldValue('custrecord_ns_pl_pl_owner'), 10) !== parseInt(parent,10))
 		{
 			throw unauthorizedError;
 		}
@@ -3195,10 +3203,10 @@ Application.defineModel('ProductListItem', {
 		this.verifySession();
     var url = myaccountsuiteleturl;
         var response = {};
-        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetContext().getUser());
+        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetUser());
         var body = JSON.parse(res.getBody());
         var parent = body[0];
-        var tailor = parent?parent:nlapiGetContext().getUser();
+        var tailor = parent?parent:nlapiGetUser();
 		var filters = [new nlobjSearchFilter('internalid', null, 'is', id)
 				,	new nlobjSearchFilter('isinactive', null, 'is', 'F')
 				,	new nlobjSearchFilter('custrecord_ns_pl_pl_owner', 'custrecord_ns_pl_pli_productlist', 'is', tailor)]
@@ -3223,15 +3231,15 @@ Application.defineModel('ProductListItem', {
 		this.verifySession();
     var url = myaccountsuiteleturl;
         var response = {};
-        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetContext().getUser());
+        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetUser());
         var body = JSON.parse(res.getBody());
         var parent = body[0];
-        var tailor = parent?parent:nlapiGetContext().getUser();
+        var tailor = parent?parent:nlapiGetUser();
 		var ProductList = Application.getModel('ProductList')
 		,	product_list_item = nlapiLoadRecord('customrecord_ns_pl_productlistitem', id)
 		,	parent_product_list = ProductList.get(product_list_item.getFieldValue('custrecord_ns_pl_pli_productlist'));
 
-		if (parseInt(parent_product_list.owner.id, 10) !== nlapiGetContext().getUser() && parseInt(parent_product_list.owner.id, 10) !== parseInt(tailor,10))
+		if (parseInt(parent_product_list.owner.id, 10) !== nlapiGetUser() && parseInt(parent_product_list.owner.id, 10) !== parseInt(tailor,10))
 		{
 			throw unauthorizedError;
 		}
@@ -3276,10 +3284,10 @@ Application.defineModel('ProductListItem', {
 		this.verifySession();
     var url = myaccountsuiteleturl;
         var response = {};
-        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetContext().getUser());
+        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetUser());
         var body = JSON.parse(res.getBody());
         var parent = body[0];
-        var tailor = parent?parent:nlapiGetContext().getUser();
+        var tailor = parent?parent:nlapiGetUser();
 		if (!(data.productList && data.productList.id))
 		{
 			throw notFoundError;
@@ -3288,7 +3296,7 @@ Application.defineModel('ProductListItem', {
 		var ProductList = Application.getModel('ProductList')
 		,	parent_product_list = ProductList.get(data.productList.id);
 
-		if (parseInt(parent_product_list.owner.id, 10) !== nlapiGetContext().getUser() && parseInt(parent_product_list.owner.id, 10) !== parseInt(tailor,10))
+		if (parseInt(parent_product_list.owner.id, 10) !== nlapiGetUser() && parseInt(parent_product_list.owner.id, 10) !== parseInt(tailor,10))
 		{
 			throw unauthorizedError;
 		}
@@ -3307,7 +3315,7 @@ Application.defineModel('ProductListItem', {
 		data.priority && data.priority.id && productListItem.setFieldValue('custrecord_ns_pl_pli_priority', data.priority.id);
 		productListItem.setFieldValue('custrecord_ns_pl_pli_productlist', data.productList.id);
     if(!productListItem.getFieldValue('custrecord_ns_pl_pli_fitter'))
-      productListItem.setFieldValue('custrecord_ns_pl_pli_fitter',nlapiGetContext().getUser());
+      productListItem.setFieldValue('custrecord_ns_pl_pli_fitter',nlapiGetUser());
 		data.internalid = nlapiSubmitRecord(productListItem);
 
 		return data;
@@ -3321,16 +3329,16 @@ Application.defineModel('ProductListItem', {
 		this.verifySession();
     var url = myaccountsuiteleturl;
         var response = {};
-        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetContext().getUser());
+        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetUser());
         var body = JSON.parse(res.getBody());
         var parent = body[0];
-        var tailor = parent?parent:nlapiGetContext().getUser();
+        var tailor = parent?parent:nlapiGetUser();
 
 		var ProductList = Application.getModel('ProductList')
 		,	product_list_item = nlapiLoadRecord('customrecord_ns_pl_productlistitem', id)
 		,	parent_product_list = ProductList.get(product_list_item.getFieldValue('custrecord_ns_pl_pli_productlist'));
 
-		if (parseInt(parent_product_list.owner.id, 10) !== nlapiGetContext().getUser() && parseInt(parent_product_list.owner.id, 10) !== parseInt(tailor,10) )
+		if (parseInt(parent_product_list.owner.id, 10) !== nlapiGetUser() && parseInt(parent_product_list.owner.id, 10) !== parseInt(tailor,10) )
 		{
 			throw unauthorizedError;
 		}
@@ -3343,7 +3351,7 @@ Application.defineModel('ProductListItem', {
 		data.priority && data.priority.id && product_list_item.setFieldValue('custrecord_ns_pl_pli_priority', data.priority.id);
 		data.productList && data.productList.id && product_list_item.setFieldValue('custrecord_ns_pl_pli_productlist', data.productList.id);
     if(!product_list_item.getFieldValue('custrecord_ns_pl_pli_fitter'))
-    product_list_item.setFieldValue('custrecord_ns_pl_pli_fitter',nlapiGetContext().getUser());
+    product_list_item.setFieldValue('custrecord_ns_pl_pli_fitter',nlapiGetUser());
     product_list_item.setFieldValue('custrecord_ns_pl_pli_isarchived',data.custrecord_ns_pl_pli_isarchived);
 		nlapiSubmitRecord(product_list_item);
 	}
@@ -3358,7 +3366,7 @@ Application.defineModel('ProductListItem', {
     if(!parentparam){
     var url = myaccountsuiteleturl;
         var response = {};
-        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetContext().getUser());
+        var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetUser());
         var body = JSON.parse(res.getBody());
         var parent = body[0];
         //var tailor = parent?parent:nlapiGetUser();

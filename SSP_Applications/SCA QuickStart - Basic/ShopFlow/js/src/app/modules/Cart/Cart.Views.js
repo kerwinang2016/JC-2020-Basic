@@ -178,7 +178,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 						var found = _.find(self.liningfabrics,function(d){
 							return d.custrecord_flf_ftcode == lfab.value;
 							});
-						if(!found || found.custrecord_flf_ftstatustext == "Out of Stock"){
+						if(!found || found.custrecord_flf_ftstatustext == "Out of Stock" || found.custrecord_flf_ftstatustext == "Temp Soldout" || found.custrecord_flf_ftstatustext == "Soldout"){
 							jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Lining fabric is out of stock.', 'error', true));
 							hasError = true;
 						}else{
@@ -190,7 +190,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 						var found = _.find(self.liningfabrics,function(d){
 							return d.custrecord_flf_ftcode == lfab.value;
 							});
-						if(!found || found.custrecord_flf_ftstatustext == "Out of Stock"){
+						if(!found || found.custrecord_flf_ftstatustext == "Out of Stock" || found.custrecord_flf_ftstatustext == "Temp Soldout" || found.custrecord_flf_ftstatustext == "Soldout"){
 							jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Interior pocket lining is out of stock.', 'error', true));
 							hasError = true;
 						}else{
@@ -207,7 +207,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 						var found = _.find(self.liningfabrics,function(d){
 							return d.custrecord_flf_ftcode == lfab.value;
 							});
-						if(!found || found.custrecord_flf_ftstatustext == "Out of Stock"){
+						if(!found || found.custrecord_flf_ftstatustext == "Out of Stock" || found.custrecord_flf_ftstatustext == "Temp Soldout" || found.custrecord_flf_ftstatustext == "Soldout"){
 							jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Lining fabric is out of stock.', 'error', true));
 							hasError = true;
 						}else{
@@ -224,7 +224,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 						var found = _.find(self.liningfabrics,function(d){
 							return d.custrecord_flf_ftcode == lfab.value;
 							});
-						if(!found || found.custrecord_flf_ftstatustext == "Out of Stock"){
+						if(!found || found.custrecord_flf_ftstatustext == "Out of Stock" || found.custrecord_flf_ftstatustext == "Temp Soldout" || found.custrecord_flf_ftstatustext == "Soldout"){
 							jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Lining fabric is out of stock.', 'error', true));
 							hasError = true;
 						}else{
@@ -236,7 +236,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 						var found = _.find(self.liningfabrics,function(d){
 							return d.custrecord_flf_ftcode == lfab.value;
 							});
-						if(!found || found.custrecord_flf_ftstatustext == "Out of Stock"){
+						if(!found || found.custrecord_flf_ftstatustext == "Out of Stock" || found.custrecord_flf_ftstatustext == "Temp Soldout" || found.custrecord_flf_ftstatustext == "Soldout"){
 							jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Interior pocket piping is out of stock.', 'error', true));
 							hasError = true;
 						}else{
@@ -259,7 +259,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 
 				//End Checking for Vendor Picked Jerome Clothiers
 				//Checking for Out of Stock items
-				if(line.get('item').get('_outOfStockMessage') && line.get('item').get('_outOfStockMessage') == "Out of Stock"){
+				if(line.get('item').get('_outOfStockMessage') && (line.get('item').get('_outOfStockMessage') == "Out of Stock" || line.get('item').get('_outOfStockMessage') == "Temp Soldout" || line.get('item').get('_outOfStockMessage') == "Soldout")){
 					jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('You cannot process an item that is out of stock.', 'error', true));
 					hasError = true;
 				}

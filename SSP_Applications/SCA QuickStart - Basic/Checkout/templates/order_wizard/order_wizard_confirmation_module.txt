@@ -12,7 +12,7 @@
 			<% } %>
 		<% } else { %>
 			<%= view.confirmationNumber %>
-			
+
 		<% } %>
 
 		</strong></big>

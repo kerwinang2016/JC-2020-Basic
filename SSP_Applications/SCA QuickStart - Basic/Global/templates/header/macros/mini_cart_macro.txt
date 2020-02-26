@@ -1,6 +1,6 @@
 <!--
-Change History   
--------------- 
+Change History
+--------------
 Date: 18-03-2019
 Changed by:Shoaib Iqbal
 Change /Jira Ticket #: JHD-38
@@ -40,7 +40,7 @@ Change Description: Remove the pricing from the mini-cart
 							var itemsku = item.get('_sku');
 							item.set('_sku', itemsku.replace('CMT Item', fabricjson.collection +'-'+fabricjson.code));
 						}
-					}else{console.log('here');}
+					}
 				%>
 				<li class="cart-summary-item-cell mini-cart-item-cell" data-item="<%= item.get('internalid') %>">
 					<a class="row-fluid" href="#/product/<%= item.get('internalid') %>?client=<%= clientid[0].value %>|<%= line.get('internalid')%>&product=<%= productType[0].value %>">

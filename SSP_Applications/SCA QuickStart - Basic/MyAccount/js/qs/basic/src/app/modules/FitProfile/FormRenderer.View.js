@@ -113,8 +113,8 @@ define('FormRenderer.View',  ['Client.Model', 'Profile.Model'], function (Client
 				} else {
 					formData.name = field;
 				}
-
-				formData.value = value.replace("+", " ");
+				formData.value = decodeURIComponent(value.replace("+", " "));
+				//formData.value = value.replace("+", " ");
 				formData.type = jQuery("[name=" + field + "]").data("rectype");
 				formData.sublist = jQuery("[name=" + field + "]").data("sublist");
 

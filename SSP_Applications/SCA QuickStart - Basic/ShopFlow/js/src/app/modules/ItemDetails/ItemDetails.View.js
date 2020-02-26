@@ -247,6 +247,8 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
         // also takes care of updateing the cart if the current model is a cart item
         , addToCart: function (e) {
             e.preventDefault();
+            //console.log(this.model.attributes);
+            //this.setCookie('tempCartItem',JSON.stringify(this.model.attributes),1);
             window.tempOptions = {};
             window.tempOptionsNotes = "";
             window.tempFitProfile = "";
@@ -475,6 +477,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     }
                     else {
                         self.showError(error_message);
+                        //Add a cookie here so we can retried the model
                     }
                 });
 
@@ -503,6 +506,30 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     });
                 }
             }
+        }
+        , delete_cookie: function(name) {
+          document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        }
+        , setCookie: function(cname, cvalue, exdays) {
+          var d = new Date();
+          d.setTime(d.getTime() + (exdays*24*60*60*1000));
+          var expires = "expires="+ d.toUTCString();
+          document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+        , getCookie: function (cname) {
+          var name = cname + "=";
+          var decodedCookie = decodeURIComponent(document.cookie);
+          var ca = decodedCookie.split(';');
+          for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+              c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+              return c.substring(name.length, c.length);
+            }
+          }
+          return "";
         }
         , checkOtherOptionsRequirement: function(){
           var self = this;
@@ -977,8 +1004,6 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                         }
                     }
                 }
-                //console.log('options holder');
-                //console.log(optionsHolder)
                 var profileView = new FitProfileViews.ProfileSelector({
                     application: self.application
                     , model: new FitProfileModel(self.application.getUser().get("internalid"))
@@ -1085,6 +1110,8 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
 
             });
             this.application.on('profileRefresh', function () {
+              //Prevent Buttons from being shown. because it break links
+              jQuery('[id*="profile-actions"]').html("");
               if(self.cid == SC._applications.Shopping.getLayout().currentView.cid){
                 var profileView = new FitProfileViews.ProfileSelector({
                     application: self.application
@@ -1290,7 +1317,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 var found = _.find(this.liningfabrics,function(d){
                   return d.custrecord_flf_ftcode == jQuery(e.target).val();
                   });
-                if(!found || found.custrecord_flf_ftstatustext == "Out of Stock"){
+                if(!found || found.custrecord_flf_ftstatustext == "Out of Stock" || found.custrecord_flf_ftstatustext == "Soldout" || found.custrecord_flf_ftstatustext == "Temp Soldout"){
                   jQuery(e.target).nextAll('#liningstatusimage').html('<img title="Out of Stock" src="http://store.jeromeclothiers.com/c.3857857/shopflow/img/red.png"/>')
                 }else{
                   jQuery(e.target).nextAll('#liningstatusimage').html('<img title="Available" src="http://store.jeromeclothiers.com/c.3857857/shopflow/img/green.png"/>')

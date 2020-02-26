@@ -105,7 +105,7 @@
 						});
 
 						if( category.url == 'Item Types' && category.values && category.values.length > 0){
-							console.log(category)
+							
 							for(var i=0;i<category.values.length; i++){
 								if(category.values[i].id.indexOf(product) != -1){
 										idx = i;

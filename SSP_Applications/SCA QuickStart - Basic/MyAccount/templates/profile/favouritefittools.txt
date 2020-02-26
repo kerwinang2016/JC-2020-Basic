@@ -55,7 +55,7 @@ Change Description: Default fit tools can be inputted into the my account sectio
 					jQuery('select').prop("disabled", false);
 					jQuery('button').prop("disabled", false);
 					var favFitToolsData = JSON.parse(favFitToolsData);
-          console.log(favFitToolsData);
+
 					for (var i = 0; i < favFitToolsData.length; i++) {
 						var itemType = favFitToolsData[i].itemType;
 						var tempMeasurementValues = favFitToolsData[i].measurementValues;

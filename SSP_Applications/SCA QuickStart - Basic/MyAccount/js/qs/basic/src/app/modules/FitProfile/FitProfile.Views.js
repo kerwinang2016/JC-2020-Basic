@@ -895,12 +895,13 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 				var formValue = formValues[i];
 				var field = formValue.split("=")[0]
 					, value = jQuery('#' + formValue.split("=")[0]).val().replace(/\%0D%0A/g, ' ').replace(/\s+/g, ' ').trim();
-					console.log('value: ', value);
+					//console.log('value: ', value);
 					if(field == "alteration_rec_id" && value != '-999'){
 						alterationInternalId = value;
 					} else {
 						obj.name = field;
-						obj.value = value;
+						obj.value = decodeURIComponent(value);
+						//obj.value = value;
 						dataToSend.push(obj);
 					}
 			};
@@ -951,12 +952,13 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 				var formValue = formValues[i];
 				var field = formValue.split("=")[0]
 					, value = jQuery('#' + formValue.split("=")[0]).val().replace(/\%0D%0A/g, ' ').replace(/\s+/g, ' ').trim();
-					console.log('value: ', value);
+					//console.log('value: ', value);
 					if(field == "alteration_rec_id" && value != '-999'){
 						alterationInternalId = value;
 					} else {
 						obj.name = field;
-						obj.value = value;
+						obj.value = decodeURIComponent(value);
+						//obj.value = value;
 						dataToSend.push(obj);
 					}
 			};

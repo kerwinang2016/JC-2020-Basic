@@ -11,6 +11,10 @@ function service (request)
 		switch (method)
 		{
 			case 'GET':
+				//nlapiLogExecution('debug',"request.getParameter('producttype')",request.getParameter('producttype'));
+				var ptype = request.getParameter('producttype');
+				var ptypearr = []
+
 				var columns = [], items = [],filters=[];
 				columns.push(new nlobjSearchColumn('internalid'))
 				columns.push(new nlobjSearchColumn('custrecord_md_producttype'))
@@ -21,6 +25,34 @@ function service (request)
 				columns.push(new nlobjSearchColumn('custrecord_md_bodypart'))
 				columns.push(new nlobjSearchColumn('custrecord_md_value'))
 				filters.push(new nlobjSearchFilter('isinactive',null,'is','F'));
+				if(ptype){
+					if(ptype == '2-Piece-Suit'){
+						ptypearr = [3,4];
+					}else if(ptype == '3-Piece-Suit'){
+						ptypearr = [3,4,6];
+					}else if(ptype == 'L-2PC-Skirt'){
+							ptypearr = [14,16];
+					}else if(ptype == 'L-2PC-Pants'){
+							ptypearr = [14,15];
+					}else if(ptype == 'L-3PC-Suit'){
+							ptypearr = [14,15,16];
+					}else{
+						switch(ptype){
+							case "Jacket": ptypearr = [3]; break;
+							case "Trouser": ptypearr = [4]; break;
+							case "Waistcoat": ptypearr = [6]; break;
+							case "Overcoat": ptypearr = [8]; break;
+							case "Shirt": ptypearr = [7]; break;
+							case "Short-Sleeves-Shirt": ptypearr = [12]; break;
+							case "Trenchcoat": ptypearr = [13]; break;
+							case "Ladies-Jacket": ptypearr = [14]; break;
+							case "Ladies-Pants": ptypearr = [15]; break;
+							case "Ladies-Skirt": ptypearr = [16]; break;
+						}
+					}
+					filters.push(new nlobjSearchFilter('custrecord_md_producttype',null,'anyof',ptypearr));
+				}
+
 				var search = nlapiCreateSearch('customrecord_measurement_defaults',filters,columns);
 				var resultSet = search.runSearch();
 				var searchid = 0;

@@ -1,40 +1,3 @@
-<!--
-Change History
---------------
-Date: 04-03-2019
-Changed by:Shoaib Iqbal
-Change /Jira Ticket #: JHD-26
-Change Description: Remove address book section
--->
-
-<!--
-Change History
---------------
-Date: 04-03-2019
-Changed by:Shoaib Iqbal
-Change /Jira Ticket #: JHD-27
-Change Description: Remove Email Preferences section
--->
-
-<!--
-Change History
---------------
-Date: 04-03-2019
-Changed by:Shoaib Iqbal
-Change /Jira Ticket #: JHD-29
-Change Description: Updates to �Cases� section on myaccount
--->
-
-<!--
-Change History
---------------
-Date: 05-03-2019
-Changed by: Salman Khan
-Change /Jira Ticket #: JHD-32
-Change Description: Same Drop down of "My account" and "Your account"
--->
-
-
 <% registerMacro('headerProfile', function (application) { %>
 <% var Profile = application.getUser(); %>
 
@@ -174,17 +137,8 @@ Change Description: Same Drop down of "My account" and "Your account"
 			<li class="my-account-item-cell">
 				<a tabindex="-1" href="#" data-touchpoint="customercenter" data-hashtag="#fitprofile"><%= _('Client Profiles').translate() %></a>
 			</li>
-			<li class="my-account-item-cell dropdown-submenu" data-permissions="lists.listCase.1">
-				<a tabindex="-1" href="#"><%= _('Support').translate() %></a>
-				<ul class="dropdown-menu">
-				<!-- JHD-29 Start -->
-				<!--
-					<li><a tabindex="-1" href="#" data-touchpoint="customercenter" data-hashtag="#cases" ><%= _('All My Cases').translate() %></a></li>
-					<li><a tabindex="-1" href="#" data-touchpoint="customercenter" data-hashtag="#newcase"><%= _('Submit New Case').translate() %></a></li>
-					 -->
-					<!-- JHD-29 End -->
-					<li><a tabindex="-1" href="#" data-touchpoint="customercenter" data-hashtag="#trainingguides"><%= _('Training Guides').translate() %></a></li> <!-- JHD-32 -->
-				</ul>
+			<li class="my-account-item-cell" data-permissions="lists.listCase.1">
+				<a tabindex="-1" href="#" data-touchpoint="customercenter" data-hashtag="#trainingguides"><%= _('Training and Guides').translate() %></a>
 			</li>
 			 <!-- JHD-32 Start -->
 			<li class="my-account-item-cell">

@@ -1,9 +1,10 @@
-<% registerMacro('profileForm', function (model,paramEvent) {
+<% registerMacro('profileForm', function (view,model,paramEvent) {
 	var profile = model.profile_collection && model.get("current_profile") ? model.profile_collection.where({internalid: model.get("current_profile")})[0] : null
 	,	parent = model.get("current_client");
 	var eventValue = (!_.isNullOrEmpty(paramEvent) && paramEvent == 'add') ? 'add' : 'viewedit';
 	var isAddEvent = (eventValue == 'add') ? true : false;
 	var isViewEdit = (eventValue == 'viewedit') ? true : false;
+	
 %>
 
 <form id="profile-form">
@@ -30,13 +31,13 @@
 					</small>
 				</label>
 				<div class="controls">
-					<%= SC.macros.itemTypeDropdown(_.pluck(model.measurement_config, "item_type"), profile ? profile.get("custrecord_fp_product_type") : null) %>
+					<%= SC.macros.itemTypeDropdown(_.pluck(view.measurement_config, "item_type"), profile ? profile.get("custrecord_fp_product_type") : null) %>
 				</div>
 			</div>
 
 			<div id="measure-type">
 				<% if(profile){
-					var selectedItemType = _.where(model.measurement_config, {item_type: profile.get("custrecord_fp_product_type")})[0]
+					var selectedItemType = _.where(view.measurement_config, {item_type: profile.get("custrecord_fp_product_type")})[0]
 					,	measurementType = _.pluck(selectedItemType.measurement, "type");
 				%>
 					<%= SC.macros.measureTypeDropdown(measurementType, profile ? profile.get("custrecord_fp_measure_type") : null) %>
@@ -50,7 +51,7 @@
 				,	fieldsForm = null;
 
 				if(measurementTypeMeasure && selectedItemTypeMeasure){
-					fieldsForm = _.where(model.measurement_config, {item_type: selectedItemTypeMeasure})[0];
+					fieldsForm = _.where(view.measurement_config, {item_type: selectedItemTypeMeasure})[0];
 					fieldsForm = _.where(fieldsForm.measurement, {type: measurementTypeMeasure})[0];
 
 					model.selected_measurement = fieldsForm;

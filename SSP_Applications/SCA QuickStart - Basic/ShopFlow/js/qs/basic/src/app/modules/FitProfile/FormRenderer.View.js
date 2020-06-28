@@ -14,6 +14,10 @@ define('FormRenderer.View',  ['Client.Model', 'Profile.Model'], function (Client
 		,	'change input[data-type="state"]': 'eraseZip'
 		,	'blur input[data-type="phone"]': 'formatPhone'
 		}
+	,	attributes: {
+			'id': 'FormRendererView'
+		,	'class': 'form-rendere-modal'
+		}
 	,	initialize: function(options){
 			var mode = this.options.mode.split("|")[0]
 			,	type = this.options.mode.split("|")[1];

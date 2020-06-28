@@ -55,15 +55,17 @@ define('Facets.Router', ['Facets.Views', 'Facets.Helper', 'Facets.Model', 'Categ
 					});
 				}
 				else{
-					model.fetch({
-						data: translator.getApiParams()
-					,	killerId: this.application.killerId
-					,	success: function ()
-						{
-							translator.setLabelsFromFacets(model.get('facets') || []);
-							view.showContent();
-						}
-					});
+					//Do not fetch items immediately..
+					view.showContent();
+					// model.fetch({
+					// 	data: translator.getApiParams()
+					// ,	killerId: this.application.killerId
+					// ,	success: function ()
+					// 	{
+					// 		translator.setLabelsFromFacets(model.get('facets') || []);
+					// 		view.showContent();
+					// 	}
+					// });
 				}
 		}
 

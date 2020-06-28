@@ -1,16 +1,16 @@
-<% registerMacro('itemDetailsDesignOptions', function (designOptions,isItemCheck) { %>
+<% registerMacro('itemDetailsDesignOptions', function (designOptions,isItemCheck, customerliningurl) { %>
 	<%
 
-	var Jacket = ['Trims','Monogram Underside Collar','Monogram Lining','Branding'];
-	var Trouser = ['Trims','Monogram','Branding'];
-	var Waistcoat = ['Trims','Branding'];
-	var Overcoat = ['Trims','Monogram Under Collar','Monogram Interior Lining','Branding'];
-	var Shirt = ['Trims','Contrast','Monogram','Branding and Presentation'];
-	var Trenchcoat = [];
-	var LadiesJacket = [];
+	var Jacket = ['Monogram Underside Collar','Monogram Lining','Branding','Chest Pocket Emblem or Monogram'];
+	var Trouser = ['Monogram','Branding'];
+	var Waistcoat = ['Branding'];
+	var Overcoat = ['Monogram Under Collar','Monogram Interior Lining','Branding'];
+	var Shirt = ['Chest Pocket Emblem','Contrast','Monogram','Branding and Presentation'];
+	var Trenchcoat = ['Monogram Under Collar', 'Monogram Interior Lining', 'Branding'];
+	var LadiesJacket = ['Monogram', 'Branding'];
 	var LadiesSkirt = [];
 	var LadiesPants = [];
-	var ShortSleevesShirt = [];
+	var ShortSleevesShirt = ['Monogram','Chest Pocket Emblem','Branding and Presentation'];
 	var collapse = [];
 	collapse['Jacket'] = Jacket;
 	collapse['Trouser'] = Trouser;
@@ -18,10 +18,10 @@
 	collapse['Overcoat'] = Overcoat;
 	collapse['Shirt'] = Shirt;
 	collapse['Trenchcoat'] = Trenchcoat;
-	collapse['Ladies-Jacket'] = Trenchcoat;
-	collapse['Ladies-Skirt'] = Trenchcoat;
-	collapse['Ladies-Pants'] = Trenchcoat;
-	collapse['Short-Sleeves-Shirt'] = Trenchcoat;
+	collapse['Ladies-Jacket'] = LadiesJacket;
+	collapse['Ladies-Skirt'] = LadiesSkirt;
+	collapse['Ladies-Pants'] = LadiesPants;
+	collapse['Short-Sleeves-Shirt'] = ShortSleevesShirt;
 		%>
 
 	<% if (designOptions && Object.keys(designOptions).length > 0) { %>
@@ -32,16 +32,15 @@
 
 		<h2 class="section-header" style="margin-top: 30px"><%= _('Design Options').translate() %></h2><hr/>
 
-	    <div class="accordion" id="design-option">
+
 			<% var count = 0; %>
 			<% for (var clothingType in designOptions){
 				var currentClothingType = designOptions[clothingType];
-
-
 			%>
+			<div class="accordion" data-holder="design-option-parent" id="design-option-<%= count %>">
 				<div class="accordion-group">
 					<div class="accordion-heading">
-						<a class="accordion-toggle" data-toggle="collapse" data-target="#design-option-<%= clothingType %>" data-parent="#design-option">
+						<a class="accordion-toggle" data-header="design-option-parent" data-toggle="collapse" data-target="#design-option-<%= clothingType %>" data-parent="#design-option-<%= count %>">
 							<%= clothingType %>
 						</a>
 					</div>
@@ -52,7 +51,7 @@
 							index1++;
 							var currentComponent = currentClothingType[component];
 
-						%>
+							%>
 								<div class="control-group-new" data-input="canvas_canvas_jacket" id="design-option-control-group-<%= clothingType %>-<%=index1%>">
 								<% if(collapse[clothingType].indexOf(component) !=-1){ %>
 									<a data-toggle="collapse" data-target="#design-option-members-<%= clothingType %>-<%=index1%>" data-parent="#design-option-control-group<%=index1%>" class="collapsed">
@@ -111,16 +110,24 @@
 														<% }) %>
 													</div>
 													<% if(currentField.name == 'li-b-j' || currentField.name == 'T010227' ||
-							            currentField.name == 'li-bl-w' || currentField.name == 'li-bl-o' || currentField.name == 'T010415'){ %>
+							            currentField.name == 'li-bl-w' || currentField.name == 'li-bl-o' || currentField.name == 'T010415'  || currentField.name == 'li-bl-tc'|| currentField.name == 'li-b-lj'){ %>
 														<span class="show-lining-img" id="liningstatusimage">
 														</span>
 													<% } %>
+													<% if(currentField.name == 'li-b-j' || currentField.name == 'li-bl-w' || currentField.name == 'li-bl-o' || currentField.name == 'li-bl-tc'|| currentField.name == 'li-b-lj'){ %>
+														<span><a href="<%= customerliningurl %>" target="_blank" class="fa fa-plus" data-toggle="tooltip" title="Custom Lining"></a></span>
+													<% } %>
+
 												</div>
 											<% 	}  %>
 
 											<% if (isTextType) {%>
 												<div class="controls" style="margin-bottom: 15px;display:inline">
-													<input data-type="<%= currentField.datatype %>" data-placeholder="<%= currentField.dataplaceholder %>" placeholder="<%= currentField.placeholder%>" type="text" maxlength="<%= currentField.maxlength%>" fieldname="<%= field %>" id="<%= currentField.name %>" class="input-xlarge" name="<%= currentField.name %>" value="<%= currentField.value %>" data-type="fav-option-customization" onkeypress="return (event.charCode >= 32 && event.charCode < 128)">
+													<input data-type="<%= currentField.datatype %>" data-placeholder="<%= currentField.dataplaceholder %>"
+													placeholder="<%= currentField.placeholder%>" type="text" maxlength="<%= currentField.maxlength%>"
+													fieldname="<%= field %>" id="<%= currentField.name %>" class="input-xlarge"
+													name="<%= currentField.name %>" value="<%= currentField.value %>" data-type="fav-option-customization"
+													onkeypress="return (event.charCode != 60 && event.charCode != 62)">
 												</div>
 												<div class="show-options-img" id="more-info_<%= currentField.name %>">
 															<%= SC.macros.displayMoreInfo(currentField.name+"|"+currentField.label+"|"+ currentField.name)%>
@@ -143,8 +150,8 @@
 					</div>
 				</div>
 				<% count++; %>
+				</div>
 			<% } %>
-			</div>
 		</div>
 		<div class="control-group" data-input="designoption-message">
 			<label class="control-label" for="designoption-message">Notes (Internal use only. Notes not actioned by Jerome)</label>

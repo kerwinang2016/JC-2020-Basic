@@ -1,4 +1,3 @@
-
 <% registerMacro('itemListNavigable', function (options) { %>
 <%
 	var macros = SC.macros
@@ -16,7 +15,6 @@
 	,	link_attributes = _.getItemLinkAttributes(item)
 	, fitprofile = line.get('fitProfileOptions');
 
-		//JHD-7 Start
 		var expectedDate = '';
 		var item = line.get('item');
 		var itemId = item.get('internalid');
@@ -37,8 +35,6 @@
 		xhttp.open('GET', url, true);
 		xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 		xhttp.send("itemid=" + itemId + "&customerid=" + customerId);
-	  //JHD-7 End
-  //var ptype = _.where(item.get("options"), {id: "CUSTCOL_PRODUCTTYPE"})[0].value;
 	var formtype = _.where(item.get("options"), {id: "CUSTCOL_PRODUCTTYPE"})[0].value;
 
 	var item_details = item.get('itemDetails')
@@ -53,9 +49,14 @@
 			item.set('_sku', itemsku.replace('CMT Item', fabricjson.collection +'-'+fabricjson.code));
 		}
 	}
+	var client_name = "";
+	var client_name_find =  _.where(item.get("options"), {id:"CUSTCOL_TAILOR_CLIENT_NAME"});
+	if(client_name_find.length > 0){
+		client_name = client_name_find[0].value;
+	}
 %>
 
-	<style> /* JHD-33 */
+	<style>
 		input[type='number'] {
     		-moz-appearance:textfield;
 		}
@@ -79,7 +80,7 @@
 		</div>
 		<div class="info">
 				<div class="details">
-					<div class="name item-name" style="float:left;" > <!-- JHD-3-->
+					<div class="name item-name" style="float:left;" >
 				<% if (options.showActions && false) { %>
 					<a <%= link_attributes %>>
 						<%= item.get('_name') %>
@@ -89,7 +90,7 @@
 				<% } %>
 				</div>
 				<div class="name">
-					<!-- JHD-33 Start-->
+
 					<%
 						var lineItemTotal;
 						try
@@ -103,7 +104,7 @@
 					%>
 					<input type="number" id="order_list_line_item_total_<%= line_id %>" onkeypress="return event.charCode != 45" name="order_list_line_item_total" value="<%= lineItemTotal %>" min="0" style="float: right; width: 45px; height: 15px; font-size: 12px;">
 					<span id="tailor_currency_symbol" style="float: right; padding: 4px; font-weight: normal; "><%= SC.getSessionInfo('currency').symbol %></span>
-					<!-- JHD-33 End--></input>
+					</input>
 					</div>
 					<div class="name" style="clear:both;">
 				<%
@@ -115,61 +116,20 @@
 							<%= _('Product Type: $(0)').translate(producttype.value)%>
 						<% } %>
 				</div>
-				<!--
-				<div class="price">
-					<span itemtype="http://schema.org/Offer" itemscope="" itemprop="offers">
-						<meta content="<%= SC.getSessionInfo('currency').code %>" itemprop="priceCurrency">
-						<%
-							var tailorPricingColumn = _.where(line.get("options"), {id: "CUSTCOL_TAILOR_CUST_PRICING"})
-							,	tailorPricing = "0.00";
-
-							if(!_.isUndefined(tailorPricingColumn) && tailorPricingColumn[0]){
-								tailorPricing = tailorPricingColumn[0].value;
-							}
-						%>
-						<span data-rate="<%= tailorPricing %>" itemprop="price" class="lead-price">
-						<%= _.formatCurrency(tailorPricing) %>
-						</span>
-						<link href="http://schema.org/OutOfStock" itemprop="availability">
-					</span>
-				</div>
-				<div class="sku">
-					<%= _('SKU: #$(0)').translate(item.get('_sku')) %>
-				</div>
-				-->
 
 					<div class="name">
-					<%
 
-						var clientID = _.find(line.get("options"), function(o){
-							return o.id == "CUSTCOL_TAILOR_CLIENT"});
-							if(clientID){
-
-								var client_collection = view.client_collection;
-								var client_name = "";
-								if(client_collection.length > 0) {
-									var found = _.find(client_collection.models,function(o){
-										return o.get('internalid') == clientID.value;
-									});
-									if(found){
-										client_name = found.get("custrecord_tc_first_name") + " " + found.get("custrecord_tc_last_name");
-									}
-								}
-						}
-					%>
 					<%= _('Client Name: $(0)').translate(client_name)%>
 				</div>
 
-					<div class="name"> <!-- JHD-10 -->
-						<%= _('Estimated Shipping Date :').translate()%> <!-- JHD-23 -->
+					<div class="name">
+						<%= _('Estimated Shipping Date :').translate()%>
 						<span id="expected-date-<%= line_id %>"></span>
 					</div>
 
 
 				<% if (isDisplayDateNeededHoldFabricHoldProduction) { %>
-						<!-- start avt date needed, hold fabric, hold production -->
 						<div class="sku">
-							<!-- start avt date needed -->
 							<div style="margin-bottom: 10px;" class="form-control">
 								<%
 									var defaultDateNeeded = '1/1/1900';
@@ -183,9 +143,6 @@
 										dateNeededValue =  defaultDateNeeded;
 									}
 									var isEmptyDateNeeded = (dateNeededValue == defaultDateNeeded) ? true : false;
-
-
-									// >> 21/9/2016
 
 									var arrSplitDateNeeded = dateNeededValue.split('/')
 
@@ -201,18 +158,13 @@
 
 
 								%>
-									<!-- JHD-3 Start-->
 									<label for="custcol_avt_date_needed">
 										<span> <%= _('Date Needed:').translate() %> </span>
-										<input data-provide="datepicker" id="custcol_avt_date_needed_<%= line_id %>" placeholder="<%= _('yyyy-mm-dd').translate() %>" name="custcol_avt_date_needed" value="<%= (isEmptyDateNeeded) ? '' : stDateNeeded %>">
+										<input autocomplete="off" data-provide="datepicker" id="custcol_avt_date_needed_<%= line_id %>" placeholder="<%= _('yyyy-mm-dd').translate() %>" name="custcol_avt_date_needed" value="<%= (isEmptyDateNeeded) ? '' : stDateNeeded %>">
 									</label>
 									<input type="hidden" name="internalid" id="update-internalid-<%= line_id %>" class="update-internalid-<%= line_id %>" value="<%- line_id %>">
-									<!-- JHD-3 End-->
 							</div>
-							<!-- end avt date needed -->
-
 						</div>
-						<!-- end avt date needed, hold fabric, hold production -->
 				<% } %>
 
 				<div class="item-options">
@@ -273,9 +225,9 @@
 				</div>
 			</div>
 
-				<!-- <small style="position: relative;bottom: -5px;"><i>* This date may be impacted by Chinese New Year</i></small> --> <!--JHD-23 -->
+				<!-- <small style="position: relative;bottom: -5px;"><i>* This date may be impacted by Chinese New Year</i></small> -->
 		</div>
-			<div class="alert-placeholder" data-type="alert-placeholder" style="position: relative; top: 8px"> <!-- JHD-10 -->
+			<div class="alert-placeholder" data-type="alert-placeholder" style="position: relative; top: 8px">
 		<% if (item.get('_cartCustomAlert')) {%>
 			<div class="alert alert-<%= item.get('_cartCustomAlertType') || 'info' %>">
 				<%= item.get('_cartCustomAlert') %>
@@ -302,9 +254,6 @@
 			<button data-action="copy-to-cart" class="btn add-to-cart" data-internalid="<%- line.get('internalid') %>"><%= _('Copy').translate() %></button>
 			<% }%>
 
-		<button class="btn remove" data-action="remove-item" data-internalid="<%- line.get('internalid') %>">
-			<%= _('Remove').translate() %>
-		</button>
 		<% if (is_advanced && application.ProductListModule && application.ProductListModule.isProductListEnabled() && application.name.toLowerCase() === 'shopping') { %>
 			<button class="btn saveforlater" data-action="save-for-later-item" data-internalid="<%- line.get('internalid') %>">
 				<%= _('Save for Later').translate() %>
@@ -313,6 +262,10 @@
 		<a class="btn dropdown-toggle show-wishlist" href="/item-types/<%=formtype+'?client='+clientID+'|'+lineID%>">
 			Change Fabric
 		</a>
+
+		<button class="btn remove" data-action="remove-item" data-internalid="<%- line.get('internalid') %>">
+			<%= _('Remove').translate() %>
+		</button>
 	</div>
 	<% } %>
 

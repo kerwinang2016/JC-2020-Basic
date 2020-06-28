@@ -22,23 +22,19 @@ define('OrderWizard.Module.ShowShipments', ['Wizard.Module'], function (WizardMo
 			this.options.application = this.wizard.application;
 			var userID = this.wizard.options.profile.id;
 
-			self.clients = [];
-			var entity = SC.Application('Checkout').getUser().get('parent');
-			//Initialize Clients Collection
-			var param = new Object();
-			param.type = "get_client";
-			param.data = JSON.stringify({filters: ["custrecord_tc_tailor||anyof|list|" + parent], columns: ["internalid", "custrecord_tc_first_name", "custrecord_tc_last_name", "custrecord_tc_email", "custrecord_tc_addr1", "custrecord_tc_addr2", "custrecord_tc_country", "custrecord_tc_city", "custrecord_tc_state", "custrecord_tc_zip", "custrecord_tc_phone"]});
-			jQuery.get(_.getAbsoluteUrl('services/fitprofile.ss'), param).done(function(data){
-
-				if(data){
-					self.clients = data;
-
-					//self.clients.add(data);
-					//self.trigger("afterInitialize");
-				}
-
+			// self.clients = [];
+			// var entity = SC.Application('Checkout').getUser().get('parent');
+			// //Initialize Clients Collection
+			// var param = new Object();
+			// param.type = "get_client";
+			// param.data = JSON.stringify({filters: ["custrecord_tc_tailor||anyof|list|" + parent], columns: ["internalid", "custrecord_tc_first_name", "custrecord_tc_last_name", "custrecord_tc_email", "custrecord_tc_addr1", "custrecord_tc_addr2", "custrecord_tc_country", "custrecord_tc_city", "custrecord_tc_state", "custrecord_tc_zip", "custrecord_tc_phone"]});
+			// jQuery.get(_.getAbsoluteUrl('services/fitprofile.ss'), param).done(function(data){
+			//
+			// 	if(data){
+			// 		self.clients = data;
+			// 	}
 				self._render();
-			});
+			// });
 
 
 			// this.trigger('ready', false);

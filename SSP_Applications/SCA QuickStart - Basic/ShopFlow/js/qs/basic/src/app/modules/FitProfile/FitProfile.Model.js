@@ -16,20 +16,20 @@ define('FitProfile.Model', ['Client.Model', 'Client.Collection', 'Profile.Model'
 			var self = this;
 			this.set({current_client: null, current_profile: null});
 			//Initialize Clients Collection
-			var param = new Object();
-			param.type = "get_client";
-			var tailor = SC.Application('Shopping').getUser().get('parent')!=null? SC.Application('Shopping').getUser().get('parent'):SC.Application('Shopping').getUser().id;
-			param.data = JSON.stringify({filters: ["custrecord_tc_tailor||anyof|list|" + tailor], columns: ["internalid", "custrecord_tc_first_name", "custrecord_tc_last_name", "custrecord_tc_email", "custrecord_tc_addr1", "custrecord_tc_addr2", "custrecord_tc_country", "custrecord_tc_city", "custrecord_tc_state", "custrecord_tc_zip", "custrecord_tc_phone"]});
-			jQuery.get(_.getAbsoluteUrl('services/fitprofile.ss'), param).always(function(data){
-				if(data){
-					self.client_collection.add(data);
-					self.trigger("afterInitialize");
-				}
-			});
+			// var param = new Object();
+			// param.type = "get_client";
+			// var tailor = SC.Application('Shopping').getUser().get('parent')!=null? SC.Application('Shopping').getUser().get('parent'):SC.Application('Shopping').getUser().id;
+			// param.data = JSON.stringify({filters: ["custrecord_tc_tailor||anyof|list|" + tailor], columns: ["internalid", "custrecord_tc_first_name", "custrecord_tc_last_name", "custrecord_tc_email", "custrecord_tc_addr1", "custrecord_tc_addr2", "custrecord_tc_country", "custrecord_tc_city", "custrecord_tc_state", "custrecord_tc_zip", "custrecord_tc_phone"]});
+			// jQuery.get(_.getAbsoluteUrl('services/fitprofile.ss'), param).always(function(data){
+			// 	if(data){
+			// 		self.client_collection.add(data);
+			// 		self.trigger("afterInitialize");
+			// 	}
+			// });
 
-			jQuery.get(_.getAbsoluteUrl('js/FitProfile_Config.json')).done(function(data){
-				self.measurement_config = data;
-			});
+			// jQuery.get(_.getAbsoluteUrl('js/FitProfile_Config.json')).done(function(data){
+			// 	self.measurement_config = data;
+			// });
 			this.on("change:current_client", this.fetchProfile);
 			this.on("change:current_profile", this.fetchMeasure);
 		}

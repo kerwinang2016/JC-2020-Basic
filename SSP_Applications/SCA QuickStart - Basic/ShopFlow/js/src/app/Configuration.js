@@ -27,6 +27,7 @@
 		,	'NavigationHelper'
 		,	'BackToTop'
 		,	['Cart',  {startRouter: true, saveForLater: true}]
+		,	['UstyylitApplications',  {startRouter: true}]
 		,	'Content'
 		,	'Facets'
 		,	'GoogleAnalytics'
@@ -48,6 +49,7 @@
 		,	'Merchandising.Context.DefaultHandlers'
 		// ,	['Categories',  {addToNavigationTabs: true}]
 		,	['ProductList',{startRouter: false}]
+
 		,	'ItemRelations'
 , 'CMSadapter'
 ['Quote', {startRouter: true}]

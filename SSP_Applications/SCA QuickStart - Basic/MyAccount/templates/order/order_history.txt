@@ -1,10 +1,7 @@
 
+<div style="padding:15px 0;">
 <h3 class="pull-left"><%= view.page_header %></h3>
-<style>
-	.pagination.pagination-small.pull-right{
-		margin-top:25px;
-	}
-</style>
+
 <div class="myaccount-search-container pull-right">
 	<div id="site-search-container" class="site-search-container">
 		<form class="form-search site-search" style="float:left;">
@@ -17,16 +14,62 @@
 		<img id="searchhint" src="https://checkout.na2.netsuite.com/c.3857857/myaccount/img/info_icon.gif" class="weboption-tooltip ox-tooltip-icon tooltipstered" data-toggle="tooltip"
 		data-original-title="Example:<br/>Searching orders: SO-XXXX <br/> Searching clients: Client Name" data-html="true">
 		</form>
-
-		<button id="sortred" class="btn" style="height:43px;margin-left:5px;">Sort</button>
 	</div>
 </div>
-
-<a href="/" class="back-btn">
-	<%= _('&lt; Back to Account').translate() %>
-</a>
 <div class="clearfix"></div>
+</div>
+<div class="orderfilters collapsed fa" type="button" data-toggle="collapse" data-target="#orderfilters" aria-expanded="false" aria-controls="orderfilters">
+	Filters
+</div>
+<div class="collapse" id="orderfilters">
+	<div class="list-header-view-datepicker-from">
+		<div class="list-header-view-datepicker-container-input">
+			<input class="list-header-view-accordion-body-input" id="from" name="from" type="date"
+			autocomplete="off" data-format="dd/mm/yyyy" value="<%= view.startdate %>" data-todayhighlight="true"
+			placeholder="dd/mm/yyyy"/>
+			<a class="list-header-view-accordion-body-clear" data-action="clear-value">
+				<i class="list-header-view-accordion-body-clear-icon"></i>
+			</a>
+		</div>
+	</div>
+	<div class="list-header-view-datepicker-to">
+		<label class="list-header-view-to" for="to">to</label>
 
+		<div class="list-header-view-datepicker-container-input">
+			<input class="list-header-view-accordion-body-input" id="to" name="to" type="date"
+			autocomplete="off" data-format="dd/mm/yyyy" value="<%= view.enddate %>" data-todayhighlight="true"
+			placeholder="dd/mm/yyyy"/>
+			<a class="list-header-view-accordion-body-clear" data-action="clear-value">
+				<i class="list-header-view-accordion-body-clear-icon"></i>
+			</a>
+		</div>
+	</div>
+	<div class="list-header-view-cmtstatus" style="margin-left:10px;">
+		<select style="font-size:12px; width:150px; color:#4D5256;" id="filter_cmtstatus" class="cmtstatus">
+			<option value="">CMT Status</option>
+			<option value="2" <% if( view.cmtstatus == '2'){ %> selected <% } %>>In Production</option>
+			<option value="3" <% if( view.cmtstatus == '3'){ %> selected <% } %>>Shipped</option>
+			<option value="[7,8]" <% if( view.cmtstatus == '[7,8]'){%> selected <% } %>>Processed/Confirmed</option>
+			<option value="[9,10]" <% if( view.cmtstatus == '[9,10]'){%> selected <% } %>>Left Factory/Delivered</option>
+			<option value="14" <% if( view.cmtstatus == '14'){%> selected <% } %>>Production Complete</option>
+		</select>
+	</div>
+	<div class="list-header-view-datepicker-cmtdate" style="display:inline-block;margin-left:10px;">
+		<div class="list-header-view-datepicker-container-input">
+			<input class="list-header-view-accordion-body-input" id="cmtdate" name="cmtdate"
+			type="date" autocomplete="off" data-todayhighlight="true" data-format='dd/mm/yyyy'
+			placeholder="CMT Date" value="<%= view.cmtdate %>"/>
+		</div>
+	</div>
+	<div style="float:right;">
+	<button class="btn btn-primary" id="searchorders">Search</button>
+	<button class="btn btn-primary" id="clearfilters">Clear</button>
+	<button id="sortred" class="btn btn-primary" style="width:30px;background-image: url(/myaccount/img/red.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: #e6e6e6;">&nbsp;</button>
+	</div>
+</div>
 <div class="recentOrdersWidget" data-permissions="transactions.tranFind.1,transactions.tranSalesOrd.1">
 	<hr>
 	<% if ( view.collection.models.length ) { %>
@@ -46,20 +89,29 @@
 				{
 					currentPage: view.options.page
 				,	totalPages: Math.ceil(view.collection.totalRecordsFound / view.collection.recordsPerPage)
-				,	extraClass: 'pagination-small pull-right'
+				,	extraClass: 'pagination-small align-right'
 				,	pager: function (page) {
 						var search = ""
 						if(view.options.search != "")
 							search = "&search="+view.options.search;
-						return (page === 1) ? '/ordershistory?sort='+view.options.sort+search : '/ordershistory?page='+page+'&sort='+view.options.sort+search;
+						return (page === 1) ? '/ordershistory?sort='+view.options.sort+search : '/ordershistory?page='+page+'&sort='+view.options.sort+search+
+						"&cmtdate="+view.cmtdate+"&startdate="+view.startdate+"&enddate="+view.enddate+"&cmtstatus="+view.cmtstatus
 					}
 				}
 			))
 		%>
 		<%= pagination_result %>
+		<div class="clearfix"></div>
+		<div>
+			<input type="checkbox" id="selectall" style="margin:0px 0 3px 8px;"> <span> Select All</span>
+			<div style="float:right;">
+				<button class="btn btn-primary" id="downloadorders">Download</input>
+			</div>
+		</div>
 		<table class="table">
 			<thead style="font-size: 12px;">
 				<tr>
+					<th> Select </th>
 					<th><%= _('Order Date').translate() %></th>
 					<th>Order#</th>
 					<th><%= _('Client Name').translate() %></th>
@@ -75,13 +127,14 @@
 			<tbody style="font-size: 12px;">
 			<% _.each(view.collection.models, function (order, index) {   %>
 				<tr>
-					<td><%= order.get('date').substr(0,order.get('date').length-4) + order.get('date').substr(order.get('date').length-2) %></td>
-					<td><%= order.get('so_id') %></td>
-					<td><%= order.get('client_name') %></td>
-					<td><%= order.get('item') %></td>
-					<td style="width: 150px; word-break: break-word;"><%= order.get('fabricstatus') %></td>
-					<td ><%= order.get('cmtstatus') %></td>
-					<td>
+					<td><input type="checkbox" data-id="downloadfile_<%= order.get('so_id') %>" data-name="downloadfile_<%= order.get('so_id') %>"></td>
+					<td data-name="date_<%= order.get('so_id') %>"><%= order.get('date').substr(0,order.get('date').length-4) + order.get('date').substr(order.get('date').length-2) %></td>
+					<td data-name="order_<%= order.get('so_id') %>"><%= order.get('so_id') %></td>
+					<td data-name="client_<%= order.get('so_id') %>"><%= order.get('client_name') %></td>
+					<td data-name="item_<%= order.get('so_id') %>"><%= order.get('item') %></td>
+					<td data-name="fabric_<%= order.get('so_id') %>" style="width: 150px; word-break: break-word;"><%= order.get('fabricstatus')?order.get('fabricstatus'):"Pending" %></td>
+					<td data-name="cmtstatus_<%= order.get('so_id') %>"><%= order.get('cmtstatus')?order.get('cmtstatus'):"Pending" %></td>
+					<td data-name="dateneeded_<%= order.get('so_id') %>">
 						<input name="oh_dateneeded" placeholder="" id="<%= order.get('solinekey') %>" type="date" value="<%= order.get('custcol_avt_date_needed') %>" style="width:100px;font-size:10px;">
 
 					</td>

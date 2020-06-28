@@ -1,28 +1,28 @@
 // Categories.js
 // -------------
-// Utility Class to handle the Categories tree 
+// Utility Class to handle the Categories tree
 define('Categories', function ()
 {
 	'use strict';
-	
+
 	return {
-		
+
 		tree: {}
-		
-		// Categories.reset: 
+
+		// Categories.reset:
 		// Refreshes the tree
 	,	reset: function (tree)
 		{
 			this.tree = tree;
 		}
-	
-		// Categories.getTree: 
+
+		// Categories.getTree:
 		// Returns a deep copy of the category tree
 	,	getTree: function ()
 		{
 			return jQuery.extend(true, {}, this.tree);
 		}
-		
+
 		// Categories.getBranchLineFromPath:
 		// given a path retuns the branch that fullfil that path,
 	,	getBranchLineFromPath: function (path)
@@ -33,10 +33,10 @@ define('Categories', function ()
 			{
 				tokens.shift();
 			}
-			
+
 			return this.getBranchLineFromArray(tokens);
 		}
-		
+
 		// Categories.getBranchLineFromArray:
 		// given an array of categories it retuns the branch that fullfil that array.
 		// Array will be walked from start to bottom and the expectation is that its in the correct order
@@ -44,11 +44,11 @@ define('Categories', function ()
 		{
 			var branch = []
 			,	slice = {categories: this.tree};
-			
+
 			for (var i = 0; i < array.length; i++)
 			{
 				var current_token = array[i];
-				
+
 				if (slice.categories && slice.categories[current_token])
 				{
 					branch.push(slice.categories[current_token]);
@@ -59,16 +59,16 @@ define('Categories', function ()
 					break;
 				}
 			}
-			
+
 			return branch;
 		}
-		
+
 		// Categories.getTopLevelCategoriesUrlComponent
 		// returns the id of the top level categories
 	,	getTopLevelCategoriesUrlComponent: function ()
 		{
 			return _.pluck(_.values(this.tree), 'urlcomponent');
-		}	
+		}
 
 	,	makeNavigationTab: function (categories, memo)
 		{
@@ -82,7 +82,7 @@ define('Categories', function ()
 				,	tab = {
 						href: '/' + href
 					,	text: category.itemid
-					,	data: 
+					,	data:
 						{
 							hashtag: '#' + href
 						,	touchpoint: 'home'

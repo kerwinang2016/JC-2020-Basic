@@ -29,9 +29,9 @@ define('FitProFile.Router',  ['FitProFile.Views', 'FitProfile.Model', 'FormRende
 				application: application
 			,	model: new Model(application.getUser().get("internalid"))
 			});
-			view.model.on("afterInitialize", function(){
+			// view.model.on("afterInitialize", function(){
 				view.showContent();
-			})
+			// })
 		}
 	,	renderForm: function(id){
 			var application = this.application;

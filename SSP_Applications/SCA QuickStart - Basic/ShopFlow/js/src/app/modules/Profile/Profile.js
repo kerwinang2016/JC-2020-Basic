@@ -137,11 +137,23 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 			});
 
 		}
-	,	displayDesignOptions : function(view, userOptions){
+	,	displayDesignOptions : function(view, userOptions, customerliningurl){
 			var options_config = userOptions.options_config
 			, 	favouriteOptions = userOptions.favouriteOptions
 			, 	designRestrictions = userOptions.designRestrictions
 			, 	designOptions = new Object();
+			var tag = [];
+			tag['Jacket'] = 'j';
+			tag['Trouser'] = 't';
+			tag['Overcoat'] = 'o';
+			tag['Waistcoat'] = 'w';
+			tag['Shirt'] = 's';
+			tag['Short-Sleeves-Shirt'] = 'ss';
+			tag['Trenchcoat'] = 'tc';
+			tag['Shorts'] = 'sh';
+			tag['Ladies-Jacket'] = 'lj';
+			tag['Ladies-Pants'] = 'lp';
+			tag['Ladies-Skirt'] = 'ls';
 			var currentItemTypes;
 
 			var stCartLines = JSON.stringify(userOptions.shoppingCartLines) || '[]';
@@ -186,8 +198,14 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 								restrictions = currentRestriction[0].value.trim().split(",");
 							}
 
-							var currentFavouriteOption = favouriteOptions ? favouriteOptions[field.name] : "";
-
+							var currentFavouriteOption = "";
+							if(favouriteOptions){
+								 if(favouriteOptions[tag[clothingType.item_type]+'_'+field.name]){
+									 currentFavouriteOption = favouriteOptions[tag[clothingType.item_type]+'_'+field.name];
+								 }else if(favouriteOptions[field.name]){
+									 currentFavouriteOption = favouriteOptions[field.name];
+								 }
+							 }
 							// set restrictions
 							for(var i = 0; i < field.values.length; i++){
 								var currentFieldValue = field.values[i];
@@ -264,7 +282,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 
 			});
 
-			jQuery('#clothing-details').html(SC.macros.itemDetailsDesignOptions(designOptions, itemCheck));
+			jQuery('#clothing-details').html(SC.macros.itemDetailsDesignOptions(designOptions, itemCheck, customerliningurl));
 		}
 	};
 
@@ -287,7 +305,11 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 				,	recentlyViewedItems: new FacetsModel().set('items',[])
 				,	numberOfItemsDisplayed: application.getConfig('recentlyViewedItems.numberOfItemsDisplayed')
 				});
-
+				var self = this;
+				jQuery.get(_.getAbsoluteUrl('services/UstyylitApplications.Service.ss')).done(function(data){
+					self.customerliningurl = JSON.parse(data[0]).url;
+					self.stylecarturl = JSON.parse(data[1]).url;
+				});
 				application.getLayout().on('afterAppendView', function (view)
 				{
 					if (view.$('[data-type="recently-viewed-placeholder"]').length)
@@ -298,7 +320,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 					if(!_.isEmpty(window.tempOptions) && application.getLayout().currentView.template == "product_details" && !view.inModal){
 						designOptionMessage = window.tempOptionsNotes ? window.tempOptionsNotes : "";
 						application.getUser().setUserOptionConfig(function(userOptions){
-							application.getUser().displayDesignOptions(view, userOptions);
+							application.getUser().displayDesignOptions(view, userOptions, self.customerliningurl);
 							jQuery("#designoption-message").val(designOptionMessage);
 							view.showHideGroupedOptions();
 						}, window.tempOptions);
@@ -416,7 +438,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 
 									}
 									application.getUser().setUserOptionConfig(function(userOptions){
-										application.getUser().displayDesignOptions(view, userOptions);
+										application.getUser().displayDesignOptions(view, userOptions, self.customerliningurl);
 										jQuery("#designoption-message").val(designOptionMessage);
 										view.showHideGroupedOptions();
 									}, values);
@@ -454,7 +476,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 									});
 								}
 								application.getUser().setUserOptionConfig(function(userOptions){
-									application.getUser().displayDesignOptions(view, userOptions);
+									application.getUser().displayDesignOptions(view, userOptions, self.customerliningurl);
 									jQuery("#designoption-message").val(designOptionMessage);
 									view.showHideGroupedOptions();
 								}, values);
@@ -495,7 +517,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 											});
 										}
 										application.getUser().setUserOptionConfig(function(userOptions){
-											application.getUser().displayDesignOptions(view, userOptions);
+											application.getUser().displayDesignOptions(view, userOptions, self.customerliningurl);
 											jQuery("#designoption-message").val(designOptionMessage);
 											view.showHideGroupedOptions();
 										}, values);
@@ -505,7 +527,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 
 						} else {
 							application.getUser().setUserOptionConfig(function(userOptions){
-								application.getUser().displayDesignOptions(view, userOptions);
+								application.getUser().displayDesignOptions(view, userOptions, self.customerliningurl);
 								view.showHideGroupedOptions();
 							}, values);
 

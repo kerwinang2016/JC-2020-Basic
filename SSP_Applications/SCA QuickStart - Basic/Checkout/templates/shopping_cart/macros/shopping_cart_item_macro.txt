@@ -1,11 +1,4 @@
-<!--
-Change History   
--------------- 
-Date: 14-03-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-34
-Change Description: Price in the items matches the total in The order summary
--->
+
 <% registerMacro('shoppingCartItem', function(line, view, options) { %>
 <%
 var item = line.get('item');
@@ -25,7 +18,24 @@ var application = view.options.application;
 
 var stock_info = item.getStockInfo();
 
-var clientDetails = _.findWhere(view.clients,{ internalid: item.itemOptions.custcol_tailor_client.internalid});
+//var clientDetails = _.findWhere(view.clients,{ internalid: item.itemOptions.custcol_tailor_client.internalid});
+var clientName = "";
+var clientid = item.itemOptions.custcol_tailor_client;
+if(clientid){
+	var param = new Object();
+	param.type = "get_client";
+	param.data = JSON.stringify({filters: ["internalid||anyof|list|" + clientid.internalid], columns: ["internalid", "custrecord_tc_first_name", "custrecord_tc_last_name", "custrecord_tc_email", "custrecord_tc_addr1", "custrecord_tc_addr2", "custrecord_tc_country", "custrecord_tc_city", "custrecord_tc_state", "custrecord_tc_zip", "custrecord_tc_phone"]});
+	jQuery.ajax({
+		url:_.getAbsoluteUrl('services/fitprofile.ss'),
+		async:false,
+		data:param,
+		success: function (result) {
+			var resultname = result[0].custrecord_tc_first_name + " " + result[0].custrecord_tc_last_name;
+
+			clientName = resultname;
+		}
+	});
+}
 
 if (url && SC.ENVIRONMENT.siteType === 'ADVANCED')
 {
@@ -98,7 +108,7 @@ if(line.get("options")){
 								<br/><%= _('Product Type: $(0)').translate(producttype.value)%>
 							<% } %>
 					<br>
-					<%= clientDetails.custrecord_tc_first_name+" "+clientDetails.custrecord_tc_last_name %>
+					<%= clientName %>
 				</div>
 			</div>
 

@@ -13,11 +13,12 @@
 					,	"texts": [
 							"Half canvas"
 						,	"Full canvas"
-						,	"Handmade"
+						,	"Handmade (with full canvas)"
 						,	"Unconstructed"
 						,	"Unconstructed handmade"
 						,	"Semi Traditional"
 						,	"Half canvas handmade"
+                                                ,       "Soft Jacket"
 						]
 					,	"values": [
 							"Half canvas"
@@ -27,6 +28,7 @@
 						,	"Unconstructed handmade"
 						,	"Semi Traditional"
 						,	"Half canvas handmade"
+                                                ,       "Soft Jacket"
 						]
 					}
 				,	{
@@ -148,6 +150,19 @@
 					,	"values": [
 							"T01020501"
 						,	"T01020502"
+						]
+					}
+				,	{
+						"label":"Formal Lapel Edge Piping"
+					,	"name":"T010263"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"Yes"
+						]
+					,	"values": [
+							"T01026301"
+						,	"T01026302"
 						]
 					}
 				,	{
@@ -323,6 +338,7 @@
 					,	"type":"select"
 					,	"texts": [
 							"Normal"
+						,	"NA"
 						,	"MB 01"
 						,	"MB 02"
 						,	"MB 03"
@@ -331,10 +347,23 @@
 						,	"MB 06"
 						,	"MB 07"
 						,	"MB 01 Long"
-						,	"NA"
+						,	"MB 08"
+						,	"MB 09"
+						,	"MB 10"
+						,	"MB 11"
+						,	"MB 12"
+						,	"MB 13"
+						,	"MB 14"
+						,	"MB 15"
+						,	"MB 16"
+						,	"MB 17"
+						,	"MB 18"
+						,	"MB 19"
+						,	"MB 20"
 						]
 					,	"values": [
 							"T01025101"
+						,	"T01025109"
 						,	"T01025102"
 						,	"T01025103"
 						,	"T01025104"
@@ -343,7 +372,19 @@
 						,	"T01025107"
                       	,	"T01025108"
                       	,	"T01025110"
-						,	"T01025109"
+                      	,	"T01025111"
+						,	"T01025112"
+						,	"T01025113"
+						,	"T01025114"
+						,	"T01025115"
+						,	"T01025116"
+						,	"T01025117"
+						,	"T01025118"
+						,	"T01025119"
+						,	"T01025120"
+						,	"T01025121"
+						,	"T01025122"
+						,	"T01025123"
 						]
 					}
 				,	{
@@ -442,6 +483,7 @@
 						,	"Patch with flap and pleat"
 						,	"Jet straight"
 						,	"Jet slanted"
+						,	"Bellowed patch with pointed flap and button"
 						,	""
 						]
 					,	"values": [
@@ -453,6 +495,7 @@
 						,	"T01021106"
 						,	"T01021107"
 						,	"T01021108"
+						,	"T01021109"
 						,	""
 						]
 					}
@@ -487,6 +530,7 @@
 						,	"Patch"
 						,	"Patch round"
 						,	"Patch with flap and pleat"
+						,	"Bellowed patch with pointed flap and button"
 						]
 					,	"values": [
 							"T01021001"
@@ -496,6 +540,7 @@
 						,	"T01021004"
 						,	"T01021006"
 						,	"T01021007"
+						,	"T01021009"
 						]
 					}
 				,	{
@@ -540,6 +585,21 @@
 						,	"T01021405"
 						]
 					}
+				,	{
+						"label":"Utility Pocket"
+					,	"name":"T010267"
+					,	"type":"select"
+					,	"texts": [
+							"Left"
+						,	"Left and Right"
+						,	"No"
+						]
+					,	"values": [
+							"T01026701"
+						,	"T01026702"
+						,	"T01026703"
+						]
+					}
 				]
 			}
 		,	{
@@ -551,7 +611,8 @@
 					,	"name":"T010207"
 					,	"type":"select"
 					,	"texts": [
-							"T3 Plain White"
+							"Self Fabric Buttons"
+						,	"T3 Plain White"
 						,	"T4 Clay"
 						,	"T6 Brown"
 						,	"T7 Light Grey"
@@ -635,6 +696,7 @@
 						,	"T111"
 						,	"T112"
 						,	"T113"
+						,	"T114"
 						,	"T115"
 						,	"T116"
 						,	"T117"
@@ -692,7 +754,8 @@
 						,	""
 						]
 					,	"values": [
-							"T3"
+							"Self Fabric Buttons"
+						,	"T3"
 						,	"T4"
 						,	"T6"
 						,	"T7"
@@ -776,6 +839,7 @@
 						,	"T111"
 						,	"T112"
 						,	"T113"
+						,	"T114"
 						,	"T115"
 						,	"T116"
 						,	"T117"
@@ -1147,7 +1211,6 @@
 						,	"TRR609"
 						,	"TRR610"
 						,	"TRR611"
-						,	"NA"
 						,	"CMT Lining"
 						,	"--WOMENS LINING--"
 						,	"TR636"
@@ -1557,7 +1620,6 @@
 						,	"TRR609"
 						,	"TRR610"
 						,	"TRR611"
-						,	"NA"
 						,	"CMT Lining"
 						,	"WOMENS LINING"
 						,	"TR636"
@@ -1664,6 +1726,7 @@
 					,	"type":"select"
 					,	"texts": [
 							"Please select",
+							"Custom Lining",
 							"Ariston",
 							"Bateman Ogden",
 							"Carnet",
@@ -1684,6 +1747,7 @@
 						]
 					,	"values": [
 							"Please select",
+							"Custom Lining",
 							"Ariston",
 							"Bateman Ogden",
 							"Carnet",
@@ -1904,6 +1968,58 @@
 						]
 					}
 				,	{
+						"label":"Front and Collar Piping"
+					,	"name":"T010264"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"Yes"
+						]
+					,	"values": [
+							"T01026401"
+						,	"T01026402"
+						]
+					}
+				,	{
+						"label":"Front and Collar Piping Color"
+					,	"name":"T010265"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"SR11 off white"
+						,	"SR12 beige"
+						,	"SR13 brown"
+						,	"SR14 yellow"
+						,	"SR15 light pink"
+						,	"SR16 pink"
+						,	"SR17 red"
+						,	"SR18 dark red"
+						,	"SR19 bright blue"
+						,	"SR20 light blue"
+						,	"SR21 blue"
+						,	"SR22 dark blue"
+						,	"SR23 light grey"
+						,	"SR24 black"
+						]
+					,	"values": [
+							"No"
+						,	"SR11"
+						,	"SR12"
+						,	"SR13"
+						,	"SR14"
+						,	"SR15"
+						,	"SR16"
+						,	"SR17"
+						,	"SR18"
+						,	"SR19"
+						,	"SR20"
+						,	"SR21"
+						,	"SR22"
+						,	"SR23"
+						,	"SR24"
+						]
+					}
+				,	{
 						"label":"Lining Placement"
 					,	"name":"T010224"
 					,	"type":"select"
@@ -1920,6 +2036,74 @@
 						,	"T01022403"
 						,	"T01022402"
 						,	"T01022405"
+						]
+					}
+				,	{
+						"label":"Lining Edge Piping Treatment"
+					,	"name":"T010268"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"Yes"
+						]
+					,	"values": [
+							"T01026801"
+						,	"T01026802"
+						]
+					}
+				,	{
+						"label":"Piping Treatment Color"
+					,	"name":"T010269"
+					,	"type":"select"
+					,	"texts": [
+							"NA"
+						,	"TR133 white twill"
+						,	"TR135 gold twill"
+						,	"TR137 sky blue"
+						,	"TR138 cobalt blue"
+						,	"TR139 dark blue"
+						,	"TR140 Orange"
+						,	"TR142 dark red"
+						,	"TR144 purple"
+						,	"TR146 wine red"
+						,	"TR148 silver"
+						,	"TR149 dark grey"
+						,	"TR150 black"
+						,	"TR151 red"
+						,	"TR648"
+						,	"TR649 brown"
+						,	"TR650 taupe"
+						,	"TR651 teal"
+						,	"TR652 green"
+						,	"TR653 marine blue"
+						,	"TR654 royal blue"
+						,	"TR655 navy"
+						,	"TR656 olive"
+						]
+					,	"values": [
+							"T01026923"
+						,	"T01026901"
+						,	"T01026902"
+						,	"T01026903"
+						,	"T01026904"
+						,	"T01026905"
+						,	"T01026906"
+						,	"T01026907"
+						,	"T01026908"
+						,	"T01026909"
+						,	"T01026910"
+						,	"T01026911"
+						,	"T01026912"
+						,	"T01026913"
+						,	"T01026914"
+						,	"T01026915"
+						,	"T01026916"
+						,	"T01026917"
+						,	"T01026918"
+						,	"T01026919"
+						,	"T01026920"
+						,	"T01026921"
+						,	"T01026922"
 						]
 					}
 				,	{
@@ -2667,6 +2851,74 @@
 						,	"T01022301"
 						,	"T01022303"
 						]
+						}
+				,	{
+						"label":"Exposed Seam Piping with Lining"
+					,	"name":"T010270"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"Yes"
+						]
+					,	"values": [
+							"T01027001"
+						,	"T01027002"
+						]
+					}
+				,	{
+						"label":"Exposed Seam Piping Color"
+					,	"name":"T010271"
+					,	"type":"select"
+					,	"texts": [
+							"NA"
+						,	"TR133 white twill"
+						,	"TR135 gold twill"
+						,	"TR137 sky blue"
+						,	"TR138 cobalt blue"
+						,	"TR139 dark blue"
+						,	"TR140 Orange"
+						,	"TR142 dark red"
+						,	"TR144 purple"
+						,	"TR146 wine red"
+						,	"TR148 silver"
+						,	"TR149 dark grey"
+						,	"TR150 black"
+						,	"TR151 red"
+						,	"TR648"
+						,	"TR649 brown"
+						,	"TR650 taupe"
+						,	"TR651 teal"
+						,	"TR652 green"
+						,	"TR653 marine blue"
+						,	"TR654 royal blue"
+						,	"TR655 navy"
+						,	"TR656 olive"
+						]
+					,	"values": [
+							"T01027123"
+						,	"T01027101"
+						,	"T01027102"
+						,	"T01027103"
+						,	"T01027104"
+						,	"T01027105"
+						,	"T01027106"
+						,	"T01027107"
+						,	"T01027108"
+						,	"T01027109"
+						,	"T01027110"
+						,	"T01027111"
+						,	"T01027112"
+						,	"T01027113"
+						,	"T01027114"
+						,	"T01027115"
+						,	"T01027116"
+						,	"T01027117"
+						,	"T01027118"
+						,	"T01027119"
+						,	"T01027120"
+						,	"T01027121"
+						,	"T01027122"
+						]
 					}
 				,	{
 						"label":"Interior Pick Stitch Color"
@@ -2752,10 +3004,25 @@
 					,	"texts": [
 							"Standard"
 						,	"Same as body lining"
+						,	"Grey with black pin stripes"
 						]
 					,	"values": [
 							"T01022501"
 						,	"T01022502"
+						,	"T01022503"
+						]
+						}
+				,	{
+						"label":"HM Buttonholes excl. lapel"
+					,	"name":"T010262"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"Yes"
+						]
+					,	"values": [
+							"T01026201"
+						,	"T01026202"
 						]
 					}
 				,	{
@@ -3164,6 +3431,19 @@
 						,	"Suede.T30"
 						,	"Suede.T31"
 						,	"Fabric"
+						]
+					}
+				,	{
+						"label":"Shoulder Epaulettes"
+					,	"name":"T010266"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"Yes"
+						]
+					,	"values": [
+							"T01026601"
+						,	"T01026602"
 						]
 					}
 				]
@@ -3618,6 +3898,7 @@
 						,	"Casual with 2.5cm/1cm hem"
 						,	"Cuffs 3.5cm/1.4in"
 						,	"Slanted hem with no heel tape"
+						,	"Slanted hem with heel tape"
 						]
 					,	"values": [
 							"T01051701"
@@ -3631,6 +3912,7 @@
                         ,	"T01051708"
 						,	"T01051710"
 						,	"T01051711"
+						,	"T01051712"
 						]
 					}
 				]
@@ -3733,6 +4015,8 @@
                         ,   "4.5cm wide 2 btn long ext (self fabric)"
                         ,   "4.5cm wide 2 btn long ext with buckle and strap"
                         ,   "3.5cm wide 1 btn long ext with buckle and strap"
+                        ,	"Double belt loops"
+                        ,	"Draw string"
 						]
 					,	"values": [
 							"T01050901"
@@ -3745,6 +4029,46 @@
                         ,   "T01050909"
                         ,   "T01050910"
                         ,   "T01050911"
+                        ,	"T01050912"
+                        ,	"T01050913"
+						]
+					}
+				,	{
+						"label":"Buckle Style"
+					,	"name":"T010539"
+					,	"type":"select"
+					,	"texts": [
+							"NA"
+						,	"BU1 standard square"
+						,	"BU2 bronze hexagon"
+						,	"BU3 silver hexagon"
+						,	"BU4 gunmetal hexagon"
+						]
+					,	"values": [
+							"T01053901"
+						,	"T01053902"
+						,	"T01053903"
+						,	"T01053904"
+						,	"T01053905"
+						]
+					}
+				,	{
+						"label":"Draw String Color"
+					,	"name":"T010538"
+					,	"type":"select"
+					,	"texts": [
+							"NA"
+						,	"SR25 White"
+						,	"SR26 Grey"
+						,	"SR27 Dark blue"
+						,	"SR28 Black"
+						]
+					,	"values": [
+							"NA"
+						,	"SR25"
+						,	"SR26"
+						,	"SR27"
+						,	"SR28"
 						]
 					}
 				,	{
@@ -3903,6 +4227,7 @@
 						,	"Jetted off seam"
 						,	"Western"
 						,	"Jean pocket"
+						,	"Welted off seam"
 						]
 					,	"values": [
 							"T01051001"
@@ -3911,6 +4236,7 @@
 						,	"T01051003"
 						,	"T01051004"
 						,	"T01051006"
+						,	"T01051007"
 						]
 					}
 				,	{
@@ -3989,7 +4315,8 @@
 					,	"name":"T010505"
 					,	"type":"select"
 					,	"texts": [
-							"T3 Plain White"
+							"Self Fabric Buttons"
+						,	"T3 Plain White"
 						,	"T4 Clay"
 						,	"T6 Brown"
 						,	"T7 Light Grey"
@@ -4073,6 +4400,7 @@
 						,	"T111"
 						,	"T112"
 						,	"T113"
+						,	"T114"
 						,	"T115"
 						,	"T116"
 						,	"T117"
@@ -4129,7 +4457,8 @@
 						,	""
 						]
 					,	"values": [
-							"T3"
+							"Self Fabric Buttons"
+						,	"T3"
 						,	"T4"
 						,	"T6"
 						,	"T7"
@@ -4213,6 +4542,7 @@
 						,	"T111"
 						,	"T112"
 						,	"T113"
+						,	"T114"
 						,	"T115"
 						,	"T116"
 						,	"T117"
@@ -4443,6 +4773,19 @@
 						]
 					}
 				,	{
+						"label":"Handmade Exterior Buttonholes"
+					,	"name":"T010536"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"Yes"
+						]
+					,	"values": [
+							"T01053601"
+						,	"T01053602"
+						]
+					}
+				,	{
 						"label":"Lining Placement"
 					,	"name":"T010515"
 					,	"type":"select"
@@ -4481,16 +4824,35 @@
 						]
 					}
 				,	{
+						"label":"Internal Contrast Waistband"
+					,	"name":"T010537"
+					,	"type":"select"
+					,	"texts": [
+							"Standard"
+						,	"TRP05 blue plaid"
+						,	"TRP06 red and blue plaid"
+						,	"NA"
+						]
+					,	"values": [
+							"T01053701"
+						,	"T01053702"
+						,	"T01053703"
+						,	"T01053704"
+						]
+					}
+				,	{
 						"label":"Crotch Piece"
 					,	"name":"T010521"
 					,	"type":"select"
 					,	"texts": [
 							"Standard"
 						,	"Enlarged"
+						,	"No"
 						]
 					,	"values": [
 							"T01052101"
 						,	"T01052102"
+						,	"T01052103"
 						]
 					}
 				,	{
@@ -4756,16 +5118,22 @@
 							"4 button"
 						,	"5 button"
 						,	"6 button"
-						,	"DB 8 button"
 						,   "5 + 1 button"
+						,	"DB 4 button with pointed bottom"
+						,	"DB 6 button with straight bottom"
+						,	"DB 6 button with pointed bottom"
+						,	"DB 8 button"
 						,	""
 						]
 					,	"values": [
 							"T01170101"
 						,	"T01170102"
 						,	"T01170103"
-						,	"T01170104"
 						,	"T01170105"
+						,	"T01170110"
+						,	"T01170108"
+						,	"T01170109"
+						,	"T01170104"
 						,	""
 						]
 					}
@@ -4788,6 +5156,25 @@
 						,	"T01170501"
 						,	"T01170505"
 						,	"T01170504"
+						]
+					}
+				,	{
+						"label":"Buckle Style"
+					,	"name":"T011721"
+					,	"type":"select"
+					,	"texts": [
+							"NA"
+						,	"BU1 standard square"
+						,	"BU2 bronze hexagon"
+						,	"BU3 silver hexagon"
+						,	"BU4 gunmetal hexagon"
+						]
+					,	"values": [
+							"T01172101"
+						,	"T01172102"
+						,	"T01172103"
+						,	"T01172104"
+						,	"T01172105"
 						]
 					}
 				,	{
@@ -4975,7 +5362,8 @@
 					,	"name":"T011706"
 					,	"type":"select"
 					,	"texts": [
-							"T3 Plain White"
+							"Self Fabric Buttons"
+						,	"T3 Plain White"
 						,	"T4 Clay"
 						,	"T6 Brown"
 						,	"T7 Light Grey"
@@ -5059,6 +5447,7 @@
 						,	"T111"
 						,	"T112"
 						,	"T113"
+						,	"T114"
 						,	"T115"
 						,	"T116"
 						,	"T117"
@@ -5115,7 +5504,8 @@
 						,	""
 						]
 					,	"values": [
-							"T3"
+							"Self Fabric Buttons"
+						,	"T3"
 						,	"T4"
 						,	"T6"
 						,	"T7"
@@ -5199,6 +5589,7 @@
 						,	"T111"
 						,	"T112"
 						,	"T113"
+						,	"T114"
 						,	"T115"
 						,	"T116"
 						,	"T117"
@@ -6086,6 +6477,7 @@
 					,	"type":"select"
 					,	"texts": [
 							"Please select",
+							"Custom Lining",
 							"Ariston",
 							"Bateman Ogden",
 							"Carnet",
@@ -6107,6 +6499,7 @@
 						]
 					,	"values": [
 							"Please select",
+							"Custom Lining",
 							"Ariston",
 							"Bateman Ogden",
 							"Carnet",
@@ -6220,6 +6613,19 @@
 						,	"C31"
 						,	"C32"
 						,	"No"
+						]
+					}
+				,	{
+						"label":"Handmade Exterior Buttonholes"
+					,	"name":"T011720"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"Yes"
+						]
+					,	"values": [
+							"T01172001"
+						,	"T01172002"
 						]
 					}
 				,	{
@@ -7013,7 +7419,6 @@
 						,	"TR148-Q grey quilted"
 						,	"TR149-Q d.grey quilted"
 						,	"TR151-Q red quilted"
-						,	"NA"
 						,	"CMT Lining"
 						,	"--WOMENS LINING--"
 						,	"TR636"
@@ -7433,7 +7838,6 @@
 						,	"TR148-Q"
 						,	"TR149-Q"
 						,	"TR151-Q"
-						,	"NA"
 						,	"CMT Lining"
 						,	"WOMENS LINING"
 						,	"TR636"
@@ -8888,6 +9292,38 @@
 						,	"T01060501"
 						,	"T01060503"
                       	,	"NA"
+                      	]
+					}
+				,	{
+						"label":"Sleeve Pleats"
+					,	"name":"T010650"
+					,	"type":"select"
+					,	"texts": [
+							"2 pleats"
+						,	"3 pleats"
+						]
+					,	"values": [
+							"T01065001"
+						,	"T01065002"
+                      	]
+					}
+				,	{
+						"label":"Bottom"
+					,	"name":"T010652"
+					,	"type":"select"
+					,	"texts": [
+							"Normal (curved)"
+						,	"Large rounded bottom with PS"
+						,	"Square bottom with no vents"
+						,	"Square bottom with 5cm vents"
+						,	"Square bottom with 9cm vents"
+						]
+					,	"values": [
+							"T01065201"
+						,	"T01065202"
+						,	"T01065203"
+						,	"T01065204"
+						,	"T01065205"
 						]
 					}
 				]
@@ -8922,6 +9358,7 @@
 						,	"Button down (BD)"
 						,	"Button down small (BDS)"
 						,	"Button down high (BDH)"
+						,	"Button down high II (BDH2)"
 						,	"Hidden button down (HBD)"
 						,	"Hidden button down high (HBDH)"
 						,	"2 hidden button down (2HBD)"
@@ -8933,6 +9370,8 @@
 						,	"Mao standard 4cm/1.6in (MAO4CM)"
 						,	"Mao high 4.4cm/1.7in (MAO4.4CM)"
 						,	"Wing tip (SMO)"
+						,	"Medium spread with round edges"
+						,	"Eyelet pinned"
                       	,	"Please select"
 						]
 					,	"values": [
@@ -8957,6 +9396,7 @@
 						,	"T01060319"
 						,	"T01060320"
 						,	"T01060321"
+						,	"T01060333"
 						,	"T01060322"
 						,	"T01060323"
 						,	"T01060324"
@@ -8968,6 +9408,8 @@
 						,	"T01060330"
 						,	"T01060331"
 						,	"T01060332"
+						,	"T01060334"
+						,	"T01060335"
                       	,	"Please select"
 						]
 					}
@@ -9000,6 +9442,7 @@
 						,	"Contrast single 2btn-all"
 						,	"Contrast single 2btn-half"
 						,	"Contrast single 3btn-all"
+						,	"Single 1 btn link fastening (handmade)"
                       	,	"Please select"
 						]
 					,	"values": [
@@ -9027,6 +9470,7 @@
 						,	"T01060423"
 						,	"T01060424"
 						,	"T01060425"
+						,	"T01060426"
                       	,	"Please select"
 						]
 					}
@@ -9053,12 +9497,14 @@
 							"Standard"
 						,	"Soft"
 						,	"Hard"
+						, 	"Pop-over fusing"
 						,	"No"
 						]
 					,	"values": [
 							"T01060603"
 						,	"T01060602"
 						,	"T01060604"
+						,	"T01060605"
 						,	"T01060601"
 						]
 					}
@@ -9083,6 +9529,17 @@
 						,	"Contrast right side 3.5cm"
 						,	"Contrast both sides 2.5cm"
 						,	"Contrast right side 2.5cm"
+						,	"Formal front with classic placket and 4 studs"
+						,	"Formal fly front"
+						,	"Classic placket with studs"
+						,	"Narrow placket with studs"
+						,	"Classic placket with 4 studs"
+						,	"Narrow placket with 4 studs"
+						,	"Pop over 3B pointed"
+						,	"Pop over 2B pointed"
+						,	"Pop over 1B pointed"
+						,	"Pop over 1B square"
+						,	"Pop over 2B square"
 						]
 					,	"values": [
 							"T01060702"
@@ -9095,6 +9552,17 @@
 						,	"T01060710"
 						,	"T01060711"
 						,	"T01060712"
+						,	"T01060713"
+						,	"T01060714"
+						,	"T01060715"
+						,	"T01060716"
+						,	"T01060717"
+						,	"T01060718"
+						,	"T01060719"
+						,	"T01060720"
+						,	"T01060721"
+						,	"T01060722"
+						,	"T01060723"
 						]
 					}
 				,	{
@@ -9172,6 +9640,7 @@
 					,	"texts": [
 							"1 with a fold"
 						,	"1 without a fold"
+						,	"1 without a fold (S)"
 						,	"2 without a fold"
 						,	"2 with a fold"
 						,	"2 pockets with flap"
@@ -9180,6 +9649,7 @@
 					,	"values": [
 							"T01061201"
 						,	"T01061202"
+						,	"T01061207"
 						,	"T01061203"
 						,	"T01061204"
 						,	"T01061205"
@@ -9338,6 +9808,21 @@
 					,	"values": [
 							"T01061501"
 						,	"T01061502"
+						]
+					}
+				,	{
+						"label":"Formal Pleats Length"
+					,	"name":"T010651"
+					,	"type":"select"
+					,	"texts": [
+							"NA"
+						,	"Standard"
+						,	"10cm up from bottom"
+						]
+					,	"values": [
+							"T01065101"
+						,	"T01065102"
+						,	"T01065103"
 						]
 					}
 				,	{
@@ -11924,6 +12409,9 @@
 						,	"NA"
 						,	"L cuff under 5cm/2in indent"
 						,	"R cuff under 5cm/2in indent"
+						,	"L cuff under btnhole 8cm/3in indent"
+						,	"R cuff under btnhole 8cm/3in indent"
+						,	"Left collar leaf"
 						]
 					,	"values": [
 							"T01063701"
@@ -11940,6 +12428,9 @@
 						,	"NA"
 						,	"T01063712"
 						,	"T01063713"
+						,	"T01063714"
+						,	"T01063715"
+						,	"T01063716"
 						]
 					}
 				,	{
@@ -12169,6 +12660,25 @@
 						,	"T01060205"
 						]
 					}
+				,	{
+						"label":"Bottom"
+					,	"name":"T010652"
+					,	"type":"select"
+					,	"texts": [
+							"Normal (curved)"
+						,	"Large rounded bottom with PS"
+						,	"Square bottom with no vents"
+						,	"Square bottom with 5cm vents"
+						,	"Square bottom with 9cm vents"
+						]
+					,	"values": [
+							"T01065201"
+						,	"T01065202"
+						,	"T01065203"
+						,	"T01065204"
+						,	"T01065205"
+						]
+					}
 				]
 			}
 		,	{
@@ -12202,6 +12712,7 @@
 						,	"Button down (BD)"
 						,	"Button down small (BDS)"
 						,	"Button down high (BDH)"
+						,	"Button down high II (BDH2)"
 						,	"Hidden button down (HBD)"
 						,	"Hidden button down high (HBDH)"
 						,	"2 hidden button down (2HBD)"
@@ -12213,6 +12724,8 @@
 						,	"Mao standard 4cm/1.6in (MAO4CM)"
 						,	"Mao high 4.4cm/1.7in (MAO4.4CM)"
 						,	"Wing tip (SMO)"
+						,	"Medium spread with round edges"
+						,	"Eyelet pinned"
 						]
 					,	"values": [
 							"Please select"
@@ -12237,6 +12750,7 @@
 						,	"T01060319"
 						,	"T01060320"
 						,	"T01060321"
+						,	"T01060333"
 						,	"T01060322"
 						,	"T01060323"
 						,	"T01060324"
@@ -12248,6 +12762,8 @@
 						,	"T01060330"
 						,	"T01060331"
 						,	"T01060332"
+						,	"T01060334"
+						,	"T01060335"
 						]
 					}
 				,	{
@@ -12314,6 +12830,17 @@
 						,	"Contrast right side 3.5cm"
 						,	"Contrast both sides 2.5cm"
 						,	"Contrast right side 2.5cm"
+						,	"Formal front with classic placket and 4 studs"
+						,	"Formal fly front"
+						,	"Classic placket with studs"
+						,	"Narrow placket with studs"
+						,	"Classic placket with 4 studs"
+						,	"Narrow placket with 4 studs"
+						,	"Pop over 3B pointed"
+						,	"Pop over 2B pointed"
+						,	"Pop over 1B pointed"
+						,	"Pop over 1B square"
+						,	"Pop over 2B square"
 						]
 					,	"values": [
 							"T01060703"
@@ -12326,6 +12853,17 @@
 						,	"T01060710"
 						,	"T01060711"
 						,	"T01060712"
+						,	"T01060713"
+						,	"T01060714"
+						,	"T01060715"
+						,	"T01060716"
+						,	"T01060717"
+						,	"T01060718"
+						,	"T01060719"
+						,	"T01060720"
+						,	"T01060721"
+						,	"T01060722"
+						,	"T01060723"
 						]
 					}
 				,	{
@@ -12404,6 +12942,7 @@
 							"No"
 						,	"1 with a fold"
 						,	"1 without a fold"
+						,	"1 without a fold (S)"
 						,	"2 without a fold"
 						,	"2 with a fold"
 						,	"2 pockets with flap"
@@ -12412,6 +12951,7 @@
 							"T01061206"
 						,	"T01061201"
 						,	"T01061202"
+						,	"T01061207"
 						,	"T01061203"
 						,	"T01061204"
 						,	"T01061205"
@@ -12558,6 +13098,21 @@
 					,	"values": [
 							"T01061401"
 						,	"T01061402"
+						]
+					}
+				,	{
+						"label":"Formal Pleats Length"
+					,	"name":"T010651"
+					,	"type":"select"
+					,	"texts": [
+							"NA"
+						,	"Standard"
+						,	"10cm up from bottom"
+						]
+					,	"values": [
+							"T01065101"
+						,	"T01065102"
+						,	"T01065103"
 						]
 					}
 				,	{
@@ -14313,6 +14868,7 @@
 						,	"Body 45cm/17.7in down"
 						,	"Body 5cm/2in up"
 						,	"Chest pocket"
+						,	"Left collar leaf"
 						]
 					,	"values": [
 							"NA"
@@ -14323,6 +14879,7 @@
 						,	"T01063705"
 						,	"T01063706"
 						,	"T01063707"
+						,	"T01063716"
 						]
 					}
 				,	{
@@ -16511,6 +17068,7 @@
 						,	"T111"
 						,	"T112"
 						,	"T113"
+						,	"T114"
 						,	"T115"
 						,	"T116"
 						,	"T117"
@@ -16651,6 +17209,7 @@
 						,	"T111"
 						,	"T112"
 						,	"T113"
+						,	"T114"
 						,	"T115"
 						,	"T116"
 						,	"T117"
@@ -16968,9 +17527,11 @@
 					,	"type":"select"
 					,	"texts": [
 							"Unconstructed"
+						,	"Traditional"
 						]
 					,	"values": [
 							"Unconstructed"
+						,	"Traditional"
 						]
 					}
 				,	{
@@ -17407,6 +17968,7 @@
 					,	"type":"select"
 					,	"texts": [
 							"Please select"
+						,	"Self Fabric Buttons"
 						,	"T3 Plain White"
 						,	"T4 Clay"
 						,	"T6 Brown"
@@ -17491,6 +18053,7 @@
 						,	"T111"
 						,	"T112"
 						,	"T113"
+						,	"T114"
 						,	"T115"
 						,	"T116"
 						,	"T117"
@@ -17547,6 +18110,7 @@
 						]
 					,	"values": [
 							"Please select"
+						,	"Self Fabric Buttons"
 						,	"T3"
 						,	"T4"
 						,	"T6"
@@ -17631,6 +18195,7 @@
 						,	"T111"
 						,	"T112"
 						,	"T113"
+						,	"T114"
 						,	"T115"
 						,	"T116"
 						,	"T117"
@@ -18517,6 +19082,7 @@
 					,	"type":"select"
 					,	"texts": [
 							"Please select",
+							"Custom Lining",
 							"Ariston",
 							"Bateman Ogden",
 							"Carnet",
@@ -18537,6 +19103,7 @@
 						]
 					,	"values": [
 							"Please select",
+							"Custom Lining",
 							"Ariston",
 							"Bateman Ogden",
 							"Carnet",
@@ -18751,6 +19318,7 @@
 					,	"type":"select"
 					,	"texts": [
 							"Same as body lining"
+						,	"NA"
 						,	"--CORE COLLECTION--"
 						,	"TR133 white twill"
 						,	"TR135 gold"
@@ -19087,6 +19655,7 @@
 						]
 					,	"values": [
 							"Same as body lining"
+						,	"NA"
 						,	"CORE COLLECTION"
 						,	"TR133"
 						,	"TR135"
@@ -20189,6 +20758,7 @@
 					,	"type":"select"
 					,	"texts": [
 							"Please select"
+						,	"Self Fabric Buttons"
 						,	"T3 Plain White"
 						,	"T4 Clay"
 						,	"T6 Brown"
@@ -20273,6 +20843,7 @@
 						,	"T111"
 						,	"T112"
 						,	"T113"
+						,	"T114"
 						,	"T115"
 						,	"T116"
 						,	"T117"
@@ -20328,6 +20899,7 @@
 						]
 					,	"values": [
 							"Please select"
+						,	"Self Fabric Buttons"
 						,	"T3"
 						,	"T4"
 						,	"T6"
@@ -20412,6 +20984,7 @@
 						,	"T111"
 						,	"T112"
 						,	"T113"
+						,	"T114"
 						,	"T115"
 						,	"T116"
 						,	"T117"
@@ -20641,7 +21214,7 @@
 					}
 				,	{
 						"label":"Interior Pocket and Trim Color"
-					,	"name":"T010516"
+					,	"name":"T027418"
 					,	"type":"select"
 					,	"texts": [
 							"TR133"
@@ -20658,7 +21231,6 @@
 						,	"TR277"
 						,	"TR280"
 						,	"TR282"
-						,	"NA"
 						]
 					,	"values": [
 							"T02741801"
@@ -20675,7 +21247,6 @@
 						,	"T02741812"
 						,	"T02741813"
 						,	"T02741814"
-						,	"T02741815"
 						]
 					}
 				,	{
@@ -20869,6 +21440,7 @@
 					,	"type":"select"
 					,	"texts": [
 							"Please select"
+						,	"Self Fabric Buttons"
 						,	"T3 Plain White"
 						,	"T4 Clay"
 						,	"T6 Brown"
@@ -20953,6 +21525,7 @@
 						,	"T111"
 						,	"T112"
 						,	"T113"
+						,	"T114"
 						,	"T115"
 						,	"T116"
 						,	"T117"
@@ -21008,6 +21581,7 @@
 						]
 					,	"values": [
 							"Please select"
+						,	"Self Fabric Buttons"
 						,	"T3"
 						,	"T4"
 						,	"T6"
@@ -21092,6 +21666,7 @@
 						,	"T111"
 						,	"T112"
 						,	"T113"
+						,	"T114"
 						,	"T115"
 						,	"T116"
 						,	"T117"

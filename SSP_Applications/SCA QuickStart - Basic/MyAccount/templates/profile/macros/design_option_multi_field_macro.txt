@@ -1,4 +1,4 @@
-<% registerMacro('designOptionMultiField', function (fields, values) { %>
+<% registerMacro('designOptionMultiField', function (fields, values, tag) { %>
 	<% if (fields) { %>
 		<% _.each(fields.options, function (option) { %>
 			<div class="<%= option.name %>">

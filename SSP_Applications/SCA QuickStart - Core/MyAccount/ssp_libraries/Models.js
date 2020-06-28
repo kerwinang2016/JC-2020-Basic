@@ -434,13 +434,27 @@ Application.defineModel('PlacedOrder', {
 
 		'use strict';
 	}
-	, list: function (page, clientName,soid,sort,clientId, customerid) {
+	, list: function (page, clientName,soid,sort,clientId, customerid,cmtdate,startdate,enddate,cmtstatus) {
 		var url = myaccountsuiteleturl;
-
+		var parameters = "";
 		if(true){//customerid != nlapiGetUser()){
 			if(!customerid) customerid = nlapiGetUser();
 			//We have a parent.. then we need to just get the orders from the script
-			var res = nlapiRequestURL(url+"&action=getorders&user="+customerid+"&page="+page+"&clientname="+clientName+"&soid="+soid+"&sort="+sort+"&clientid="+clientId);
+			if(startdate){
+				var s_date = startdate.split('-');
+				parameters += "&startdate="+s_date[2]+"/"+s_date[1]+"/"+s_date[0];
+			}
+			if(enddate){
+				var e_date = enddate.split('-');
+				parameters += "&enddate="+e_date[2]+"/"+e_date[1]+"/"+e_date[0];
+			}
+			if(cmtdate){
+				var cmtdate_date = cmtdate.split('-');
+				parameters += "&cmtdate="+cmtdate_date[2]+"/"+cmtdate_date[1]+"/"+cmtdate_date[0];;
+
+			}
+			var res = nlapiRequestURL(url+"&action=getorders&user="+customerid+"&page="+page+"&clientname="+clientName+
+			"&soid="+soid+"&sort="+sort+"&clientid="+clientId+"&cmtstatus="+cmtstatus+parameters);
 			return JSON.parse(res.getBody());
 		}else{
 		// if the store has multiple currencies we add the currency column to the query
@@ -515,117 +529,117 @@ Application.defineModel('PlacedOrder', {
 			// result.totalRecordsFound = result.totalRecordsFound;
 			// result.records = result.records;
 			result.records = _.map(result.records || [], function (record) {
-				var dateneeded = record.getValue('custcol_avt_date_needed');//this
-				var expdeliverydate = record.getValue('custcol_expected_delivery_date');
-				var fabricstatus = record.getValue('custcol_avt_fabric_status');
-				var cmtstatus = record.getValue('custcol_avt_cmt_status');
-				var datesent = record.getValue('custcol_avt_cmt_date_sent');
-				var custcol_flag_comment = record.getValue('custcol_flag_comment');
-				var custcol_flag = record.getValue('custcol_flag');
-				var custcol_expected_production_date = record.getValue('custcol_expected_production_date');//this
-				var cmtstatuscheck = false, fabstatuscheck = false, expFabDateNeeded, dateNeeded, confirmedDate;
-				var custcol_tailor_delivery_days = record.getValue('custcol_tailor_delivery_days');
-				var today = new Date();
-				var cmtstatustext = "";
-				var customitemtext = record.getText('item');
-				var custcol_custom_fabric_details = record.getValue('custcol_custom_fabric_details');
-				if(record.getValue('item') == '28034' ||
-						record.getValue('item') == '28035' ||
-						record.getValue('item') == '28030' ||
-						record.getValue('item') == '28033' ||
-						record.getValue('item') == '28036' ||
-						record.getValue('item') == '28031' ||
-						record.getValue('item') == '28032'){
-							if(custcol_custom_fabric_details){
-								var custcol_custom_fabric_details_json = JSON.parse(custcol_custom_fabric_details);
-								if(custcol_custom_fabric_details_json)
-									customitemtext = customitemtext.replace('CMT Item',custcol_custom_fabric_details_json.collection+'-'+custcol_custom_fabric_details_json.code);
-							}
-				}
-				if(record.getValue('custcol_producttype')){
-					customitemtext += ' - ' + record.getValue('custcol_producttype');
-				}
-				today.setHours(0);
-				today.setMinutes(0);
-				today.setSeconds(0);
-				if (cmtstatus) {
-					cmtstatustext += record.getText('custcol_avt_cmt_status');
-				}
-				var morethan10days = false, clearstatus = false;
-				if (datesent) {
-					if (cmtstatustext != "") cmtstatustext += '-';
-					var cDate = nlapiStringToDate(datesent);
-					cDate.setDate(cDate.getDate());
-					datesent = nlapiDateToString(cDate);
-					cmtstatustext += datesent;
+			var dateneeded = record.getValue('custcol_avt_date_needed');//this
+			var expdeliverydate = record.getValue('custcol_expected_delivery_date');
+			var fabricstatus = record.getValue('custcol_avt_fabric_status');
+			var cmtstatus = record.getValue('custcol_avt_cmt_status');
+			var datesent = record.getValue('custcol_avt_cmt_date_sent');
+			var custcol_flag_comment = record.getValue('custcol_flag_comment');
+			var custcol_flag = record.getValue('custcol_flag');
+			var custcol_expected_production_date = record.getValue('custcol_expected_production_date');//this
+			var cmtstatuscheck = false, fabstatuscheck = false, expFabDateNeeded, dateNeeded, confirmedDate;
+			var custcol_tailor_delivery_days = record.getValue('custcol_tailor_delivery_days');
+			var today = new Date();
+			var cmtstatustext = "";
+			var customitemtext = record.getText('item');
+			var custcol_custom_fabric_details = record.getValue('custcol_custom_fabric_details');
+			if(record.getValue('item') == '28034' ||
+					record.getValue('item') == '28035' ||
+					record.getValue('item') == '28030' ||
+					record.getValue('item') == '28033' ||
+					record.getValue('item') == '28036' ||
+					record.getValue('item') == '28031' ||
+					record.getValue('item') == '28032'){
+						if(custcol_custom_fabric_details){
+							var custcol_custom_fabric_details_json = JSON.parse(custcol_custom_fabric_details);
+							if(custcol_custom_fabric_details_json)
+								customitemtext = customitemtext.replace('CMT Item',custcol_custom_fabric_details_json.collection+'-'+custcol_custom_fabric_details_json.code);
+						}
+			}
+			if(record.getValue('custcol_producttype')){
+				customitemtext += ' - ' + record.getValue('custcol_producttype');
+			}
+			today.setHours(0);
+			today.setMinutes(0);
+			today.setSeconds(0);
+			if (cmtstatus) {
+				cmtstatustext += record.getText('custcol_avt_cmt_status');
+			}
+			var morethan10days = false, clearstatus = false;
+			if (datesent) {
+				if (cmtstatustext != "") cmtstatustext += '-';
+				var cDate = nlapiStringToDate(datesent);
+				cDate.setDate(cDate.getDate());
+				datesent = nlapiDateToString(cDate);
+				cmtstatustext += datesent;
 
-					if((today - cDate) > 863999146){
-						morethan10days = true;
-					}
+				if((today - cDate) > 863999146){
+					morethan10days = true;
 				}
-				else if (custcol_expected_production_date) {
-					if (cmtstatustext != "") cmtstatustext += '-';
-					cmtstatustext += custcol_expected_production_date;
-					var cmtstatdate = nlapiStringToDate(custcol_expected_production_date);
-					if((today - cmtstatdate) > 863999146){
-						morethan10days = true;
-					}
+			}
+			else if (custcol_expected_production_date) {
+				if (cmtstatustext != "") cmtstatustext += '-';
+				cmtstatustext += custcol_expected_production_date;
+				var cmtstatdate = nlapiStringToDate(custcol_expected_production_date);
+				if((today - cmtstatdate) > 863999146){
+					morethan10days = true;
 				}
-				if (record.getValue('custcol_avt_cmt_tracking')) {
-					if (cmtstatustext != "") cmtstatustext += '-';
-					cmtstatustext += record.getValue('custcol_avt_cmt_tracking');
-				}
-				if((record.getText('status') == 'Cancelled' || record.getText('status') == 'Closed')//|| record.getText('status') == 'Billed'  Removed Billed
-				|| ((record.getText('custcol_avt_cmt_status') == 'Delivered' ||
-				record.getText('custcol_avt_cmt_status') == 'Left factory') && morethan10days)){
-					clearstatus = true;
-				}
-				if ((cmtstatus == 7 || cmtstatus == 8) && fabricstatus != 1) {
-					//check the dates of the fabric should be sent vs today
-					if (custcol_expected_production_date) {
-						expFabDateNeeded = nlapiStringToDate(custcol_expected_production_date);
-						expFabDateNeeded.setDate(expFabDateNeeded.getDate() - parseFloat(record.getValue('custcol_cmt_production_time')));
-						if (expFabDateNeeded < today)
-							fabstatuscheck = true;
-						else
-							fabstatuscheck = false;
-					}
-					else {
+			}
+			if (record.getValue('custcol_avt_cmt_tracking')) {
+				if (cmtstatustext != "") cmtstatustext += '-';
+				cmtstatustext += record.getValue('custcol_avt_cmt_tracking');
+			}
+			if((record.getText('status') == 'Cancelled' || record.getText('status') == 'Closed')//|| record.getText('status') == 'Billed'  Removed Billed
+			|| ((record.getText('custcol_avt_cmt_status') == 'Delivered' ||
+			record.getText('custcol_avt_cmt_status') == 'Left factory') && morethan10days)){
+				clearstatus = true;
+			}
+			if ((cmtstatus == 7 || cmtstatus == 8) && fabricstatus != 1) {
+				//check the dates of the fabric should be sent vs today
+				if (custcol_expected_production_date) {
+					expFabDateNeeded = nlapiStringToDate(custcol_expected_production_date);
+					expFabDateNeeded.setDate(expFabDateNeeded.getDate() - parseFloat(record.getValue('custcol_cmt_production_time')));
+					if (expFabDateNeeded < today)
+						fabstatuscheck = true;
+					else
 						fabstatuscheck = false;
-					}
-				}
-				else if (fabricstatus == 1) {
-					fabstatuscheck = true;
 				}
 				else {
 					fabstatuscheck = false;
 				}
-				if (cmtstatus == 4) {
-					cmtstatuscheck = true;
-				} else if (dateneeded) {
-					dateNeeded = nlapiStringToDate(dateneeded)
-					if (datesent) {
-						confirmedDate = nlapiStringToDate(datesent);
-						confirmedDate.setDate(confirmedDate.getDate() + parseFloat(custcol_tailor_delivery_days ? custcol_tailor_delivery_days : 0));
-					}
-					else if (custcol_expected_production_date) {
-						confirmedDate = nlapiStringToDate(custcol_expected_production_date);
-						confirmedDate.setDate(confirmedDate.getDate() + parseFloat(custcol_tailor_delivery_days ? custcol_tailor_delivery_days : 0));
-					}
-
-					if (confirmedDate) {
-						if (confirmedDate > dateNeeded){
-							cmtstatuscheck = true;
-						}
-						else
-							cmtstatuscheck = false;
-					} else {
-						cmtstatuscheck = false
-					}
-
-				} else {
-					cmtstatuscheck = false;
+			}
+			else if (fabricstatus == 1) {
+				fabstatuscheck = true;
+			}
+			else {
+				fabstatuscheck = false;
+			}
+			if (cmtstatus == 4) {
+				cmtstatuscheck = true;
+			} else if (dateneeded) {
+				dateNeeded = nlapiStringToDate(dateneeded)
+				if (datesent) {
+					confirmedDate = nlapiStringToDate(datesent);
+					confirmedDate.setDate(confirmedDate.getDate() + parseFloat(custcol_tailor_delivery_days ? custcol_tailor_delivery_days : 0));
 				}
+				else if (custcol_expected_production_date) {
+					confirmedDate = nlapiStringToDate(custcol_expected_production_date);
+					confirmedDate.setDate(confirmedDate.getDate() + parseFloat(custcol_tailor_delivery_days ? custcol_tailor_delivery_days : 0));
+				}
+
+				if (confirmedDate) {
+					if (confirmedDate > dateNeeded){
+						cmtstatuscheck = true;
+					}
+					else
+						cmtstatuscheck = false;
+				} else {
+					cmtstatuscheck = false
+				}
+
+			} else {
+				cmtstatuscheck = false;
+			}
 
 			if (record.getValue('custcol_avt_date_needed')) {
 				dateneeded = nlapiStringToDate(record.getValue('custcol_avt_date_needed'));
@@ -1154,11 +1168,9 @@ Application.defineModel('PlacedOrder', {
 						, rate: placed_order.getLineItemValue('item', 'custcol_tailor_cust_pricing', i)
 
 						, amount: placed_order.getLineItemValue('item', 'custcol_tailor_cust_pricing', i)
-
 						, tax_amount: 0
 						, tax_rate: placed_order.getLineItemValue('item', 'taxrate1', i)
 						, tax_code: placed_order.getLineItemValue('item', 'taxcode_display', i)
-
 						, discount: 0
 
 						, total: placed_order.getLineItemValue('item', 'custcol_tailor_cust_pricing', i)
@@ -1178,17 +1190,12 @@ Application.defineModel('PlacedOrder', {
 					result.lines[placed_order.getLineItemValue('item', 'line', i)] = {
 						internalid: placed_order.getLineItemValue('item', 'id', i)
 						, quantity: parseInt(placed_order.getLineItemValue('item', 'quantity', i), 10)
-
 						, rate: placed_order.getLineItemValue('item', 'custcol_tailor_cust_pricing', i)
-
 						, amount: placed_order.getLineItemValue('item', 'custcol_tailor_cust_pricing', i)
-
 						, tax_amount: 0
 						, tax_rate: placed_order.getLineItemValue('item', 'taxrate1', i)
 						, tax_code: placed_order.getLineItemValue('item', 'taxcode_display', i)
-
 						, discount: 0
-
 						, total: placed_order.getLineItemValue('item', 'custcol_tailor_cust_pricing', i)
 						, item: {
 							storedisplayname2:placed_order.getLineItemValue('item', 'description', i)
@@ -3048,6 +3055,7 @@ Application.defineModel('Receipts', _.extend({}, PlacedOrder, {
 		var results = Application.getAllSearchResults(options.type === 'invoice' ? 'invoice' : 'transaction', filters, columns)
 			, now = new Date().getTime();
 
+
 		return _.map(results || [], function (record) {
 
 			var due_date = record.getValue('duedate')
@@ -3089,6 +3097,7 @@ Application.defineModel('Receipts', _.extend({}, PlacedOrder, {
 					internalid: record.getValue('currency')
 					, name: record.getText('currency')
 				}
+
 			};
 		});
 
@@ -3217,7 +3226,7 @@ Application.defineModel('Receipts', _.extend({}, PlacedOrder, {
 			throw forbiddenError;
 		}
 
-		var receipt = nlapiLoadRecord(mainline[0].getRecordType(), id)
+		var receipt = nlapiLoadRecord(mainline[0].getRecordType(), id,  {recordmode: 'dynamic'})
 			, result = this.createResult(receipt);
 
 		this.setAddresses(receipt, result);
@@ -3354,6 +3363,7 @@ Application.defineModel('Receipts', _.extend({}, PlacedOrder, {
 				var tax_amount = toCurrency(placed_order.getLineItemValue('item', 'tax1amt', i)) || 0
 					, total = amount + tax_amount;
 				if(item_type != 'Markup'){
+
 					result.lines[placed_order.getLineItemValue('item', 'line', i)] = {
 						internalid: placed_order.getLineItemValue('item', 'id', i)
 						, quantity: parseFloat(placed_order.getLineItemValue('item', 'quantity', i))
@@ -3373,8 +3383,10 @@ Application.defineModel('Receipts', _.extend({}, PlacedOrder, {
 						, item: item_id
 						, type: item_type
 						, options: getItemOptionsObject(placed_order.getLineItemValue('item', 'options', i))
+						, custcol_additionalfabricsurcharge: placed_order.getLineItemText('item','custcol_additionalfabricsurcharge',i)
 						, shipaddress: placed_order.getLineItemValue('item', 'shipaddress', i) ? result.listAddresseByIdTmp[placed_order.getLineItemValue('item', 'shipaddress', i)] : null
 						, shipmethod: placed_order.getLineItemValue('item', 'shipmethod', i) || null
+						, lineOption: placed_order.getCustomFieldValues()
 					};
 
 					items_to_preload[item_id] = {

@@ -1,4 +1,3 @@
-
 <% registerMacro('itemCellList', function (item, view) { %>
 <%
 	var min_qty = parseInt(item.get('_minimumQuantity'), 10)
@@ -12,7 +11,7 @@
 	if (isOrderPage && Backbone.history.fragment.split("?").length > 1) {
 		var fragmentArray = Backbone.history.fragment.split("?")
 		,	clientId = "";
-
+	 
 		//for(var i = fragmentArray.length -1; i >= 0; i--){
 		for(var i = 0; i <= fragmentArray.length; i++){
 			if(fragmentArray[i].match('client')){

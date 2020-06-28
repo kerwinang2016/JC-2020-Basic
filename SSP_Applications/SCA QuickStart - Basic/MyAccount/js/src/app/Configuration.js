@@ -58,8 +58,8 @@
 		,	'ProductList'
 		,	'PrintStatement'
 		//,	'Quote'
-
-		,	'Case'
+		// ,	'Case'
+		, 'TrainingGuides'
 		]
 
 	,	paymentWizardSteps: [

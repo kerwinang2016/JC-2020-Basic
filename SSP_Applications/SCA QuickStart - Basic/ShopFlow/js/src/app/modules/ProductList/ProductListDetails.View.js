@@ -130,7 +130,6 @@ define('ProductListDetails.View'
 	,	addItemToCartHandler : function (e)
 		{
 			e.preventDefault();
-
 			var self = this
 			,	selected_product_list_item_id = self.$(e.target).closest('article').data('id')
 			,	selected_product_list_item = self.model.get('items').findWhere({

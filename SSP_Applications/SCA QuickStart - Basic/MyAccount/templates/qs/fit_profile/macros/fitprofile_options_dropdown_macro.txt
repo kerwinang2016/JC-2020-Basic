@@ -86,11 +86,6 @@
 						</span>
 					</div>
 				</div>
-
-
-
-
-
 				<!--Collapses body-->
 				<div id="fitProfilesHistory" class="collapse">
 					<div class="row-fluid">

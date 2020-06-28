@@ -74,7 +74,7 @@
     <!-- /visible-phone -->
     <div class="facet-header <%= translator.facets.length ? 'no-facets-selected' : '' %>">
       <%= paginationResult %>
-      <% if (items.length && facets.length) { %>
+      <% if (items && items.length && facets && facets.length) { %>
         <button class="btn btn-inverse pull-left narrow-by-btn" data-toggle="facet-navigation">
           <span><%= _('Narrow By').translate() %></span>
           <i class="icon-plus-sign"></i>
@@ -90,7 +90,8 @@
 			<div style="margin-bottom:10px;">
 			<!-- <strong>The factory will be closed from 1st-7th October. This will impact all orders placed from Thursday 19th September or orders that fabric has not arrived by this date</strong>
 			<br/>-->
-				* The following vendors are searchable: AC Shirt, Ariston, Carnet, Dormeuil, Drago, Dugdale Bros, Filarte, Harrisons, Loro Piana, Solbiati, Thomas Mason
+				* The following vendors are searchable: AC Shirt, Ariston, Carnet, Dormeuil, Drago, Dugdale Bros, Filarte, Harrisons, Loro Piana, Solbiati, Thomas Mason <br>
+
 			</div>
     </div>
     <%= facetsDisplayResults %>
@@ -109,10 +110,12 @@
           return SC.macros[displayOption.macro](item, view);
         };
     %>
+		<% if(items) { %>
     <%= SC.macros.displayInRows(items.models, cellWrap, displayOption.columns) %>
     <div class="bottom-pagination">
       <%= paginationResult %>
     </div>
+		<% } %>
     <div class="clearfix"></div>
   </div>
 <% }) %>

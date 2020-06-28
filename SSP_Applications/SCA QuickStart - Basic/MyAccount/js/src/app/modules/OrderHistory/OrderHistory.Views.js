@@ -360,12 +360,97 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices'], function
 
 		, events: {
 			'click [rel=clickover]': 'showTrakingNumbers'
-			, 'click button[rel=search]': 'search'
+			, 'click button[rel=search]': 'searchorders'
 			, 'click button[id="sortred"]': 'sortRed'
 			, 'blur [name="oh_dateneeded"]': 'updateDateNeeded'
 			,	'change [data-name="flag"]': 'updateFlag'
 			, 'click #modalContainerSave' : 'updateFlagDetails'
 			, 'click [data-dismiss="modal"]': 'closemodal'
+			, 'click #downloadorders': 'downloadOrders'
+			, 'click #selectall': 'selectAll'
+			, 'click #clearfilters': 'clearFilters'
+			, 'click [data-name*="downloadfile"]': 'downloadCheckboxClicked'
+			, 'click #searchorders': 'searchorders'
+		}
+		, downloadCheckboxClicked: function(e){
+			if(jQuery('#selectall').prop('checked') == true){
+				jQuery('#selectall').prop('checked', false);
+			}
+		}
+		, clearFilters: function(e){
+				e.preventDefault();
+				jQuery('#to').val("");
+				jQuery('#from').val("");
+				jQuery('#filter_cmtstatus').val("");
+				jQuery('#cmtdate').val("");
+				jQuery('[rel="search"]').val("");
+		}
+		, selectAll: function(e){
+			if(jQuery('#selectall').prop('checked') == true){
+				jQuery('[data-id*="downloadfile"]').prop('checked', true);
+			}
+			else{
+				jQuery('[data-id*="downloadfile"]').prop('checked', false);
+			}
+		}
+
+		, downloadOrders: function(e){
+			e.preventDefault();
+			var data1 = {};
+			data1.contents = "data:text/csv;charset=utf-8,Date,Order,ClientName,Item,Fabric,CMT,DateNeeded\n";
+
+			if(jQuery('#selectall').prop('checked') == true){
+				//if it is checked
+
+				var data = {
+					page: 'all'
+					,	search: jQuery("input[rel=search]").val()
+					,	sort: this.sort
+					, startdate: jQuery('#from').val()?jQuery('#from').val().split('/').join('-'):""
+					, enddate: jQuery('#to').val()?jQuery('#to').val().split('/').join('-'):""
+					, cmtstatus: jQuery('#filter_cmtstatus').val()
+					, cmtdate: jQuery('#cmtdate').val()?jQuery('#cmtdate').val().split('/').join('-'):""
+				};
+				this.collection.fetch({
+					data: data
+				}).done(function(d){
+					if(d.records.length >0){
+							for(var i=0;i<d.records.length;i++){
+									data1.contents+=d.records[i].date + ',';
+								data1.contents+=d.records[i].so_id + ',';
+								data1.contents+=d.records[i].client_name + ',';
+								data1.contents+=d.records[i].item + ',';
+								data1.contents+=d.records[i].fabricstatus + ',';
+								data1.contents+=d.records[i].cmtstatus + ',';
+								data1.contents+=d.records[i].custcol_avt_date_needed + '\n';
+							}
+						var link = document.createElement("a");
+						var encodedUri = encodeURI(data1.contents);
+						link.setAttribute("href", encodedUri);
+						link.setAttribute("download", "OrderDetails.csv");
+						document.body.appendChild(link);
+						link.click();
+					}
+				});
+			}else{
+				_.each(jQuery('[data-id*="downloadfile"]:checked'),function(data){
+					var id = jQuery(data).data('id').split('_')[1];
+					data1.contents+=jQuery('[data-name="date_'+id+'"]').text() + ',';
+					data1.contents+=jQuery('[data-name="order_'+id+'"]').text() + ',';
+					data1.contents+=jQuery('[data-name="client_'+id+'"]').text() + ',';
+					data1.contents+=jQuery('[data-name="item_'+id+'"]').text() + ',';
+					data1.contents+=jQuery('[data-name="fabric_'+id+'"]').text() + ',';
+					data1.contents+=jQuery('[data-name="cmtstatus_'+id+'"]').text() + ',';
+					data1.contents+=jQuery('[data-name="dateneeded_'+id+'"]').val() + '\n';
+				});
+				var link = document.createElement("a");
+				var encodedUri = encodeURI(data1.contents);
+				link.setAttribute("href", encodedUri);
+				link.setAttribute("download", "OrderDetails.csv");
+				document.body.appendChild(link);
+				link.click();
+			}
+
 		}
 		, closemodal: function(){
 				jQuery('#modalContainer').modal('hide')
@@ -398,32 +483,42 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices'], function
 				});
 				jQuery('#modalContainer').modal('hide')
 		}
-		// ,	initialize: function (options)
-		// 	{
-		// 		this.options = options;
-		// 		this.collection = options.collection;
-		// 		this.application = options.application;
-		// 		this.search = options.search;
-		// 		this.page = options.page;
-		//
-		// }
-		, sortRed: function (e) {
+		,	initialize: function (options)
+			{
+				this.options = options;
+				this.collection = options.collection;
+				this.application = options.application;
+				this.search = options.search;
+				this.page = options.page;
+				this.cmtstatus = options.cmtstatus;
+				this.startdate = options.startdate;
+				this.enddate = options.enddate;
+				this.cmtdate = options.cmtdate;
+		}
+	,	searchorders: function (e) {   //23-06-2019             //02/07/2019 Saad
 			e.preventDefault();
-			var url = "ordershistory"
-
-				url += "?sort=true";
-
+			var search_keyword = jQuery("input[rel=search]").val();
+			var startdate = jQuery('#from').val()?jQuery('#from').val().split('/').join('-'):"";
+			var enddate = jQuery('#to').val()?jQuery('#to').val().split('/').join('-'):"";
+			var cmtdate = jQuery('#cmtdate').val()?jQuery('#cmtdate').val().split('/').join('-'):"";
+			var	url = "ordershistory?search=" + search_keyword+"&cmtdate="+cmtdate+
+				"&startdate="+startdate+"&enddate="+enddate+
+				"&cmtstatus="+jQuery('#filter_cmtstatus').val();
 			Backbone.history.navigate(url, true);
 		}
-		, search: function (e) {
+
+	, 	sortRed: function (e) {		//29/08/2019 Saad Saad
 			e.preventDefault();
-			var url = "ordershistory"
-				, search_keyword = jQuery("input[rel=search]").val();
-			if (search_keyword) {
-				url += "?search=" + search_keyword;
-			}
+			var search_keyword = jQuery("input[rel=search]").val();
+			var startdate = jQuery('#from').val()?jQuery('#from').val().split('/').join('-'):"";
+			var enddate = jQuery('#to').val()?jQuery('#to').val().split('/').join('-'):"";
+			var cmtdate = jQuery('#cmtdate').val()?jQuery('#cmtdate').val().split('/').join('-'):"";
+			var	url = "ordershistory?sort=true&search=" + search_keyword+"&cmtdate="+cmtdate+
+				"&startdate="+startdate+"&enddate="+enddate+
+				"&cmtstatus="+jQuery('#filter_cmtstatus').val();
 			Backbone.history.navigate(url, true);
 		}
+
 		, updateDateNeeded: function (e) {
 			e.preventDefault();
 			var valueofdate = e.target.value;

@@ -28,11 +28,14 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             , 'change [name="custcol_fabric_quantity"]': 'roundOffFabricQuantity'
             , 'keypress [name="custcol_fabric_quantity"]': 'ignoreEnter'
             , 'keypress [name="quantity"]': 'ignoreEnter'
-            //, 'click #design-option [data-toggle="collapse"]': 'scrolltodesignoption'
+            , 'click [data-header="design-option-parent"]': 'scrolltodesignoption'
             , 'click [data-type="add-to-cart"]': 'addToCart'
 
             , 'shown .collapse': 'storeColapsiblesState'
             , 'hidden .collapse': 'storeColapsiblesState'
+
+            // , 'shown [data-container="design-option-parent"]>.accordion-group>.in': 'scrolltodesignoption'
+            // , 'hidden [data-container="design-option-parent"]>.accordion-group>.collapse': 'scrolltodesignoption'
 
             , 'mouseup': 'contentMouseUp'
             , 'click': 'contentClick'
@@ -66,23 +69,6 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             jQuery.get(_.getAbsoluteUrl('js/itemRangeConfigInches.json')).done(function (data) {
                 window.inchConfig = data;
             });
-
-      			jQuery.get(_.getAbsoluteUrl('services/measurementdefaults.ss')).done(function (data) {
-      				self.measurementdefaults = data;
-      			});
-      			jQuery.get(_.getAbsoluteUrl('services/influences.ss')).done(function (data) {
-      				self.influences = data;
-      			});
-            jQuery.get(_.getAbsoluteUrl('services/liningfabrics.ss')).done(function (data) {
-      				self.liningfabrics = data;
-      			});
-            jQuery.get(_.getAbsoluteUrl('services/bodyBlockMeasurements.ss')).done(function (data) {
-      				window.bodyBlockMeasurements = data;
-      			});
-            jQuery.get(_.getAbsoluteUrl('services/blockQuantity.ss')).done(function (data) {
-      				window.blockQuantity = data;
-      			});
-
             this.application = options.application;
             this.counted_clicks = {};
             SC.sessioncheck();
@@ -104,6 +90,22 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
               }
             }
 
+            jQuery.get(_.getAbsoluteUrl('services/liningfabrics.ss')).done(function (data) {
+              self.liningfabrics = data;
+            });
+            //ADD THE PRODUCT TYPE HERE SO WILL LOAD FASTER
+            jQuery.get(_.getAbsoluteUrl('services/measurementdefaults.ss'),{producttype:options.options.product}).done(function (data) {
+              self.measurementdefaults = data;
+            });
+            jQuery.get(_.getAbsoluteUrl('services/influences.ss'),{producttype:options.options.product}).done(function (data) {
+              self.influences = data;
+            });
+            jQuery.get(_.getAbsoluteUrl('services/bodyBlockMeasurements.ss'),{producttype:options.options.product}).done(function (data) {
+              window.bodyBlockMeasurements = data;
+            });
+            jQuery.get(_.getAbsoluteUrl('services/blockQuantity.ss'),{producttype:options.options.product}).done(function (data) {
+              window.blockQuantity = data;
+            });
             if (!this.model) {
                 throw new Error('A model is needed');
             }
@@ -241,7 +243,309 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             }
             return status;
         }
-
+        , addArrMustSelectConflictCodes: function(arrErrConflictCodes){
+        	if(jQuery('#T010244')[0]){
+        	  if(jQuery('#T010244').val() == 'T01024401'){
+        		if(!jQuery('#T010239').val() && !jQuery('#T010250').val() && !jQuery('#T010261').val()){
+        		  arrErrConflictCodes.push("Monogram Text Line 1 or Monogram Text Above Pocket is required when Monogram Inside Lining is Yes");
+        		}
+        		if(jQuery('#T010239').val() && jQuery('#T010250').val()){
+        		  arrErrConflictCodes.push("Monogram Text Line 1 and Monogram Text Above Pocket cannot both have values");
+        		}
+        		if(jQuery('#T010223').val() != 'T01022301' && jQuery('#T010250').val()){
+        		  arrErrConflictCodes.push("Interior Construction should be Curved French Facing when Monogram Text Above Pocket has text");
+        		}
+        	  }
+        	}
+        	if(jQuery('#T027229')[0]){
+        	  if(jQuery('#T027229').val() == 'T02722902'){
+        		if(jQuery('#T027230').val() != 'NA' ){
+        		  arrErrConflictCodes.push("You must select No for interior pocket piping when you select No for interior pocket");
+        		}
+        	  }
+        	}
+        	if(jQuery('#T027305').val() == 'T02730502'){
+        	  if(jQuery('#T027303').val() != 'NA' ){
+        		arrErrConflictCodes.push("You must selecte NA for button code when you select NA for waistband closure");
+        	  }
+        	}
+        	if(jQuery('#T027415').val() == 'T02741507' || jQuery('#T027415').val() == 'T02741502' ||
+        	  jQuery('#T027415').val() == 'T02741504' || jQuery('#T027415').val() == 'T02741506'){
+        	  if(jQuery('#T027410').val() != 'No' ){
+        		arrErrConflictCodes.push("You must select No for back pocket buttonhole color with this left back pocket selection");
+        	  }
+        	}
+        	if(jQuery('#T027416').val() == 'T02741607' || jQuery('#T027416').val() == 'T02741602' ||
+        	  jQuery('#T027416').val() == 'T02741604' || jQuery('#T027416').val() == 'T02741606'){
+        	  if(jQuery('#T027410').val() != 'No' ){
+        		arrErrConflictCodes.push("You must select No for back pocket buttonhole color with this right back pocket selection");
+        	  }
+        	}
+        	if(jQuery('#T027412').val() == 'T02741201'){
+        	  if(jQuery('#T027409').val() != 'No' ){
+        		arrErrConflictCodes.push("You must select No for front buttonhole color with this waistband closure selection");
+        	  }
+        	}
+        	if(jQuery('#T027420').val() == 'T02742001'){
+        	  if(jQuery('#T027421').val() != 'No' ){
+        		arrErrConflictCodes.push("You must select No for pick stitch color when you select No for pick stitching");
+        	  }
+        	}
+        	if(jQuery('#T010603').val() == 'T01060333'){
+        	  if(jQuery('#T010608').val() != 'T01060803' ){
+        		arrErrConflictCodes.push("You must select No for collar stays with high button down II collar");
+        	  }
+        	}
+        	if(jQuery('#T010603').val() == 'T01060335'){
+        	  if(jQuery('#T010608').val() != 'T01060803' ){
+        		arrErrConflictCodes.push("You must select No for collar stays with eyelet pinned collar");
+        	  }
+        	}
+        	if(jQuery('#T010603').val() == 'T01060334'){
+        	  if(jQuery('#T010646').val() != 'T01064603'){
+        		arrErrConflictCodes.push("You must select No for collar edge contrast with medium spread with round edges collar");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060708'){
+        		if(jQuery('#T010628').val() != 'No'){
+        			arrErrConflictCodes.push("You must select No for contrast buttonhole side placket with Formal Front with Studs front placket");
+        		}
+        		if(jQuery('#T010629').val() != 'No'){
+        			arrErrConflictCodes.push("You must select No for contrast buttons side placket with Formal Front with Studs front placket");
+        		}
+        	}
+        	if(jQuery('#T010607').val() == 'T01060713'){
+        	  if(jQuery('#T010648').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for placket contrast piping with Formal Front with Classic Placket & 4 Studs front placket");
+        	  }
+        	  if(jQuery('#T010628').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttonhole side placket with Formal Front with Classic Placket & 4 Studs front placket");
+        	  }
+        	  if(jQuery('#T010629').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttons side placket with Formal Front with Classic Placket & 4 Studs front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060714'){
+        	  if(jQuery('#T010648').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for placket contrast piping with Formal Fly Front front placket");
+        	  }
+        	  if(jQuery('#T010628').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttonhole side placket with Formal Fly Front front placket");
+        	  }
+        	  if(jQuery('#T010629').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttons side placket with Formal Fly Front front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060715'){
+        	  if(jQuery('#T010648').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for placket contrast piping with Classic Placket with Studs front placket");
+        	  }
+        	  if(jQuery('#T010628').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttonhole side placket with Classic Placket with Studs front placket");
+        	  }
+        	  if(jQuery('#T010629').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttons side placket with Classic Placket with Studs front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060716'){
+        	  if(jQuery('#T010648').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for placket contrast piping with Narrow Placket with Studs front placket");
+        	  }
+        	  if(jQuery('#T010628').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttonhole side placket with Narrow Placket with Studs front placket");
+        	  }
+        	  if(jQuery('#T010629').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttons side placket with Narrow Placket with Studs front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060717'){
+        	  if(jQuery('#T010648').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for placket contrast piping with Classic Placket with 4 Studs front placket");
+        	  }
+        	  if(jQuery('#T010628').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttonhole side placket with Narrow Placket with Studs front placket");
+        	  }
+        	  if(jQuery('#T010629').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttons side placket with Classic Placket with 4 Studs front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060718'){
+        	  if(jQuery('#T010648').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for placket contrast piping with Narrow Placket with 4 Studs front placket");
+        	  }
+        	  if(jQuery('#T010628').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttonhole side placket with Narrow Placket with 4 Studs front placket");
+        	  }
+        	  if(jQuery('#T010629').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttons side placket with Narrow Placket with 4 Studs front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060719'){
+        	  if(jQuery('#T010648').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for placket contrast piping with Pop Over 3B Pointed front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060720'){
+        	  if(jQuery('#T010648').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for placket contrast piping with Pop Over 2B Pointed front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060721'){
+        	  if(jQuery('#T010648').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for placket contrast piping with Pop Over 1B Pointed front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060722'){
+        	  if(jQuery('#T010648').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for placket contrast piping with Pop Over 1B Square front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060723'){
+        	  if(jQuery('#T010648').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for placket contrast piping with Pop Over 2B Square front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060715'){
+        	  if(jQuery('#T010642').val() != 'T01064201'){
+        		arrErrConflictCodes.push("You must select NA for formal front with studs with Classic Placket with Studs front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060716'){
+        	  if(jQuery('#T010642').val() != 'T01064201'){
+        		arrErrConflictCodes.push("You must select NA for formal front with studs with Narrow Placket with Studs front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060717'){
+        	  if(jQuery('#T010642').val() != 'T01064201'){
+        		arrErrConflictCodes.push("You must select NA for formal front with studs with Classic Placket with 4 Studs front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060718'){
+        	  if(jQuery('#T010642').val() != 'T01064201'){
+        		arrErrConflictCodes.push("You must select NA for formal front with studs with Narrow Placket with 4 Studs front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060719'){
+        	  if(jQuery('#T010642').val() != 'T01064201'){
+        		arrErrConflictCodes.push("You must select NA for formal front with studs with Pop Over 3B Pointed front placket");
+        	  }
+        	  if(jQuery('#T010628').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttonhole side placket with Pop Over 3B Pointed front placket");
+        	  }
+        	  if(jQuery('#T010629').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttons side placket with Pop Over 3B Pointed front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060720'){
+        	  if(jQuery('#T010642').val() != 'T01064201'){
+        		arrErrConflictCodes.push("You must select NA for formal front with studs with Pop Over 2B Pointed front placket");
+        	  }
+        	  if(jQuery('#T010628').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttonhole side placket with Pop Over 2B Pointed front placket");
+        	  }
+        	  if(jQuery('#T010629').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttons side placket with Pop Over 2B Pointed front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060721'){
+        	  if(jQuery('#T010642').val() != 'T01064201'){
+        		arrErrConflictCodes.push("You must select NA for formal front with studs with Pop Over 1B Pointed front placket");
+        	  }
+        	  if(jQuery('#T010628').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttonhole side placket with Pop Over 1B Pointed front placket");
+        	  }
+        	  if(jQuery('#T010629').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttons side placket with Pop Over 1B Pointed front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060722'){
+        	  if(jQuery('#T010642').val() != 'T01064201'){
+        		arrErrConflictCodes.push("You must select NA for formal front with studs with Pop Over 1B Square front placket");
+        	  }
+        	  if(jQuery('#T010628').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttonhole side placket with Pop Over 1B Square front placket");
+        	  }
+        	  if(jQuery('#T010629').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttons side placket with Pop Over 1B Square front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060723'){
+        	  if(jQuery('#T010642').val() != 'T01064201'){
+        		arrErrConflictCodes.push("You must select NA for formal front with studs with Pop Over 2B Square front placket");
+        	  }
+        	  if(jQuery('#T010628').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttonhole side placket with Pop Over 2B Square front placket");
+        	  }
+        	  if(jQuery('#T010629').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttons side placket with Pop Over 2B Square front placket");
+        	  }
+        	}
+        	if(jQuery('#T010651').val() == 'T01065101'){
+        	  if(jQuery('#T010642').val() != 'T01064201'){
+        		arrErrConflictCodes.push("You must select NA for formal front with NA for formal pleats length");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060704'){
+        	  if(jQuery('#T010628').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttonhole side placket with Fly Front front placket");
+        	  }
+        	  if(jQuery('#T010629').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttons side placket with Fly Front front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060703'){
+        	  if(jQuery('#T010628').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttonhole side placket with No Placket front placket");
+        	  }
+        	  if(jQuery('#T010629').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttons side placket with No Placket front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060709'){
+        	  if(jQuery('#T010629').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttons side placket with Contrast Piping Both Sides 3.5CM front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060710'){
+        	  if(jQuery('#T010629').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttons side placket with Contrast Piping Right Side 3.5CM front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060711'){
+        	  if(jQuery('#T010629').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttons side placket with Contrast Piping Both Sides 2.5CM front placket");
+        	  }
+        	}
+        	if(jQuery('#T010607').val() == 'T01060712'){
+        	  if(jQuery('#T010629').val() != 'No'){
+        		arrErrConflictCodes.push("You must select No for contrast buttons side placket with Contrast Piping Right Side 2.5CM front placket");
+        	  }
+        	}
+          if(jQuery('#T010203').val() == 'T01020307'){
+        	  if(jQuery('#T010202').val() != 'T01020204'){
+        		arrErrConflictCodes.push("You must select 1 button for closure with shawl collar 5cm lapel (you can select 1 button closure with shawl collar 6cm lapel)");
+        	  }
+        	}
+          if( jQuery('#T010401').val() == 'T01040101' ||
+              jQuery('#T010401').val() == 'T01040102' ||
+              jQuery('#T010401').val() == 'T01040103' ||
+              jQuery('#T010401').val() == 'T01040104' ||
+              jQuery('#T010401').val() == 'T01040105' ||
+              jQuery('#T010401').val() == 'T01040106' ||
+              jQuery('#T010401').val() == 'T01040107' ||
+              jQuery('#T010401').val() == 'T01040108' ||
+              jQuery('#T010401').val() == 'T01040109' ||
+              jQuery('#T010401').val() == 'T01040110' ||
+              jQuery('#T010401').val() == 'T01040111' ||
+              jQuery('#T010401').val() == 'T01040112' ||
+              jQuery('#T010401').val() == 'T01040113' ||
+              jQuery('#T010401').val() == 'T01040114' ||
+              jQuery('#T010401').val() == 'T01040115'){
+        	  if(jQuery('#T010433').val() != 'NA'){
+        		arrErrConflictCodes.push("You must select NA for zipper closure color unless you select zipper closure for lapel");
+        	  }
+        	}
+        }
         // view.addToCart:
         // Updates the Cart to include the current model
         // also takes care of updateing the cart if the current model is a cart item
@@ -260,19 +564,8 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
 
             var objConflictCodeMapping = OBJ_CONFLICT;
             var arrErrConflictCodes = _.getArrConflictCodesError(objConflictCodeMapping, arrSelectedValues, objSelectSelectedValues);
-            if(jQuery('#T010244')[0]){
-              if(jQuery('#T010244').val() == 'T01024401'){
-                if(!jQuery('#T010239').val() && !jQuery('#T010250').val() && !jQuery('#T010261').val()){
-                  arrErrConflictCodes.push("Monogram Text Line 1 or Monogram Text Above Pocket is required when Monogram Inside Lining is Yes");
-                }
-                if(jQuery('#T010239').val() && jQuery('#T010250').val()){
-                  arrErrConflictCodes.push("Monogram Text Line 1 and Monogram Text Above Pocket cannot both have values");
-                }
-                if(jQuery('#T010223').val() != 'T01022301' && jQuery('#T010250').val()){
-                  arrErrConflictCodes.push("Interior Construction should be Curved French Facing when Monogram Text Above Pocket has text");
-                }
-              }
-            }
+            this.addArrMustSelectConflictCodes(arrErrConflictCodes);
+
             var clothingTypes = this.model.itemOptions.custcol_producttype.internalid;//this.model.get('custitem_clothing_type').split(', ');
             if(clothingTypes == '3-Piece-Suit'){
               //Check if the linings of the waistcoat and jacket are the same
@@ -347,7 +640,6 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     clothingTypes = this.model.get('custitem_clothing_type').split(', ');
 
                     var selectedUnits = "CM";
-
                     _.each(clothingTypes, function (clothingType) {
                         var usedClothingType = clothingType;
                         if(clothingType == 'Ladies-Jacket')
@@ -1009,7 +1301,8 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     , model: new FitProfileModel(self.application.getUser().get("internalid"))
                     , types: self.model.get("custitem_clothing_type").split(",")
                 });
-                profileView.model.on("afterInitialize", function () {
+                //Removed this because after initialize does not really do anything
+                // profileView.model.on("afterInitialize", function () {
                     profileView.model.set('current_client', self.client);
 
                     // set fabic quantity
@@ -1020,7 +1313,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     if (self.model.get("custitem_clothing_type") !== '&nbsp;' && self.model.get('itemtype') !== 'InvtPart') {
                         jQuery("input#quantity").val(selectedItem ? optionsHolder['CUSTCOL_FABRIC_QUANTITY'].value : window.tempQuantity);
                     }
-                });
+                // });
 
                 profileView.model.on("afterProfileFetch", function () {
                     profileView.render();
@@ -1119,10 +1412,10 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     , types: self.model.get("custitem_clothing_type").split(",")
                 });
 
-
-                profileView.model.on("afterInitialize", function () {
+                //Removed this because after initialize does not really do anything
+                // profileView.model.on("afterInitialize", function () {
                     profileView.model.set('current_client', self.client);
-                });
+                // });
 
                 profileView.model.on("afterProfileFetch", function () {
                     profileView.render();
@@ -1309,7 +1602,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 })
             });
             window.tempOptions = values;
-            var r = new RegExp(/^[TR]{2}\d{3}($|-+\w*)/)
+            var r = new RegExp(/^[TR]{2}\d{3}($|-+\w*)|^[TRR]{3}\d{3}($|-+\w*)|^[TRD]{3}\d{2}($|-+\w*)/);
 
             if(jQuery(e.target).attr("id") == 'li-b-j' || jQuery(e.target).attr("id") == 'T010227' ||
             jQuery(e.target).attr("id") == 'li-bl-w' || jQuery(e.target).attr("id") == 'li-bl-o' || jQuery(e.target).attr("id") == 'T010415' ){
@@ -1692,9 +1985,13 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             window.tempFitProfileMessage = jQuery(e.target).val();
         }
         , scrolltodesignoption: function (e) {
-            jQuery('html,body').animate({
-                scrollTop: jQuery("#design-option").offset().top
-            }, 500);
+
+            if(jQuery('[data-holder="design-option-parent"] > .accordion-group > .in').length>0){
+              jQuery('html,body').animate({
+                  scrollTop: jQuery('[data-holder="design-option-parent"] > .accordion-group > .in').parent().parent().offset().top
+              }, 500);
+              jQuery('[data-holder="design-option-parent"] > .accordion-group > .in').collapse('hide');
+            }
         }
     });
 });

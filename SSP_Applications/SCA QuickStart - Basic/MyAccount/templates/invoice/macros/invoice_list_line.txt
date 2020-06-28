@@ -21,7 +21,7 @@
 	<div class="row-fluid">
 		<% if (selectable) { %>
 			<div class="span1">
-				<input type="checkbox" value="<%= invoice_id %>" data-action="select" <%= is_checked ? 'checked' : '' %>>
+				<input type="checkbox" value="<%= invoice_id %>" data-name="<%=invoice_number%>" data-action="select" <%= is_checked ? 'checked' : '' %>>
 			</div>
 		<% } %>
 		<div class="<%= selectable ? 'span2' : 'span3' %>">

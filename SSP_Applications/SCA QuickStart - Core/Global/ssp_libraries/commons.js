@@ -728,7 +728,7 @@ var Application = _.extend({
 	}
 
 
-	, getAllSearchResults: function (record_type, filters, columns) {
+	, getAllSearchResults: function (record_type, filters, columns,count) {
 		'use strict';
 
 		var search = nlapiCreateSearch(record_type, filters, columns);
@@ -736,7 +736,7 @@ var Application = _.extend({
 
 		var searchRan = search.runSearch()
 			, bolStop = false
-			, intMaxReg = 1000
+			, intMaxReg = count? count: 1000
 			, intMinReg = 0
 			, result = [];
 
@@ -748,7 +748,7 @@ var Application = _.extend({
 			intMinReg = intMaxReg;
 			intMaxReg += 1000;
 			// If the execution reach the the last result set stop the execution
-			if (extras.length < 1000) {
+			if (extras.length < 1000 || (count && result.length > count)) {
 				bolStop = true;
 			}
 		}

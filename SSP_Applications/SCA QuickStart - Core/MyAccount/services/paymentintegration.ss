@@ -5,7 +5,7 @@ function service (request)
   var body = unescape(request.getBody()).split('&');
   var data = {};
   data.apiOperation = body[0].split('=')[1];
-  
+
   data.order = {
     currency:body[1].split('=')[1],
     id:body[2].split('=')[1],
@@ -16,7 +16,7 @@ function service (request)
   switch (method)
   {
     case 'POST':
-    //userid netsuite pwd Jerome1234!
+    //userid netsuite pwd Jerome1234! Administrator Merchant123!
       var paymenturl = 'https://paymentgateway.commbank.com.au/api/rest/version/46/merchant/JERCLOMCC201/session';
       var response = nlapiRequestURL(paymenturl,JSON.stringify(data), {'Authorization':'Basic bWVyY2hhbnQuSkVSQ0xPTUNDMjAxOjhhYjUzNmQ2MjM0NDdhNzg0NmZiYjUzYzVhZDEyODFm'});
       Application.sendContent(response.getBody());

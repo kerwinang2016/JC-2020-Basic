@@ -20,7 +20,7 @@ function service (request)
 				Application.sendContent(Account.login(data.email, data.password));
 			break;
 
-			default: 
+			default:
 				// methodNotAllowedError is defined in ssp library commons.js
 				Application.sendError(methodNotAllowedError);
 		}

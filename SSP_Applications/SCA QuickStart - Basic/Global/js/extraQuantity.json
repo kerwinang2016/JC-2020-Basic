@@ -49,19 +49,19 @@
 			},
 			{
 			"code":"T01051703",
-			"value":"0.1"
+			"value":"0.05"
 			},
 			{
 			"code":"T01051704",
-			"value":"0.1"
+			"value":"0.05"
 			},
 			{
 			"code":"T01051707",
-			"value":"0.1"
+			"value":"0.05"
 			},
 			{
 			"code":"T01051705",
-			"value":"0.1"
+			"value":"0.05"
 			}
 		]
 	},
@@ -174,7 +174,15 @@
 	"design":
 		[
 			{
-			"code":"T01160601",
+			"code":"T01160201",
+			"value":"0.7"
+			},
+			{
+                        "code":"T01160203",
+			"value":"0.5"
+			},
+			{
+                        "code":"T01160601",
 			"value":"0.25"
 			}
 		]
@@ -364,7 +372,7 @@
 			"value":"0"
 			},
 			{
-			"code":"Plaid 3cm x 3cm",
+			"code":"Plaid Fabric",
 			"value":"0.15"
 			},
 			{
@@ -415,8 +423,20 @@
 			"value":"0"
 			},
 			{
-			"code":"Plaid Fabric",
-			"value":"0.06"
+			"code":"Plaid 2cm x 2cm",
+			"value":"0.2"
+			},
+			{
+			"code":"Plaid 4cm x 4cm",
+			"value":"0.4"
+			},
+			{
+			"code":"Plaid 10cm x 10cm",
+			"value":"0.6"
+			},
+                        {
+			"code":"Plaid 30cm x 30cm",
+			"value":"1"
 			},
 			{
 			"code":"Stripe",
@@ -425,17 +445,29 @@
 		]
 	},
 	{
-	"code":"L-2PC-Trouser",
+	"code":"L-2PC-Pants",
 	"design":
 		[{
 			"code":"Plain",
 			"value":"0"
 			},
 			{
-			"code":"Plaid Fabric",
-			"value":"0.06"
+			"code":"Plaid 2cm x 2cm",
+			"value":"0.2"
 			},
 			{
+			"code":"Plaid 4cm x 4cm",
+			"value":"0.4"
+			},
+			{
+			"code":"Plaid 10cm x 10cm",
+			"value":"0.6"
+			},
+                        {
+			"code":"Plaid 30cm x 30cm",
+			"value":"1"
+			},
+                        {
 			"code":"Stripe",
 			"value":"0.05"
 			}
@@ -449,8 +481,20 @@
 			"value":"0"
 			},
 			{
-			"code":"Plaid Fabric",
-			"value":"0.06"
+			"code":"Plaid 2cm x 2cm",
+			"value":"0.2"
+			},
+			{
+			"code":"Plaid 4cm x 4cm",
+			"value":"0.4"
+			},
+			{
+			"code":"Plaid 10cm x 10cm",
+			"value":"0.6"
+			},
+                        {
+			"code":"Plaid 30cm x 30cm",
+			"value":"1"
 			},
 			{
 			"code":"Stripe",
@@ -477,7 +521,7 @@
 			"code":"Plaid 10cm x 10cm",
 			"value":"0.6"
 			},
-      {
+                        {
 			"code":"Plaid 30cm x 30cm",
 			"value":"1"
 			},

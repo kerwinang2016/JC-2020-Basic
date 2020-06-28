@@ -62,8 +62,8 @@ define('ItemDetails.Router', [], function ()
 
 	,	productDetailsById: function (id, options)
 		{
+			//IF FROM THE CART EDITING GOES HERE
 			var self= this;
-
 			if(options){
 				if (options.indexOf("|") > -1) {
 					var optionvals = options.split("client=")[1].split("|");
@@ -75,13 +75,13 @@ define('ItemDetails.Router', [], function ()
 						this.client = options.split("client=")[1].split("&")[0];
 				}
 			}
-			var param = new Object();
-			var tailor = SC.Application('Shopping').getUser().get('parent')!=null? SC.Application('Shopping').getUser().get('parent'):SC.Application('Shopping').getUser().id;
-			param.type = "get_client";
-			param.data = JSON.stringify({filters: ["internalid||anyof|integer|" + this.client,'custrecord_tc_tailor||is|integer|'+tailor], columns: ["internalid", "custrecord_tc_first_name", "custrecord_tc_last_name", "custrecord_tc_email", "custrecord_tc_addr1", "custrecord_tc_addr2", "custrecord_tc_country", "custrecord_tc_city", "custrecord_tc_state", "custrecord_tc_zip", "custrecord_tc_phone"]});
-
-			jQuery.get(_.getAbsoluteUrl('services/fitprofile.ss'), param).always(function(data){
-				if(data[0]){
+			// var param = new Object();
+			// var tailor = SC.Application('Shopping').getUser().get('parent')!=null? SC.Application('Shopping').getUser().get('parent'):SC.Application('Shopping').getUser().id;
+			// param.type = "get_client";
+			// param.data = JSON.stringify({filters: ["internalid||anyof|integer|" + this.client,'custrecord_tc_tailor||is|integer|'+tailor], columns: ["internalid", "custrecord_tc_first_name", "custrecord_tc_last_name", "custrecord_tc_email", "custrecord_tc_addr1", "custrecord_tc_addr2", "custrecord_tc_country", "custrecord_tc_city", "custrecord_tc_state", "custrecord_tc_zip", "custrecord_tc_phone"]});
+			//KERWIN REMOVED THIS... we dont even use the data.. why even bother calling this.. just for redirect
+			// jQuery.get(_.getAbsoluteUrl('services/fitprofile.ss'), param).always(function(data){
+			// 	if(data[0]){
 					// Now go grab the data and show it
 					if(options){
 						if(options.indexOf("|") > -1){
@@ -90,12 +90,11 @@ define('ItemDetails.Router', [], function ()
 							self.productDetails({id: id}, '/product/'+id, SC.Utils.parseUrlOptions(options));
 						}
 					}
-				}
-				else{
-					window.location.href= "http://store.jeromeclothiers.com";
-				}
-			});
-
+			// 	}
+			// 	else{
+			// 		window.location.href= "http://store.jeromeclothiers.com";
+			// 	}
+			// });
 		}
 
 	,	productDetails: function (api_query, base_url, options, plist)
@@ -114,6 +113,7 @@ define('ItemDetails.Router', [], function ()
 				,	baseUrl: base_url
 				,	application: this.application
 				,	pList: plist
+				, options: options
 				});
 			model.fetch({
 				data: api_query

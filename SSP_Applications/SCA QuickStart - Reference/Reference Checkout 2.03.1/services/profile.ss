@@ -15,7 +15,7 @@ function service (request)
 			,	data = JSON.parse(request.getBody() || '{}')
 			//  Profile model is defined on ssp library Models.js
 			,	Profile = Application.getModel('Profile');
-			
+
 			switch (method)
 			{
 				case 'GET':
@@ -29,7 +29,7 @@ function service (request)
 					Application.sendContent(Profile.get());
 				break;
 
-				default: 
+				default:
 					// methodNotAllowedError is defined in ssp library commons.js
 					Application.sendError(methodNotAllowedError);
 			}

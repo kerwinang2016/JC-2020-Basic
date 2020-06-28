@@ -1,11 +1,3 @@
-/*
-Change History
---------------
-Date: 10-01-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-3
-Change Description: Make changes in css
-*/
 body {
   background: #ffffff;
   font-family: 'Raleway', sans-serif;
@@ -1895,14 +1887,14 @@ footer#site-footer .footer-cols ul form#email-sign-up-form input {
 .footer-clear-line {
   margin-top: 170px;
 }
-#design-option .accordion-toggle:after {
+.design-option-parent .accordion-toggle:after {
     /* symbol for "opening" panels */
     font-family: 'Arial';  /* essential for enabling glyphicon */
     content: "\25BC";    /* adjust as needed, taken from bootstrap.css */
     float: right;        /* adjust as needed */
     color: grey;         /* adjust as needed */
 }
-#design-option .accordion-toggle.collapsed:after {
+.design-option-parent .accordion-toggle.collapsed:after {
     /* symbol for "collapsed" panels */
     content: "\25BC";    /* adjust as needed, taken from bootstrap.css */
 }
@@ -1919,7 +1911,6 @@ footer#site-footer .footer-cols ul form#email-sign-up-form input {
 /*Download btn*/
 #btn-download-pdf {
   font-weight: 500;
-  display: none;
 }
 
 .details{
@@ -2038,4 +2029,64 @@ margin-left:5%;
 .category-cell-thumbnail img{
   width: 168px;
   height: 168px;
+}
+.cart-copyproduct-modal-details ul li{
+  font-size: 15px;
+}
+.cart-copyproduct-modal-details ul li input{
+  margin: 0 5px 5px 0;
+  padding: 20px;
+  width: 20px;
+  height: 20px;
+
+}
+.cart-copyproduct-modal-details ul{
+  list-style-type:none;
+}
+.modal-CartCopyProductView .modal-dialog{
+  left: 50%;
+    right: auto;
+    width: 250px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: block;
+    overflow: hidden;
+}
+.modal-FormRendererView .modal-dialog{
+  left: 50%;
+    right: auto;
+    width: 600px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: block;
+}
+.modal-FitProfileView .modal-dialog{
+  left: 50%;
+    right: auto;
+    width: 600px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: block;
+}
+.modal-shopping-cart .modal-dialog{
+  left: 50%;
+  right: auto;
+  width: 600px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  display: block;
+}
+#modal-xyla .modal-dialog{
+  left: 50%;
+  right: auto;
+  width: 600px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  display: block;
+}
+button.btn.remove{
+  background:#fecdcb;
+}
+button.btn.remove:hover{
+  background:#f8beba;
 }

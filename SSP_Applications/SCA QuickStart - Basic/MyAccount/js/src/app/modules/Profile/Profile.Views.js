@@ -1,8 +1,8 @@
 // Profile.Views.js
 // -----------------------
 /*
-Change History   
--------------- 
+Change History
+--------------
 Date: 28-02-2019
 Changed by:Salman Khan
 Change /Jira Ticket #: JHD-11
@@ -10,8 +10,8 @@ Change Description: Default fit tools can be inputted into the my account sectio
 */
 
 /*
-Change History   
--------------- 
+Change History
+--------------
 Date: 04-03-2019
 Changed by:Shoaib Iqbal
 Change /Jira Ticket #: JHD-27
@@ -46,24 +46,24 @@ define('Profile.Views', function ()
 		, 'change .block-measurement-fld': 'disableCounterBlockField'
 	}
 	,	showContent: function (isShow)
-	{		
+	{
 		var self = this
 			,param = new Object();
-		
+
 		self.options.application.getLayout().showContent(self, 'favouritefittools', [{
 			text: self.title
 		,	href: 'favouritefittools'
 		}]);
 		if(isShow == true){
 			self.showConfirmationMessage(_('Your Favourite Fit Tools was successfully saved').translate());
-		}		
+		}
 
 	}
 	,	submitFormData: function (e)
 	{
 		e.preventDefault();
-		jQuery('input:disabled').removeAttr('disabled'); 
-		jQuery('select:disabled').removeAttr('disabled'); 
+		jQuery('input:disabled').removeAttr('disabled');
+		jQuery('select:disabled').removeAttr('disabled');
 		var itemType;
 		var regex = new RegExp("\\+","g");
 		var formValues = jQuery(e.target).serialize().split("&")
@@ -74,7 +74,7 @@ define('Profile.Views', function ()
 				var formValue = formValues[i];
 				var field = formValue.split("=")[0]
 					, value = formValue.split("=")[1];
-				if(field == 'fav-fit-tools-itemtype'){ 
+				if(field == 'fav-fit-tools-itemtype'){
 					var obj = {};
 					obj.itemType = value;
 					obj.measurementValues = tempMeasurementValues;
@@ -464,7 +464,7 @@ define('Profile.Views', function ()
 		}
 	,	parseDataParams : function(){
 			var rawArray = jQuery("#design_option").serializeArray();
-
+			//j,t,o,w,s,ss,tc,sh,lj,lp,ls
 			var favouriteOptionsMap = {};
 			for (var i = 0; i < rawArray.length; i++){
 				var option = rawArray[i];

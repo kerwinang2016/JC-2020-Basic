@@ -5,7 +5,8 @@
 	,	item_details = item.get('itemDetails')
 	,	thumbnail = item_details.get('_thumbnail')
 	,	stock_info = item_details.getStockInfo()
-	,	internalid = item.get('internalid');
+	,	internalid = item.get('internalid')
+	, productType = item.get('options').custcol_producttype.value;
 
 	var plSku = item_details.get('_sku');
 
@@ -76,7 +77,7 @@
 		<%= clientFullName %>
 	</div>
 	<div class="span3">
-		<%= plSku %>
+		<%= plSku + " - " + productType %>
 	</div>
 	<div class="span-w-20-75">
 		<input type="text" style="padding:4px 0;width:100%" id="comment_<%= item.get('internalid') %>" value="<%= item.get('options').custcol_saved_for_later_comment?item.get('options').custcol_saved_for_later_comment.value:'' %>">

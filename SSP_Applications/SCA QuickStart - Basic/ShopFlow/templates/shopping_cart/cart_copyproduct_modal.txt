@@ -1,0 +1,26 @@
+<div class="cart-copy-modal">
+	<div class="cart-copyproduct-modal-details">
+		<ul>
+			<% for(var i=0; i<view.producttypes.length; i++){ %>
+			<li>
+				<input type="checkbox" name=<%= view.producttypes[i].name %> id="<%= view.producttypes[i].name %>"><%= view.producttypes[i].name %>
+			</li>
+			<% } %>
+		</ul>
+		<a class="cart-copyproduct-btn" style="    display: block !important;
+		    height: auto;
+		    text-align: center;
+		    color: #333333;
+		    text-shadow: 0 -1px 0 #333333;
+		    border-radius: 5px;
+		    border: 1px solid #e6e6e6;
+		    font-family: 'Raleway' , sans-serif;
+		    text-shadow: none;
+		    margin-right: 0px;
+		    margin-bottom: 9px;
+		    padding: 3px;
+		    font-size: 13px;
+		    background: linear-gradient(to bottom, white, #e6e6e6);
+		    vertical-align: middle;" data-action="copy-products"> Copy </a>
+	</div>
+</div>

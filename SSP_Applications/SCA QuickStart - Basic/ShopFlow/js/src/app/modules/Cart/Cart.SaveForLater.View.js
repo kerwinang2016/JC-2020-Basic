@@ -22,14 +22,19 @@ define('Cart.SaveForLater.View', ['ErrorManagement', 'ProductListDetails.View', 
 			}
 
 			var self = this;
-
-			// var stFilterSaveForLaterClientName = this.model.get('swx_filter_save_for_later_client');
-			application.getSavedForLaterProductList().done(function(json)
-			{
-				var objSFL = json;
-				// objSFL['swx_filter_save_for_later_client'] = stFilterSaveForLaterClientName;
-				self.renderSaveForLaterSectionHelper(new ProductListModel(objSFL));
-			});
+			if(!this.updateproductlist){
+				// var stFilterSaveForLaterClientName = this.model.get('swx_filter_save_for_later_client');
+				application.getSavedForLaterProductList().done(function(json)
+				{
+					var objSFL = json;
+					// objSFL['swx_filter_save_for_later_client'] = stFilterSaveForLaterClientName;
+					self.renderSaveForLaterSectionHelper(new ProductListModel(objSFL));
+				});
+			}else{
+				this.updateproductlist = false;
+				this.$('[data-type=saved-for-later-placeholder]').empty();
+				this.$('[data-type=saved-for-later-placeholder]').append(this.product_list_details_view.render().el);
+			}
 		}
 
 	,	renderSaveForLaterSectionHelper: function(pl_model)
@@ -47,6 +52,7 @@ define('Cart.SaveForLater.View', ['ErrorManagement', 'ProductListDetails.View', 
 
 	,	addToCart: function()
 		{
+			this.updateproductlist = true;
 			this.showContent();
 		}
 
@@ -105,28 +111,30 @@ define('Cart.SaveForLater.View', ['ErrorManagement', 'ProductListDetails.View', 
 	,	addItemToList: function (product)
 		{
 			var defer = jQuery.Deferred();
-
 			if (this.validateGiftCertificate(product))
 			{
 				var self = this
 				,	application = this.model.application;
-
-				application.getSavedForLaterProductList().done(function(pl_json)
-				{
-					if (!pl_json.internalid)
+				if(this.product_list_details_view && this.product_list_details_view.model && this.product_list_details_view.model.get('internalid')){
+					self.doAddItemToList(this.product_list_details_view.model.get('internalid'), product, defer);
+				}else{
+					application.getSavedForLaterProductList().done(function(pl_json)
 					{
-						var pl_model = new ProductListModel(pl_json);
+						if (!pl_json.internalid)
+						{
+							var pl_model = new ProductListModel(pl_json);
 
-						pl_model.save().done(function (pl_json)
+							pl_model.save().done(function (pl_json)
+							{
+								self.doAddItemToList(pl_json.internalid, product, defer);
+							});
+						}
+						else
 						{
 							self.doAddItemToList(pl_json.internalid, product, defer);
-						});
-					}
-					else
-					{
-						self.doAddItemToList(pl_json.internalid, product, defer);
-					}
-				});
+						}
+					});
+				}
 			}
 			else
 			{
@@ -152,6 +160,7 @@ define('Cart.SaveForLater.View', ['ErrorManagement', 'ProductListDetails.View', 
 		// Adds the new item to the collection
 	,	doAddItemToList: function (pl_internalid, product, internal_promise)
 		{
+			var self = this;
 			var application = this.model.application
 			,	product_list_item = {
 					description: ''
@@ -166,8 +175,13 @@ define('Cart.SaveForLater.View', ['ErrorManagement', 'ProductListDetails.View', 
 			}
 			,	product_list_item_model = new ProductListItemModel(product_list_item);
 
-			product_list_item_model.save().done(function ()
+			product_list_item_model.save().done(function (data)
 			{
+				var new_model = new ProductListItemModel(data[0]);
+				self.product_list_details_view.model.get('items').unshift(new_model, {merge: true});
+
+				self.updateproductlist = true;
+
 				internal_promise.resolve();
 			});
 		}

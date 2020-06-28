@@ -906,6 +906,8 @@
 						,	{"label":"Shoulder Position", "name":"Shoulder-Position", "type":"select", "min":-1, "max":1, "very-slim": {"min":-1, "max":1}, "slim": {"min":-1, "max":1}, "regular": {"min":-1, "max":1}}
 						,	{"label":"Center Back", "name":"Center-Back-Seam", "type":"select", "min":-0.5, "max":0, "very-slim": {"min":-0.5, "max":0}, "slim": {"min":-0.5, "max":0}, "regular": {"min":-0.5, "max":0}}
                                                 ,       {"label":"Chest Dart Length", "name":"Chest-Length", "type":"select", "min":-2, "max":2, "very-slim": {"min":-2, "max":2}, "slim": {"min":-2, "max":2}, "regular": {"min":-2, "max":2}}
+                                                ,       {"label":"Strong Chest", "name":"Strong-Chest", "type":"select", "min":0, "max":2, "very-slim": {"min":0, "max":2}, "slim": {"min":0, "max":2}, "regular": {"min":0, "max":2}}
+                                                ,       {"label":"Flat Chest", "name":"Flat-Chest", "type":"select", "min":-1, "max":0, "very-slim": {"min":-1, "max":0}, "slim": {"min":-1, "max":0}, "regular": {"min":-1, "max":0}}
 						]
 					}
 

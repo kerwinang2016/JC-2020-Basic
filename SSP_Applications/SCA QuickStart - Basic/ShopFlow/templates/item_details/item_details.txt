@@ -90,8 +90,9 @@
 												</div>
 												<div class="row-fluid">
 													<form action="#" class="form-inline add-to-cart-form">
-													<% if( window.vendor){%>
+
 														<h2 class="section-header">Fabric</h2><hr/>
+														<% if( window.vendor){%>
 														<div class="accordion" id="fabric-availability">
 															<div class="accordion-group">
 																<div class="accordion-heading">
@@ -120,6 +121,8 @@
 																</div>
 															</div>
 														</div>
+														<% } %>
+														<% if(model.get('internalid') == '253776') { %>
 														<div class="accordion" id="fabric-cmt">
 															<div class="accordion-group">
 																<div class="accordion-heading">
@@ -154,7 +157,7 @@
 																</div>
 															</div>
 														</div>
-													<%}%>
+														<% } %>
 														<div id="clothing-details">
 															<i class="fa-li fa fa-spinner fa-spin" style="position: static;"></i>
 														</div>

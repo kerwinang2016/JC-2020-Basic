@@ -31,7 +31,10 @@ define('OrderHistory.Router',  ['OrderHistory.Views', 'PlacedOrder.Model','Place
 
 			options.page = options.page || 1;
 			options.search = options.search || "";
-
+			options.cmtdate = options.cmtdate || "";
+			options.startdate = options.startdate || "";
+			options.enddate = options.enddate || "";
+			options.cmtstatus = options.cmtstatus || "";
 			var collection = new Collection(options.search)
 			,	view = new Views.List({
 					application: this.application
@@ -39,6 +42,10 @@ define('OrderHistory.Router',  ['OrderHistory.Views', 'PlacedOrder.Model','Place
 				,	search: options.search
 				,	collection: collection
 				, sort: options.sort
+				, cmtdate: options.cmtdate
+				, startdate: options.startdate
+				, enddate: options.enddate
+				, cmtstatus: options.cmtstatus
 				});
 
 			collection

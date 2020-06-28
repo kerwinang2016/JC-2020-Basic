@@ -1,13 +1,5 @@
 // Profile.Views.js
 // -----------------------
-/*
-Change History
---------------
-Date: 28-02-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-11
-Change Description: Default fit tools can be inputted into the my account section
-*/
 // Views for profile's operations
 define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection'], function (ClientModel, ProfileModel, ProfileCollection) {
 	'use strict';
@@ -35,6 +27,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 			this.model.set('swx_order_client_name', '');
 			this.model.set('swx_order_client_email', '');
 			this.model.set('swx_order_client_phone', '');
+
 		}
 
 		, showContent: function () {
@@ -66,40 +59,32 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 			var self = this;
 			jQuery("div[data-type='alert-placeholder']").empty();
 			//var clientModel = this.model.get('current_client')
-			var param = new Object();
-			param.type = "get_client";
-			var tailor = SC.Application('Shopping').getUser().get('parent')!= null? SC.Application('Shopping').getUser().get('parent'):SC.Application('Shopping').getUser().id;
-			param.data = JSON.stringify({filters: ["custrecord_tc_tailor||anyof|list|"+tailor], columns: ["internalid", "custrecord_tc_first_name", "custrecord_tc_last_name", "custrecord_tc_email", "custrecord_tc_addr1", "custrecord_tc_addr2", "custrecord_tc_country", "custrecord_tc_city", "custrecord_tc_state", "custrecord_tc_zip", "custrecord_tc_phone"]});
-			jQuery.get(_.getAbsoluteUrl('services/fitprofile.ss'), param).always(function(data){
-				if(data){
-					self.model.client_collection.reset();
-					self.model.client_collection.add(data);
+			if(self.$('input[name=swx-order-client-name]').val() || self.$('input[name=swx-order-client-email]').val() || self.$('input[name=swx-order-client-phone]').val()){
+				var param = new Object();
+				param.type = "get_client";
+				var tailor = SC.Application('Shopping').getUser().get('parent')!= null? SC.Application('Shopping').getUser().get('parent'):SC.Application('Shopping').getUser().id;
 
+				param.data = JSON.stringify({filters: ["custrecord_tc_tailor||anyof|list|"+tailor], columns: ["internalid", "custrecord_tc_first_name", "custrecord_tc_last_name", "custrecord_tc_email", "custrecord_tc_addr1", "custrecord_tc_addr2", "custrecord_tc_country", "custrecord_tc_city", "custrecord_tc_state", "custrecord_tc_zip", "custrecord_tc_phone"]});
 
-					$("[id='order-history']").empty();
-					var clientCollection = self.model.client_collection
-					var stClientCollection = JSON.stringify(clientCollection);
-					var arrObjClientCollection = (!_.isNullOrEmpty(stClientCollection)) ? JSON.parse(stClientCollection) : [];
-					self.model.set('swx_order_client_name', self.$('input[name=swx-order-client-name]').val());
-					self.model.set('swx_order_client_email', self.$('input[name=swx-order-client-email]').val());
-					self.model.set('swx_order_client_phone', self.$('input[name=swx-order-client-phone]').val());
-					self.model.set('swx_is_display_client_details', '');
+				param.searchinput = JSON.stringify({clientname: self.$('input[name=swx-order-client-name]').val(), email: self.$('input[name=swx-order-client-email]').val(), phone: self.$('input[name=swx-order-client-phone]').val()});
 
-					var objFilters = {};
-					objFilters['name'] = self.model.get('swx_order_client_name');
-					objFilters['email'] = self.model.get('swx_order_client_email');
-					objFilters['phone'] = self.model.get('swx_order_client_phone');
+				jQuery.get(_.getAbsoluteUrl('services/fitprofile.ss'), param).always(function(data){
+					if(data){
+						self.model.client_collection.reset();
+						self.model.client_collection.add(data);
 
-					var arrObjClient = _.getArrObjOrderClientList(arrObjClientCollection, objFilters)
+						$("[id='order-history']").empty();
+						var clientCollection = self.model.client_collection
+						var stClientCollection = JSON.stringify(clientCollection);
+						var arrObjClientCollection = (!_.isNullOrEmpty(stClientCollection)) ? JSON.parse(stClientCollection) : [];
 
+						$("#swx-order-client-list").empty();
+						$("#swx-order-client-list").html(SC.macros.swxOrderClientList(data));
 
-					var arrObjClientList = [];
-					$("#swx-order-client-list").empty();
-					$("#swx-order-client-list").html(SC.macros.swxOrderClientList(arrObjClient));
-
-					_.toggleMobileNavButt();
-				}
-			});
+						_.toggleMobileNavButt();
+					}
+				});
+			}
 		}
 
 		, swxOrderClientAdd: function (e) {
@@ -210,7 +195,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 				jQuery("#profile-actions-" + jQuery(e.target).data("type")).html("<a data-toggle='show-in-modal' href='/fitprofile/new'>Add</a> | <a data-toggle='show-in-modal' href='/fitprofile/" + profileID + "'>Edit</a> | <a data-action='remove-rec' data-type='profile' data-id='" + profileID + "'>Remove</a>");
 			} else {
 				jQuery("#profile-actions-" + jQuery(e.target).data("type")).html("<a data-toggle='show-in-modal' href='/fitprofile/new'>Add</a>");
-				jQuery("#profile-details").html(SC.macros.profileForm(self.model));
+				// jQuery("#profile-details").html(SC.macros.profileForm(self,self.model));
 			}
 		}
 
@@ -260,7 +245,10 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 			, 'change [id*="body-fit"]': 'fitBlockChanged'
 			, 'click [id*="swx-fitprofile-copy"]': 'swxFitProfileCopy'
 		}
-
+		,	attributes: {
+				'id': 'FitProfileView'
+			,	'class': 'fit-profile-modal'
+			}
 		, initialize: function (options) {
 			var self = this;
 			this.model = options.model;
@@ -274,7 +262,16 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 			jQuery.get(_.getAbsoluteUrl('js/itemRangeConfigInches.json')).done(function (data) {
 				window.inchConfig = data;
 			});
-			 //JHD-11 Start
+			// jQuery.get(_.getAbsoluteUrl('js/FitProfile_Config.json')).done(function(data){
+			// 	self.measurement_config = data;
+			// });
+			jQuery.ajax({
+				url:_.getAbsoluteUrl('js/FitProfile_Config.json'),
+				async:false,
+				success: function (result) {
+						self.measurement_config = result;
+				}
+			});
 			var param = new Object();
 			param.type = "get_favourite_fit_tools";
 			param.id = this.options.application.getUser().get("internalid");
@@ -283,7 +280,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 					window.defaultfavfittools = data;
 				}
 			});
-			 //JHD-11 End
+			SC.sessioncheck();
 		}
 		, swxFitProfileCopy: function (e) {
 			e.preventDefault();
@@ -367,9 +364,9 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 
 			self._render();
 			if(this.fitprofile.get("current_profile") !== null)
-			self.$("#profile-details").html(SC.macros.profileForm(self.fitprofile));
+			self.$("#profile-details").html(SC.macros.profileForm(self,self.fitprofile));
 			else
-			self.$("#profile-details").html(SC.macros.profileForm(self.fitprofile,'add'));
+			self.$("#profile-details").html(SC.macros.profileForm(self,self.fitprofile,'add'));
 			setTimeout(function() {
 				if(jQuery('[id*="custrecord_fp_measure_type"]').val() == 'Block'){
 					self.updateBlockAndFinished(jQuery('[id*="body-fit"]').val(),jQuery('[id*="body-block"]').val())
@@ -389,7 +386,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 				itemtype = jQuery('#custrecord_fp_product_type').val();
 			}
 			if (itemType) {
-				selectedItemType = _.where(self.fitprofile.measurement_config, { item_type: itemType })[0];
+				selectedItemType = _.where(self.measurement_config, { item_type: itemType })[0];
 			}
 			if (selectedItemType) {
 				measurementType = _.pluck(selectedItemType.measurement, "type");
@@ -401,7 +398,6 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 					jQuery("#measure-type").html(SC.macros.measureTypeDropdown(measurementType, profile ? profile.get("custrecord_fp_measure_type") : null));
 					jQuery("#measure-form").html("");
 				}
-
 			} else {
 				jQuery("#in-modal-measure-type").html("");
 				jQuery("#in-modal-measure-form").html("");
@@ -422,7 +418,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 			}
 
 			if (measureType && itemType) {
-				fieldsForm = _.where(self.fitprofile.measurement_config, { item_type: itemType })[0];
+				fieldsForm = _.where(self.measurement_config, { item_type: itemType })[0];
 				fieldsForm = _.where(fieldsForm.measurement, { type: measureType })[0];
 				self.processBlockFields(fieldsForm, 'Regular');
 				self.fitprofile.selected_measurement = fieldsForm;
@@ -496,7 +492,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 				, fieldsForm = null;
 
 			if (measureType && itemType && fitType) {
-				fieldsForm = _.where(self.fitprofile.measurement_config, { item_type: itemType })[0];
+				fieldsForm = _.where(self.measurement_config, { item_type: itemType })[0];
 				fieldsForm = _.where(fieldsForm.measurement, { type: measureType })[0];
 				self.processBlockFields(fieldsForm, fitType)
 
@@ -891,28 +887,6 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 		, submitProfile: function (e) {
 			e.preventDefault();
 			var finishMeasurements = jQuery('#in-modal-profile-form span[id*="finish_"]');
-			// if(jQuery('[id*="custrecord_fp_product_type"]').val() == 'Jacket'){
-			// 	if(jQuery('#units').val() == 'CM'){
-			// 		if(parseFloat(jQuery('[id*="finish_Cuff"]').html()) < 19 && parseFloat(jQuery('[id*="finish_Cuff"]').html()) != 0) {alert('Cuff measurement not valid'); return;}
-			// 		if(parseFloat(jQuery('[id*="finish_Front-Lt"]').html()) < 60 && parseFloat(jQuery('[id*="finish_Front-Lt"]').html()) != 0){ alert('Front Length measurement not valid');return;}
-			// 		if(parseFloat(jQuery('[id*="finish_Top-Button"]').html()) < 25 && parseFloat(jQuery('[id*="finish_Top-Button"]').html()) != 0){ alert('Top Button measurement not valid');return;}
-			// 	}
-			// 	else{
-			// 		if(parseFloat(jQuery('[id*="finish_Cuff"]').html()) < 7.5 && parseFloat(jQuery('[id*="finish_Cuff"]').html()) != 0) {alert('Cuff measurement not valid'); return;}
-			// 		if(parseFloat(jQuery('[id*="finish_Front-Lt"]').html()) < 23.6 && parseFloat(jQuery('[id*="finish_Front-Lt"]').html()) != 0){ alert('Front Length measurement not valid');return;}
-			// 		if(parseFloat(jQuery('[id*="finish_Top-Button"]').html()) < 9.8 && parseFloat(jQuery('[id*="finish_Top-Button"]').html()) != 0){ alert('Top Button measurement not valid');return;}
-			// 	}
-			// }else if(jQuery('[id*="custrecord_fp_product_type"]').val() == 'Waistcoat'){
-			// 	if(jQuery('#units').val() == 'CM'){
-			// 		if(parseFloat(jQuery('[id*="finish_front-lt"]').html()) < 48 && parseFloat(jQuery('[id*="finish_front-lt"]').html()) != 0) {alert('Front Length measurement not valid'); return;}
-			// 		if(parseFloat(jQuery('[id*="finish_top-button"]').html()) < 20 && parseFloat(jQuery('[id*="finish_top-button"]').html()) != 0){ alert('Top Button measurement not valid');return;}
-			// 	}
-			// 	else{
-			// 		if(parseFloat(jQuery('[id*="finish_front-lt"]').html()) < 18.9 && parseFloat(jQuery('[id*="finish_front-lt"]').html()) != 0) {alert('Front Length measurement not valid'); return;}
-			// 		if(parseFloat(jQuery('[id*="finish_top-button"]').html()) < 7.9 && parseFloat(jQuery('[id*="finish_top-button"]').html()) != 0){ alert('Top Button measurement not valid');return;}
-			// 	}
-			// }
-			// if(jQuery('[id*="custrecord_fp_product_type"]').val() == 'Waistcoat'){}
 			var hasErrors = false;
 			for (var i = 0; i < finishMeasurements.length; i++) {
 

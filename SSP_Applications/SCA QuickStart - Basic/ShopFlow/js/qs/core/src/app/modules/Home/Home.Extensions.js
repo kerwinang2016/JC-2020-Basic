@@ -58,9 +58,9 @@ define('Home.Extensions', ['Home'], function(Home){
             });
 
             Layout.on('afterAppendView', function(view) {
-
-                //console.log('xyla :)')
-
+                
+                console.log('xyla :)')
+                
                 if(view instanceof Home.View) {
 
                     // Add Class for home-page
@@ -79,7 +79,7 @@ define('Home.Extensions', ['Home'], function(Home){
                             }, '.home-merchandising');
                         }
                     });
-
+                    
                     jQuery('.quick-button-area').addClass('home');
 
                 } else {

@@ -1,6 +1,6 @@
 /*
-Change History   
--------------- 
+Change History
+--------------
 Date: 05-03-2019
 Changed by:Saad Nawaz
 Change /Jira Ticket #: JHD-31
@@ -15,9 +15,9 @@ Change Description: Change title of header
     _.each(SC._applications, function(application) {
 
         application.on('beforeStartGlobal', function() {
-        	
+
         	var configuration = application.Configuration;
-        	
+
         	configuration.navigationTabs = [
 	        	{
 	        		text: _('Home').translate()
@@ -60,17 +60,25 @@ Change Description: Change title of header
 	        		}
 	        	}
 	        ,	{
-	        		text: _('Support').translate()
+	        		text: _('Training Guides').translate()
 	        	,	href: '#'
 	        	,	data: {
 	        			touchpoint: 'customercenter'
-	        		,	hashtag: '#cases'
+	        		,	hashtag: '#trainingguides'
 	        		}
-	        	}	
+	        	}
+          ,	{
+	        		text: _('Applications').translate()
+	        	,	href: '#'
+	        	,	data: {
+	        			touchpoint: 'home'
+	        		,	hashtag: '#applications'
+	        		}
+	        	}
 	        ];
-        	
+
         	configuration.quickLinks = [
-                {   
+                {
             		text: _('New Order').translate()
             	,	href: '/tailorclient'
             	,	data: {
@@ -78,7 +86,7 @@ Change Description: Change title of header
             		,	hashtag: '#/tailorclient'
             		}
             	,	xPosition: "0px"
-            	}	
+            	}
             ,	{
             		text: _('Saved Order').translate()
             	,	href: '#'
@@ -87,7 +95,7 @@ Change Description: Change title of header
             		,	hashtag: '#cart'
             		}
             	,  xPosition: "-90px"
-            	}	
+            	}
             ,	{
             		text: _('Order Dashboard').translate()
             	,	href: '#'
@@ -114,7 +122,7 @@ Change Description: Change title of header
             		,	hashtag: '#Inventory/Fabrics'
             		}
             	,  xPosition: "-360px"
-        		}            
+        		}
             ,	{
             		text: _('Update Measurements').translate()
             	,	href: '#'
@@ -125,7 +133,7 @@ Change Description: Change title of header
             	,  xPosition: "-450px"
         		}
     		];
-        	
+
         });
 
     });

@@ -154,7 +154,7 @@ define('PaymentWizard.Module.Invoice', ['Wizard.Module', 'ListHeader', 'Invoice'
 						var milli_inv_one = invoiceOne.get('dueinmilliseconds') || 0
 						,	milli_inv_two = invoiceTwo.get('dueinmilliseconds') || 0;
 
-						if (milli_inv_one !== milli_inv_two) 
+						if (milli_inv_one !== milli_inv_two)
 						{
 							return milli_inv_one < milli_inv_two ? -1 : 1;
 						}
@@ -191,7 +191,7 @@ define('PaymentWizard.Module.Invoice', ['Wizard.Module', 'ListHeader', 'Invoice'
 	,	toggleInvoiceHandler: function (e)
 		{
 			var $target = jQuery(e.target);
-			
+
 			if ($target.data('toggle') !== 'show-in-modal')
 			{
 				this.toggleInvoice($target.closest('[data-type="invoice"]').data('id'));
@@ -247,7 +247,7 @@ define('PaymentWizard.Module.Invoice', ['Wizard.Module', 'ListHeader', 'Invoice'
 		{
 			var self = this
 			,	has_changed = false;
-			
+
 			this.invoices.each(function (invoice)
 			{
 				if (invoice.get('apply'))

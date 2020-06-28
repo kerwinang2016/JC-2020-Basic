@@ -87,7 +87,7 @@ define('ItemDetails.Model', ['ItemOptionsHelper', 'Session'], function (ItemOpti
 				// You can pass in the internalid on the instead of the full item
 				if (option && option.values)
 				{
-					value = _.isObject(value) ? value : _.where(option.values, {internalid: value.toString()})[0];
+					value = _.isObject(value) ? value : _.where(option.values, {internalid: value?value.toString():""})[0];
 				}
 				else if (!_.isObject(value))
 				{

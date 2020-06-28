@@ -1,8 +1,8 @@
 // Case.Router.js
 // -----------------------
 /*
-Change History   
--------------- 
+Change History
+--------------
 Date: 06-03-2019
 Changed by: Salman Khan
 Change /Jira Ticket #: JHD-30
@@ -15,13 +15,12 @@ define('Case.Router', ['Case.Model', 'Case.Collection', 'CaseFields.Model'], fun
 
 	return Backbone.Router.extend({
 
-		routes: 
+		routes:
 		{
 			'cases': 'showCasesList'
 		,	'cases?:options': 'showCasesList'
 		,	'cases/:id': 'showCase'
 		,	'newcase': 'createNewCase'
-		,	'trainingguides': 'trainingGuides' //JHD-30
 		}
 
 	,	initialize: function (application)
@@ -47,10 +46,10 @@ define('Case.Router', ['Case.Model', 'Case.Collection', 'CaseFields.Model'], fun
 		// Render the Case list landing page
 	,	showCasesList: function (options)
 		{
-			var params_options = _.parseUrlOptions(options)			
+			var params_options = _.parseUrlOptions(options)
 			,	case_fields = new CaseFieldsModel();
 
-			jQuery.when(case_fields.fetch()).then(jQuery.proxy(this, 'showCasesListHelper', case_fields, params_options));	
+			jQuery.when(case_fields.fetch()).then(jQuery.proxy(this, 'showCasesListHelper', case_fields, params_options));
 		}
 
 		// Helps to render the Case List landing page after case fields are retrieved
@@ -64,7 +63,7 @@ define('Case.Router', ['Case.Model', 'Case.Collection', 'CaseFields.Model'], fun
 				,	page: params_options && params_options.page
 				,	fields: case_fields
 				});
-			
+
 			if (this.application.getLayout().currentView)
 			{
 				var new_case_id = this.application.getLayout().currentView.newCaseId
@@ -79,7 +78,7 @@ define('Case.Router', ['Case.Model', 'Case.Collection', 'CaseFields.Model'], fun
 					delete this.application.getLayout().currentView.newCaseId;
 					delete this.application.getLayout().currentView.newCaseMessage;
 				}
-			}			
+			}
 
 			view.collection.on('reset', view.render, view);
 			view.showContent();
@@ -97,16 +96,6 @@ define('Case.Router', ['Case.Model', 'Case.Collection', 'CaseFields.Model'], fun
 			});
 
 			jQuery.when(case_fields.fetch()).then(jQuery.proxy(view, 'showContent'));
-		}
-
-		// Training Guide
-	,	trainingGuides: function (id, options) //JHD-30
-		{
-			var view = new this.application.CaseModule.Views.TrainingGuides({
-					application: this.application
-			});
-
-		view.showContent();
 		}
 	});
 });

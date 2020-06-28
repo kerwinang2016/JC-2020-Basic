@@ -1,4 +1,17 @@
-<% registerMacro('designOptionFields', function (fields, values, mode) { %>
+<% registerMacro('designOptionFields', function (fields, values, mode) {
+	var tag = [];
+	tag['Jacket'] = 'j';
+	tag['Trouser'] = 't';
+	tag['Overcoat'] = 'o';
+	tag['Waistcoat'] = 'w';
+	tag['Shirt'] = 's';
+	tag['Short-Sleeves-Shirt'] = 'ss';
+	tag['Trenchcoat'] = 'tc';
+	tag['Shorts'] = 'sh';
+	tag['Ladies-Jacket'] = 'lj';
+	tag['Ladies-Pants'] = 'lp';
+	tag['Ladies-Skirt'] = 'ls';
+%>
 	<% if (fields && fields.length > 1) { %>
 		<ul class="nav nav-tabs design-option-list">
 		<% _.each(fields, function (field, count) { %>
@@ -15,9 +28,9 @@
 	<% _.each(fields, function (field, count) { %>
 		<div class="tab-pane <%= count == 0 ? 'active' : '' %> design-option-<%= field["item_type"] %>" id="design-option-<%= field["item_type"] %>">
 			<% if(mode == "multi"){ %>
-				<%= SC.macros.designOptionMultiField(field, values) %>
+				<%= SC.macros.designOptionMultiField(field, values, tag[field["item_type"]]) %>
 			<% } else { %>
-				<%= SC.macros.designOptionSingleField(field, count) %>
+				<%= SC.macros.designOptionSingleField(field, count, tag[field["item_type"]]) %>
 			<% } %>
 		</div>
 	<% }) %>

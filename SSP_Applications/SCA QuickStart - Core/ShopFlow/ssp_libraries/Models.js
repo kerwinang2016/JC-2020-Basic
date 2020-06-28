@@ -674,13 +674,14 @@ Application.defineModel('LiveOrder', {
   var returnObj = {};
 	returnObj.fabrictext = '<div><b>Fabric</b><div style="padding-left:10px;"><ul>';
   var ptype = line_data.options.custcol_producttype;
-  //nlapiLogExecution('debug','itemfields.vendor',itemfields.vendor);
+  // nlapiLogExecution('debug','itemfields.vendor',itemfields.vendor);
 	if(itemfields.vendor == '17' || itemfields.vendor == '671'){
     var fabCollection = itemfields.custitem_fabric_collection;
 		var prodType = line_data.options.custcol_producttype;
 		var currentPricelevel = customerfields.pricelevel;
-    //nlapiLogExecution('debug','pricelevel',currentPricelevel);
-    //nlapiLogExecution('debug','custrecord_dtp_fab_collection',fabCollection);
+    // nlapiLogExecution('debug','pricelevel',currentPricelevel);
+    // nlapiLogExecution('debug','custrecord_dtp_fab_collection',fabCollection);
+    // nlapiLogExecution('debug','prodType',prodType);
 		if(fabCollection && prodType && currentPricelevel != ""){
       var prodTypeId = "";
 			switch(prodType){
@@ -691,14 +692,14 @@ Application.defineModel('LiveOrder', {
 				case 'Shirt': prodTypeId = '7'; break;
 				case '3-Piece-Suit': prodTypeId = '9'; break;
 				case '2-Piece-Suit': prodTypeId = '10'; break;
-        case "Short-Sleeves-Shirt": clothingtype = "12"; break;
-        case "Trenchcoat": clothingtype = "13"; break;
-        case "Ladies-Jacket": clothingtype = "14"; break;
-        case "Ladies-Pants": clothingtype = "15"; break;
-        case "Ladies-Skirt": clothingtype = "16"; break;
-        case "L-2PC-Skirt": clothingtype = "17"; break;
-        case "L-3PC-Suit": clothingtype = "18"; break;
-        case "L-2PC-Pants": clothingtype = "19"; break;
+        case "Short-Sleeves-Shirt": prodTypeId = "12"; break;
+        case "Trenchcoat": prodTypeId = "13"; break;
+        case "Ladies-Jacket": prodTypeId = "14"; break;
+        case "Ladies-Pants": prodTypeId = "15"; break;
+        case "Ladies-Skirt": prodTypeId = "16"; break;
+        case "L-2PC-Skirt": prodTypeId = "17"; break;
+        case "L-3PC-Suit": prodTypeId = "18"; break;
+        case "L-2PC-Pants": prodTypeId = "19"; break;
 			}
 
       //nlapiLogExecution('debug','custrecord_dtp_producttype',prodTypeId);
@@ -709,7 +710,8 @@ Application.defineModel('LiveOrder', {
 				filters.push(new nlobjSearchFilter('custrecord_dtp_pricelevel',null,'anyof',currentPricelevel));
 				filters.push(new nlobjSearchFilter('custrecord_dtp_producttype',null,'anyof',prodTypeId));
 				var dpl_results = nlapiSearchRecord('customrecord_dayang_pricing',null,filters,new nlobjSearchColumn('custrecord_dtp_price'));
-				if(dpl_results && dpl_results.length >0){
+
+        if(dpl_results && dpl_results.length >0){
 					returnObj.fabrictext += "<li>"+itemfields.item + " ";
 					returnObj.fabrictext += dpl_results[0].getValue('custrecord_dtp_price')?dpl_results[0].getValue('custrecord_dtp_price'):0;
           returnObj.fabrictext += "</li>";
@@ -740,14 +742,14 @@ Application.defineModel('LiveOrder', {
 			'Waistcoat': '1',
 			'Overcoat': '2.5',
 			'Shirt': '2',
-			'Trenchcoat': '3',
+			'Trenchcoat': '2.5',
 			'Short-Sleeves-Shirt': '2',
-			'Ladies-Jacket': '1.7',
-			'Ladies-Pants': '1.7',
+			'Ladies-Jacket': '1.8',
+			'Ladies-Pants': '1.8',
 			'Ladies-Skirt': '1',
-			'L-2PC-Skirt': '2.4',
-			'L-3PC-Suit': '3.7',
-			'L-2PC-Pants': '3'
+			'L-2PC-Skirt': '2.5',
+			'L-3PC-Suit': '3.9',
+			'L-2PC-Pants': '3.1'
 		};
 		currency = customerfields.currency;
 		var currentPricelevel = customerfields.pricelevel;
@@ -768,14 +770,14 @@ Application.defineModel('LiveOrder', {
 				case 'Overcoat': currentAmount = price * 2.5; break;
 				case 'Shirt': currentAmount = price * 2; break;
 
-				case 'Trenchcoat' : currentAmount = price * 3; break;
+				case 'Trenchcoat' : currentAmount = price * 2.5; break;
 				case 'Short-Sleeves-Shirt': currentAmount = price * 2; break;
-				case 'Ladies-Jacket': currentAmount = price * 1.7; break;
-				case 'Ladies-Pants': currentAmount = price * 1.7; break;
+				case 'Ladies-Jacket': currentAmount = price * 1.8; break;
+				case 'Ladies-Pants': currentAmount = price * 1.8; break;
 				case 'Ladies-Skirt': currentAmount = price * 1; break;
-				case 'L-2PC-Skirt': currentAmount = price * 2.4; break;
-				case 'L-3PC-Suit': currentAmount = price * 3.7; break;
-				case 'L-2PC-Pants': currentAmount = price * 3; break;
+				case 'L-2PC-Skirt': currentAmount = price * 2.5; break;
+				case 'L-3PC-Suit': currentAmount = price * 3.9; break;
+				case 'L-2PC-Pants': currentAmount = price * 3.1; break;
 				default:
 			}
 			currentRate = currentAmount/parseFloat(fabric_quantity);
@@ -1438,36 +1440,72 @@ Application.defineModel('LiveOrder', {
 	cols.push(new nlobjSearchColumn('custrecord_do_itemtype'));
 	cols.push(new nlobjSearchColumn('custrecord_sleeveliningsurcharge'));
   cols.push(new nlobjSearchColumn('custrecord_exempt_from_surcharge'));
-	var do_surcharges = nlapiSearchRecord('customrecord_design_options_surcharge',null,filters,cols);
-	var surcharges = [];
-	for(var k=0; k<do_surcharges.length;k++){
+  var search = nlapiCreateSearch('customrecord_design_options_surcharge',filters,cols);
+  var resultSet = search.runSearch();
+  var searchid = 0;
+  var do_surcharges, surcharges = [];
+  do{
+    do_surcharges = resultSet.getResults(searchid,searchid+1000);
+    if(do_surcharges && do_surcharges.length > 0){
+      for(var k=0; k<do_surcharges.length; k++){
+        var custom = _.find(surcharges,function(x){return x.name == do_surcharges[k].getValue('custrecord_do_location')});
+    		if(custom){
+    			custom.codes.push(do_surcharges[k].getValue('custrecord_do_code'));
+    			custom.values.push({
+    			code:do_surcharges[k].getValue('custrecord_do_code'),
+    			description:do_surcharges[k].getValue('custrecord_do_description'),
+    			surcharge:do_surcharges[k].getValue('custrecord_do_surcharge'),
+    			sleeveliningsurcharge:do_surcharges[k].getValue('custrecord_sleeveliningsurcharge'),
+          exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(',')
+          });
+    		}
+    		else{
+    		surcharges.push({
+    			name:do_surcharges[k].getValue('custrecord_do_location'),
+    			type:do_surcharges[k].getText('custrecord_do_itemtype'),
+    			codes:[do_surcharges[k].getValue('custrecord_do_code')],
+    			values:[{code:do_surcharges[k].getValue('custrecord_do_code'),
+    			description:do_surcharges[k].getValue('custrecord_do_description'),
+    			surcharge:do_surcharges[k].getValue('custrecord_do_surcharge'),
+    			sleeveliningsurcharge:do_surcharges[k].getValue('custrecord_sleeveliningsurcharge'),
+          exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(',')
+          }]
+    		});
+    		}
+      }
+      searchid+=1000;
+    }
+  }while(do_surcharges && do_surcharges.length == 1000);
+	// var do_surcharges = nlapiSearchRecord('customrecord_design_options_surcharge',null,filters,cols);
+
+	// for(var k=0; k<do_surcharges.length;k++){
 		//name:location,
 		//values:{[]}
-		var custom = _.find(surcharges,function(x){return x.name == do_surcharges[k].getValue('custrecord_do_location')});
-		if(custom){
-			custom.codes.push(do_surcharges[k].getValue('custrecord_do_code'));
-			custom.values.push({
-			code:do_surcharges[k].getValue('custrecord_do_code'),
-			description:do_surcharges[k].getValue('custrecord_do_description'),
-			surcharge:do_surcharges[k].getValue('custrecord_do_surcharge'),
-			sleeveliningsurcharge:do_surcharges[k].getValue('custrecord_sleeveliningsurcharge'),
-      exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(',')
-			});
-		}
-		else{
-		surcharges.push({
-			name:do_surcharges[k].getValue('custrecord_do_location'),
-			type:do_surcharges[k].getText('custrecord_do_itemtype'),
-			codes:[do_surcharges[k].getValue('custrecord_do_code')],
-			values:[{code:do_surcharges[k].getValue('custrecord_do_code'),
-			description:do_surcharges[k].getValue('custrecord_do_description'),
-			surcharge:do_surcharges[k].getValue('custrecord_do_surcharge'),
-			sleeveliningsurcharge:do_surcharges[k].getValue('custrecord_sleeveliningsurcharge'),
-      exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(',')
-      }]
-		});
-		}
-	}
+		// var custom = _.find(surcharges,function(x){return x.name == do_surcharges[k].getValue('custrecord_do_location')});
+		// if(custom){
+		// 	custom.codes.push(do_surcharges[k].getValue('custrecord_do_code'));
+		// 	custom.values.push({
+		// 	code:do_surcharges[k].getValue('custrecord_do_code'),
+		// 	description:do_surcharges[k].getValue('custrecord_do_description'),
+		// 	surcharge:do_surcharges[k].getValue('custrecord_do_surcharge'),
+		// 	sleeveliningsurcharge:do_surcharges[k].getValue('custrecord_sleeveliningsurcharge'),
+    //   exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(',')
+    //   });
+		// }
+		// else{
+		// surcharges.push({
+		// 	name:do_surcharges[k].getValue('custrecord_do_location'),
+		// 	type:do_surcharges[k].getText('custrecord_do_itemtype'),
+		// 	codes:[do_surcharges[k].getValue('custrecord_do_code')],
+		// 	values:[{code:do_surcharges[k].getValue('custrecord_do_code'),
+		// 	description:do_surcharges[k].getValue('custrecord_do_description'),
+		// 	surcharge:do_surcharges[k].getValue('custrecord_do_surcharge'),
+		// 	sleeveliningsurcharge:do_surcharges[k].getValue('custrecord_sleeveliningsurcharge'),
+    //   exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(',')
+    //   }]
+		// });
+		// }
+	// }
   return surcharges;
 }
 , getShippingSurcharges: function(){
@@ -2999,7 +3037,6 @@ Application.defineModel('ProductList', {
 
 			productLists.push(productList);
 		});
-
     var plitems = ProductListItem.search(null, include_store_items, {
           sort: 'created'
         ,	order: '-1'
@@ -3235,14 +3272,14 @@ Application.defineModel('ProductListItem', {
         var body = JSON.parse(res.getBody());
         var parent = body[0];
         var tailor = parent?parent:nlapiGetUser();
-		var ProductList = Application.getModel('ProductList')
-		,	product_list_item = nlapiLoadRecord('customrecord_ns_pl_productlistitem', id)
-		,	parent_product_list = ProductList.get(product_list_item.getFieldValue('custrecord_ns_pl_pli_productlist'));
+		// var ProductList = Application.getModel('ProductList')
+		var	product_list_item = nlapiLoadRecord('customrecord_ns_pl_productlistitem', id);
+		// ,	parent_product_list = ProductList.get(product_list_item.getFieldValue('custrecord_ns_pl_pli_productlist'));
 
-		if (parseInt(parent_product_list.owner.id, 10) !== nlapiGetUser() && parseInt(parent_product_list.owner.id, 10) !== parseInt(tailor,10))
-		{
-			throw unauthorizedError;
-		}
+		// if (parseInt(parent_product_list.owner.id, 10) !== nlapiGetUser() && parseInt(parent_product_list.owner.id, 10) !== parseInt(tailor,10))
+		// {
+		// 	throw unauthorizedError;
+		// }
 
 		product_list_item.setFieldValue('isinactive', 'T');
 
@@ -3293,13 +3330,13 @@ Application.defineModel('ProductListItem', {
 			throw notFoundError;
 		}
 
-		var ProductList = Application.getModel('ProductList')
-		,	parent_product_list = ProductList.get(data.productList.id);
-
-		if (parseInt(parent_product_list.owner.id, 10) !== nlapiGetUser() && parseInt(parent_product_list.owner.id, 10) !== parseInt(tailor,10))
-		{
-			throw unauthorizedError;
-		}
+		// var ProductList = Application.getModel('ProductList')
+		// ,	parent_product_list = ProductList.get(data.productList.id);
+    //
+		// if (parseInt(parent_product_list.owner.id, 10) !== nlapiGetUser() && parseInt(parent_product_list.owner.id, 10) !== parseInt(tailor,10))
+		// {
+		// 	throw unauthorizedError;
+		// }
 
 		var productListItem = nlapiCreateRecord('customrecord_ns_pl_productlistitem');
 
@@ -3317,8 +3354,15 @@ Application.defineModel('ProductListItem', {
     if(!productListItem.getFieldValue('custrecord_ns_pl_pli_fitter'))
       productListItem.setFieldValue('custrecord_ns_pl_pli_fitter',nlapiGetUser());
 		data.internalid = nlapiSubmitRecord(productListItem);
+    // var productListItemSearchRecord = nlapiLoadRecord('customrecord_ns_pl_productlistitem',data.internalid);
 
-		return data;
+    var filters = [new nlobjSearchFilter('internalid', null, 'is', data.internalid)
+        ,	new nlobjSearchFilter('isinactive', null, 'is', 'F')]
+    ,	sort_column = 'custrecord_ns_pl_pli_item'
+    ,	sort_direction = 'ASC'
+    ,	productlist_items = this.searchHelper(filters, sort_column, sort_direction, true);
+
+    return productlist_items;
 	}
 
 	// Updates a given Product List Item given its id
@@ -3378,13 +3422,29 @@ Application.defineModel('ProductListItem', {
 		// 	return []; //it may happens when target list is a template and don't have a record yet.
 		// }
 		var filters = [
-      new nlobjSearchFilter('isinactive', null, 'is', 'F')
-		,	new nlobjSearchFilter('custrecord_ns_pl_pl_owner', 'custrecord_ns_pl_pli_productlist', 'is', parent )
+    	new nlobjSearchFilter('custrecord_ns_pl_pl_owner', 'custrecord_ns_pl_pli_productlist', 'is', parent )
     ,	new nlobjSearchFilter('isinactive', 'custrecord_ns_pl_pli_item', 'is', 'F' )]
 		,	sort_column = sort_and_paging_data.sort
 		,	sort_direction = sort_and_paging_data.order;
-    if(plifilters && plifilters.custrecord_ns_pl_pli_fitter){
-      filters.push(new nlobjSearchFilter('custrecord_ns_pl_pli_fitter',null,'anyof',plifilters.custrecord_ns_pl_pli_fitter))
+    if(plifilters){
+      if(plifilters.custrecord_ns_pl_pli_fitter){
+        filters.push(new nlobjSearchFilter('custrecord_ns_pl_pli_fitter',null,'anyof',plifilters.custrecord_ns_pl_pli_fitter));
+      }
+      // if(plifilters.filterinactive == true){
+      //   filters.push(new nlobjSearchFilter('isinactive',null,'is','T'));
+      // }else{
+        filters.push(new nlobjSearchFilter('isinactive',null,'is', 'F'));
+      // }
+
+      if(plifilters.filterarchived == true){
+        nlapiLogExecution('debug','I AM HERE');
+        //filters.push(new nlobjSearchFilter('custrecord_ns_pl_pli_isarchived',null,'is','T'));
+      }else{
+        filters.push(new nlobjSearchFilter('custrecord_ns_pl_pli_isarchived',null,'is','F'));
+      }
+    }else{
+      filters.push(new nlobjSearchFilter('isinactive',null,'is', 'F'));
+      filters.push(new nlobjSearchFilter('custrecord_ns_pl_pli_isarchived',null,'is','F'));
     }
     if(product_list_id){
       filters.push(new nlobjSearchFilter('custrecord_ns_pl_pli_productlist', null, 'is', product_list_id));
@@ -3580,23 +3640,27 @@ Application.defineModel('ProductListItem', {
 					,	lastname: ''
 					}
         ,	custrecord_ns_pl_pli_isarchived: productListItemSearchRecord.getValue('custrecord_ns_pl_pli_isarchived')
-				};
+				} ;
 
 			var clientInternalId = self.getObjClientInternalid(productListItem['options']);
+
 			var isClientInternalIdExistInMapping = (isObjectExist(objClientMapping['' + clientInternalId + ''])) ? true : false;
 
 			if (isClientInternalIdExistInMapping)
 			{
-
 				productListItem['client']['id'] = objClientMapping['' + clientInternalId + '']['internalid']
 				productListItem['client']['firstname'] = objClientMapping['' + clientInternalId + '']['firstname']
 				productListItem['client']['lastname'] = objClientMapping['' + clientInternalId + '']['lastname']
-
 			}
-      if(plifilters && plifilters.client &&
-        productListItem.client.firstname.indexOf(plifilters.client) == -1 &&
-        productListItem.client.firstname.indexOf(plifilters.client) == -1)
-        {}
+      var completename = productListItem['client']['firstname'] + " " + productListItem['client']['lastname'];
+      completename = completename.toLowerCase();
+      if(plifilters && plifilters.client){plifilters.client = plifilters.client.toLowerCase();}
+      if(plifilters && plifilters.client && completename.indexOf(plifilters.client) == -1){// &&
+        // productListItem.client.firstname.indexOf(plifilters.client) == -1 &&
+        // productListItem.client.firstname.indexOf(plifilters.client) == -1)
+        // {}
+
+      }
       else{
   			productlist_items.push(productListItem);
       }

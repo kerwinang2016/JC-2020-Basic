@@ -1,0 +1,134 @@
+<% registerMacro('measureFormFavorites', function (fields, values, paramEvent,selectedItemType, favFitToolsFlag) { %>
+
+	<%
+		var eventValue = (!_.isNullOrEmpty(paramEvent) && paramEvent == 'add') ? 'add' : 'viewedit';
+		var isAddEvent = (eventValue == 'add') ? true : false;
+		var isViewEdit = (eventValue == 'viewedit') ? true : false;
+	%>
+
+	<% if(fields && fields.fieldset && fields.fieldset.length){ %>
+		<h4 class="section-header"><%= _('Measurement Details').translate() %></h4>
+
+		<% _.each(fields.fieldset, function(fieldset){ %>
+			<% if(fieldset.name == 'main'){ %>
+				<div class="main-section">
+					<% if(fields.type == 'Body'){ %>
+
+						<% _.each(fieldset.fields, function(field){
+							var mainBodyValue = null
+							,	fieldValue = _.where(values, {name: field.name})
+							if(fieldValue.length){
+								mainBodyValue = fieldValue[0].value;
+							}
+
+						%>
+							<%= SC.macros.bodyMeasureField(field, mainBodyValue, fieldset.name,0,0,selectedItemType) %>
+						<% }) %>
+					<% } else { %>
+						<% _.each(fieldset.fields, function(field){
+							var mainBlockValue = null
+							,	fieldValue = _.where(values, {name: field.name})
+							if(fieldValue.length){
+								mainBlockValue = fieldValue[0].value;
+							}
+						%>
+							<%= SC.macros.blockMeasureFieldFavorites(field, mainBlockValue) %>
+						<% }) %>
+					<% } %>
+				</div>
+			<% } else { %>
+				<div class="<%= fieldset.name %>-section">
+					<h4><%= fieldset.label %></h4>
+					<hr />
+					<% if(fields.type == 'Body'){ %>
+						<% if(fieldset.name == "body-measurement"){ %>
+							<div class="row-fluid">
+								<!-- JHD-6 Start -->
+								<div style="width:30%; float:left;margin:0;">&nbsp;</div>
+								<div style="width:20%;margin:0;" class="span3-profile offset2"><%= _('Measurement').translate() %></div>
+								<div style="width:20%;margin:0;" class="span3-profile"><%= _('Allowance').translate() %></div>
+								<div style="width:20%;margin:0; text-align:center;" class="span3-profile"><%= _('Finished').translate() %></div>
+								<div style="width:10%;margin:0;" class="span3-profile"><%= _('Range').translate() %></div>
+							</div>
+							<!-- JHD-6 End -->
+						<% } %>
+						<% _.each(fieldset.fields, function(field){
+
+							var fieldName = field.name;
+							var bodyValue = 0
+							,	allowance = 0
+							,	baseAllowance = 0
+
+							var fieldValue = _.where(values, {name: fieldName});
+							if(fieldValue.length === 0){
+								fieldValue = _.where(values, {name: fieldName.replace('-',' ')});
+								fieldName = fieldName.replace('-',' ');
+							}
+							if(fieldValue.length === 0){
+								fieldValue = _.where(values, {name: fieldName.replace('+',' ')});
+								fieldName = fieldName.replace('+',' ');
+							}
+
+							var	allowFieldValue = _.where(values, {name: "allowance-" + fieldName})
+							var	lookUpField = _.where(values, {name: fields["lookup-key"]});
+
+							if(values) {
+								if(fieldValue.length){
+									bodyValue = fieldValue[0].value;
+								}
+								if(allowFieldValue.length){
+									allowance = allowFieldValue[0].value;
+								}
+								if(lookUpField.length){
+									baseAllowance = _.where(fields["lookup-value"][lookUpField[0].value], {field: field.name})[0];
+									baseAllowance = baseAllowance && baseAllowance.value ? baseAllowance.value : 0;
+								}
+							} else {
+								baseAllowance = _.where(fields["lookup-value"]["Very Slim"], {field: field.name})[0];
+								baseAllowance = baseAllowance && baseAllowance.value ? baseAllowance.value : 0;
+							}
+						%>
+							<%= SC.macros.bodyMeasureField(field, bodyValue, fieldset.name, baseAllowance, allowance,selectedItemType) %>
+						<% }) %>
+					<% } else { %>
+						<!-- JHD-6 Start-->
+						<div class="row-fluid">
+						<div style="width:30%;float:left;">&nbsp;</div>
+							<div style="width:20%;margin:0;" class="span2 offset3"><%= fieldset["max-label"] %></div>
+							<div style="width:20%;margin:0;"  class="span2 offset5p"><%= fieldset["min-label"] %></div>
+							<div style="margin:0;"  class="span3 col-wid-10">Hide</div>
+
+						</div>
+						<!-- JHD-6 End-->
+						<% _.each(fieldset.fields, function(field){
+							var blockValueMin = _.where(values, {name: field.name + "-min"})[0]
+							,	blockValueMax = _.where(values, {name: field.name + "-max"})[0]
+							, hideField = _.where(values, {name: field.name + "-hide-checkbox"})[0]
+							,	value = [blockValueMin, blockValueMax, hideField];
+						%>
+							<%= SC.macros.blockMeasureFieldFavorites(field, value, fields.increment,fieldset) %>
+						<% }) %>
+					<% } %>
+				</div>
+				<% if(fieldset.name == "body-measurement" && (selectedItemType == 'Jacket' || selectedItemType == 'Waistcoat' ||
+				jQuery('[id*="custrecord_fp_product_type"]').val() == 'Jacket' || jQuery('[id*="custrecord_fp_product_type"]').val() == 'Waistcoat')){ %>
+
+				<p id="optionalmessage">** optional measurement</p>
+				<% }%>
+			<% } %>
+		<% }) %>
+
+		<div class="form-actions" style="display: none;">
+			<button id="swx-fitprofile-submit" class="btn btn-primary" type="submit">Submit</button>
+			<button data-action="reset" class="btn hide" type="reset">Cancel</button>
+
+			<% if (isViewEdit) { %>
+				<button id="swx-fitprofile-remove" class="btn" type="button" style="">Remove</button>
+				<button id="swx-fitprofile-copy" class="btn" type="button" style="">Copy</button>
+			<% } %>
+
+		</div>
+
+	<% } %>
+
+<% }) %>

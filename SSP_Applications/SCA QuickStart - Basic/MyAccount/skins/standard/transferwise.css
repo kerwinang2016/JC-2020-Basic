@@ -1,0 +1,19 @@
+.Transferwise h3{
+  font-weight:bold;
+}
+.Transferwise table, .Transferwise th, .Transferwise td {
+  border: 1px solid black;
+}
+.Transferwise table {
+  border-collapse: collapse;
+  width:100%;
+}
+.Transferwise td{
+  padding:5px;
+}
+.Transferwise{
+  height:1200px;
+}
+.Transferwise .span4{
+  margin:0px;
+}

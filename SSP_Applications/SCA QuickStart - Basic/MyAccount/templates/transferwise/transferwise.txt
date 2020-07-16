@@ -1,0 +1,72 @@
+<h3 style="float:left;">ACCOUNT BALANCE & INVOICE LOCATION</h3> <a style="float:right;" target="_blank" href="https://3857857.app.netsuite.com/core/media/media.nl?id=266378&c=3857857&h=1b84f060122de5339be5&_xt=.pdf">DOWNLOAD</a><br style="clear:both;"/>
+
+<p>Total account balance can be viewed anytime under the billing section of your ordering system. The balance shown is the total
+amount of open invoices, not invoices which are due for payment.</p><br/>
+
+<p>Upon customer orders being processed and accepted, all invoicing is automatically generated within 24 hours under the billing
+section of your ordering system. Invoices are generated with a due date noted, of which the system automatically turns the due
+date <span style="color:#d3232b;font-weight:bold;">RED</span> when invoices become outstanding.</p><br/>
+
+<p>Invoices can be located in the ordering system by navigating:</p>
+<i>My Account > Billing > Invoices.</i><br/><br/>
+<small>Note: Invoices are not automatically emailed but can be downloaded via the billing section of your ordering system.</small>
+<h3>PAYMENT TYPES</h3>
+Bank Transfer<br/>
+Jerome Clothiers uses TransferWise to minimise transaction fees: transferwise.com/au<br/><br/>
+Credit Card<br/>
+<p>Credit card payments are made via the payment gateway on your Jerome ordering system. All credit card transactions incur a
+surcharge of 3.5-4% of the total transaction amount.</p>
+<small>Note: All additional transaction fees will be invoiced to your account. Payment of transaction fees can be made upon your next billing cycle.</small>
+<br/><br/>
+<h3>ACCOUNT DETAILS SPECIFIED BY CURRENCY</h3>
+<div class="span4">
+<b>CURRENCY: EURO</b></br>
+<b>Account Holder:</b><br/>
+Jerome Clothiers Pty. Ltd.<br/><br/>
+<b>IBAN:</b></br>
+BE96 9670 1911 2905</br></br>
+<b>Bank code (SWIFT / BIC):</b></br>
+TRWIBEB1XXX</br></br>
+<b>Address:</b></br>
+TransferWise Europe SA</br>
+Square de Meeus 38 bte 40</br>
+Brussels</br>
+1000</br>
+Belgium
+</div>
+<div class="span4">
+<b>CURRENCY: GREAT BRITISH POUNDS</b></br>
+<b>Account Holder:</b></br>
+Jerome Clothiers Pty. Ltd.</br></br>
+<b>Account number:</b></br>
+52267222</br></br>
+<b>IBAN (to receive GBP from UK only):</b></br>
+GB74 TRWI 2314 7052 2672 22</br></br>
+<b>UK Sort Code:</b></br>
+23-14-70</br></br>
+<b>Address:</b><br/>
+TransferWise</br>
+56 Shoreditch High Street,</br>
+London</br>
+E1 6JJ</br>
+United Kingdom
+</div>
+<div class="span4">
+<b>CURRENCY: UNITED STATES DOLLAR</b></br>
+<b>Account Holder:</b></br>
+Jerome Clothiers Pty. Ltd.</br></br>
+<b>Account number:</b></br>
+8310488287</br></br>
+<b>Wire transfer number:</b></br>
+026073008</br></br>
+<b>Bank code (SWIFT / BIC):</b></br>
+CMFGUS33</br></br>
+<b>Routing number (ACH or ABA):</b></br>
+026073150</br></br>
+<b>Address:</b></br>
+TransferWise</br>
+19 W 24th Street,</br>
+New York</br>
+10010</br>
+United States
+</div>

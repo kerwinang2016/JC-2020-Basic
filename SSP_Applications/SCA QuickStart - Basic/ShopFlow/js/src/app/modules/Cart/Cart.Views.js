@@ -1595,6 +1595,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 		{
 			this.line = options.model.getLatestAddition();
 			this.hasNoFitProfile = options.hasNoFitProfile;
+			this.hasSquareBottom = options.hasSquareBottom;
 		}
 
 

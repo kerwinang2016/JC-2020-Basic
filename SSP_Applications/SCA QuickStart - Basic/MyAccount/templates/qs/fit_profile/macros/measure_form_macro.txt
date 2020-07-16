@@ -1,26 +1,11 @@
-<!--
-Change History   
--------------- 
-Date: 15-01-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-6
-Change Description: Expand room for fit tool names
--->
-<!--
-Change History   
--------------- 
-Date: 28-02-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-11
-Change Description: Default fit tools can be inputted into the my account section
--->
-
-<% registerMacro('measureForm', function (fields, values, paramEvent,selectedItemType, favFitToolsFlag) { %>
+<% registerMacro('measureForm', function (fields, values, paramEvent,selectedItemType, favFitToolsFlag,view) { %>
 
 	<%
 		var eventValue = (!_.isNullOrEmpty(paramEvent) && paramEvent == 'add') ? 'add' : 'viewedit';
 		var isAddEvent = (eventValue == 'add') ? true : false;
 		var isViewEdit = (eventValue == 'viewedit') ? true : false;
+		console.log('isViewEdit');
+		console.log(isViewEdit);
 	%>
 
 	<% if(fields && fields.fieldset && fields.fieldset.length){ %>
@@ -30,14 +15,12 @@ Change Description: Default fit tools can be inputted into the my account sectio
 			<% if(fieldset.name == 'main'){ %>
 				<div class="main-section">
 					<% if(fields.type == 'Body'){ %>
-
 						<% _.each(fieldset.fields, function(field){
 							var mainBodyValue = null
 							,	fieldValue = _.where(values, {name: field.name})
 							if(fieldValue.length){
 								mainBodyValue = fieldValue[0].value;
 							}
-
 						%>
 							<%= SC.macros.bodyMeasureField(field, mainBodyValue, fieldset.name,0,0,selectedItemType) %>
 						<% }) %>
@@ -48,8 +31,21 @@ Change Description: Default fit tools can be inputted into the my account sectio
 							if(fieldValue.length){
 								mainBlockValue = fieldValue[0].value;
 							}
+							var hideField = false;
+							if(view.defaultfavfittools){
+								if(JSON.parse(view.defaultfavfittools)[0] != ""){
+									var data= JSON.parse(JSON.parse(view.defaultfavfittools)[0]);
+									var ptData = _.find(data,function(o){ return o.itemType == 'Jacket';});
+									if(ptData){
+										var hideData = _.find(ptData.measurementValues,function(o){ return o.name == field.name+'-hide-checkbox';});
+										if(hideData && hideData.value == 'true'){
+											hideField = true;
+										}
+									}
+								}
+							}
 						%>
-							<%= SC.macros.blockMeasureField(field, mainBlockValue) %>
+							<%= SC.macros.blockMeasureField(field, mainBlockValue,null,null,hideField) %>
 						<% }) %>
 					<% } %>
 				</div>
@@ -121,21 +117,37 @@ Change Description: Default fit tools can be inputted into the my account sectio
 							<div style="width:11%;text-align:left;float: left; color:#c1c1c1;"><%= _('Default').translate() %></div>
 							<div style="width:9%;margin:0; color:#c1c1c1;" class="span3">&nbsp;</div>
 							<div style="width:10%;margin:0; color:#c1c1c1;" class="span3">&nbsp;</div>
+							<% } else { %>
+
 							<% } %>
-							
+
 						</div>
 						<!-- JHD-6 End-->
 						<% _.each(fieldset.fields, function(field){
 							var blockValueMin = _.where(values, {name: field.name + "-min"})[0]
 							,	blockValueMax = _.where(values, {name: field.name + "-max"})[0]
+							, hideField = _.where(values, {name: field.name + "-hide-checkbox"})[0]
 							,	value = [blockValueMin, blockValueMax];
+							var hideField = false;
+							if(view.defaultfavfittools){
+								if(JSON.parse(view.defaultfavfittools)[0] != ""){
+									var data= JSON.parse(JSON.parse(view.defaultfavfittools)[0]);
+									var ptData = _.find(data,function(o){ return o.itemType == 'Jacket';});
+									if(ptData){
+										var hideData = _.find(ptData.measurementValues,function(o){ return o.name == field.name+'-hide-checkbox';});
+										if(hideData && hideData.value == 'true'){
+											hideField = true;
+										}
+									}
+								}
+							}
 						%>
-							<%= SC.macros.blockMeasureField(field, value, fields.increment,fieldset) %>
+							<%= SC.macros.blockMeasureField(field, value, fields.increment,fieldset,hideField) %>
 						<% }) %>
 					<% } %>
 				</div>
 				<% if(fieldset.name == "body-measurement" && (selectedItemType == 'Jacket' || selectedItemType == 'Waistcoat' ||
-jQuery('[id*="custrecord_fp_product_type"]').val() == 'Jacket' || jQuery('[id*="custrecord_fp_product_type"]').val() == 'Waistcoat')){ %>
+					jQuery('[id*="custrecord_fp_product_type"]').val() == 'Jacket' || jQuery('[id*="custrecord_fp_product_type"]').val() == 'Waistcoat')){ %>
 
 				<p id="optionalmessage">** optional measurement</p>
 				<% }%>

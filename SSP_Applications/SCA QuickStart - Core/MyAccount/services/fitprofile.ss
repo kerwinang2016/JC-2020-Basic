@@ -21,11 +21,61 @@ function service(request, response){
 		switch(type){
 			case "get_client":
 				var data = request.getParameter('data');
+				var searchinput = request.getParameter('searchinput');
+				var additionalfilters = [];
+				if(searchinput){
+				  var jsonSearchInput = JSON.parse(searchinput);
+
+				  if(jsonSearchInput.clientname && jsonSearchInput.clientname != ""){
+  					var splitName = jsonSearchInput.clientname.split(' ');
+
+            if(splitName.length == 1){
+              splitName[0] = splitName[0].toLowerCase();
+              var f = new nlobjSearchFilter("formulanumeric","null","equalto",'1').setFormula("CASE WHEN INSTR(LOWER({custrecord_tc_first_name}) , '"+splitName[0]+"') > 0 OR INSTR(LOWER({custrecord_tc_last_name}) , '"+splitName[0]+"') > 0 THEN 1 ELSE 0 END");
+              additionalfilters.push(f);
+              //nlapiLogExecution('debug','splitName[0]', splitName[0]);
+              //var f = new nlobjSearchFilter('custrecord_tc_first_name',null,'contains',splitName[0]);
+              //f.isor = true;
+              //f.leftparens = 1;
+              //additionalfilters.push(f);
+              //var g = new nlobjSearchFilter('custrecord_tc_last_name',null,'contains',splitName[0]);
+              //g.rightparens = 1;
+              //additionalfilters.push(g);
+              //additionalfilters[0].isor = true;
+              //additionalfilters[0].leftparens = 1;
+              //additionalfilters[1].rightparens = 1;
+              //var clientfilter = [];
+              //var fname = ["custrecord_tc_first_name",'contains', splitName[0]];
+              //clientfilter.push(fname);
+              //clientfilter.push("OR");
+              //var lname = ["custrecord_tc_last_name",'contains', splitName[0]];
+              //clientfilter.push(lname);
+              //additionalfilters.push(clientfilter);
+              //nlapiLogExecution('debug','additionalfilters', JSON.stringify(additionalfilters));
+            }else{
+              var f = new nlobjSearchFilter("formulatext","null","is",jsonSearchInput.clientname.toLowerCase()).setFormula("CONCAT(CONCAT(LOWER({custrecord_tc_first_name}), ' '),LOWER({custrecord_tc_last_name}))");
+              additionalfilters.push(f);
+            }
+				  }
+				  if(jsonSearchInput.email && jsonSearchInput.email != ""){
+            nlapiLogExecution('debug','custrecord_tc_email', jsonSearchInput.email);
+            var f = new nlobjSearchFilter("custrecord_tc_email","null","startswith",jsonSearchInput.email);
+            additionalfilters.push(f);
+					  //additionalfilters.push("AND");
+					  //additionalfilters.push(["custrecord_tc_email","startswith",jsonSearchInput.email]);
+				  }
+				  if(jsonSearchInput.phone && jsonSearchInput.phone != ""){
+            nlapiLogExecution('debug','custrecord_tc_email', jsonSearchInput.phone);
+            var f = new nlobjSearchFilter("custrecord_tc_phone","null","startswith",jsonSearchInput.phone);
+            additionalfilters.push(f);
+					  //additionalfilters.push("AND");
+					  //additionalfilters.push(["custrecord_tc_phone","startswith",jsonSearchInput.phone]);
+				  }
+				}
 
 				if(data){
 					data = JSON.parse(data);
-					//nlapiLogExecution("Debug", "Test1", JSON.stringify(recordFunctions.processColumnData(data.columns)));
-					responseData = recordFunctions.fetchRecord("customrecord_sc_tailor_client", recordFunctions.processFilterData(data.filters), recordFunctions.processColumnData(data.columns));
+					responseData = recordFunctions.fetchRecord("customrecord_sc_tailor_client", recordFunctions.processFilterData(data.filters), recordFunctions.processColumnData(data.columns), additionalfilters);
 				}
 				break;
 			case "create_client":
@@ -99,25 +149,32 @@ function service(request, response){
 
 var recordFunctions = {
 	/** Basic CRUD Record Functions */
-	fetchRecord: function(type, filters, columns){
+	fetchRecord: function(type, filters, columns, additionalfilters){
 		if(type){
 			var arrFilter = [],
 				arrColumn = [],
 				results = [];
-
-			arrFilter.push(new nlobjSearchFilter('isinactive', '', 'is', 'F'));
+      arrFilter.push(new nlobjSearchFilter('isinactive', null, 'is', 'F'));
+			//arrFilter.push(['isinactive','is','F']);
 			if(filters.length > 0){
 				for(var i=0; i < filters.length; i++){
+					//arrFilter.push('AND');
 					var filter = filters[i];
-
 					if(filter.type == "list"){
-						arrFilter.push(new nlobjSearchFilter(filter.field, filter.join, filter.operand, filter.value.split(",")));
+						 arrFilter.push(new nlobjSearchFilter(filter.field, filter.join, filter.operand, filter.value.split(",")));
+						//arrFilter.push([filter.field,filter.operand,filter.value.split(",")]);
 					} else {
-						arrFilter.push(new nlobjSearchFilter(filter.field, filter.join, filter.operand, filter.value));
+						 arrFilter.push(new nlobjSearchFilter(filter.field, filter.join, filter.operand, filter.value));
+						//arrFilter.push([filter.field,filter.operand,filter.value]);
 					}
 				}
 			}
 
+			if(additionalfilters && additionalfilters.length >0){
+        arrFilter = arrFilter.concat(additionalfilters);
+				//arrFilter.push("AND");
+				//arrFilter.push(additionalfilters);
+			}
 			if(columns.length > 0){
 				for(var k=0; k < columns.length; k++){
 					var column = columns[k];
@@ -129,7 +186,7 @@ var recordFunctions = {
 					}
 				}
 			}
-
+      nlapiLogExecution('debug','arrFilter', JSON.stringify(arrFilter));
       var search = nlapiCreateSearch(type, arrFilter, arrColumn);
       var searchSet = search.runSearch();
       var start = 0;
@@ -161,35 +218,6 @@ var recordFunctions = {
 				}
         start+=1000;
       }while(searchResults.length == 1000);
-     // nlapiLogExecution('debug','Results Length Fit Profiles Clients', results.length);
-			/*var searchResults = nlapiSearchRecord(type, null, arrFilter, arrColumn);
-			if(searchResults != null){
-				for(var j=0; j < searchResults.length; j++){
-					var searchResult = searchResults[j];
-					var result = new Object();
-
-					if(columns.length > 0){
-						for(var l=0; l < columns.length; l++){
-							var column = columns[l];
-
-							if(column.join){
-								result[column.field] = searchResult.getValue(column.field, column.join);
-							} else {
-								if(column.field == "custrecord_fp_product_type" || column.field == "custrecord_fp_measure_type"){
-									result[column.field] = searchResult.getText(column.field);
-								} else {
-									result[column.field] = searchResult.getValue(column.field);
-								}
-							}
-						}
-					}
-
-					if(result){
-						results.push(result);
-					}
-				}
-			}
-      */
 			return results;
 		}
 	},
@@ -355,7 +383,6 @@ var recordFunctions = {
 		if(filterData && filterData.length > 0){
 			var filters = new Array();
 			for(var i = 0; i < filterData.length; i++){
-        //nlapiLogExecution('debug','filterdata',filterData[i]);
 				var filter = new Object();
 				var filterDataArr = filterData[i].split("|");
 

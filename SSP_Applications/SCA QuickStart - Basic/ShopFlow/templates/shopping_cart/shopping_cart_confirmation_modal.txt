@@ -13,7 +13,10 @@
 	</div>
 	<div class="span8 item-details-container">
 	  <% if(view.hasNoFitProfile){ %>
-		<h3 class="alert alert-error">Please note that you have not selected a fit profile(s)</h3>
+		<h5 class="alert alert-error">Please note that you have not selected a fit profile(s)</h5>
+		<% } %>
+		<% if(view.hasSquareBottom){ %>
+		<h5 class="alert alert-error">Please note that only the back length will be used when constructing a square bottom shirt</h5>
 		<% } %>
 		<h3 class="cart-confirmation-item-name"><%= item.get('_sku') %></h3>
 		<p class="lead lead-small">

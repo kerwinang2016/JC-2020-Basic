@@ -52,6 +52,8 @@
 			</button>
 
 			<% if(!(view.options.total_label && !view.wizard.model.get('payment')) && view.options.submit) { %>
+			<span style="color:#d3232b;">Please note that all credit card transactions will incur 3.5 to 4% transaction fee<br/>
+			Alternatively you can pay via eft to our <a href="/transferwise">transferwise account</a></span>
 			<button class="btn btn-primary btn-block btn-large btn-continue" data-action="submit-paymentgateway" <%= view.continueButtonDisabled %>>
 				Pay Through Payment Gateway
 			</button>

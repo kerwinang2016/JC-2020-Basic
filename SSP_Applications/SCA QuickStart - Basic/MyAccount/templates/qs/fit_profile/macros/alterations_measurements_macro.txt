@@ -1,5 +1,5 @@
-<% registerMacro('alterationsMeasurement', function (model, objNumOFGenerate) { 
-    var clientId = model.get("current_client");
+<% registerMacro('alterationsMeasurement', function (model, objNumOFGenerate) {
+    var clientId = model.get("swx_selected_client_id");
 if(objNumOFGenerate){
     var notesFlag = false;
     var infoFlag = false;

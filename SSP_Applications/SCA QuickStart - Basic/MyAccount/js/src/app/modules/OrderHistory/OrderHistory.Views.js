@@ -257,6 +257,10 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices'], function
 					if(sitecogs)
 						sitecogs = self.htmlDecode(unescape(sitecogs));
 					item_to_cart.setOption('custcol_site_cogs', sitecogs);
+					var fextra = _.findWhere(selected_line.get('options'), { id: 'custcol_fabric_extra' }).value;
+					if(fextra)
+						fextra = self.htmlDecode(unescape(fextra));
+					item_to_cart.setOption('custcol_fabric_extra', fextra);
 					item_to_cart.setOption('custcol_avt_date_needed', '1/1/1900');
 					item_to_cart.setOption('custcol_avt_wbs_copy_key', item_to_cart.get('internalid').toString() + '_' + new Date().getTime());
 

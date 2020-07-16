@@ -124,6 +124,7 @@
 										name = item.get('description')
 									}
 									var lineOptions = item.get('lineOption');
+									
 									var totaladdtionalsurcharge = 0;
 									var additionalsurcharge = _.find(lineOptions,function(d){return d.id == "custcol_additionalfabricsurcharge";});
 									if(additionalsurcharge){

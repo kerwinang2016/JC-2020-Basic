@@ -244,13 +244,37 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             return status;
         }
         , addArrMustSelectConflictCodes: function(arrErrConflictCodes){
-        	if(jQuery('#T010244')[0]){
+          if(jQuery('#T010522')[0]){
+        	  if(jQuery('#T010522').val() == 'T01052201'){
+        		if(jQuery('#T010517').val() != 'T01051709' ){
+        		  arrErrConflictCodes.push("You can only select heel tape monogram with plain hem with fabric heel tape bottom");
+        		}
+        	  }
+        	}
+          if(jQuery('#T027231')[0]){
+        	  if(jQuery('#T027231').val() == 'T02723103'){
+        		if(jQuery('#T027232').val() != 'No' ){
+        		  arrErrConflictCodes.push("If you select no for pick stitching then you must select no for pick stitch color");
+        		}
+        	  }
+        	}
+          if(jQuery('#T010409')[0]){
+        	  if(jQuery('#T010409').val() == 'T01040901'){
+        		if(jQuery('#T010416').val() != 'No' ){
+        		  arrErrConflictCodes.push("If you select no for pick stitching then you must select no for pick stitch color");
+        		}
+        	  }
+        	}
+          if(jQuery('#T010244')[0]){
         	  if(jQuery('#T010244').val() == 'T01024401'){
         		if(!jQuery('#T010239').val() && !jQuery('#T010250').val() && !jQuery('#T010261').val()){
         		  arrErrConflictCodes.push("Monogram Text Line 1 or Monogram Text Above Pocket is required when Monogram Inside Lining is Yes");
         		}
         		if(jQuery('#T010239').val() && jQuery('#T010250').val()){
         		  arrErrConflictCodes.push("Monogram Text Line 1 and Monogram Text Above Pocket cannot both have values");
+        		}
+            if(jQuery('#T010239').val() && jQuery('#T010261').val()){
+        		  arrErrConflictCodes.push("You cannot select both Monogram Inside Lining and Monogram on Label");
         		}
         		if(jQuery('#T010223').val() != 'T01022301' && jQuery('#T010250').val()){
         		  arrErrConflictCodes.push("Interior Construction should be Curved French Facing when Monogram Text Above Pocket has text");
@@ -558,10 +582,9 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             window.tempFitProfile = "";
             window.tempQuantity = "";
             window.tempFitProfileMessage = "";
-
+            var hasSquareBottom = false;
             var arrSelectedValues = _.getArrAllSelectedOptions();
             var objSelectSelectedValues = _.getObjSelectSelectedValues();
-
             var objConflictCodeMapping = OBJ_CONFLICT;
             var arrErrConflictCodes = _.getArrConflictCodesError(objConflictCodeMapping, arrSelectedValues, objSelectSelectedValues);
             this.addArrMustSelectConflictCodes(arrErrConflictCodes);
@@ -583,7 +606,13 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 }
               }
             }
-
+            if(clothingTypes == 'Shirt' || clothingTypes == 'Short-Sleeves-Shirt'){
+                if( jQuery('#T010652').val() == "T01065203" ||
+        						jQuery('#T010652').val() ==	"T01065204" ||
+        						jQuery('#T010652').val() ==	"T01065205"){
+                      hasSquareBottom = true;
+                    }
+            }
             var arrErrConflictCodesTotal = (!_.isNullOrEmpty(arrErrConflictCodes)) ? arrErrConflictCodes.length : 0;
             var hasConflictCodes = (arrErrConflictCodesTotal != 0) ? true : false;
 
@@ -765,7 +794,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
 
                 cart_promise = cart.addItem(this.model).success(function () {
                     if (cart.getLatestAddition()) {
-                        layout.showCartConfirmation(hasNoFitProfile);
+                        layout.showCartConfirmation(hasNoFitProfile, hasSquareBottom);
                     }
                     else {
                         self.showError(error_message);
@@ -901,8 +930,8 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
               //"Jacket, Trouser, Waistcoat","Jacket","Overcoat","Shirt","Jacket, Trouser"
               switch (this.model.get('custitem_clothing_type')) {
                   case "Jacket, Trouser, Waistcoat":
-                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 3.4) {
-                          self.showError(_('Quantity should be greater than 3.4 for 3 Piece Suit').translate());
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 3.2) {
+                          self.showError(_('Quantity should be greater than 3.2 for 3 Piece Suit').translate());
                           status = false;
                       }
                       var measureType = "";
@@ -926,38 +955,80 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                       });
                       break;
                   case "Jacket":
-                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 2) {
-                          self.showError(_('Quantity should be greater than 2 for Jacket').translate());
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 1.7) {
+                          self.showError(_('Quantity should be greater than 1.7 for Jacket').translate());
                           status = false;
                       }
                       break;
                   case "Trouser":
-                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 1.5) {
-                          self.showError(_('Quantity should be greater than 1.5 for Trouser').translate());
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 1.4) {
+                          self.showError(_('Quantity should be greater than 1.4 for Trouser').translate());
                           status = false;
                       }
                       break;
                   case "Waistcoat":
-                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 1) {
-                          self.showError(_('Quantity should be greater than 1 for Waistcoat').translate());
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < .8) {
+                          self.showError(_('Quantity should be greater than 0.8 for Waistcoat').translate());
                           status = false;
                       }
                       break;
                   case "Overcoat":
-                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 2.21) {
-                          self.showError(_('Quantity should be greater than 2.4 for Overcoat').translate());
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 2.2) {
+                          self.showError(_('Quantity should be greater than 2.2 for Overcoat').translate());
                           status = false;
                       }
                       break;
                   case "Shirt":
                       if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 1.6) {
+                          self.showError(_('Quantity should be greater than 1.6 for Shirt').translate());
+                          status = false;
+                      }
+                      break;
+                  case "Trenchcoat":
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 2) {
                           self.showError(_('Quantity should be greater than 2 for Shirt').translate());
                           status = false;
                       }
                       break;
+                  case "Ladies-Jacket":
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 1.5) {
+                          self.showError(_('Quantity should be greater than 1.5 for Ladies-Jacket').translate());
+                          status = false;
+                      }
+                      break;
+                  case "Ladies-Pants":
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 1.45) {
+                          self.showError(_('Quantity should be greater than 1.45 for Ladies-Pants').translate());
+                          status = false;
+                      }
+                      break;
+                  case "Ladies-Skirt":
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < .75) {
+                          self.showError(_('Quantity should be greater than 0.75 for Ladies-Skirt').translate());
+                          status = false;
+                      }
+                      break;
+                  case "Ladies-Jacket, Ladies-Pants, Ladies-Skirt":
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 3.1) {
+                          self.showError(_('Quantity should be greater than 3.1 for Ladies Jacket, Skirt and Pants').translate());
+                          status = false;
+                      }
+                      break;
+                  case "Ladies-Jacket, Ladies-Pants":
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 2.6) {
+                          self.showError(_('Quantity should be greater than 2.6 for Ladies Jacket and Pants').translate());
+                          status = false;
+                      }
+                      break;
+                  case "Ladies-Jacket, Ladies-Skirt":
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 2.1) {
+                          self.showError(_('Quantity should be greater than 2.1 for Ladies Jacket and Skirt').translate());
+                          status = false;
+                      }
+                      break;
                   case "Jacket, Trouser":
-                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 3) {
-                          self.showError(_('Quantity should be greater than 3 for 2 Piece Suit').translate());
+                      if (parseFloat(jQuery('[name="custcol_fabric_quantity"]').val()) < 2.85) {
+                          self.showError(_('Quantity should be greater than 2.85 for 2 Piece Suit').translate());
                           status = false;
                       }
                       var measureType = "";

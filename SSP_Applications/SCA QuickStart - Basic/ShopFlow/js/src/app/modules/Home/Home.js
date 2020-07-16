@@ -38,16 +38,16 @@ define('Home', function ()
 			});
 
 			view.showContent();
-			// var view = new Backbone.View({
-			//     application: this.application
-			// });
-			//
-			// view.template = 'home_popup';
-			// view.page_header = 'ORDER DELIVERY NOTICE';
-			//
-			// view.showInModal({
-			//     className: ('home-popup-') +' iframe-modal'
-			// });
+			var view = new Backbone.View({
+			    application: this.application
+			});
+
+			view.template = 'home_popup';
+			view.page_header = 'IMPORTANT MESSAGE';
+
+			view.showInModal({
+			    className: ('home-popup-') +' iframe-modal'
+			});
 		}
 	});
 

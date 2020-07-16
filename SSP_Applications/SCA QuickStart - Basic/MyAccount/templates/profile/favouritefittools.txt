@@ -29,7 +29,7 @@ Change Description: Default fit tools can be inputted into the my account sectio
 	<% _.each(fields, function (field, count) { %>
 		<div class="tab-pane <%= count == 0 ? 'active' : '' %> fav-fit-tools-<%= field["item_type"] %>" id="fav-fit-tools-div-<%= field["item_type"] %>">
 			<% if(view.options.mode == "multi"){ %>
-				<%= SC.macros.measureForm(field.measurement[0], '', '', '', true) %>
+				<%= SC.macros.measureFormFavorites(field.measurement[0], '', '', '', true) %>
 			<% } %>
 			<input type="hidden" name="fav-fit-tools-itemtype" value="<%= field["item_type"] %>">
 		</div>
@@ -63,6 +63,9 @@ Change Description: Default fit tools can be inputted into the my account sectio
 							var fieldId = tempMeasurementValues[j].name;
 							var fieldValue = tempMeasurementValues[j].value;
 
+              if(fieldId.indexOf('-hide-checkbox') != -1 && fieldValue == 'true'){
+                  jQuery('#'+fieldId).prop('checked', true);
+              }
 							if (fieldValue != 'Select' && parseFloat(fieldValue) != 0) {
 								fieldId = fieldId.replace('%', '/').replace('2F', '');
 								var id = "fav-fit-tools-div-" + itemType;

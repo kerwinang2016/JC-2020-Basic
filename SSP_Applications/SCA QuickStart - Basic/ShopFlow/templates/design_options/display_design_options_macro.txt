@@ -51,13 +51,12 @@
 							 %>
 								<li> <%= fitProfileOption.name %> : <%= fitProfileOption.value %> </li>
 									<% var fp = _.find(line.get('options'),function(d){return d.id == "CUSTCOL_FITPROFILE_" + fitProfileOption.name.toUpperCase();});
-
 										if(fp){
 											var jsonFP = JSON.parse(fp.displayvalue);
 											if(jsonFP && jsonFP.length>0){
 												%> <ul><%
 												_.each(jsonFP, function(fpobj){
-													if(parseInt(fpobj.value) != 0){
+													if(parseFloat(fpobj.value) != 0){
 													%> <li> <%= fpobj.name %> : <%= fpobj.value %> </li>
 												<% }}); %> </ul> <%
 											}

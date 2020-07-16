@@ -15,10 +15,10 @@ define('ClientOrderHistory.Collection', ['PlacedOrder.Model'], function (Model)
 
 			return response.records;
 		}
-	,	initialize: function (search)
+	,	initialize: function (options)
 		{
 			var customerid = SC.Application('MyAccount').getUser().get('parent');
-			this.url += "?clientName=" + search + "&customerid=" +customerid;
+			this.url += "?clientName=" + options.search + "&customerid=" +customerid;
 		}
 	});
 });

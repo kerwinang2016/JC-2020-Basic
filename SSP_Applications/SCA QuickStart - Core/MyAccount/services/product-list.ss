@@ -13,7 +13,6 @@ function service (request)
 		,	id = request.getParameter('internalid') || data.internalid
 		,	ProductList = Application.getModel('ProductList');
 		var customerid = request.getParameter('customerid');
-nlapiLogExecution('debug','REQUEST CUSTOMER', customerid)
 		switch (method)
 		{
 			case 'GET':

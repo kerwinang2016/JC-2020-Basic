@@ -1,7 +1,13 @@
 <% registerMacro('showItemOptions', function ( options , lineid){
+	function htmlDecode(input){
+	  var e = document.createElement('div');
+	  e.innerHTML = input;
+	  return e.childNodes[0].nodeValue;
+	}
 	var DesignOptions = {name:"Design Options", value: []},
 			FitProfileOptions = {name:"Fit Profile", value: []},
 			FabricQuantity = {name:"Fabric Quantity", value: null},
+			COGS = {name:"COGS", value: null},
 			ClientName = {name:"Client Name", value:null},
 			HoldFabric = {name:"Hold Fabric", value:null},
 			HoldProduction = {name:"Hold Production", value: null},
@@ -85,6 +91,10 @@
 			ClientName.value = option.value;
 		}else if(option.name == 'Fabric Quantity'){
 			FabricQuantity.value = option.value;
+
+		}else if(option.name == 'COGS'){
+			if(option.value && option.value != "")
+			COGS.value = htmlDecode(decodeURIComponent(option.value));
 		}else if(option.name == 'Hold Fabric'){
 			if(option.value == 'F')
 			HoldFabric.value = 'No';
@@ -102,8 +112,8 @@
 			}
 			else Flag.value = 'No'
 		}
-		else if(option.name == 'Flag Comment'){			
-				FlagComment.value = option.value;			
+		else if(option.name == 'Flag Comment'){
+				FlagComment.value = option.value;
 		}
 		});
 %>
@@ -174,16 +184,30 @@
 		</div>
 		<div class="accordion" id="quantity-options-<%=lineid%>">
 			<div class="accordion-group">
-					<div class="accordion-heading">
-						<a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#quantity-option-<%=lineid%>" data-parent="#quantity-options-<%=lineid%>">
-						Fabric 	Quantity
-						</a>
-					</div>
-					<div id="quantity-option-<%=lineid%>" class="accordion-body collapse" style="padding-left: 50px; height: 0px;">
-						<div><b>Fabric Quantity</b></div>
-						<p><%= FabricQuantity.value %></p>
-					</div>
+				<div class="accordion-heading">
+					<a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#quantity-option-<%=lineid%>" data-parent="#quantity-options-<%=lineid%>">
+					Fabric 	Quantity
+					</a>
+				</div>
+				<div id="quantity-option-<%=lineid%>" class="accordion-body collapse" style="padding-left: 50px; height: 0px;">
+					<div><b>Fabric Quantity</b></div>
+					<p><%= FabricQuantity.value %></p>
 				</div>
 			</div>
+		</div>
+		<% if(SC.Application('MyAccount').user_instance.get('hidebillingandcogs') == 'F'){ %>
+		<div class="accordion" id="cogs-options-<%=lineid%>">
+			<div class="accordion-group">
+				<div class="accordion-heading">
+					<a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#cogs-option-<%=lineid%>" data-parent="#cogs-options-<%=lineid%>">
+					COGS
+					</a>
+				</div>
+				<div id="cogs-option-<%=lineid%>" class="accordion-body collapse" style="padding-left: 50px; height: 0px;">
+					<p><%= COGS.value %></p>
+				</div>
+			</div>
+		</div>
+		<% } %>
 </div>
 <% }) %>

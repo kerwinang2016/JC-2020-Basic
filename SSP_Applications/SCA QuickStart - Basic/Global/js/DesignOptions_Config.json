@@ -7,6 +7,17 @@
 			,	"name": "ms-j"
 			,	"fields": [
 					{
+							"label":"Try on Restriction"
+						,	"name":"TryonRestrictionJacket"
+						,	"type":"select"
+						,	"texts": [
+										 42, 44, 46, 48, 50, 52, 54, 56, 58, 60,62, 64, 66, 68, 70, "72R", "74R", "76R", "78R", "80R", "82R", "84R", "86R", "88R", "90R", 82, 86, 90, 94, 98, 102, 106, 110, 114, 118, 122, 126, 130, 134, 138, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35
+								]
+						,	"values": [
+								"42", "44", "46", "48", "50", "52", "54", "56", "58", "60","62"," 64", "66", "68", "70", "72R", "74R", "76R", "78R", "80R", "82R", "84R", "86R", "88R", "90R", "82", "86", "90", "94", "98", "102", "106", "110", "114", "118", "122", "126", "130", "134", "138", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32", "33", "34", "35"
+								]
+					},
+					{
 						"label":"Jacket Make"
 					,	"name":"jm-ms-j"
 					,	"type":"select"
@@ -750,6 +761,14 @@
                       	,	"TPB85 Navy"
                       	,	"TPB86 Brown"
                       	,	"TPB87-LX060J SCG Trust"
+						,	"DH2424-AZ 20MM"
+						,	"DH2424-AZ 15MM"
+						,	"TH5595-BN 21MM"
+						,	"TH5595-BN 15MM"
+						,	"TH5595-AZ 21MM"
+						,	"TH5595-AZ 15MM"
+						,	"TH2550-AZ 21MM"
+						,	"TH2550-AZ 15MM"
 						,	"Please select"
 						,	""
 						]
@@ -893,6 +912,14 @@
                       	,	"TPB85"
                       	,	"TPB86"
                       	,	"TPB87-LX060J"
+						,	"DH2424-AZ 20MM"
+						,	"DH2424-AZ 15MM"
+						,	"TH5595-BN 21MM"
+						,	"TH5595-BN 15MM"
+						,	"TH5595-AZ 21MM"
+						,	"TH5595-AZ 15MM"
+						,	"TH2550-AZ 21MM"
+						,	"TH2550-AZ 15MM"
 						,	"Please select"
 						,	""
 						]
@@ -1729,6 +1756,7 @@
 							"Custom Lining",
 							"Ariston",
 							"Bateman Ogden",
+							"Bernstein & Benleys",
 							"Carnet",
 							"Cerruti",
 							"Dormeuil",
@@ -1750,6 +1778,7 @@
 							"Custom Lining",
 							"Ariston",
 							"Bateman Ogden",
+							"Bernstein & Benleys",
 							"Carnet",
 							"Cerruti",
 							"Dormeuil",
@@ -3853,6 +3882,17 @@
 			,	"name": "m-t"
 			,	"fields": [
 					{
+							"label":"Try on Restriction"
+					,	"name":"TryonRestrictionTrouser"
+					,	"type":"select"
+					,	"texts": [
+							42, 44, 46, 48, 50, 52, 54, 56, 58, 60,62, 64, 66, 68, 70, "72R", "74R", "76R", "78R", "80R", "82R", "84R", "86R", "88R", "90R", 82, 86, 90, 94, 98, 102, 106, 110, 114, 118, 122, 126, 130, 134, 138, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35
+							]
+					,	"values": [
+							"42", "44", "46", "48", "50", "52", "54", "56", "58", "60","62", "64", "66", "68", "70", "72R", "74R", "76R", "78R", "80R", "82R", "84R", "86R", "88R", "90R", "82", "86", "90", "94", "98", "102", "106", "110", "114", "118", "122", "126", "130", "134", "138", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29"," 30", "31", "32", "33", "34", "35"
+							]
+					},
+					{
 						"label":"Trouser Make"
 					,	"name":"tm-m-t"
 					,	"type":"select"
@@ -5095,6 +5135,17 @@
 				"label": "Make and Style"
 			,	"name": "ms-w"
 			,	"fields": [
+					{
+							"label":"Try on Restriction"
+					,	"name":"TryonRestrictionWaistcoat"
+					,	"type":"select"
+					,	"texts": [
+							42, 44, 46, 48, 50, 52, 54, 56, 58, 60,62, 64, 66, 68, 70, "72R", "74R", "76R", "78R", "80R", "82R", "84R", "86R", "88R", "90R", 82, 86, 90, 94, 98, 102, 106, 110, 114, 118, 122, 126, 130, 134, 138, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35
+							]
+					,	"values": [
+							"42", "44", "46", "48", "50", "52", "54", "56", "58", "60","62", "64", "66", "68", "70", "72R", "74R", "76R", "78R", "80R", "82R", "84R", "86R", "88R", "90R", "82", "86", "90", "94", "98", "102", "106", "110", "114", "118", "122", "126", "130", "134", "138", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31", "32"," 33", "34","35"
+							]
+					},
 					{
 						"label":"Make"
 					,	"name":"m-ms-w"
@@ -6480,6 +6531,7 @@
 							"Custom Lining",
 							"Ariston",
 							"Bateman Ogden",
+							"Bernstein & Benleys",
 							"Carnet",
 							"Cerruti",
 							"Dormeuil",
@@ -6502,6 +6554,7 @@
 							"Custom Lining",
 							"Ariston",
 							"Bateman Ogden",
+							"Bernstein & Benleys",
 							"Carnet",
 							"Cerruti",
 							"Dormeuil",
@@ -6757,6 +6810,17 @@
 			,	"name": "msl-o"
 			,	"fields": [
 					{
+							"label":"Try on Restriction"
+					,	"name":"TryonRestrictionOvercoat"
+					,	"type":"select"
+					,	"texts": [
+							42, 44, 46, 48, 50, 52, 54, 56, 58, 60,62, 64, 66, 68, 70
+							]
+					,	"values": [
+							"42", "44", "46", "48", "50", "52", "54", "56", "58", "60","62", "64", "66", "68", "70"
+							]
+					},
+					{
 						"label":"Make"
 					,	"name":"m-msl-o"
 					,	"type":"select"
@@ -6785,6 +6849,11 @@
 						,	"6 btn. double breasted"
 						,	"6 btn. double breasted and contrast collar"
                         ,	"5 btn. car coat collar"
+                        ,	"2 btn. notch lapel"
+                        ,	"2 btn. notch lapel with contrast collar"
+                        ,	"2 btn. peak lapel"
+                        ,	"2 btn. peak lapel with contrast collar"
+                        ,	"Zipper closure"
 						]
 					,	"values": [
 							"T01040101"
@@ -6798,6 +6867,11 @@
 						,	"T01040109"
 						,	"T01040110"
                         ,	"T01040111"
+                        ,	"T01040112"
+                        ,	"T01040113"
+                        ,	"T01040114"
+                        ,	"T01040115"
+                        ,	"T01040116"
 						]
 					}
 				,	{
@@ -6994,6 +7068,7 @@
 						,	"Patch with flap"
 						,	"Patch round"
 						,	"Welted"
+						,	"Narrow (4.5cm) welted"
 						]
 					,	"values": [
 							"T01040401"
@@ -7001,6 +7076,7 @@
 						,	"T01040403"
 						,	"T01040404"
 						,	"T01040405"
+						,	"T01040406"
 						]
 					}
 				,	{
@@ -8030,6 +8106,52 @@
 						]
 					}
 				,	{
+						"label":"Zipper Closure Color"
+					,	"name":"T010433"
+					,	"type":"select"
+					,	"texts": [
+							"NA"
+						,	"ZP-01 olive"
+						,	"ZP-02 grey"
+						,	"ZP-03 chocolate"
+						,	"ZP-04 dark blue"
+						,	"ZP-05 light beige"
+						,	"ZP-06 chestnut red"
+						,	"ZP-07 dark camel"
+						,	"ZP-08 black"
+						,	"ZP-09 dark beige"
+						,	"ZP-10 peacock blue"
+						,	"ZP-11 white"
+						]
+					,	"values": [
+							"NA"
+						,	"ZP-01"
+						,	"ZP-02"
+						,	"ZP-03"
+						,	"ZP-04"
+						,	"ZP-05"
+						,	"ZP-06"
+						,	"ZP-07"
+						,	"ZP-08"
+						,	"ZP-09"
+						,	"ZP-10"
+						,	"ZP-11"
+						]
+					}
+				,	{
+						"label":"Shoulder Tab"
+					,	"name":"T010434"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"Yes"
+						]
+					,	"values": [
+							"T01043402"
+						,	"T01043401"
+						]
+					}
+				,	{
 						"label":"Interior Pocket Piping"
 					,	"name":"T010415"
 					,	"type":"select"
@@ -8889,6 +9011,19 @@
 						]
 					}
 				,	{
+						"label":"Cuff Tab"
+					,	"name":"T010435"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"Yes"
+						]
+					,	"values": [
+							"T01043502"
+						,	"T01043501"
+						]
+					}
+				,	{
 						"label":"Melton Under Collar"
 					,	"name":"T010418"
 					,	"type":"select"
@@ -9108,6 +9243,21 @@
 						]
 					}
 				,	{
+						"label":"Monogram Position"
+					,	"name":"T010436"
+					,	"type":"select"
+					,	"texts": [
+							"NA"
+						,	"Monogram direct on lining"
+						,	"Monogram on Label"
+						]
+					,	"values": [
+							"NA"
+						,	"T01043602"
+						,	"T01043601"
+						]
+					}
+				,	{
 						"label":"Monogram Font"
 					,	"name":"T010424"
 					,	"type":"select"
@@ -9248,6 +9398,17 @@
 			,	"name": "ms-s"
 			,	"fields": [
 					{
+							"label":"Try on Restriction"
+					,	"name":"TryonRestrictionShirt"
+					,	"type":"select"
+					,	"texts": [
+							29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61
+							]
+					,	"values": [
+							"29", "30","31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61"
+							]
+					},
+					{
 						"label":"Shirt Make"
 					,	"name":"sm-ms-s"
 					,	"type":"select"
@@ -9284,15 +9445,15 @@
 						,	"No button"
 						,	"With low button"
 						,	"Hidden button"
-                      	,	"NA"
+          	,	"NA"
 						]
 					,	"values": [
 							"T01060502"
 						,	"T01060504"
 						,	"T01060501"
 						,	"T01060503"
-                      	,	"NA"
-                      	]
+          	,	"NA"
+          	]
 					}
 				,	{
 						"label":"Sleeve Pleats"
@@ -9301,11 +9462,13 @@
 					,	"texts": [
 							"2 pleats"
 						,	"3 pleats"
+            , "Small gathered pleats"
 						]
 					,	"values": [
 							"T01065001"
 						,	"T01065002"
-                      	]
+            ,	"T01065003"
+          	]
 					}
 				,	{
 						"label":"Bottom"
@@ -12635,6 +12798,17 @@
 			,	"name": "ms-ss"
 			,	"fields": [
 					{
+							"label":"Try on Restriction"
+					,	"name":"TryonRestrictionShortSleevesShirt"
+					,	"type":"select"
+					,	"texts": [
+							29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61
+							]
+					,	"values": [
+							"29", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50", "51", "52", "53", "54", "55", "56", "57", "58", "59", "60", "61"
+							]
+					},
+					{
 						"label":"Shirt Make"
 					,	"name":"sm-ms-ss"
 					,	"type":"select"
@@ -15084,6 +15258,17 @@
 			,	"name": "msl-tc"
 			,	"fields": [
 					{
+							"label":"Try on Restriction"
+					,	"name":"TryonRestrictionTrenchcoat"
+					,	"type":"select"
+					,	"texts": [
+							42, 44, 46, 48, 50, 52, 54, 56, 58, 60,62, 64, 66, 68, 70
+							]
+					,	"values": [
+							"42", "44","46", "48", "50", "52", "54", "56", "58", "60","62", "64", "66", "68", "70"
+							]
+					},
+					{
 						"label":"Make"
 					,	"name":"m-msl-tc"
 					,	"type":"select"
@@ -17522,6 +17707,17 @@
 			,	"name": "ms-lj"
 			,	"fields": [
 					{
+							"label":"Try on Restriction"
+					,	"name":"TryonRestrictionLadiesJacket"
+					,	"type":"select"
+					,	"texts": [
+							38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70
+							]
+					,	"values": [
+							"38", "40", "42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "62", "64","66", "68", "70"
+							]
+					},
+					{
 						"label":"Jacket Make"
 					,	"name":"jm-ms-lj"
 					,	"type":"select"
@@ -17584,10 +17780,12 @@
 					,	"texts": [
 							"Normal (round)"
 						,	"Straight"
+						,	"Slanted cutaway"
 						]
 					,	"values": [
 							"T02722101"
 						,	"T02722102"
+						,	"T02722103"
 						]
 					}
 				]
@@ -17607,6 +17805,19 @@
 					,	"values": [
 							"T02720701"
 						,	"T02720702"
+						]
+					}
+				,	{
+						"label":"Formal Lapel Edge Piping"
+					,	"name":"T027245"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"Yes"
+						]
+					,	"values": [
+							"T02724501"
+						,	"T02724502"
 						]
 					}
 				,	{
@@ -17868,7 +18079,6 @@
 						,	"Jet straight"
 						,	"Jet slanted"
 						,	"Patch"
-						,	""
 						]
 					,	"values": [
 							"T02721601"
@@ -17876,7 +18086,6 @@
 						,	"T02721603"
 						,	"T02721604"
 						,	"T02721605"
-						,	""
 						]
 					}
 				,	{
@@ -18107,6 +18316,14 @@
                       	,	"TPB85 Navy"
                       	,	"TPB86 Brown"
                       	,	"TPB87-LX060J SCG Trust"
+						,	"DH2424-AZ 20MM"
+						,	"DH2424-AZ 15MM"
+						,	"TH5595-BN 21MM"
+						,	"TH5595-BN 15MM"
+						,	"TH5595-AZ 21MM"
+						,	"TH5595-AZ 15MM"
+						,	"TH2550-AZ 21MM"
+						,	"TH2550-AZ 15MM"
 						]
 					,	"values": [
 							"Please select"
@@ -18249,6 +18466,14 @@
                       	,	"TPB85"
                       	,	"TPB86"
                       	,	"TPB87-LX060J"
+						,	"DH2424-AZ 20MM"
+						,	"DH2424-AZ 15MM"
+						,	"TH5595-BN 21MM"
+						,	"TH5595-BN 15MM"
+						,	"TH5595-AZ 21MM"
+						,	"TH5595-AZ 15MM"
+						,	"TH2550-AZ 21MM"
+						,	"TH2550-AZ 15MM"
 						]
 					}
 				,	{
@@ -19085,6 +19310,7 @@
 							"Custom Lining",
 							"Ariston",
 							"Bateman Ogden",
+							"Bernstein & Benleys",
 							"Carnet",
 							"Cerruti",
 							"Dormeuil",
@@ -19106,6 +19332,7 @@
 							"Custom Lining",
 							"Ariston",
 							"Bateman Ogden",
+							"Bernstein & Benleys",
 							"Carnet",
 							"Cerruti",
 							"Dormeuil",
@@ -19163,10 +19390,14 @@
 					,	"texts": [
 							"Working buttonholes"
 						,	"Imitation buttonholes"
+						,	"Slanted working buttonholes"
+						,	"Slanted imitation buttonholes"
 						]
 					,	"values": [
 							"T02722301"
 						,	"T02722302"
+						,	"T02722303"
+						,	"T02722304"
 						]
 					}
 				,	{
@@ -19297,6 +19528,58 @@
 						,	"C31"
 						,	"C32"
 						,	"No"
+						]
+					}
+				,	{
+						"label":"Front and Collar Piping"
+					,	"name":"T027246"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"Yes"
+						]
+					,	"values": [
+							"T02724602"
+						,	"T02724601"
+						]
+					}
+				,	{
+						"label":"Front and Collar Piping Color"
+					,	"name":"T027247"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"SR11 off white"
+						,	"SR12 beige"
+						,	"SR13 brown"
+						,	"SR14 yellow"
+						,	"SR15 light pink"
+						,	"SR16 pink"
+						,	"SR17 red"
+						,	"SR18 dark red"
+						,	"SR19 bright blue"
+						,	"SR20 light blue"
+						,	"SR21 blue"
+						,	"SR22 dark blue"
+						,	"SR23 light grey"
+						,	"SR24 black"
+						]
+					,	"values": [
+							"No"
+						,	"SR11"
+						,	"SR12"
+						,	"SR13"
+						,	"SR14"
+						,	"SR15"
+						,	"SR16"
+						,	"SR17"
+						,	"SR18"
+						,	"SR19"
+						,	"SR20"
+						,	"SR21"
+						,	"SR22"
+						,	"SR23"
+						,	"SR24"
 						]
 					}
 				,	{
@@ -20005,6 +20288,74 @@
 						]
 					}
 				,	{
+						"label":"Exposed Seam Piping with Lining"
+					,	"name":"T027248"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"Yes"
+						]
+					,	"values": [
+							"T02724802"
+						,	"T02724801"
+						]
+					}
+				,	{
+						"label":"Exposed Seam Piping Color"
+					,	"name":"T027249"
+					,	"type":"select"
+					,	"texts": [
+							"NA"
+						,	"TR133 white twill"
+						,	"TR135 gold twill"
+						,	"TR137 sky blue"
+						,	"TR138 cobalt blue"
+						,	"TR139 dark blue"
+						,	"TR140 Orange"
+						,	"TR142 dark red"
+						,	"TR144 purple"
+						,	"TR146 wine red"
+						,	"TR148 silver"
+						,	"TR149 dark grey"
+						,	"TR150 black"
+						,	"TR151 red"
+						,	"TR648"
+						,	"TR649 brown"
+						,	"TR650 taupe"
+						,	"TR651 teal"
+						,	"TR652 green"
+						,	"TR653 marine blue"
+						,	"TR654 royal blue"
+						,	"TR655 navy"
+						,	"TR656 olive"
+						]
+					,	"values": [
+							"T02724923"
+						,	"T02724901"
+						,	"T02724902"
+						,	"T02724903"
+						,	"T02724904"
+						,	"T02724905"
+						,	"T02724906"
+						,	"T02724907"
+						,	"T02724908"
+						,	"T02724909"
+						,	"T02724910"
+						,	"T02724911"
+						,	"T02724912"
+						,	"T02724913"
+						,	"T02724914"
+						,	"T02724915"
+						,	"T02724916"
+						,	"T02724917"
+						,	"T02724918"
+						,	"T02724919"
+						,	"T02724920"
+						,	"T02724921"
+						,	"T02724922"
+						]
+					}
+				,	{
 						"label":"Interior Pick Stitch Color"
 					,	"name":"T027237"
 					,	"type":"select"
@@ -20479,6 +20830,17 @@
 			,	"name": "m-lt"
 			,	"fields": [
 					{
+							"label":"Try on Restriction"
+					,	"name":"TryonRestrictionLadiesPants"
+					,	"type":"select"
+					,	"texts": [
+							30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62
+							]
+					,	"values": [
+							"30", "32", "34", "36", "38", "40","42", "44", "46", "48", "50", "52", "54", "56", "58", "60", "62"
+							]
+					},
+					{
 						"label":"Trouser Make"
 					,	"name":"tm-m-lt"
 					,	"type":"select"
@@ -20527,6 +20889,19 @@
 					,	"values": [
 							"T02740501"
 						,	"T02740502"
+						]
+					}
+				,	{
+						"label":"Formal Side Stripe"
+					,	"name":"T027424"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"Yes"
+						]
+					,	"values": [
+							"T02742401"
+						,	"T02742402"
 						]
 					}
 				,	{
@@ -20603,13 +20978,32 @@
 							"Belt loops"
 						,	"Side elastic"
 						,	"Without belt loops or side elastic"
+						,	"Buckle strap"
 						,	"Please select"
 						]
 					,	"values": [
 							"T02741301"
 						,	"T02741302"
 						,	"T02741303"
+						,	"T02741304"
 						,	"Please select"
+						]
+					}
+				,	{
+						"label":"Buckle Style"
+					,	"name":"T027426"
+					,	"type":"select"
+					,	"texts": [
+							"NA"
+						,	"B2 Bronze Hexagon"
+						,	"B3 Silver Hexagon"
+						,	"B4 Gunmetal Hexagon"
+						]
+					,	"values": [
+							"T02742601"
+						,	"T02742602"
+						,	"T02742603"
+						,	"T02742604"
 						]
 					}
 				,	{
@@ -20619,10 +21013,12 @@
 					,	"texts": [
 							"Non-ext with 2 hook and bar"
 						,	"Non-ext with 2 btn"
+						,	"Ext. with 2 btn & 2 hook and bar"
 						]
 					,	"values": [
 							"T02741201"
 						,	"T02741202"
+						,	"T02741203"
 						]
 					}
 				,	{
@@ -20744,6 +21140,19 @@
 						,	"T02741605"
 						,	"T02741606"
 						,	"T02741607"
+						]
+					}
+				,	{
+						"label":"Watch Pocket"
+					,	"name":"T027425"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"Flap only with no interior pocket"
+						]
+					,	"values": [
+							"T02742502"
+						,	"T02742501"
 						]
 					}
 				]
@@ -21358,6 +21767,25 @@
 					}
 				]
 			}
+		,	{
+				"label": "Branding"
+			,	"name": "fs-lt"
+			,	"fields": [
+					{
+						"label":"Brand Label"
+					,	"name":"T027423"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"Yes"
+						]
+					,	"values": [
+							"T02742302"
+						,	"T02742301"
+						]
+					}
+				]
+			}
 		]
 	}
 ,	{
@@ -21367,6 +21795,17 @@
 				"label": "Make, Style and Waistband"
 			,	"name": "sw-ls"
 			,	"fields": [
+					{
+							"label":"Try on Restriction"
+					,	"name":"TryonRestrictionLadiesSkirt"
+					,	"type":"select"
+					,	"texts": [
+							30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62
+							]
+					,	"values": [
+							"30", "32", "34", "36", "38", "40", "42", "44", "46", "48", "50", "52", "54", "56","58", "60","62"
+							]
+					},
 					{
 						"label":"Skirt Make"
 					,	"name":"sma-sw-ls"
@@ -21440,6 +21879,7 @@
 					,	"type":"select"
 					,	"texts": [
 							"Please select"
+                                                ,       "NA"
 						,	"Self Fabric Buttons"
 						,	"T3 Plain White"
 						,	"T4 Clay"
@@ -21581,7 +22021,8 @@
 						]
 					,	"values": [
 							"Please select"
-						,	"Self Fabric Buttons"
+						,       "NA"
+                                                ,	"Self Fabric Buttons"
 						,	"T3"
 						,	"T4"
 						,	"T6"
@@ -22544,6 +22985,25 @@
 						,	"Y12596A-6"
 						,	"Y0351A-3"
 						,	"Y0351A-4"
+						]
+					}
+				]
+			}
+		,	{
+				"label": "Branding"
+			,	"name": "fs-ls"
+			,	"fields": [
+					{
+						"label":"Brand Label"
+					,	"name":"T027307"
+					,	"type":"select"
+					,	"texts": [
+							"No"
+						,	"Yes"
+						]
+					,	"values": [
+							"T02730702"
+						,	"T02730701"
 						]
 					}
 				]

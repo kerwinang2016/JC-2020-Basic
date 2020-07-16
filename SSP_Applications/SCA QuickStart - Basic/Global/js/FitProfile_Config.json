@@ -30,7 +30,7 @@
 						,	{"label":"Sleeve Pitch", "name":"Sleeve-Position", "type":"select", "min":-4, "max":4, "very-slim": {"min":-4, "max":4}, "slim": {"min":-4, "max":4}, "regular": {"min":-4, "max":4}}
 						,	{"label":"Strong Dart", "name":"Strong-Dart", "type":"select", "min":0, "max":1, "very-slim": {"min":0, "max":1}, "slim": {"min":0, "max":1}, "regular": {"min":0, "max":1}}
 						,	{"label":"Lapel Length", "name":"Lapel-Length", "type":"select", "min":-1.5, "max":1.5, "very-slim": {"min":-1.5, "max":1.5}, "slim": {"min":-1.5, "max":1.5}, "regular": {"min":-1.5, "max":1.5}}
-						,	{"label":"Shoulder Position", "name":"Shoulder-Position", "type":"select", "min":-1, "max":1, "very-slim": {"min":-1, "max":1}, "slim": {"min":-1, "max":1}, "regular": {"min":-1, "max":1}}
+						,	{"label":"Shoulder Position", "name":"Shoulder-Position", "type":"select", "min":-2, "max":2, "very-slim": {"min":-2, "max":2}, "slim": {"min":-2, "max":2}, "regular": {"min":-2, "max":2}}
 						,	{"label":"Sway Back", "name":"Sway-Back", "type":"select", "min":-1.5, "max":0, "very-slim": {"min":-1.5, "max":0}, "slim": {"min":-1.5, "max":0}, "regular": {"min":-1.5, "max":0}}
 						,	{"label":"Center Back", "name":"Center-Back-Seam", "type":"select", "min":-0.5, "max":0, "very-slim": {"min":-0.5, "max":0}, "slim": {"min":-0.5, "max":0}, "regular": {"min":-0.5, "max":0}}
 						]
@@ -51,8 +51,8 @@
 						,	{"label":"1/2 Front", "name":"1/2-Front", "type":"select", "min":-2.5, "max":2.5, "very-slim": {"min":-2.5, "max":2.5}, "slim": {"min":-2.5, "max":2.5}, "regular": {"min":-2.5, "max":2.5}}
 						,	{"label":"1/2 Hip", "name":"1/2-Hip", "type":"select", "min":-4, "max":4, "very-slim": {"min":-4, "max":4}, "slim": {"min":-4, "max":4}, "regular": {"min":-4, "max":4}}
 						,	{"label":"1/2 Front Skirt", "name":"1/2-Front-Skirt", "type":"select", "min":-2, "max":0, "very-slim": {"min":-2, "max":0}, "slim": {"min":-2, "max":0}, "regular": {"min":-2, "max":0}}
-						,	{"label":"1/2 Upper Arm", "name":"Upper-Arm", "type":"select", "min":-1, "max":2, "very-slim": {"min":-1, "max":2}, "slim": {"min":-1, "max":2}, "regular": {"min":-1, "max":2}}
-						,	{"label":"1/2 Hand", "name":"1/2-Hand", "type":"select", "min":-1.5, "max":2, "very-slim": {"min":-1.5, "max":2}, "slim": {"min":-1.5, "max":2}, "regular": {"min":-1.5, "max":2}}
+						,	{"label":"1/2 Upper Arm", "name":"Upper-Arm", "type":"select", "min":-2, "max":2, "very-slim": {"min":-2, "max":2}, "slim": {"min":-2, "max":2}, "regular": {"min":-2, "max":2}}
+						,	{"label":"1/2 Hand", "name":"1/2-Hand", "type":"select", "min":-2, "max":2, "very-slim": {"min":-2, "max":2}, "slim": {"min":-2, "max":2}, "regular": {"min":-2, "max":2}}
 						]
 					}
 
@@ -419,6 +419,7 @@
 						,	{"label":"Button Height", "name":"Closing-Button-Height", "type":"select", "min":-3.5, "max":3.5}
 						,	{"label":"Armhole", "name":"Armhole", "type":"select", "min":-2, "max":2}
 						,	{"label":"Sleeve Pitch", "name":"Sleeve-Position", "type":"select", "min":-4, "max":4}
+	                                        ,       {"label":"Shoulder Position", "name":"Shoulder-Position", "type":"select", "min":-2, "max":2}
 						]
 					}
 
@@ -652,8 +653,8 @@
 						,	{"label":"1/2 Waist", "name":"1/2-Waist", "type":"select", "min":-10, "max":10, "slim": {"min":-10, "max":10}, "regular": {"min":-10, "max":10}}
 						,	{"label":"1/2 Hip", "name":"1/2-Hip", "type":"select", "min":-15, "max":15, "slim": {"min":-15, "max":15}, "regular": {"min":-15, "max":15}}
 						,	{"label":"1/2 Upper Arm", "name":"Upper-Arm/Armhole", "type":"select", "min":-5, "max":5, "slim": {"min":-5, "max":5}, "regular": {"min":-5, "max":5}}
-						,	{"label":"Cuff Left", "name":"Cuff-Width-Left", "type":"select", "min":-4, "max":4, "slim": {"min":-4, "max":4}, "regular": {"min":-4, "max":4}}
-						,	{"label":"Cuff Right", "name":"Cuff-Width-Right", "type":"select", "min":-4, "max":4, "slim": {"min":-4, "max":4}, "regular": {"min":-4, "max":4}}
+						,	{"label":"Sleeve Hem L", "name":"Cuff-Width-Left", "type":"select", "min":-4, "max":4, "slim": {"min":-4, "max":4}, "regular": {"min":-4, "max":4}}
+						,	{"label":"Sleeve Hem R", "name":"Cuff-Width-Right", "type":"select", "min":-4, "max":4, "slim": {"min":-4, "max":4}, "regular": {"min":-4, "max":4}}
 						]
 					}
 
@@ -727,8 +728,8 @@
 						,	{"label":"Upperarm", "name":"Upperarm", "type":"text"}
 						,	{"label":"Sleeve Left", "name":"Sleeve-Left", "type":"text"}
 						,	{"label":"Sleeve Right", "name":"Sleeve-Right", "type":"text"}
-						,	{"label":"Cuff Left", "name":"Cuff-Left", "type":"text"}
-						,	{"label":"Cuff Right", "name":"Cuff-Right", "type":"text"}
+						,	{"label":"Sleeve Hem L", "name":"Cuff-Left", "type":"text"}
+						,	{"label":"Sleeve Hem R", "name":"Cuff-Right", "type":"text"}
           	,	{"label":"Back Length", "name":"Back-Length", "type":"text"}
           	,	{"label":"Front Length", "name":"Front-Length", "type":"text"}
 						]
@@ -886,7 +887,8 @@
 					,	"name": "main"
 					,	"fields": [
 							{"label":"Fit", "name":"fit", "type":"select", "fieldset": "Main", "options": ["Select","Regular"]}
-						,	{"label":"Block", "name":"block", "type":"select", "fieldset": "Main", "options": ["Select", 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70]}
+						,	{"label":"Block", "name":"block", "type":"select", "fieldset": "Main", "options": ["Select", 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62, 64, 66, 68, 70],
+								"optionstext": ["Select", "38 / 00", "40 / 0", "42 / 2", "44 / 4", "46 / 6", "48 / 8", "50 / 10", "52 / 12", "54 / 14", "56 / 16", "58 / 18", "60 / 20", "62 / 22", "64 / 24", "66 / 26", "68 / 28", "70 / 30"]}
 						]
 					}
 
@@ -973,7 +975,8 @@
 					,	"name": "main"
 					,	"fields": [
 							{"label":"Fit", "name":"fit", "type":"select", "fieldset": "Main", "options": ["Select","Regular"]}
-						,	{"label":"Block", "name":"block", "type":"select", "fieldset": "Main", "options": ["Select", 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62]}
+						,	{"label":"Block", "name":"block", "type":"select", "fieldset": "Main", "options": ["Select", 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62],
+						"optionstext": ["Select", "30 / 00", "32 / 0", "34 / 2", "36 / 4", "38 / 6", "40 / 8", "42 / 10", "44 / 12", "46 / 14", "48 / 16", "50 / 18", "52 / 20", "54 / 22", "56 / 24", "58 / 26", "60 / 28", "62 / 30"]}
 						]
 					}
 
@@ -1034,7 +1037,8 @@
 					,	"name": "main"
 					,	"fields": [
 							{"label":"Fit", "name":"fit", "type":"select", "fieldset": "Main", "options": ["Select","Regular"]}
-						,	{"label":"Block", "name":"block", "type":"select", "fieldset": "Main", "options": ["Select", 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62]}
+						,	{"label":"Block", "name":"block", "type":"select", "fieldset": "Main", "options": ["Select", 30, 32, 34, 36, 38, 40, 42, 44, 46, 48, 50, 52, 54, 56, 58, 60, 62],
+						"optionstext": ["Select", "30 / 00", "32 / 0", "34 / 2", "36 / 4", "38 / 6", "40 / 8", "42 / 10", "44 / 12", "46 / 14", "48 / 16", "50 / 18", "52 / 20", "54 / 22", "56 / 24", "58 / 26", "60 / 28", "62 / 30"]}
 						]
 					}
 

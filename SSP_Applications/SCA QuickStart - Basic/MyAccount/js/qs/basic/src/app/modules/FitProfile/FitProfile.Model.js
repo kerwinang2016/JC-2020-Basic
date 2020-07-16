@@ -9,7 +9,7 @@ define('FitProfile.Model', ['Client.Model', 'Client.Collection', 'Profile.Model'
 	{
 		client_collection : new ClientCollection()
 	,	profile_collection: null
-	,	measurement_config: null
+	// ,	measurement_config: null
 	,	selected_measurement: null
 	,	orderhistory_collection: null
 	,	alteration_collection: null //Added salman 4/3/2019 alteration
@@ -18,23 +18,23 @@ define('FitProfile.Model', ['Client.Model', 'Client.Collection', 'Profile.Model'
 			var self = this;
 			this.set({current_client: null, current_profile: null, current_user: userID});
 			//Initialize Clients Collection
-			var tailor = SC.Application('MyAccount').getUser().get('parent')!=null? SC.Application('MyAccount').getUser().get('parent'):SC.Application('MyAccount').getUser().id;
-			var param = new Object();
-			param.type = "get_client";
-			param.data = JSON.stringify({filters: ["custrecord_tc_tailor||anyof|list|" + tailor], columns: ["internalid", "created", "custrecord_tc_first_name", "custrecord_tc_last_name", "custrecord_tc_dob", "custrecord_tc_company", "custrecord_tc_email", "custrecord_tc_addr1", "custrecord_tc_addr2", "custrecord_tc_country", "custrecord_tc_city", "custrecord_tc_state", "custrecord_tc_zip", "custrecord_tc_phone", "custrecord_tc_notes"]});
-			_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "GET", param).always(function(data){
-				if(data){
-					self.client_collection.add(JSON.parse(data));
-					self.trigger("afterInitialize");
-				}
-			});
-
-			jQuery.get(_.getAbsoluteUrl('js/FitProfile_Config.json')).done(function(data){
-				self.measurement_config = data;
-			});
+			// var tailor = SC.Application('MyAccount').getUser().get('parent')!=null? SC.Application('MyAccount').getUser().get('parent'):SC.Application('MyAccount').getUser().id;
+			// var param = new Object();
+			// param.type = "get_client";
+			// param.data = JSON.stringify({filters: ["custrecord_tc_tailor||anyof|list|" + tailor], columns: ["internalid", "created", "custrecord_tc_first_name", "custrecord_tc_last_name", "custrecord_tc_dob", "custrecord_tc_company", "custrecord_tc_email", "custrecord_tc_addr1", "custrecord_tc_addr2", "custrecord_tc_country", "custrecord_tc_city", "custrecord_tc_state", "custrecord_tc_zip", "custrecord_tc_phone", "custrecord_tc_notes"]});
+			// _.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "GET", param).always(function(data){
+			// 	if(data){
+			// 		self.client_collection.add(JSON.parse(data));
+			// 		self.trigger("afterInitialize");
+			// 	}
+			// });
+			//
+			// jQuery.get(_.getAbsoluteUrl('js/FitProfile_Config.json')).done(function(data){
+			// 	self.measurement_config = data;
+			// });
 
 			this.on("change:current_client", this.fetchProfile);
-			this.on("change:current_profile", this.fetchMeasure);
+			// this.on("change:current_profile", this.fetchMeasure);
 			this.on("change:current_client", this.fetchalterations); //Added salman 4/3/2019 alteration
 		}
 		, refreshCollection: function(){
@@ -51,6 +51,7 @@ define('FitProfile.Model', ['Client.Model', 'Client.Collection', 'Profile.Model'
 			});
 		}
 	,	fetchProfile : function(){
+
 			var clientID = this.get("current_client");
 			var self = this;
 			if(clientID){
@@ -69,6 +70,7 @@ define('FitProfile.Model', ['Client.Model', 'Client.Collection', 'Profile.Model'
 			}
 		}
 	,	fetchalterations : function(){ //Added salman 4/3/2019 alteration
+
 			var clientID = this.get("current_client");
 			var self = this;
 			if(clientID){

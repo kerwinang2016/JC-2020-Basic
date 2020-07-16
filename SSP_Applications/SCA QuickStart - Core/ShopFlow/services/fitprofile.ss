@@ -30,6 +30,7 @@ function service(request, response){
 
   					var splitName = jsonSearchInput.clientname.split(' ');
             if(splitName.length == 1){
+              splitName[0] = splitName[0].toLowerCase();
               var f = new nlobjSearchFilter("formulanumeric","null","equalto",'1').setFormula("CASE WHEN INSTR(LOWER({custrecord_tc_first_name}) , '"+splitName[0]+"') > 0 OR INSTR(LOWER({custrecord_tc_last_name}) , '"+splitName[0]+"') > 0 THEN 1 ELSE 0 END");
               additionalfilters.push(f);
               //nlapiLogExecution('debug','splitName[0]', splitName[0]);

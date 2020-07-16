@@ -1,22 +1,5 @@
 // Case.js
 // -----------------
-
-/*
-Change History
---------------
-Date: 04-03-2019
-Changed by:Shoaib Iqbal
-Change /Jira Ticket #: JHD-29
-Change Description: Updates to Cases section on myaccount
-*/
-/*
-Change History
---------------
-Date: 06-03-2019
-Changed by: Salman Khan
-Change /Jira Ticket #: JHD-30
-Change Description: Training Guides section to contain links to download the PDF
-*/
 // Defines the Case module. (Model, Views, Router)
 define('Case',
 ['CaseDetail.View', 'Case.Collection','Case.Model', 'Case.Router', 'CaseCreate.View', 'CaseList.View'],

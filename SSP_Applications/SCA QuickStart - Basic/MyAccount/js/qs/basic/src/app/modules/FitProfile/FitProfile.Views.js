@@ -1,13 +1,5 @@
 // Profile.Views.js
 // -----------------------
-/*
-Change History
---------------
-Date: 28-02-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-11
-Change Description: Default fit tools can be inputted into the my account section
-*/
 // Views for profile's operations
 define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory.Collection', 'ItemDetails.Model', 'ProductList.Model', 'ProductListItem.Model', 'ProductListDetails.View'], function (ClientModel, ProfileModel, Collection, ItemDetailsModel, ProductListModel, ProductListItemModel, ProductListDetailsView) {
 	'use strict';
@@ -23,8 +15,9 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 		, title: _('Fit Profile').translate()
 		, attributes: { 'class': 'FitProfileHomeView' }
 		, events: {
-			'change select#clients-options': 'getFitProfile'
-			, 'change select#profiles-options': 'getProfileDetails'
+			// 'change select#clients-options': 'getFitProfile'
+			// ,
+			'change select#profiles-options': 'getProfileDetails'
 			, 'change select#alteration-options': 'getAlterationsDetail' //Added salman 4/3/2019 alteration
 			, 'click [data-action=remove-rec]': 'removeRec'
 			, 'click [id=alteration-modal-remove]': 'removeAlterationRec' //Added salman 4/4/2019 alteration
@@ -99,16 +92,16 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			this.model.set('swx_selected_client_id', '');
 			this.model.set('swx_is_display_client_details', '');
 			this.model.set('swx_client_profile_order_history', '');
-			jQuery.get(_.getAbsoluteUrl('services/measurementdefaults.ss')).done(function (data) {
-				self.measurementdefaults = data;
-			});
-			jQuery.get(_.getAbsoluteUrl('services/influences.ss')).done(function (data) {
-				self.influences = data;
-			});
+			// jQuery.get(_.getAbsoluteUrl('services/measurementdefaults.ss')).done(function (data) {
+			// 	self.measurementdefaults = data;
+			// });
+			// jQuery.get(_.getAbsoluteUrl('services/influences.ss')).done(function (data) {
+			// 	self.influences = data;
+			// });
 
-			jQuery.get(_.getAbsoluteUrl('services/bodyBlockMeasurements.ss')).done(function (data) {
-				window.bodyBlockMeasurements = data;
-            });
+			// jQuery.get(_.getAbsoluteUrl('services/bodyBlockMeasurements.ss')).done(function (data) {
+			// 	window.bodyBlockMeasurements = data;
+      // });
 			 //JHD-11 Start
 			var param = new Object();
 			param.type = "get_favourite_fit_tools";
@@ -119,8 +112,13 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 				}
 			});
 			 //JHD-11 End
-
-
+			 jQuery.ajax({
+			 	url:_.getAbsoluteUrl('js/FitProfile_Config.json'),
+			 	async:false,
+			 	success: function (result) {
+			 			self.measurement_config = result;
+			 	}
+			 });
 		}
 
 		// Gets the ItemDetailsModel for the cart
@@ -176,7 +174,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 
 			if (this.model.get("current_profile")) {
 				jQuery("#fit-profile").html(SC.macros.fitProfileOptionDropdown(self.model.profile_collection, self.model.get("current_profile")));
-
+				//console.log('showcontent views home')
 				var profileView = new Views.Profile({
 					model: self.model.profile_collection.get(self.model.get("current_profile"))
 					, application: self.application
@@ -195,37 +193,33 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			this.model.set('swx_client_profile_order_history', '');
 			var self = this;
 			jQuery("div[data-type='alert-placeholder']").empty();
-			var param = new Object();
-			param.type = "get_client";
-			var tailor = SC.Application('MyAccount').getUser().get('parent')!= null? SC.Application('MyAccount').getUser().get('parent'):SC.Application('MyAccount').getUser().id;
-			param.data = JSON.stringify({filters: ["custrecord_tc_tailor||anyof|list|"+tailor], columns: ["internalid", "custrecord_tc_first_name", "custrecord_tc_last_name", "custrecord_tc_email", "custrecord_tc_addr1", "custrecord_tc_addr2", "custrecord_tc_country", "custrecord_tc_city", "custrecord_tc_state", "custrecord_tc_zip", "custrecord_tc_phone"]});
-			jQuery.get(_.getAbsoluteUrl('services/fitprofile.ss'), param).always(function(data){
-				if(data){
-					self.model.client_collection.reset();
-					self.model.client_collection.add(data);
-					$("[id='order-history']").empty();
-					var clientCollection = self.model.client_collection
-					var stClientCollection = JSON.stringify(clientCollection);
-					var arrObjClientCollection = (!_.isNullOrEmpty(stClientCollection)) ? JSON.parse(stClientCollection) : [];
-					self.model.set('swx_order_client_name', self.$('input[name=swx-order-client-name]').val());
-					self.model.set('swx_order_client_email', self.$('input[name=swx-order-client-email]').val());
-					self.model.set('swx_order_client_phone', self.$('input[name=swx-order-client-phone]').val());
-					self.model.set('swx_is_display_client_details', '');
 
-					var objFilters = {};
-					objFilters['name'] = self.model.get('swx_order_client_name');
-					objFilters['email'] = self.model.get('swx_order_client_email');
-					objFilters['phone'] = self.model.get('swx_order_client_phone');
+			if(self.$('input[name=swx-order-client-name]').val() || self.$('input[name=swx-order-client-email]').val() || self.$('input[name=swx-order-client-phone]').val()){
+				var param = new Object();
+				param.type = "get_client";
+				var tailor = SC.Application('MyAccount').getUser().get('parent')!= null? SC.Application('MyAccount').getUser().get('parent'):SC.Application('MyAccount').getUser().id;
 
-					var arrObjClient = _.getArrObjOrderClientList(arrObjClientCollection, objFilters)
+				param.data = JSON.stringify({filters: ["custrecord_tc_tailor||anyof|list|"+tailor], columns: ["internalid", "custrecord_tc_first_name", "custrecord_tc_last_name", "custrecord_tc_email", "custrecord_tc_addr1", "custrecord_tc_addr2", "custrecord_tc_country", "custrecord_tc_city", "custrecord_tc_state", "custrecord_tc_zip", "custrecord_tc_phone"]});
 
+				param.searchinput = JSON.stringify({clientname: self.$('input[name=swx-order-client-name]').val().trim(), email: self.$('input[name=swx-order-client-email]').val().trim(), phone: self.$('input[name=swx-order-client-phone]').val().trim()});
 
-					var arrObjClientList = [];
-					$("#swx-order-client-list").empty();
-					$("#swx-order-client-list").html(SC.macros.swxOrderClientList(arrObjClient));
-					_.toggleMobileNavButt();
-				}
-			});
+				jQuery.get(_.getAbsoluteUrl('services/fitprofile.ss'), param).always(function(data){
+					if(data){
+						self.model.client_collection.reset();
+						self.model.client_collection.add(data);
+
+						$("[id='order-history']").empty();
+						var clientCollection = self.model.client_collection
+						var stClientCollection = JSON.stringify(clientCollection);
+						var arrObjClientCollection = (!_.isNullOrEmpty(stClientCollection)) ? JSON.parse(stClientCollection) : [];
+
+						$("#swx-order-client-list").empty();
+						$("#swx-order-client-list").html(SC.macros.swxOrderClientList(data));
+
+						_.toggleMobileNavButt();
+					}
+				});
+			}
 		}
 
 
@@ -241,17 +235,15 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 
 		, swxClientProfileOrderHistory: function (e) {
 			var $ = jQuery;
-
-
 			var optionsearch = {
 				page: 1,
-				search: this.model.get('current_client')//this.model.get('swx_order_client_name')
+				search: this.model.get('swx_selected_client_id')//this.model.get('swx_order_client_name')
 			};
 
 			//Backbone.Relational.store.reset();
 
 			var filteredClientOrderHistory = [];
-			this.clientOrderHistory = new Collection(optionsearch.search);
+			this.clientOrderHistory = new Collection(optionsearch);
 			this.clientOrderHistory.reset();
 			var self = this;
 			var clientFullName = $('#fitProfileClientName').html();
@@ -280,7 +272,9 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 		, swxClientProfileSelect: function (e) {
 
 			jQuery("div[data-type='alert-placeholder']").empty();
+
 			var currentUser = this.application.getUser().get("internalid");
+			var selectedClientIdValue = e.target.getAttribute('swx-client-id');
 			var clientOptionsSelectId = 'clients-options';
 
 			var clientCollection = this.model.client_collection
@@ -288,11 +282,11 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			var arrObjClientCollection = (!_.isNullOrEmpty(stClientCollection)) ? JSON.parse(stClientCollection) : [];
 
 			var $ = jQuery;
-
+			this.getFitProfile('', selectedClientIdValue);
 			this.model.set('swx_is_display_client_details', 'T');
-			var selectedClientIdValue = e.target.getAttribute('swx-client-id');
-			this.model.set('swx_selected_client_id', selectedClientIdValue);
 
+			this.model.set('swx_selected_client_id', e.target.getAttribute('swx-client-id'));
+			this.model.set('swx_order_client_name', e.target.getAttribute('swx-client-name'));
 			this.$("select[id='" + clientOptionsSelectId + "']").val(selectedClientIdValue);
 			this.$("select[id='" + clientOptionsSelectId + "']").change();
 
@@ -310,27 +304,20 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			objRef['customerid'] = currentUser;
 			objRef['clientprofileid'] = selectedClientIdValue;
 
-			var optionsearch = {
-				page: 1,
-				search: this.model.get('swx_order_client_name')
-			};
-
 			this.swxClientProfileOrderHistory();
 
 			var self = this;
 
-			this.application.getSavedForLaterProductList(self.model.get('swx_order_client_name')).done(function (response) {
+			this.application.getSavedForLaterProductList().done(function (response) {
 				var objSFL = response;
 				objSFL['swx_filter_save_for_later_client'] = self.model.get('swx_order_client_name');
 				self.renderSaveForLaterSectionHelper(new ProductListModel(objSFL));
 			});
-
-
 		}
 
 		, addToCart: function () {
 			var self = this;
-			this.application.getSavedForLaterProductList(self.model.get('swx_order_client_name')).done(function (response) {
+			this.application.getSavedForLaterProductList().done(function (response) {
 				var objSFL = response;
 				objSFL['swx_filter_save_for_later_client'] = self.model.get('swx_order_client_name');
 				self.renderSaveForLaterSectionHelper(new ProductListModel(objSFL));
@@ -359,7 +346,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 
 			this.$("select[id='" + clientOptionsSelectId + "']").val('');
 			this.$("select[id='" + clientOptionsSelectId + "']").change();
-
+			$("#alterations-form").empty();
 			$("[id='fit-profile']").empty();
 			$("[id='profile-section']").empty();
 			$("[id='order-history']").empty();
@@ -404,7 +391,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			var self = this;
 			var $ = jQuery;
 			var selectedProfileIdValue = e.target.getAttribute('swx-fitprofile-id');
-
+			//console.log(selectedProfileIdValue);
 			$("select[id='profiles-options']").val(selectedProfileIdValue);
 			$("select[id='profiles-options']").change();
 
@@ -416,7 +403,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 
 			if(measureType == 'Block'){
 				//JHD-11 Start
-				var data = self.options.application._layoutInstance.currentView.defaultfavfittools;
+				var data = self.defaultfavfittools;
 				if(data){
 					var tempFavFitToolsData = JSON.parse(data);
 					var favDefaultData = tempFavFitToolsData[0];
@@ -453,7 +440,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 						}
 				}
 				//JHD-11 End
-		}
+			}
 
 		}
 
@@ -495,6 +482,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 		}
 
 		, getFitProfile: function (e, clientID) {
+			//console.log('getFitProfile')
 			if(!clientID){ //Added salman 4/3/2019 alteration
 				clientID = jQuery(e.target).val();
 			}
@@ -503,6 +491,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			this.model.set("current_client", clientID);
 
 			this.model.on("afterProfileFetch", function () {
+				//console.log('afterprofilefetch')
 				jQuery("#fit-profile").html(SC.macros.fitProfileOptionDropdown(self.model.profile_collection, clientID));
 				jQuery("#alterations-form").html(SC.macros.alterationsOptionDropdown(self.model.alteration_collection, clientID)); //Added salman 4/1/2019 alteration
 				var profileView = new Views.Profile({
@@ -530,12 +519,12 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			jQuery("#profile-form #name").val("");
 		}
 		, addProfile: function (e) {
-			var clientID = jQuery("#clients-options").val();
-			this.model.set("current_client", clientID);
+			// var clientID = jQuery("#clients-options").val();
+			// this.model.set("current_client", clientID);
 
 			//var currentClientId = this.model.get("current_client");
 			//this.model.set("current_client", currentClientId);
-
+			//console.log('addprofile')
 			var profileView = new Views.Profile({
 				model: new ProfileModel()
 				, application: this.application
@@ -556,7 +545,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 
 			//var currentClientId = this.model.get("current_client");
 			//this.model.set("current_client", currentClientId);
-
+			//console.log('add alteration')
 			var profileView = new Views.Profile({
 				model: new ProfileModel()
 				, application: this.application
@@ -607,6 +596,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 					param.id = id;
 				_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "POST", param).always(function (data) {
 						if (data.status) {
+							//console.log('remove alteration')
 								var profileView = new Views.Profile({
 									model: new ProfileModel()
 									, application: self.application
@@ -647,11 +637,12 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			var profileID = jQuery(e.target).val();
 			var self = this;
 			this.model.set("current_profile", profileID);
+
 			var $ = jQuery;
 
 			if (profileID) {
 				jQuery("#profile-actions").html("<a id='swx-fitprofile-dropdown-add' data-action='add-profile' data-toggle='show-in-modal' data-type='profile'>Add</a> | <a id='swx-fitprofile-dropdown-copy' data-action='copy-profile' data-type='profile' data-id='" + profileID + "'>Copy</a> | <a id='swx-fitprofile-dropdown-remove' data-action='remove-rec' data-type='profile' data-id='" + profileID + "'>Remove</a>");
-
+				//console.log('getfitprofiledetails')
 				var profileView = new Views.Profile({
 					model: self.model.profile_collection.get(self.model.get("current_profile"))
 					, application: self.application
@@ -670,7 +661,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 				// check if event was triggered by add button
 				if (e.target.innerText === "Add") {
 					//display profile details
-					jQuery("#profile-details").html(SC.macros.profileForm(self.model, 'add'));
+					jQuery("#profile-details").html(SC.macros.profileForm(self,self.model, 'add'));
 				} else {
 					//hide profile section
 					jQuery("#profile-section").html("");
@@ -689,7 +680,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 
 				//var currentClientId = this.model.get("current_client");
 				//this.model.set("current_client", currentClientId);
-
+				//console.log('getalterationdetail')
 				var profileView = new Views.Profile({
 					model: new ProfileModel()
 					, application: this.application
@@ -786,7 +777,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			if (type == "new") { // If new client
 				this.model.on("afterProfileFetch", function () {
 					jQuery("#fit-profile").html(SC.macros.fitProfileOptionDropdown(self.model.profile_collection, clientID));
-
+					//console.log('displayProfiles')
 					var profileView = new Views.Profile({
 						model: new ProfileModel()
 						, application: self.application
@@ -803,7 +794,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 				});
 			} else if (isClient) {
 				jQuery("#fit-profile").html(SC.macros.fitProfileOptionDropdown(self.model.profile_collection, clientID));
-
+				//console.log('disp[lau [prfiles2]]')
 				var profileView = new Views.Profile({
 					model: new ProfileModel()
 					, application: self.application
@@ -838,7 +829,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 				if (self.model.profile_collection && !isClient) { //If new fitprofile
 					this.model.set("current_profile", resData.id); // resData.id == profile id
 					jQuery("#fit-profile").html(SC.macros.fitProfileOptionDropdown(self.model.profile_collection, clientID));
-
+					//console.log('display profiles 3')
 					var profileView = new Views.Profile({
 						model: self.model.profile_collection.get(self.model.get("current_profile"))
 						, application: self.application
@@ -922,6 +913,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			}
 			_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "POST", param).always(function (data) {
 				if (data.status) {
+					//console.log('displayalterations')
 					var profileView = new Views.Profile({
 						model: new ProfileModel()
 						, application: self.application
@@ -974,6 +966,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "POST", param).always(function (data) {
 				data = JSON.parse(data.responseText);
 				if (data.status) {
+					console.log('submitAlterationForm')
 					var profileView = new Views.Profile({
 						model: new ProfileModel()
 						, application: self.application
@@ -1039,6 +1032,30 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			jQuery.get(_.getAbsoluteUrl('js/itemRangeConfigInches.json')).done(function (data) {
 				window.inchConfig = data;
 			});
+			jQuery.ajax({
+				url:_.getAbsoluteUrl('js/FitProfile_Config.json'),
+				async:false,
+				success: function (result) {
+						self.measurement_config = result;
+				}
+			});
+			jQuery.get(_.getAbsoluteUrl('services/measurementdefaults.ss')).done(function (data) {
+				self.measurementdefaults = data;
+			});
+			jQuery.get(_.getAbsoluteUrl('services/influences.ss')).done(function (data) {
+				self.influences = data;
+			});
+			jQuery.get(_.getAbsoluteUrl('services/bodyBlockMeasurements.ss')).done(function (data) {
+				self.bodyBlockMeasurements = data;
+      });
+			var param = new Object();
+			param.type = "get_favourite_fit_tools";
+			param.id = this.options.application.getUser().get("internalid");
+			_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "GET", param).always(function(data){
+				if(data){
+					self.defaultfavfittools = data;
+				}
+			});
 		}
 
 		,changedUnits : function(el){
@@ -1094,7 +1111,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			}
 
 			this._render();
-			this.$("#profile-details").html(SC.macros.profileForm(this.fitprofile));
+			this.$("#profile-details").html(SC.macros.profileForm(this,this.fitprofile));
 			_.toggleMobileNavButt();
 			setTimeout(function() {
 				if(jQuery('#custrecord_fp_measure_type').val() == 'Block'){
@@ -1116,7 +1133,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 				, profile = self.model.profile_collection && self.model.get("current_profile") ? self.model.profile_collection.where({ internalid: self.model.get("current_profile") })[0] : null;
 
 			if (itemType) {
-				selectedItemType = _.where(self.fitprofile.measurement_config, { item_type: itemType })[0];
+				selectedItemType = _.where(self.measurement_config, { item_type: itemType })[0];
 
 				jQuery("[id='butt-modal-copy']").hide();
 				jQuery("[id='butt-modal-remove']").hide();
@@ -1165,8 +1182,9 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			var self = this;
 			var producttype=jQuery('[name="custrecord_fp_product_type"]').val();
 			var blockfields = jQuery('.block-measurement-fld');
+
 			_.each(blockfields,function(blockfield){
-				var a = _.find(self.options.application._layoutInstance.currentView.measurementdefaults,function(b){
+				var a = _.find(self.measurementdefaults,function(b){
 					return b.custrecord_md_blockmeasurement == block && b.custrecord_md_bodyparttext == blockfield.dataset.field && b.custrecord_md_fitoptionstext == fit	&& b.custrecord_md_producttypetext == producttype;
 				});
 				if(a){
@@ -1179,7 +1197,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			});
 			_.each(blockfields,function(blockfield){
 				if(blockfield.value != '0'){
-					var in_items = _.filter(self.options.application._layoutInstance.currentView.influences,function(c){
+					var in_items = _.filter(self.influences,function(c){
 
 						return c.custrecord_in_producttypetext== producttype && c.custrecord_in_bodyparttext == blockfield.dataset.field;
 					});
@@ -1219,17 +1237,45 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 				, fieldsForm = null;
 
 			 if (measureType && itemType) {
-			 	fieldsForm = _.where(self.fitprofile.measurement_config, { item_type: itemType })[0];
+			 	fieldsForm = _.where(self.measurement_config, { item_type: itemType })[0];
 			 	fieldsForm = _.where(fieldsForm.measurement, { type: measureType })[0];
 			 	self.processBlockFields(fieldsForm, 'Regular');
 			 	self.fitprofile.selected_measurement = fieldsForm;
 
-			 	jQuery("#measure-form").html(SC.macros.measureForm(fieldsForm));
+
+				if(measureType == 'Block'){
+					var c = _.where(fieldsForm.fieldset, { name: 'main' })[0];
+					var e = _.where(c.fields, { name: 'block' })[0];
+					var blockRestriction = [];
+					var doRestrictions = SC.Application('MyAccount').user_instance.get('custentity_design_options_restriction');
+					var doRestrictionsJSON = doRestrictions?JSON.parse(doRestrictions):null;
+					if(doRestrictionsJSON){
+						var tryonRestriction = _.find(doRestrictionsJSON,function(o){ return o.name == 'TryonRestriction'+itemType });
+						if(tryonRestriction && tryonRestriction.value && tryonRestriction.value != ""){
+							blockRestriction = tryonRestriction.value.split(',');
+						}
+					}
+					if(blockRestriction.length>0){
+						for(var i=0;i<blockRestriction.length;i++){
+							if(e.options){
+								blockRestriction[i] = blockRestriction[i].indexOf('R') == -1? parseInt(blockRestriction[i]):blockRestriction[i];
+								var index = e.options.indexOf(blockRestriction[i]);
+								if(index != -1){
+									if(e.optionstext){
+										e.optionstext.splice(index,1);
+									}
+									e.options.splice(index,1);
+								}
+							}
+						}
+					}
+				}
+			 	jQuery("#measure-form").html(SC.macros.measureForm(fieldsForm,null,null,null,null,self));
 
 			 	jQuery("[id='butt-modal-submit']").show();
 				 if(measureType == 'Block'){
 					//JHD-11 Start
-					var data = self.options.application._layoutInstance.currentView.defaultfavfittools;
+					var data = self.defaultfavfittools;
 					if(data){
 						var tempFavFitToolsData = JSON.parse(data);
 						var favDefaultData = tempFavFitToolsData[0];
@@ -1301,7 +1347,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 				, fieldsForm = null;
 
 			if (measureType && itemType && fitType) {
-				fieldsForm = _.where(self.fitprofile.measurement_config, { item_type: itemType })[0];
+				fieldsForm = _.where(self.measurement_config, { item_type: itemType })[0];
 				fieldsForm = _.where(fieldsForm.measurement, { type: measureType })[0];
 				self.processBlockFields(fieldsForm, fitType)
 				self.fitprofile.selected_measurement = fieldsForm;
@@ -1507,7 +1553,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			});
 		}
 		, lookupBlockValue: function(){
-
+			var self = this;
 			if(jQuery('[name="custrecord_fp_measure_type"]').val() == 'Block'){
 				return jQuery('[name="block"]').val();
 			}else{
@@ -1524,7 +1570,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 						if(partmeasure){
 							partvalue = jQuery('[name="units"]').val() == 'CM'?partmeasure:parseFloat(partmeasure)*2.54;
 							partvalue = parseFloat(partvalue)/2
-							var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+							var filtered = _.filter(self.bodyBlockMeasurements,function(data){
 							return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partvalue) && data.custrecord_bbm_producttypetext == ptype;
 							})
 							if(filtered && filtered.length>0){
@@ -1532,7 +1578,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 						        return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
 						    });
 							}else{
-								var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+								var filtered = _.filter(self.bodyBlockMeasurements,function(data){
 									return data.custrecord_bbm_producttypetext == ptype;
 								});
 								result = filtered.reduce(function(prev, curr){
@@ -1548,7 +1594,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 						if(partmeasure){
 							partvalue = jQuery('[name="units"]').val() == 'CM'?partmeasure:parseFloat(partmeasure)*2.54;
 							partvalue = parseFloat(partvalue)/2
-							var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+							var filtered = _.filter(self.bodyBlockMeasurements,function(data){
 							return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partvalue) && data.custrecord_bbm_producttypetext == ptype;
 							})
 							if(filtered && filtered.length>0){
@@ -1556,7 +1602,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 										return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
 								});
 							}else{
-								var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+								var filtered = _.filter(self.bodyBlockMeasurements,function(data){
 									return data.custrecord_bbm_producttypetext == ptype;
 								});
 								result = filtered.reduce(function(prev, curr){
@@ -1571,7 +1617,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 						if(partmeasure){
 							partvalue = jQuery('[name="units"]').val() == 'CM'?partmeasure:parseFloat(partmeasure)*2.54;
 							partvalue = parseFloat(partvalue)/2
-							var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+							var filtered = _.filter(self.bodyBlockMeasurements,function(data){
 							return parseFloat(data.custrecord_bbm_bodymeasurement) >= parseFloat(partvalue) && data.custrecord_bbm_producttypetext == ptype;
 							})
 							if(filtered && filtered.length>0){
@@ -1579,7 +1625,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 										return parseFloat(prev['custrecord_bbm_bodymeasurement']) < parseFloat(curr['custrecord_bbm_bodymeasurement']) ? prev : curr;
 								});
 							}else{
-								var filtered = _.filter(window.bodyBlockMeasurements,function(data){
+								var filtered = _.filter(self.bodyBlockMeasurements,function(data){
 									return data.custrecord_bbm_producttypetext == ptype;
 								});
 								result = filtered.reduce(function(prev, curr){

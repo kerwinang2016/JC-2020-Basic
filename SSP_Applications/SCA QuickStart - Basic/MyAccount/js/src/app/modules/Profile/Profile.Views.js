@@ -1,22 +1,5 @@
 // Profile.Views.js
 // -----------------------
-/*
-Change History
---------------
-Date: 28-02-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-11
-Change Description: Default fit tools can be inputted into the my account section
-*/
-
-/*
-Change History
---------------
-Date: 04-03-2019
-Changed by:Shoaib Iqbal
-Change /Jira Ticket #: JHD-27
-Change Description: Remove Email Preferences section
-*/
 // Views for profile's operations
 define('Profile.Views', function ()
 {

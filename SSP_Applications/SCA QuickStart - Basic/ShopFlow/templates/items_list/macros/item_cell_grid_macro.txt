@@ -60,6 +60,12 @@
 					In stock(m): <%= item.get('custitem_ftorderstock') %>
 				</span>
 		</h2>
+		<% }else if(item.get('_name').indexOf('TWDM') != 0 || item.get('_name').indexOf('TWDN') != 0 || item.get('_name').indexOf('TWJN') != 0 || item.get('_name').indexOf('TWPN') != 0){ %>
+		<h2 class="item-cell-stockstatus">
+				<span itemprop="instockmessage" class="instockmessage">
+					<%= item.get('outofstockmessage') %>
+				</span>
+		</h2>
 		<% }else{ %>
 		<h2 class="item-cell-stockstatus">
 				<span itemprop="instockmessage" class="checkstockmessage">

@@ -204,7 +204,7 @@ function (ProductListControlViews, ProductListDetailsView, ProductListCollection
 
 				productList.set('internalid', 'later');
 
-				return productList.fetch({data:jQuery.param({customerid:customerid})});
+				return productList.fetch();
 			};
 
 			// Application.ProductListModule - reference to this module

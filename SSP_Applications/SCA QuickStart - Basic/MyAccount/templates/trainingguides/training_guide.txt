@@ -1155,5 +1155,21 @@
 		</div>
 	  </div>
 	</div>
+	<div class="accordion-group">
+	  <div class="accordion-heading">
+		<h3 class="mb-0">
+		  <a class=" accordion-toggle collapsed" data-target="#customliningguide" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" role="tab" id="headingFive">
+			Custom Lining Guide
+		  </a>
+		</h3>
+	  </div>
+	  <div id="customliningguide" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingFive">
+		<div class="card-block">
+		<a  target="_blank" href="/myaccount/TrainingGuides/Custom Lining Guide_v1.2.pdf" >
+			<img style="border: 2px solid #e5e5e5;" width="200px" height="200px" src="/myaccount/img/customliningguide.jpg">
+		</a>
+		</div>
+	  </div>
+	</div>
 
 	</div>

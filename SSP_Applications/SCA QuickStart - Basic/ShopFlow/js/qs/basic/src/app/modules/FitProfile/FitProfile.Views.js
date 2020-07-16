@@ -66,7 +66,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 
 				param.data = JSON.stringify({filters: ["custrecord_tc_tailor||anyof|list|"+tailor], columns: ["internalid", "custrecord_tc_first_name", "custrecord_tc_last_name", "custrecord_tc_email", "custrecord_tc_addr1", "custrecord_tc_addr2", "custrecord_tc_country", "custrecord_tc_city", "custrecord_tc_state", "custrecord_tc_zip", "custrecord_tc_phone"]});
 
-				param.searchinput = JSON.stringify({clientname: self.$('input[name=swx-order-client-name]').val(), email: self.$('input[name=swx-order-client-email]').val(), phone: self.$('input[name=swx-order-client-phone]').val()});
+				param.searchinput = JSON.stringify({clientname: self.$('input[name=swx-order-client-name]').val().trim(), email: self.$('input[name=swx-order-client-email]').val().trim(), phone: self.$('input[name=swx-order-client-phone]').val().trim()});
 
 				jQuery.get(_.getAbsoluteUrl('services/fitprofile.ss'), param).always(function(data){
 					if(data){
@@ -416,7 +416,6 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 			if(itemType  === undefined){
 				itemType  = jQuery("#in-modal-custrecord_fp_product_type").val();
 			}
-
 			if (measureType && itemType) {
 				fieldsForm = _.where(self.measurement_config, { item_type: itemType })[0];
 				fieldsForm = _.where(fieldsForm.measurement, { type: measureType })[0];
@@ -425,6 +424,34 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 				var currentfunction;
 				if(this.fitprofile.get("current_profile") == null)
 				currentfunction = 'add';
+
+				if(measureType == 'Block'){
+					var c = _.where(fieldsForm.fieldset, { name: 'main' })[0];
+					var e = _.where(c.fields, { name: 'block' })[0];
+					var blockRestriction = [];
+					var doRestrictions = SC.Application('Shopping').user_instance.get('custentity_design_options_restriction');
+					var doRestrictionsJSON = doRestrictions?JSON.parse(doRestrictions):null;
+					if(doRestrictionsJSON){
+						var tryonRestriction = _.find(doRestrictionsJSON,function(o){ return o.name == 'TryonRestriction'+itemType });
+						if(tryonRestriction && tryonRestriction.value && tryonRestriction.value != ""){
+							blockRestriction = tryonRestriction.value.split(',');
+						}
+					}
+					if(blockRestriction.length>0){
+						for(var i=0;i<blockRestriction.length;i++){
+							if(e.options){
+								blockRestriction[i] = blockRestriction[i].indexOf('R') == -1? parseInt(blockRestriction[i]):blockRestriction[i];
+								var index = e.options.indexOf(blockRestriction[i]);
+								if(index != -1){
+									if(e.optionstext){
+										e.optionstext.splice(index,1);
+									}
+									e.options.splice(index,1);
+								}
+							}
+						}
+					}
+				}
 				jQuery("[id*='measure-form']").html(SC.macros.measureForm(fieldsForm,null,null,currentfunction));
 
 				 //JHD-11 Start
@@ -437,6 +464,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 										var defaultFields = '';
 										favDefaultData = JSON.parse(favDefaultData);
 										if(measureType == 'Block'){
+
 												var defaultFields = '';
 												for(var j = 0; j < favDefaultData.length; j++){
 														if(favDefaultData[j].itemType == itemType){

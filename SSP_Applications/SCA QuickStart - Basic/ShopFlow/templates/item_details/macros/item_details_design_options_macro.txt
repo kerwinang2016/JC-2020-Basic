@@ -74,6 +74,9 @@
 									<%
 										for (var field in currentComponent){
 										var currentField = currentComponent[field];
+										if (currentField.name.indexOf('TryonRestriction') !== -1) {
+											continue;
+										}
 									%>
 										<div style="padding-left:25px;">
 											<div style="width:200px;display:inline-block;" >
@@ -116,6 +119,7 @@
 													<% } %>
 													<% if(currentField.name == 'li-b-j' || currentField.name == 'li-bl-w' || currentField.name == 'li-bl-o' || currentField.name == 'li-bl-tc'|| currentField.name == 'li-b-lj'){ %>
 														<span><a href="<%= customerliningurl %>" target="_blank" class="fa fa-plus" data-toggle="tooltip" title="Custom Lining"></a></span>
+														<span><a href="https://3857857.app.netsuite.com/core/media/media.nl?id=266492&c=3857857&h=2f9593969652e6e3795e&_xt=.pdf" target="_blank" class="fa fa-download" data-toggle="tooltip" title="Custom Lining"></a></span>
 													<% } %>
 
 												</div>

@@ -55,7 +55,7 @@
 		,	'LivePayment'
 		,	'PaymentWizard'
 		,	'TransactionHistory'
-		,	'ProductList'
+		,	'ProductList' 
 		,	'PrintStatement'
 		//,	'Quote'
 		// ,	'Case'

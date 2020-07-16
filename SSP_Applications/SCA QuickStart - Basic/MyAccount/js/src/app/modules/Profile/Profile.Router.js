@@ -1,8 +1,8 @@
 // Profile.Router.js
 // -----------------------
 /*
-Change History   
--------------- 
+Change History
+--------------
 Date: 28-02-2019
 Changed by:Salman Khan
 Change /Jira Ticket #: JHD-11
@@ -10,8 +10,8 @@ Change Description: Default fit tools can be inputted into the my account sectio
 */
 
 /*
-Change History   
--------------- 
+Change History
+--------------
 Date: 04-03-2019
 Changed by:Shoaib Iqbal
 Change /Jira Ticket #: JHD-27
@@ -62,7 +62,7 @@ define('Profile.Router',  ['Profile.Views','PlacedOrder.Collection','Profile.Upd
 			});
 			view.showContent();
 
-	}	
+	}
 	, favouritefittools: function(){ //JHD-11
 		var self = this;
 			jQuery.get(_.getAbsoluteUrl('js/FitProfile_Config.json')).done(function(data){

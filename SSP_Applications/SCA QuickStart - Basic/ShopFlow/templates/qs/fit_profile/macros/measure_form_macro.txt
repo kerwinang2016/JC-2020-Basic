@@ -1,26 +1,9 @@
-<!--
-Change History   
--------------- 
-Date: 15-01-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-6
-Change Description: Expand room for fit tool names
--->
-<!--
-Change History   
--------------- 
-Date: 28-02-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-11
-Change Description: Default fit tools can be inputted into the my account section
--->
-
 <% registerMacro('measureForm', function (fields, values,selectedItemType, paramEvent) { %>
 <%
 	var eventValue = (!_.isNullOrEmpty(paramEvent) && paramEvent == 'add') ? 'add' : 'viewedit';
 	var isAddEvent = (eventValue == 'add') ? true : false;
 	var isViewEdit = (eventValue == 'viewedit') ? true : false;
-	
+
 %>
 	<% if(fields && fields.fieldset && fields.fieldset.length){ %>
 		<h4 class="section-header"><%= _('Measurement Details').translate() %></h4>
@@ -54,8 +37,21 @@ Change Description: Default fit tools can be inputted into the my account sectio
 									mainBlockValue = fieldValue[0].value;
 								}
 							}
+							var hideField = false;
+							if(window.defaultfavfittools){
+								if(JSON.parse(window.defaultfavfittools)[0] != ""){
+									var data= JSON.parse(JSON.parse(window.defaultfavfittools)[0]);
+									var ptData = _.find(data,function(o){ return o.itemType == 'Jacket';});
+									if(ptData){
+										var hideData = _.find(ptData.measurementValues,function(o){ return o.name == field.name+'-hide-checkbox';});
+										if(hideData && hideData.value == 'true'){
+											hideField = true;
+										}
+									}
+								}
+							}
 						%>
-							<%= SC.macros.blockMeasureField(field, mainBlockValue) %>
+							<%= SC.macros.blockMeasureField(field, mainBlockValue, null,null,hideField) %>
 						<% }) %>
 					<% } %>
 				</div>
@@ -137,9 +133,24 @@ Change Description: Default fit tools can be inputted into the my account sectio
 						<% _.each(fieldset.fields, function(field){
 							var blockValueMin = _.where(values, {name: field.name + "-min"})[0]
 							,	blockValueMax = _.where(values, {name: field.name + "-max"})[0]
-							,	value = [blockValueMin, blockValueMax];
+							, hideField = _.where(values, {name: field.name + "-hide-checkbox"})[0]
+							,	value = [blockValueMin, blockValueMax, hideField];
+							var hideField = false;
+							if(window.defaultfavfittools){
+								if(JSON.parse(window.defaultfavfittools)[0] != ""){
+									var data= JSON.parse(JSON.parse(window.defaultfavfittools)[0]);
+									var ptData = _.find(data,function(o){ return o.itemType == 'Jacket';});
+									if(ptData){
+										var hideData = _.find(ptData.measurementValues,function(o){ return o.name == field.name+'-hide-checkbox';});
+										if(hideData && hideData.value == 'true'){
+											hideField = true;
+										}
+									}
+								}
+							}
+
 						%>
-							<%= SC.macros.blockMeasureField(field, value, fields.increment,fieldset) %>
+							<%= SC.macros.blockMeasureField(field, value, fields.increment,fieldset, hideField) %>
 						<% }) %>
 					<% } %>
 				</div>

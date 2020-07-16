@@ -315,6 +315,10 @@ Application.defineModel('Profile', {
 			profile.balance_available_formatted = formatCurrency(profile.balance_available);
 
 			var customerFieldValues = customer.getCustomFieldValues();
+			profile.custentity_design_options_restriction = _.find(customerFieldValues, function(field){
+				return field.name === "custentity_design_options_restriction";
+			}).value;
+
 			profile.hidebillingandcogs = _.find(customerFieldValues, function(field){
 				return field.name === 'custentity_hide_billingandcogs';
 			}).value;
@@ -434,7 +438,7 @@ Application.defineModel('PlacedOrder', {
 
 		'use strict';
 	}
-	, list: function (page, clientName,soid,sort,clientId, customerid,cmtdate,startdate,enddate,cmtstatus) {
+	, list: function (page, clientName,soid,sort,clientid, customerid,cmtdate,startdate,enddate,cmtstatus) {
 		var url = myaccountsuiteleturl;
 		var parameters = "";
 		if(true){//customerid != nlapiGetUser()){
@@ -450,11 +454,27 @@ Application.defineModel('PlacedOrder', {
 			}
 			if(cmtdate){
 				var cmtdate_date = cmtdate.split('-');
-				parameters += "&cmtdate="+cmtdate_date[2]+"/"+cmtdate_date[1]+"/"+cmtdate_date[0];;
-
+				parameters += "&cmtdate="+cmtdate_date[2]+"/"+cmtdate_date[1]+"/"+cmtdate_date[0];
 			}
-			var res = nlapiRequestURL(url+"&action=getorders&user="+customerid+"&page="+page+"&clientname="+clientName+
-			"&soid="+soid+"&sort="+sort+"&clientid="+clientId+"&cmtstatus="+cmtstatus+parameters);
+			if(clientName){
+				parameters += "&clientname="+clientName;
+			}
+			if(soid){
+				parameters += "&soid="+soid;
+			}
+			if(sort){
+				parameters += "&sort="+sort;
+			}
+			if(clientid){
+				parameters += "&clientid="+clientid;
+			}
+			if(cmtstatus){
+				parameters += "&cmtstatus="+cmtstatus;
+			}
+			if(page){
+				parameters += "&page="+page;
+			}
+			var res = nlapiRequestURL(url+"&action=getorders&user="+customerid+parameters);
 			return JSON.parse(res.getBody());
 		}else{
 		// if the store has multiple currencies we add the currency column to the query
@@ -3386,7 +3406,7 @@ Application.defineModel('Receipts', _.extend({}, PlacedOrder, {
 						, custcol_additionalfabricsurcharge: placed_order.getLineItemText('item','custcol_additionalfabricsurcharge',i)
 						, shipaddress: placed_order.getLineItemValue('item', 'shipaddress', i) ? result.listAddresseByIdTmp[placed_order.getLineItemValue('item', 'shipaddress', i)] : null
 						, shipmethod: placed_order.getLineItemValue('item', 'shipmethod', i) || null
-						, lineOption: placed_order.getCustomFieldValues()
+						//, lineOption: placed_order.getCustomFieldValues()
 					};
 
 					items_to_preload[item_id] = {
@@ -4565,21 +4585,22 @@ Application.defineModel('ProductList', {
 
 			productLists.push(productList);
 		});
-
+		nlapiLogExecution('debug','PL LENGTH', productLists.length);
+		nlapiLogExecution('debug','PL internalid', productLists[0].internalid);
 		var plitems = ProductListItem.search(null, include_store_items, {
 			sort: 'created'
 			, order: '-1'
 			, page: -1
 		},parentparam);
-
+		nlapiLogExecution('debug','PLI LENGTH', plitems.length);
 		for(var i=0; i<productLists.length; i++){
-
 			var items = _.filter(plitems, function(pli){
 				return pli.productListId == productLists[i].internalid;
 			});
 			productLists[i].items = items;
 		}
 
+		nlapiLogExecution('debug','PLI LENGTH', productLists[0].items.length);
 		//Sort the product list.. get the first name by splitting space, sort if number
 		var numberedlists = [];
 		var textlist = [];
@@ -4933,6 +4954,7 @@ Application.defineModel('ProductListItem', {
 			, item_type: new nlobjSearchColumn('type', 'custrecord_ns_pl_pli_item')
 			, priority: new nlobjSearchColumn('custrecord_ns_pl_pli_priority')
 			, lastmodified: new nlobjSearchColumn('lastmodified')
+			, productlistid: new nlobjSearchColumn('custrecord_ns_pl_pli_productlist')
 		};
 
 		productListItemColumns[sort_column] && productListItemColumns[sort_column].setSort(sort_direction === 'DESC');
@@ -4952,6 +4974,7 @@ Application.defineModel('ProductListItem', {
 					, quantity: parseInt(productListItemSearchRecord.getValue('custrecord_ns_pl_pli_quantity'), 10)
 					, created: productListItemSearchRecord.getValue('created')
 					, lastmodified: productListItemSearchRecord.getValue('lastmodified')
+					, productListId: productListItemSearchRecord.getValue('custrecord_ns_pl_pli_productlist')
 					// we temporary store the item reference, after this loop we use StoreItem.preloadItems instead doing multiple StoreItem.get()
 					, store_item_reference: { id: itemInternalId, type: itemType }
 					, priority: {

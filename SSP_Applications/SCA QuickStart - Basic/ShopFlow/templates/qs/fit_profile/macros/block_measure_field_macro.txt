@@ -1,34 +1,22 @@
-<!--
-Change History   
--------------- 
-Date: 15-01-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-6
-Change Description: Expand room for fit tool names
--->
-<!--
-Change History   
--------------- 
-Date: 28-02-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-11
-Change Description: Default fit tools can be inputted into the my account section
--->
-<% registerMacro('blockMeasureField', function (field, value, increment,fieldset) {
+
+<% registerMacro('blockMeasureField', function (field, value, increment,fieldset, hideField) {
 	var type = field.type
 	,	label = field.label
 	,	name = field.name
 	,	inputHtml = "";
-
 	/* JHD-6 Start */
 	if(type == "select"){
-
+		var optionstext = field.optionstext;
 		if(field.options && field.options.length){
 			inputHtml = '<div style="width:20%; margin:0;" class="span2"><select class="input input-small" data-field="'+name+'" id="body-' + name + '" name="' + name + '">';
-			_.each(field.options, function(option){
+			//_.each(field.options, function(option){
+			for(var i=0;i<field.options.length; i++){
+				var option = field.options[i];
 				var selected = value == option ? 'selected' : '';
-				inputHtml = inputHtml + '<option value="' + option + '" ' + selected + '>' + option + '</option>'
-			});
+				var optiontext = field.optionstext?field.optionstext[i]:option;
+				inputHtml = inputHtml + '<option value="' + option + '" ' + selected + '>' + optiontext + '</option>'
+			}
+			//});
 			inputHtml = inputHtml + '</select></div>';
 		} else {
 			if(!_.isUndefined(field.max) && !_.isNull(field.max)){
@@ -63,10 +51,10 @@ Change Description: Default fit tools can be inputted into the my account sectio
 		inputHtml = '<input class="input input-small" type="text" data-field="'+name+'" id="' + name + '" name="' + name + '" />'
 	}
 %>
-<div class="row-fluid">
+<div class="row-fluid" style="<% if(hideField){ %> display:none; <% } %>">
 	<div style="width:30%" class="span3"><%= label %></div>
 	<%= inputHtml %>
 </div>
-<% }) 
+<% })
 /* JHD-6 End */
 %>

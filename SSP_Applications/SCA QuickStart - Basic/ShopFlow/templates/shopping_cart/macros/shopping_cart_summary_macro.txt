@@ -1,12 +1,4 @@
-<!--
-Change History   
--------------- 
-Date: 14-03-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-34
-Change Description: Price in the items matches the total in The order summary
--->
-<% registerMacro('shoppingCartSummary', function (cart, siteSettings, options, linesTotalSum) { %>
+<% registerMacro('shoppingCartSummary', function (cart, siteSettings, options) { %>
 <%
 	options = _.extend({ showShipto: true, showLabelsAsEstimated: true}, options || {});
 
@@ -46,11 +38,7 @@ Change Description: Price in the items matches the total in The order summary
 	<div class="box-wells-body">
 		<div class="cart-summary-subtotal">
 			<p class="strong">
-				<% if(linesTotalSum){ %> <!-- JHD-34 -->
-					<span class="pull-right summary-subtotal-formatted"><%= _.formatCurrency(linesTotalSum) %></span>
-				<% } else{%>
 				<span class="pull-right summary-subtotal-formatted"><%= _.formatCurrency(subtotal) %></span>
-				<% } %>
 				<%= _('Subtotal (<span class="summary-item-quantity-subtotal">$(0)</span> $(1))').translate( cart.get('lines').length, cart.get('lines').length === 1 ? _('item').translate() : _('items').translate() ) %>
 			</p>
 			<% if (!is_estimate && false) { %>

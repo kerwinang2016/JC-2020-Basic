@@ -1,11 +1,3 @@
-/*
-Change History
---------------
-Date: 05-03-2019
-Changed by:Saad Nawaz
-Change /Jira Ticket #: JHD-31
-Change Description: Change title of header
-*/
 (function (SC) {
 
     'use strict';
@@ -60,7 +52,7 @@ Change Description: Change title of header
 	        		}
 	        	}
 	        ,	{
-	        		text: _('Training Guides').translate()
+	        		text: _('Training and Guides').translate()
 	        	,	href: '#'
 	        	,	data: {
 	        			touchpoint: 'customercenter'

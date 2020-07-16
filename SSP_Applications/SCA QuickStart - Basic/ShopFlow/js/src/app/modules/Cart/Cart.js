@@ -111,13 +111,14 @@ define('Cart'
 			};
 
 			// layout.showCartConfirmationModal()
-			Layout.showCartConfirmationModal = function (hasNoFitProfile)
+			Layout.showCartConfirmationModal = function (hasNoFitProfile, hasSquareBottom)
 			{
 				this.showInModal(new Views.Confirmation({
 					layout: this
 				,	application: application
 				,	model: application.getCart()
 				, hasNoFitProfile: hasNoFitProfile
+				, hasSquareBottom: hasSquareBottom
 				}));
 			};
 
@@ -129,10 +130,10 @@ define('Cart'
 
 			// layout.showCartConfirmation()
 			// This reads the configuration object and execs one of the fuctions avome
-			Layout.showCartConfirmation = function (hasNoFitProfile)
+			Layout.showCartConfirmation = function (hasNoFitProfile, hasSquareBottom)
 			{
 				// Available values are: goToCart, showMiniCart and showCartConfirmationModal
-				Layout[application.getConfig('addToCartBehavior')](hasNoFitProfile);
+				Layout[application.getConfig('addToCartBehavior')](hasNoFitProfile, hasSquareBottom);
 			};
 
 			// Every time the cart changes the mini cart gets updated

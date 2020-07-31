@@ -44,7 +44,7 @@ define('OrderWizard.Module.CartSummary', ['Wizard.Module', 'OrderWizard.Module.T
 			var self = this
 			,	optionData = self.wizard.model.get("options");
 			self.customTotalPrice = 0;
-
+			self.customTailorDiscount = 0;
 			if (this.state === 'present')
 			{
 
@@ -55,14 +55,19 @@ define('OrderWizard.Module.CartSummary', ['Wizard.Module', 'OrderWizard.Module.T
 						if(customPrice[0].value && !_.isNaN(customPrice[0].value)){
 							self.customTotalPrice = self.customTotalPrice + parseFloat(customPrice[0].value);
 						}
+						var discount = _.where(line.get("options"), {id: "CUSTCOL_TAILOR_CUSTOM_DISCOUNT"});
+						if(discount && discount.length>0 && discount[0].value && !_.isNaN(discount[0].value)){
+							self.customTailorDiscount = self.customTailorDiscount + parseFloat(discount[0].value);
+						}
 					}
 				});
 
 				//Set the option for the total custom price of the tailor
 				optionData.custbody_total_tailor_price = self.customTotalPrice.toString();
+				optionData.custbody_tailor_discount = self.customTailorDiscount.toString();
 				this.wizard.model.set("options", optionData);
-				
-				
+
+
 				this._render();
 
 				this.trigger('ready', true);

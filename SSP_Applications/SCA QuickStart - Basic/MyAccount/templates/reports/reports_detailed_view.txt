@@ -1,0 +1,37 @@
+<header>
+	<h3><%= view.page_header %></h3>
+	<table class="table">
+		<thead style="font-size: 12px;">
+			<tr>
+				<th><%= _('Date').translate() %></th>
+				<th style="width:60px;"><%= _('Order #').translate() %></th>
+				<th><%= _('Client Name').translate() %></th>
+				<th><%= _('Item').translate() %></th>
+				<th><%= _('Retail Price').translate() %></th>
+				<th><%= _('Fabric COGS').translate() %></th>
+				<th><%= _('CMT COGS').translate() %></th>
+				<th><%= _('Shipping').translate() %></th>
+				<th><%= _('Duties').translate() %></th>
+				<th><%= _('Total Margin').translate() %></th>
+				<th><%= _('Margin %').translate() %></th>
+			</tr>
+		</thead>
+		<tbody style="font-size: 12px;">
+		<% _.each(view.data.records, function (order, index) {   %>
+			<tr>
+				<td><%= order.trandate %></td>
+				<td><%= order.soid %></td>
+				<td><%= order.customer %></td>
+				<td><%= order.item +"-"+ order.producttype%></td>
+				<td><%= order.tailorprice %></td>
+				<td><%= order.fabricamount %></td>
+				<td><%= order.cmtamount %></td>
+				<td><%= order.shipping %></td>
+				<td><%= order.duties %></td>
+				<td><%= order.margin %></td>
+				<td><%= order.marginpercent %></td>
+			</tr>
+		<% }) %>
+		</tbody>
+	</table>
+</header>

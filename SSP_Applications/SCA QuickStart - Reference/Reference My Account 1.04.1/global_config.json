@@ -578,6 +578,7 @@
             "js/libs/bignumber.js",
             "ssp_libraries/bignumber.js"
         ],
+        "Modules/jszip/jszip.js": "js/libs/jszip.js",
         "Modules/blanket/1.1.5/blanket_custom.js": "tests/blanket/blanket_custom.js",
         "Modules/blanket/1.1.5/blanket_jasmine.js": "tests/blanket/blanket_jasmine.js",
         "Modules/html5shiv/3.6.1/dist/html5shiv.js": "js/utils/html5shiv.js",

@@ -453,7 +453,7 @@ OBJ_CONFLICT['T01021304']['CONFLICT'] = [];
 OBJ_CONFLICT['T01021304']['CONFLICT']['T010214']= [];
 
 OBJ_CONFLICT['T01021304']['CONFLICT']['T010214']['T01021401']={};
-OBJ_CONFLICT['T01021304']['CONFLICT']['T010214']['T01021401']['ERROR'] = 'NO ticket pocket flap size cannot be selected with flap straight ticket pocket';
+OBJ_CONFLICT['T01021304']['CONFLICT']['T010214']['T01021401']['ERROR'] = 'You cannot select No for ticket pocket flap size with this ticket pocket option';
 
 /** ####  END CONFLICT CODE -  T01021304  #### **/
 
@@ -472,6 +472,9 @@ OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021105']={};
 OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021105']['ERROR'] = 'Ticket pocket design must match side pocket design';
 OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021107']={};
 OBJ_CONFLICT['T01021305']['CONFLICT']['T010211']['T01021107']['ERROR'] = 'Ticket pocket design must match side pocket design';
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010214']= [];
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010214']['T01021401']={};
+OBJ_CONFLICT['T01021305']['CONFLICT']['T010214']['T01021401']['ERROR'] = 'You cannot select No for ticket pocket flap size with this ticket pocket option';
 
 /** ####  END CONFLICT CODE -  T01021305  #### **/
 
@@ -2801,6 +2804,7 @@ OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021107']={};
 OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021107']['ERROR'] = 'Ticket pocket design must match side pocket design';
 OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021108']={};
 OBJ_CONFLICT['T01021307']['CONFLICT']['T010211']['T01021108']['ERROR'] = 'Ticket pocket design must match side pocket design';
+
 /** ####  END CONFLICT CODE -  T01021307  #### **/
 
 /** #### START CONFLICT CODE - T01060708 #### **/
@@ -5066,6 +5070,8 @@ OBJ_CONFLICT['T01026802']['CONFLICT']={};
 OBJ_CONFLICT['T01026802']['CONFLICT']['T010269']={};
 OBJ_CONFLICT['T01026802']['CONFLICT']['T010269']['T01026903']={};
 OBJ_CONFLICT['T01026802']['CONFLICT']['T010269']['T01026903']['ERROR'] = 'You cannot select No for lining piping color with Yes for lining edge piping';
+OBJ_CONFLICT['T01026802']['CONFLICT']['T010269']['T01026923']={};
+OBJ_CONFLICT['T01026802']['CONFLICT']['T010269']['T01026923']['ERROR'] = 'You cannot select NA for piping treatment color with Yes for lining edge piping';
 OBJ_CONFLICT['T01026802']['CONFLICT']['T010223']={};
 OBJ_CONFLICT['T01026802']['CONFLICT']['T010223']['T01022303']={};
 OBJ_CONFLICT['T01026802']['CONFLICT']['T010223']['T01022303']['ERROR'] = 'You cannot select that interior construction option with Yes for lining edge piping';
@@ -5462,6 +5468,9 @@ OBJ_CONFLICT['T02740502']['CONFLICT']={};
 OBJ_CONFLICT['T02740502']['CONFLICT']['T027407']={};
 OBJ_CONFLICT['T02740502']['CONFLICT']['T027407']['No']={};
 OBJ_CONFLICT['T02740502']['CONFLICT']['T027407']['No']['ERROR'] = 'You cannot select NA for smoking color with Yes for waistband formal treatment';
+OBJ_CONFLICT['T02740502']['CONFLICT']['T027413']={};
+OBJ_CONFLICT['T02740502']['CONFLICT']['T027413']['Please select']={};
+OBJ_CONFLICT['T02740502']['CONFLICT']['T027413']['Please select']['ERROR'] = 'You cannot leave waistband style as please select';
 /** ####  END CONFLICT CODE - T02741202 #### **/
 /** #### START CONFLICT CODE - T02740602 #### **/
 OBJ_CONFLICT['T02740602']={};
@@ -6201,16 +6210,16 @@ OBJ_CONFLICT['T01060714']['CONFLICT']['T010642']['T01064201']['ERROR'] = 'You ca
 OBJ_CONFLICT['T01020310']={};
 OBJ_CONFLICT['T01020310']['CONFLICT']={};
 OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']={};
-OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020204']={};
-OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020204']['ERROR'] = 'You cannot choose 1 button for closure with notch w low gorge 8.2 cm lapel';
 OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020202']={};
-OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020202']['ERROR'] = 'You cannot choose 3 button for closure with notch w low gorge 8.2 cm lapel';
+OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020202']['ERROR'] = 'You can only select 2 Button or 3 Button rollover closure options with notch with low gorge lapel';
+OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020204']={};
+OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020204']['ERROR'] = 'You can only select 2 Button or 3 Button rollover closure options with notch with low gorge lapel';
 OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020206']={};
-OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020206']['ERROR'] = 'You cannot choose 4 button DB for closure with notch w low gorge 8.2 cm lapel';
+OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020206']['ERROR'] = 'You can only select 2 Button or 3 Button rollover closure options with notch with low gorge lapel';
 OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020207']={};
-OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020207']['ERROR'] = 'You cannot choose 2 button DB for closure with notch w low gorge 8.2 cm lapel';
+OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020207']['ERROR'] = 'You can only select 2 Button or 3 Button rollover closure options with notch with low gorge lapel';
 OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020205']={};
-OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020205']['ERROR'] = 'You cannot choose 6 button DB for closure with notch w low gorge 8.2 cm lapel';
+OBJ_CONFLICT['T01020310']['CONFLICT']['T010202']['T01020205']['ERROR'] = 'You can only select 2 Button or 3 Button rollover closure options with notch with low gorge lapel';
 
 /** ####  END CONFLICT CODE - T01020310 #### **/
 /** #### START CONFLICT CODE - T01051710 #### **/
@@ -6367,3 +6376,113 @@ OBJ_CONFLICT['T02723102']['CONFLICT']['T027232']={};
 OBJ_CONFLICT['T02723102']['CONFLICT']['T027232']['No']={};
 OBJ_CONFLICT['T02723102']['CONFLICT']['T027232']['No']['ERROR'] = 'If you select 6 mm for pick stitching you cannot select no for interior pick stitch color';
 /** ####  END CONFLICT CODE - T02723102 #### **/
+/** #### START CONFLICT CODE - T01053902 #### **/
+OBJ_CONFLICT['T01053902']={};
+OBJ_CONFLICT['T01053902']['CONFLICT']={};
+OBJ_CONFLICT['T01053902']['CONFLICT']['T010509']={};
+OBJ_CONFLICT['T01053902']['CONFLICT']['T010509']['T01050901']={};
+OBJ_CONFLICT['T01053902']['CONFLICT']['T010509']['T01050901']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053902']['CONFLICT']['T010509']['T01050903']={};
+OBJ_CONFLICT['T01053902']['CONFLICT']['T010509']['T01050903']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053902']['CONFLICT']['T010509']['T01050907']={};
+OBJ_CONFLICT['T01053902']['CONFLICT']['T010509']['T01050907']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053902']['CONFLICT']['T010509']['T01050908']={};
+OBJ_CONFLICT['T01053902']['CONFLICT']['T010509']['T01050908']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053902']['CONFLICT']['T010509']['T01050909']={};
+OBJ_CONFLICT['T01053902']['CONFLICT']['T010509']['T01050909']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053902']['CONFLICT']['T010509']['T01050912']={};
+OBJ_CONFLICT['T01053902']['CONFLICT']['T010509']['T01050912']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053902']['CONFLICT']['T010509']['T01050913']={};
+OBJ_CONFLICT['T01053902']['CONFLICT']['T010509']['T01050913']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+/** ####  END CONFLICT CODE - T01053902 #### **/
+/** #### START CONFLICT CODE - T01053903 #### **/
+OBJ_CONFLICT['T01053903']={};
+OBJ_CONFLICT['T01053903']['CONFLICT']={};
+OBJ_CONFLICT['T01053903']['CONFLICT']['T010509']={};
+OBJ_CONFLICT['T01053903']['CONFLICT']['T010509']['T01050901']={};
+OBJ_CONFLICT['T01053903']['CONFLICT']['T010509']['T01050901']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053903']['CONFLICT']['T010509']['T01050903']={};
+OBJ_CONFLICT['T01053903']['CONFLICT']['T010509']['T01050903']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053903']['CONFLICT']['T010509']['T01050907']={};
+OBJ_CONFLICT['T01053903']['CONFLICT']['T010509']['T01050907']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053903']['CONFLICT']['T010509']['T01050908']={};
+OBJ_CONFLICT['T01053903']['CONFLICT']['T010509']['T01050908']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053903']['CONFLICT']['T010509']['T01050909']={};
+OBJ_CONFLICT['T01053903']['CONFLICT']['T010509']['T01050909']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053903']['CONFLICT']['T010509']['T01050912']={};
+OBJ_CONFLICT['T01053903']['CONFLICT']['T010509']['T01050912']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053903']['CONFLICT']['T010509']['T01050913']={};
+OBJ_CONFLICT['T01053903']['CONFLICT']['T010509']['T01050913']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+/** ####  END CONFLICT CODE - T01053903 #### **/
+/** #### START CONFLICT CODE - T01053904 #### **/
+OBJ_CONFLICT['T01053904']={};
+OBJ_CONFLICT['T01053904']['CONFLICT']={};
+OBJ_CONFLICT['T01053904']['CONFLICT']['T010509']={};
+OBJ_CONFLICT['T01053904']['CONFLICT']['T010509']['T01050901']={};
+OBJ_CONFLICT['T01053904']['CONFLICT']['T010509']['T01050901']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053904']['CONFLICT']['T010509']['T01050903']={};
+OBJ_CONFLICT['T01053904']['CONFLICT']['T010509']['T01050903']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053904']['CONFLICT']['T010509']['T01050907']={};
+OBJ_CONFLICT['T01053904']['CONFLICT']['T010509']['T01050907']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053904']['CONFLICT']['T010509']['T01050908']={};
+OBJ_CONFLICT['T01053904']['CONFLICT']['T010509']['T01050908']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053904']['CONFLICT']['T010509']['T01050909']={};
+OBJ_CONFLICT['T01053904']['CONFLICT']['T010509']['T01050909']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053904']['CONFLICT']['T010509']['T01050912']={};
+OBJ_CONFLICT['T01053904']['CONFLICT']['T010509']['T01050912']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053904']['CONFLICT']['T010509']['T01050913']={};
+OBJ_CONFLICT['T01053904']['CONFLICT']['T010509']['T01050913']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+/** ####  END CONFLICT CODE - T01053904 #### **/
+/** #### START CONFLICT CODE - T01053905 #### **/
+OBJ_CONFLICT['T01053905']={};
+OBJ_CONFLICT['T01053905']['CONFLICT']={};
+OBJ_CONFLICT['T01053905']['CONFLICT']['T010509']={};
+OBJ_CONFLICT['T01053905']['CONFLICT']['T010509']['T01050901']={};
+OBJ_CONFLICT['T01053905']['CONFLICT']['T010509']['T01050901']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053905']['CONFLICT']['T010509']['T01050903']={};
+OBJ_CONFLICT['T01053905']['CONFLICT']['T010509']['T01050903']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053905']['CONFLICT']['T010509']['T01050907']={};
+OBJ_CONFLICT['T01053905']['CONFLICT']['T010509']['T01050907']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053905']['CONFLICT']['T010509']['T01050908']={};
+OBJ_CONFLICT['T01053905']['CONFLICT']['T010509']['T01050908']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053905']['CONFLICT']['T010509']['T01050909']={};
+OBJ_CONFLICT['T01053905']['CONFLICT']['T010509']['T01050909']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053905']['CONFLICT']['T010509']['T01050912']={};
+OBJ_CONFLICT['T01053905']['CONFLICT']['T010509']['T01050912']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+OBJ_CONFLICT['T01053905']['CONFLICT']['T010509']['T01050913']={};
+OBJ_CONFLICT['T01053905']['CONFLICT']['T010509']['T01050913']['ERROR'] = 'You cannot select a buckle style with this waistband style';
+/** ####  END CONFLICT CODE - T01053905 #### **/
+/** #### START CONFLICT CODE - T01053901 #### **/
+OBJ_CONFLICT['T01053901']={};
+OBJ_CONFLICT['T01053901']['CONFLICT']={};
+OBJ_CONFLICT['T01053901']['CONFLICT']['T010509']={};
+OBJ_CONFLICT['T01053901']['CONFLICT']['T010509']['T01050902']={};
+OBJ_CONFLICT['T01053901']['CONFLICT']['T010509']['T01050902']['ERROR'] = 'You cannot select NA for buckle style with this waistband style';
+OBJ_CONFLICT['T01053901']['CONFLICT']['T010509']['T01050906']={};
+OBJ_CONFLICT['T01053901']['CONFLICT']['T010509']['T01050906']['ERROR'] = 'You cannot select NA for buckle style with this waistband style';
+OBJ_CONFLICT['T01053901']['CONFLICT']['T010509']['T01050910']={};
+OBJ_CONFLICT['T01053901']['CONFLICT']['T010509']['T01050910']['ERROR'] = 'You cannot select NA for buckle style with this waistband style';
+OBJ_CONFLICT['T01053901']['CONFLICT']['T010509']['T01050911']={};
+OBJ_CONFLICT['T01053901']['CONFLICT']['T010509']['T01050911']['ERROR'] = 'You cannot select NA for buckle style with this waistband style';
+/** ####  END CONFLICT CODE - T01053901 #### **/
+/** #### START CONFLICT CODE - T02740501 #### **/
+OBJ_CONFLICT['T02740501']={};
+OBJ_CONFLICT['T02740501']['CONFLICT']={};
+OBJ_CONFLICT['T02740501']['CONFLICT']['T027413']={};
+OBJ_CONFLICT['T02740501']['CONFLICT']['T027413']['Please select']={};
+OBJ_CONFLICT['T02740501']['CONFLICT']['T027413']['Please select']['ERROR'] = 'You cannot leave waistband style as please select';
+/** ####  END CONFLICT CODE - T02740501 #### **/
+/** #### START CONFLICT CODE - T02721601 #### **/
+OBJ_CONFLICT['T02721601']={};
+OBJ_CONFLICT['T02721601']['CONFLICT']={};
+OBJ_CONFLICT['T02721601']['CONFLICT']['T027217']={};
+OBJ_CONFLICT['T02721601']['CONFLICT']['T027217']['T02721703']={};
+OBJ_CONFLICT['T02721601']['CONFLICT']['T027217']['T02721703']['ERROR'] = 'You cannot select NA for side pocket flap size with this side pocket option';
+/** ####  END CONFLICT CODE - T02721601 #### **/
+/** #### START CONFLICT CODE - T02721602 #### **/
+OBJ_CONFLICT['T02721602']={};
+OBJ_CONFLICT['T02721602']['CONFLICT']={};
+OBJ_CONFLICT['T02721602']['CONFLICT']['T027217']={};
+OBJ_CONFLICT['T02721602']['CONFLICT']['T027217']['T02721703']={};
+OBJ_CONFLICT['T02721602']['CONFLICT']['T027217']['T02721703']['ERROR'] = 'You cannot select NA for side pocket flap size with this side pocket option';
+/** ####  END CONFLICT CODE - T02721602 #### **/

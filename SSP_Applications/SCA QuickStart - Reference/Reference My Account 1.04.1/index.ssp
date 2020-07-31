@@ -1,4 +1,4 @@
-﻿<%
+<%
 
 	var SiteSettings
 	,	siteType
@@ -69,8 +69,9 @@
 		<% if (Error) { %>
 		<script>SC.ENVIRONMENT.contextError = <%= JSON.stringify(Error) %>;</script>
 		<% } %>
-		<script src="<%= session.getAbsoluteUrl('checkout', 'js/Application-016dfca11124.js') %>"></script>
-		<script src="<%= session.getAbsoluteUrl('checkout', 'templates/Templates-016d7fbaadd9.js') %>"></script>
+		<script src="<%= session.getAbsoluteUrl('checkout', 'js/Application-017398e322c5.js') %>"></script>
+		<script src="<%= session.getAbsoluteUrl('checkout', 'templates/Templates-0173936d1364.js') %>"></script>
+
 	</head>
 	<body>
 

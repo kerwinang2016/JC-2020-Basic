@@ -26,20 +26,6 @@
 		//jQuery("li[class='mini-cart-summary-container']").find("[data-hashtag='#cart']").click()
 		jQuery("[id='swx-minicart-gotocart']").click();
 	}
-		var sum = 0.00;
-    lines.each(function (line, index) {
-        var tempLineTotal =  _.where(line.get("options"), {id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL"});
-        if(!tempLineTotal[0]){
-            if(line.get("options")){
-            line.get("options").push({name: "Item Total", id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL", value: "0.00", displayvalue: "0.00"});
-            tempLineTotal =  _.where(line.get("options"), {id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL"});
-            }
-		}
-        var lineTotal = tempLineTotal[0] ? tempLineTotal[0].value : 0;
-        sum = sum + parseFloat(lineTotal);
-    });
-    var linesTotalSum = parseFloat(sum).toFixed(2);
-
 %>
 
 <style>
@@ -68,6 +54,7 @@
 	</div>
 <div class="gradient-content">
     <div class="container">
+				<div><span style="font-weight:bold;">Reminder: Italian Summer holiday closures are in place from 6th-26th August</span></div>
         <div class="row-fluid view-body">
             <section class="span9">
 								<div id="cart-alert-placeholder" class="alert-placeholder" data-type="alert-placeholder">
@@ -98,7 +85,8 @@
                     checkout: application.getConfig('siteSettings.checkout')
                 ,	continueURL: continueURL
                 ,	showActions: true
-                }, linesTotalSum) %>
+								, view: view
+                }) %>
             </section>
         </div>
         <div class="view-footer">

@@ -37,7 +37,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 		,	'submit form[data-action="estimate-tax-ship"]': 'estimateTaxShip'
 		,	'click [data-action="remove-shipping-address"]': 'removeShippingAddress'
 		,	'change [data-action="estimate-tax-ship-country"]': 'changeCountry'
-
+		,	'change #orderdiscount': 'updateDiscount'
 		//,	'blur [name="custcol_avt_date_needed"]': 'swxSetDateNeeded'
 		//,	'keyup [name="custcol_avt_date_needed"]': 'swxSetDateNeeded'
 		//,	'submit [data-action="update-dateneeded"]': 'swxSetDateNeededFormSubmit'
@@ -61,20 +61,8 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 			this.options = options;
 			this.sflMode = options.sflMode;
 			this.addToCartCallback = options.addToCartCallback;
-			// this.client_collection = new ClientCollection();
-			// var param = new Object();
+
 			var self = this;
-			// param.type = "get_client";
-			// var tailor = SC.Application('Shopping').getUser().get('parent')!=null? SC.Application('Shopping').getUser().get('parent'):SC.Application('Shopping').getUser().id;
-			// param.data = JSON.stringify({filters: ["custrecord_tc_tailor||anyof|list|" + tailor], columns: ["internalid", "custrecord_tc_first_name", "custrecord_tc_last_name", "custrecord_tc_email", "custrecord_tc_addr1", "custrecord_tc_addr2", "custrecord_tc_country", "custrecord_tc_city", "custrecord_tc_state", "custrecord_tc_zip", "custrecord_tc_phone"]});
-			// jQuery.ajax({
-			// 		url:_.getAbsoluteUrl('services/fitprofile.ss'),
-			// 		async:false,
-			// 		data:param,
-			// 		success: function (result) {
-			// 				self.client_collection.add(result);
-			// 		}
-			// 	});
 			jQuery.get(_.getAbsoluteUrl('services/liningfabrics.ss')).done(function (data) {
 				self.liningfabrics = data;
 			});
@@ -92,13 +80,46 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 			var previousLineInternalId = '';
 			var previousClientId = '';
 			var differentClientIdError = false;
-
+			var enableCustomTailorPricing = self.application.getUser().get('enablecustomtailorpricing');
 			//Checking for Vendor Picked is Jerome Clothiers
 			if(self.application.getUser().get('isoverdue') == 'T'){
 				jQuery("#cart-alert-placeholder").append(SC.macros.message('You cannot process orders until you have paid your outstanding invoices.', 'error', true));
 				return;
 			}
 			cart.get('lines').each(function (line){
+
+				//Check For Customer Tailor Pricing
+				if(enableCustomTailorPricing == 'T'){
+					//Check if the lines have 0 price
+					var tailorPrice = _.find(options,function(op){return op.id == 'CUSTCOL_TAILOR_CUST_PRICING'});
+					if(tailorPrice){
+						if(parseFloat(tailorPrice.value) == 0){
+							jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Please Enter Custom Tailor Pice', 'error', true));
+							hasError = true;
+						}else{
+							jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Custom Tailor Price has value this is correct', 'error', true));
+							hasError = true;
+						}
+					}else{
+						// var customTailorPriceView = new CartCustomTailorPriceView({
+						// 	productType:	ptype.value,
+						// 	selected_options: 	selected_options,
+						// 	application: this.application,
+						// 	item: product,
+						// 	model: this.model,
+						// 	cartview: this
+						// });
+						// copyItemView.showInModal();
+						// You have processed a zero priced item(s). Which of the following applies?”
+						// o	Remake
+						// o	Display or marketing item
+						// o	Staff order
+						//
+						jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('There is no Option Custom Tailor Price', 'error', true));
+						hasError = true;
+					}
+				}
+				//End Check For Customer Tailor Pricing
 				var r = new RegExp(/^[TR]{2}\d{3}($|-+\w*)|^[TRR]{3}\d{3}($|-+\w*)|^[TRD]{3}\d{2}($|-+\w*)/);
 				/*check for lining status */
 				var options = line.get('item').get('options');
@@ -589,6 +610,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 
 					item_detail.set('_optionsDetails', selected_item.itemoptions_detail);
 					item_detail.setOptionsArray(selected_product_list_item.getOptionsArray(), true);
+					item_detail.setOption('custcol_avt_wbs_copy_key', selected_item_internalid.toString() + '_' + new Date().getTime());
 					var add_to_cart_promise = this.product_list_details_view.addItemToCart(item_detail)
 					,	whole_promise = null;
 
@@ -609,7 +631,6 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 			}
 
 		}
-
 		// showContent:
 		// initializes tooltips.
 		// TODO: NOT NECESARY WITH LATEST VERSION OF BOOTSTRAP
@@ -907,20 +928,49 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 						});
 					});
 				}
-
 			}
 		}
+
+	, updateDiscount: function(e){
+		e.preventDefault();
+		var self = this;
+		var discount = jQuery(e.target).val() ? parseFloat(jQuery(e.target).val()) : 0;
+		var discountremaining = jQuery(e.target).val() ? parseFloat(jQuery(e.target).val()) : 0;
+		for(var i=0;i<this.model.get('lines').length; i++){
+			var model = this.model.get('lines').models[i];
+			var b = _.find(model.get('options'), function (op) {return op.id == 'CUSTCOL_TAILOR_CUSTOM_DISCOUNT'});
+			if(!b){
+				model.get('options').push({name: "Discount Total", id: "CUSTCOL_TAILOR_CUSTOM_DISCOUNT", value: "0.00", displayvalue: "0.00"});
+				b = _.find(model.get('options'), function (op) {return op.id == 'CUSTCOL_TAILOR_CUSTOM_DISCOUNT'});
+			}
+			if(i != this.model.get('lines').length-1){
+				b.value = parseFloat(discount/this.model.get('lines').length).toFixed(2);
+				b.displayvalue = parseFloat(discount/this.model.get('lines').length).toFixed(2);
+				discountremaining = discountremaining - parseFloat((discount/this.model.get('lines').length).toFixed(2));
+			}else {
+					b.value = discountremaining.toFixed(2);
+					b.displayvalue = discountremaining.toFixed(2);
+					discountremaining = 0;
+			}
+			model.save().done(function () {
+					self.model.fetch().done(function (data) {
+							self.showContent();
+					});
+			});
+		}
+	}
 	,	swxSetLineItemTotal: function (e) {
 			e.preventDefault();
 			var self = this;
+
 			var item = jQuery(e.target).closest('article')[0].id;
 			var lineItemTotal = jQuery(e.target).val() ? jQuery(e.target).val() : 0;
 			lineItemTotal = parseFloat(lineItemTotal).toFixed(2);
 			var a = _.find(this.model.get('lines').models, function (m) {return m.id == item;});
-			var b = _.find(a.get('options'), function (op) {return op.id == 'CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL'});
+			var b = _.find(a.get('options'), function (op) {return op.id == 'CUSTCOL_TAILOR_CUST_PRICING'});
 			if(!b){
-				a.get('options').push({name: "Item Total", id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL", value: "0.00", displayvalue: "0.00"});
-				b = _.find(a.get('options'), function (op) {return op.id == 'CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL'});
+				a.get('options').push({name: "Item Total", id: "CUSTCOL_TAILOR_CUST_PRICING", value: "0.00", displayvalue: "0.00"});
+				b = _.find(a.get('options'), function (op) {return op.id == 'CUSTCOL_TAILOR_CUST_PRICING'});
 			}
 			b.value = lineItemTotal;
 			b.displayvalue = lineItemTotal;
@@ -1466,8 +1516,8 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				,	fitProfileLadiesSkirt = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_LADIESSKIRT"})
 				,	fitProfileShortSleevesShirt = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_SSSHIRT"})
 				,	fitProfileTrenchcoat = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_TRENCHCOAT"})
-				,	customFabricDetails = _.where(line.get("options"), {id: "CUSTCOL_CUSTOM_FABRIC_DETAILS"})
-				,	lineItemTotal = _.where(line.get("options"), {id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL"}); //JHD-35
+				,	customFabricDetails = _.where(line.get("options"), {id: "CUSTCOL_CUSTOM_FABRIC_DETAILS"});
+				//,	lineItemTotal = _.where(line.get("options"), {id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL"}); //JHD-35
 				cartLine.itemName = line.get('item').get('_name');
 				cartLine.internalid = line.get('item').get('internalid');
 

@@ -318,6 +318,15 @@ Application.defineModel('Profile', {
 			profile.custentity_design_options_restriction = _.find(customerFieldValues, function(field){
 				return field.name === "custentity_design_options_restriction";
 			}).value;
+			profile.enablecustomtailorpricing = _.find(customerFieldValues, function(field){
+				return field.name === 'custentity_enable_custom_tailor_pricing';
+			}).value;
+			profile.taxtype = _.find(customerFieldValues, function(field){
+				return field.name === 'custentity_tax_type';
+			}).value;
+			profile.taxexclusive = _.find(customerFieldValues, function(field){
+				return field.name === 'custentity_tax_exclusive';
+			}).value;
 
 			profile.hidebillingandcogs = _.find(customerFieldValues, function(field){
 				return field.name === 'custentity_hide_billingandcogs';

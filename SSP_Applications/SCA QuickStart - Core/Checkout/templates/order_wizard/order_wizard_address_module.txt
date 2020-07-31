@@ -1,12 +1,3 @@
-<!--
-Change History   
--------------- 
-Date: 04-03-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-22
-Change Description: Remove �edit� from profile and shipping address in the front-end
--->
-
 <%
 	var is_same_as_enabled = view.isSameAsEnabled
 	,	selected_address = view.address
@@ -19,20 +10,6 @@ Change Description: Remove �edit� from profile and shipping address in the f
 	</h3>
 <% } %>
 
-<% if (is_same_as_enabled) { %>
-	<!-- <label class="checkbox same-as-address"> JHD-22
-		<input
-			<%= view.disableSameAsCheckBox ? 'disabled="disabled"' : '' %>
-			type="checkbox"
-			name="same-as-address"
-			data-action="same-as"
-			value="1"
-			<%= view.sameAs ? 'checked' : '' %>
-		>
-		<%= view.sameAsMessage %>
-	</label> --> 
-<% } %>
-
 <% if ((is_same_as_enabled && view.sameAs) || view.addressId && !selected_address.isNew()) { %>
 	<%= address(selected_address, {
 		hideActions: true
@@ -40,20 +17,6 @@ Change Description: Remove �edit� from profile and shipping address in the f
 	,	manage: view.manage
 	}) %>
 
-	<% if (!is_same_as_enabled || !view.sameAs) { %>
-		<p class="actions">
-			<% if (!view.isGuest && !view.options.edit_url) { %>
-				<a class="btn btn-link edit-address" href="/addressbook/<%- selected_address.get('internalid') %>" data-toggle="show-in-modal">
-                    <i class="fa fa-pencil pull-right"></i>
-                    <%= _('Edit Address').translate() %>
-				</a>
-			<% } %>
-
-			<a href="#" class="btn btn-link" data-action="change-address">
-				<%= view.getChangeLinkText() %>
-			</a>
-		</p>
-	<% } %>
 <% } else if (address_book.length && !view.isGuest) { %>
 	<div id="address-module-list-placeholder" <%= view.manage ? 'data-manage=' + view.manage : ''%> class="address-module-list-placeholder">
 		<p>

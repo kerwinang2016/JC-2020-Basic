@@ -205,6 +205,17 @@ Application.defineModel('Profile', {
     profile.hidebillingandcogs = _.find(customerFieldValues, function(field){
 			return field.name === 'custentity_hide_billingandcogs';
 		}).value;
+    profile.enablecustomtailorpricing = _.find(customerFieldValues, function(field){
+			return field.name === 'custentity_enable_custom_tailor_pricing';
+		}).value;
+
+    profile.taxtype = _.find(customerFieldValues, function(field){
+			return field.name === 'custentity_tax_type';
+		}).value;
+    profile.taxexclusive = _.find(customerFieldValues, function(field){
+			return field.name === 'custentity_tax_exclusive';
+		}).value;
+
 		profile.internalid = nlapiGetUser();
     if(session.isLoggedIn2()){
       var url = myaccountsuiteleturl;
@@ -237,8 +248,7 @@ Application.defineModel('LiveOrder', {
 
 		var order_fields = this.getFieldValues()
 		,	result = {};
-
-		try
+    try
 		{
       var self = this;
       var url = myaccountsuiteleturl;
@@ -250,7 +260,6 @@ Application.defineModel('LiveOrder', {
 
       _.each(result.lines, function (line_data)
   		{
-
         if(!line_data.options){
 
             self.removeLine(line_data.internalid);
@@ -290,8 +299,7 @@ Application.defineModel('LiveOrder', {
 				throw e;
 			}
 		}
-
-		order_fields = this.hidePaymentPageWhenNoBalance(order_fields);
+    order_fields = this.hidePaymentPageWhenNoBalance(order_fields);
 
 		result.lines_sort = this.getLinesSort();
 		result.latest_addition = context.getSessionObject('latest_addition');
@@ -337,10 +345,13 @@ Application.defineModel('LiveOrder', {
 
 		// Transaction Body Field
 		result.options = this.getTransactionBodyField();
+    result.optionsFields = order.getCustomFields();
 
 		return result;
 	}
-
+, updateDiscount: function(data){
+  this.setTransactionBodyField(data);
+}
 ,	update: function (data)
 	{
 		'use strict';

@@ -332,16 +332,17 @@ var recordFunctions = {
 
 	deleteRecord: function(type, id){
 		if(type && id){
-			var recID = nlapiDeleteRecord(type, id);
+			//var recID = nlapiDeleteRecord(type, id);
+      nlapiSubmitField(type,id,'inactive','T');
 			var recDetails = new Object();
-			if(recID){
-				recDetails.id = recID;
+			//if(recID){
+				recDetails.id = id;
 				recDetails.message = "Record was deleted";
 				recDetails.status = true;
-			} else {
-				recDetails.message = "Record was not deleted";
-				recDetails.status = false;
-			}
+			//} else {
+			//	recDetails.message = "Record was not deleted";
+			//	recDetails.status = false;
+			//}
 			return recDetails;
 		}
 	},

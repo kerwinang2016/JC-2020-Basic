@@ -1,0 +1,35 @@
+<header>
+	<h3><%= view.page_header %></h3>
+	<table class="table">
+		<thead style="font-size: 12px;">
+			<tr>
+				<th><%= _('Date').translate() %></th>
+				<th style="width:60px;"><%= _('Order #').translate() %></th>
+				<th><%= _('Client Name').translate() %></th>
+				<th><%= _('Item').translate() %></th>
+				<th><%= _('Sale Type').translate() %></th>
+			</tr>
+		</thead>
+		<tbody style="font-size: 12px;">
+		<% _.each(view.data.records, function (order, index) {   %>
+			<tr>
+				<td><%= order.trandate %></td>
+				<td><%= order.soid %></td>
+				<td><%= order.customer %></td>
+				<td><%= order.item +"-"+ order.producttype %></td>
+				<td><select data-internalid="<%= order.internalid %>" data-soid="<%= order.soid %>" id="saletype">
+					<option value="">Please Select</option>
+					<option value="1" <% if( order.saleitemtypeid == '1'){ %> selected <% } %>>Remake</option>
+					<option value="2" <% if( order.saleitemtypeid == '2'){ %> selected <% } %>>Display</option>
+					<option value="3" <% if( order.saleitemtypeid == '3'){%> selected <% } %>>Marketing Item</option>
+					<option value="4" <% if( order.saleitemtypeid == '4'){%> selected <% } %>>Staff Order</option>
+					<option value="5" <% if( order.saleitemtypeid == '5'){%> selected <% } %>>Sales</option>
+					<option value="6" <% if( order.saleitemtypeid == '6'){%> selected <% } %>>Complimentary</option>
+				</select></td>
+				<td></td>
+				<td></td>
+			</tr>
+		<% }) %>
+		</tbody>
+	</table>
+</header>

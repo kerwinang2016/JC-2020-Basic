@@ -244,28 +244,80 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             return status;
         }
         , addArrMustSelectConflictCodes: function(arrErrConflictCodes){
-          if(jQuery('#T010522')[0]){
+          if(jQuery('#T010213').val() == 'T01021301'){
+            if(jQuery('#T010214').val() != 'T01021401' ){
+              arrErrConflictCodes.push("You must select No for ticket pocket flap size with this ticket pocket option");
+            }
+          }
+          if(jQuery('#T010213').val() == 'T01021303'){
+            if(jQuery('#T010214').val() != 'T01021401' ){
+              arrErrConflictCodes.push("You must select No for ticket pocket flap size with this ticket pocket option");
+            }
+          }
+          if(jQuery('#T010213').val() == 'T01021302'){
+            if(jQuery('#T010214').val() != 'T01021401' ){
+              arrErrConflictCodes.push("You must select No for ticket pocket flap size with this ticket pocket option");
+            }
+          }
+          if(jQuery('#T010213').val() == 'T01021306'){
+            if(jQuery('#T010214').val() != 'T01021401' ){
+              arrErrConflictCodes.push("You must select No for ticket pocket flap size with this ticket pocket option");
+            }
+          }
+          if(jQuery('#T010213').val() == 'T01021307'){
+            if(jQuery('#T010214').val() != 'T01021401' ){
+              arrErrConflictCodes.push("You must select No for ticket pocket flap size with this ticket pocket option");
+            }
+          }
+          if(jQuery('#T010203').val() == 'T01020325'){
+            if(jQuery('#T010202').val() != 'T01020204' ){
+              arrErrConflictCodes.push("You can only select 1 button closure with 1 button bib shawl lapel");
+            }
+          }
+          if(jQuery('#T010204').val() == 'T01020403'){
+            if(jQuery('#T010231').val() != 'NA' ){
+              arrErrConflictCodes.push("Only NA can be selected for lapel buttonhole color with No for lapel buttonhole");
+            }
+          }
+          if(jQuery('#T011701').val() == 'T01170109'){
+            if(jQuery('#T011702').val() != 'T01170203' ){
+              arrErrConflictCodes.push("You must select U lapel with DB 6 Button w pointed bottom");
+            }
+          }
+          if(jQuery('#T011701').val() == 'T01170108'){
+            if(jQuery('#T011702').val() != 'T01170201' ){
+              arrErrConflictCodes.push("You must select no for lapel with DB 6 Button w straight bottom");
+            }
+          }
+          //if(jQuery('#T011701')[0]){
+          if(jQuery('#T011701').val() == 'T01170110'){
+            if(jQuery('#T011702').val() != 'T01170201' ){
+              arrErrConflictCodes.push("You must select no for lapel with DB 4 Button w pointed bottom");
+            }
+          }
+          //}
+          //if(jQuery('#T010522')[0]){
         	  if(jQuery('#T010522').val() == 'T01052201'){
         		if(jQuery('#T010517').val() != 'T01051709' ){
         		  arrErrConflictCodes.push("You can only select heel tape monogram with plain hem with fabric heel tape bottom");
         		}
         	  }
-        	}
-          if(jQuery('#T027231')[0]){
+        	//}
+          //if(jQuery('#T027231')[0]){
         	  if(jQuery('#T027231').val() == 'T02723103'){
         		if(jQuery('#T027232').val() != 'No' ){
         		  arrErrConflictCodes.push("If you select no for pick stitching then you must select no for pick stitch color");
         		}
         	  }
-        	}
-          if(jQuery('#T010409')[0]){
+        	//}
+          //if(jQuery('#T010409')[0]){
         	  if(jQuery('#T010409').val() == 'T01040901'){
         		if(jQuery('#T010416').val() != 'No' ){
         		  arrErrConflictCodes.push("If you select no for pick stitching then you must select no for pick stitch color");
         		}
         	  }
-        	}
-          if(jQuery('#T010244')[0]){
+        	//}
+          //if(jQuery('#T010244')[0]){
         	  if(jQuery('#T010244').val() == 'T01024401'){
         		if(!jQuery('#T010239').val() && !jQuery('#T010250').val() && !jQuery('#T010261').val()){
         		  arrErrConflictCodes.push("Monogram Text Line 1 or Monogram Text Above Pocket is required when Monogram Inside Lining is Yes");
@@ -280,14 +332,14 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
         		  arrErrConflictCodes.push("Interior Construction should be Curved French Facing when Monogram Text Above Pocket has text");
         		}
         	  }
-        	}
-        	if(jQuery('#T027229')[0]){
+        	//}
+        	//if(jQuery('#T027229')[0]){
         	  if(jQuery('#T027229').val() == 'T02722902'){
         		if(jQuery('#T027230').val() != 'NA' ){
         		  arrErrConflictCodes.push("You must select No for interior pocket piping when you select No for interior pocket");
         		}
         	  }
-        	}
+        	//}
         	if(jQuery('#T027305').val() == 'T02730502'){
         	  if(jQuery('#T027303').val() != 'NA' ){
         		arrErrConflictCodes.push("You must selecte NA for button code when you select NA for waistband closure");
@@ -547,7 +599,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
         	}
           if(jQuery('#T010203').val() == 'T01020307'){
         	  if(jQuery('#T010202').val() != 'T01020204'){
-        		arrErrConflictCodes.push("You must select 1 button for closure with shawl collar 5cm lapel (you can select 1 button closure with shawl collar 6cm lapel)");
+        		arrErrConflictCodes.push("You can only select 1 button closure with shawl collar 5cm lapel");
         	  }
         	}
           if( jQuery('#T010401').val() == 'T01040101' ||
@@ -729,6 +781,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     self.model.setOption('custcol_designoption_message', jQuery('#designoption-message').val());
                     self.model.setOption('custcol_fitprofile_message', jQuery('#fitprofile-message').val());
                     self.model.setOption('custcol_tailor_cust_pricing', self.$('span[itemprop="price"]').attr("data-rate") ? self.$('span[itemprop="price"]').attr("data-rate").replace(",", "") : "0.00");
+                    self.model.setOption('custcol_tailor_custom_discount',0);
                     self.model.setOption('custcol_tailor_client', self.client);
 
                     //self.model.setOption('custcol_itm_category_url', _.where(self.model.get("facets"), {id: "category"})[0].values[0].values[0].values[0].id.replace('Home/', ''));
@@ -771,6 +824,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     }
                     self.model.setOption('custcol_ps_cart_item_id', "ITEM_" + (Date.now() / 1000 | 0)); // creates timestamp
                     self.model.setOption('custcol_tailor_cust_pricing', self.$('span[itemprop="price"]').attr("data-rate") ? self.$('span[itemprop="price"]').attr("data-rate").replace(",", "") : "0.00");
+                    self.model.setOption('custcol_tailor_custom_discount',0);
                     self.model.setOption('custcol_tailor_client', self.client);
                     //self.model.setOption('custcol_itm_category_url', _.where(self.model.get("facets"), {id: "category"})[0].values[0].values[0].values[0].id.replace('Home/', ''));
                     self.model.setOption('custcol_itm_category_url', _.where(categories, { url: "Item Types" })[0].values[0].id.replace('Home/', ''));
@@ -788,7 +842,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 self.holdproduction = 'F';
                 self.model.setOption('custcol_avt_date_needed', self.dateneeded);
                 self.model.setOption('custcol_fabric_extra',jQuery('#fabric_extra option:selected').text());
-                self.model.setOption('custcol_order_list_line_item_total', '0.00'); //JHD-34
+                //self.model.setOption('custcol_order_list_line_item_total', '0.00'); //JHD-34
                 //self.model.setOption('custcolcustcol_item_check','T');
                 self.model.setOption('custcolcustcol_item_check', jQuery("#chkItem").is(':checked')?'T':'F');
 
@@ -1103,6 +1157,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 self.model.setOption('custcol_designoption_message', jQuery('#designoption-message').val());
                 self.model.setOption('custcol_fitprofile_message', jQuery('#fitprofile-message').val());
                 self.model.setOption('custcol_tailor_cust_pricing', self.$('span[itemprop="price"]').attr("data-rate") ? self.$('span[itemprop="price"]').attr("data-rate").replace(",", "") : "0.00");
+                self.model.setOption('custcol_tailor_custom_discount',0);
                 self.model.setOption('custcol_tailor_client', self.client);
                 //self.model.setOption('custcol_itm_category_url', _.where(self.model.get("facets"), {id: "category"})[0].values[0].values[0].values[0].id.replace('Home/', ''));
                 self.model.setOption('custcol_itm_category_url', _.where(categories, { url: "Item Types" })[0].values[0].id.replace('Home/', ''));
@@ -1121,6 +1176,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 self.model.setOption('custcol_fitprofile_summary', JSON.stringify(fitProfileSummary));
             } else {
                 self.model.setOption('custcol_tailor_cust_pricing', self.$('span[itemprop="price"]').attr("data-rate") ? self.$('span[itemprop="price"]').attr("data-rate").replace(",", "") : "0.00");
+                self.model.setOption('custcol_tailor_custom_discount',0);
                 self.model.setOption('custcol_tailor_client', self.client);
                 //self.model.setOption('custcol_itm_category_url', _.where(self.model.get("facets"), {id: "category"})[0].values[0].values[0].values[0].id.replace('Home/', ''));
                 self.model.setOption('custcol_itm_category_url', _.where(categories, { url: "Item Types" })[0].values[0].id.replace('Home/', ''));
@@ -1344,6 +1400,10 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                         else if (options[x].id == "CUSTCOL_DESIGNOPTION_MESSAGE") {
                             optionsHolder["CUSTCOL_DESIGNOPTION_MESSAGE"] = options[x];
                         }
+                        else if (options[x].id == "CUSTCOL_TAILOR_CUST_PRICING") {
+                            optionsHolder["CUSTCOL_TAILOR_CUST_PRICING"] = options[x];
+                            jQuery('span[itemprop="price"]').attr("data-rate",options[x].value);
+                        }
                         else if( options[x].id == 'CUSTCOLCUSTCOL_ITEM_CHECK'){
                           jQuery('#chkItem').prop('checked',options[x].value=='T'?true:false);
                         }
@@ -1351,7 +1411,6 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                           optionsHolder['CUSTCOL_FABRIC_EXTRA'] = options[x];//jQuery("#fabric_extra option[name=" + options[x].value +"]").prop("selected",true) ;
                         }
                         else if( options[x].id == 'CUSTCOL_OTHERVENDORNAME'){
-
                           jQuery('#fabric-cmt-othervendorname').val(options[x].value);
                         }
                         else if( options[x].id == 'CUSTCOL_CUSTOM_FABRIC_DETAILS'){

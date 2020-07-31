@@ -2,5 +2,5 @@
   <h3 class="home-popup-title">Urgent Notice:</h3>
 </div>
 <div class="home-popup-section">
-  <p>Your Jerome account with be offline for maintenance on Saturday July 18th 6:00pm (CEST). This update should take approximately 3 hours. During this time you will be unable to access your account. Please ensure all orders are saved before this period. Thank you.</p>
+  <p>Your Jerome account with be offline for maintenance on Friday July 31th 6:00am - 10:00am (CEST). This update should take approximately 4 hours. During this time you will be unable to access your account. Please ensure all orders are saved before this period. Thank you.</p>
 </div>

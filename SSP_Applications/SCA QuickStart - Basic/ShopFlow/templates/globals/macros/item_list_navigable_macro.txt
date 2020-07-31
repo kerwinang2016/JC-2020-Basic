@@ -14,6 +14,7 @@
 	,	thumbnail = item.get('_thumbnail')
 	,	link_attributes = _.getItemLinkAttributes(item)
 	, fitprofile = line.get('fitProfileOptions');
+	var enableCustomTailorPricing = application.user_instance.get('enablecustomtailorpricing');
 
 		var expectedDate = '';
 		var item = line.get('item');
@@ -89,23 +90,25 @@
 					<a><%= item.get('_name') %></a>
 				<% } %>
 				</div>
+				<% if(enableCustomTailorPricing == 'T') { %>
 				<div class="name">
 
 					<%
 						var lineItemTotal;
 						try
 						{
-							lineItemTotal =  _.where(line.get("options"), {id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL"})[0].value;
+							lineItemTotal =  _.where(line.get("options"), {id: "CUSTCOL_TAILOR_CUST_PRICING"})[0].value;
 						}
 							catch(ex)
 						{
 							lineItemTotal =  0.00;
 						}
 					%>
-					<input type="number" id="order_list_line_item_total_<%= line_id %>" onkeypress="return event.charCode != 45" name="order_list_line_item_total" value="<%= lineItemTotal %>" min="0" style="float: right; width: 45px; height: 15px; font-size: 12px;">
+					<input type="number" id="order_list_line_item_total_<%= line_id %>" onkeypress="return event.charCode != 45" name="order_list_line_item_total" value="<%= parseFloat(lineItemTotal).toFixed(2) %>" min="0" style="float: right; width: 45px; height: 15px; font-size: 12px;">
 					<span id="tailor_currency_symbol" style="float: right; padding: 4px; font-weight: normal; "><%= SC.getSessionInfo('currency').symbol %></span>
 					</input>
-					</div>
+				</div>
+				<% } %>
 					<div class="name" style="clear:both;">
 				<%
 					var producttype = _.find(line.get("options"), function(o){

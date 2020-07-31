@@ -1,6 +1,7 @@
 <% registerMacro('shoppingCartSummary', function (cart, siteSettings, options) { %>
 <%
 	options = _.extend({ showShipto: true, showLabelsAsEstimated: true}, options || {});
+	var enableCustomTailorPricing = options.view.application.user_instance.get('enablecustomtailorpricing');
 
 	var summary = cart.get('summary')
 	,	item_count = _.reduce(cart.get('lines').pluck('quantity'), function (memo, quantity) { return memo + (parseFloat(quantity) || 1); }, 0)
@@ -18,7 +19,9 @@
 	//	Third party checkouts
 	,	checkout = options.checkout || {}
 	,	paypal_express = checkout.paypalexpress
-	,	subtotal = 0;
+	,	subtotal = 0
+	, discount = 0;
+	if(enableCustomTailorPricing == 'T') {
 
 	//Custom subtotal computation
 	cart.get("lines").each(function(line){
@@ -26,7 +29,42 @@
 		if(costOption && costOption[0]){
 			subtotal = subtotal + parseFloat(costOption[0].value);
 		}
+		var discountOption = _.where(line.get("options"), {id: "CUSTCOL_TAILOR_CUSTOM_DISCOUNT"});
+		if(discountOption && discountOption[0]){
+			discount = discount + parseFloat(discountOption[0].value);
+		}
 	});
+	var taxtype = SC.Application('Shopping').user_instance.get('taxtype');
+	var taxexclusive = SC.Application('Shopping').user_instance.get('taxexclusive');
+	var total = 0, taxtotal = 0;
+	if(taxtype){
+		if(taxexclusive == 'F'){
+			//Subtotal remains the same
+			if(taxtype == 1){
+				subtotal = (subtotal - parseFloat(discount))/1.1;
+				taxtotal = subtotal * .1;
+				total = subtotal + taxtotal;
+			}
+			else if(taxtype == 2){
+			subtotal = (subtotal - parseFloat(discount))/1.21;
+			taxtotal = subtotal * .21;
+			total = subtotal + taxtotal;
+			}
+		}
+		else{
+			if(taxtype == 1){
+				subtotal = (subtotal - parseFloat(discount));
+				taxtotal = subtotal * .1;
+				total = subtotal + taxtotal;
+			}
+			else if(taxtype == 2){
+			subtotal = (subtotal - parseFloat(discount));
+			taxtotal = subtotal * .21;
+			total = subtotal + taxtotal;
+			}
+		}
+	}
+	}
 %>
 <div class="box-wells shopping-cart-summary">
 	<header class="box-wells-header">
@@ -36,18 +74,40 @@
 	</header>
 
 	<div class="box-wells-body">
-		<div class="cart-summary-subtotal">
+		<% if(enableCustomTailorPricing == 'T') { %>
+		<div class="cart-summary-discounttotal" style="clear:both;">
 			<p class="strong">
-				<span class="pull-right summary-subtotal-formatted"><%= _.formatCurrency(subtotal) %></span>
-				<%= _('Subtotal (<span class="summary-item-quantity-subtotal">$(0)</span> $(1))').translate( cart.get('lines').length, cart.get('lines').length === 1 ? _('item').translate() : _('items').translate() ) %>
+				<span class="pull-right">$<input id='orderdiscount' type="text" style="width: 45px;height: 15px;font-size: 12px;direction:rtl;" value="<%= discount.toFixed(2) %>"></input></span>
+				Discount
 			</p>
+		</div>
+		<% } %>
+		<div class="cart-summary-subtotal" style="font-weight:bold;margin-bottom:9px;">
+
+			<div style="display: inline-block; width: 100%;"><%= _('Subtotal ($(0) $(1))').translate( cart.get('lines').length, cart.get('lines').length === 1 ? _('item').translate() : _('items').translate() ) %>
+			<span class="summary-subtotal-formatted pull-right"><%= _.formatCurrency(subtotal) %></span>
+			</div>
 			<% if (!is_estimate && false) { %>
 				<p class="no-margin-bottom small">
 					<%= _('(Total does not include shipping or tax)').translate() %>
 				</p>
 			<% } %>
 		</div>
+		<% if(enableCustomTailorPricing == 'T') { %>
+		<div class="cart-summary-taxtotal" style="clear:both;">
+			<p class="strong">
+				<span class="pull-right"><%= _.formatCurrency(taxtotal) %></span>
+				Tax
+			</p>
+		</div>
 
+		<div class="cart-summary-total">
+			<p class="strong">
+				<span class="pull-right summary-total-formatted"><%= _.formatCurrency(total) %></span>
+				<%= _('Total').translate() %>
+			</p>
+		</div>
+		<% } %>
 		<% if (is_promocode_valid || summary.giftcertapplied) { %>
 
 			<% if (is_promocode_valid) { %>
@@ -73,7 +133,6 @@
 					</p>
 				</div>
 			<% } %>
-
 			<% if (summary.giftcertapplied) { %>
 				<div class="cart-summary-giftcertificate-applied">
 					<p>

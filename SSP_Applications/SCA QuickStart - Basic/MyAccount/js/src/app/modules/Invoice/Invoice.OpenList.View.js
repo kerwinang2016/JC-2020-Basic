@@ -1,7 +1,7 @@
 // Invoice.Views.js
 // -----------------------
 // Views for handling invoices listing
-define('Invoice.OpenList.View', ['Invoice.Collection', 'ListHeader'], function (InvoiceCollection, ListHeader)
+define('Invoice.OpenList.View', ['Invoice.Collection', 'ListHeader','js/libs/jszip.js','js/libs/jszip-utils.js','js/libs/FileSaver.js'], function (InvoiceCollection, ListHeader, JSZip)
 {
 	'use strict';
 
@@ -88,14 +88,74 @@ define('Invoice.OpenList.View', ['Invoice.Collection', 'ListHeader'], function (
 		        _window.close();
 		    }
 		}
+	, create_zip: function (fileData) {
+		// var fileURL = [	'https://3857857.app.netsuite.com/app/site/hosting/scriptlet.nl?script=121&deploy=1&custparam_record_id=674314&custparam_record_type=invoice&custparam_template=4',
+		// 				'https://3857857.app.netsuite.com/app/site/hosting/scriptlet.nl?script=121&deploy=1&custparam_record_id=674476&custparam_record_type=invoice&custparam_template=4'];
+	  var contents = "";
+		var zip = new JSZip();
+		for(var i=0; i<fileData.length; i++){
+			var request = jQuery.ajax({
+			url: fileData[i].url,
+			type: "GET",
+			async: false,
+			contentType: "application/pdf",
+			mimeType:'text/plain; charset=x-user-defined' // <-[1]
+			}).done(function( data ) {
+				zip.file(fileData[i].filename, data, { binary: true });
+			});
+		}
+		zip.generateAsync({type:"blob"}).then(function(content) {
+			// see FileSaver.js
+			saveAs(content, "Invoices.zip");
+		});
+	}
 	, downloadInvoices: function(e){
 		e.preventDefault();
 		var self = this;
-		jQuery('[data-action="select"]:checked').each(function(f,g){
-			var id = jQuery(g).val();
-			var fileid = jQuery(g).attr('data-name')
-			self.download_file("/app/site/hosting/scriptlet.nl?script=121&deploy=1&custparam_record_id="+id+"&custparam_record_type=invoice&custparam_template=4","Invoice_"+fileid+".pdf");
-		});
+		var count = jQuery('[data-action="select"]:checked').length;
+		var count2 = 0;
+		if(jQuery('#select-all').prop('checked') == false){
+			if(count > 0){
+				if(count >1 ){
+					var ids = [];
+					var zip = new JSZip();
+					var fileData = [];
+					jQuery('[data-action="select"]:checked').each(function(f,g){
+						var id = jQuery(g).val();
+						var fileid = jQuery(g).attr('data-name');
+						var filename = "Invoice_"+fileid+".pdf";
+						fileData.push({
+							url:"/app/site/hosting/scriptlet.nl?script=121&deploy=1&custparam_record_id="+id+"&custparam_record_type=invoice&custparam_template=4",
+							filename: filename
+						});
+
+		    	});
+					this.create_zip(fileData);
+					//self.download_file("/app/site/hosting/scriptlet.nl?script=121&deploy=1&custparam_record_id="+ids+"&custparam_record_type=invoice&custparam_template=4","Invoices.zip");
+				}else{
+					jQuery('[data-action="select"]:checked').each(function(f,g){
+						var id = jQuery(g).val();
+						var fileid = jQuery(g).attr('data-name');
+						self.download_file("/app/site/hosting/scriptlet.nl?script=121&deploy=1&custparam_record_id="+id+"&custparam_record_type=invoice&custparam_template=4","Invoice_"+fileid+".pdf");
+					});
+				}
+			}
+		}else{
+			//Select all has been selected
+			var fileData = [];
+			this.collection.each(function (invoice)
+			{
+				var id = invoice.get('internalid');
+				var fileid = invoice.get('tranid');
+				var filename = "Invoice_"+fileid+".pdf";
+				fileData.push({
+					url:"/app/site/hosting/scriptlet.nl?script=121&deploy=1&custparam_record_id="+id+"&custparam_record_type=invoice&custparam_template=4",
+					filename: filename
+				});
+			});
+			this.create_zip(fileData);
+
+		}
 	}
 		//Returns the count of selected invoices (This method is used by the template)
 	,	getSelectedInvoicesLength: function()

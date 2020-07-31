@@ -141,7 +141,7 @@ define('ProductListDetails.View'
 
 			item_detail.set('_optionsDetails', selected_item.itemoptions_detail);
 			item_detail.setOptionsArray(selected_product_list_item.getOptionsArray(), true);
-
+			item_detail.setOption('custcol_avt_wbs_copy_key', selected_item_internalid.toString() + '_' + new Date().getTime());
 			var add_to_cart_promise = this.addItemToCart(item_detail)
 			,	whole_promise = null;
 

@@ -1,0 +1,21 @@
+{
+  "paths": {
+    "controllers/get": "/SuiteScripts/rest-api/controllers/get.controller",
+    "controllers/post": "/SuiteScripts/rest-api/controllers/post.controller",
+    "controllers/put": "/SuiteScripts/rest-api/controllers/put.controller",
+    "services/client": "/SuiteScripts/rest-api/services/client.service",
+    "services/fabric": "/SuiteScripts/rest-api/services/fabric.service",
+    "services/fitProfile": "/SuiteScripts/rest-api/services/fit-profile.service",
+    "services/lining": "/SuiteScripts/rest-api/services/lining.service",
+    "services/mocker": "/SuiteScripts/rest-api/utils/object-mocker.util",
+    "services/order": "/SuiteScripts/rest-api/services/order.service",
+    "services/tailor": "/SuiteScripts/rest-api/services/tailor.service",
+    "utils/generic": "/SuiteScripts/rest-api/utils/generic.util",
+    "utils/objectParser": "/SuiteScripts/rest-api/utils/object-parser.util",
+    "utils/objectMapper": "/SuiteScripts/rest-api/utils/object-mapper.util",
+    "utils/query": "/SuiteScripts/rest-api/utils/query.util",
+    "vendor/faker": "/SuiteScripts/rest-api/vendor/faker",
+    "vendor/lodash": "/SuiteScripts/rest-api/vendor/lodash",
+    "vendor/luxon": "/SuiteScripts/rest-api/vendor/luxon"
+  }
+}

@@ -1050,9 +1050,11 @@ OBJ_CONFLICT['T01060201'] = {};
 OBJ_CONFLICT['T01060201']['CONFLICT'] = [];
 
 OBJ_CONFLICT['T01060201']['CONFLICT']['T010604']= [];
-
 OBJ_CONFLICT['T01060201']['CONFLICT']['T010604']['T01060416']={};
 OBJ_CONFLICT['T01060201']['CONFLICT']['T010604']['T01060416']['ERROR'] = 'NA short sleeve cuff cannot be selected with long sleeves';
+OBJ_CONFLICT['T01060201']['CONFLICT']['T010650']= [];
+OBJ_CONFLICT['T01060201']['CONFLICT']['T010650']['T01065003']={};
+OBJ_CONFLICT['T01060201']['CONFLICT']['T010650']['T01065003']['ERROR'] = 'You can only select small gathered pleats with Long with pleats (cw traditional make) sleeve type';
 
 /** ####  END CONFLICT CODE -  T01060201  #### **/
 
@@ -1087,6 +1089,9 @@ OBJ_CONFLICT['T01060203']['CONFLICT']['T010604']['T01060416']['ERROR'] = 'NA sho
 OBJ_CONFLICT['T01060203']['CONFLICT']['sm-ms-s']= [];
 OBJ_CONFLICT['T01060203']['CONFLICT']['sm-ms-s']['Traditional']={};
 OBJ_CONFLICT['T01060203']['CONFLICT']['sm-ms-s']['Traditional']['ERROR'] = 'You cannot choose long with pleats (only HM) for sleeve type with traditional shirt make';
+OBJ_CONFLICT['T01060203']['CONFLICT']['T010650']= [];
+OBJ_CONFLICT['T01060203']['CONFLICT']['T010650']['T01065003']={};
+OBJ_CONFLICT['T01060203']['CONFLICT']['T010650']['T01065003']['ERROR'] = 'You can only select small gathered pleats with Long with pleats (cw traditional make) sleeve type';
 
 /** ####  END CONFLICT CODE -  T01060203  #### **/
 
@@ -5236,6 +5241,13 @@ OBJ_CONFLICT['T01050913']['CONFLICT']['T010539']['T01053904']={};
 OBJ_CONFLICT['T01050913']['CONFLICT']['T010539']['T01053904']['ERROR'] = 'You must select NA for buckle with draw string style';
 OBJ_CONFLICT['T01050913']['CONFLICT']['T010539']['T01053905']={};
 OBJ_CONFLICT['T01050913']['CONFLICT']['T010539']['T01053905']['ERROR'] = 'You must select NA for buckle with draw string style';
+OBJ_CONFLICT['T01050913']['CONFLICT']['tm-m-t']={};
+OBJ_CONFLICT['T01050913']['CONFLICT']['tm-m-t']['Handmade']={};
+OBJ_CONFLICT['T01050913']['CONFLICT']['tm-m-t']['Handmade']['ERROR'] = 'You can only select self fabric waistabnd for make with drawstring waistband style';
+OBJ_CONFLICT['T01050913']['CONFLICT']['tm-m-t']['Traditional with pleated waistband']={};
+OBJ_CONFLICT['T01050913']['CONFLICT']['tm-m-t']['Traditional with pleated waistband']['ERROR'] = 'You can only select self fabric waistabnd for make with drawstring waistband style';
+OBJ_CONFLICT['T01050913']['CONFLICT']['tm-m-t']['Traditional']={};
+OBJ_CONFLICT['T01050913']['CONFLICT']['tm-m-t']['Traditional']['ERROR'] = 'You can only select self fabric waistabnd for make with drawstring waistband style';
 /** ####  END CONFLICT CODE - T01050913 #### **/
 /** #### START CONFLICT CODE - T01051603 #### **/
 OBJ_CONFLICT['T01051603']={};

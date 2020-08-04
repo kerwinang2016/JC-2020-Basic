@@ -7,7 +7,7 @@
     "services/fabric": "/SuiteScripts/rest-api/services/fabric.service",
     "services/fitProfile": "/SuiteScripts/rest-api/services/fit-profile.service",
     "services/lining": "/SuiteScripts/rest-api/services/lining.service",
-    "services/mocker": "/SuiteScripts/rest-api/utils/object-mocker.util",
+    
     "services/order": "/SuiteScripts/rest-api/services/order.service",
     "services/tailor": "/SuiteScripts/rest-api/services/tailor.service",
     "utils/generic": "/SuiteScripts/rest-api/utils/generic.util",

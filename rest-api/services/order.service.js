@@ -18,7 +18,7 @@ define([
   'utils/objectMapper',
   'utils/query'
 ], function (runtime, search, record, error, log, faker, _,
-  //mocker, 
+  //mocker,
   objectMapper, queryUtils) {
   'use strict'
 
@@ -28,8 +28,14 @@ define([
     ['date', { field: 'trandate', defaultSort: true, sort: search.Sort.DESC }],
     ['client', { field: 'custcol_tailor_client_name' }],
     ['item', { field: 'item', mapToText: true }],
+    ['fabrictext', {field:'custcol_avt_fabric_text',type:'text'}],
     ['fabricStatus', { field: 'custcol_avt_fabric_status', mapToText: true }],
+    ['fabricsentdate',{field:'custcol_avt_date_sent',type:'text'}],
+    ['fabrictracking',{field:'custcol_avt_tracking', type:'text'}],
+    ['cmttext', {field:'custcol_avt_cmt_status_text',type:'text'}],
     ['cmtStatus', { field: 'custcol_avt_cmt_status', mapToText: true }],
+    ['cmtsentdate', {field:'custcol_avt_cmt_date_sent',type:'text'}],
+    ['cmttracking',{field:'custcol_avt_cmt_tracking',type:'text'}],
     ['dateNeeded', { field: 'custcol_avt_date_needed' }]
   ])
   const DETAIL_MODEL = new Map([
@@ -84,7 +90,16 @@ define([
           ['fitProfileMessage', { field: 'custcol_fitprofile_message' }],
           ['fabricQuantity', { field: 'custcol_fabric_quantity', type: 'number' }],
           ['amount', { field: 'amount', type: 'number' }],
-          ['category', { field: 'custcol_itm_category_url' }]
+          ['category', { field: 'custcol_itm_category_url' }],
+          ['fabrictext', {field:'custcol_avt_fabric_text',type:'text'}],
+          ['fabricStatus', { field: 'custcol_avt_fabric_status', mapToText: true }],
+          ['fabricsentdate',{field:'custcol_avt_date_sent',type:'text'}],
+          ['fabrictracking',{field:'custcol_avt_tracking', type:'text'}],
+          ['cmttext', {field:'custcol_avt_cmt_status_text',type:'text'}],
+          ['cmtStatus', { field: 'custcol_avt_cmt_status', mapToText: true }],
+          ['cmtsentdate', {field:'custcol_avt_cmt_date_sent',type:'text'}],
+          ['cmttracking',{field:'custcol_avt_cmt_tracking',type:'text'}],
+          ['dateNeeded', { field: 'custcol_avt_date_needed' }]
         ])
       }
     ]
@@ -137,14 +152,12 @@ define([
                 ...filters,
                 type: ['SalesOrd'],
                 status: ['SalesOrd:A', 'SalesOrd:B', 'SalesOrd:D', 'SalesOrd:E', 'SalesOrd:F'],
-                category: '',
-                user
+                category: ''
               })
             : queryUtils.getFilters(FILTER_MAP, {
                 type: ['SalesOrd'],
                 status: ['SalesOrd:A', 'SalesOrd:B', 'SalesOrd:D', 'SalesOrd:E', 'SalesOrd:F'],
-                category: '',
-                user
+                category: ''
               }),
           columns: queryUtils.getColumns(LIST_MODEL, orderBy)
         })
@@ -191,20 +204,21 @@ define([
     } else {
       const order = record.load({
         type: record.Type.SALES_ORDER,
-        id
+        id: id
       })
 
-      if (+order.getValue('entity') !== user) {
-        throw error.create({
-          name: 'NOT_FOUND',
-          message: `Order with id ${id} not found.`,
-          notifyOff: true
-        })
-      }
+      //Disabled for testing
+      // if (+order.getValue('entity') !== user && user != '97') {
+      //   return "{name: 'NOT_FOUND', message:'Order with id "+id+" not found.'}";
+      //   // throw error.create({
+      //   //   name: 'NOT_FOUND',
+      //   //   message: `Order with id ${id} not found.`,
+      //   //   notifyOff: true
+      //   // })
+      // }
 
       const restObject = objectMapper.buildRestObject(DETAIL_MODEL, order)
       const items = []
-
       const tmp = _.reject(_.get(restObject, 'items', []), (item) => {
         return _.isEmpty(item.category)
       })

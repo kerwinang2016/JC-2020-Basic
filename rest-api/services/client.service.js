@@ -14,10 +14,12 @@ define([
   'N/log',
   'vendor/faker',
   'vendor/lodash',
-  'services/mocker',
+  //'services/mocker',
   'utils/objectMapper',
   'utils/query'
-], function (runtime, search, record, error, log, faker, _, mocker, objectMapper, queryUtils) {
+], function (runtime, search, record, error, log, faker, _,
+   //mocker,
+   objectMapper, queryUtils) {
   'use strict'
 
   const TYPE = 'customrecord_sc_tailor_client'
@@ -74,7 +76,7 @@ define([
     const result = { offset, limit, data: [] }
 
     if (isDryRun) {
-      _.times(limit, () => result.data.push(mocker.mockClient()))
+      //_.times(limit, () => result.data.push(mocker.mockClient()))
     } else {
       search
         .create({
@@ -123,19 +125,20 @@ define([
     let result = {}
 
     if (isDryRun) {
-      result = mocker.mockClient({ id })
+      //result = mocker.mockClient({ id })
     } else {
       const client = record.load({
         type: TYPE,
-        id
+        id:id
       })
 
       if (+client.getValue('custrecord_tc_user') !== user) {
-        throw error.create({
-          name: 'NOT_FOUND',
-          message: `Tailor with id ${id} not found.`,
-          notifyOff: true
-        })
+        return "{status:'error', name:'NOT_FOUND', message: 'Tailor with id "+id+" not found.'}";
+        // throw error.create({
+        //   name: 'NOT_FOUND',
+        //   message: `Tailor with id ${id} not found.`,
+        //   notifyOff: true
+        // })
       }
 
       result = objectMapper.buildRestObject(MODEL, client)

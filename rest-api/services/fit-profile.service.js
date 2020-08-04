@@ -14,10 +14,12 @@ define([
   'N/log',
   'vendor/faker',
   'vendor/lodash',
-  'services/mocker',
+  //'services/mocker',
   'utils/objectMapper',
   'utils/query'
-], function (runtime, search, record, error, log, faker, _, mocker, objectMapper, queryUtils) {
+], function (runtime, search, record, error, log, faker, _,
+  //mocker,
+  objectMapper, queryUtils) {
   'use strict'
 
   const TYPE = 'customrecord_sc_fit_profile'
@@ -67,7 +69,7 @@ define([
     const result = { offset, limit, data: [] }
 
     if (isDryRun) {
-      _.times(limit, () => result.data.push(mocker.mockFitProfile()))
+      //_.times(limit, () => result.data.push(mocker.mockFitProfile()))
     } else {
       search
         .create({
@@ -116,11 +118,11 @@ define([
     let result = {}
 
     if (isDryRun) {
-      result = mocker.mockFitProfile({ id })
+      //result = mocker.mockFitProfile({ id })
     } else {
       const fitProfile = record.load({
         type: TYPE,
-        id
+        id: id
       })
 
       const tailorClient = search.lookupFields({
@@ -130,11 +132,12 @@ define([
       })
 
       if (tailorClient.custrecord_tc_tailor !== user) {
-        throw error.create({
-          name: 'NOT_FOUND',
-          message: `Fit profile with id ${id} not found.`,
-          notifyOff: true
-        })
+        return "{status:'error', name:'NOT_FOUND', message: 'Fit profile with id "+id+" not found.'}";
+        // throw error.create({
+        //   name: 'NOT_FOUND',
+        //   message: `Fit profile with id ${id} not found.`,
+        //   notifyOff: true
+        // })
       }
 
       result = objectMapper.buildRestObject(MODEL, fitProfile)
@@ -180,11 +183,12 @@ define([
       })
 
       if (tailorClient.custrecord_tc_tailor !== user) {
-        throw error.create({
-          name: 'NOT_FOUND',
-          message: `Client with id ${data.client} not found.`,
-          notifyOff: true
-        })
+        return "{status:'error', name:'NOT_FOUND', message: 'Client with id "+data.client+" not found.'}";
+        // throw error.create({
+        //   name: 'NOT_FOUND',
+        //   message: `Client with id ${data.client} not found.`,
+        //   notifyOff: true
+        // })
       }
 
       const record = objectMapper.buildRecordObject(
@@ -251,11 +255,12 @@ define([
       })
 
       if (tailorClient.custrecord_tc_tailor !== user) {
-        throw error.create({
-          name: 'NOT_FOUND',
-          message: `Fit profile with id ${id} not found.`,
-          notifyOff: true
-        })
+        return "{status:'error', name:'NOT_FOUND', message: 'Fit profile with id "+id+" not found.'}";
+        // throw error.create({
+        //   name: 'NOT_FOUND',
+        //   message: `Fit profile with id ${id} not found.`,
+        //   notifyOff: true
+        // })
       }
 
       const record = objectMapper

@@ -11,10 +11,12 @@ define([
   'N/record',
   'N/log',
   'vendor/lodash',
-  'services/mocker',
+  //'services/mocker',
   'utils/objectMapper',
   'utils/query'
-], function (search, record, log, _, mocker, objectMapper, queryUtils) {
+], function (search, record, log, _,
+  //mocker,
+  objectMapper, queryUtils) {
   'use strict'
 
   const MODEL = new Map([
@@ -54,9 +56,9 @@ define([
     })
 
     const result = { offset, limit, data: [] }
-
+    try{
     if (isDryRun) {
-      _.times(limit, () => result.data.push(mocker.mockFabric()))
+      //_.times(limit, () => result.data.push(mocker.mockFabric()))
     } else {
       search
         .create({
@@ -71,7 +73,12 @@ define([
         })
         .forEach((res) => result.data.push(objectMapper.buildRestObject(MODEL, res)))
     }
-
+  }catch(e){
+    log.debug({
+      title: 'error',
+      details: JSON.stringify(e)
+    })
+  }
     log.debug({
       title: 'FabricService#query.result',
       details: result
@@ -100,11 +107,11 @@ define([
     let result = {}
 
     if (isDryRun) {
-      result = mocker.mockFabric({ id })
+      //result = mocker.mockFabric({ id })
     } else {
       const fabric = record.load({
         type: record.Type.NON_INVENTORY_ITEM,
-        id
+        id:id
       })
 
       result = objectMapper.buildRestObject(MODEL, fabric)

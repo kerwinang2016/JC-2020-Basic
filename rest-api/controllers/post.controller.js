@@ -46,11 +46,12 @@ define([
       const data = _.get(body, 'data', {})
 
       if (_.isEmpty(data) || !_.isPlainObject(data)) {
-        throw error.create({
-          name: 'INVALID_INPUT',
-          message: 'The data submitted in invalid.',
-          notifyOff: true
-        })
+        return "{status:'error', name:'INVALID_INPUT', message: 'The data submitted in invalid.'}";
+        // throw error.create({
+        //   name: 'INVALID_INPUT',
+        //   message: 'The data submitted in invalid.',
+        //   notifyOff: true
+        // })
       }
 
       const serviceMap = new Map([
@@ -62,11 +63,12 @@ define([
       const service = serviceMap.get(type)
 
       if (_.isEmpty(service)) {
-        throw error.create({
-          name: 'INVALID_TYPE',
-          message: 'Kindly specify a valid type.',
-          notifyOff: true
-        })
+        return "{status:'error', name:'INVALID_TYPE', message: 'Kindly specify a valid type.'}";
+        // throw error.create({
+        //   name: 'INVALID_TYPE',
+        //   message: 'Kindly specify a valid type.',
+        //   notifyOff: true
+        // })
       }
 
       const result = service.create(data, isDryRun)

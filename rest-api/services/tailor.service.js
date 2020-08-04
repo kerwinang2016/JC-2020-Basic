@@ -13,10 +13,12 @@ define([
   'N/error',
   'N/log',
   'vendor/lodash',
-  'services/mocker',
+  //'services/mocker',
   'utils/objectMapper',
   'utils/query'
-], function (runtime, search, record, error, log, _, mocker, objectMapper, queryUtils) {
+], function (runtime, search, record, error, log, _,
+  //mocker,
+  objectMapper, queryUtils) {
   'use strict'
 
   const MODEL = new Map([
@@ -61,7 +63,7 @@ define([
     const result = { offset, limit, data: [] }
 
     if (isDryRun) {
-      _.times(limit, () => result.data.push(mocker.mockTailor()))
+      //_.times(limit, () => result.data.push(mocker.mockTailor()))
     } else {
       search
         .create({
@@ -110,19 +112,20 @@ define([
     let result = {}
 
     if (isDryRun) {
-      result = mocker.mockTailor({ id })
+      //result = mocker.mockTailor({ id })
     } else {
       const tailor = record.load({
         type: record.Type.CUSTOMER,
-        id
+        id:id
       })
 
       if (+tailor.getValue('parent') !== user) {
-        throw error.create({
-          name: 'NOT_FOUND',
-          message: `Tailor with id ${id} not found.`,
-          notifyOff: true
-        })
+        return "{status:'error', name:'NOT_FOUND', message: 'Tailor with id "+id+" not found.'}";
+        // throw error.create({
+        //   name: 'NOT_FOUND',
+        //   message: `Tailor with id ${id} not found.`,
+        //   notifyOff: true
+        // })
       }
 
       result = objectMapper.buildRestObject(MODEL, tailor)

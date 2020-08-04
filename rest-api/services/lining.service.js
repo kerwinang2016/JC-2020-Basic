@@ -11,10 +11,12 @@ define([
   'N/record',
   'N/log',
   'vendor/lodash',
-  'services/mocker',
+  //'services/mocker',
   'utils/objectMapper',
   'utils/query'
-], function (search, record, log, _, mocker, objectMapper, queryUtils) {
+], function (search, record, log, _,
+  //mocker,
+  objectMapper, queryUtils) {
   'use strict'
 
   const TYPE = 'customrecord_factory_lining_fabrics'
@@ -57,7 +59,7 @@ define([
     const result = { offset, limit, data: [] }
 
     if (isDryRun) {
-      _.times(limit, () => result.data.push(mocker.mockLining()))
+      //_.times(limit, () => result.data.push(mocker.mockLining()))
     } else {
       search
         .create({
@@ -101,11 +103,11 @@ define([
     let result = {}
 
     if (isDryRun) {
-      result = mocker.mockLining({ id })
+      //result = mocker.mockLining({ id })
     } else {
       const lining = record.load({
         type: TYPE,
-        id
+        id:id
       })
 
       result = objectMapper.buildRestObject(MODEL, lining)

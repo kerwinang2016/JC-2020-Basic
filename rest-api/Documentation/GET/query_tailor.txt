@@ -1,0 +1,35 @@
+/*
+GET TAILOR
+Description: Returns the list of subtailors
+PARAMETERS
+	type = TAILOR,
+	limit (Number) - page size,
+	offset (Number) - page of the search,
+	orderBy (String)- for sorting the results, use the field name for sorting,
+	filters.tl-name - name of subtailor
+	filters.tl-email - email of subtailor
+	filters.user (Required)(Number) - tailorid given
+	(Not Implemented Yet) filters.usertoken (String) token given to user
+	
+*/
+//URL Input
+//https://3857857.app.netsuite.com/app/site/hosting/restlet.nl?script=380&deploy=2&type=TAILOR&offset=20&filter.id=5&filter.usertoken=12345
+//Output
+{
+   "offset":0,
+   "limit":25,
+   "data":[
+      {
+         "id":5,
+         "name":"1",
+         "email":"orders@oscarhunt.com.au",
+         "phone":"039 670 6303"
+      },
+      {
+         "id":540,
+         "name":"1:1",
+         "email":"steve@oscarhunt.com.au",
+         "phone":"039 670 6303"
+      }
+	 ]
+ }

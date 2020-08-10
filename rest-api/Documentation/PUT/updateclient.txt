@@ -1,0 +1,32 @@
+/*
+PUT Client REQUEST
+Description: updates a client
+Data sample below
+	type = CLIENT
+	userid (Required)(Number) - tailorid given
+	(Not Implemented Yet)usertoken (Required)(String) token given to user
+*/
+{
+	userid:5,
+	usertoken:21321,
+	type: 'CLIENT',
+	data:
+	{
+		'tailor':5,
+		'id': '16731',
+		'email': 'hamandbacons@jeromeclothiers.com',
+		'firstName': 'Ham',
+		'lastName': 'Bacons',
+		'phone': '1234567890',
+		'dateOfBirth': 'mm/dd/yyyy',
+		'company': 'Jerome Clothiers',
+		'address1': '123 flamingo road',
+		'address2': '',
+		'city': 'Sydney',
+		'state': 'NSW',
+		'country':'Australia',
+		'zipCode': '1234',
+		'notes': 'test'
+		
+	}
+}

@@ -1,0 +1,122 @@
+/*
+GET FIT_PROFILE
+Description: Returns the list of fitprofiles
+PARAMETERS
+	type = CLIENT,
+	limit (Number) - page size,
+	offset (Number) - page of the search,
+	orderBy (String)- for sorting the results, use the field name for sorting,
+	filters.fp-client - email of the client
+	filters.fp-product-type - first name
+	filters.fp-measurement-type - last name
+	filters.user (Required)(Number) - tailorid given
+	(Not Implemented Yet) filters.usertoken (String) token given to user
+	
+*/
+//URL Input
+//https://3857857.app.netsuite.com/app/site/hosting/restlet.nl?script=380&deploy=2&type=FIT_PROFILE&offset=20&filter.id=5&filter.usertoken=12345
+//Output
+{
+   "offset":0,
+   "limit":25,
+   "data":[
+      {
+         "id":35698,
+         "name":" 10.03.2020",
+         "client":"13009",
+         "productType":"Trouser",
+         "blockValue":"54",
+         "measurementType":"Block",
+         "measurementValues":[
+            {
+               "name":"fit",
+               "value":"Slim"
+            },
+            {
+               "name":"block",
+               "value":"54"
+            },
+            {
+               "name":"Total-Rise-max",
+               "value":"1"
+            },
+            {
+               "name":"Front-Rise-max",
+               "value":"0"
+            },
+            {
+               "name":"Front-Rise-min",
+               "value":"0"
+            },
+            {
+               "name":"Back-Rise-min",
+               "value":"-1"
+            },
+            {
+               "name":"Flat-Seat-max",
+               "value":"0"
+            },
+            {
+               "name":"Flat-Seat-min",
+               "value":"0"
+            },
+            {
+               "name":"Back-Rise-Curve-max",
+               "value":"0"
+            },
+            {
+               "name":"Back-Rise-Curve-min",
+               "value":"0"
+            },
+            {
+               "name":"Crotch-max",
+               "value":"0"
+            },
+            {
+               "name":"Crotch-min",
+               "value":"0"
+            },
+            {
+               "name":"1/2-Waist-max",
+               "value":"0"
+            },
+            {
+               "name":"1/2-Waist-min",
+               "value":"0"
+            },
+            {
+               "name":"1/2-Seat-min",
+               "value":"-1.5"
+            },
+            {
+               "name":"1/2-Hip-max",
+               "value":"0"
+            },
+            {
+               "name":"1/2-Hip-min",
+               "value":"0"
+            },
+            {
+               "name":"1/2-Thigh-min",
+               "value":"-0.5"
+            },
+            {
+               "name":"1/2-Knee-min",
+               "value":"-1"
+            },
+            {
+               "name":"1/2-Foot-min",
+               "value":"-2"
+            },
+            {
+               "name":"Leg-Length-Left-max",
+               "value":"2"
+            },
+            {
+               "name":"Leg-Length-Right-max",
+               "value":"2"
+            }
+         ]
+      }
+   ]
+}

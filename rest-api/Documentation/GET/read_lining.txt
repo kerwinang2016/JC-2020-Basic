@@ -1,0 +1,11 @@
+/*
+GET LINING REQUEST
+Description: returns the details of the lining
+PARAMETERS
+	type = LINING
+	id (Required)(Number) LINING RECORD ID
+*/
+//URL
+//https://3857857.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=380&deploy=2&type=LINING&id=21613
+//OUTPUT
+{"id":1613,"number":"806082","code":"TR502","stock":0,"status":"Out of Stock"}

@@ -1204,9 +1204,15 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 
 					if(in_items && in_items.length>0){
 						var blockval = parseFloat(blockfield.value);
+						console.log('bloclval '+ blockval);
 						for(var i=0;i<in_items.length;i++){
+							console.log('finishedval ' + finishedval);
 							var finishedval = parseFloat(jQuery('[data-container="'+in_items[i].custrecord_in_in_parttext+'-finished"]').html());
+							console.log('in_items[i].custrecord_in_influence ' + in_items[i].custrecord_in_influence);
 							var newval = parseFloat(blockval*(parseFloat(in_items[i].custrecord_in_influence)/100)+finishedval).toFixed(1)
+
+							console.log(in_items[i].custrecord_in_in_parttext);
+							console.log(newval);
 							jQuery('[data-container="'+in_items[i].custrecord_in_in_parttext+'-finished"]').html(newval);
 						}
 					}

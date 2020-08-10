@@ -1,62 +1,56 @@
-
 <% registerMacro('blockMeasureField', function (field, value, increment,fieldset,hideField) {
 	var type = field.type
 	,	label = field.label
 	,	name = field.name
 	,	inputHtml = "";
-	/* JHD-6 Start */
-	if(type == "select"){
-		var optionstext = field.optionstext;
-		if(field.options && field.options.length){
-			inputHtml = '<div style="width:20%;margin:0;padding-right: 20px;"  class="span2"><select class="input input-small" data-field="'+name+'" id="body-' + name + '" name="' + name + '">';
-			//_.each(field.options, function(option){
-				for(var i=0;i<field.options.length; i++){
-				var option = field.options[i];
-				var selected = value == option ? 'selected' : '';
-				var optiontext = field.optionstext?field.optionstext[i]:option;
-				inputHtml = inputHtml + '<option value="' + option + '" ' + selected + '>' + optiontext + '</option>';
-				}
-			//});
-			inputHtml = inputHtml + '</select></div>';
-		} else {
-			if(!_.isUndefined(field.max) && !_.isNull(field.max)){
-				inputHtml = inputHtml + '<div style="width:20%;margin:0;padding-right: 20px;" class="span2"><select class="input input-small block-measurement-fld" data-field="'+name+'" id="' + name + '-max" name="' + name + '-max">'
-				for(var i = 0; i <= field.max; i = i + increment){
-					var selected = !_.isUndefined(value[1]) && parseFloat(value[1].value) == i ? 'selected' : '';
-					inputHtml = inputHtml + '<option value="' + i + '" ' + selected + '>' + i + '</option>'
-				}
-				inputHtml = inputHtml + '</select></div>'
-			}
-			if(!_.isUndefined(field.min) && !_.isNull(field.min)){
-				inputHtml = inputHtml + '<div style="width:20%;margin:0;padding-right: 20px;" class="span2 offset5p"><select class="input input-small block-measurement-fld" data-field="'+name+'" id="' + name + '-min" name="' + name + '-min">'
-				for(var i = 0; i >= field.min; i = i - increment){
-					var selected = !_.isUndefined(value[0]) && parseFloat(value[0].value) == i ? 'selected' : '';
-					inputHtml = inputHtml + '<option value="' + i + '" ' + selected + '>' + i + '</option>'
-				}
-				inputHtml = inputHtml + '</select></div>'
-			}
-			if(fieldset.name == 'length' || fieldset.name == 'horizontals') { <!-- JHD-11 -->
-				inputHtml = inputHtml + '<div style="width:11%;margin:0;float:left;text-align:left; color:#c1c1c1;" class="span3"><label class="fav-fit-tools-default" id="' + name + '-default"></label></div>'
-				//inputHtml = inputHtml + '<div style="margin:0;" class="span3 col-wid-10"><input id="'+name+'-hide-checkbox" type="checkbox" name="'+name+'-hide-checkbox" value="true"></div>'
-				inputHtml = inputHtml + '<span style="width:9%;margin:0;padding-right: 20px; color:#c1c1c1;" class="span-w-10 offset5p" data-container="'+name+'-block"></span>'
-				inputHtml = inputHtml + '<span style="width:10%;margin:0;padding-right: 20px; color:#c1c1c1;" class="span-w-10" data-container="'+name+'-finished"></span>'
-			} else {
-				inputHtml = inputHtml + '<div style="width:11%;margin:0;text-align:left; color:#c1c1c1;" class="span3"><label class="fav-fit-tools-default" id="' + name + '-default"></label></div>'
-				//inputHtml = inputHtml + '<div style="margin:0;" class="span3 col-wid-10"><input id="'+name+'-hide-checkbox" type="checkbox" name="'+name+'-hide-checkbox" value="true"></div>'
-				inputHtml = inputHtml + '<div style="width:9%;margin:0;" class="span3">&nbsp;</div>'
-				inputHtml = inputHtml + '<div style="width:10%;margin:0;" class="span3">&nbsp;</div>'
 
-			}
-		}
-
-	} else {
-		inputHtml = '<input class="input input-small" type="text" data-field="'+name+'" id="' + name + '" name="' + name + '" />'
-	}
 %>
 <div class="row-fluid" style="<% if(hideField){ %> display:none; <% } %>">
 	<div style="width:30%;margin:0;" class="span3"><%= label %></div>
-	<%= inputHtml %>
+	<% if(type == "select"){ %>
+		<% var optionstext = field.optionstext;
+		if(field.options && field.options.length){ %>
+			<div style="width:20%;margin:0;padding-right: 20px;"  class="span2"><select class="input input-small" data-field="<%=name%>" id="body-<%=name%>" name="<%=name%>">
+
+				<% for(var i=0;i<field.options.length; i++){
+				var option = field.options[i];
+				var selected = value == option ? 'selected' : '';
+				var optiontext = field.optionstext?field.optionstext[i]:option; %>
+				<option value="<%= option %>" <%= selected %>><%= optiontext %></option>
+				<% } %>
+			</select></div>
+		<% } else { %>
+			<% if(!_.isUndefined(field.max) && !_.isNull(field.max)){ %>
+				<div style="width:20%;margin:0;padding-right: 20px;" class="span2"><select class="input input-small block-measurement-fld" data-field="'+name+'" id="<%= name %>-max" name="<%= name %>-max">
+				<% for(var i = 0; i <= field.max; i = i + increment){
+					var selected = !_.isUndefined(value[1]) && parseFloat(value[1].value) == i ? 'selected' : '';
+					%>
+					<option value="<%= i %>" <%= selected %>><%= i %></option>
+				<% } %>
+				</select></div>
+			<% } %>
+			<% if(!_.isUndefined(field.min) && !_.isNull(field.min)){ %>
+				<div style="width:20%;margin:0;padding-right: 20px;" class="span2 offset5p"><select class="input input-small block-measurement-fld" data-field="<%=name%>" id="<%= name %>-min" name="<%= name %>-min">
+				<% for(var i = 0; i >= field.min; i = i - increment){
+					var selected = !_.isUndefined(value[0]) && parseFloat(value[0].value) == i ? 'selected' : ''; %>
+					<option value="<%= i %>" <%= selected %>><%= i %></option>
+				<% } %>
+				</select></div>
+			<% } %>
+			<% if(fieldset.name == 'length' || fieldset.name == 'horizontals') { %>
+				<div style="width:11%;margin:0;float:left;text-align:left; color:#c1c1c1;" class="span3"><label class="fav-fit-tools-default" id="<%= name %>-default"></label></div>
+
+				<span style="width:9%;margin:0;padding-right: 20px; color:#c1c1c1;" class="span-w-10 offset5p" data-container="<%=name%>-block"></span>
+				<span style="width:10%;margin:0;padding-right: 20px; color:#c1c1c1;" class="span-w-10" data-container="<%=name%>-finished"></span>
+			<% } else { %>
+				<div style="width:11%;margin:0;text-align:left; color:#c1c1c1;" class="span3"><label class="fav-fit-tools-default" id="<%= name %>-default"></label></div>
+
+				<div style="width:9%;margin:0;" class="span3">&nbsp;</div>
+				<div style="width:10%;margin:0;" class="span3">&nbsp;</div>
+			<% } %>
+		<% } %>
+	<% } else { %>
+		<input class="input input-small" type="text" data-field="<%=name%>" id="<%= name %>" name="<%= name %>" />
+	<% } %>
 </div>
-<% })
-/* JHD-6 End */
-%>
+<% }) %>

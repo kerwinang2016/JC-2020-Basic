@@ -69,8 +69,8 @@ define([
         .create({
           type: search.Type.CUSTOMER,
           filters: !_.isEmpty(filters)
-            ? queryUtils.getFilters(FILTER_MAP, { ...filters, parent: user })
-            : queryUtils.getFilters(FILTER_MAP, { parent: user }),
+            ? queryUtils.getFilters(FILTER_MAP, { ...filters, parent: filters.user })
+            : queryUtils.getFilters(FILTER_MAP, { parent: filters.user }),
           columns: queryUtils.getColumns(MODEL, orderBy)
         })
         .run()
@@ -97,7 +97,7 @@ define([
    * @param {boolean} [isDryRun] - Denotes if the operation is a dry run
    * @returns {Object}
    */
-  exports.read = function (id, isDryRun = true) {
+  exports.read = function (id, filters, isDryRun = true) {
     const user = runtime.getCurrentUser().id
 
     log.debug({
@@ -118,8 +118,9 @@ define([
         type: record.Type.CUSTOMER,
         id:id
       })
-
-      if (+tailor.getValue('parent') !== user) {
+      log.debug('parent',tailor.getValue('parent'));
+      log.debug('id',tailor.id);
+      if (tailor.getValue('parent') != filters.user && tailor.id != filters.user) {
         return "{status:'error', name:'NOT_FOUND', message: 'Tailor with id "+id+" not found.'}";
         // throw error.create({
         //   name: 'NOT_FOUND',
@@ -127,8 +128,9 @@ define([
         //   notifyOff: true
         // })
       }
-
-      result = objectMapper.buildRestObject(MODEL, tailor)
+      log.debug('HELLO');
+      result = objectMapper.buildRestObject(MODEL, tailor);
+      log.debug('HELLO1');
     }
 
     log.debug({

@@ -1,0 +1,28 @@
+/*
+GET TAILOR REQUEST
+Description: returns the details of the tailor
+PARAMETERS
+	type = CLIENT
+	id (Required)(Number) CLIENT RECORD ID
+	filters.user (Required)(Number) - tailorid given
+	(Not Implemented Yet)filters.usertoken (Required)(String) token given to user
+*/
+//URL
+//https://3857857.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=380&deploy=2&type=CLIENT&id=133&filters.user=1
+//OUTPUT
+{
+   "id":133,
+   "email":"aaron@oscarhunt.com.au",
+   "firstName":"Aaron",
+   "lastName":"Lister",
+   "phone":"0437815129",
+   "dateOfBirth":"",
+   "company":"",
+   "address1":"",
+   "address2":"",
+   "city":"",
+   "state":"",
+   "country":"",
+   "zipCode":"",
+   "notes":""
+}	

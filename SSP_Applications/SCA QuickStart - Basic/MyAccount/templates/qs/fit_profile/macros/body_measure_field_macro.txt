@@ -1,11 +1,3 @@
-<!--
-Change History    
--------------- 
-Date: 15-01-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-6
-Change Description: Expand room for fit tool names
--->
 <% registerMacro('bodyMeasureField', function (field, value, fieldset, baseAllowance, allowance,selectedItemType) {
 
 	var type = field.type
@@ -108,24 +100,23 @@ Change Description: Expand room for fit tool names
 		<div  style="width : 30%;margin:0;" class="span2 measurement"><%= label %></div>
 		<div style="width : 20%;margin:0;" class="span3-profile measurement">
 				<%= inputHtml %>
-			</div>
+		</div>
 		<div style="width : 20%;margin:0;" class="span3-profile measurement">
 			<input class="input input-small allowance-fld" type="number" step="any" id="allowance_<%= name %>" name="allowance-<%= name %>" value="<%= allowance ? allowance : baseAllowance %>"/>
-						</div>
+		</div>
 		<div style="width : 20%;margin:0;text-align:center;" class="span3-profile measurement">
-							<% if(config!=null){ %>
-								<span data-optional="<%= optional %>" min-value="<%= config.min %>" max-value="<%= config.max %>" id="finish_<%= name %>"><%= finishValue %></span>
-								<% }else{ %>
-
-									<span data-optional="<%= optional %>" id="finish_<%= name %>"><%= finishValue %></span>
-									<% } %>
-						</div>
+			<% if(config!=null){ %>
+				<span data-optional="<%= optional %>" min-value="<%= config.min %>" max-value="<%= config.max %>" id="finish_<%= name %>"><%= finishValue %></span>
+			<% }else{ %>
+				<span data-optional="<%= optional %>" id="finish_<%= name %>"><%= finishValue %></span>
+			<% } %>
+		</div>
 		<div style="width : 10%;margin:0;" class="span3-profile measurement">
-							<% if(config != null){ %>
-								<span id="range_<%= name %>">(<%= config.min %>-<%= config.max %>)</span>
-								<% } %>
-						</div>
-		<% } else if(fieldset == "body-profile") { %>
+			<% if(config != null){ %>
+				<span id="range_<%= name %>">(<%= config.min %>-<%= config.max %>)</span>
+			<% } %>
+		</div>
+	<% } else if(fieldset == "body-profile") { %>
 		<div  style="width : 30%;margin:0;" class="span2 measurement"><%= label %></div>
 		<div  style="width : 20%;margin:0;" class="span3-profile measurement">
 			<%= inputHtml %>
@@ -135,7 +126,6 @@ Change Description: Expand room for fit tool names
 		<div  class="span3-profile measurement">
 			<%= inputHtml %>
 		</div>
-						<% } %>
-	</div>
-<!-- JHD-6 End -->
-	<% }) %>
+	<% } %>
+</div>
+<% }) %>

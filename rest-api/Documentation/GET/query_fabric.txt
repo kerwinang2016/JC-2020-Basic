@@ -1,0 +1,35 @@
+/*
+GET FABRIC
+Description: Returns the list of fabrics
+PARAMETERS
+	type = FABRIC,
+	limit (Number) - page size,
+	offset (Number) - page of the search,
+	orderBy (String)- for sorting the results, use the field name for sorting,
+	filters.fb-name - fabric name
+	filters.fb-vendor - vendor name
+	
+*/
+//URL Input
+//https://3857857.app.netsuite.com/app/site/hosting/restlet.nl?script=380&deploy=2&type=FABRIC&offset=20
+//Output
+{
+   "offset":20,
+   "limit":25,
+   "data":[
+      {
+         "id":218078,
+         "name":"1 SEA ISLAND - (FM44401-1) - Shirt",
+         "vendor":"",
+         "stock":0,
+         "status":""
+      },
+      {
+         "id":294069,
+         "name":"1 X Trouser",
+         "vendor":"",
+         "stock":0,
+         "status":""
+      }
+   ]
+}

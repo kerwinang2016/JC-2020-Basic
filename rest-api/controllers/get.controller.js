@@ -66,16 +66,19 @@ define([
       })
 
       const id = +_.get(params, 'id')
-      const tailorid = +_.get(params, 'tailorid');
+      // const tailorid = +_.get(params, 'tailorid');
+      // const tailortoken = +_.get(params, 'tailortoken');
       const type = `${_.get(params, 'type', '')}`.toUpperCase()
       const filters = _.get(params, 'filters')
       const offset = +_.get(params, 'offset', '0')
       const limit = +_.get(params, 'limit', '25')
       const orderBy = _.get(params, 'orderBy')
       log.debug('filters',filters);
-
-      if (_.isEmpty(type) && _.isEmpty(id) && _.isEmpty(tailorid)) {
-        return "{status:'error',name:'ERROR INVALID_QUERY_PARAMETER', message:'Kindly specify a value for type and/or id and tailorid.'}";
+      // if(_.isEmpty(filters.user) && _.isEmpty(filters.usertoken)){
+      //   return "{status:'error',name:'ERROR INVALID_QUERY_PARAMETER', message:'Kindly specify a value for filters.user and/or filters.usertoken.'}";
+      // }
+      if (_.isEmpty(type) && _.isEmpty(id)) {
+        return "{status:'error',name:'ERROR INVALID_QUERY_PARAMETER', message:'Kindly specify a value for type and/or id.'}";
         // throw error.create({
         //   name: 'INVALID_QUERY_PARAMETER',
         //   message: 'Kindly specify a value for type and/or id.',
@@ -111,8 +114,8 @@ define([
       }
 
       const result = _.isNaN(id)
-        ? service.query(filters, offset, limit, orderBy, tailorid, isDryRun)
-        : service.read(id, tailorid, isDryRun)
+        ? service.query(filters, offset, limit, orderBy, isDryRun)
+        : service.read(id, filters, isDryRun)
 
       log.debug({
         title: 'GetController#result',

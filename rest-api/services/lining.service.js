@@ -91,7 +91,7 @@ define([
    * @param {boolean} [isDryRun] - Denotes if the operation is a dry run
    * @returns {Object}
    */
-  exports.read = function (id, isDryRun = true) {
+  exports.read = function (id, filters, isDryRun = true) {
     log.debug({
       title: 'LiningService#read.call',
       details: {

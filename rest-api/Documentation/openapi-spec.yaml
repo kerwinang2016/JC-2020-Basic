@@ -1,0 +1,918 @@
+openapi: "3.0.3"
+info:
+  title: "Jerome REST API"
+  description: "OpenAPI Specification for Jerome REST API"
+  version: "1.0.0-ALPHA"
+servers:
+  - url: "https://3857857.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=customscript_rest_api&deploy=customdeploy_rest_api_dev"
+    description: "Development Endpoint"
+  - url: "https://3857857.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=customscript_rest_api&deploy=customdeploy_rest_api_prod"
+    description: "Production Endpoint"
+paths:
+  /:
+    get:
+      tags:
+        - "api"
+      summary: "List/search records or retrieve a single record by its id"
+      description: "Retrieves a list of records based on type or retrieve a single record by its id"
+      operationId: "findRecords"
+      parameters:
+        - name: "type"
+          in: "query"
+          description: "The parameter to filter the type of record to query"
+          required: true
+          schema:
+            type: "string"
+            enum:
+              - "CLIENT"
+              - "FABRIC"
+              - "FIT_PROFILE"
+              - "LINING"
+              - "ORDER"
+              - "TAILOR"
+          example: "ORDER"
+        - name: "id"
+          in: "query"
+          description: "Optional: Supply this parameter to retrieve a single record by its id and type."
+          allowEmptyValue: true
+          schema:
+            type: "integer"
+          example: 1
+        - name: "filters.cl-email"
+          in: "query"
+          description: "Optional. Applicable only when listing/searching Clients (type = CLIENT). Use this to filter clients by email."
+          schema:
+            type: "string"
+            format: "email"
+          example: "jane@example.com"
+        - name: "filters.cl-first-name"
+          in: "query"
+          description: "Optional. Applicable only when listing/searching Clients (type = CLIENT). Use this to filter clients by their first name."
+          schema:
+            type: "string"
+          example: "jane"
+        - name: "filters.cl-last-name"
+          in: "query"
+          description: "Optional. Applicable only when listing/searching Clients (type = CLIENT). Use this to filter clients by their last name."
+          schema:
+            type: "string"
+          example: "doe"
+        - name: "filters.fp-client"
+          in: "query"
+          description: "Optional. Applicable only when listing/searching Fit Profiles (type = FIT_PROFILE). Use this to filter fit profiles by client id."
+          schema:
+            type: "integer"
+          example: 82
+        - name: "filters.fp-product-type"
+          in: "query"
+          description: "Optional. Applicable only when listing/searching Fit Profiles (type = FIT_PROFILE). Use this to filter fit profiles by the product type."
+          schema:
+            type: "integer"
+          example: 4
+        - name: "filters.fp-measurement-type"
+          in: "query"
+          description: "Optional. Applicable only when listing/searching Fit Profiles (type = FIT_PROFILE). Use this to filter fit profiles by the measurement type."
+          schema:
+            type: "integer"
+          example: 2
+        - name: "filters.fb-name"
+          in: "query"
+          description: "Optional. Applicable only when listing/searching Fabrics (type = FABRIC). Use this to filter fabrics by name."
+          schema:
+            type: "string"
+          example: "XYZ Collection"
+        - name: "filters.fb-vendor"
+          in: "query"
+          description: "Optional. Applicable only when listing/searching Fabrics (type = FABRIC). Use this to filter fabrics by vendor."
+          schema:
+            type: "string"
+          example: "Jerome Clothiers"
+        - name: "filters.ln-number"
+          in: "query"
+          description: "Optional. Applicable only when listing/searching Linings (type = LINING). Use this to filter linings by number."
+          schema:
+            type: "string"
+          example: "8229"
+        - name: "filters.ln-code"
+          in: "query"
+          description: "Optional. Applicable only when listing/searching Linings (type = LINING). Use this to filter linings by code."
+          schema:
+            type: "string"
+          example: "TR218"
+        - name: "filters.ord-ordernumber"
+          in: "query"
+          description: "Optional. Applicable only when listing/searching Orders (type = ORDER). Use this to filter orders by order number."
+          schema:
+            type: "string"
+          example: "25045"
+        - name: "filters.tl-name"
+          in: "query"
+          description: "Optional. Applicable only when listing/searching Tailors (type = TAILOR). Use this to filter tailors by name."
+          schema:
+            type: "string"
+          example: "jane"
+        - name: "filters.tl-email"
+          in: "query"
+          description: "Optional. Applicable only when listing/searching Tailors (type = TAILOR). Use this to filter tailors by their email."
+          schema:
+            type: "string"
+          example: "jane@example.com"
+        - name: "offset"
+          in: "query"
+          description: "Optional: Supply this parameter to offset through the paginated results of the search."
+          schema:
+            type: "integer"
+            minimum: 0
+            default: 0
+          example: 20
+        - name: "limit"
+          in: "query"
+          description: "Optional: Supply this parameter to limit the number of records to return in a paginated search."
+          schema:
+            type: "integer"
+            minimum: 1
+            maximum: 100
+            default: 25
+          example: 20
+        - name: "orderBy"
+          in: "query"
+          description: "Optional: Supply this parameter to specify a property by which to order the result set for a search. Use a negative sign (-) in order to sort in descending order."
+          schema:
+            type: "string"
+          example: "-name"
+      responses:
+        "200":
+          description: "Successfully queried records"
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: "#/components/responses/QueryResponse"
+                  - $ref: "#/components/responses/RecordResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "415":
+          $ref: "#/components/responses/UnsupportedMediaTypeError"
+        "500":
+          $ref: "#/components/responses/InternalError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+    post:
+      tags:
+        - "api"
+      summary: "Create a new record"
+      description: "Create a new record by type"
+      operationId: "createRecord"
+      requestBody:
+        description: "New record to create"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              required:
+                - "type"
+                - "data"
+              properties:
+                type:
+                  description: "The type of the record to create"
+                  type: "string"
+                  enum:
+                    - "CLIENT"
+                    - "FIT_PROFILE"
+                    - "ORDER"
+                data:
+                  type: "object"
+                  description: "The data for the record"
+            example:
+              type: "ORDER"
+              data:
+                customer: "1234"
+      responses:
+        "200":
+          description: "Successfully created record"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/RecordResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "415":
+          $ref: "#/components/responses/UnsupportedMediaTypeError"
+        "500":
+          $ref: "#/components/responses/InternalError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+    put:
+      tags:
+        - "api"
+      summary: "Update a record"
+      description: "Update a record by its type and id"
+      operationId: "updateRecord"
+      requestBody:
+        description: "Record details"
+        content:
+          application/json:
+            schema:
+              type: "object"
+              required:
+                - "id"
+                - "type"
+                - "data"
+              properties:
+                id:
+                  description: "The id of the record to update"
+                  type: "integer"
+                type:
+                  description: "The type of the record to update"
+                  type: "string"
+                  enum:
+                    - "CLIENT"
+                    - "FIT_PROFILE"
+                data:
+                  type: "object"
+            example:
+              id: 1
+              type: "ORDER"
+              data:
+                customer: "1234"
+      responses:
+        "200":
+          description: "Successfully updated record"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/RecordResponse"
+        "400":
+          $ref: "#/components/responses/BadRequestError"
+        "401":
+          $ref: "#/components/responses/UnauthorizedError"
+        "403":
+          $ref: "#/components/responses/ForbiddenError"
+        "404":
+          $ref: "#/components/responses/NotFoundError"
+        "415":
+          $ref: "#/components/responses/UnsupportedMediaTypeError"
+        "500":
+          $ref: "#/components/responses/InternalError"
+        "503":
+          $ref: "#/components/responses/ServiceUnavailableError"
+components:
+  schemas:
+    Client:
+      type: "object"
+      description: "Client model"
+      required:
+        - email
+        - firstName
+        - lastName
+        - phone
+        - address1
+        - city
+        - state
+        - country
+        - zipCode
+      properties:
+        id:
+          description: "The identifier for the client record"
+          type: "integer"
+          readOnly: true
+        email:
+          description: "The client's email address."
+          type: "string"
+          format: "email"
+        firstName:
+          description: "The client's first name."
+          type: "string"
+        lastName:
+          description: "The client's last name."
+          type: "string"
+        phone:
+          description: "The client's phone number"
+          type: "string"
+        dateOfBirth:
+          description: "The client's date of birth."
+          type: "string"
+          format: "date"
+        company:
+          description: "The company where the client is associated with."
+          type: "string"
+        address1:
+          description: "The client's street address."
+          type: "string"
+        address2:
+          description: "Optional. The client's building/unit address."
+          type: "string"
+        city:
+          description: "The client's city address."
+          type: "string"
+        state:
+          description: "The client's state address."
+          type: "string"
+        country:
+          description: "The client's country address."
+          type: "string"
+        zipCode:
+          description: "The client's zip or postal code."
+          type: "string"
+        notes:
+          description: "Other notes/description for the client."
+          type: "string"
+      example:
+        id: 2712
+        email: "anthony.mauldon@solidfuture.com"
+        firstName: "Anthony"
+        lastName: "Mauldon"
+        phone: "0261870960"
+        dateOfBirth: "03/11/1988"
+        company: "Solid Future"
+        address1: "69 Lewin St."
+        city: "Osborne"
+        state: "NSW"
+        country: "AUS"
+        zipCode: "2656"
+        notes: "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    Fabric:
+      type: "object"
+      description: "Fabric model"
+      properties:
+        id:
+          description: "The identifier for the fabric record"
+          type: "integer"
+          readOnly: true
+        name:
+          description: "The descriptive name for the fabric."
+          type: "string"
+        vendor:
+          description: "The vendor for the fabric."
+          type: "string"
+        stock:
+          description: "The available stock for the fabric."
+          type: "number"
+          format: "float"
+        status:
+          description: "The availability status for the fabric."
+          type: "string"
+          enum:
+            - "Available"
+            - "Soldout"
+            - "Temp Soldout"
+            - "Low Stock"
+            - "Out of Stock"
+      example:
+        id: 172
+        name: "XYZ Collection - (ABC1234)"
+        vendor: "Jerome Clothiers"
+        stock: 77.16
+        status: "Available"
+    FitProfile:
+      type: "object"
+      description: "Fit Profile model"
+      required:
+        - "name"
+        - "client"
+        - "productType"
+        - "measurementType"
+        - "measurementValues"
+      properties:
+        id:
+          description: "The identifier for the fit profile record"
+          type: "integer"
+          readOnly: true
+        name:
+          description: "A descriptive name for the fit profile."
+          type: "string"
+        client:
+          description: "The client associated with the fit profile."
+          type: "string"
+          readOnly: true
+        productType:
+          description: "The product type for the fit profile."
+          type: "string"
+          readOnly: true
+        blockValue:
+          description: "The block value for the fit profile."
+          type: "string"
+        measurementType:
+          description: "The measurement type for the fit profile."
+          type: "string"
+          readOnly: true
+        measurementValues:
+          description: "The measurement values represented in JSON String."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+      example:
+        id: 977
+        name: "04.01.2020 Fit Profile"
+        client: "1982"
+        productType: "Jacket"
+        measurementType: "Block"
+        blockValue: "50"
+        measurementValues: [
+          {"name":"fit","value":"Slim"},
+          {"name":"block","value":"50"},
+          {"name":"Posture-max","value":"0"},
+          {"name":"Posture-min","value":"0"},
+          {"name":"Collar-Height-max","value":"0"},
+          {"name":"Collar-Height-min","value":"0"},
+          {"name":"Shoulder-Height-Left-max","value":"0"},
+          {"name":"Shoulder-Height-Left-min","value":"0"},
+          {"name":"Shoulder-Height-Right-max","value":"0"},
+          {"name":"Shoulder-Height-Right-min","value":"0"},
+          {"name":"Armhole-Depth-max","value":"0"},
+          {"name":"Armhole-Depth-min","value":"0"},
+          {"name":"Sleeve-Position-max","value":"0"},
+          {"name":"Sleeve-Position-min","value":"0"},
+          {"name":"Strong-Dart-max","value":"0"},
+          {"name":"Strong-Dart-min","value":"0"},
+          {"name":"Lapel-Length-max","value":"0"},
+          {"name":"Lapel-Length-min","value":"0"},
+          {"name":"Shoulder-Position-max","value":"0"},
+          {"name":"Shoulder-Position-min","value":"0"},
+          {"name":"Sway-Back-max","value":"0"},
+          {"name":"Sway-Back-min","value":"0"},
+          {"name":"Center-Back-Seam-max","value":"0"},
+          {"name":"Center-Back-Seam-min","value":"0"},
+          {"name":"1/2-Collar-max","value":"0"},
+          {"name":"1/2-Collar-min","value":"0"},
+          {"name":"1/2-Shoulder-max","value":"0"},
+          {"name":"1/2-Shoulder-min","value":"0"},
+          {"name":"1/2-Back-max","value":"0"},
+          {"name":"1/2-Back-min","value":"0"},
+          {"name":"1/2-Chest-max","value":"0"},
+          {"name":"1/2-Chest-min","value":"0"},
+          {"name":"1/2-Chest-Front-max","value":"0"},
+          {"name":"1/2-Chest-Front-min","value":"0"},
+          {"name":"1/2-Girth-max","value":"0"},
+          {"name":"1/2-Girth-min","value":"0"},
+          {"name":"1/2-Front-max","value":"0"},
+          {"name":"1/2-Front-min","value":"0"},
+          {"name":"1/2-Hip-max","value":"0"},
+          {"name":"1/2-Hip-min","value":"0"},
+          {"name":"1/2-Front-Skirt-max","value":"0"},
+          {"name":"1/2-Front-Skirt-min","value":"0"},
+          {"name":"Upper-Arm-max","value":"0"},
+          {"name":"Upper-Arm-min","value":"0"},
+          {"name":"1/2-Hand-max","value":"0"},
+          {"name":"1/2-Hand-min","value":"0"},
+          {"name":"Length-max","value":"0"},
+          {"name":"Length-min","value":"0"},
+          {"name":"Front-Length-max","value":"0"},
+          {"name":"Front-Length-min","value":"0"},
+          {"name":"Sleeve-Length-Left-max","value":"0"},
+          {"name":"Sleeve-Length-Left-min","value":"0"},
+          {"name":"Sleeve-Length-Right-max","value":"0"},
+          {"name":"Sleeve-Length-Right-min","value":"0"},
+          {"name":"Closing-Button-Height-max","value":"0"},
+          {"name":"Closing-Button-Height-min","value":"0"},
+          {"name":"Chest-Pocket-Position-max","value":"0"},
+          {"name":"Chest-Pocket-Position-min","value":"0"},
+          {"name":"Vent-Length-max","value":"0"},
+          {"name":"Vent-Length-min","value":"0"}
+        ]
+    Lining:
+      type: "object"
+      description: "Lining model"
+      properties:
+        id:
+          description: "The identifier for the lining record"
+          type: "integer"
+          readOnly: true
+        number:
+          description: "The lining number."
+          type: "string"
+        code:
+          description: "The lining code."
+          type: "string"
+        stock:
+          description: "The available stock for the lining."
+          type: "number"
+          format: "float"
+        status:
+          description: "The availability status for the lining."
+          type: "string"
+          enum:
+            - "Available"
+            - "Soldout"
+            - "Temp Soldout"
+            - "Low Stock"
+            - "Out of Stock"
+      example:
+        id: 78
+        number: "800209"
+        code: "TR271"
+        stock: 868.97
+        status: "Available"
+    Order:
+      type: "object"
+      description: "Order model"
+      properties:
+        id:
+          description: "The identifier for the order record"
+          type: "integer"
+          readOnly: true
+        orderNumber:
+          description: "Auto-generated. The order number."
+          type: "string"
+          readOnly: true
+        date:
+          description: "The date when the order was placed."
+          type: "string"
+          readOnly: true
+        orderSubtotal:
+          description: "The subtotal for the order."
+          type: "number"
+          format: "float"
+          readOnly: true
+        taxTotal:
+          description: "The total tax amount."
+          type: "number"
+          format: "float"
+          readOnly: true
+        orderTotal:
+          description: "The total amount for the order."
+          type: "number"
+          format: "float"
+          readOnly: true
+        shipTo:
+          description: "The address where the order is to be shipped to."
+          type: "string"
+        items:
+          description: "The items on order"
+          type: "array"
+          items:
+            $ref: "#/components/schemas/OrderItem"
+      example:
+        id: 9182
+    OrderItem:
+      type: "object"
+      description: "Order Item model"
+      required:
+        - "fabric"
+        - "productType"
+        - "client"
+        - "fabricQuantity"
+      properties:
+        fabric:
+          description: "The fabric/item in order."
+          type: "string"
+        productType:
+          description: "The product type."
+          type: "string"
+        client:
+          description: "The client whom the order is for."
+          type: "string"
+        designOptionsJacket:
+          description: "The design options for jacket product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        designOptionsOvercoat:
+          description: "The design options for overcoat product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        designOptionsShirt:
+          description: "The design options for shirt product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        designOptionsShortSleevesShirt:
+          description: "The design options for short sleeves shirt product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        designOptionsTrenchCoat:
+          description: "The design options for trenchcoat product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        designOptionsTrouser:
+          description: "The design options for trouser product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        designOptionsWaistCoat:
+          description: "The design options for waistcoat product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        designOptionsLadiesJacket:
+          description: "The design options for ladies jacket product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        designOptionsLadiesPants:
+          description: "The design options for ladies pants product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        designOptionsLadiesSkirt:
+          description: "The design options for ladies skirt product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        designOptionsMessage:
+          description: "Other notes for design options."
+          type: "string"
+        fitProfileJacket:
+          description: "The fit profile to use for jacket product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        fitProfileOvercoat:
+          description: "The fit profile to use for overcoat product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        fitProfileShirt:
+          description: "The fit profile to use for shirt product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        fitProfileShortSleevesShirt:
+          description: "The fit profile to use for short sleeves shirt product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        fitProfileTrenchCoat:
+          description: "The fit profile to use for trench coat product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        fitProfileTrouser:
+          description: "The fit profile to use for trouser product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        fitProfileWaistcoat:
+          description: "The fit profile to use for waist coat product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        fitProfileLadiesJacket:
+          description: "The fit profile to use for ladies jacket product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        fitProfileLadiesPants:
+          description: "The fit profile to use for ladies pants product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        fitProfileLadiesSkirt:
+          description: "The fit profile to use for ladies skirt product type."
+          type: "array"
+          items:
+            $ref: "#/components/schemas/NameValue"
+        fitProfileMessage:
+          description: "Other notes for fit profile."
+          type: "string"
+        fabricQuantity:
+          description: "The quantity of fabric to order."
+          type: "number"
+          format: "float"
+        amount:
+          description: "The amount charged to the client."
+          type: "number"
+          format: "float"
+    OrderListItem:
+      type: "object"
+      description: "Order List Item model"
+      properties:
+        id:
+          description: "The identifier for the order record"
+          type: "integer"
+          readOnly: true
+        orderNumber:
+          description: "The order number."
+          type: "string"
+          readOnly: true
+        date:
+          description: "The date when the order was placed"
+          type: "string"
+          format: "date"
+          readOnly: true
+        client:
+          description: "The client for whom the order was placed"
+          type: "string"
+        item:
+          description: "The item that was ordered"
+          type: "string"
+        fabricStatus:
+          description: "The fabric status"
+          type: "string"
+        cmtStatus:
+          description: "The CMT status"
+          type: "string"
+        dateNeeded:
+          description: "The date when the item is needed."
+          type: "string"
+          format: "date"
+      example:
+        id: 9182
+        orderNumber: "25045-1"
+        date: "28/06/2020"
+        client: "John Doe"
+        item: "Tasmanian - (691033)-2-Piece-Suit"
+        fabricStatus: "Pending"
+        cmtStatus: "Pending"
+        dateNeeded: "31/07/2020"
+    Tailor:
+      type: "object"
+      description: "Tailor model"
+      properties:
+        id:
+          description: "The identifier for the tailor record"
+          type: "integer"
+          readOnly: true
+        name:
+          description: "The name or company name of the tailor."
+          type: "string"
+        email:
+          description: "The email of the tailor."
+          type: "string"
+          format: "email"
+        phone:
+          description: "The phone number of the tailor."
+          type: "string"
+      example:
+        id: 923
+        name: "XYZ Tailors"
+        email: "xyz@tailors.com.au"
+        phone: "+61 7 7010 8376"
+    NameValue:
+      type: "object"
+      description: "Name/value model"
+      required:
+        - "name"
+        - "value"
+      properties:
+        name:
+          description: "The name of the property"
+          type: "string"
+        value:
+          description: "The value to set on the property."
+          type: "string"
+      example:
+        name: "li-b-j"
+        value: "TR139"
+  responses:
+    RecordResponse:
+      description: "Generic record response."
+      content:
+        application/json:
+          schema:
+            oneOf:
+              - $ref: "#/components/schemas/Client"
+              - $ref: "#/components/schemas/Fabric"
+              - $ref: "#/components/schemas/FitProfile"
+              - $ref: "#/components/schemas/Lining"
+              - $ref: "#/components/schemas/Order"
+              - $ref: "#/components/schemas/Tailor"
+    QueryResponse:
+      description: "Successfully queried records"
+      content:
+        application/json:
+          schema:
+            type: "object"
+            description: "Generic response schema for queries or search"
+            properties:
+              offset:
+                type: "integer"
+                readOnly: true
+              limit:
+                type: "integer"
+                readOnly: true
+              data:
+                  type: "array"
+                  items:
+                    oneOf:
+                      - $ref: "#/components/schemas/Client"
+                      - $ref: "#/components/schemas/Fabric"
+                      - $ref: "#/components/schemas/FitProfile"
+                      - $ref: "#/components/schemas/Lining"
+                      - $ref: "#/components/schemas/Order"
+                      - $ref: "#/components/schemas/Tailor"
+    ErrorResponse:
+      description: "Error response"
+      content:
+        application/json:
+          schema:
+            type: "object"
+            properties:
+              error:
+                description: "The error object"
+                type: "object"
+                readOnly: true
+                properties:
+                  code:
+                    description: "The error or response code"
+                    type: "string"
+                    readOnly: true
+                  message:
+                    description: "A high level descriptive message for the error"
+                    type: "string"
+                    readOnly: true
+          example:
+            code: "INVALID_LOGIN_ATTEMPT"
+            message: "Invalid login attempt."
+    BadRequestError:
+      description: "The request has failed with a user error."
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/responses/ErrorResponse"
+          example:
+            error:
+              code: "VALIDATION_ERROR"
+              message: "Validation has failed."
+    UnauthorizedError:
+      description: "There is not a valid login session for the API calls."
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/responses/ErrorResponse"
+          example:
+            error:
+              code: "INVALID_LOGIN_ATTEMPT"
+              message: "Invalid login attempt."
+    ForbiddenError:
+      description: "Request sent to invalid domain, meaning a domain other than https://3857857.restlets.api.netsuite.com."
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/responses/ErrorResponse"
+          example:
+            error:
+              code: "FORBIDDEN"
+              message: "Access denied"
+    NotFoundError:
+      description: "The operation or resource is not found on the server."
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/responses/ErrorResponse"
+          example:
+            error:
+              code: "NOT_FOUND"
+              message: "Resource not found"
+    MethodNotAllowedError:
+      description: "The request method is not valid."
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/responses/ErrorResponse"
+          example:
+            error:
+              code: "METHOD_NOT_ALLOWED"
+              message: "The requested method is not allowed."
+    UnsupportedMediaTypeError:
+      description: "An unsupported content type was specified. (Only application/json is allowed.)"
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/responses/ErrorResponse"
+          example:
+            error:
+              code: "UNSUPPORTED_MEDIA_TYPE"
+              message: "The content type header is invalid."
+    InternalError:
+      description: "Occurs for non-user errors that cannot be recovered by resubmitting the same request. If this type of error occurs, immediately contact Jerome Clothiers."
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/responses/ErrorResponse"
+          example:
+            error:
+              code: "UNEXPECTED_ERROR"
+              message: " An unexpected error has occurred."
+    ServiceUnavailableError:
+      description: "The database is offline or a database connection is not available."
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/responses/ErrorResponse"
+          example:
+            error:
+              code: "SERVICE_UNAVAILABLE"
+              message: "Service is unavailable."
+  securitySchemes:
+    NLAuth:
+      type: "apiKey"
+      in: "header"
+      name: "Authorization"
+security:
+  - NLAuth: []

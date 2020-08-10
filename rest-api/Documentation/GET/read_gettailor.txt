@@ -1,0 +1,13 @@
+/*
+GET TAILOR REQUEST
+Description: returns the details of the tailor
+PARAMETERS
+	type = ORDER
+	id (Required)(Number)
+	filters.user (Required)(Number) - tailorid given
+	(Not Implemented Yet)filters.usertoken (Required)(String) token given to user
+*/
+//URL
+//https://3857857.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=380&deploy=2&type=TAILOR&id=1&filters.user=1
+//OUTPUT
+{"id":0,"name":"1 FIRST TAILOR","email":"orders@firsttailor.com.au","phone":"032 670 6303"}

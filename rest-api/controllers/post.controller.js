@@ -42,16 +42,19 @@ define([
         }
       })
 
-      const type = `${_.get(body, 'type', '')}`.toUpperCase()
+      const type = _.get(body, 'type', '').toUpperCase()
+      const userid = _.get(body, 'userid', '');
+      const usertoken = _.get(body, 'usertoken', '');
       const data = _.get(body, 'data', {})
-
-      if (_.isEmpty(data) || !_.isPlainObject(data)) {
+      log.debug('type',type);
+      log.debug('userid',userid);
+      log.debug('usertoken',usertoken);
+      log.debug('data',data);
+      if (!userid ) {
+        return "{status:'error', name:'INVALID_INPUT', message: 'userid is required.'}";
+      }
+      if (_.isEmpty(data) ) {
         return "{status:'error', name:'INVALID_INPUT', message: 'The data submitted in invalid.'}";
-        // throw error.create({
-        //   name: 'INVALID_INPUT',
-        //   message: 'The data submitted in invalid.',
-        //   notifyOff: true
-        // })
       }
 
       const serviceMap = new Map([
@@ -70,7 +73,9 @@ define([
         //   notifyOff: true
         // })
       }
-
+      if (type == 'ORDER' && userid != data.tailor) {
+        return "{status:'error', name:'INVALID_INPUT', message: 'userid and data.tailor should be the same.'}";
+      }
       const result = service.create(data, isDryRun)
 
       log.debug({

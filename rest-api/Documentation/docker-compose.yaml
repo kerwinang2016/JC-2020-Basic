@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+
+  swagger-ui:
+    image: "swaggerapi/swagger-ui:v3.25.4"
+    ports:
+      - "8080:8080"
+    volumes:
+      - "./openapi-spec.yaml:/usr/share/spec/openapi-spec.yaml"
+    environment:
+      SWAGGER_JSON: "/usr/share/spec/openapi-spec.yaml"
+    healthcheck:
+      test: ["CMD", "wget", "localhost:8080 -q -O - > /dev/null 2>&1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5

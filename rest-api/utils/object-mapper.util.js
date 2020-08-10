@@ -63,6 +63,43 @@ define(['N/log', 'vendor/lodash'], function (log, _) {
   }
 
   /**
+   * Helper function for mapping/transposing RESTlet sublists to NetSuite record sublists
+   *
+   * @method
+   * @param {String} sublist - The sublist id
+   * @param {Map} modelMap - The model field mapping/description
+   * @param {record.Record | search.Result} record - The record or search result instance to use for mapping
+   * @param {Object[]} - A collection of values to be set on the sublist
+   * @returns {Object}
+   */
+  const buildSublist = function (sublistId, fieldMap, record, values) {
+    _.forEach(values, (val, index) => {
+      fieldMap.forEach((value, key) => {
+        let fieldValue = _.get(val, key)
+
+        if (!_.isEmpty(fieldValue) && value.type && value.type === 'json')
+          fieldValue = JSON.stringify(fieldValue)
+
+        if (value.mapToText) {
+          record.setSublistText({
+            sublistId,
+            fieldId: value.field,
+            line: index,
+            value: fieldValue
+          })
+        } else {
+          record.setSublistValue({
+            sublistId,
+            fieldId: value.field,
+            line: index,
+            value: fieldValue
+          })
+        }
+      })
+    })
+  }
+
+  /**
    * Helper function for mapping/transposing NetSuite records to RESTlet objects
    *
    * @method
@@ -75,10 +112,15 @@ define(['N/log', 'vendor/lodash'], function (log, _) {
 
     modelMap.forEach((value, key) => {
       if (_.isEmpty(value.sublist)) {
-        let val = value.mapToText
-          ? record.getText({ fieldId: value.field, name: value.field })
-          : record.getValue({ fieldId: value.field, name: value.field })
-
+        var val;
+        if(value.field == 'internalid'){
+          val = record.id;
+        }else{
+          log.debug('value.field', value.field);
+          val = value.mapToText
+            ? record.getText({ fieldId: value.field, name:value.field})
+            : record.getValue({ fieldId: value.field, name:value.field})
+        }
         if (value.type && TYPE_CONVERSIONS.get(value.type)) {
           val = TYPE_CONVERSIONS.get(value.type)(val)
         } else {
@@ -105,9 +147,26 @@ define(['N/log', 'vendor/lodash'], function (log, _) {
    */
   exports.buildRecordObject = function (modelMap, record, restObject) {
     modelMap.forEach((value, key) => {
-      value.mapToText && key !== 'id'
-        ? record.setText({ fieldId: value.field, value: _.get(restObject, key, '') })
-        : record.setValue({ fieldId: value.field, value: _.get(restObject, key, '') })
+      if (_.isEmpty(value.sublist)) {
+        if(value.mapToText && key !== 'id'){
+          record.setText({ fieldId: value.field, value: _.get(restObject, key, '') });
+        }else{
+          if(value.jsontostring){
+            record.setValue({ fieldId: value.field, value: JSON.stringify(_.get(restObject, key, '')) })
+          }else{
+            if(value.listmap){
+              var found = _.find(value.listmap,function(o){ return o.name == _.get(restObject, key, '');});
+              if(found){
+                  record.setValue({ fieldId: value.field, value: found.value });
+              }
+            }else{
+              record.setValue({ fieldId: value.field, value: _.get(restObject, key, '') })
+            }
+          }
+        }
+      } else {
+        buildSublist(value.sublist, value.fields, record, _.get(restObject, key, []))
+      }
     })
 
     return record

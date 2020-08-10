@@ -42,7 +42,7 @@ define([
         }
       })
 
-      const id = +_.get(body, 'id')
+      const id = +_.get(body, 'userid')
       const type = `${_.get(body, 'type', '')}`.toUpperCase()
       const data = _.get(body, 'data', {})
 

@@ -59,12 +59,12 @@ define([
    * @returns {Object}
    */
   exports.query = function (filters = {}, offset = 0, limit = 25, orderBy = '', isDryRun = true) {
-    const user = runtime.getCurrentUser().id
+    //const user = runtime.getCurrentUser().id
 
     log.debug({
       title: 'ClientService#query.call',
       details: {
-        user,
+        //user,
         filters,
         offset,
         limit,
@@ -78,12 +78,13 @@ define([
     if (isDryRun) {
       //_.times(limit, () => result.data.push(mocker.mockClient()))
     } else {
+      try{
       search
         .create({
           type: TYPE,
           filters: !_.isEmpty(filters)
-            ? queryUtils.getFilters(FILTER_MAP, { ...filters, user: [user] })
-            : queryUtils.getFilters(FILTER_MAP, { user: [user] }),
+            ? queryUtils.getFilters(FILTER_MAP, { ...filters })
+            : queryUtils.getFilters(FILTER_MAP),
           columns: queryUtils.getColumns(MODEL, orderBy)
         })
         .run()
@@ -92,6 +93,9 @@ define([
           end: offset + limit
         })
         .forEach((res) => result.data.push(objectMapper.buildRestObject(MODEL, res)))
+      }catch(e){
+        log.debug('error',e.message)
+      }
     }
 
     log.debug({
@@ -110,7 +114,7 @@ define([
    * @param {boolean} [isDryRun] - Denotes if the operation is a dry run
    * @returns {Object}
    */
-  exports.read = function (id, isDryRun = true) {
+  exports.read = function (id, filters, isDryRun = true) {
     const user = runtime.getCurrentUser().id
 
     log.debug({
@@ -132,8 +136,8 @@ define([
         id:id
       })
 
-      if (+client.getValue('custrecord_tc_user') !== user) {
-        return "{status:'error', name:'NOT_FOUND', message: 'Tailor with id "+id+" not found.'}";
+      if (+client.getValue('custrecord_tc_tailor') != filters.user) {
+        return "{status:'error', name:'NOT_FOUND', message: 'Client with id "+id+" not found.'}";
         // throw error.create({
         //   name: 'NOT_FOUND',
         //   message: `Tailor with id ${id} not found.`,
@@ -177,19 +181,19 @@ define([
     if (isDryRun) {
       result = { id: faker.random.number(), ...data }
     } else {
-      let record = objectMapper.buildRecordObject(
+      let clientrecord = objectMapper.buildRecordObject(
         MODEL,
         record.create({
           type: TYPE
         }),
-        { ...data, user }
+        { ...data}
       )
 
-      record.setValue('custrecord_tc_tailor', user)
+      clientrecord.setValue('custrecord_tc_tailor', data.tailor)
 
-      const id = record.save({ enableSourcing: true })
+      const id = clientrecord.save({ enableSourcing: true })
 
-      result = objectMapper.buildRestObject(MODEL, record)
+      result = objectMapper.buildRestObject(MODEL, clientrecord)
       result = {
         ...result,
         id
@@ -233,18 +237,19 @@ define([
     } else {
       const updateData = _.omit(data, ['user'])
 
-      const record = objectMapper
+      const client = record.load({
+        type: TYPE,
+        id:data.id
+      });
+      objectMapper
         .buildRecordObject(
           MODEL,
-          record.load({
-            type: TYPE,
-            id
-          }),
+          client,
           updateData
         )
         .save({ enableSourcing: true })
 
-      result = objectMapper.buildRestObject(MODEL, record)
+      result = objectMapper.buildRestObject(MODEL, client)
     }
 
     log.debug({

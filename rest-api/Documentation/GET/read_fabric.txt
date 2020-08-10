@@ -1,0 +1,11 @@
+/*
+GET FABRIC REQUEST
+Description: returns the details of the fabric
+PARAMETERS
+	type = FABRIC
+	id (Required)(Number) FABRIC RECORD ID
+*/
+//URL
+//https://3857857.restlets.api.netsuite.com/app/site/hosting/restlet.nl?script=380&deploy=2&type=FABRIC&id=260684
+//OUTPUT
+{"id":260684,"name":"AA Collection - (TSHL059)","vendor":"Jerome Clothiers","stock":407.13,"status":"Available"}

@@ -46,6 +46,7 @@ define([
     ['taxTotal', { field: 'taxtotal', type: 'number' }],
     ['orderTotal', { field: 'total', type: 'number' }],
     ['shipTo', { field: 'shipaddress' }],
+    ['tailor', {field: 'entity'}],
     [
       'items',
       {
@@ -111,6 +112,34 @@ define([
     ['category', { field: 'custcol_itm_category_url', operator: search.Operator.ISNOTEMPTY }],
     ['user', { field: 'entity' }]
   ])
+  var ORDER_COLUMN_MAP =  [
+    {name:'productType',value:'custcol_producttype'},
+    {name:'client',value:'custcol_tailor_client_name'},
+    {name:'designOptionsJacket',value:'custcol_designoptions_jacket'},
+    {name:'designOptionsOverCoat',value:'custcol_designoptions_overcoat'},
+    {name:'designOptionsShirt',value:'custcol_designoptions_shirt'},
+    {name:'designOptionsShortSleevesShirt',value:'custcol_designoptions_ssshirt'},
+    {name:'designOptionsTrenchCoat',value:'custcol_designoptions_trenchcoat'},
+    {name:'designOptionsTrouser',value:'custcol_designoptions_trouser'},
+    {name:'designOptionsWaistCoat',value:'custcol_designoptions_waistcoat'},
+    {name:'designOptionsLadiesJacket',value:'custcol_designoptions_ladiesjacket'},
+    {name:'designOptionsLadiesPants',value:'custcol_designoptions_ladiespants'},
+    {name:'designOptionsLadiesSkirt',value:'custcol_designoptions_ladiesskirt'},
+    {name:'designOptionsMessage',value:'custcol_designoption_message'},
+    {name:'fitProfileJacket',value:'custcol_fitprofile_jacket'},
+    {name:'fitProfileOverCoat',value:'custcol_fitprofile_overcoat'},
+    {name:'fitProfileShirt',value:'custcol_fitprofile_shirt'},
+    {name:'fitProfileShortSleevesShirt',value:'custcol_fitprofile_ssshirt'},
+    {name:'fitProfileTrenchCoat',value:'custcol_fitprofile_trenchcoat'},
+    {name:'fitProfileTrouser',value:'custcol_fitprofile_trouser'},
+    {name:'fitProfileWaistCoat',value:'custcol_fitprofile_waistcoat'},
+    {name:'fitProfileLadiesJacket',value:'custcol_fitprofile_ladiesjacket'},
+    {name:'fitProfileLadiesPants',value:'custcol_fitprofile_ladiespants'},
+    {name:'fitProfileLadiesSkirt',value:'custcol_fitprofile_ladiesskirt'},
+    {name:'fitProfileMessage',value:'custcol_fitprofile_message'},
+    {name:'fabricQuantity',value:'custcol_fabric_quantity'},
+    {name:'dateNeeded',value:'custcol_avt_date_needed'}
+  ];
 
   const exports = {}
 
@@ -185,7 +214,7 @@ define([
    * @param {boolean} [isDryRun] - Denotes if the operation is a dry run
    * @returns {Object}
    */
-  exports.read = function (id, isDryRun = true) {
+  exports.read = function (id, filters, isDryRun = true) {
     const user = runtime.getCurrentUser().id
 
     log.debug({
@@ -206,16 +235,17 @@ define([
         type: record.Type.SALES_ORDER,
         id: id
       })
-
+      //log.debug('filters.user',filters.user)
+      //log.debug("+order.getValue('entity')",+order.getValue('entity'))
       //Disabled for testing
-      // if (+order.getValue('entity') !== user && user != '97') {
-      //   return "{name: 'NOT_FOUND', message:'Order with id "+id+" not found.'}";
-      //   // throw error.create({
-      //   //   name: 'NOT_FOUND',
-      //   //   message: `Order with id ${id} not found.`,
-      //   //   notifyOff: true
-      //   // })
-      // }
+      if (+order.getValue('entity') != filters.user) {
+        return "{name: 'NOT_FOUND', message:'Order with id "+id+" not found.'}";
+        // throw error.create({
+        //   name: 'NOT_FOUND',
+        //   message: `Order with id ${id} not found.`,
+        //   notifyOff: true
+        // })
+      }
 
       const restObject = objectMapper.buildRestObject(DETAIL_MODEL, order)
       const items = []
@@ -251,21 +281,85 @@ define([
   exports.create = function (data = {}, isDryRun = true) {
     const user = runtime.getCurrentUser().id
 
-    log.debug({
-      title: 'OrderService#create.call',
-      details: {
-        user,
-        data,
-        isDryRun
-      }
-    })
-
+    // log.debug({
+    //   title: 'OrderService#create.call',
+    //   details: {
+    //     user,
+    //     data,
+    //     isDryRun
+    //   }
+    // })
+    //log.debug('data',data)
     let result = {}
 
     if (isDryRun) {
       result = { id: faker.random.number(), ...data }
     } else {
+        var noerrors = true;
+        var orderrecord = record.create({
+            type: record.Type.SALES_ORDER,
+            isDynamic: true
+          });
+          orderrecord.setValue('entity',data.tailor);
+          orderrecord.setValue('custbody_customer_name',data.client);
+          for(var i=0;i<data.items.length;i++){
+            var item = data.items[i];
+            var itemsearch = search.create({
+              type:search.Type.ITEM,
+              filters: search.createFilter({
+                name:'name',
+                operator: 'contains',
+                values: item.fabric
+                })
+            });
+            var itemid = "";
+            itemsearch.run().each(function(sr){ itemid = sr.id;});
+            if(itemid){
+                orderrecord.selectNewLine({sublistId:'item'});
+                orderrecord.setCurrentSublistValue('item','item',itemid);
+                Object.keys(item).forEach(function(o){
+                  var found = _.find(ORDER_COLUMN_MAP,function(colname){return colname.name == o;});
+                  if(found && item[o]){
+                      log.debug(found.value,item[o]);
+                      if(found.value == 'custcol_avt_date_needed')
+                      orderrecord.setCurrentSublistValue('item',found.value,new Date(item[o]));
+                      else{
+                        orderrecord.setCurrentSublistValue('item',found.value,item[o]);
+                      }
+                  }
+                });
+                orderrecord.commitLine('item');
+            }
+            else{
+              result = {status:'error',name:'ERROR ITEM IN DATA', message:'Please check with us on the item.'};
+            }
+
+          }
+          if(noerrors){
+              try{
+              const id = orderrecord.save({ enableSourcing: true });
+              result = {status:'success',id:id};
+            }catch(e){
+              result = {status:'error',name:'FAILED TO SAVE', message:JSON.stringify(e)};
+            }
+          }
+
       // TODO: Create order based on data
+       //  let orderrecord = objectMapper.buildRecordObject(
+       //   DETAIL_MODEL,
+       //   record.create({
+       //     type: record.Type.SALES_ORDER
+       //   }),
+       //   { ...data }
+       // )
+       //
+       // const id = orderrecord.save({ enableSourcing: true })
+
+       // result = objectMapper.buildRestObject(DETAIL_MODEL, orderrecord)
+       // result = {
+       //   ...result,
+       //   id
+       // }
     }
 
     log.debug({

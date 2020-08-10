@@ -1,0 +1,40 @@
+/*
+GET CLIENTS
+Description: Returns the tailor's clients stored in the system
+PARAMETERS
+	type = CLIENT,
+	limit (Number) - page size,
+	offset (Number) - page of the search,
+	orderBy (String)- for sorting the results, use the field name for sorting,
+	filters.cl-email - email of the client
+	filters.cl-first-name - first name
+	filters.cl-last-name - last name
+	filters.user (Required)(Number) - tailorid given
+	(Not Implemented Yet) filters.usertoken (String) token given to user
+	
+*/
+//URL Input
+//https://3857857.app.netsuite.com/app/site/hosting/restlet.nl?script=380&deploy=2&type=CLIENT&offset=20&filter.id=5&filter.usertoken=12345
+//Output
+{
+   "offset":0,
+   "limit":25,
+   "data":[
+      {
+         "id":7198,
+         "email":"steve.jobs@facebook.com",
+         "firstName":"Steve",
+         "lastName":"Jobs",
+         "phone":"12345678",
+         "dateOfBirth":"",
+         "company":"",
+         "address1":"",
+         "address2":"",
+         "city":"",
+         "state":"",
+         "country":"",
+         "zipCode":"",
+         "notes":""
+      }
+   ]
+}

@@ -26,11 +26,32 @@ define([
   const MODEL = new Map([
     ['id', { field: 'internalid', type: 'integer' }],
     ['name', { field: 'name', defaultSort: true }],
-    ['client', { field: 'custrecord_fp_client', mapToText: true }],
-    ['productType', { field: 'custrecord_fp_product_type', mapToText: true }],
+    ['clientid', { field: 'custrecord_fp_client'}],
+    ['productType', { field: 'custrecord_fp_product_type', listmap:[
+      {name:'Jacket',value:3},
+      {name:'Trouser',value:4},
+      {name:'Waistcoat',value:6},
+      {name:'Overcoat',value:8},
+      {name:'Shirt',value:7},
+      {name:'3-Piece-Suit',value:9},
+      {name:'2-Piece-Suit',value:10},
+      {name:'Short-Sleeves-Shirt',value:12},
+      {name:'Trenchcoat',value:13},
+      {name:'Ladies-Jacket',value:14},
+      {name:'Ladies-Pants',value:15},
+      {name:'Ladies-Skirt',value:16},
+      {name:'L-2PC-Skirt',value:17},
+      {name:'L-3PC-Suit',value:18},
+      {name:'L-2PC-Pants',value:19},
+      {name:'Morning-Coat',value:27},
+      {name:'Shorts',value:28}
+    ]}],
     ['blockValue', { field: 'custrecord_fp_block_value' }],
-    ['measurementType', { field: 'custrecord_fp_measure_type', mapToText: true }],
-    ['measurementValues', { field: 'custrecord_fp_measure_value', type: 'json' }]
+    ['measurementType', { field: 'custrecord_fp_measure_type',listmap:[
+      {name:'Block',value:1},
+      {name:'Body',value:2}
+    ]}],
+    ['measurementValues', { field: 'custrecord_fp_measure_value', jsontostring:true}]
   ])
   const FILTER_MAP = new Map([
     ['fp-client', { field: 'custrecord_fp_client' }],
@@ -75,8 +96,8 @@ define([
         .create({
           type: TYPE,
           filters: !_.isEmpty(filters)
-            ? queryUtils.getFilters(FILTER_MAP, { ...filters, tailor: user })
-            : queryUtils.getFilters(FILTER_MAP, { tailor: user }),
+            ? queryUtils.getFilters(FILTER_MAP, { ...filters, tailor: filters.user })
+            : queryUtils.getFilters(FILTER_MAP, { tailor: filters.user }),
           columns: queryUtils.getColumns(MODEL, orderBy)
         })
         .run()
@@ -103,7 +124,7 @@ define([
    * @param {boolean} [isDryRun] - Denotes if the operation is a dry run
    * @returns {Object}
    */
-  exports.read = function (id, isDryRun = true) {
+  exports.read = function (id, filters, isDryRun = true) {
     const user = runtime.getCurrentUser().id
 
     log.debug({
@@ -130,8 +151,7 @@ define([
         type: 'customrecord_sc_tailor_client',
         columns: 'custrecord_tc_tailor'
       })
-
-      if (tailorClient.custrecord_tc_tailor !== user) {
+      if (tailorClient.custrecord_tc_tailor[0].value != filters.user) {
         return "{status:'error', name:'NOT_FOUND', message: 'Fit profile with id "+id+" not found.'}";
         // throw error.create({
         //   name: 'NOT_FOUND',
@@ -177,13 +197,12 @@ define([
       result = { id: faker.random.number(), ...data }
     } else {
       const tailorClient = search.lookupFields({
-        id: data.client,
+        id: data.clientid,
         type: 'customrecord_sc_tailor_client',
         columns: 'custrecord_tc_tailor'
       })
-
-      if (tailorClient.custrecord_tc_tailor !== user) {
-        return "{status:'error', name:'NOT_FOUND', message: 'Client with id "+data.client+" not found.'}";
+      if (tailorClient.custrecord_tc_tailor[0].value != data.tailor) {
+        return "{status:'error', name:'NOT_FOUND', message: 'Client with id "+data.clientid+" not found.'}";
         // throw error.create({
         //   name: 'NOT_FOUND',
         //   message: `Client with id ${data.client} not found.`,
@@ -191,7 +210,7 @@ define([
         // })
       }
 
-      const record = objectMapper.buildRecordObject(
+      const fitprofilerecord = objectMapper.buildRecordObject(
         MODEL,
         record.create({
           type: TYPE
@@ -199,9 +218,9 @@ define([
         data
       )
 
-      const id = record.save({ enableSourcing: true })
+      const id = fitprofilerecord.save({ enableSourcing: true })
 
-      result = objectMapper.buildRestObject(MODEL, record)
+      result = objectMapper.buildRestObject(MODEL, fitprofilerecord)
       result = {
         ...result,
         id
@@ -245,7 +264,7 @@ define([
     } else {
       const fitProfile = record.load({
         type: TYPE,
-        id
+        id:data.id
       })
 
       const tailorClient = search.lookupFields({
@@ -254,8 +273,8 @@ define([
         columns: 'custrecord_tc_tailor'
       })
 
-      if (tailorClient.custrecord_tc_tailor !== user) {
-        return "{status:'error', name:'NOT_FOUND', message: 'Fit profile with id "+id+" not found.'}";
+      if (tailorClient.custrecord_tc_tailor[0].value != data.tailor) {
+        return "{status:'error', name:'NOT_FOUND', message: 'Fit profile with id "+data.id+" not found.'}";
         // throw error.create({
         //   name: 'NOT_FOUND',
         //   message: `Fit profile with id ${id} not found.`,
@@ -263,11 +282,11 @@ define([
         // })
       }
 
-      const record = objectMapper
+      const recordid = objectMapper
         .buildRecordObject(MODEL, fitProfile, data)
         .save({ enableSourcing: true })
 
-      result = objectMapper.buildRestObject(MODEL, record)
+      result = objectMapper.buildRestObject(MODEL, fitProfile)
     }
 
     log.debug({

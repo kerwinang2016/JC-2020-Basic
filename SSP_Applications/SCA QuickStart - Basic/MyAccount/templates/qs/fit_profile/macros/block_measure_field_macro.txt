@@ -21,7 +21,7 @@
 			</select></div>
 		<% } else { %>
 			<% if(!_.isUndefined(field.max) && !_.isNull(field.max)){ %>
-				<div style="width:20%;margin:0;padding-right: 20px;" class="span2"><select class="input input-small block-measurement-fld" data-field="'+name+'" id="<%= name %>-max" name="<%= name %>-max">
+				<div style="width:20%;margin:0;padding-right: 20px;" class="span2"><select class="input input-small block-measurement-fld" data-field="<%=name%>" id="<%= name %>-max" name="<%= name %>-max">
 				<% for(var i = 0; i <= field.max; i = i + increment){
 					var selected = !_.isUndefined(value[1]) && parseFloat(value[1].value) == i ? 'selected' : '';
 					%>

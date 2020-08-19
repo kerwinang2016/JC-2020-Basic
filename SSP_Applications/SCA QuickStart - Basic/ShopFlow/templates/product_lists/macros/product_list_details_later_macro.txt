@@ -1,4 +1,5 @@
 <% registerMacro('productListDisplayLater', function(item, view, options, paramFilteredItems, paramIsFiltered) {
+	if(item.get('options') ==)
 	var product = item.get('item')
 	,	quantity = item.get('quantity')
 	,	description = item.get('description')
@@ -7,7 +8,6 @@
 	,	stock_info = item_details.getStockInfo()
 	,	internalid = item.get('internalid')
 	, productType = item.get('options').custcol_producttype.value;
-
 	var plSku = item_details.get('_sku');
 
 	//var application = view.application;

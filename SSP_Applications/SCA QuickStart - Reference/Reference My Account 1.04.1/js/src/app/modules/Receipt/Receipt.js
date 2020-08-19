@@ -5,7 +5,7 @@ define('Receipt', ['Receipt.Views', 'Receipt.Model', 'Receipt.Router', 'Receipt.
 {
 	'use strict';
 
-	return	{ 
+	return	{
 		Views: Views
 	,	Model: Model
 	,	Router: Router
@@ -19,7 +19,7 @@ define('Receipt', ['Receipt.Views', 'Receipt.Model', 'Receipt.Router', 'Receipt.
 		,	index: 3
 		,	permission: 'transactions.tranFind.1,transactions.tranSalesOrd.1'
 		}
-	
+
 	,	mountToApp:  function (application)
 		{
 			return new Router(application);

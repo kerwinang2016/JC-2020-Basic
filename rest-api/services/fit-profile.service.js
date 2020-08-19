@@ -60,6 +60,41 @@ define([
     ['tailor', { field: 'custrecord_tc_tailor', join: 'custrecord_fp_client' }]
   ])
 
+   function getColumns(){
+    var searchColumns = [];
+    searchColumns.push(search.createColumn({name:'internalid', sort: search.Sort.DESC}));
+    searchColumns.push(search.createColumn({name:'name'}));
+    searchColumns.push(search.createColumn({name:'custrecord_fp_client'}));
+    searchColumns.push(search.createColumn({name:'custrecord_tc_first_name',join:'custrecord_fp_client'}));
+    searchColumns.push(search.createColumn({name:'custrecord_tc_last_name',join:'custrecord_fp_client'}));
+    searchColumns.push(search.createColumn({name:'custrecord_fp_product_type'}));
+    searchColumns.push(search.createColumn({name:'custrecord_fp_block_value'}));
+    searchColumns.push(search.createColumn({name:'custrecord_fp_measure_type'}));
+    searchColumns.push(search.createColumn({name:'custrecord_fp_measure_value'}));
+    return searchColumns;
+  }
+   function getFilters(code, user){
+    var searchFilters = [];
+    if(code && code != ''){
+      searchFilters.push(search.createFilter({
+        name: 'name',
+        operator: search.Operator.CONTAINS,
+        values: code
+      }));
+    }
+    searchFilters.push(search.createFilter({
+      name:'isinactive',
+      operator: search.Operator.IS,
+      values: false
+    }));
+    searchFilters.push(search.createFilter({
+      name:'custrecord_tc_tailor',
+      join: 'custrecord_fp_client',
+      operator: search.Operator.ANYOF,
+      values: user
+    }));
+    return searchFilters;
+  }
   const exports = {}
 
   /**
@@ -72,47 +107,36 @@ define([
    * @param {boolean} [isDryRun] - Denotes if the operation is a dry run
    * @returns {Object}
    */
-  exports.query = function (filters = {}, offset = 0, limit = 25, orderBy = '', isDryRun = true) {
-    const user = runtime.getCurrentUser().id
-
-    log.debug({
-      title: 'FitProfileService#query.call',
-      details: {
-        user,
-        filters,
-        offset,
-        limit,
-        orderBy,
-        isDryRun
-      }
-    })
-
-    const result = { offset, limit, data: [] }
-
-    if (isDryRun) {
-      //_.times(limit, () => result.data.push(mocker.mockFitProfile()))
-    } else {
-      search
-        .create({
-          type: TYPE,
-          filters: !_.isEmpty(filters)
-            ? queryUtils.getFilters(FILTER_MAP, { ...filters, tailor: filters.user })
-            : queryUtils.getFilters(FILTER_MAP, { tailor: filters.user }),
-          columns: queryUtils.getColumns(MODEL, orderBy)
-        })
-        .run()
-        .getRange({
-          start: offset,
-          end: offset + limit
-        })
-        .forEach((res) => result.data.push(objectMapper.buildRestObject(MODEL, res)))
+  exports.query = function (code, name, user){
+    //filters = {}, offset = 0, limit = 25, orderBy = '', isDryRun = true) {
+    const result = { data: [] }
+    var searchColumns = getColumns();
+    var searchFilters = getFilters(code, user);
+    var start = 0;
+    var limit = 1000;
+    var itemSearchCount = search.create({
+        type: TYPE,
+        filters: searchFilters,
+        columns: searchColumns
+      }).runPaged().count;
+      result.length = itemSearchCount;
+    var pages = Math.ceil(itemSearchCount/1000);
+    for(var i=0;i<pages;i++){
+      var itemSearch = search.create({
+        type: TYPE,
+        filters: searchFilters,
+        columns: searchColumns
+      })
+      var resultSet = itemSearch.run();
+      var results = resultSet.getRange({
+        start: start,
+        end: start + limit
+      });
+      results.forEach((res) => {
+        result.data.push(objectMapper.buildRestObject(MODEL, res))
+      });
+      start+= limit;
     }
-
-    log.debug({
-      title: 'FitProfileService#query.result',
-      details: result
-    })
-
     return result
   }
 
@@ -176,27 +200,13 @@ define([
    *
    * @function
    * @param {Object} data - The map of values to use to create/update a record
-   * @param {boolean} [isDryRun] - Denotes if the operation is a dry run
+
    * @returns {Object}
    */
-  exports.create = function (data = {}, isDryRun = true) {
-    const user = runtime.getCurrentUser().id
-
-    log.debug({
-      title: 'FitProfileService#create.call',
-      details: {
-        user,
-        data,
-        isDryRun
-      }
-    })
+  exports.create = function (data = {}) {
 
     let result = {}
-
-    if (isDryRun) {
-      result = { id: faker.random.number(), ...data }
-    } else {
-      const tailorClient = search.lookupFields({
+    const tailorClient = search.lookupFields({
         id: data.clientid,
         type: 'customrecord_sc_tailor_client',
         columns: 'custrecord_tc_tailor'
@@ -225,7 +235,7 @@ define([
         ...result,
         id
       }
-    }
+
 
     log.debug({
       title: 'FitProfileService#create.result',
@@ -241,27 +251,13 @@ define([
    * @function
    * @param {number} id - The id
    * @param {Object} data - The map of values to use to create/update a record
-   * @param {boolean} [isDryRun] - Denotes if the operation is a dry run
+
    * @returns {Object}
    */
-  exports.update = function (id, data = {}, isDryRun = true) {
-    const user = runtime.getCurrentUser().id
-
-    log.debug({
-      title: 'FitProfileService#update.call',
-      details: {
-        user,
-        id,
-        data,
-        isDryRun
-      }
-    })
+  exports.update = function (user, data = {}) {
 
     let result = {}
 
-    if (isDryRun) {
-      result = { id, ...data }
-    } else {
       const fitProfile = record.load({
         type: TYPE,
         id:data.id
@@ -287,8 +283,6 @@ define([
         .save({ enableSourcing: true })
 
       result = objectMapper.buildRestObject(MODEL, fitProfile)
-    }
-
     log.debug({
       title: 'FitProfileService#update.result',
       details: result

@@ -111,25 +111,38 @@ define(['N/log', 'vendor/lodash'], function (log, _) {
     const result = {}
 
     modelMap.forEach((value, key) => {
-      if (_.isEmpty(value.sublist)) {
-        var val;
-        if(value.field == 'internalid'){
-          val = record.id;
-        }else{
-          log.debug('value.field', value.field);
-          val = value.mapToText
-            ? record.getText({ fieldId: value.field, name:value.field})
-            : record.getValue({ fieldId: value.field, name:value.field})
-        }
-        if (value.type && TYPE_CONVERSIONS.get(value.type)) {
-          val = TYPE_CONVERSIONS.get(value.type)(val)
-        } else {
-          val = TYPE_CONVERSIONS.get('string')(val)
-        }
 
-        _.set(result, key, val)
-      } else {
-        _.set(result, key, buildSublistRestObject(value.sublist, value.fields, record))
+      if(value.show == false){
+        //do not add the columns that have show false
+        log.debug('has show only');
+      }
+      else{
+        if (_.isEmpty(value.sublist)) {
+          var val;
+
+          if(value.field == 'internalid'){
+            val = record.id;
+          }else{
+            val = value.mapToText
+              ? record.getText({ fieldId: value.field, name:value.field})
+              : record.getValue({ fieldId: value.field, name:value.field})
+            if(value.stripCode == true){
+              var s1 = val.split('(');
+              if(s1.length > 1){
+                val = s1[1].split(')')[0];
+              }
+            }
+          }
+          if (value.type && TYPE_CONVERSIONS.get(value.type)) {
+            val = TYPE_CONVERSIONS.get(value.type)(val)
+          } else {
+            val = TYPE_CONVERSIONS.get('string')(val)
+          }
+
+          _.set(result, key, val)
+        } else {
+          _.set(result, key, buildSublistRestObject(value.sublist, value.fields, record))
+        }
       }
     })
 

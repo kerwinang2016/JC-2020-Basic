@@ -31,7 +31,31 @@ define([
     ['ln-number', { field: 'custrecord_flf_ftno', operator: search.Operator.CONTAINS }],
     ['ln-code', { field: 'custrecord_flf_ftcode', operator: search.Operator.CONTAINS }]
   ])
-
+  function getColumns(){
+   var searchColumns = [];
+   searchColumns.push(search.createColumn({name:'internalid'}));
+   searchColumns.push(search.createColumn({name:'custrecord_flf_ftno'}));
+   searchColumns.push(search.createColumn({name:'custrecord_flf_ftcode'}));
+   searchColumns.push(search.createColumn({name:'custrecord_flf_ftstock'}));
+   searchColumns.push(search.createColumn({name:'custrecord_flf_ftstatus'}));
+   return searchColumns;
+ }
+  function getFilters(code){
+     var searchFilters = [];
+     if(code && code != ''){
+       searchFilters.push(search.createFilter({
+         name: 'custrecord_flf_ftcode',
+         operator: search.Operator.CONTAINS,
+         values: code
+       }));
+     }
+     searchFilters.push(search.createFilter({
+       name:'isinactive',
+       operator: search.Operator.IS,
+       values: false
+     }));
+     return searchFilters;
+   }
   const exports = {}
 
   /**
@@ -44,42 +68,37 @@ define([
    * @param {boolean} [isDryRun] - Denotes if the operation is a dry run
    * @returns {Object}
    */
-  exports.query = function (filters = {}, offset = 0, limit = 25, orderBy = '', isDryRun = true) {
-    log.debug({
-      title: 'LiningService#query.call',
-      details: {
-        filters,
-        offset,
-        limit,
-        orderBy,
-        isDryRun
-      }
-    })
+  exports.query = function (code){
+    //filters = {}, offset = 0, limit = 25, orderBy = '', isDryRun = true) {
+    const result = { data: [] }
+    var searchColumns = getColumns();
+    var searchFilters = getFilters(code);
 
-    const result = { offset, limit, data: [] }
-
-    if (isDryRun) {
-      //_.times(limit, () => result.data.push(mocker.mockLining()))
-    } else {
-      search
-        .create({
+      var start = 0;
+      var limit = 1000;
+      var itemSearchCount = search.create({
           type: TYPE,
-          filters: !_.isEmpty(filters) ? queryUtils.getFilters(FILTER_MAP, filters) : undefined,
-          columns: queryUtils.getColumns(MODEL, orderBy)
+          filters: searchFilters,//!_.isEmpty(filters) ? queryUtils.getFilters(FILTER_MAP, filters) : undefined,
+          columns: searchColumns//queryUtils.getColumns(MODEL)//, orderBy)
+        }).runPaged().count;
+        result.length = itemSearchCount;
+      var pages = Math.ceil(itemSearchCount/1000);
+      for(var i=0;i<pages;i++){
+        var itemSearch = search.create({
+          type: TYPE,
+          filters: searchFilters,//!_.isEmpty(filters) ? queryUtils.getFilters(FILTER_MAP, filters) : undefined,
+          columns: searchColumns//queryUtils.getColumns(MODEL)//, orderBy)
         })
-        .run()
-        .getRange({
-          start: offset,
-          end: offset + limit
-        })
-        .forEach((res) => result.data.push(objectMapper.buildRestObject(MODEL, res)))
-    }
-
-    log.debug({
-      title: 'LiningService#query.result',
-      details: result
-    })
-
+        var resultSet = itemSearch.run();
+        var results = resultSet.getRange({
+          start: start,
+          end: start + limit
+        });
+        results.forEach((res) => {
+          result.data.push(objectMapper.buildRestObject(MODEL, res))
+        });
+        start+= limit;
+      }
     return result
   }
 
@@ -88,30 +107,18 @@ define([
    *
    * @function
    * @param {number} id - The id of the record to load
-   * @param {boolean} [isDryRun] - Denotes if the operation is a dry run
+
    * @returns {Object}
    */
-  exports.read = function (id, filters, isDryRun = true) {
-    log.debug({
-      title: 'LiningService#read.call',
-      details: {
-        id,
-        isDryRun
-      }
-    })
-
+  exports.read = function (id, filters) {
     let result = {}
 
-    if (isDryRun) {
-      //result = mocker.mockLining({ id })
-    } else {
       const lining = record.load({
         type: TYPE,
         id:id
       })
 
       result = objectMapper.buildRestObject(MODEL, lining)
-    }
 
     log.debug({
       title: 'LiningService#read.result',

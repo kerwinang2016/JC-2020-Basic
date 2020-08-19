@@ -1,0 +1,36 @@
+/*
+GET STATUS
+Description: Returns the fabric and the cmt status of the tailor's order
+PARAMETERS
+	type = ORDER,
+	limit (Number) - page size,
+	offset (Number) - page of the search,
+	orderBy (String)- for sorting the results, use the field name for sorting,
+	filters.user (Required)(Number) - tailorid given
+	(Not Implemented Yet)filters.usertoken (Required)(String) token given to user
+*/
+//URL Input
+//https://3857857.app.netsuite.com/app/site/hosting/restlet.nl?script=380&deploy=2&type=ORDER&offset=20&filter.id=5&filter.usertoken=12345
+//Output
+{
+   "offset":2,
+   "limit":25,
+   "data":[
+	  {
+         "id":852738,
+         "orderNumber":"26217-1",
+         "date":"04/08/2020",
+         "client":"Hugh Stanford",
+         "item":"Basic CMT – Jacket",
+         "fabrictext":"",
+         "fabricStatus":"",
+         "fabricsentdate":"",
+         "fabrictracking":"",
+         "cmttext":"",
+         "cmtStatus":"",
+         "cmtsentdate":"",
+         "cmttracking":"",
+         "dateNeeded":"07/10/2020"
+      }
+   ]
+}

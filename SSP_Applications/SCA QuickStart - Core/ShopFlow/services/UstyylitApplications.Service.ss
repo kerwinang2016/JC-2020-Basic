@@ -18,7 +18,7 @@ function service (request)
 			responseData.push(response.getBody());
 			responseData.push(response1.getBody());
 			Application.sendContent(responseData);
-			break;			
+			break;
 			default:
 			// methodNotAllowedError is defined in ssp library commons.js
 			Application.sendError(methodNotAllowedError);

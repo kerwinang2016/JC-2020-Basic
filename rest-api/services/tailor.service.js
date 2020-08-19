@@ -33,6 +33,23 @@ define([
     ['parent', { field: 'parent' }]
   ])
 
+   function getColumns(){
+    var searchColumns = [];
+    searchColumns.push(search.createColumn({name:'internalid'}));
+    searchColumns.push(search.createColumn({name:'entityid'}));
+    searchColumns.push(search.createColumn({name:'email'}));
+    searchColumns.push(search.createColumn({name:'phone'}));
+    return searchColumns;
+  }
+   function getFilters(user){
+    var searchFilters = [];
+    searchFilters.push(search.createFilter({
+      name:'internalid',
+      operator: search.Operator.ANYOF,
+      values: user
+    }));
+    return searchFilters;
+  }
   const exports = {}
 
   /**
@@ -45,47 +62,34 @@ define([
    * @param {boolean} [isDryRun] - Denotes if the operation is a dry run
    * @returns {Object}
    */
-  exports.query = function (filters = {}, offset = 0, limit = 25, orderBy = '', isDryRun = true) {
-    const user = runtime.getCurrentUser().id
+  exports.query = function (code, name, user){//filters = {}, offset = 0, limit = 25, orderBy = '', isDryRun = true) {
 
-    log.debug({
-      title: 'TailorService#query.call',
-      details: {
-        user,
-        filters,
-        offset,
-        limit,
-        orderBy,
-        isDryRun
-      }
-    })
+    const result = { data: [] }
+    var searchColumns = getColumns();
+    var searchFilters = getFilters(user);
+    var start = 0;
+    var limit = 1000;
+    var itemSearchCount = search.create({
+        type: search.Type.CUSTOMER,
+        filters: searchFilters,
+        columns: searchColumns
+      }).runPaged().count;
+      result.length = itemSearchCount;
+    var pages = Math.ceil(itemSearchCount/1000);
 
-    const result = { offset, limit, data: [] }
-
-    if (isDryRun) {
-      //_.times(limit, () => result.data.push(mocker.mockTailor()))
-    } else {
-      search
-        .create({
-          type: search.Type.CUSTOMER,
-          filters: !_.isEmpty(filters)
-            ? queryUtils.getFilters(FILTER_MAP, { ...filters, parent: filters.user })
-            : queryUtils.getFilters(FILTER_MAP, { parent: filters.user }),
-          columns: queryUtils.getColumns(MODEL, orderBy)
-        })
-        .run()
-        .getRange({
-          start: offset,
-          end: offset + limit
-        })
-        .forEach((res) => result.data.push(objectMapper.buildRestObject(MODEL, res)))
-    }
-
-    log.debug({
-      title: 'TailorService#query.result',
-      details: result
-    })
-
+      var itemSearch = search.create({
+        type: search.Type.CUSTOMER,
+        filters: searchFilters,
+        columns: searchColumns
+      })
+      var resultSet = itemSearch.run();
+      var results = resultSet.getRange({
+        start: start,
+        end: start + limit
+      });
+      results.forEach((res) => {
+        result.data.push(objectMapper.buildRestObject(MODEL, res))
+      });
     return result
   }
 
@@ -120,7 +124,7 @@ define([
       })
       log.debug('parent',tailor.getValue('parent'));
       log.debug('id',tailor.id);
-      if (tailor.getValue('parent') != filters.user && tailor.id != filters.user) {
+      if (tailor.getValue('parent') != filters.userid && tailor.id != filters.userid) {
         return "{status:'error', name:'NOT_FOUND', message: 'Tailor with id "+id+" not found.'}";
         // throw error.create({
         //   name: 'NOT_FOUND',

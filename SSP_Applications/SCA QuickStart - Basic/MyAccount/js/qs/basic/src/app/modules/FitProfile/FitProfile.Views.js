@@ -1032,15 +1032,17 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			jQuery.get(_.getAbsoluteUrl('js/itemRangeConfigInches.json')).done(function (data) {
 				window.inchConfig = data;
 			});
+
+			// jQuery.get(_.getAbsoluteUrl('services/measurementdefaults.ss')).done(function (data) {
+			// 	self.measurementdefaults = data;
+			// });
+			//
 			jQuery.ajax({
-				url:_.getAbsoluteUrl('js/FitProfile_Config.json'),
+				url:_.getAbsoluteUrl('services/measurementdefaults.ss'),
 				async:false,
 				success: function (result) {
-						self.measurement_config = result;
+						self.measurementdefaults = result;
 				}
-			});
-			jQuery.get(_.getAbsoluteUrl('services/measurementdefaults.ss')).done(function (data) {
-				self.measurementdefaults = data;
 			});
 			jQuery.get(_.getAbsoluteUrl('services/influences.ss')).done(function (data) {
 				self.influences = data;
@@ -1048,12 +1050,20 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			jQuery.get(_.getAbsoluteUrl('services/bodyBlockMeasurements.ss')).done(function (data) {
 				self.bodyBlockMeasurements = data;
       });
+
 			var param = new Object();
 			param.type = "get_favourite_fit_tools";
 			param.id = this.options.application.getUser().get("internalid");
 			_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "GET", param).always(function(data){
 				if(data){
 					self.defaultfavfittools = data;
+				}
+			});
+			jQuery.ajax({
+				url:_.getAbsoluteUrl('js/FitProfile_Config.json'),
+				async:false,
+				success: function (result) {
+						self.measurement_config = result;
 				}
 			});
 		}
@@ -1188,37 +1198,68 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 					return b.custrecord_md_blockmeasurement == block && b.custrecord_md_bodyparttext == blockfield.dataset.field && b.custrecord_md_fitoptionstext == fit	&& b.custrecord_md_producttypetext == producttype;
 				});
 				if(a){
-					var mdvalue = a.custrecord_md_value ?parseFloat(a.custrecord_md_value).toFixed(1):'---';
+					var mdvalue = a.custrecord_md_value?parseFloat(a.custrecord_md_value).toFixed(1):'---';
 					jQuery('[data-container="'+blockfield.dataset.field+'-block"]').html(mdvalue);
 					jQuery('[data-container="'+blockfield.dataset.field+'-finished"]').html(mdvalue);
 					//jQuery('[class="fav-fit-tools-default"]').html('---'); //JHD-11
 				}
 
 			});
+
 			_.each(blockfields,function(blockfield){
 				if(blockfield.value != '0'){
 					var in_items = _.filter(self.influences,function(c){
-
 						return c.custrecord_in_producttypetext== producttype && c.custrecord_in_bodyparttext == blockfield.dataset.field;
 					});
-
 					if(in_items && in_items.length>0){
 						var blockval = parseFloat(blockfield.value);
-						console.log('bloclval '+ blockval);
+
 						for(var i=0;i<in_items.length;i++){
-							console.log('finishedval ' + finishedval);
-							var finishedval = parseFloat(jQuery('[data-container="'+in_items[i].custrecord_in_in_parttext+'-finished"]').html());
-							console.log('in_items[i].custrecord_in_influence ' + in_items[i].custrecord_in_influence);
+							var finishedtext = jQuery('[data-container="'+in_items[i].custrecord_in_in_parttext+'-finished"]').html();
+							var finishedval = finishedtext!= '---' && finishedtext?parseFloat(finishedtext):0;
 							var newval = parseFloat(blockval*(parseFloat(in_items[i].custrecord_in_influence)/100)+finishedval).toFixed(1)
 
-							console.log(in_items[i].custrecord_in_in_parttext);
-							console.log(newval);
 							jQuery('[data-container="'+in_items[i].custrecord_in_in_parttext+'-finished"]').html(newval);
 						}
 					}
 				}
 			});
-
+			//start
+			var data = self.defaultfavfittools;
+			if(data){
+				var tempFavFitToolsData = JSON.parse(data);
+				var favDefaultData = tempFavFitToolsData[0];
+					if (favDefaultData) {
+							jQuery("label").removeClass( "fav-fit-tools-default");
+							var defaultFields = '';
+							favDefaultData = JSON.parse(favDefaultData);
+							var defaultFields = '';
+							for(var j = 0; j < favDefaultData.length; j++){
+								if(favDefaultData[j].itemType == producttype){
+									var defaultFields = favDefaultData[j].measurementValues;
+								}
+							}
+							for(var i = 0; i < defaultFields.length; i++ ){
+								var name = defaultFields[i].name;
+								var value = defaultFields[i].value;
+								if(value != 'select'){
+									var defaultId = name.replace('max', 'default').replace('min', 'default').replace('%', '/').replace('2F', '');
+									defaultId = 'in-modal-' + defaultId;
+									if(parseFloat(value) != 0){
+										jQuery('[id="'+ defaultId + '"]').html(value);
+									} else {
+										if(name.indexOf('min') != -1){
+											var defaultValue = jQuery('[id="'+ defaultId + '"]').text();
+											if(defaultValue.length == 0){
+												jQuery('[id="'+ defaultId + '"]').html('---');
+											}
+										}
+									}
+								}
+							}
+						}
+				}
+				//end
 		}
 		, fitBlockChanged: function(e){
 			if((jQuery('[id*="body-block"]').val() != 'Select' && jQuery('[id*="body-fit"]').val() != 'Select') ){

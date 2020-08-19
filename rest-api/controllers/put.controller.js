@@ -9,21 +9,22 @@
 define([
   'N/error',
   'N/log',
+  'N/search',
   'services/client',
   'services/fitProfile',
   'services/order',
   'vendor/lodash'
-], function (error, log, clientSvc, fitProfileSvc, orderSvc, _) {
+], function (error, log, search, clientSvc, fitProfileSvc, orderSvc, _) {
   'use strict'
 
   /**
    * Controller function
    *
    * @function
-   * @param {boolean} isDryRun - Denotes if the controller is running dry-runs
+
    * @returns {Function}
    */
-  return function (isDryRun = true) {
+
     /**
      * PUT / handler
      *
@@ -32,27 +33,14 @@ define([
      * @returns {Object}
      */
     const handler = function (body = {}) {
-      const now = Date.now()
-
-      log.debug({
-        title: 'PutController#call',
-        details: {
-          ...body,
-          isDryRun: isDryRun
-        }
-      })
-
-      const id = +_.get(body, 'userid')
-      const type = `${_.get(body, 'type', '')}`.toUpperCase()
-      const data = _.get(body, 'data', {})
+      const now = Date.now();
+      const user = _.get(body, 'user');
+      const usertoken = _.get(body, 'usertoken');
+      const type = `${_.get(body, 'type', '')}`.toUpperCase();
+      const data = _.get(body, 'data', {});
 
       if (_.isEmpty(data) || !_.isPlainObject(data)) {
         return "{status:'error', name:'INVALID_INPUT', message: 'The data submitted in invalid.'}";
-        // throw error.create({
-        //   name: 'INVALID_INPUT',
-        //   message: 'The data submitted in invalid.',
-        //   notifyOff: true
-        // })
       }
 
       const serviceMap = new Map([
@@ -64,14 +52,21 @@ define([
 
       if (_.isEmpty(service)) {
         return "{status:'error', name:'INVALID_TYPE', message: 'Kindly specify a valid type.'}";
-        // throw error.create({
-        //   name: 'INVALID_TYPE',
-        //   message: 'Kindly specify a valid type.',
-        //   notifyOff: true
-        // })
       }
-
-      const result = service.update(id, data, isDryRun)
+      log.debug('user',user + " " + usertoken)
+      if(!user || !usertoken){
+        return "{status:'error', name:'RESTRICTED ACCESS', message: 'Kindly specify your user and usertoken.'}";
+      }
+      //Lets validate the user and tailortoken
+      var tailorClient = search.lookupFields({
+        id: user,
+        type: 'customer',
+        columns: 'custentity_rest_token'
+      });
+      if(tailorClient.custentity_rest_token != usertoken){
+        return "{status:'error', name:'RESTRICTED ACCESS', message: 'Incorrect token for user " + user + "'}";
+      }
+      const result = service.update(user, data)
 
       log.debug({
         title: 'PutController#result',
@@ -85,5 +80,4 @@ define([
     }
 
     return handler
-  }
 })

@@ -9,6 +9,7 @@
 define([
   'N/error',
   'N/log',
+  'N/search',
   'services/client',
   'services/fabric',
   'services/fitProfile',
@@ -20,6 +21,7 @@ define([
 ], function (
   error,
   log,
+  search,
   clientSvc,
   fabricSvc,
   fitProfileSvc,
@@ -35,10 +37,9 @@ define([
    * Controller function
    *
    * @function
-   * @param {boolean} isDryRun - Denotes if the controller is running dry-runs
    * @returns {Function}
    */
-  return function (isDryRun = true) {
+  //return function () {
     /**
      * GET / handler
      *
@@ -48,84 +49,60 @@ define([
      */
     const handler = function (query = {}) {
       const now = Date.now()
-      log.debug({
-        title: 'GOT HERE 1',
-        details: query
-      })
       const params = _.get(objectParser.transpose(query), '_data', {})
 
-      log.debug({
-        title: 'GOT HERE 2'
-      })
-      log.debug({
-        title: 'GetController#call',
-        details: {
-          ...params,
-          isDryRun: isDryRun
-        }
-      })
-
-      const id = +_.get(params, 'id')
-      // const tailorid = +_.get(params, 'tailorid');
-      // const tailortoken = +_.get(params, 'tailortoken');
       const type = `${_.get(params, 'type', '')}`.toUpperCase()
-      const filters = _.get(params, 'filters')
-      const offset = +_.get(params, 'offset', '0')
-      const limit = +_.get(params, 'limit', '25')
-      const orderBy = _.get(params, 'orderBy')
-      log.debug('filters',filters);
-      // if(_.isEmpty(filters.user) && _.isEmpty(filters.usertoken)){
-      //   return "{status:'error',name:'ERROR INVALID_QUERY_PARAMETER', message:'Kindly specify a value for filters.user and/or filters.usertoken.'}";
-      // }
-      if (_.isEmpty(type) && _.isEmpty(id)) {
-        return "{status:'error',name:'ERROR INVALID_QUERY_PARAMETER', message:'Kindly specify a value for type and/or id.'}";
-        // throw error.create({
-        //   name: 'INVALID_QUERY_PARAMETER',
-        //   message: 'Kindly specify a value for type and/or id.',
-        //   notifyOff: true
-        // })
-      }
-      if (_.isEmpty(type) && !_.isEmpty(id)) {
-        return "{status:'error', name:'INVALID_QUERY_PARAMETER', message: 'Kindly specify the type of record to retrieve.'}";
-        // throw error.create({
-        //   name: 'INVALID_QUERY_PARAMETER',
-        //   message: 'Kindly specify the type of record to retrieve.',
-        //   notifyOff: true
-        // })
-      }
+      const code = _.get(params, 'code')
+      const name = _.get(params, 'name')
+      const page = _.get(params, 'page')
+      const hideReleased = _.get(params, 'hideReleased')
+      var user = _.get(params, 'user');
+      var usertoken = _.get(params, 'usertoken');
 
+      if (_.isEmpty(type)) {
+        return "{status:'error', name:'INVALID_QUERY_PARAMETER', message: 'Kindly specify the type of request.'}";
+      }
+      // do not implement name...
       const serviceMap = new Map([
-        ['CLIENT', clientSvc],
-        ['FABRIC', fabricSvc],
-        ['FIT_PROFILE', fitProfileSvc],
-        ['LINING', liningSvc],
-        ['ORDER', orderSvc],
-        ['TAILOR', tailorSvc]
+        ['CLIENT', clientSvc], //name
+        ['FABRIC', fabricSvc], //code
+        ['FIT_PROFILE', fitProfileSvc], //name
+        ['LINING', liningSvc], //code
+        ['ORDER', orderSvc], //code
+        ['TAILOR', tailorSvc] //name//do not use filter here
       ]);
       const service = serviceMap.get(type)
 
       if (_.isEmpty(service)) {
-        return "{status:'error', name:'INVALID_QUERY_PARAMETER', message: 'Kindly specify a valid type.'}";
+        return "{status:'error', name:'MISSING REQUEST TYPE', message: 'Kindly specify a valid type.'}";
         // throw error.create({
         //   name: 'INVALID_QUERY_PARAMETER',
         //   message: 'Kindly specify a valid type.',
         //   notifyOff: true
         // })
-      }
+      }else if(type != 'FABRIC' && type != 'LINING'){
 
-      const result = _.isNaN(id)
-        ? service.query(filters, offset, limit, orderBy, isDryRun)
-        : service.read(id, filters, isDryRun)
-
-      log.debug({
-        title: 'GetController#result',
-        details: {
-          result,
-          responseTime: `${Date.now() - now}ms`
+        if(!user || !usertoken){
+          return "{status:'error', name:'RESTRICTED ACCESS', message: 'Kindly specify your user and usertoken.'}";
         }
-      })
+        //Lets validate the user and tailortoken
+        var tailorClient = search.lookupFields({
+          id: user,
+          type: 'customer',
+          columns: 'custentity_rest_token'
+        });
+        if(tailorClient.custentity_rest_token != usertoken){
+          return "{status:'error', name:'RESTRICTED ACCESS', message: 'Incorrect token for user " + user + "'}";
+        }
+      }
+      const result = service.query(code, name, user, page, hideReleased);//, offset, limit, orderBy, isDryRun)//_.isNaN(id)
+        //? service.query(filters, offset, limit, orderBy, isDryRun)
+        //: service.read(id, filters, isDryRun)
+
+
+      result.responseTime = `${Date.now() - now}ms`;
       return JSON.stringify(result)
     }
     return handler
-  }
+  //}
 })

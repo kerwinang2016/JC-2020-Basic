@@ -1484,7 +1484,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 			// var client_collection = this.client_collection;
 			var param = new Object();
 			var liveOrderDetails = new Array();
-			var root = 'https://jerome.securedcheckout.com';
+			var root = 'https://jerome.na2.securedcheckout.com';
 			var subtotal = 0;
 
 			_.each(this.model.get('lines').models, function (line, index){
@@ -1581,7 +1581,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				//cartLine.fitProfile = line.get('fitProfileOptions');
 				cartLine.fitProfileNotes = self.getColumnValue(fitProfileNotesColumn);
 				cartLine.fabricQuantity = self.getColumnValue(quantityColumn);
-				cartLine.lineItemTotal = self.getColumnValue(lineItemTotal); //JHD-35
+				//cartLine.lineItemTotal = self.getColumnValue(lineItemTotal); //JHD-35
 
 				liveOrderDetails.push(cartLine);
 			});

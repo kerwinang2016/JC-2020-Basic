@@ -22,8 +22,8 @@ define(['controllers/get', 'controllers/post', 'controllers/put', 'utils/generic
   const DEV_DEPLOYMENT_ID = 'customdeploy_rest_api_dev'
 
   return {
-    get: getController(utils.isDryRun(DEV_DEPLOYMENT_ID)),
-    post: postController(utils.isDryRun(DEV_DEPLOYMENT_ID)),
-    put: putController(utils.isDryRun(DEV_DEPLOYMENT_ID))
+    get: getController,
+    post: postController,
+    put: putController
   }
 })

@@ -215,6 +215,9 @@ Application.defineModel('Profile', {
     profile.taxexclusive = _.find(customerFieldValues, function(field){
 			return field.name === 'custentity_tax_exclusive';
 		}).value;
+    profile.surcharges_make_trim_options = _.find(customerFieldValues, function(field){
+      return field.name === 'custentity_surcharges_make_trims_do';
+    }).value;
 
 		profile.internalid = nlapiGetUser();
     if(session.isLoggedIn2()){
@@ -752,15 +755,15 @@ Application.defineModel('LiveOrder', {
 		var quantity = {
 			'2-Piece-Suit' : '3.3',
 			'3-Piece-Suit': '3.7',
-			'Jacket': '2',
-			'Trouser': '2',
+			'Jacket': '1.9',
+			'Trouser': '1.75',
 			'Waistcoat': '1',
 			'Overcoat': '2.5',
 			'Shirt': '2',
 			'Trenchcoat': '2.5',
 			'Short-Sleeves-Shirt': '2',
 			'Ladies-Jacket': '1.8',
-			'Ladies-Pants': '1.8',
+			'Ladies-Pants': '1.75',
 			'Ladies-Skirt': '1',
 			'L-2PC-Skirt': '2.5',
 			'L-3PC-Suit': '3.9',

@@ -45,7 +45,56 @@ define([
     ['cl-last-name', { field: 'custrecord_tc_last_name', operator: search.Operator.CONTAINS }],
     ['user', { field: 'custrecord_tc_tailor', operator: search.Operator.ANYOF }]
   ])
-
+  function getColumns(){
+    var searchColumns = [];
+    searchColumns.push(search.createColumn({name:'internalid', sort: search.Sort.DESC}));
+    searchColumns.push(search.createColumn({name:'custrecord_tc_email'}));
+    searchColumns.push(search.createColumn({name:'custrecord_tc_first_name'}));
+    searchColumns.push(search.createColumn({name:'custrecord_tc_last_name'}));
+    searchColumns.push(search.createColumn({name:'custrecord_tc_phone'}));
+    searchColumns.push(search.createColumn({name:'custrecord_tc_dob'}));
+    searchColumns.push(search.createColumn({name:'custrecord_tc_company'}));
+    searchColumns.push(search.createColumn({name:'custrecord_tc_addr1'}));
+    searchColumns.push(search.createColumn({name:'custrecord_tc_addr2'}));
+    searchColumns.push(search.createColumn({name:'custrecord_tc_city'}));
+    searchColumns.push(search.createColumn({name:'custrecord_tc_state'}));
+    searchColumns.push(search.createColumn({name:'custrecord_tc_country'}));
+    searchColumns.push(search.createColumn({name:'custrecord_tc_zip'}));
+    searchColumns.push(search.createColumn({name:'custrecord_tc_notes'}));
+    return searchColumns;
+  }
+   function getFilters(name, user){
+    var searchFilters = [];
+    if(name && name != ''){
+      var splitName = name.split(' ');
+      if(splitName.length > 1){
+        searchFilters.push(search.createFilter({
+          name: 'formulatext',
+          operator: search.Operator.CONTAINS,
+          values: name.toLowerCase(),
+          formula: "CONCAT(CONCAT(LOWER({custrecord_tc_first_name}), ' '),LOWER({custrecord_tc_last_name}))"
+        }));
+      }else{
+        searchFilters.push(search.createFilter({
+          name: 'formulatext',
+          operator: search.Operator.CONTAINS,
+          values: name.toLowerCase(),
+          formula: "CONCAT(CONCAT(LOWER({custrecord_tc_first_name}), ' '),LOWER({custrecord_tc_last_name}))"
+        }));
+      }
+    }
+    searchFilters.push(search.createFilter({
+      name:'isinactive',
+      operator: search.Operator.IS,
+      values: false
+    }));
+    searchFilters.push(search.createFilter({
+      name:'custrecord_tc_tailor',
+      operator: search.Operator.IS,
+      values: user
+    }));
+    return searchFilters;
+  }
   const exports = {}
 
   /**
@@ -58,51 +107,37 @@ define([
    * @param {boolean} [isDryRun] - Denotes if the operation is a dry run
    * @returns {Object}
    */
-  exports.query = function (filters = {}, offset = 0, limit = 25, orderBy = '', isDryRun = true) {
-    //const user = runtime.getCurrentUser().id
+  exports.query = function (code,name,user){
+    //filters = {}, offset = 0, limit = 25, orderBy = '', isDryRun = true) {
 
-    log.debug({
-      title: 'ClientService#query.call',
-      details: {
-        //user,
-        filters,
-        offset,
-        limit,
-        orderBy,
-        isDryRun
-      }
-    })
-
-    const result = { offset, limit, data: [] }
-
-    if (isDryRun) {
-      //_.times(limit, () => result.data.push(mocker.mockClient()))
-    } else {
-      try{
-      search
-        .create({
-          type: TYPE,
-          filters: !_.isEmpty(filters)
-            ? queryUtils.getFilters(FILTER_MAP, { ...filters })
-            : queryUtils.getFilters(FILTER_MAP),
-          columns: queryUtils.getColumns(MODEL, orderBy)
-        })
-        .run()
-        .getRange({
-          start: offset,
-          end: offset + limit
-        })
-        .forEach((res) => result.data.push(objectMapper.buildRestObject(MODEL, res)))
-      }catch(e){
-        log.debug('error',e.message)
-      }
+    const result = { data: [] }
+    var searchColumns = getColumns();
+    var searchFilters = getFilters(name, user);
+    var start = 0;
+    var limit = 1000;
+    var itemSearchCount = search.create({
+        type: TYPE,
+        filters: searchFilters,
+        columns: searchColumns
+      }).runPaged().count;
+      result.length = itemSearchCount;
+    var pages = Math.ceil(itemSearchCount/1000);
+    for(var i=0;i<pages;i++){
+      var itemSearch = search.create({
+        type: TYPE,
+        filters: searchFilters,
+        columns: searchColumns
+      })
+      var resultSet = itemSearch.run();
+      var results = resultSet.getRange({
+        start: start,
+        end: start + limit
+      });
+      results.forEach((res) => {
+        result.data.push(objectMapper.buildRestObject(MODEL, res))
+      });
+      start+= limit;
     }
-
-    log.debug({
-      title: 'ClientService#query.result',
-      details: result
-    })
-
     return result
   }
 
@@ -136,7 +171,7 @@ define([
         id:id
       })
 
-      if (+client.getValue('custrecord_tc_tailor') != filters.user) {
+      if (+client.getValue('custrecord_tc_tailor') != filters.userid) {
         return "{status:'error', name:'NOT_FOUND', message: 'Client with id "+id+" not found.'}";
         // throw error.create({
         //   name: 'NOT_FOUND',
@@ -164,23 +199,10 @@ define([
    * @param {boolean} [isDryRun] - Denotes if the operation is a dry run
    * @returns {Object}
    */
-  exports.create = function (data = {}, isDryRun = true) {
+  exports.create = function (data = {}) {
     const user = runtime.getCurrentUser().id
-
-    log.debug({
-      title: 'ClientService#create.call',
-      details: {
-        user,
-        data,
-        isDryRun
-      }
-    })
-
     let result = {}
 
-    if (isDryRun) {
-      result = { id: faker.random.number(), ...data }
-    } else {
       let clientrecord = objectMapper.buildRecordObject(
         MODEL,
         record.create({
@@ -198,7 +220,6 @@ define([
         ...result,
         id
       }
-    }
 
     log.debug({
       title: 'ClientService#create.result',
@@ -214,27 +235,10 @@ define([
    * @function
    * @param {number} id - The id
    * @param {Object} data - The map of values to use to create/update a record
-   * @param {boolean} [isDryRun] - Denotes if the operation is a dry run
    * @returns {Object}
    */
-  exports.update = function (id, data = {}, isDryRun = true) {
-    const user = runtime.getCurrentUser().id
-
-    log.debug({
-      title: 'ClientService#update.call',
-      details: {
-        id,
-        user,
-        data,
-        isDryRun
-      }
-    })
-
+  exports.update = function (user, data = {}) {
     let result = {}
-
-    if (isDryRun) {
-      result = { id, ...data }
-    } else {
       const updateData = _.omit(data, ['user'])
 
       const client = record.load({
@@ -250,7 +254,7 @@ define([
         .save({ enableSourcing: true })
 
       result = objectMapper.buildRestObject(MODEL, client)
-    }
+
 
     log.debug({
       title: 'ClientService#update.result',

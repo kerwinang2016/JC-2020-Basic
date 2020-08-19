@@ -23,10 +23,13 @@ define(['N/search', 'vendor/lodash'], function (search, _) {
     const searchFilters = []
 
     filterMap.forEach((value, key) => {
-      const val = _.get(filters, key)
-
-      if (_.isEmpty(val)) return
-
+      var val;
+      if(value.defaultValue){
+        val = value.defaultValue;
+      }else{
+        val = _.get(filters, key)
+        if (_.isEmpty(val)) return
+      }
       const filterOptions = {
         name: value.field,
         operator: value.operator || search.Operator.IS,

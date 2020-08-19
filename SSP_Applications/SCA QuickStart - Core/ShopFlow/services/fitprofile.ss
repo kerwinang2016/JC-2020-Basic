@@ -29,31 +29,12 @@ function service(request, response){
 				  if(jsonSearchInput.clientname && jsonSearchInput.clientname != ""){
 
   					var splitName = jsonSearchInput.clientname.split(' ');
-            if(splitName.length == 1){
-              splitName[0] = splitName[0].toLowerCase();
-              var f = new nlobjSearchFilter("formulanumeric","null","equalto",'1').setFormula("CASE WHEN INSTR(LOWER({custrecord_tc_first_name}) , '"+splitName[0]+"') > 0 OR INSTR(LOWER({custrecord_tc_last_name}) , '"+splitName[0]+"') > 0 THEN 1 ELSE 0 END");
-              additionalfilters.push(f);
-              //nlapiLogExecution('debug','splitName[0]', splitName[0]);
-              //var f = new nlobjSearchFilter('custrecord_tc_first_name',null,'contains',splitName[0]);
-              //f.isor = true;
-              //f.leftparens = 1;
-              //additionalfilters.push(f);
-              //var g = new nlobjSearchFilter('custrecord_tc_last_name',null,'contains',splitName[0]);
-              //g.rightparens = 1;
-              //additionalfilters.push(g);
-              //additionalfilters[0].isor = true;
-              //additionalfilters[0].leftparens = 1;
-              //additionalfilters[1].rightparens = 1;
-              //var clientfilter = [];
-              //var fname = ["custrecord_tc_first_name",'contains', splitName[0]];
-              //clientfilter.push(fname);
-              //clientfilter.push("OR");
-              //var lname = ["custrecord_tc_last_name",'contains', splitName[0]];
-              //clientfilter.push(lname);
-              //additionalfilters.push(clientfilter);
-              //nlapiLogExecution('debug','additionalfilters', JSON.stringify(additionalfilters));
-            }else{
+            if(splitName.length > 1){
+              //splitName[0] = splitName[0].toLowerCase();
               var f = new nlobjSearchFilter("formulatext","null","is",jsonSearchInput.clientname.toLowerCase()).setFormula("CONCAT(CONCAT(LOWER({custrecord_tc_first_name}), ' '),LOWER({custrecord_tc_last_name}))");
+              additionalfilters.push(f);
+            }else{
+              var f = new nlobjSearchFilter("formulatext","null","contains",jsonSearchInput.clientname.toLowerCase()).setFormula("CONCAT(CONCAT(LOWER({custrecord_tc_first_name}), ' '),LOWER({custrecord_tc_last_name}))");
               additionalfilters.push(f);
             }
 				  }

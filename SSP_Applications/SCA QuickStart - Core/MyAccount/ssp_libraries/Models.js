@@ -331,9 +331,14 @@ Application.defineModel('Profile', {
 			profile.hidebillingandcogs = _.find(customerFieldValues, function(field){
 				return field.name === 'custentity_hide_billingandcogs';
 			}).value;
+			profile.surcharges_make_trim_options = _.find(customerFieldValues, function(field){
+	      return field.name === 'custentity_surcharges_make_trims_do';
+	    }).value;
+			profile.customerFieldValues = customerFieldValues;
 			profile.LogoUrl = _.find(customerFieldValues, function (field) {
 				return field.name === 'custentity_avt_tailor_logo_url';
 			}).value || '/c.3857857/assets/images/avt/default-logo.jpg';
+
 			profile.internalid = nlapiGetUser() + '';
 
 			var url = myaccountsuiteleturl;

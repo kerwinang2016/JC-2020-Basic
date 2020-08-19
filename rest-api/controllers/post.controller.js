@@ -9,21 +9,22 @@
 define([
   'N/error',
   'N/log',
+  'N/search',
   'services/client',
   'services/fitProfile',
   'services/order',
   'vendor/lodash'
-], function (error, log, clientSvc, fitProfileSvc, orderSvc, _) {
+], function (error, log, search, clientSvc, fitProfileSvc, orderSvc, _) {
   'use strict'
 
   /**
    * Controller function
    *
    * @function
-   * @param {boolean} isDryRun - Denotes if the controller is running dry-runs
+
    * @returns {Function}
    */
-  return function (isDryRun = true) {
+  // return function (isDryRun = true) {
     /**
      * POST / handler
      *
@@ -34,25 +35,12 @@ define([
     const handler = function (body = {}) {
       const now = Date.now()
 
-      log.debug({
-        title: 'PostController#call',
-        details: {
-          ...body,
-          isDryRun: isDryRun
-        }
-      })
 
       const type = _.get(body, 'type', '').toUpperCase()
-      const userid = _.get(body, 'userid', '');
+      const user = _.get(body, 'user', '');
       const usertoken = _.get(body, 'usertoken', '');
       const data = _.get(body, 'data', {})
-      log.debug('type',type);
-      log.debug('userid',userid);
-      log.debug('usertoken',usertoken);
-      log.debug('data',data);
-      if (!userid ) {
-        return "{status:'error', name:'INVALID_INPUT', message: 'userid is required.'}";
-      }
+
       if (_.isEmpty(data) ) {
         return "{status:'error', name:'INVALID_INPUT', message: 'The data submitted in invalid.'}";
       }
@@ -63,20 +51,29 @@ define([
         ['ORDER', orderSvc]
       ])
 
+      if(!user || !usertoken){
+        return "{status:'error', name:'RESTRICTED ACCESS', message: 'Kindly specify your user and usertoken.'}";
+      }
+      //Lets validate the user and tailortoken
+      var tailorClient = search.lookupFields({
+        id: user,
+        type: 'customer',
+        columns: 'custentity_rest_token'
+      });
+
+      if(tailorClient.custentity_rest_token != usertoken){
+        return "{status:'error', name:'RESTRICTED ACCESS', message: 'Incorrect token for user " + user + "'}";
+      }
+      
       const service = serviceMap.get(type)
 
       if (_.isEmpty(service)) {
         return "{status:'error', name:'INVALID_TYPE', message: 'Kindly specify a valid type.'}";
-        // throw error.create({
-        //   name: 'INVALID_TYPE',
-        //   message: 'Kindly specify a valid type.',
-        //   notifyOff: true
-        // })
       }
-      if (type == 'ORDER' && userid != data.tailor) {
+      if (type == 'ORDER' && user != data.tailor) {
         return "{status:'error', name:'INVALID_INPUT', message: 'userid and data.tailor should be the same.'}";
       }
-      const result = service.create(data, isDryRun)
+      const result = service.create(data)
 
       log.debug({
         title: 'PostController#result',
@@ -90,5 +87,5 @@ define([
     }
 
     return handler
-  }
+  // }
 })

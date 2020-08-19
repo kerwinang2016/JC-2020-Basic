@@ -1,0 +1,3 @@
+<% registerMacro('cmtStockedFabric', function(view) { %>
+	CMT & Stocked Fabric Details Table
+<%})%>

@@ -1,0 +1,50 @@
+<header>
+	<h3><%= view.page_header %></h3>
+</header>
+<div id="accordion" role="tablist" aria-multiselectable="true">
+	<div class="accordion-group">
+	  <div class="accordion-heading">
+		<h3 class="mb-0">
+		  <a class=" accordion-toggle collapsed" data-target="#cmtandstockedfabric" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" role="tab" id="heading_cmtandstockedfabric">
+			CMT & Stocked Fabric
+		  </a>
+		</h3>
+	  </div>
+	  <div id="cmtandstockedfabric" class="accordion-body collapse show" role="tabpanel" aria-labelledby="cmtandstockedfabric">
+			<div class="card-block" id="cmtstockedfabricmacro">
+				<%= SC.macros.cmtStockedFabric(view) %>
+			</div>
+	  </div>
+	</div>
+	<div class="accordion-group">
+	  <div class="accordion-heading">
+		<h3 class="mb-0">
+		  <a class=" accordion-toggle collapsed" data-target="#surcharges" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" role="tab" id="heading_surcharges">
+			Surcharges
+		  </a>
+		</h3>
+	  </div>
+	  <div id="surcharges" class="accordion-body collapse show" role="tabpanel" aria-labelledby="surcharges">
+			<div class="card-block">
+				<div><a target="_blank" href="https://jerome.na2.securedcheckout.com/myaccount/downloads/USD%20Surcharges.xlsx">Surcharges for Make, Trims & Design Options</a></div>
+				<br/>
+				<div><a target="_blank" href="https://jerome.na2.securedcheckout.com/myaccount/downloads/Surcharges.xlsx">Surcharges on Fabric Prices</a></div>
+				<br/>
+			</div>
+	  </div>
+	</div>
+	<div class="accordion-group">
+	  <div class="accordion-heading">
+		<h3 class="mb-0">
+		  <a class=" accordion-toggle collapsed" data-target="#cutlengthfabricvendors" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" role="tab" id="heading_cutlengthfabricvendors">
+			Cut-Length Fabric Vendors
+		  </a>
+		</h3>
+	  </div>
+	  <div id="cutlengthfabricvendors" class="accordion-body collapse show" role="tabpanel" aria-labelledby="cutlengthfabricvendors">
+			<div class="card-block">
+				Cut-Length Fabric Vendors Details
+			</div>
+	  </div>
+	</div>
+</div>

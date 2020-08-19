@@ -9,7 +9,7 @@ PARAMETERS
 	filters.cl-email - email of the client
 	filters.cl-first-name - first name
 	filters.cl-last-name - last name
-	filters.user (Required)(Number) - tailorid given
+	filters.userid (Required)(Number) - tailorid given
 	(Not Implemented Yet) filters.usertoken (String) token given to user
 	
 */

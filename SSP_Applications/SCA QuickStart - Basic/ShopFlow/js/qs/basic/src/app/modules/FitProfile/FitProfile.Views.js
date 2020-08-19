@@ -587,7 +587,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 					var in_items = _.filter(self.options.layout.currentView.influences,function(c){
 						return c.custrecord_in_producttypetext== producttype && c.custrecord_in_bodyparttext == blockfield.dataset.field;
 					});
-
+					console.log(in_items);
 					if(in_items && in_items.length>0){
 						var blockval = parseFloat(blockfield.value);
 						for(var i=0;i<in_items.length;i++){

@@ -1741,9 +1741,9 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                   return d.custrecord_flf_ftcode == jQuery(e.target).val();
                   });
                 if(!found || found.custrecord_flf_ftstatustext == "Out of Stock" || found.custrecord_flf_ftstatustext == "Soldout" || found.custrecord_flf_ftstatustext == "Temp Soldout"){
-                  jQuery(e.target).nextAll('#liningstatusimage').html('<img title="Out of Stock" src="http://store.jeromeclothiers.com/c.3857857/shopflow/img/red.png"/>')
+                  jQuery(e.target).nextAll('#liningstatusimage').html('<img title="Out of Stock" src="https://store1.jeromeclothiers.com/c.3857857/shopflow/img/red.png"/>')
                 }else{
-                  jQuery(e.target).nextAll('#liningstatusimage').html('<img title="Available" src="http://store.jeromeclothiers.com/c.3857857/shopflow/img/green.png"/>')
+                  jQuery(e.target).nextAll('#liningstatusimage').html('<img title="Available" src="https://store1.jeromeclothiers.com/c.3857857/shopflow/img/green.png"/>')
                 }
               }else{
                 jQuery(e.target).nextAll('#liningstatusimage').html('');

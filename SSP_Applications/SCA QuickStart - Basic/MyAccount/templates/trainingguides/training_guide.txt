@@ -6,7 +6,7 @@
 	<div class="accordion-group">
 	  <div class="accordion-heading">
 		<h3 class="mb-0">
-		  <a class="accordion-toggle collapsed" data-target="#tryonguide" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" aria-controls="tryonguide" role="tab" id="headingOne">
+		  <a class="tablabel accordion-toggle collapsed" data-target="#tryonguide" data-toggle="collapse" data-parent="#accordion" aria-expanded="true" aria-controls="tryonguide" role="tab" id="headingOne">
 			TryOn Measurement Guide
 		  </a>
 		</h3>
@@ -24,7 +24,7 @@
 	<div class="accordion-group">
 	  <div class="accordion-heading">
 		<h3 class="mb-0">
-		  <a class="accordion-toggle collapsed" data-target="#tryonchart" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="tryonchart"  role="tab" id="headingTwo">
+		  <a class="tablabel accordion-toggle collapsed" data-target="#tryonchart" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="tryonchart"  role="tab" id="headingTwo">
 			TryOn Measurement Charts
 		  </a>
 		</h3>
@@ -40,7 +40,7 @@
 	<div class="accordion-group">
 		<div class="accordion-heading">
 		<h3 class="mb-0">
-			<a class=" accordion-toggle collapsed" data-target="#measuringvideo" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="measuringvideo" role="tab" id="headingFive">
+			<a class="tablabel accordion-toggle collapsed" data-target="#measuringvideo" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="measuringvideo" role="tab" id="headingFive">
 			Measurement Training Videos
 			</a>
 		</h3>
@@ -49,7 +49,7 @@
 			<div class="card-block">
 				<div class="accordion-heading">
 					<h3 class="mb-0">
-						<a class=" accordion-toggle collapsed" data-target="#overview" data-toggle="collapse" data-parent="#measuringvideo" aria-expanded="false" aria-controls="overview" role="tab" id="headingFive1">
+						<a class="tablabel accordion-toggle collapsed" data-target="#overview" data-toggle="collapse" data-parent="#measuringvideo" aria-expanded="false" aria-controls="overview" role="tab" id="headingFive1">
 						Overview
 						</a>
 					</h3>
@@ -87,7 +87,7 @@
 			<div class="card-block">
 				<div class="accordion-heading" >
 				<h3 class="mb-0">
-					<a class=" accordion-toggle collapsed" data-target="#jacket" data-toggle="collapse" data-parent="#measuringvideo" aria-expanded="false" aria-controls="jacket" role="tab" id="headingFive2">
+					<a class="tablabel accordion-toggle collapsed" data-target="#jacket" data-toggle="collapse" data-parent="#measuringvideo" aria-expanded="false" aria-controls="jacket" role="tab" id="headingFive2">
 					Jacket
 					</a>
 				</h3>
@@ -95,7 +95,7 @@
 				<div id="jacket" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingFive2" style="margin-left:40px;">
 					<div class="accordion-heading">
 						<h3 class="mb-0">
-							<a class=" accordion-toggle collapsed" data-target="#jacket_statureandbuild" data-toggle="collapse" data-parent="#jacket" aria-expanded="false" aria-controls="jacket_statureandbuild" role="tab" id="headingFive2-1">
+							<a class="tablabel accordion-toggle collapsed" data-target="#jacket_statureandbuild" data-toggle="collapse" data-parent="#jacket" aria-expanded="false" aria-controls="jacket_statureandbuild" role="tab" id="headingFive2-1">
 							Stature & Build
 							</a>
 						</h3>
@@ -355,7 +355,7 @@
 					</div>
 					<div class="accordion-heading">
 						<h3 class="mb-0">
-							<a class=" accordion-toggle collapsed" data-target="#jacket_horizontals" data-toggle="collapse" data-parent="#jacket" aria-expanded="false" aria-controls="jacket_horizontals" role="tab" id="headingFive2-2">
+							<a class="tablabel accordion-toggle collapsed" data-target="#jacket_horizontals" data-toggle="collapse" data-parent="#jacket" aria-expanded="false" aria-controls="jacket_horizontals" role="tab" id="headingFive2-2">
 							Horizontals
 							</a>
 						</h3>
@@ -606,7 +606,7 @@
 					</div>
 					<div class="accordion-heading">
 						<h3 class="mb-0">
-							<a class=" accordion-toggle collapsed" data-target="#jacket_length" data-toggle="collapse" data-parent="#jacket" aria-expanded="false" aria-controls="jacket_length" role="tab" id="headingFive2-3">
+							<a class="tablabel accordion-toggle collapsed" data-target="#jacket_length" data-toggle="collapse" data-parent="#jacket" aria-expanded="false" aria-controls="jacket_length" role="tab" id="headingFive2-3">
 							Length
 							</a>
 						</h3>
@@ -674,7 +674,7 @@
 					</div>
 					<div class="accordion-heading">
 						<h3 class="mb-0">
-							<a class=" accordion-toggle collapsed" data-target="#jacket_other" data-toggle="collapse" data-parent="#jacket" aria-expanded="false" aria-controls="jacket_others" role="tab" id="headingFive2-3">
+							<a class="tablabel accordion-toggle collapsed" data-target="#jacket_other" data-toggle="collapse" data-parent="#jacket" aria-expanded="false" aria-controls="jacket_others" role="tab" id="headingFive2-3">
 							Others
 							</a>
 						</h3>
@@ -761,7 +761,7 @@
 			<div class="card-block">
 				<div class="accordion-heading">
 				<h3 class="mb-0">
-					<a class=" accordion-toggle collapsed" data-target="#trouser" data-toggle="collapse" data-parent="#measuringvideo" aria-expanded="false" aria-controls="trouser" role="tab" id="headingFive3">
+					<a class="tablabel accordion-toggle collapsed" data-target="#trouser" data-toggle="collapse" data-parent="#measuringvideo" aria-expanded="false" aria-controls="trouser" role="tab" id="headingFive3">
 					Trouser
 					</a>
 				</h3>
@@ -769,7 +769,7 @@
 				<div id="trouser" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingFive3" style="margin-left:40px;">
 					<div class="accordion-heading">
 						<h3 class="mb-0">
-							<a class=" accordion-toggle collapsed" data-target="#trouser_statureandbuild" data-toggle="collapse" data-parent="#trouser" aria-expanded="false" aria-controls="trouser_statureandbuild" role="tab" id="headingFive3-1">
+							<a class="tablabel accordion-toggle collapsed" data-target="#trouser_statureandbuild" data-toggle="collapse" data-parent="#trouser" aria-expanded="false" aria-controls="trouser_statureandbuild" role="tab" id="headingFive3-1">
 							Stature & Build
 							</a>
 						</h3>
@@ -903,7 +903,7 @@
 					</div>
 					<div class="accordion-heading">
 						<h3 class="mb-0" >
-							<a class=" accordion-toggle collapsed" data-target="#trouser_horizontals" data-toggle="collapse" data-parent="#trouser" aria-expanded="false" aria-controls="trouser_horizontals" role="tab" id="headingFive3-2">
+							<a class="tablabel accordion-toggle collapsed" data-target="#trouser_horizontals" data-toggle="collapse" data-parent="#trouser" aria-expanded="false" aria-controls="trouser_horizontals" role="tab" id="headingFive3-2">
 							Horizontals
 							</a>
 						</h3>
@@ -1087,7 +1087,7 @@
 					</div>
 					<div class="accordion-heading">
 						<h3 class="mb-0">
-							<a class=" accordion-toggle collapsed" data-target="#trouser_length" data-toggle="collapse" data-parent="#trouser" aria-expanded="false" aria-controls="trouser_length" role="tab" id="headingFive3-3">
+							<a class="tablabel accordion-toggle collapsed" data-target="#trouser_length" data-toggle="collapse" data-parent="#trouser" aria-expanded="false" aria-controls="trouser_length" role="tab" id="headingFive3-3">
 							Length
 							</a>
 						</h3>
@@ -1126,7 +1126,7 @@
 	<div class="accordion-group">
 	  <div class="accordion-heading">
 		<h3 class="mb-0">
-		  <a class="accordion-toggle collapsed" data-target="#mensdesigns" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="bodymeasurementguide" role="tab" id="headingThree">
+		  <a class="tablabel accordion-toggle collapsed" data-target="#mensdesigns" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="bodymeasurementguide" role="tab" id="headingThree">
 			Men's Designs
 		  </a>
 		</h3>
@@ -1142,7 +1142,7 @@
 	<div class="accordion-group">
 	  <div class="accordion-heading">
 		<h3 class="mb-0">
-		  <a class=" accordion-toggle collapsed" data-target="#womensdesigns" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="bodymeasurementcharts" role="tab" id="headingFour">
+		  <a class="tablabel accordion-toggle collapsed" data-target="#womensdesigns" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" aria-controls="bodymeasurementcharts" role="tab" id="headingFour">
 			Women's Designs
 		  </a>
 		</h3>
@@ -1158,7 +1158,7 @@
 	<div class="accordion-group">
 	  <div class="accordion-heading">
 		<h3 class="mb-0">
-		  <a class=" accordion-toggle collapsed" data-target="#customliningguide" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" role="tab" id="headingFive">
+		  <a class="tablabel accordion-toggle collapsed" data-target="#customliningguide" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" role="tab" id="headingFive">
 			Custom Lining Guide
 		  </a>
 		</h3>

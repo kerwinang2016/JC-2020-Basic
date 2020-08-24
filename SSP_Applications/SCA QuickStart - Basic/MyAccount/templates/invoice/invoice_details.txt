@@ -40,7 +40,7 @@
 		<%
 			var span = (invoice.get('createdfrom') && invoice.get('createdfrom').id) ? 2 : 3
 			//,	url = _.getDownloadPdfUrl({asset:'invoice-details', 'id': view.model.get('internalid')});
-			,	url = "https://jerome.na2.securedcheckout.com/app/site/hosting/scriptlet.nl?script=121&deploy=1&custparam_record_id=" + view.model.get('internalid') + "&custparam_record_type=invoice&custparam_template=4"
+			,	url = "https://store1.jeromeclothiers.com/app/site/hosting/scriptlet.nl?script=121&deploy=1&custparam_record_id=" + view.model.get('internalid') + "&custparam_record_type=invoice&custparam_template=4"
 		%>
 
 		<div class="header-information margin-bottom-10">

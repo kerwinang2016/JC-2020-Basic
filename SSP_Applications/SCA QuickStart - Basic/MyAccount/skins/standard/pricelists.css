@@ -1,0 +1,22 @@
+#cmtandstockedfabric table,#cmtandstockedfabric  td{
+  border:1px solid #777;
+}
+#cmtandstockedfabric table{
+  margin-bottom: 20px;
+  width: 100%;
+}
+#cmtandstockedfabric .div_label{
+  text-align:center;
+}
+#cmtandstockedfabric th{
+  font-size:12px;text-align:center;
+}
+#cmtandstockedfabric  td{
+  padding: 0 5px;
+}
+#cmtandstockedfabric .number{
+  text-align:center;
+}
+.pricelists .tablabel{
+  font-size:16px;
+}

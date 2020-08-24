@@ -1,3 +1,134 @@
 <% registerMacro('cmtStockedFabric', function(view) { %>
-	CMT & Stocked Fabric Details Table
+	<% if(view.cmtcosts){ %>
+			<div id="downloadCMTStockedFabric" class="btn" data-action="downloadCMTStockedFabric">Download</div>
+			<% if(view.cmtcosts.allCMT && view.cmtcosts.allCMT.length>0){ %>
+				<div class="div_label">Men's CMT & Fabric</div>
+				<table id="table_mencmtstockedfabric">
+					<tr>
+						<th class="span2"></th>
+						<th class="span1">3PC Suit</th>
+						<th class="span1">2PC Suit</th>
+						<th class="span1">Jacket</th>
+						<th class="span1">Trouser</th>
+						<th class="span1">Waistcoat</th>
+						<th class="span1">Shirt</th>
+						<th class="span1">Overcoat</th>
+						<th class="span3" colspan="3">Trenchcoat</th>
+					</tr>
+					<tr>
+						<th class="span2"></th>
+						<th class="span1"></th>
+						<th class="span1"></th>
+						<th class="span1"></th>
+						<th class="span1"></th>
+						<th class="span1"></th>
+						<th class="span1"></th>
+						<th class="span1"></th>
+						<th class="span1" style="font-size:8px;" >4 BTN Car Collar</th>
+						<th class="span1" style="font-size:8px;">5 BTN Hooded</th>
+						<th class="span1" style="font-size:8px;">10 BTN DB</th>
+					</tr>
+					<% for(var i=0;i<view.cmtcosts.allCMT.length;i++){
+						var cmt = view.cmtcosts.allCMT[i]; %>
+						<tr>
+						<td class="span2"><%= cmt.collection %></td>
+						<td class="span1 number"><%= cmt.threepc %></td>
+						<td class="span1 number"><%= cmt.twopc %></td>
+						<td class="span1 number"><%= cmt.jacket %></td>
+						<td class="span1 number"><%= cmt.trouser %></td>
+						<td class="span1 number"><%= cmt.waistcoat %></td>
+						<td class="span1 number"><%= cmt.shirt %></td>
+						<td class="span1 number"><%= cmt.overcoat %></td>
+						<td class="span1 number"><%= cmt.trenchcoat %></td>
+						<td class="span1 number"><%= cmt.trenchcoatfivebtn %></td>
+						<td class="span1 number"><%= cmt.trenchcoattenbtn %></td>
+						</tr>
+					<% } %>
+			</table>
+		<% } %>
+		<% if(view.cmtcosts.allShipping && view.cmtcosts.allShipping.length>0){ %>
+			<div class="div_label">Men's Shipping Charges</div>
+			<table id="table_mensshippingcharges">
+				<tr>
+					<th class="span2"></th>
+					<th class="span1">3PC Suit</th>
+					<th class="span1">2PC Suit</th>
+					<th class="span1">Jacket</th>
+					<th class="span1">Trouser</th>
+					<th class="span1">Waistcoat</th>
+					<th class="span1">Shirt</th>
+					<th class="span1">Overcoat</th>
+					<th class="span3" colspan="3">Trenchcoat</th>
+				</tr>
+				<% _.each(view.cmtcosts.allShipping,function(cmt){ %>
+					<tr>
+					<td class="span2">Shipping</td>
+					<td class="span1 number"><%=cmt.threepc%></td>
+					<td class="span1 number"><%=cmt.twopc%></td>
+					<td class="span1 number"><%=cmt.jacket%></td>
+					<td class="span1 number"><%=cmt.trouser%></td>
+					<td class="span1 number"><%=cmt.waistcoat%></td>
+					<td class="span1 number"><%=cmt.shirt%></td>
+					<td class="span1 number"><%=cmt.overcoat%></td>
+					<td class="span1" style="border-right:none;"></td>
+					<td class="span1 number" style="border-right:none; border-left:none;"><%=cmt.trenchcoat%></td>
+					<td class="span1 number" style="border-left:none;"></td>
+					</tr>
+				<% }); %>
+			</table>
+		<% } %>
+		<% if(view.cmtcosts.allCMT && view.cmtcosts.allCMT.length>0){ %>
+			<div class="div_label">Women's CMT & Fabric</div>
+			<table id="table_womenscmtstockedfabric">
+				<tr>
+					<th class="span2"></th>
+					<th class="span2">3PC Suit</th>
+					<th class="span2">2PC (Pants)</th>
+					<th class="span2">2PC (Skirt)</th>
+					<th class="span1">Jacket</th>
+					<th class="span1">Pants</th>
+					<th class="span1">Skirt</th>
+				</tr>
+				<% for(var i=0;i<view.cmtcosts.allCMT.length;i++){
+					var cmt = view.cmtcosts.allCMT[i];
+					if(cmt.collection != "H" && cmt.collection != "K" && cmt.collection != "L"){ %>
+					<tr>
+					<td class=""><%=cmt.collection%></td>
+					<td class="number"><%=cmt.ladiesthreepc%></td>
+					<td class="number"><%=cmt.twopcpants%></td>
+					<td class="number"><%=cmt.twopcskirt%></td>
+					<td class="number"><%=cmt.ladiesjacket%></td>
+					<td class="number"><%=cmt.ladiespants%></td>
+					<td class="number"><%=cmt.ladiesskirt%></td>
+					</tr>
+					<% } %>
+				<% } %>
+			</table>
+		<% } %>
+		<% if(view.cmtcosts.allShipping && view.cmtcosts.allShipping.length>0){ %>
+			<div class="div_label">Women's Shipping Charges</div>
+			<table id="table_womensshippingcharges">
+				<tr>
+					<th class="span2"></th>
+					<th class="span2">3PC Suit</th>
+					<th class="span2">2PC (Pants)</th>
+					<th class="span2">2PC (Skirt)</th>
+					<th class="span1">Jacket</th>
+					<th class="span1">Pants</th>
+					<th class="span1">Skirt</th>
+				</tr>
+				<% _.each(view.cmtcosts.allShipping,function(cmt){ %>
+					<tr>
+					<td class="">Shipping</td>
+					<td class="number"><%=cmt.ladiesthreepc%></td>
+					<td class="number"><%=cmt.twopcpants%></td>
+					<td class="number"><%=cmt.twopcskirt%></td>
+					<td class="number"><%=cmt.ladiesjacket%></td>
+					<td class="number"><%=cmt.ladiespants%></td>
+					<td class="number"><%=cmt.ladiesskirt%></td>
+					</tr>
+				<% }); %>
+			</table>
+		<% } %>
+	<% } %>
 <%})%>

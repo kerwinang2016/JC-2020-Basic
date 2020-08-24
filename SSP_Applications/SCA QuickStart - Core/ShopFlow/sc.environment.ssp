@@ -131,7 +131,7 @@ SC.SESSIONTIME = new Date();
 SC.SE = null;
 SC.sessioncheck = function(){
 	self = this;
-	console.log('sessioncheck')
+	//console.log('sessioncheck')
 	//if((new Date()-SC.SESSIONTIME) >= 68400000){
     	jQuery.ajax({
     		url: window.location.origin+'/api/items'

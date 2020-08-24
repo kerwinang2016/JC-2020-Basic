@@ -1,11 +1,11 @@
 <header>
 	<h3><%= view.page_header %></h3>
 </header>
-<div id="accordion" role="tablist" aria-multiselectable="true">
+<div class="pricelists" id="accordion" role="tablist" aria-multiselectable="true">
 	<div class="accordion-group">
 	  <div class="accordion-heading">
 		<h3 class="mb-0">
-		  <a class=" accordion-toggle collapsed" data-target="#cmtandstockedfabric" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" role="tab" id="heading_cmtandstockedfabric">
+		  <a class="tablabel accordion-toggle collapsed" data-target="#cmtandstockedfabric" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" role="tab" id="heading_cmtandstockedfabric">
 			CMT & Stocked Fabric
 		  </a>
 		</h3>
@@ -19,32 +19,47 @@
 	<div class="accordion-group">
 	  <div class="accordion-heading">
 		<h3 class="mb-0">
-		  <a class=" accordion-toggle collapsed" data-target="#surcharges" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" role="tab" id="heading_surcharges">
+		  <a class="tablabel accordion-toggle collapsed" data-target="#surcharges" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" role="tab" id="heading_surcharges">
 			Surcharges
 		  </a>
 		</h3>
 	  </div>
 	  <div id="surcharges" class="accordion-body collapse show" role="tabpanel" aria-labelledby="surcharges">
 			<div class="card-block">
-				<div><a target="_blank" href="https://jerome.na2.securedcheckout.com/myaccount/downloads/USD%20Surcharges.xlsx">Surcharges for Make, Trims & Design Options</a></div>
+				<div><a target="_blank" href="<%=window.location.origin+view.surchargesformakeandtrim.url%>">Surcharges for Make, Trims & Design Options</a></div>
 				<br/>
 				<div><a target="_blank" href="https://jerome.na2.securedcheckout.com/myaccount/downloads/Surcharges.xlsx">Surcharges on Fabric Prices</a></div>
 				<br/>
 			</div>
 	  </div>
 	</div>
+	<% if(view.cutlengthfabricvendors.length>0){ %>
 	<div class="accordion-group">
 	  <div class="accordion-heading">
 		<h3 class="mb-0">
-		  <a class=" accordion-toggle collapsed" data-target="#cutlengthfabricvendors" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" role="tab" id="heading_cutlengthfabricvendors">
+		  <a class="tablabel accordion-toggle collapsed" data-target="#cutlengthfabricvendors" data-toggle="collapse" data-parent="#accordion" aria-expanded="false" role="tab" id="heading_cutlengthfabricvendors">
 			Cut-Length Fabric Vendors
 		  </a>
 		</h3>
 	  </div>
 	  <div id="cutlengthfabricvendors" class="accordion-body collapse show" role="tabpanel" aria-labelledby="cutlengthfabricvendors">
 			<div class="card-block">
-				Cut-Length Fabric Vendors Details
+				<table style="width:100%;margin:10px;" id='table_cutlengthfabricvendors'>
+				<tr style="border-bottom:1px solid #777;">
+				<th>Vendor</th>
+				<th>Downloadable Price List</th>
+				<th>Date Last Updated</th>
+				</tr>
+				<% _.each(view.cutlengthfabricvendors,function(vendor){ %>
+					<tr style="border-bottom:1px solid #777;height:40px">
+					<td class="span3"><%=vendor.name%></td>
+					<td class="span6"><a target="_blank" href="<%=window.location.origin+vendor.url%>"><%=vendor.filename%></a></td>
+					<td class="span3"><%=vendor.lastupdated%></td>
+					</tr>
+				<% }); %>
+				</table>
 			</div>
 	  </div>
 	</div>
+	<% } %>
 </div>

@@ -491,7 +491,6 @@ Application.defineModel('Profile', {
 
 			profile.balance_available = profile.creditlimit - profile.balance;
 			profile.balance_available_formatted = formatCurrency(profile.balance_available);
-			nlapiLogExecution('debug','TEST');
 			var customerFieldValues = customer.getCustomFieldValues();
 			profile.hidebillingandcogs = _.find(customerFieldValues, function(field){
 				return field.name === 'custentity_hide_billingandcogs';

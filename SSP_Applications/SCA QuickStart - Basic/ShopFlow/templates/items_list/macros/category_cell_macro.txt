@@ -1,4 +1,5 @@
 <% registerMacro('categoryCell', function (item) {
+
 var application = SC.Application('Shopping'); %>
 <div class="category-cell">
 	<% if (Backbone.history.fragment.split("?").length > 1) { %>

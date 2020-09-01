@@ -280,7 +280,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 					window.defaultfavfittools = data;
 				}
 			});
-			SC.sessioncheck();
+			//SC.sessioncheck();	//KM Commented out and put the sessioncheck on Starter.js
 		}
 		, swxFitProfileCopy: function (e) {
 			e.preventDefault();

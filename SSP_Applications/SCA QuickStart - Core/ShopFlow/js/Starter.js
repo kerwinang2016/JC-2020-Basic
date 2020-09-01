@@ -1,4 +1,13 @@
-
+SC.sessioncheck = function(){
+	self = this;
+	//console.log('hastimedout');
+	jQuery.ajax({
+		url: '/myaccount/services/live-order.ss'
+	});
+	setTimeout(function(){
+		SC.sessioncheck();
+	}, 1140000);
+}
 
 SC.startShopping = function ()
 {
@@ -93,8 +102,8 @@ SC.startShopping = function ()
 					pushState: SC.ENVIRONMENT.seoSupport && SC.ENVIRONMENT.jsEnvironment === 'browser'
 				});
 			}
-			//SC.sessioncheck();
-			
+			SC.sessioncheck();	//KM Uncomment the sessioncheck on Starter.js
+
 		});
 	});
 	// remove the script added for load script function

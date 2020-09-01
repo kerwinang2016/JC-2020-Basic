@@ -43,6 +43,11 @@ function service (request)
 							case "Ladies-Jacket": ptypearr = [14]; break;
 							case "Ladies-Pants": ptypearr = [15]; break;
 							case "Ladies-Skirt": ptypearr = [16]; break;
+							case "Shorts": ptypearr = [28]; break;
+							case "Morning-Coat": ptypearr = [27]; break;
+							case "Shirt-Jacket": ptypearr = [30]; break;
+							case "Safari-Jacket": ptypearr = [31]; break;
+							case "Camp-Shirt": ptypearr = [29]; break;
 						}
 					}
 					filters.push(new nlobjSearchFilter('custrecord_bqm_product',null,'anyof',ptypearr));

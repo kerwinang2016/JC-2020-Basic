@@ -11,7 +11,7 @@
 				<i class="fa fa-search"></i>
 			</button>
 		</div>
-		<img id="searchhint" src="https://store1.jeromeclothiers.com/myaccount/img/info_icon.gif" class="weboption-tooltip ox-tooltip-icon tooltipstered" data-toggle="tooltip"
+		<img id="searchhint" src="https://store.jeromeclothiers.com/myaccount/img/info_icon.gif" class="weboption-tooltip ox-tooltip-icon tooltipstered" data-toggle="tooltip"
 		data-original-title="Example:<br/>Searching orders: SO-XXXX <br/> Searching clients: Client Name" data-html="true">
 		</form>
 	</div>
@@ -140,11 +140,11 @@
 					</td>
 					<td style="text-align:center;">
 					<% if(order.get('clearstatus') == true){ %>
-						<img src="https://store1.jeromeclothiers.com/myaccount/img/clear.png">
+						<img src="https://store.jeromeclothiers.com/myaccount/img/clear.png">
 					<% }else if(order.get('tranline_status') == true){ %>
-						<img src="https://store1.jeromeclothiers.com/myaccount/img/red.png">
+						<img src="https://store.jeromeclothiers.com/myaccount/img/red.png">
 						<% }else{ %>
-						<img src="https://store1.jeromeclothiers.com/myaccount/img/green.png">
+						<img src="https://store.jeromeclothiers.com/myaccount/img/green.png">
 						<% } %>
 					</td>
 					<td>

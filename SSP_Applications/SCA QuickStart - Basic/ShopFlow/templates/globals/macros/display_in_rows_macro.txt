@@ -19,7 +19,7 @@
 	<% var count = 0;
 	_.each(items, function (item, index){
 	%>
-		<% if (((count % items_per_row) == 0 || index == 10) && index > 0 ){
+		<% if (((count % items_per_row) == 0 || index == 9) && index > 0 ){
 			count=0; %>
 			</div>
 			<% if(index == 10 && isCategory){ %>

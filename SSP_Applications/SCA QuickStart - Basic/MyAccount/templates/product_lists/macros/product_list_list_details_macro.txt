@@ -27,7 +27,7 @@
 				{
 			%>
 
-			(<%= _('last added').translate()%>  <a href='https://store1.jeromeclothiers.com/#<%= _(last_product_item.get('itemDetails').get('_url')).fixUrl() %>'><%= item.displayname %></a>)
+			(<%= _('last added').translate()%>  <a href='https://store.jeromeclothiers.com/#<%= _(last_product_item.get('itemDetails').get('_url')).fixUrl() %>'><%= item.displayname %></a>)
 				<% } %>
 			<% } %>
 			<% } else { %>

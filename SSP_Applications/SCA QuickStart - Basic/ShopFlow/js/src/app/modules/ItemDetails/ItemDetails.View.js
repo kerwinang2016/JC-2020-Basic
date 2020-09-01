@@ -719,7 +719,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 // update design option hidden fields
                 if (this.model.get('custitem_clothing_type') && this.model.get('custitem_clothing_type') != "&nbsp;") {
                     clothingTypes = this.model.get('custitem_clothing_type').split(', ');
-
+                    console.log(clothingTypes);
                     var selectedUnits = "CM";
                     _.each(clothingTypes, function (clothingType) {
                         var usedClothingType = clothingType;
@@ -731,6 +731,14 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                           clothingType = 'LadiesPants';
                         else if(clothingType == 'Short-Sleeves-Shirt')
                           clothingType = 'SSShirt';
+                        else if(clothingType == 'Morning-Coat')
+                          clothingType = 'morning_coat';
+                        else if(clothingType == 'Safari-Jacket')
+                          clothingType = 'safari_jacket';
+                        else if(clothingType == 'Shirt-Jacket')
+                          clothingType = 'shirt_jacket';
+                        else if(clothingType == 'Camp-Shirt')
+                          clothingType = 'camp_shirt';
                         //Design Option
                         var internalId = "custcol_designoptions_" + clothingType.toLowerCase();
                         var designOptions = self.getDesignOptions(usedClothingType);
@@ -1136,6 +1144,14 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     clothingType = 'LadiesPants';
                   else if(clothingType == 'Short-Sleeves-Shirt')
                     clothingType = 'SSShirt';
+                  else if(clothingType == 'Morning-Coat')
+                    clothingType = 'Morning_Coat';
+                  else if(clothingType == 'Safari-Jacket')
+                    clothingType = 'Safari_Jacket';
+                  else if(clothingType == 'Shirt-Jacket')
+                    clothingType = 'Shirt_jacket';
+                  else if(clothingType == 'Camp-Shirt')
+                    clothingType = 'Camp_Shirt';
                     //Design Option
                     var internalId = "custcol_designoptions_" + clothingType.toLowerCase();
                     var designOptions = self.getDesignOptions(usedClothingType);
@@ -1741,9 +1757,9 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                   return d.custrecord_flf_ftcode == jQuery(e.target).val();
                   });
                 if(!found || found.custrecord_flf_ftstatustext == "Out of Stock" || found.custrecord_flf_ftstatustext == "Soldout" || found.custrecord_flf_ftstatustext == "Temp Soldout"){
-                  jQuery(e.target).nextAll('#liningstatusimage').html('<img title="Out of Stock" src="https://store1.jeromeclothiers.com/c.3857857/shopflow/img/red.png"/>')
+                  jQuery(e.target).nextAll('#liningstatusimage').html('<img title="Out of Stock" src="https://store.jeromeclothiers.com/c.3857857/shopflow/img/red.png"/>')
                 }else{
-                  jQuery(e.target).nextAll('#liningstatusimage').html('<img title="Available" src="https://store1.jeromeclothiers.com/c.3857857/shopflow/img/green.png"/>')
+                  jQuery(e.target).nextAll('#liningstatusimage').html('<img title="Available" src="https://store.jeromeclothiers.com/c.3857857/shopflow/img/green.png"/>')
                 }
               }else{
                 jQuery(e.target).nextAll('#liningstatusimage').html('');

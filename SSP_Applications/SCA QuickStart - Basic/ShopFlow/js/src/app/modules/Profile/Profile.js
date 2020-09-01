@@ -154,6 +154,10 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 			tag['Ladies-Jacket'] = 'lj';
 			tag['Ladies-Pants'] = 'lp';
 			tag['Ladies-Skirt'] = 'ls';
+			tag['Morning-Coat'] = 'mc';
+			tag['Shirt-Jacket'] = 'sj';
+			tag['Camp-Shirt'] = 'cs';
+			tag['Safari-Jacket'] = 'saj';
 			var currentItemTypes;
 
 			var stCartLines = JSON.stringify(userOptions.shoppingCartLines) || '[]';
@@ -171,12 +175,12 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 					orderItemInternalId = arrUrlParamClient[1]
 				}
 			}
-            var objCartDesignOptionsMapping = _.getObjDesignOptionsMappingFromCartId(cartLines, orderItemInternalId);
-            var cartLine = _.findWhere(cartLines, { internalid: orderItemInternalId });
-            var itemCheck = "F";
-            if (cartLine) {
-                itemCheck = cartLine.options.custcolcustcol_item_check;
-            }
+      var objCartDesignOptionsMapping = _.getObjDesignOptionsMappingFromCartId(cartLines, orderItemInternalId);
+      var cartLine = _.findWhere(cartLines, { internalid: orderItemInternalId });
+      var itemCheck = "F";
+      if (cartLine) {
+          itemCheck = cartLine.options.custcolcustcol_item_check;
+      }
 			if (view.model.get('custitem_clothing_type') && view.model.get('custitem_clothing_type') != "" && view.model.get('custitem_clothing_type') != "nbsp;"){
 				currentItemTypes = view.model.get('custitem_clothing_type').split(', ');
 			}
@@ -429,6 +433,51 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 														}
 													});
 												}
+												if(item.get("options").custcol_designoptions_shorts){
+													var opValues = JSON.parse(item.get("options").custcol_designoptions_shorts.value);
+
+													_.each(opValues, function(value){
+														if(value){
+															values[value.name] = value.value;
+														}
+													});
+												}
+												if(item.get("options").custcol_designoptions_morning_coat){
+													var opValues = JSON.parse(item.get("options").custcol_designoptions_morning_coat.value);
+
+													_.each(opValues, function(value){
+														if(value){
+															values[value.name] = value.value;
+														}
+													});
+												}
+												if(item.get("options").custcol_designoptions_safari_jacket){
+													var opValues = JSON.parse(item.get("options").custcol_designoptions_safari_jacket.value);
+
+													_.each(opValues, function(value){
+														if(value){
+															values[value.name] = value.value;
+														}
+													});
+												}
+												if(item.get("options").custcol_designoptions_camp_shirt){
+													var opValues = JSON.parse(item.get("options").custcol_designoptions_camp_shirt.value);
+
+													_.each(opValues, function(value){
+														if(value){
+															values[value.name] = value.value;
+														}
+													});
+												}
+												if(item.get("options").custcol_designoptions_shirt_jacket){
+													var opValues = JSON.parse(item.get("options").custcol_designoptions_ssshirt.value);
+
+													_.each(opValues, function(value){
+														if(value){
+															values[value.name] = value.value;
+														}
+													});
+												}
 												if(item.get("options").custcol_designoption_message){
 													designOptionMessage = item.get("options").custcol_designoption_message.value;
 												}
@@ -462,7 +511,9 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 										|| internalid == "custcol_designoptions_shirt" || internalid == "custcol_designoptions_overcoat"
 										|| internalid == "custcol_designoptions_ladiesjacket" || internalid == "custcol_designoptions_ladiespants"
 										|| internalid == "custcol_designoptions_ladiesskirt" || internalid == "custcol_designoptions_trenchcoat"
-										|| internalid == "custcol_designoptions_ssshirt" ){
+										|| internalid == "custcol_designoptions_ssshirt" || internalid == "custcol_designoptions_shorts"
+									|| internalid == "custcol_designoptions_camp_shirt" || internalid == "custcol_designoptions_shirt_jacket"
+								|| internalid == "custcol_designoptions_morning_coat" || internalid == "custcol_designoptions_safari_jacket" ){
 											var opValues = JSON.parse(option.value);
 
 											_.each(opValues, function(value){

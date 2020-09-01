@@ -9,7 +9,7 @@
 	var Trenchcoat = ['Monogram Under Collar', 'Monogram Interior Lining', 'Branding'];
 	var LadiesJacket = ['Monogram', 'Branding'];
 	var LadiesSkirt = [];
-	var LadiesPants = [];
+	var LadiesPants = [], Shorts=[],CampShirt=[],SafariJacket=[],MorningCoat=[],ShirtJacket=[];
 	var ShortSleevesShirt = ['Monogram','Chest Pocket Emblem','Branding and Presentation'];
 	var collapse = [];
 	collapse['Jacket'] = Jacket;
@@ -22,6 +22,11 @@
 	collapse['Ladies-Skirt'] = LadiesSkirt;
 	collapse['Ladies-Pants'] = LadiesPants;
 	collapse['Short-Sleeves-Shirt'] = ShortSleevesShirt;
+	collapse['Shorts'] = Shorts;
+	collapse['Morning-Coat'] = MorningCoat;
+	collapse['Shirt-Jacket'] = ShirtJacket;
+	collapse['Camp-Shirt'] = CampShirt;
+	collapse['Safari-Jacket'] = SafariJacket;
 		%>
 
 	<% if (designOptions && Object.keys(designOptions).length > 0) { %>

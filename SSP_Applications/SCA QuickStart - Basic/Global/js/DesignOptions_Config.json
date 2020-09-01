@@ -147,7 +147,7 @@
 						]
 					}
 				,	{
-						"label":"Washable Treatment"
+						"label":"Washable"
 					,	"name":"T010273"
 					,	"type":"select"
 					,	"texts": [
@@ -321,9 +321,9 @@
 						,	"Shawl collar 7.6cm/3in"
 						,	"1 button bib shawl"
 						,	"Curved wide peak lapel 11.5cm/4.5in"
-						,	"Curved peak lapel 8.5cm/3.4in"
-						,	"Curved peak lapel 9.5cm/3.75in"
-						,	"Curved peak lapel 10.5cm/4.1in"
+						,	"Curved wide peak 8.5cm/3.4in"
+						,	"Curved wide peak 9.5cm/3.75in"
+						,	"Curved wide peak 10.5cm/4.1in"
 						,	"Stand collar"
 						,	""
 						]
@@ -4195,7 +4195,7 @@
 						]
 					}
 				,	{
-						"label":"Washable Treatment"
+						"label":"Washable"
 					,	"name":"T010540"
 					,	"type":"select"
 					,	"texts": [
@@ -4309,8 +4309,8 @@
                         ,   "3.5cm wide 1 btn long ext with buckle and strap"
                         ,	"Double belt loops"
                         ,	"Draw string"
-                        ,	"3.5cm 1B Long ext with 1 belt loop"
-                        ,	"4.5cm Waistband and 1 buckle"
+                        ,	"3.5cm Wide 1B long ext with 1 belt loop"
+                        ,	"4.5cm Wide belt extension with buckle"
 						]
 					,	"values": [
 							"T01050901"
@@ -4380,7 +4380,7 @@
 						,	"Non-ext with 1 hook and bar"
 						,	"Non-ext with 1 btn"
 						,	"Self fabric waistband closure"
-						,	"4.5 Waistband and 1 buckle with self-fabric waistband"
+						,	"4.5cm Wide belt extension with buckle"
 						]
 					,	"values": [
 							"T01050701"
@@ -5679,7 +5679,7 @@
 						]
 					}
 				,	{
-						"label":"Washable Treatment"
+						"label":"Washable"
 					,	"name":"T011725"
 					,	"type":"select"
 					,	"texts": [
@@ -7608,8 +7608,8 @@
 					,	"texts": [
 							"No"
 						,	"Self fabric belt"
-						,	"Back belt with 2 buttons square ext"
-						,	"Back belt with 2 buttons pointed ext"
+						,	"Back Belt w 2BTN Square Ext"
+						,	"Back Belt w 2 BTN Pointed Ext (Pleated back)"
 						,	"Back self fabric belt"
 						]
 					,	"values": [
@@ -7656,7 +7656,7 @@
 					,	"texts": [
 							"Welted"
 						,	"Patch round"
-						,	"Jetted with side access"
+						,	"Vertical slash pockets"
 						,	"None"
 						]
 					,	"values": [
@@ -8683,10 +8683,10 @@
 					,	"type":"select"
 					,	"texts": [
 							"Center (1)"
-						,	"Long inverted vent with 2 fastening btns"
-						,	"Long inverted vent with no btns"
-						,	"Medium inverted vent with 2 fastening btns"
-						,	"Medium inverted vent with no btns"
+						,	"Inverted Back Pleat w/ Extended Vent, 2BTN Fasten"
+						,	"Inverted Back Pleat w/ Extended Vent, No Button Fasten"
+						,	"Extended Vent with 2BTN Fasten"
+						,	"Extended Vent with No Button Fasten"
 						]
 					,	"values": [
 							"T01040701"
@@ -9742,8 +9742,8 @@
 					,	"type":"select"
 					,	"texts": [
 							"No"
-						,	"Fixed cuff tab"
-						,	"Long tab with 1 button"
+						,	"Fixed cuff epualette"
+						,	"Long with 1BTN"
 						]
 					,	"values": [
 							"T01043502"
@@ -10257,12 +10257,8 @@
 						,	"Mao standard 4cm/1.6in (MAO4CM)"
 						,	"Wing tip (SMO)"
 						,	"Medium spread with round edges"
-						,	"One-piece collar and neckband"
+						,	"One-piece collar including collarband"
 						,	"One-piece button down"
-						,	"SCAH MRZV"
-						,	"SCAL MRZV"
-						,	"NICK MRZV"
-						,	"UB MRZV"
                       	,	"Please select"
 						]
 					,	"values": [
@@ -10297,10 +10293,6 @@
 						,	"T01060334"
 						,	"T01060336"
 						,	"T01060337"
-						,	"T01060338"
-						,	"T01060339"
-						,	"T01060340"
-						,	"T01060341"
                       	,	"Please select"
 						]
 					}
@@ -10553,67 +10545,6 @@
 						,	"T01061204"
 						,	"T01061205"
 						,	"T01061206"
-						]
-					}
-				,	{
-						"label":"Point Length"
-					,	"name":"T010653"
-					,	"type":"select"
-					,	"texts": [
-							"6.5cm/2.5in"
-						,	"7.0cm/2.75in"
-						,	"7.5cm/3in"
-						,	"8.0cm/3.25in"
-						,	"8.5cm/3.5in"
-						]
-					,	"values": [
-							"T01065301"
-						,	"T01065302"
-						,	"T01065303"
-						,	"T01065304"
-						,	"T01065305"
-						]
-					}
-				,	{
-						"label":"Collar Band Front"
-					,	"name":"T010654"
-					,	"type":"select"
-					,	"texts": [
-							"Extra Low 2.0cm/0.75in"
-						,	"Low 2.3cm/0.9in"
-						,	"Medium 2.6cm/1.0in"
-						,	"High 2.9cm/1.1in"
-						,	"Extra High 3.2cm/1.25in"
-						,	"Extreme High 3.5cm/1.4in"
-						]
-					,	"values": [
-							"T01065401"
-						,	"T01065402"
-						,	"T01065403"
-						,	"T01065404"
-						,	"T01065405"
-						,	"T01065406"
-						]
-					}
-				,	{
-						"label":"Collar Back Height"
-					,	"name":"T010655"
-					,	"type":"select"
-					,	"texts": [
-							"Extra Low 3.1cm/1.25in"
-						,	"Low 3.7cm/1.5in"
-						,	"Medium 4.2cm/1.75in"
-						,	"High 4.8cm/2.0in"
-						,	"Extra High 5.4cm/2.25in"
-						,	"Extreme High 6.0cm/2.5in"
-						]
-					,	"values": [
-							"T01065501"
-						,	"T01065502"
-						,	"T01065503"
-						,	"T01065504"
-						,	"T01065505"
-						,	"T01065506"
 						]
 					}
 				]
@@ -13696,12 +13627,8 @@
 						,	"Mao standard 4cm/1.6in (MAO4CM)"
 						,	"Wing tip (SMO)"
 						,	"Medium spread with round edges"
-						,	"One-piece collar and neckband"
+						,	"One-piece collar including collarband"
 						,	"One-piece button down"
-						,	"SCAH MRZV"
-						,	"SCAL MRZV"
-						,	"NICK MRZV"
-						,	"UB MRZV"
                       	,	"Please select"
 						]
 					,	"values": [
@@ -13736,10 +13663,6 @@
 						,	"T01060334"
 						,	"T01060336"
 						,	"T01060337"
-						,	"T01060338"
-						,	"T01060339"
-						,	"T01060340"
-						,	"T01060341"
                       	,	"Please select"
 						]
 					}
@@ -13961,67 +13884,6 @@
 						,	"T01061203"
 						,	"T01061204"
 						,	"T01061205"
-						]
-					}
-				,	{
-						"label":"Point Length"
-					,	"name":"T010653"
-					,	"type":"select"
-					,	"texts": [
-							"6.5cm/2.5in"
-						,	"7.0cm/2.75in"
-						,	"7.5cm/3in"
-						,	"8.0cm/3.25in"
-						,	"8.5cm/3.5in"
-						]
-					,	"values": [
-							"T01065301"
-						,	"T01065302"
-						,	"T01065303"
-						,	"T01065304"
-						,	"T01065305"
-						]
-					}
-				,	{
-						"label":"Collar Band Front"
-					,	"name":"T010654"
-					,	"type":"select"
-					,	"texts": [
-							"Extra Low 2.0cm/0.75in"
-						,	"Low 2.3cm/0.9in"
-						,	"Medium 2.6cm/1.0in"
-						,	"High 2.9cm/1.1in"
-						,	"Extra High 3.2cm/1.25in"
-						,	"Extreme High 3.5cm/1.4in"
-						]
-					,	"values": [
-							"T01065401"
-						,	"T01065402"
-						,	"T01065403"
-						,	"T01065404"
-						,	"T01065405"
-						,	"T01065406"
-						]
-					}
-				,	{
-						"label":"Collar Back Height"
-					,	"name":"T010655"
-					,	"type":"select"
-					,	"texts": [
-							"Extra Low 3.1cm/1.25in"
-						,	"Low 3.7cm/1.5in"
-						,	"Medium 4.2cm/1.75in"
-						,	"High 4.8cm/2.0in"
-						,	"Extra High 5.4cm/2.25in"
-						,	"Extreme High 6.0cm/2.5in"
-						]
-					,	"values": [
-							"T01065501"
-						,	"T01065502"
-						,	"T01065503"
-						,	"T01065504"
-						,	"T01065505"
-						,	"T01065506"
 						]
 					}
 				]
@@ -17990,7 +17852,7 @@
 						]
 					}
 				,	{
-						"label":"Washable Treatment"
+						"label":"Washable"
 					,	"name":"T010540"
 					,	"type":"select"
 					,	"texts": [
@@ -22123,7 +21985,7 @@
 						,	"Cuffs 4cm/1.5in"
 						,	"Cuffs 5cm/2in"
 						,	"Casual with 2.5cm/1in"
-						,	"Elasticised jogger bottom"
+						,	"Elasticised"
 						]
 					,	"values": [
 							"T02741901"
@@ -22360,7 +22222,7 @@
 							"Slanted"
 						,	"On seam"
 						,	"Western"
-						,	"Ext patch"
+						,	"Exterior patch"
 						,	"NA"
 						]
 					,	"values": [
@@ -27780,7 +27642,7 @@
 					,	"texts": [
 							"Standard"
 						,	"Soft"
-						,	"Unconstructed (No shoulder pad)"
+						,	"Unconstructed (Natural Sleevehead)"
 						]
 					,	"values": [
 							"T01690601"
@@ -30493,10 +30355,10 @@
 						,	"Same as body lining"
 						]
 					,	"values": [
-							"White with black pin stripes"
-						,	"Grey with black pin stripes"
-						,	"White"
-						,	"Same as body lining"
+							"T01692101"
+						,	"T01692103"
+						,	"TRS03"
+						,	"T01692102"
 						]
 					}
 				,	{

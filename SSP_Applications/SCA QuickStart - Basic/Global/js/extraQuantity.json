@@ -591,6 +591,42 @@
 			"value":"0.36"
 			}
 		]
+	},
+	{
+	"code":"Shorts",
+	"design":
+		[{
+			"code":"Plain",
+			"value":"0"
+			}
+		]
+	},
+	{
+	"code":"Safari-Jacket",
+	"design":
+		[{
+			"code":"Plain",
+			"value":"0"
+			}
+		]
+	},
+	{
+	"code":"Camp-Shirt",
+	"design":
+		[{
+			"code":"Plain",
+			"value":"0"
+			}
+		]
+	},
+	{
+	"code":"Morning-Coat",
+	"design":
+		[{
+			"code":"Plain",
+			"value":"0"
+			}
+		]
 	}
 ]
 }

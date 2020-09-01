@@ -7,7 +7,22 @@
 	var DESIGN_OPTIONS_JSON_URL = '/c.3857857/shopflow/js/DesignOptions_Config.json';
 	//var DESIGN_OPTIONS_JSON_URL = '/SSP%20Applications/SCA%20QuickStart%20-%20Basic/Global/js/DesignOptions_Config.json';
 
-	var ARR_CUSTOM_COLUMN_DESIGNOPTIONS_IDS = ['custcol_designoptions_jacket', 'custcol_designoptions_overcoat', 'custcol_designoptions_shirt', 'custcol_designoptions_trouser', 'custcol_designoptions_waistcoat'];
+	var ARR_CUSTOM_COLUMN_DESIGNOPTIONS_IDS = ['custcol_designoptions_jacket',
+	 'custcol_designoptions_overcoat',
+	 'custcol_designoptions_shirt',
+	 'custcol_designoptions_trouser',
+	 'custcol_designoptions_waistcoat',
+	 'custcol_designoptions_safari_jacket',
+	 'custcol_designoptions_camp_shirt',
+	 'custcol_designoptions_shirt_jacket',
+	 'custcol_designoptions_morning_coat',
+	 'custcol_designoptions_shorts',
+	 'custcol_designoptions_trenchcoat',
+	 'custcol_designoptions_ssshirt',
+	 'custcol_designoptions_ladiesskirt',
+	 'custcol_designoptions_ladiespants',
+	 'custcol_designoptions_ladiesjacket'
+ ];
 
 	var $ = jQuery;
 

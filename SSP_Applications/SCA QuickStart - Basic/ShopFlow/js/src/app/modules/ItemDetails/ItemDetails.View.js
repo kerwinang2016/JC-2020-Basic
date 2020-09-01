@@ -71,7 +71,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             });
             this.application = options.application;
             this.counted_clicks = {};
-            SC.sessioncheck();
+            //SC.sessioncheck();  //KM Commented out and put the sessioncheck on Starter.js
             var historyFragment = decodeURIComponent(Backbone.history.fragment);
             if (options.pList) {
                 options.pList = decodeURIComponent(options.pList);

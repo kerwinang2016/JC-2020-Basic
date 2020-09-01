@@ -67,7 +67,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				self.liningfabrics = data;
 			});
 
-			SC.sessioncheck();
+			//SC.sessioncheck();	//KM Commented out and put the sessioncheck on Starter.js
 			this.updateproductlist = false;
 		}
 	, validateItems: function(e){

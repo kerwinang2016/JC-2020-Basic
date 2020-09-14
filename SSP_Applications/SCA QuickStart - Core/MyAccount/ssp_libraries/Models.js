@@ -338,7 +338,9 @@ Application.defineModel('Profile', {
 			profile.LogoUrl = _.find(customerFieldValues, function (field) {
 				return field.name === 'custentity_avt_tailor_logo_url';
 			}).value || '/c.3857857/assets/images/avt/default-logo.jpg';
-
+			profile.fit_restriction = _.find(customerFieldValues, function(field){
+				return field.name === 'custentity_fit_restriction';
+			}).value;
 			profile.internalid = nlapiGetUser() + '';
 
 			var url = myaccountsuiteleturl;

@@ -105,11 +105,17 @@
 						});
 
 						if( category.url == 'Item Types' && category.values && category.values.length > 0){
-							
 							for(var i=0;i<category.values.length; i++){
-								if(category.values[i].id.indexOf(product) != -1){
-										idx = i;
+								var categories = category.values[i].id.split('/');
+								if(categories[categories.length-1] == product){
+									idx = i;
 								}
+								// if(category.values[i].id.indexOf(product) != -1){
+								// 	console.log(product);
+								// 	console.log(category)
+								// 	console.log(category.values[i].id)
+								// 		idx = i;
+								// }
 							}
 						}
 						if(category.url == "Home"){

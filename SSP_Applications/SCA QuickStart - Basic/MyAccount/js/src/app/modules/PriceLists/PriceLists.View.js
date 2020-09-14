@@ -57,7 +57,7 @@ define('PriceLists.View', function ()
 
 		if(this.cmtcosts){
 			if(this.cmtcosts.allCMT && this.cmtcosts.allCMT.length>0){
-				data1.contents += "Fabric Collection,3-Piece-Suit,2-Piece-Suit,Jacket,Trouser,Waistcoat,Shirt,Overcoat,Trenchcoat 4BTN Car Collar,Trenchcoat 5BTN Hooded,Trechcoat 10BTN DB,Ladies3PC Suit, Ladies2PC Jacket-Pants,Ladies2PC Jacket-Skirt,Ladies Jacket,Ladies Pants,Ladies Skirt\n";
+				data1.contents += "Fabric Collection,3-Piece-Suit,2-Piece-Suit,Jacket,Trouser,Waistcoat,Shirt,Overcoat,Trenchcoat 4BTN Car Collar,Trenchcoat 5BTN Hooded,Trechcoat 10BTN DB,Shorts,Morning Coat,Shirt Jacket,Safari Jacket,Camp Shirt,Ladies3PC Suit, Ladies2PC Jacket-Pants,Ladies2PC Jacket-Skirt,Ladies Jacket,Ladies Pants,Ladies Skirt\n";
 				for(var i=0;i<this.cmtcosts.allCMT.length;i++){
 					var cmt = this.cmtcosts.allCMT[i];
 					data1.contents += cmt.collection?cmt.collection+",":",";
@@ -71,15 +71,19 @@ define('PriceLists.View', function ()
 					data1.contents += cmt.trenchcoat?cmt.trenchcoat+",":",";
 					data1.contents += cmt.trenchcoatfivebtn?cmt.trenchcoatfivebtn+",":",";
 					data1.contents += cmt.trenchcoattenbtn?cmt.trenchcoattenbtn+",":",";
+					data1.contents += cmt.shorts?cmt.shorts:",";
+					data1.contents += cmt.morningcoat?cmt.morningcoat:",";
+					data1.contents += cmt.shirtjacket?cmt.shirtjacket:",";
+					data1.contents += cmt.safarijacket?cmt.safarijacket:",";
+					data1.contents += cmt.campshirt?cmt.campshirt:",";
 					data1.contents += cmt.ladiesthreepc?cmt.ladiesthreepc+",":",";
 					data1.contents += cmt.twopcpants?cmt.twopcpants+",":",";
 					data1.contents += cmt.twopcskirt?cmt.twopcskirt+",":",";
 					data1.contents += cmt.ladiesjacket?cmt.ladiesjacket+",":",";
 					data1.contents += cmt.ladiespants?cmt.ladiespants+",":",";
-					data1.contents += cmt.ladiesskirt?cmt.ladiesskirt:",";
+					data1.contents += cmt.ladiesskirt?cmt.ladiesskirt:"";
 					data1.contents += "\n";
 				}
-
 			}
 			if(this.cmtcosts.allShipping && this.cmtcosts.allShipping.length>0){
 				for(var i=0;i<this.cmtcosts.allShipping.length;i++){
@@ -95,12 +99,18 @@ define('PriceLists.View', function ()
 					data1.contents += cmt.trenchcoat+",";
 					data1.contents += cmt.trenchcoat+",";
 					data1.contents += cmt.trenchcoat+",";
+					data1.contents += cmt.shorts+",";
+					data1.contents += cmt.morningcoat+",";
+					data1.contents += cmt.shirtjacket+",";
+					data1.contents += cmt.safarijacket+",";
+					data1.contents += cmt.campshirt+",";
 					data1.contents += cmt.ladiesthreepc+",";
 					data1.contents += cmt.twopcpants+",";
 					data1.contents += cmt.twopcskirt+",";
 					data1.contents += cmt.ladiesjacket+",";
 					data1.contents += cmt.ladiespants+",";
-					data1.contents += cmt.ladiesskirt+"\n";
+					data1.contents += cmt.ladiesskirt;
+					data1.contents += "\n";
 				}
 			}
 			var link = document.createElement("a");

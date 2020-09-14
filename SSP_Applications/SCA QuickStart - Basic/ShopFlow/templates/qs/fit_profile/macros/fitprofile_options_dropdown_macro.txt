@@ -21,10 +21,10 @@
 
 			<div style="display:inline-block;padding-left:20px;" id="profile-actions-<%= profile.profile_type %>">
 				<% if(!profileID || selectedValue == "" || profile.profiles.length == 0){ %>
-					<a data-backdrop="static" data-keyboard="false"  data-toggle="show-in-modal" href="/fitprofile/new">Add</a>
+					<a data-backdrop="static" data-keyboard="false"  data-toggle="show-in-modal" href="/fitprofile/?id=new&product=<%= profile.profile_type %>">Add</a>
 				<% } else { %>
-					<a data-backdrop="static" data-keyboard="false" data-toggle="show-in-modal" href="/fitprofile/new">Add</a> |
-					<a data-backdrop="static" data-keyboard="false" data-toggle='show-in-modal' href="/fitprofile/<%= selectedValue %>">Edit</a> |
+					<a data-backdrop="static" data-keyboard="false" data-toggle="show-in-modal" href="/fitprofile/?id=new&product=<%= profile.profile_type %>">Add</a> |
+					<a data-backdrop="static" data-keyboard="false" data-toggle='show-in-modal' href="/fitprofile/?id=<%= selectedValue %>">Edit</a> |
 					<a data-backdrop="static" data-keyboard="false" data-action='remove-rec' data-type='profile' data-id='<%= selectedValue %>'>Remove</a>
 				<% } %>
 			</div>

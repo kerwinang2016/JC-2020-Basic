@@ -1133,9 +1133,90 @@
 	  </div>
 	  <div id="mensdesigns" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingThree">
 		<div class="card-block">
-		<a  target="_blank" href="/myaccount/TrainingGuides/SS20 Men's Designs - Highlights.pdf" >
-			<img style="border: 2px solid #e5e5e5;" width="200px" height="130px" src="/myaccount/TrainingGuides/mensdesign.jpg" width="100" height="100">
-		</a>
+			<div class="accordion-heading">
+				<h3 class="mb-0">
+				  <a class="tablabel accordion-toggle collapsed" data-target="#jtw" data-toggle="collapse" data-parent="#mensdesigns" aria-expanded="false" aria-controls="bodymeasurementguide" role="tab" id="headingThree_1">
+					Jacket, Trouser, Waistcoat
+				  </a>
+				</h3>
+			</div>
+			<div id="jtw" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingThree_1">
+				<div class="card-block">
+				<a target="_blank" href="/myaccount/TrainingGuides/FW20_Designs/PDF_Manuals/Jacket_Trouser_Waistcoat.pdf" >
+					<img style="border: 2px solid #e5e5e5;" width="200px" height="130px" src="/myaccount/TrainingGuides/Platform_Icons/Catalogue Icons.jpg" width="100" height="100">
+				</a>
+				</div>
+			</div>
+			<div class="accordion-heading">
+				<h3 class="mb-0">
+				  <a class="tablabel accordion-toggle collapsed" data-target="#shirt" data-toggle="collapse" data-parent="#mensdesigns" aria-expanded="false" aria-controls="bodymeasurementguide" role="tab" id="headingThree_2">
+					Shirt
+				  </a>
+				</h3>
+			</div>
+			<div id="shirt" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingThree_2">
+				<div class="card-block">
+				<a target="_blank" href="/myaccount/TrainingGuides/FW20_Designs/PDF_Manuals/Shirt.pdf" >
+					<img style="border: 2px solid #e5e5e5;" width="200px" height="130px" src="/myaccount/TrainingGuides/Platform_Icons/Catalogue Icons2.jpg" width="100" height="100">
+				</a>
+				</div>
+			</div>
+			<div class="accordion-heading">
+				<h3 class="mb-0">
+				  <a class="tablabel accordion-toggle collapsed" data-target="#coats" data-toggle="collapse" data-parent="#mensdesigns" aria-expanded="false" aria-controls="bodymeasurementguide" role="tab" id="headingThree_3">
+					Overcoat & Trechcoat
+				  </a>
+				</h3>
+			</div>
+			<div id="coats" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingThree_3">
+				<div class="card-block">
+				<a target="_blank" href="/myaccount/TrainingGuides/FW20_Designs/PDF_Manuals/Overcoat_Trenchcoat.pdf" >
+					<img style="border: 2px solid #e5e5e5;" width="200px" height="130px" src="/myaccount/TrainingGuides/Platform_Icons/Catalogue Icons3.jpg" width="100" height="100">
+				</a>
+				</div>
+			</div>
+			<div class="accordion-heading">
+				<h3 class="mb-0">
+				  <a class="tablabel accordion-toggle collapsed" data-target="#safari" data-toggle="collapse" data-parent="#mensdesigns" aria-expanded="false" aria-controls="bodymeasurementguide" role="tab" id="headingThree_4">
+					Safari Jacket
+				  </a>
+				</h3>
+			</div>
+			<div id="safari" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingThree_4">
+				<div class="card-block">
+				<a target="_blank" href="/myaccount/TrainingGuides/FW20_Designs/PDF_Manuals/Safari Jacket.pdf" >
+					<img style="border: 2px solid #e5e5e5;" width="200px" height="130px" src="/myaccount/TrainingGuides/Platform_Icons/Catalogue Icons4.jpg" width="100" height="100">
+				</a>
+				</div>
+			</div>
+			<div class="accordion-heading">
+				<h3 class="mb-0">
+				  <a class="tablabel accordion-toggle collapsed" data-target="#safari" data-toggle="collapse" data-parent="#mensdesigns" aria-expanded="false" aria-controls="bodymeasurementguide" role="tab" id="headingThree_5">
+					Shirt Jacket & Overshirt
+				  </a>
+				</h3>
+			</div>
+			<div id="safari" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingThree_5">
+				<div class="card-block">
+				<a target="_blank" href="/myaccount/TrainingGuides/FW20_Designs/PDF_Manuals/ShirtJacket_Overshirt.pdf" >
+					<img style="border: 2px solid #e5e5e5;" width="200px" height="130px" src="/myaccount/TrainingGuides/Platform_Icons/Catalogue Icons5.jpg" width="100" height="100">
+				</a>
+				</div>
+			</div>
+			<div class="accordion-heading">
+				<h3 class="mb-0">
+				  <a class="tablabel accordion-toggle collapsed" data-target="#morningcoat" data-toggle="collapse" data-parent="#mensdesigns" aria-expanded="false" aria-controls="bodymeasurementguide" role="tab" id="headingThree_6">
+					Morning Coat
+				  </a>
+				</h3>
+			</div>
+			<div id="morningcoat" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingThree_6">
+				<div class="card-block">
+				<a target="_blank" href="/myaccount/TrainingGuides/FW20_Designs/PDF_Manuals/MorningCoat.pdf" >
+					<img style="border: 2px solid #e5e5e5;" width="200px" height="130px" src="/myaccount/TrainingGuides/Platform_Icons/Catalogue Icons6.jpg" width="100" height="100">
+				</a>
+				</div>
+			</div>
 		</div>
 	  </div>
 	</div>

@@ -14,6 +14,11 @@
 						<th class="span1">Shirt</th>
 						<th class="span1">Overcoat</th>
 						<th class="span3" colspan="3">Trenchcoat</th>
+						<th class="span1">Shorts</th>
+						<th class="span1">Morning Coat</th>
+						<th class="span1">Shirt Jacket</th>
+						<th class="span1">Safari Jacket</th>
+						<th class="span1">Camp Shirt</th>
 					</tr>
 					<tr>
 						<th class="span2"></th>
@@ -27,6 +32,11 @@
 						<th class="span1" style="font-size:8px;" >4 BTN Car Collar</th>
 						<th class="span1" style="font-size:8px;">5 BTN Hooded</th>
 						<th class="span1" style="font-size:8px;">10 BTN DB</th>
+						<th class="span1"></th>
+						<th class="span1"></th>
+						<th class="span1"></th>
+						<th class="span1"></th>
+						<th class="span1"></th>
 					</tr>
 					<% for(var i=0;i<view.cmtcosts.allCMT.length;i++){
 						var cmt = view.cmtcosts.allCMT[i]; %>
@@ -42,6 +52,11 @@
 						<td class="span1 number"><%= cmt.trenchcoat %></td>
 						<td class="span1 number"><%= cmt.trenchcoatfivebtn %></td>
 						<td class="span1 number"><%= cmt.trenchcoattenbtn %></td>
+						<td class="span1 number"><%= cmt.shorts %></td>
+						<td class="span1 number"><%= cmt.morningcoat %></td>
+						<td class="span1 number"><%= cmt.shirtjacket %></td>
+						<td class="span1 number"><%= cmt.safarijacket %></td>
+						<td class="span1 number"><%= cmt.campshirt %></td>
 						</tr>
 					<% } %>
 			</table>
@@ -59,6 +74,11 @@
 					<th class="span1">Shirt</th>
 					<th class="span1">Overcoat</th>
 					<th class="span3" colspan="3">Trenchcoat</th>
+					<th class="span1">Shorts</th>
+					<th class="span1">Morning Coat</th>
+					<th class="span1">Shirt Jacket</th>
+					<th class="span1">Safari Jacket</th>
+					<th class="span1">Camp Shirt</th>
 				</tr>
 				<% _.each(view.cmtcosts.allShipping,function(cmt){ %>
 					<tr>
@@ -73,6 +93,11 @@
 					<td class="span1" style="border-right:none;"></td>
 					<td class="span1 number" style="border-right:none; border-left:none;"><%=cmt.trenchcoat%></td>
 					<td class="span1 number" style="border-left:none;"></td>
+					<td class="span1 number"><%= cmt.shorts %></td>
+					<td class="span1 number"><%= cmt.morningcoat %></td>
+					<td class="span1 number"><%= cmt.shirtjacket %></td>
+					<td class="span1 number"><%= cmt.safarijacket %></td>
+					<td class="span1 number"><%= cmt.campshirt %></td>
 					</tr>
 				<% }); %>
 			</table>

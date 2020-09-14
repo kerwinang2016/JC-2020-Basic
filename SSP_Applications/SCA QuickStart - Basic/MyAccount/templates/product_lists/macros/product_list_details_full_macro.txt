@@ -394,7 +394,6 @@
 
 					<div class="item-details-options">
 
-						<!--<div class="options-container" data-type="all-options" data-exclude-options="custcol_tailor_cust_pricing,custcol_fitprofile_jacket,custcol_fitprofile_overcoat,custcol_fitprofile_shirt,custcol_fitprofile_trouser,custcol_fitprofile_waistcoat,custcol_fitprofile_summary,custcol_tailor_client,custcol_fitprofile_message,custcol_itm_category_url"></div>-->
 						<div id="design-option" style="margin-top: 2.5%;">
 							<div class="accordion" id="design-options-<%=lineid%>">
 									<div class="accordion-group">

@@ -1,12 +1,18 @@
+SC.SESSIONTIME = new Date();
+SC.SE = null;
+
 SC.sessioncheck = function(){
 	self = this;
-	//console.log('hastimedout');
+	console.log('hastimedout shopping');
 	jQuery.ajax({
-		url: '/myaccount/services/live-order.ss'
+		url: window.location.origin+'/api/items'
 	});
-	setTimeout(function(){
-		SC.sessioncheck();
+	SC.SESSIONTIME = new Date();
+	if(SC.SE)
+		clearTimeout(SC.SE);
+	SC.SE = setTimeout(function(){SC.sessioncheck();
 	}, 1140000);
+	//}, 1140000);
 }
 
 SC.startShopping = function ()

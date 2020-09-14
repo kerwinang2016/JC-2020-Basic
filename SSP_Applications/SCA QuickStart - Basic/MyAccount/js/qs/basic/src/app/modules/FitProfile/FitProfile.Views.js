@@ -1611,6 +1611,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 					case 'Jacket':
 					case 'Shirt':
 					case 'Overcoat':
+					case 'Short-Sleeves-Shirt':
 						var partvalue = 0;
 						var partmeasure = jQuery('[id*="finish_Waist"]').html(), partvalue = 0;
 

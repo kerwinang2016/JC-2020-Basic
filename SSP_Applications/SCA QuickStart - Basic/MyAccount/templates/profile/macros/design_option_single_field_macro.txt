@@ -18,7 +18,6 @@
 						<% _.each(field.fields, function (field_item, count) { %>
 							<label class="control-label" for="canvas_canvas_jacket"><%= field_item.label %></label>
 							<div class="controls">
-
 								<select id="<%= field_item.name %>" class="input-xlarge" name="<%= tag+'_'+field_item.name %>" data-type="fav-option-customization">
 									<% _.each(field_item.texts, function (texts, count) { %>
 										<option

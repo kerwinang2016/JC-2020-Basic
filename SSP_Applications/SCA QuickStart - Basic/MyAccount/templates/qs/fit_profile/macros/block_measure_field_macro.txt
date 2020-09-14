@@ -9,7 +9,16 @@
 	<div style="width:30%;margin:0;" class="span3"><%= label %></div>
 	<% if(type == "select"){ %>
 		<% var optionstext = field.optionstext;
-		if(field.options && field.options.length){ %>
+		if(field.options && field.options.length){
+			if(field.name == 'fit'){
+				var customerFitFilter = SC.Application('MyAccount').user_instance.get('fit_restriction')?JSON.parse(SC.Application('MyAccount').user_instance.get('fit_restriction')):{};
+				var fitFilter = customerFitFilter[jQuery('[id*="custrecord_fp_product_type"]').val()];
+
+				if(fitFilter){
+					field.options = field.options.filter(function(o){ return fitFilter.indexOf(o) <0; });
+				}
+			}
+		%>
 			<div style="width:20%;margin:0;padding-right: 20px;"  class="span2"><select class="input input-small" data-field="<%=name%>" id="body-<%=name%>" name="<%=name%>">
 
 				<% for(var i=0;i<field.options.length; i++){

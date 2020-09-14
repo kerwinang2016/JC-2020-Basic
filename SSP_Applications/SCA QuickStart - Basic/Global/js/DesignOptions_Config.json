@@ -18423,6 +18423,84 @@
 			,	"name": "tl-sho"
 			,	"fields": [
 					{
+						"label":"Front Buttonhole Color"
+					,	"name":"T010506"
+					,	"type":"select"
+					,	"texts": [
+							"Tone on tone"
+						,	"C1 Ice Blue"
+						,	"C2 Aubergine"
+						,	"C3 Light Grey"
+						,	"C4 Dark Blue"
+						,	"C5 Black"
+						,	"C6 White"
+						,	"C7 Off White"
+						,	"C8 Dark Brown"
+						,	"C9 Red"
+						,	"C10 Light Blue"
+						,	"C11 Purple"
+						,	"C12 Bottle Green"
+						,	"C13 Petrol"
+						,	"C14 Orange"
+						,	"C15 Slate Blue"
+						,	"C16 Beige"
+						,	"C17 Dark Red"
+						,	"C18 Yellow"
+						,	"C19 Camel"
+						,	"C20 Olive Green"
+						,	"C21 Mid Grey"
+						,	"C22 Forest Green"
+						,	"C23 Anthracite"
+						,	"C24 Bright Blue"
+						,	"C25 Oxide Red"
+						,	"C26 Pale Green"
+						,	"C27 Fuchsia"
+						,	"C28 Golden Yellow"
+						,	"C29 Light Pink"
+						,	"C30 Violet"
+						,	"C31 Dark Brown"
+						,	"C32 Mid Green"
+						,	"No buttons and buttonholes"
+						]
+					,	"values": [
+							"Tone on tone"
+						,	"C1"
+						,	"C2"
+						,	"C3"
+						,	"C4"
+						,	"C5"
+						,	"C6"
+						,	"C7"
+						,	"C8"
+						,	"C9"
+						,	"C10"
+						,	"C11"
+						,	"C12"
+						,	"C13"
+						,	"C14"
+						,	"C15"
+						,	"C16"
+						,	"C17"
+						,	"C18"
+						,	"C19"
+						,	"C20"
+						,	"C21"
+						,	"C22"
+						,	"C23"
+						,	"C24"
+						,	"C25"
+						,	"C26"
+						,	"C27"
+						,	"C28"
+						,	"C29"
+						,	"C30"
+						,	"C31"
+						,	"C32"
+						,	"No"
+						]
+					}
+				,
+					{
 						"label":"Back Pocket Buttonhole Color"
 					,	"name":"T010530"
 					,	"type":"select"
@@ -24657,7 +24735,8 @@
 					,	"name":"T014911"
 					,	"type":"select"
 					,	"texts": [
-							"Fabric Covered Buttons"
+							"Please select"
+						,	"Fabric Covered Buttons"
 						,	"T3 Plain White"
 						,	"T4 Clay"
 						,	"T6 Brown"
@@ -24804,11 +24883,11 @@
 						,	"TH5595-AZ 15MM"
 						,	"TH2550-AZ 21MM"
 						,	"TH2550-AZ 15MM"
-						,	"Please select"
 						,	""
 						]
 					,	"values": [
-							"Self Fabric Buttons"
+							"Please select"
+						,	"Self Fabric Buttons"
 						,	"T3"
 						,	"T4"
 						,	"T6"
@@ -24955,7 +25034,6 @@
 						,	"TH5595-AZ 15MM"
 						,	"TH2550-AZ 21MM"
 						,	"TH2550-AZ 15MM"
-						,	"Please select"
 						,	""
 						]
 					}
@@ -27424,12 +27502,12 @@
 					,	"name":"T014939"
 					,	"type":"select"
 					,	"texts": [
-							"Yes"
-						,	"No"
+							"No"
+						,	"Yes"
 						]
 					,	"values": [
-							"T01493901"
-						,	"T01493902"
+							"T01493902"
+						,	"T01493901"
 						]
 					}
 				,	{
@@ -27458,7 +27536,8 @@
 					,	"name":"T014941"
 					,	"type":"select"
 					,	"texts": [
-							"M1 Red"
+							"NA"
+						,	"M1 Red"
 						,	"M2 Black"
 						,	"M3 White"
 						,	"M4 Orange"
@@ -27477,11 +27556,11 @@
 						,	"M17 Wine Red"
 						,	"M18 Light Pink"
 						,	"M19 Forest Green"
-						,	"M20 Olive Green"
-						,	"NA"
+						,	"M20 Olive Green"	
 						]
 					,	"values": [
-							"M1"
+							"NA"
+						,	"M1"
 						,	"M2"
 						,	"M3"
 						,	"M4"
@@ -27501,7 +27580,6 @@
 						,	"M18"
 						,	"M19"
 						,	"M20"
-						,	"NA"
 						]
 					}
 				,	{
@@ -27702,10 +27780,50 @@
 				]
 			}
 		,	{
-				"label": "Lapel"
+				"label": "Collar and Cuff"
 			,	"name": "l-j"
 			,	"fields": [
 					{
+						"label":"Collar"
+					,	"name":"T016903"
+					,	"type":"select"
+					,	"texts": [
+							"Notch Lapel with Long Collar"
+						,	"Medium Collar no Lapel"
+						,	"2B Stand Up Collar"
+						,	"2B Stand Up Collar with Detachable Hood"
+						,	"2B Stand Up Collar with 2B Flap Hood"
+						,	"Medium Collar with 2B Flap Hood"
+						]
+					,	"values": [
+							"T01690301"
+						,	"T01690302"
+						,	"T01690303"
+						,	"T01690304"
+						,	"T01690305"
+						,	"T01690306"
+						]
+					}
+				,	{
+						"label":"Cuff Finishing"
+					,	"name":"T016916"
+					,	"type":"select"
+					,	"texts": [
+							"1B Pointed Cuff with Sleeve Pleats"
+						,	"1B Pointed Cuff no Sleeve Pleats"
+						,	"1B Rounded Cuff no Sleeve Pleats"
+						,	"2B Adjustable Wide Cuff"
+						,	"Plain"
+						]
+					,	"values": [
+							"T01691601"
+						,	"T01691602"
+						,	"T01691603"
+						,	"T01691604"
+						,	"T01691605"
+						]
+					}
+				,	{
 						"label":"Lapel Buttonhole"
 					,	"name":"T016904"
 					,	"type":"select"
@@ -27909,7 +28027,8 @@
 					,	"name":"T016951"
 					,	"type":"select"
 					,	"texts": [
-							"Fabric Covered Buttons"
+							"Please select"
+						,	"Fabric Covered Buttons"
 						,	"T3 Plain White"
 						,	"T4 Clay"
 						,	"T6 Brown"
@@ -28056,11 +28175,11 @@
 						,	"TH5595-AZ 15MM"
 						,	"TH2550-AZ 21MM"
 						,	"TH2550-AZ 15MM"
-						,	"Please select"
 						,	""
 						]
 					,	"values": [
-							"Self Fabric Buttons"
+							"Please select"
+						,	"Self Fabric Buttons"
 						,	"T3"
 						,	"T4"
 						,	"T6"
@@ -28207,7 +28326,6 @@
 						,	"TH5595-AZ 15MM"
 						,	"TH2550-AZ 21MM"
 						,	"TH2550-AZ 15MM"
-						,	"Please select"
 						,	""
 						]
 					}
@@ -29166,58 +29284,6 @@
 					,	"name":"li-qty"
 					,	"type":"number"
 					,	"values":[""]
-					}
-				]
-			}
-			,	{
-				"label": "Collar and Cuff"
-			,	"name": "c-s"
-			,	"fields": [
-					{
-						"label":"Collar"
-					,	"name":"T016903"
-					,	"type":"select"
-					,	"texts": [
-							"Notch Lapel with Long Collar"
-						,	"Medium Collar no Lapel"
-						,	"2B Stand Up Collar"
-						,	"2B Stand Up Collar with Detachable Hood"
-						,	"2B Stand Up Collar with 2B Flap Hood"
-						,	"Medium Collar with 2B Flap Hood"
-						]
-					,	"values": [
-							"T01690301"
-						,	"T01690302"
-						,	"T01690303"
-						,	"T01690304"
-						,	"T01690305"
-						,	"T01690306"
-						]
-					}
-				]
-			}
-		,	{
-				"label": "Vents and Cuffs"
-			,	"name": "v-j"
-			,	"fields": [
-					{
-						"label":"Cuff Finishing"
-					,	"name":"T016916"
-					,	"type":"select"
-					,	"texts": [
-							"1B Pointed Cuff with Sleeve Pleats"
-						,	"1B Pointed Cuff no Sleeve Pleats"
-						,	"1B Rounded Cuff no Sleeve Pleats"
-						,	"2B Adjustable Wide Cuff"
-						,	"Plain"
-						]
-					,	"values": [
-							"T01691601"
-						,	"T01691602"
-						,	"T01691603"
-						,	"T01691604"
-						,	"T01691605"
-						]
 					}
 				]
 			}
@@ -30683,12 +30749,12 @@
 					,	"name":"T016946"
 					,	"type":"select"
 					,	"texts": [
-							"Yes"
-						,	"No"
+							"No"
+						,	"Yes"
 						]
 					,	"values": [
-							"T01694601"
-						,	"T01694602"
+							"T01694602"
+						,	"T01694601"
 						]
 					}
 				,	{
@@ -30696,7 +30762,7 @@
 					,	"name":"T016947"
 					,	"type":"select"
 					,	"texts": [
-							""
+							"NA"
 						,	"A 5cm"
 						,	"B 5cm"
 						,	"C 5cm"
@@ -30725,7 +30791,7 @@
 						,	"Z 5cm"
 						]
 					,	"values": [
-							""
+							"NA"
 						,	"T01694701"
 						,	"T01694702"
 						,	"T01694703"
@@ -30816,12 +30882,12 @@
 					,	"name":"T016935"
 					,	"type":"select"
 					,	"texts": [
-							"Yes"
-						,	"No"
+							"No"
+						,	"Yes"
 						]
 					,	"values": [
-							"T01693501"
-						,	"T01693502"
+							"T01693502"
+						,	"T01693501"
 						]
 					}
 				,	{
@@ -30850,7 +30916,8 @@
 					,	"name":"T016937"
 					,	"type":"select"
 					,	"texts": [
-							"M1 Red"
+							"NA"
+						,	"M1 Red"
 						,	"M2 Black"
 						,	"M3 White"
 						,	"M4 Orange"
@@ -30870,10 +30937,10 @@
 						,	"M18 Light Pink"
 						,	"M19 Forest Green"
 						,	"M20 Olive Green"
-						,	"NA"
 						]
 					,	"values": [
-							"M1"
+							"NA"
+						,	"M1"
 						,	"M2"
 						,	"M3"
 						,	"M4"
@@ -30893,7 +30960,6 @@
 						,	"M18"
 						,	"M19"
 						,	"M20"
-						,	"NA"
 						]
 					}
 				,	{
@@ -30915,12 +30981,12 @@
 					,	"name":"T016939"
 					,	"type":"select"
 					,	"texts": [
-							"Yes"
-						,	"No"
+							"No"
+						,	"Yes"
 						]
 					,	"values": [
-							"T01693901"
-						,	"T01693902"
+							"T01693902"
+						,	"T01693901"
 						]
 					}
 				,	{
@@ -30949,7 +31015,8 @@
 					,	"name":"T016941"
 					,	"type":"select"
 					,	"texts": [
-							"M1 Red"
+							"NA"
+						,	"M1 Red"
 						,	"M2 Black"
 						,	"M3 White"
 						,	"M4 Orange"
@@ -30969,10 +31036,10 @@
 						,	"M18 Light Pink"
 						,	"M19 Forest Green"
 						,	"M20 Olive Green"
-						,	"NA"
 						]
 					,	"values": [
-							"M1"
+							"NA"
+						,	"M1"
 						,	"M2"
 						,	"M3"
 						,	"M4"
@@ -30992,7 +31059,6 @@
 						,	"M18"
 						,	"M19"
 						,	"M20"
-						,	"NA"
 						]
 					}
 				,	{
@@ -31212,6 +31278,7 @@
                         "name": "T010704",
                         "type": "select",
                         "texts": [
+                            "Classic (CLA)",
                             "Camp collar",
                             "Collar without neckband",
                             "Cut away small (CAS)",
@@ -31221,12 +31288,12 @@
                             "Button down high (BDH)",
                             "Hidden button down (HBD)",
                             "Hidden button down high (HBDH)",
-                            "Classic (CLA)",
                             "Mao standard 4cm/1.6in (MAO4CM)",
                             "Mao low 2cm/0.8in (MAO2CM)",
                             "Classic low (CLAL)"
                         ],
                         "values": [
+                            "T01070410",
                             "T01070401",
                             "T01070402",
                             "T01070403",
@@ -31236,7 +31303,6 @@
                             "T01070407",
                             "T01070408",
                             "T01070409",
-                            "T01070410",
                             "T01070411",
                             "T01070412",
                             "T01070413"
@@ -33826,12 +33892,12 @@
                         "name": "T010744",
                         "type": "select",
                         "texts": [
-                            "Yes",
-                            "No"
+                            "No",
+                            "Yes"
                         ],
                         "values": [
-                            "T01074401",
-                            "T01074402"
+                            "T01074402",
+                            "T01074401"
                         ]
                     },
                     {
@@ -33849,14 +33915,14 @@
                         "name": "T010746",
                         "type": "select",
                         "texts": [
+                            "NA",
                             "Block",
-                            "Script",
-                            "NA"
+                            "Script"
                         ],
                         "values": [
+                            "NA",
                             "T01074601",
-                            "T01074602",
-                            "NA"
+                            "T01074602"
                         ]
                     },
                     {
@@ -33864,14 +33930,14 @@
                         "name": "T010747",
                         "type": "select",
                         "texts": [
+                            "NA",
                             "5mm",
-                            "10mm",
-                            "NA"
+                            "10mm"                           
                         ],
                         "values": [
+                            "NA",
                             "T01074701",
-                            "T01074702",
-                            "NA"
+                            "T01074702"                           
                         ]
                     },
                     {
@@ -33879,6 +33945,7 @@
                         "name": "T010748",
                         "type": "select",
                         "texts": [
+                            "NA",
                             "Outside neckband",
                             "Inside neckband",
                             "Body 23cm/9.1in down",
@@ -33896,6 +33963,7 @@
                             "R cuff under btnhole 8cm/3in indent"
                         ],
                         "values": [
+                            "NA",
                             "T01074801",
                             "T01074802",
                             "T01074803",
@@ -33918,6 +33986,7 @@
                         "name": "T010749",
                         "type": "select",
                         "texts": [
+                            "NA",
                             "Dark blue",
                             "Gold",
                             "Off white",
@@ -33935,10 +34004,10 @@
                             "Silver",
                             "Dark green",
                             "Light green",
-                            "Sand",
-                            "NA"
+                            "Sand"                         
                         ],
                         "values": [
+                            "NA",
                             "Dark blue",
                             "Gold",
                             "Off white_1",
@@ -33956,8 +34025,7 @@
                             "Silver",
                             "Dark green",
                             "Light green",
-                            "Sand",
-                            "NA"
+                            "Sand"                          
                         ]
                     }
                 ]
@@ -33971,12 +34039,12 @@
                         "name": "T010741",
                         "type": "select",
                         "texts": [
-                            "Yes",
-                            "No"
+                            "No",
+                            "Yes"
                         ],
                         "values": [
-                            "T01074101",
-                            "T01074102"
+                            "T01074102",
+                            "T01074101"
                         ]
                     },
                     {
@@ -35867,12 +35935,12 @@
                         "name": "T010744",
                         "type": "select",
                         "texts": [
-                            "Yes",
-                            "No"
+                            "No",
+                            "Yes"
                         ],
                         "values": [
-                            "T01074401",
-                            "T01074402"
+                            "T01074402",
+                            "T01074401"
                         ]
                     },
                     {
@@ -35890,14 +35958,14 @@
                         "name": "T010746",
                         "type": "select",
                         "texts": [
+                            "NA",
                             "Block",
-                            "Script",
-                            "NA"
+                            "Script"                           
                         ],
                         "values": [
+                            "NA",
                             "T01074601",
-                            "T01074602",
-                            "NA"
+                            "T01074602"                           
                         ]
                     },
                     {
@@ -35905,14 +35973,14 @@
                         "name": "T010747",
                         "type": "select",
                         "texts": [
+                            "NA",
                             "5mm",
-                            "10mm",
-                            "NA"
+                            "10mm"                           
                         ],
                         "values": [
+                            "NA",
                             "T01074701",
-                            "T01074702",
-                            "NA"
+                            "T01074702"                          
                         ]
                     },
                     {
@@ -35920,6 +35988,7 @@
                         "name": "T010748",
                         "type": "select",
                         "texts": [
+                            "NA",
                             "Outside neckband",
                             "Inside neckband",
                             "Body 23cm/9.1in down",
@@ -35929,6 +35998,7 @@
                             "Left collar leaf"
                         ],
                         "values": [
+                            "NA",
                             "T01074801",
                             "T01074802",
                             "T01074803",
@@ -35943,6 +36013,7 @@
                         "name": "T010749",
                         "type": "select",
                         "texts": [
+                            "NA",
                             "Dark blue",
                             "Gold",
                             "Off white",
@@ -35960,10 +36031,10 @@
                             "Silver",
                             "Dark green",
                             "Light green",
-                            "Sand",
-                            "NA"
+                            "Sand"                           
                         ],
                         "values": [
+                            "NA",
                             "Dark blue",
                             "Gold",
                             "Off white_1",
@@ -35981,8 +36052,7 @@
                             "Silver",
                             "Dark green",
                             "Light green",
-                            "Sand",
-                            "NA"
+                            "Sand"                          
                         ]
                     }
                 ]
@@ -35996,12 +36066,12 @@
                         "name": "T010741",
                         "type": "select",
                         "texts": [
-                            "Yes",
-                            "No"
+                            "No",
+                            "Yes"
                         ],
                         "values": [
-                            "T01074101",
-                            "T01074102"
+                            "T01074102",
+                            "T01074101"
                         ]
                     },
                     {

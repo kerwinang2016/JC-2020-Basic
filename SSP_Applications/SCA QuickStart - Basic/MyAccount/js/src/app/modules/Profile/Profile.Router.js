@@ -1,22 +1,5 @@
 // Profile.Router.js
 // -----------------------
-/*
-Change History
---------------
-Date: 28-02-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-11
-Change Description: Default fit tools can be inputted into the my account section
-*/
-
-/*
-Change History
---------------
-Date: 04-03-2019
-Changed by:Shoaib Iqbal
-Change /Jira Ticket #: JHD-27
-Change Description: Remove Email Preferences section
-*/
 // Router for handling profile view/update
 define('Profile.Router',  ['Profile.Views','PlacedOrder.Collection','Profile.UpdatePassword.Model'], function (Views, PlacedOrderCollection, UpdatePasswordModel)
 {
@@ -186,6 +169,13 @@ define('Profile.Router',  ['Profile.Views','PlacedOrder.Collection','Profile.Upd
 		}
 	,	favouriteOptions: function(){
 			var self = this;
+			jQuery.ajax({
+				url: _.getAbsoluteUrl('js/FitProfile_Config.json'),
+				async: false,
+				success: function(data){
+					self.fitprofileconfig = data;
+				}
+			});
 			jQuery.get(_.getAbsoluteUrl('js/DesignOptions_Config.json')).done(function(data){
 				var options_config = data
 				,	view = null;
@@ -195,6 +185,7 @@ define('Profile.Router',  ['Profile.Views','PlacedOrder.Collection','Profile.Upd
 						application: self.application
 					,	model: self.application.getUser()
 					,	options_config: options_config
+					, fitprofile_config: self.fitprofileconfig
 					,	mode: "single"
 					});
 

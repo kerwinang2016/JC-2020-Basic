@@ -10,7 +10,7 @@ define('FitProFile.Router',  ['FitProFile.Views', 'FitProfile.Model', 'FormRende
 		routes: {
 			'tailorclient': 'fitProfile'
 		,	'tailorclientdetails/:id': 'renderForm'
-		,	'fitprofile/:id': 'renderProfile'
+		,	'fitprofile/?:options': 'renderProfile'
 		}
 
 	,	initialize: function (application, clients)
@@ -44,11 +44,12 @@ define('FitProFile.Router',  ['FitProFile.Views', 'FitProfile.Model', 'FormRende
 
 			view.showContent();
 		}
-	,	renderProfile: function(id){
-			if(id == "new"){
+	,	renderProfile: function(options){
+			options = (options) ? SC.Utils.parseUrlOptions(options) : {id: "new"};
+			if(options.id == "new"){
 				window.currentFitProfile.set("current_profile", null);
 			} else {
-				window.currentFitProfile.set("current_profile", id);
+				window.currentFitProfile.set("current_profile", options.id);
 			}
 
 			var application = this.application
@@ -56,6 +57,7 @@ define('FitProFile.Router',  ['FitProFile.Views', 'FitProfile.Model', 'FormRende
 					model: new ProfileModel()
 				,	application: application
 				,	fitprofile: window.currentFitProfile
+				, product: options.product
 				});
 
 			profileView.showContent();

@@ -397,6 +397,7 @@ define('Profile.Views', function ()
 			,	formatValues = []
 			,	param = new Object()
 			,	self = this;
+			console.log(formValues);
 			_.each(formValues, function(formValue){
 				var field = formValue.split("=")[0]
 				,	value = formValue.split("=")[1]
@@ -447,7 +448,7 @@ define('Profile.Views', function ()
 		}
 	,	parseDataParams : function(){
 			var rawArray = jQuery("#design_option").serializeArray();
-			//j,t,o,w,s,ss,tc,sh,lj,lp,ls
+
 			var favouriteOptionsMap = {};
 			for (var i = 0; i < rawArray.length; i++){
 				var option = rawArray[i];

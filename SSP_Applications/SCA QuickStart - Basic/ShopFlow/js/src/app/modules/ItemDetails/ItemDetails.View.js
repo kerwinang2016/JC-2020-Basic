@@ -106,6 +106,10 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             jQuery.get(_.getAbsoluteUrl('services/blockQuantity.ss'),{producttype:options.options.product}).done(function (data) {
               window.blockQuantity = data;
             });
+            jQuery.get(_.getAbsoluteUrl('services/designoptionconflicts.ss'),{producttype:options.options.product}).done(function (data) {
+              self.designoptionconflicts  = data;
+            });
+
             if (!this.model) {
                 throw new Error('A model is needed');
             }
@@ -622,12 +626,34 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
         	  }
         	}
         }
+        , validateDesignOptionConflicts: function(arrErrConflictCodes, arrSelectedValues){
+            var self = this;
+            var garments = this.model.get('custitem_clothing_type').split(', ');
+            for(var i=0;i<garments.length;i++){
+                var garmentSelectedOptions = _.getObjGarmentSelectSelectedValues(garments[i]);
+                for(var j=0; j<self.designoptionconflicts.length; j++){
+                  var conflict = self.designoptionconflicts[j];
+                  var conflictOptions = conflict.custrecord_doc_conflict_option.split(',');
+                  if(garmentSelectedOptions[conflict.custrecord_doc_mainoption_parent] == conflict.custrecord_doc_main_option &&
+                    (conflict.custrecord_doc_product_typetext == "" || conflict.custrecord_doc_product_typetext == garments[i])){
+                      var selectedConflictOption = garmentSelectedOptions[conflict.custrecord_doc_conflict_op_parent];
+                      if(selectedConflictOption){
+                        if( conflictOptions.indexOf(selectedConflictOption) != -1 && conflict.custrecord_doc_conflict_typetext == 'Cannot Select'){
+                          arrErrConflictCodes.push(conflict.custrecord_doc_error_prompt);
+                        }
+                        if( conflictOptions.indexOf(selectedConflictOption) == -1 && conflict.custrecord_doc_conflict_typetext == 'Must Select Any'){
+                          arrErrConflictCodes.push(conflict.custrecord_doc_error_prompt);
+                        }
+                      }
+                    }
+                }
+            }
+        }
         // view.addToCart:
         // Updates the Cart to include the current model
         // also takes care of updateing the cart if the current model is a cart item
         , addToCart: function (e) {
             e.preventDefault();
-            //console.log(this.model.attributes);
             //this.setCookie('tempCartItem',JSON.stringify(this.model.attributes),1);
             window.tempOptions = {};
             window.tempOptionsNotes = "";
@@ -640,6 +666,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             var objConflictCodeMapping = OBJ_CONFLICT;
             var arrErrConflictCodes = _.getArrConflictCodesError(objConflictCodeMapping, arrSelectedValues, objSelectSelectedValues);
             this.addArrMustSelectConflictCodes(arrErrConflictCodes);
+            this.validateDesignOptionConflicts(arrErrConflictCodes);
 
             var clothingTypes = this.model.itemOptions.custcol_producttype.internalid;//this.model.get('custitem_clothing_type').split(', ');
             if(clothingTypes == '3-Piece-Suit'){
@@ -719,7 +746,6 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 // update design option hidden fields
                 if (this.model.get('custitem_clothing_type') && this.model.get('custitem_clothing_type') != "&nbsp;") {
                     clothingTypes = this.model.get('custitem_clothing_type').split(', ');
-                    console.log(clothingTypes);
                     var selectedUnits = "CM";
                     _.each(clothingTypes, function (clothingType) {
                         var usedClothingType = clothingType;
@@ -1576,7 +1602,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                             var profileID = window.tempFitProfile[i].value;
                             jQuery('#profiles-options-' + window.tempFitProfile[i].name).val(window.tempFitProfile[i].value);
                             if (window.tempFitProfile[i].value){
-                                jQuery("#profile-actions-" + window.tempFitProfile[i].name).html("<a data-backdrop='static' data-keyboard='false' data-toggle='show-in-modal' href='/fitprofile/new'>Add</a> | <a data-backdrop='static' data-keyboard='false' data-toggle='show-in-modal' href='/fitprofile/" + profileID + "'>Edit</a> | <a data-action='remove-rec' data-type='profile' data-id='" + profileID + "'>Remove</a>");
+                                jQuery("#profile-actions-" + window.tempFitProfile[i].name).html("<a data-backdrop='static' data-keyboard='false' data-toggle='show-in-modal' href='/fitprofile/?id=new&product="+window.tempFitProfile[i].name+"'>Add</a> | <a data-backdrop='static' data-keyboard='false' data-toggle='show-in-modal' href='/fitprofile/?id=" + profileID + "'>Edit</a> | <a data-action='remove-rec' data-type='profile' data-id='" + profileID + "'>Remove</a>");
                                 //Update Quantity when Profile Refreshes, during add edit and delete....What if the item was already on cart
                                 if(window.tempFitProfile[i].block){
                                     var bq = _.find(window.blockQuantity,function(q){
@@ -1589,7 +1615,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                                 }
                             }
                             else{
-                                jQuery("#profile-actions-" + window.tempFitProfile[i].name).html("<a data-backdrop='static' data-keyboard='false' data-toggle='show-in-modal' href='/fitprofile/new'>Add</a>");
+                                jQuery("#profile-actions-" + window.tempFitProfile[i].name).html("<a data-backdrop='static' data-keyboard='false' data-toggle='show-in-modal' href='/fitprofile/?id=new&product="+window.tempFitProfile[i].name+"'>Add</a>");
                             }
                         }
                         var extra = 0;

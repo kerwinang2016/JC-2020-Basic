@@ -192,9 +192,9 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 			this.model.set("current_profile", profileID);
 
 			if (profileID) {
-				jQuery("#profile-actions-" + jQuery(e.target).data("type")).html("<a data-toggle='show-in-modal' href='/fitprofile/new'>Add</a> | <a data-toggle='show-in-modal' href='/fitprofile/" + profileID + "'>Edit</a> | <a data-action='remove-rec' data-type='profile' data-id='" + profileID + "'>Remove</a>");
+				jQuery("#profile-actions-" + jQuery(e.target).data("type")).html("<a data-toggle='show-in-modal' href='/fitprofile/?id=new&product="+jQuery(e.target).data("type")+"'>Add</a> | <a data-toggle='show-in-modal' href='/fitprofile/?id=" + profileID + "'>Edit</a> | <a data-action='remove-rec' data-type='profile' data-id='" + profileID + "'>Remove</a>");
 			} else {
-				jQuery("#profile-actions-" + jQuery(e.target).data("type")).html("<a data-toggle='show-in-modal' href='/fitprofile/new'>Add</a>");
+				jQuery("#profile-actions-" + jQuery(e.target).data("type")).html("<a data-toggle='show-in-modal' href='/fitprofile/?id=new"+jQuery(e.target).data("type")+"'>Add</a>");
 				// jQuery("#profile-details").html(SC.macros.profileForm(self,self.model));
 			}
 		}
@@ -229,20 +229,17 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 		template: 'profile'
 		, title: _('Fit Profile').translate()
 		, events: {
-			'change select#in-modal-custrecord_fp_product_type': 'getMeasurementType',
-			'change select#custrecord_fp_product_type': 'getMeasurementType'
-			, 'change select#custrecord_fp_measure_type': 'buildMesureForm'
+			'change select[id*="custrecord_fp_product_type"]': 'getMeasurementType'
+			, 'change select[id*="custrecord_fp_measure_type"]': 'buildMesureForm'
 			// ,  'change select#body-fit': 'rebuildMeasureForm'
 			, 'change .allowance-fld': 'updateFinalMeasure'
 			, 'change .body-measure-fld': 'updateFinalMeasure'
-			, 'change #fit': 'updateAllowanceLookup'
-			, 'change #in-modal-fit': 'updateAllowanceLookup'
+			, 'change [id="fit"]': 'updateAllowanceLookup'//Body Fit
 			, 'change .block-measurement-fld': 'disableCounterBlockField'
-			, 'submit #in-modal-profile-form': 'submitProfile'
-			, 'change [id="units"]': 'changedUnits'
-			, 'change [id="in-modal-units"]': 'changedUnits'
+			, 'submit [id*="profile-form"]': 'submitProfile'
+			, 'change [id*="units"]': 'changedUnits'
 			, 'change [id*="body-block"]': 'fitBlockChanged'
-			, 'change [id*="body-fit"]': 'fitBlockChanged'
+			, 'change [id*="body-fit"]': 'fitBlockChanged'//BlockFit
 			, 'click [id*="swx-fitprofile-copy"]': 'swxFitProfileCopy'
 		}
 		,	attributes: {
@@ -587,7 +584,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 					var in_items = _.filter(self.options.layout.currentView.influences,function(c){
 						return c.custrecord_in_producttypetext== producttype && c.custrecord_in_bodyparttext == blockfield.dataset.field;
 					});
-					console.log(in_items);
+
 					if(in_items && in_items.length>0){
 						var blockval = parseFloat(blockfield.value);
 						for(var i=0;i<in_items.length;i++){
@@ -785,6 +782,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 			}
 		}
 		, updateAllowanceLookup: function (e) {
+
 			var value = jQuery(e.target).val()
 				, self = this
 				, lookUpTable = JSON.parse(JSON.stringify(self.fitprofile.selected_measurement["lookup-value"][value]));
@@ -975,8 +973,8 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 						, value = formValue.value
 						, formData = new Object()
 						, param = new Object();
-
 					if (field == "custrecord_fp_client" || field == "name" || field == "custrecord_fp_product_type" || field == "custrecord_fp_measure_type") {
+						
 						formData.name = field;
 						if (field == "custrecord_fp_client" || field == "name") {
 							formData.value = value; //value.split(" ").join("+"); //value.replace("+", " ");

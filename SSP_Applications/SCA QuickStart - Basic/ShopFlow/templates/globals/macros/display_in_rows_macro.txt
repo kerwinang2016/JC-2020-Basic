@@ -8,7 +8,7 @@
 <% if(clientId) { %>
 	<div style="float:right;">
 
-	<a data-hashtag="#productlists/?id=<%=clientId%>" data-touchpoint="customercenter" href="#" class="btn">
+	<a href="https://store.jeromeclothiers.com/myaccount/index.ssp?#/productlists/?id=<%=clientId%>" class="btn">
 								My Product List
 							</a>
 							</div>
@@ -22,7 +22,7 @@
 		<% if (((count % items_per_row) == 0 || index == 9) && index > 0 ){
 			count=0; %>
 			</div>
-			<% if(index == 10 && isCategory){ %>
+			<% if(index == 9 && isCategory){ %>
 			<div class='womensbanner fa collapsed' data-toggle="collapse" data-target="#womensbanner" data-parent=".womensbanner">
 			<span style="margin-right:75px;">Womens</span>
 			</div>

@@ -127,21 +127,7 @@ document.documentElement.className = SC.ENVIRONMENT.isTouchEnabled ? 'touch' : '
 		SC.ENVIRONMENT.baseUrl = '<%=  session.getAbsoluteUrl(request.getURL().indexOf('https:') === 0 ? 'checkout' : 'shopping', '/{{file}}') %>';
 	}
 <% } %>
-SC.SESSIONTIME = new Date();
-SC.SE = null;
-SC.sessioncheck = function(){
-	self = this;
-	//console.log('sessioncheck')
-	//if((new Date()-SC.SESSIONTIME) >= 68400000){
-    	jQuery.ajax({
-    		url: window.location.origin+'/api/items'
-    	});
-			SC.SESSIONTIME = new Date();
-	//}
-	if(SC.SE)
-		clearTimeout(SC.SE);
-	SC.SE = setTimeout(function(){SC.sessioncheck();}, 1140000);
-}
+
 
 // Loads the application files, if you need to have a less agresive cacheing you can move them
 // to the sc.environment.ssp (Moderate cacheing) or to the sc.user.environment.ssp (No cache but less performant). Commented here by default.

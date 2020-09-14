@@ -1,7 +1,7 @@
 /*jshint laxcomma:true*/
 SC.sessioncheck = function(){
 	self = this;
-	//console.log('hastimedout');
+	console.log('hastimedout myaccount');
 	jQuery.ajax({
 		url: '/myaccount/services/live-order.ss'
 	});

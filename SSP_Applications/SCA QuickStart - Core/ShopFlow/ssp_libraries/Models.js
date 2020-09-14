@@ -218,7 +218,9 @@ Application.defineModel('Profile', {
     profile.surcharges_make_trim_options = _.find(customerFieldValues, function(field){
       return field.name === 'custentity_surcharges_make_trims_do';
     }).value;
-
+    profile.fit_restriction = _.find(customerFieldValues, function(field){
+      return field.name === 'custentity_fit_restriction';
+    }).value;
 		profile.internalid = nlapiGetUser();
     if(session.isLoggedIn2()){
       var url = myaccountsuiteleturl;

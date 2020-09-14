@@ -155,9 +155,9 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 			tag['Ladies-Pants'] = 'lp';
 			tag['Ladies-Skirt'] = 'ls';
 			tag['Morning-Coat'] = 'mc';
-			tag['Shirt-Jacket'] = 'sj';
+			tag['Shirt-Jacket'] = 'shj';
 			tag['Camp-Shirt'] = 'cs';
-			tag['Safari-Jacket'] = 'saj';
+			tag['Safari-Jacket'] = 'sj';
 			var currentItemTypes;
 
 			var stCartLines = JSON.stringify(userOptions.shoppingCartLines) || '[]';
@@ -193,7 +193,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 						// iterate every options for each component
 						_.each(component.fields, function(field){
 							// find restrictions
-							var currentRestriction = _.where(designRestrictions, {name: field.name}),
+							var currentRestriction = _.where(designRestrictions, {name: tag[clothingType.item_type]+'_'+field.name}),
 								currentValues = [],
 								restrictions = null;
 

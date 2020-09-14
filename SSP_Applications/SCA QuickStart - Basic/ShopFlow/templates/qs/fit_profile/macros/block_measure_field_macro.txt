@@ -3,13 +3,24 @@
 	var type = field.type
 	,	label = field.label
 	,	name = field.name;
+
 %>
+
 <div class="row-fluid" style="<% if(hideField){ %> display:none; <% } %>">
 	<div style="width:30%" class="span3"><%= label %></div>
 
 	<% if(type == "select"){
 		var optionstext = field.optionstext;
-		if(field.options && field.options.length){ %>
+		if(field.options && field.options.length){
+			if(field.name == 'fit'){
+				var customerFitFilter = SC.Application('Shopping').user_instance.get('fit_restriction')?JSON.parse(SC.Application('Shopping').user_instance.get('fit_restriction')):{};
+				var fitFilter = customerFitFilter[jQuery('[id*="custrecord_fp_product_type"]').val()];
+
+				if(fitFilter){
+					field.options = field.options.filter(function(o){ return fitFilter.indexOf(o) <0; });
+				}
+			}
+		%>
 			<div style="width:20%; margin:0;" class="span2"><select class="input input-small" data-field="<%= name %>" id="body-<%=name%>" name="<%= name %>">
 			<% for(var i=0;i<field.options.length; i++){
 				var option = field.options[i];

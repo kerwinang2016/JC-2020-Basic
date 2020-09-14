@@ -722,21 +722,19 @@
 
 		try
 		{
-			var allSelectFldsTotal = jQuery("select").length;
+			var allSelectFldsTotal = jQuery("#clothing-details select").length;
 			var hasSelectedFlds = (allSelectFldsTotal != 0) ? true : false;
 
 			if (hasSelectedFlds)
 			{
 				for (var dx = 0; dx < allSelectFldsTotal; dx++)
 				{
-					var selectedValue = jQuery("select").eq(dx).val();
+					var selectedValue = jQuery("#clothing-details select").eq(dx).val();
 					var stSelectedValue = (!isNullOrEmpty(selectedValue)) ? selectedValue : '';
 					var isSelectedValueInArrSelected = (arrSelected.inArray(stSelectedValue.toString())) ? true : false;
 					var isPushArrSelected = (!isSelectedValueInArrSelected) ? arrSelected.push(stSelectedValue.toString()) : '';
 				}
 			}
-
-
 		}
 			catch(ex)
 		{
@@ -913,6 +911,66 @@
 		return htmlWriter;
 	}
 
+	function getObjGarmentSelectSelectedValues(garment)
+	{
+		var functionName = 'getObjProductSelectSelectedValues';
+		var processStr = '';
+		var objReturn = {};
+
+		try
+		{
+			var allSelectFldsTotal = jQuery("#design-option-"+garment+" select").length;
+			var hasSelectedFlds = (allSelectFldsTotal != 0) ? true : false;
+
+			if (hasSelectedFlds)
+			{
+				for (var dx = 0; dx < allSelectFldsTotal; dx++)
+				{
+					var selectIdValue = jQuery("#design-option-"+garment+" select").eq(dx).attr('id');
+					var hasSelectId = (!isNullOrEmpty(selectIdValue)) ? true : false;
+
+					if (hasSelectId)
+					{
+						var isSelectedIdExist = (isObjectExist(objReturn['' + selectIdValue + '']));
+
+						if (!isSelectedIdExist)
+						{
+							var selectedValue = jQuery("#design-option-"+garment+" select").eq(dx).val();
+							objReturn['' + selectIdValue + ''] = selectedValue;
+						}
+					}
+				}
+			}
+			var allTextFldsTotal = jQuery("#design-option-"+garment+" input[type=text]").length;
+			var hasTextFlds = (allTextFldsTotal != 0) ? true : false;
+
+			if (hasTextFlds)
+			{
+				for (var dx = 0; dx < allTextFldsTotal; dx++)
+				{
+					var selectIdValue = jQuery("#design-option-"+garment+" input[type=text]").eq(dx).attr('id');
+					var hasSelectId = (!isNullOrEmpty(selectIdValue)) ? true : false;
+
+					if (hasSelectId)
+					{
+						var isSelectedIdExist = (isObjectExist(objReturn['' + selectIdValue + '']));
+
+						if (!isSelectedIdExist)
+						{
+							var selectedValue = jQuery("#design-option-"+garment+" input[type=text]").eq(dx).val();
+							objReturn['' + selectIdValue + ''] = selectedValue;
+						}
+					}
+				}
+			}
+		}
+			catch(ex)
+		{
+			objReturn = {};
+			console.log('Error in ' + functionName + ': ' + '\n' + ex.toString())
+		}
+		return objReturn;
+	}
 
 	function getObjSelectSelectedValues()
 	{
@@ -922,14 +980,14 @@
 
 		try
 		{
-			var allSelectFldsTotal = jQuery("select").length;
+			var allSelectFldsTotal = jQuery("#clothing-details select").length;
 			var hasSelectedFlds = (allSelectFldsTotal != 0) ? true : false;
 
 			if (hasSelectedFlds)
 			{
 				for (var dx = 0; dx < allSelectFldsTotal; dx++)
 				{
-					var selectIdValue = jQuery("select").eq(dx).attr('id');
+					var selectIdValue = jQuery("#clothing-details select").eq(dx).attr('id');
 					var hasSelectId = (!isNullOrEmpty(selectIdValue)) ? true : false;
 
 					if (hasSelectId)
@@ -938,7 +996,7 @@
 
 						if (!isSelectedIdExist)
 						{
-							var selectedValue = jQuery("select").eq(dx).val();
+							var selectedValue = jQuery("#clothing-details select").eq(dx).val();
 							objReturn['' + selectIdValue + ''] = selectedValue;
 						}
 					}
@@ -1095,7 +1153,7 @@
 
 	SC.Utils.getObjSelectSelectedValues = getObjSelectSelectedValues;
 	SC.Utils.getArrConflictCodesError = getArrConflictCodesError;
-
+	SC.Utils.getObjGarmentSelectSelectedValues = getObjGarmentSelectSelectedValues;
 	SC.Utils.displayModalWindow = displayModalWindow;
 
 

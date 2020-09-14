@@ -5,12 +5,12 @@
 				<h4><%= option.label %></h4><hr />
 
 				<% _.each(option.fields, function (field) {
-					value = _.where(values, {name: escape(field.name)});
+					value = _.where(values, {name: tag+'_'+escape(field.name)});
 				%>
 					<div class="control-group" data-input="<%= field.name %>">
 						<label class="control-label" for="<%= field.name %>"><%= field.label %></label>
 						<div class="controls">
-							<select class="input-xlarge" multiple id="<%= field.name %>" name="<%= field.name %>">
+							<select class="input-xlarge" multiple id="<%= field.name %>" name="<%= tag+'_'+ field.name %>">
 							<% _.each(field.texts, function (text, count) { %>
 								<% if(value[0] && value[0].value != ""){
 											var tmpvalue = value[0].value;

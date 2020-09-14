@@ -5243,11 +5243,11 @@ OBJ_CONFLICT['T01050913']['CONFLICT']['T010539']['T01053905']={};
 OBJ_CONFLICT['T01050913']['CONFLICT']['T010539']['T01053905']['ERROR'] = 'You must select NA for buckle with draw string style';
 OBJ_CONFLICT['T01050913']['CONFLICT']['tm-m-t']={};
 OBJ_CONFLICT['T01050913']['CONFLICT']['tm-m-t']['Handmade']={};
-OBJ_CONFLICT['T01050913']['CONFLICT']['tm-m-t']['Handmade']['ERROR'] = 'You can only select self fabric waistabnd for make with drawstring waistband style';
+OBJ_CONFLICT['T01050913']['CONFLICT']['tm-m-t']['Handmade']['ERROR'] = 'You can only select Self Fabric Waistband for TROUSER MAKE when selecting draw string Waistband Style';
 OBJ_CONFLICT['T01050913']['CONFLICT']['tm-m-t']['Traditional with pleated waistband']={};
-OBJ_CONFLICT['T01050913']['CONFLICT']['tm-m-t']['Traditional with pleated waistband']['ERROR'] = 'You can only select self fabric waistabnd for make with drawstring waistband style';
+OBJ_CONFLICT['T01050913']['CONFLICT']['tm-m-t']['Traditional with pleated waistband']['ERROR'] = 'You can only select Self Fabric Waistband for TROUSER MAKE when selecting draw string Waistband Style';
 OBJ_CONFLICT['T01050913']['CONFLICT']['tm-m-t']['Traditional']={};
-OBJ_CONFLICT['T01050913']['CONFLICT']['tm-m-t']['Traditional']['ERROR'] = 'You can only select self fabric waistabnd for make with drawstring waistband style';
+OBJ_CONFLICT['T01050913']['CONFLICT']['tm-m-t']['Traditional']['ERROR'] = 'You can only select Self Fabric Waistband for TROUSER MAKE when selecting draw string Waistband Style';
 /** ####  END CONFLICT CODE - T01050913 #### **/
 /** #### START CONFLICT CODE - T01051603 #### **/
 OBJ_CONFLICT['T01051603']={};
@@ -6498,3 +6498,10 @@ OBJ_CONFLICT['T02721602']['CONFLICT']['T027217']={};
 OBJ_CONFLICT['T02721602']['CONFLICT']['T027217']['T02721703']={};
 OBJ_CONFLICT['T02721602']['CONFLICT']['T027217']['T02721703']['ERROR'] = 'You cannot select NA for side pocket flap size with this side pocket option';
 /** ####  END CONFLICT CODE - T02721602 #### **/
+/** #### START CONFLICT CODE - T01053502 #### **/
+OBJ_CONFLICT['T01053502']={};
+OBJ_CONFLICT['T01053502']['CONFLICT']={};
+OBJ_CONFLICT['T01053502']['CONFLICT']['tm-m-t']={};
+OBJ_CONFLICT['T01053502']['CONFLICT']['tm-m-t']['Traditional']={};
+OBJ_CONFLICT['T01053502']['CONFLICT']['tm-m-t']['Traditional']['ERROR'] = 'You can only select Yes for Grippers with Traditional Trouser make';
+/** ####  END CONFLICT CODE - T01053502 #### **/

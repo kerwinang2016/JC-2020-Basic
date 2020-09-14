@@ -11,6 +11,10 @@
 	tag['Ladies-Jacket'] = 'lj';
 	tag['Ladies-Pants'] = 'lp';
 	tag['Ladies-Skirt'] = 'ls';
+	tag['Morning-Coat'] = 'mc';
+	tag['Safari-Jacket'] = 'sj';
+	tag['Camp-Shirt'] = 'cs';
+	tag['Shirt-Jacket'] = 'shj';
 %>
 	<% if (fields && fields.length > 1) { %>
 		<ul class="nav nav-tabs design-option-list">

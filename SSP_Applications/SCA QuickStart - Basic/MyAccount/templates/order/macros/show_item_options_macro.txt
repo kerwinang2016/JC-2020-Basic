@@ -36,6 +36,36 @@
 			case "custcol_designoptions_waistcoat":
 				type = "Waistcoat";
 				break;
+			case "custcol_designoptions_safari_jacket":
+				type = "Safari-Jacket";
+				break;
+			case "custcol_designoptions_camp_shirt":
+				type = "Camp-Shirt";
+				break;
+			case "custcol_designoptions_shirt_jacket":
+				type = "Shirt-Jacket";
+				break;
+			case "custcol_designoptions_morning_coat":
+				type = "Morning-Coat";
+				break;
+			case "custcol_designoptions_shorts":
+				type = "Shorts";
+				break;
+			case "custcol_designoptions_trenchcoat":
+				type = "Trenchcoat";
+				break;
+			case "custcol_designoptions_ssshirt":
+				type = "Short-Sleeves-Shirt";
+				break;
+			case "custcol_designoptions_ladiesskirt":
+				type = "Ladies-Skirt";
+				break;
+			case "custcol_designoptions_ladiespants":
+				type = "Ladies-Pants";
+				break;
+			case "custcol_designoptions_ladiesjacket":
+				type = "Ladies-Jacket";
+				break;
 		}
 
 		if(type){

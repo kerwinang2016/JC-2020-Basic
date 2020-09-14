@@ -1,9 +1,9 @@
 /*jshint laxcomma:true*/
 SC.sessioncheck = function(){
 	self = this;
-	//console.log('hastimedout');
+	console.log('hastimedout checkout');
 	jQuery.ajax({
-		url: '/c.3857857/checkout/services/live-order.ss'
+		url: '/checkout/services/live-order.ss'
 	});
 	setTimeout(function(){
 		self.recurring();

@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -21,6 +21,7 @@
  * 13.00      09 Oct 2017     jmarimla         Use abstraction module
  * 14.00      22 Dec 2017     jmarimla         Added dateAggregation bucket
  * 15.00      22 Nov 2018     jmarimla         convertMStoDateTimePSTtoSQLFormat
+ * 16.00      04 Mar 2019     jmarimla         APM NA
  *
  */
 
@@ -236,6 +237,8 @@ function(nAPM) {
         validateCompanyFilter: function (companyFilter) {
             var allowedList = [
                             'NLCORP'
+                          , '5515663' //APM-NA
+                          , '4642954' //APM-EU
                           , '3930908' //dev account
                           , '3547087' //dev account
                           , '3949168' //qa account
@@ -243,7 +246,6 @@ function(nAPM) {
                           , '4294543' //qa
                           , '4290356' //qa
                           , '4290353' //qa
-                          , '4642954' //jay yeh
                           ];
             var thisCompany = nAPM.getRuntime().accountId;
             if (allowedList.indexOf(thisCompany) == -1)  {

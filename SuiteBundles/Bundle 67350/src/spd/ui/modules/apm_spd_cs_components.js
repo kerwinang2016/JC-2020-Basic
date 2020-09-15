@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -23,7 +23,8 @@
  * 15.00      18 Oct 2018     jmarimla         Redirect to profiler
  * 16.00      26 Oct 2018     jmarimla         Frht labels
  * 17.00      27 Nov 2018     rwong            CSV export
- * 18.00      23 Jan 2019     jmarimla         hide frht
+ * 18.00      28 Jun 2019     erepollo         Translation for new texts
+ * 19.00      15 Jan 2020     earepollo        Customer debugging changes
  *
  */
 
@@ -55,7 +56,7 @@ APMSPD._Components = function() {
             $dialog.dialog('close');
 
             var compfil = $dialog.find('.field-customer .psgp-textbox').val();
-            globalSettings.compfil = compfil;
+            globalSettings.compfil = compfil.trim();
 
             APMSPD.Services.refreshSsListData();
         }
@@ -305,9 +306,9 @@ APMSPD._Components = function() {
                         return value = '';
                         }
                     }
-                }/*, {
+                }, {
                     dataIndex: 'viewDetails',
-                    text: APMTranslation.apm.common.label.profilerdetails(),
+                    text: APMTranslation.apm.r2019a.profilerdetails(),
                     width: '130px',
                     renderer: function(value, record) {
                         var $markUp = $('<div><div class="apm-spd-sslogs-viewdetails-icon"></div></div>');
@@ -316,7 +317,7 @@ APMSPD._Components = function() {
                     },
                     resizable: false,
                     sortable: false
-                }*/],
+                }],
 
                 listeners: {
                     afterRefreshData: function (grid, response) {
@@ -399,6 +400,7 @@ APMSPD._Components = function() {
 
     return {
         $TitleBar: $TitleBar,
+        $CustomerDebuggingDialog: $CustomerDebuggingDialog,
         $BtnRefresh: $BtnRefresh,
         $ColumnPanel: $ColumnPanel,
 

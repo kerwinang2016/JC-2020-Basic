@@ -1,6 +1,7 @@
 /**
- * Copyright © 2018, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
+
 /**
  * Module Description
  *
@@ -15,6 +16,15 @@
  * 8.00       14 Dec 2018     jmarimla         Update labels
  * 9.00       15 Jan 2019     jmarimla         Chart min height
  * 10.00      17 Jan 2019     jmarimla         Destory chart
+ * 11.00      21 Mar 2019     rwong            Added support for requestUrl and filtering of apicalls
+ * 12.00      11 Apr 2019     erepollo         Added drilldown param as flag when drilling down
+ * 13.00      12 Apr 2019     jmarimla         Has children
+ * 14.00      15 Apr 2019     rwong            Added support for filtering api calls, merge ids under name
+ * 15.00      18 Jun 2019     jmarimla         Change yaxis to numeric
+ * 16.00      19 Jun 2019     jmarimla         Request urls column
+ * 17.00      28 Jun 2019     erepollo         Translation for new texts
+ * 18.00      08 Jul 2019     erepollo         Translation changes
+ * 19.00      08 Aug 2019     erepollo         Added deployment name
  *
  */
 APMPRF = APMPRF || {};
@@ -71,105 +81,125 @@ APMPRF._Highcharts = function() {
     var frhtChartData = null;
 
     frhtTypes = {
+            'record': {
+                color: 'rgba(217, 94, 94, 0.8)',
+                label: APMTranslation.apm.r2019a.record(),
+                drilldown: true,
+                viewCalls: false,
+                columns: ['date', 'executionTime', 'email', 'operation', 'searches', 'workflows', 'customRecordOperations', 'requestUrls', 'recordType']
+            },
+            'requestUrl': {
+                color: 'rgba(163, 120, 217, 0.8)',
+                label: APMTranslation.apm.r2019a.requesturl(),
+                drilldown: true,
+                viewCalls: false,
+                columns: ['date', 'executionTime', 'email', 'operation', 'searches', 'workflows', 'customRecordOperations', 'requestUrls', 'method']
+            },
             'script': {
                 color: 'rgba(122, 176, 217, 0.8)',
-                label: 'Script',
+                label: APMTranslation.apm.ptd.label.script(),
                 drilldown: true,
                 viewCalls: true,
-                columns: ['date', 'executionTime', 'entryPoint', 'context', 'bundle', 'recordType', 'email', 'scriptType', 'scriptId', 'triggerType']
+                columns: ['date', 'executionTime', 'email', 'operation', 'searches', 'workflows', 'customRecordOperations', 'requestUrls', 'recordType', 'context', 'scriptType', 'name', 'deployment', 'entryPoint', 'triggerType', 'bundle']
             },
             'search': {
                 color: 'rgba(243, 235, 94, 0.8)',
-                label: 'Search',
+                label: APMTranslation.apm.ssa.label.search(),
                 drilldown: false,
                 viewCalls: false,
-                columns: ['date', 'executionTime', 'recordType', 'email']
+                columns: ['date', 'executionTime', 'email', 'operation', 'searches', 'workflows', 'customRecordOperations', 'requestUrls', 'recordType', 'name']
             },
             'workflow': {
                 color: 'rgba(250, 182, 93, 0.8)',
-                label: 'Workflow',
+                label: APMTranslation.apm.ns.context.workflow(),
                 drilldown: true,
                 viewCalls: false,
-                columns: ['date', 'executionTime', 'entryPoint', 'workflowId', 'context', 'recordType', 'email', 'triggerType']
+                columns: ['date', 'executionTime', 'email', 'operation', 'searches', 'workflows', 'customRecordOperations', 'requestUrls', 'recordType', 'context', 'name', 'entryPoint']
             },
-            'record': {
-                color: 'rgba(217, 94, 94, 0.8)',
-                label: 'Record',
-                drilldown: true,
-                viewCalls: false,
-                columns: ['date', 'executionTime', 'context', 'recordType', 'email', 'operation']
-            },
-            'request': {
+            'webservice': {
                 color: 'rgba(131, 217, 122, 0.8)',
-                label: 'Request',
+                label: APMTranslation.apm.common.label.webservice(),
                 drilldown: true,
                 viewCalls: false,
-                columns: ['date', 'executionTime', 'method', 'email']
+                columns: ['date', 'executionTime', 'email', 'operation',  'searches', 'workflows', 'customRecordOperations', 'requestUrls', 'wsOperation', 'apiVersion']
             },
             'default': {
                 color: 'rgba(192, 192, 192, 0.8)',
-                label: 'unknown',
+                label: APMTranslation.apm.r2019a.unclassified(),
                 drilldown: false,
                 viewCalls: false,
-                columns: ['date', 'executionTime']
+                columns: ['date', 'executionTime', 'email', 'operation']
             }
         };
-        
+
         var frhtColumns = {
-        		'date': {
-        			label: 'Date & Time'
-        		},
-        		'executionTime' : {
-        			label: 'Execution Time',
-        			formatter: function (value) {
-        				return value + ' s';
-        			}
-        		},
-        		'scriptsTotal': {
-        			label: 'Scripts'
-        		},
-        		'searchesTotal': {
-        			label: 'Searches'
-        		},
-        		'workflowsTotal': {
-        			label: 'Workflows'
-        		},
-        		'operation': {
-        			label: 'Operation'
-        		},
-        		'recordType': {
-        			label: 'Record Type'
-        		},
-        		'context': {
-        			label: 'Context'
-        		},
-        		'entryPoint': {
-        			label: 'EntryPoint'
-        		},
-        		'scriptType': {
-        			label: 'Script Type'
-        		},
-        		'triggerType': {
-        			label: 'Trigger Type'
-        		},
-        		'email': {
-        			label: 'User'
-        		},
-        		'bundle': {
-        			label: 'Bundle'
-        		},
-        		'scriptId': {
-        			label: 'Script Id'
-        		},
-        		'workflowId': {
-        			label: 'Workflow Id'
-        		},
-        		'method': {
-        			label: 'Method'
-        		},
-        		'default' : {
-        			
-        		}
+                'date': {
+                    label: APMTranslation.apm.r2019a.datetime()
+                },
+                'executionTime' : {
+                    label: APMTranslation.apm.common.label.executiontime(),
+                    formatter: function (value) {
+                        return value + ' s';
+                    }
+                },
+                'email': {
+                    label: APMTranslation.apm.common.label.user()
+                },
+                'operation': {
+                    label: APMTranslation.apm.common.label.operation()
+                },
+                'name': {
+                    label: APMTranslation.apm.common.label.name()
+                },
+                'recordType': {
+                    label: APMTranslation.apm.common.label.recordtype()
+                },
+                'method': {
+                    label: APMTranslation.apm.r2019a.method()
+                },
+                'context': {
+                    label: APMTranslation.apm.common.label.context()
+
+                },
+                'scriptType': {
+                    label: APMTranslation.apm.ssa.label.scripttype()
+                },
+                'deployment': {
+                    label: APMTranslation.apm.spjd.label.deployment()
+                },
+                'entryPoint': {
+                    label: APMTranslation.apm.r2019a.entrypoint()
+                },
+                'triggerType': {
+                    label: APMTranslation.apm.r2019a.triggertype()
+                },
+                'bundle': {
+                    label: APMTranslation.apm.pts.label.bundle()
+                },
+                'url': {
+                    label: APMTranslation.apm.r2019a.url()
+                },
+                'searches': {
+                    label: APMTranslation.apm.ptd.label.searches()
+                },
+                'workflows': {
+                    label: APMTranslation.apm.r2019a.workflows()
+                },
+                'customRecordOperations': {
+                    label: APMTranslation.apm.r2019a.recordsfromscriptsworkflows()
+                },
+                'requestUrls': {
+                    label: APMTranslation.apm.r2019a.requesturls()
+                },
+                'wsOperation': {
+                    label: APMTranslation.apm.r2019a.webserviceoperation()
+                },
+                'apiVersion': {
+                    label: APMTranslation.apm.r2019a.apiversion()
+                },
+                'default' : {
+
+                }
         }
 
     function renderFrhtLogsChart(chartData) {
@@ -191,8 +221,8 @@ APMPRF._Highcharts = function() {
                 chartSeries.push({
                     x: dataIdx,
                     color: frhtConfig.color,
-                    low: chartData[i].startDateMS,
-                    high: chartData[i].endDateMS
+                    low: ( chartData[i].lowMS ) / 1000 ,
+                    high: ( chartData[i].highMS ) / 1000
                 });
             }
         } else {
@@ -207,7 +237,8 @@ APMPRF._Highcharts = function() {
         var xLabelHeight = 180;
         var yHeight = 25 * (chartCategories.length ? chartCategories.length : 0)
         var totalHeight = xLabelHeight + yHeight;
-        totalHeight = totalHeight > 300 ? totalHeight : 300;
+        var minHeight = 370;
+        totalHeight = totalHeight > minHeight ? totalHeight : minHeight;
         $container.height(totalHeight);
 
         var chartConfig = {
@@ -237,10 +268,10 @@ APMPRF._Highcharts = function() {
                 enabled: false
             },
             xAxis: {
-            	title: {
-            		text: 'Profiler Type',
+                title: {
+                    text: APMTranslation.apm.r2019a.profilertype(),
                     style: {
-                    	color: '#666',
+                        color: '#666',
                         fontFamily: 'Arial',
                         fontSize: '14px',
                         fontWeight: 'normal'
@@ -253,10 +284,11 @@ APMPRF._Highcharts = function() {
                         fontSize: '11px'
                     },
                     formatter: function() {
-                    	var point = this.value;
+                        var point = this.value;
                         var logDetails = chartData[point];
                         var type = logDetails.type;
                         var hierarchy = logDetails.hierarchy;
+                        var hasChildren = logDetails.hasChildren;
                         var frhtConfig = frhtTypes[type];
                         frhtConfig = frhtConfig ? frhtConfig : frhtTypes['default'];
 
@@ -268,14 +300,14 @@ APMPRF._Highcharts = function() {
 
                         var label = '<div class="apm-prf-frhtchart-xaxis-label">' +
                             '<div class="xaxis-label">' + typeLabel + '</div>';
-                        
-                        if (frhtConfig.viewCalls) {
-                        	label += '<a href="#" onclick="' + viewCallsFunc + ';return false;"><div class="xaxis-icon-vc">' + '</div></a>';
+
+                        if (frhtConfig.viewCalls && logDetails.viewCalls) {
+                            label += '<a href="#" onclick="' + viewCallsFunc + ';return false;"><div class="xaxis-icon-vc">' + '</div></a>';
                         }
-                        if (frhtConfig.drilldown) {
-                        	label += '<a href="#" onclick="' + drillDownFunc + ';return false;"><div class="xaxis-icon-dd">' + '</div></a>';
+                        if (hasChildren) {
+                            label += '<a href="#" onclick="' + drillDownFunc + ';return false;"><div class="xaxis-icon-dd">' + '</div></a>';
                         }
-                        
+
                         label += '</div>';
 
                         return label;
@@ -289,26 +321,16 @@ APMPRF._Highcharts = function() {
                 categories: chartCategories
             },
             yAxis: {
-            	title: {
-            		text: 'Time',
+                title: {
+                    text: APMTranslation.apm.ptd.label.time(),
                     style: {
-                    	color: '#666',
+                        color: '#666',
                         fontFamily: 'Arial',
                         fontSize: '14px',
                         fontWeight: 'normal'
                     }
                 },
                 labels: {
-                    formatter: function() {
-                        var label = this.axis.defaultLabelFormatter.call(this);
-                        if (label.endsWith('AM')) {
-                            label = label.replace(/AM$/, APMTranslation.apm.common.time.am());
-                        }
-                        if (label.endsWith('PM')) {
-                            label = label.replace(/PM$/, APMTranslation.apm.common.time.pm());
-                        }
-                        return label;
-                    },
                     style: {
                         color: '#666',
                         fontFamily: 'Arial',
@@ -318,18 +340,9 @@ APMPRF._Highcharts = function() {
                 lineColor: '#444444',
                 lineWidth: 1,
                 tickColor: '#444444',
-                type: 'datetime',
-                dateTimeLabelFormats: {
-                    millisecond: '%l:%M:%S.%L %p',
-                    second: '%l:%M:%S %p',
-                    minute: '%l:%M %p',
-                    hour: '%l:%M %p',
-                    day: '%m/%d<br>%l:%M %p',
-                    week: '%m/%d<br>%l:%M %p',
-                    month: '%m/%d<br>%l:%M %p',
-                    year: '%l:%M %p'
-                },
-                startOnTick: false,
+                type: 'linear',
+                min: 0,
+                startOnTick: true,
                 endOnTick: false
             },
             tooltip: {
@@ -339,7 +352,7 @@ APMPRF._Highcharts = function() {
                     dashStyle: 'solid'
                 },
                 formatter: function() {
-                	var pointIndex = this.x;
+                    var pointIndex = this.x;
                     var chartPoint = chartData[pointIndex];
 
                     var type = chartPoint.type;
@@ -350,11 +363,11 @@ APMPRF._Highcharts = function() {
                     var table = '<table>';
                     table += '<tr><td align="center" colspan="3"><b>' + frhtConfig.label + '</b></td></tr>';
                     for (var i in columns) {
-                    	var columnData = frhtColumns[columns[i]] ? frhtColumns[columns[i]]: frhtColumns['default'];
-                    	var label = columnData.label ? columnData.label : ''; 
-                    	var value = chartPoint[columns[i]] ?  chartPoint[columns[i]] : '';
-                    	value = columnData.formatter ? columnData.formatter(value) : value;
-                    	table += '<tr>';
+                        var columnData = frhtColumns[columns[i]] ? frhtColumns[columns[i]]: frhtColumns['default'];
+                        var label = columnData.label ? columnData.label : '';
+                        var value = chartPoint[columns[i]] ?  chartPoint[columns[i]] : '';
+                        value = columnData.formatter ? columnData.formatter(value) : value;
+                        table += '<tr>';
                         table += '<td align="center">' + label + '</td><td>:</td><td align="center">' + value + '</td>';
                         table += '</tr>';
                     }
@@ -380,7 +393,8 @@ APMPRF._Highcharts = function() {
         //console.log(dataIdx);
         var frhtData = _frhtChartData[dataIdx];
         var params = {
-            frhtId: frhtData.id
+            frhtId: frhtData.id,
+            apiCalls: frhtData.apiCalls
         };
         APMPRF.Components.showApiCallsPopup(params);
     }
@@ -390,6 +404,7 @@ APMPRF._Highcharts = function() {
         var globalSettings = APMPRF.Services.getGlobalSettings();
         globalSettings.parentId = frhtData.id;
         globalSettings.type = frhtData.type;
+        globalSettings.drillDown = true;
         APMPRF.Services.refreshData();
     }
 

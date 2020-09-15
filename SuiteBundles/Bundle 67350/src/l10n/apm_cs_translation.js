@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -12,7 +12,7 @@
  *
  */
 
-var APMLocale = APMLocale || 'en_US'; 
+var APMLocale = APMLocale || 'en_US';
 var APMTransStartTime = new Date().getTime();
 var APMTranslation = null;
 
@@ -26,7 +26,7 @@ if (SuiteBundlesFd) {
 }
 
 (function () {
-    require([SuiteBundlesFdName + '/Bundle ' + (APMBundleId || '89490') + '/src/l10n/translation_external'], function(translation_external) {  
+    require([SuiteBundlesFdName + '/Bundle ' + (APMBundleId || '89490') + '/src/l10n/translation_external'], function(translation_external) {
         console.log('Locale: ' + APMLocale);
         translation_external.load.promise({
             keys: ['*'],

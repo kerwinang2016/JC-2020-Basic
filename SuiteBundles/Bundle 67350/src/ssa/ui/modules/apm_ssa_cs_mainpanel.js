@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -31,6 +31,10 @@
  * 10.00      11 May 2018     jmarimla         SuiteScript label
  * 11.00      29 Jun 2018     jmarimla         Translation readiness
  * 12.00      16 Jul 2018     jmarimla         Set translated time
+ * 13.00      24 May 2019     erepollo         Removed header BG
+ * 14.00      19 Aug 2019     jmarimla         Filters expand/collapse
+ * 15.00      27 Nov 2019     lemarcelo        Remove display condition of error count
+ * 16.00      15 Jan 2020     jmarimla         Customer debug changes
  *
  */
 
@@ -53,11 +57,7 @@ function APMMainPanel() {
                 if (COMPID_MODE == 'T') {
                     Ext4.getCmp('psgp-apm-ssa-btn-suiteletsettings').show();
 
-                    if (COMP_FIL) {
-                        PSGP.APM.SSA.dataStores.suiteScriptSummaryData.filterBy(function (record, id) {
-                            if (id != 'errorCount') return true;
-                            else return false;
-                        }, this);
+                    if (PSGP.APM.SSA.dataStores.suiteScriptParams.compfil != MYCOMPANY) {
                         Ext4.getCmp('psgp-apm-ssa-container-filters-scriptname').hide();
                         Ext4.getCmp('psgp-apm-ssa-container-filters-scriptid').show();
                     }
@@ -73,7 +73,7 @@ function APMMainPanel() {
                     if(params.scripttype == 'client'){
                         Ext4.getCmp('psgp-apm-ssa-filters-clienteventtype').setValue('pageInit');
                     }
-                    if ((COMPID_MODE == 'T') && (COMP_FIL)) {
+                    if ((COMPID_MODE == 'T') && (PSGP.APM.SSA.dataStores.suiteScriptParams.compfil != MYCOMPANY)) {
                         Ext4.getCmp('psgp-apm-ssa-filters-scriptid').setValue(params.scriptid);
                     } else {
                         Ext4.getCmp('psgp-apm-ssa-filters-scriptname').setValue(params.scriptid);
@@ -94,6 +94,12 @@ function APMMainPanel() {
                     Ext4.getCmp('psgp-apm-ssa-filters-time-endtime').setValue(Ext4.Date.parse('00:00', 'H:i'));
                 }
 
+            },
+            afterrender: function () {
+                var params = this.params;
+                if(!params.fparam) {
+                    Ext4.getCmp('psgp-apm-ssa-panel-filters').expand();
+                }
             }
         },
         items: [
@@ -275,14 +281,14 @@ function APMMainPanel() {
                 border: false,
                 layout: 'column',
                 items: [
-                    Ext4.create('PSGP.APM.Component.EmptyPanel', {
+                    Ext4.create('PSGP.APM.Component.PortletContainer', {
                         margin: '0 5 10 30',
                         columnWidth: .75,
                         items: [
                             Ext4.create('PSGP.APM.Component.PortletPanel', {
                                 id: 'psgp-apm-ssa-portlet-performancechart',
                                 title: APMTranslation.apm.ssa.label.performancechart(),
-                                height: 500,
+                                height: 521,
                                 items: [
                                     {
                                         xtype: 'container',
@@ -317,7 +323,7 @@ function APMMainPanel() {
                             })
                         ]
                     }),
-                    Ext4.create('PSGP.APM.Component.EmptyPanel', {
+                    Ext4.create('PSGP.APM.Component.PortletContainer', {
                         margin: '0 30 10 5',
                         columnWidth: .25,
                         items: [

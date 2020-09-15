@@ -63,14 +63,14 @@ function onRequest(request, response) {
             default:
                 0;
         }
-
+		nlapiLogExecution('debug','Receive Days',receivedays);
         today.setDate(today.getDate() + parseFloat(receivedays));
 		nlapiLogExecution('debug','Added Manufacturing',nlapiDateToString(today));
         if (customerId) {
             cmtdate = nlapiLookupField('customer', customerId, 'custentity_delivery_days');
         }
 
-		if(customerId == '5' || customerId == '75' || customerId == '669'){
+		if(customerId == '5' || customerId == '75' || customerId == '669' || customerId == '835'){
 		nlapiLogExecution('debug','What day',today.getDay());
 			if(today.getDay() != 1 && today.getDay() != 4){
 				if(today.getDay() > 1 && today.getDay() < 4){
@@ -80,6 +80,7 @@ function onRequest(request, response) {
 				}
 			}
 		}else{
+			nlapiLogExecution('debug','NOT A JEROME TAILOR');
 			//This always sets to a Monday
 			if(today.getDay() != 1)
 				today.setDate(today.getDate() + (7-today.getDay())%7+1);

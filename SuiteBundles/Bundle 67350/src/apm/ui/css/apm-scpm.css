@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
  
 /**
@@ -11,6 +11,7 @@
  * 3.00       18 Dec 2017     jmarimla         Script by portlet 
  * 4.00       28 Dec 2017     jmarimla         Pop up window
  * 5.00       23 Jan 2017     jmarimla         Utilization portlet
+ * 6.00       24 May 2019     erepollo         Removed border
  *
  */
  
@@ -115,8 +116,6 @@
  */
 .apm-scpm-processorsettings {
     width: 100%;
-    border-left: solid 1px #ededed;
-    border-right: solid 1px #ededed;
 }
 
 .apm-scpm-processorsettings .block {

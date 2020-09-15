@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 /**
  * Module Description
@@ -39,6 +39,7 @@
  * 24.00      07 Jun 2018     jmarimla         Label change
  * 25.00      29 Jun 2018     jmarimla         Translation readiness
  * 26.00      26 Jul 2018     rwong            Highcharts translation
+ * 27.00      10 Jan 2020     jmarimla         Customer debug changes
  *
  */
 function APMHighcharts() {
@@ -1380,7 +1381,7 @@ function APMHighcharts() {
                 '&responsetimeoper=' + params.responsetimeoper +
                 '&responsetime1=' + params.responsetime1 +
                 '&responsetime2=' + params.responsetime2 +
-                '&compfil=' + COMP_FIL
+                '&compfil=' + PSGP.APM.DB.dataStores.recordTilesParams.compfil
             );
         },
 
@@ -1390,7 +1391,7 @@ function APMHighcharts() {
                 '&scriptid=' + params.scriptid +
                 '&sdatetime=' + params.sdatetime +
                 '&edatetime=' + params.edatetime +
-                '&compfil=' + COMP_FIL
+                '&compfil=' + PSGP.APM.DB.dataStores.recordTilesParams.compfil
             );
         }
 

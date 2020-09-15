@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -21,20 +21,20 @@
  */
  
 .apm-prf-breadcrumbs {
-	width: 100%;
-	padding: 5px 20px;
-	white-space: normal;
+    width: 100%;
+    padding: 5px 20px;
+    white-space: normal;
     display: block;
 }
 
 .apm-prf-breadcrumbs {
-	color: #4D5F79;
+    color: #4D5F79;
     font-size: 20px;
     font-weight: bold;
 }
 
 .apm-prf-breadcrumbs a {
-	color: #4D5F79;
+    color: #4D5F79;
     font-size: 20px;
     font-weight: bold;
 }
@@ -71,34 +71,34 @@
 }
 
 .apm-prf-subpanel-frhtchart {
-	padding: 5px 20px;
+    padding: 5px 20px;
 }
 
 .apm-prf-subpanel-frhtgrid {
-	padding: 5px 20px;
+    padding: 5px 20px;
 }
 
 .apm-prf-subpanel-frhtgrid .psgp-subpanel-body {
-	padding: 3px 0px;
+    padding: 3px 0px;
 }
 
 .apm-prf-frhtchart-xaxis-label {
-	width: 100px;
+    width: 100px;
 }
 
 .apm-prf-frhtchart-xaxis-label .xaxis-label {
-	float: left;
-	height: 24px;
-	line-height: 24px;
-	margin: 0px 5px 0px 0px;
+    float: left;
+    height: 24px;
+    line-height: 24px;
+    margin: 0px 5px 0px 0px;
 }
 
 .apm-prf-frhtchart-xaxis-label .xaxis-icon-vc {
-	float: left;
-	width: 24px;
-	height: 24px;
-	margin: 0px 5px 0px 0px;
-	background-image: url(ns_images/glyph-log.png);
+    float: left;
+    width: 24px;
+    height: 24px;
+    margin: 0px 5px 0px 0px;
+    background-image: url(ns_images/glyph-log.png);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 24px 24px;
@@ -106,11 +106,11 @@
 }
 
 .apm-prf-frhtchart-xaxis-label .xaxis-icon-dd {
-	float: left;
-	width: 24px;
-	height: 24px;
-	margin: 0px 5px 0px 0px;
-	background-image: url(ns_images/glyph-fields-hierarchical.png);
+    float: left;
+    width: 24px;
+    height: 24px;
+    margin: 0px 5px 0px 0px;
+    background-image: url(ns_images/glyph-fields-hierarchical.png);
     background-position: center center;
     background-repeat: no-repeat;
     background-size: 24px 24px;

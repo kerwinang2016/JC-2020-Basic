@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -25,113 +25,113 @@
  */
 
 function APMModels() {
-	Ext4.define('PSGP.APM.SPM.Model.endToEndTimeData', {
-	    extend : 'Ext4.data.Model',
-	    fields : [
-	              {
-	                  name : 'id',
-	                  type : 'int'
-	              }, {
-	                  name : 'date',
-	                  type : 'string'
-	              }, {
-	                  name : 'email',
-	                  type : 'string'
-	              },
-//	              {
-//	                  name : 'role',
-//	                  type : 'int'
-//	              },
-	              {
-	                  name : 'clienttime',
-	                  type : 'float'
-	              }, {
-	                  name : 'networktime',
-	                  type : 'float'
-	              }, {
-	                  name : 'suitescripttime',
-	                  type : 'float'
-	              }, {
-	                  name : 'workflowtime',
-	                  type : 'float'
-	              }, {
-	                  name : 'servertime',
-	                  type : 'float'
-	              },  {
-	                  name : 'totaltime',
-	                  type : 'float'
-	              }, {
-	                  name : 'id2',
-	                  type : 'int'
-	              }, {
-	                  name : 'operationId',
-	                  type : 'string'
-	              }, {
-	                  name : 'operationId2',
-	                  type : 'string'
-	              }
-	     ]
-	});
+    Ext4.define('PSGP.APM.SPM.Model.endToEndTimeData', {
+        extend : 'Ext4.data.Model',
+        fields : [
+                  {
+                      name : 'id',
+                      type : 'int'
+                  }, {
+                      name : 'date',
+                      type : 'string'
+                  }, {
+                      name : 'email',
+                      type : 'string'
+                  },
+//                {
+//                    name : 'role',
+//                    type : 'int'
+//                },
+                  {
+                      name : 'clienttime',
+                      type : 'float'
+                  }, {
+                      name : 'networktime',
+                      type : 'float'
+                  }, {
+                      name : 'suitescripttime',
+                      type : 'float'
+                  }, {
+                      name : 'workflowtime',
+                      type : 'float'
+                  }, {
+                      name : 'servertime',
+                      type : 'float'
+                  },  {
+                      name : 'totaltime',
+                      type : 'float'
+                  }, {
+                      name : 'id2',
+                      type : 'int'
+                  }, {
+                      name : 'operationId',
+                      type : 'string'
+                  }, {
+                      name : 'operationId2',
+                      type : 'string'
+                  }
+         ]
+    });
 
-	Ext4.define('PSGP.APM.SPM.Model.suitescriptDetailData', {
-	    extend : 'Ext4.data.Model',
-	    fields : [
-	              {
-	                  name : 'threadid',
-	                  type : 'int'
-	              }, {
-	                  name : 'totaltime',
-	                  type : 'float'
-	              }, {
-	                  name : 'script',
-	                  type : 'string'
-	              }, {
-	                  name : 'bundle',
-	                  type : 'string'
-	              }, {
-	                  name : 'color',
-	                  type : 'string'
-	              }, {
-	                  name : 'scripttype',
-	                  type : 'string'
-	              }, {
-	                  name : 'triggertype',
-	                  type : 'string'
-	              }, {
-	                  name : 'scriptwfurl',
-	                  type : 'string'
-	              }
-	     ]
-	});
+    Ext4.define('PSGP.APM.SPM.Model.suitescriptDetailData', {
+        extend : 'Ext4.data.Model',
+        fields : [
+                  {
+                      name : 'threadid',
+                      type : 'int'
+                  }, {
+                      name : 'totaltime',
+                      type : 'float'
+                  }, {
+                      name : 'script',
+                      type : 'string'
+                  }, {
+                      name : 'bundle',
+                      type : 'string'
+                  }, {
+                      name : 'color',
+                      type : 'string'
+                  }, {
+                      name : 'scripttype',
+                      type : 'string'
+                  }, {
+                      name : 'triggertype',
+                      type : 'string'
+                  }, {
+                      name : 'scriptwfurl',
+                      type : 'string'
+                  }
+         ]
+    });
 
-	Ext4.define('PSGP.APM.SPM.Model.summaryAggregationGrid', {
-	    extend : 'Ext4.data.Model',
-	    fields : [
-	              {
-	                  name : 'id',
-	                  type : 'string'
-	              }, {
-	                  name : 'name',
-	                  type : 'string'
-	              }, {
-	                  name : 'clienttime',
-	                  type : 'float'
-	              }, {
-	                  name : 'networktime',
-	                  type : 'float'
-	              }, {
-	                  name : 'suitescripttime',
-	                  type : 'float'
-	              }, {
-	                  name : 'workflowtime',
-	                  type : 'float'
-	              }, {
-	                  name : 'servertime',
-	                  type : 'float'
-	              }, {
-	                  name : 'totaltime',
-	                  type : 'float'
-	              }
-	     ]
-	});
+    Ext4.define('PSGP.APM.SPM.Model.summaryAggregationGrid', {
+        extend : 'Ext4.data.Model',
+        fields : [
+                  {
+                      name : 'id',
+                      type : 'string'
+                  }, {
+                      name : 'name',
+                      type : 'string'
+                  }, {
+                      name : 'clienttime',
+                      type : 'float'
+                  }, {
+                      name : 'networktime',
+                      type : 'float'
+                  }, {
+                      name : 'suitescripttime',
+                      type : 'float'
+                  }, {
+                      name : 'workflowtime',
+                      type : 'float'
+                  }, {
+                      name : 'servertime',
+                      type : 'float'
+                  }, {
+                      name : 'totaltime',
+                      type : 'float'
+                  }
+         ]
+    });
 }

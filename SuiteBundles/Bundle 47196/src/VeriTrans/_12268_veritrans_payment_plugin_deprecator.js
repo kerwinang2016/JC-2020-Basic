@@ -39,8 +39,7 @@ function refund(input, output) {
 function holdPayment(output){
 	var result = output.getResult();
 	var holddetails = 'Payment for this transaction is on hold due to an ongoing integration update of VeriTrans payment gateway. To continue processing credit card payment, edit the transaction and use another payment processing profile.';
-	result.setPaymentStatus('HOLD');
-	result.setHoldReason('GENERAL_HOLD');
-	result.setHoldDetails(holddetails);
+	result.setStatus('GENERAL_HOLD');
+	result.setStatusDetails(holddetails);
 	result.setExternalRejectMessageForFailure(holddetails);
 };

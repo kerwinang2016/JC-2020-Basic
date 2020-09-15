@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
  
 /**
@@ -14,6 +14,7 @@
  * 6.00       12 May 2017     jmarimla         Settings css
  * 7.00       16 May 2017     jmarimla         Top WSO css
  * 8.00       19 May 2017     jmarimla         WSRP popup css
+ * 9.00       24 May 2019     erepollo         Changed header BG to white
  *
  */
  
@@ -71,7 +72,7 @@
  */
 .apm-wsa-container-wsocharts {
     padding: 10px 10px 10px 10px;
-    background-color: #DFE3EA;
+    background-color: #ffffff;
     width: 100%;
 } 
 
@@ -99,7 +100,7 @@
 
 .apm-wsa-topwsrp-toolbar {
     height: 39px;
-    background: #e7e7e7;
+    background: #ffffff;
     padding: 4px 10px;
 }
 

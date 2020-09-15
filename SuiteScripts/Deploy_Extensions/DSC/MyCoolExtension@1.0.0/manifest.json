@@ -1,0 +1,88 @@
+{
+    "name": "MyCoolExtension",
+    "fantasyName": "My Cool Extension!",
+    "vendor": "DSC",
+    "type": "extension",
+    "target": "SCA,SCS",
+    "version": "1.0.0",
+    "description": "My cool extension does magic!",
+    "assets": {
+        "img": {
+            "files": []
+        },
+        "fonts": {
+            "files": []
+        },
+        "services": {
+            "files": [
+                "services/MyCoolModule.Service.ss"
+            ]
+        }
+    },
+    "configuration": {
+        "files": []
+    },
+    "templates": {
+        "application": {
+            "shopping": {
+                "files": [
+                    "Modules/MyCoolModule/Templates/dsc_mycoolextension_mycoolmodule.tpl"
+                ]
+            },
+            "myaccount": {
+                "files": [
+                    "Modules/MyCoolModule/Templates/dsc_mycoolextension_mycoolmodule.tpl"
+                ]
+            },
+            "checkout": {
+                "files": [
+                    "Modules/MyCoolModule/Templates/dsc_mycoolextension_mycoolmodule.tpl"
+                ]
+            }
+        }
+    },
+    "sass": {
+        "entry_points": {
+            "shopping": "Modules/MyCoolModule/Sass/_mycoolextension-mycoolmodule.scss",
+            "myaccount": "Modules/MyCoolModule/Sass/_mycoolextension-mycoolmodule.scss",
+            "checkout": "Modules/MyCoolModule/Sass/_mycoolextension-mycoolmodule.scss"
+        },
+        "files": [
+            "Modules/MyCoolModule/Sass/_mycoolextension-mycoolmodule.scss"
+        ]
+    },
+    "javascript": {
+        "entry_points": {
+            "shopping": "Modules/MyCoolModule/JavaScript/DSC.MyCoolExtension.MyCoolModule.js",
+            "myaccount": "Modules/MyCoolModule/JavaScript/DSC.MyCoolExtension.MyCoolModule.js",
+            "checkout": "Modules/MyCoolModule/JavaScript/DSC.MyCoolExtension.MyCoolModule.js"
+        },
+        "application": {
+            "shopping": {
+                "files": [
+                    "Modules/MyCoolModule/JavaScript/DSC.MyCoolExtension.MyCoolModule.js",
+                    "Modules/MyCoolModule/JavaScript/MyCoolModule.View.js"
+                ]
+            },
+            "myaccount": {
+                "files": [
+                    "Modules/MyCoolModule/JavaScript/DSC.MyCoolExtension.MyCoolModule.js",
+                    "Modules/MyCoolModule/JavaScript/MyCoolModule.View.js"
+                ]
+            },
+            "checkout": {
+                "files": [
+                    "Modules/MyCoolModule/JavaScript/DSC.MyCoolExtension.MyCoolModule.js",
+                    "Modules/MyCoolModule/JavaScript/MyCoolModule.View.js"
+                ]
+            }
+        }
+    },
+    "ssp-libraries": {
+        "entry_point": "Modules/MyCoolModule/SuiteScript/DSC.MyCoolExtension.MyCoolModule.js",
+        "files": [
+            "Modules/MyCoolModule/SuiteScript/DSC.MyCoolExtension.MyCoolModule.js",
+            "Modules/MyCoolModule/SuiteScript/MyCoolModule.ServiceController.js"
+        ]
+    }
+}

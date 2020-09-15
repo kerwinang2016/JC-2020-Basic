@@ -1,7 +1,7 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
- 
+
 /**
  * Module Description
  *
@@ -12,6 +12,8 @@
  * 4.00       14 Dec 2017     jmarimla         Utilization, concurrency
  * 5.00       18 Dec 2017     jmarimla         Scripts by priority
  * 6.00       11 Jun 2018     jmarimla         Translation engine
+ * 7.00       24 May 2019     erepollo         Removed header BG
+ * 8.00       17 Sep 2019     erepollo         Parameter passing
  *
  */
 
@@ -21,14 +23,14 @@ APMSCPM._mainPanel = function () {
 
     function render() {
         var $mainContent = $('#scpm-main-content').addClass('psgp-main-content');
-        
+
         $mainContent.append(APMSCPM.Components.$TitleBar)
             .append(APMSCPM.Components.$BtnRefresh)
             .append($('<div>').psgpSpacer({
                 height: 15
             }))
             .append(APMSCPM.Components.$ColumnPanel);
-        
+
         APMSCPM.Components.$ColumnPanel.find('.psgp-column-panel-1')
             .append(APMSCPM.Components.$OverviewPortlet)
             .append($('<div>').psgpSpacer({
@@ -50,7 +52,7 @@ APMSCPM._mainPanel = function () {
             .append($('<div>').psgpSpacer({
                 height: 15
             }));
-        
+
         APMSCPM.Components.$ColumnPanel.find('.psgp-column-panel-2')
             .append(APMSCPM.Components.$ProcessorSettingsPortlet)
             .append($('<div>').psgpSpacer({
@@ -64,32 +66,32 @@ APMSCPM._mainPanel = function () {
             .append($('<div>').psgpSpacer({
                 height: 15
             }));
-        
+
         $mainContent.removeClass('psgp-loading-mask');
-        
+
         //resize event
         $(window).resize(function() {
             var delay = 250;
             setTimeout(function () {
                 var charts = [
-                    
+
                 ];
-                
+
                 for (var i in charts) {
                     if (charts[i]) charts[i].reflow();
                 }
             }, delay);
         });
-        
+
         var globalSettings = APMSCPM.Services.getGlobalSettings();
-        var initialDateRangeSelect = 1000*60*60*24;
+        var initialDateRangeSelect = SCPM_PARAMS.endDateMS ? 1000*60*60*24*7 : 1000*60*60*24;
         globalSettings.endDateMS = '' + new Date().setSeconds(0, 0);
         globalSettings.dateRangeSelect = '' + initialDateRangeSelect;
         APMSCPM.Components.$SettingsDateRangeDialog.find('.field-daterange .psgp-combobox').val(globalSettings.dateRangeSelect);
         APMSCPM.Components.$SettingsDateRangeDialog.find('.field-daterange .psgp-combobox').selectmenu('refresh');
-        
+
         APMSCPM.Services.refreshData();
-        
+
     };
 
     function adjustCSS() {
@@ -100,7 +102,6 @@ APMSCPM._mainPanel = function () {
         var cssStyle = '' +
             '<style type="text/css">' +
             '.psgp-main-content *, .psgp-dialog *, .psgp-settings-dialog *, .psgp-dialog input, .psgp-settings-dialog input { font-family: ' + fontFamily + ';}' +
-            '.psgp-portlet-header { background-color: ' + themeColor + ';}' +
             '.psgp-dialog .ui-dialog-titlebar { background-color: ' + themeColor + ';}' +
             '</style>';
         $(cssStyle).appendTo($('#scpm-main-content'));

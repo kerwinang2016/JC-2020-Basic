@@ -1,6 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
- *
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -415,33 +414,33 @@ var TextRepository = (function () {
 })();
 
 psgp_apm.translation10.availableLocaleModules = [
-	'cs_CZ',
-	'da_DK',
-	'de_DE',
-	'en_US',
-	'es_AR',
-	'es_ES',
-	'fi_FI',
-	'fr_CA',
-	'fr_FR',
-	'id_ID',
-	'it_IT',
-	'ja_JP',
-	'ko_KR',
-	'nl_NL',
-	'no_NO',
-	'pt_BR',
-	'ru_RU',
-	'sv_SE',
-	'th_TH',
-	'tr_TR',
-	'vi_VN',
-	'zh_CN',
-	'zh_TW'
+    'cs_CZ',
+    'da_DK',
+    'de_DE',
+    'en_US',
+    'es_AR',
+    'es_ES',
+    'fi_FI',
+    'fr_CA',
+    'fr_FR',
+    'id_ID',
+    'it_IT',
+    'ja_JP',
+    'ko_KR',
+    'nl_NL',
+    'no_NO',
+    'pt_BR',
+    'ru_RU',
+    'sv_SE',
+    'th_TH',
+    'tr_TR',
+    'vi_VN',
+    'zh_CN',
+    'zh_TW'
 ];
 
 psgp_apm.translation10.identifyLocaleToUse = function() {
-	var configObj = nlapiLoadConfiguration('userpreferences');
+    var configObj = nlapiLoadConfiguration('userpreferences');
     var language = configObj.getFieldValue('LANGUAGE');
     return psgp_apm.translation10.availableLocaleModules.indexOf(language) !== -1 ? language : 'en_US';
 };
@@ -454,42 +453,42 @@ psgp_apm.translation10.load = function(options) {
 };
 
 psgp_apm.translation10.getExtLocaleFile = function() {
-	var configObj = nlapiLoadConfiguration('userpreferences');
+    var configObj = nlapiLoadConfiguration('userpreferences');
     var language = configObj.getFieldValue('LANGUAGE');
-	var availableLanguage = psgp_apm.translation10.availableLocaleModules.indexOf(language) !== -1 ? language : 'en_US';
-	var extjsLocaleFiles = {
-			'cs_CZ':'apm-ext-lang-cs.js',
-			'da_DK':'apm-ext-lang-da.js',
-			'de_DE':'apm-ext-lang-de.js',
-			'en':'apm-ext-lang-en.js',
-			'en_AU':'apm-ext-lang-en_AU.js',
-			'en_CA':'apm-ext-lang-en.js',
-			'en_GB':'apm-ext-lang-en_GB.js',
-			'en_US':'apm-ext-lang-en_US.js',
-			'es_AR':'apm-ext-lang-es.js',
-			'es_ES':'apm-ext-lang-es.js',
-			'fi_FI':'apm-ext-lang-fi.js',
-			'fr_CA':'apm-ext-lang-fr_CA.js',
-			'fr_FR':'apm-ext-lang-fr.js',
-			'id_ID':'apm-ext-lang-id.js',
-			'it_IT':'apm-ext-lang-it.js',
-			'ja_JP':'apm-ext-lang-ja.js',
-			'ko_KR':'apm-ext-lang-ko.js',
-			'nl_NL':'apm-ext-lang-nl.js',
-			'no_NO':'apm-ext-lang-no_NB.js',
-			'pt_BR':'apm-ext-lang-pt_BR.js',
-			'ru_RU':'apm-ext-lang-ru.js',
-			'sv_SE':'apm-ext-lang-sv_SE.js',
-			'th_TH':'apm-ext-lang-th.js',
-			'tr_TR':'apm-ext-lang-tr.js',
-			'vi_VN':'apm-ext-lang-vn.js',
-			'zh_CN':'apm-ext-lang-zh_CN.js',
-			'zh_TW':'apm-ext-lang-zh_TW.js'
-	}
-	
-	var fileName  = (extjsLocaleFiles[availableLanguage]) ? extjsLocaleFiles[availableLanguage] : extjsLocaleFiles['en_US'];
-	
-	return fileName;
+    var availableLanguage = psgp_apm.translation10.availableLocaleModules.indexOf(language) !== -1 ? language : 'en_US';
+    var extjsLocaleFiles = {
+            'cs_CZ':'apm-ext-lang-cs.js',
+            'da_DK':'apm-ext-lang-da.js',
+            'de_DE':'apm-ext-lang-de.js',
+            'en':'apm-ext-lang-en.js',
+            'en_AU':'apm-ext-lang-en_AU.js',
+            'en_CA':'apm-ext-lang-en.js',
+            'en_GB':'apm-ext-lang-en_GB.js',
+            'en_US':'apm-ext-lang-en_US.js',
+            'es_AR':'apm-ext-lang-es.js',
+            'es_ES':'apm-ext-lang-es.js',
+            'fi_FI':'apm-ext-lang-fi.js',
+            'fr_CA':'apm-ext-lang-fr_CA.js',
+            'fr_FR':'apm-ext-lang-fr.js',
+            'id_ID':'apm-ext-lang-id.js',
+            'it_IT':'apm-ext-lang-it.js',
+            'ja_JP':'apm-ext-lang-ja.js',
+            'ko_KR':'apm-ext-lang-ko.js',
+            'nl_NL':'apm-ext-lang-nl.js',
+            'no_NO':'apm-ext-lang-no_NB.js',
+            'pt_BR':'apm-ext-lang-pt_BR.js',
+            'ru_RU':'apm-ext-lang-ru.js',
+            'sv_SE':'apm-ext-lang-sv_SE.js',
+            'th_TH':'apm-ext-lang-th.js',
+            'tr_TR':'apm-ext-lang-tr.js',
+            'vi_VN':'apm-ext-lang-vn.js',
+            'zh_CN':'apm-ext-lang-zh_CN.js',
+            'zh_TW':'apm-ext-lang-zh_TW.js'
+    }
+    
+    var fileName  = (extjsLocaleFiles[availableLanguage]) ? extjsLocaleFiles[availableLanguage] : extjsLocaleFiles['en_US'];
+    
+    return fileName;
 }
 
 

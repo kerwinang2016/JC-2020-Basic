@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 /**
  * Module Description
@@ -33,6 +33,7 @@
  * 26.00      26 Aug 2016     rwong            ScheduledScriptUsage portlet
  * 27.00      02 Oct 2017     jmarimla         Remove sched script portlet
  * 28.00      29 Jun 2018     jmarimla         Translation readiness
+ * 29.00      10 Jan 2020     jmarimla         Customer debug settings
  *
  */
 
@@ -70,7 +71,11 @@ function APMStores() {
                 setupGeneral: false
             },
 
-            recordTilesParams: {},
+            recordTilesParams: {
+                startDateMS: null,
+                endDateMS: null,
+                compfil: null
+            },
 
             recordChartsParams: {},
 
@@ -114,7 +119,6 @@ function APMStores() {
                     beforeload: function (store, operation, eOpts) {
                         store.isLoaded = false;
                         store.proxy.extraParams = PSGP.APM.DB.dataStores.recordTilesParams;
-                        store.proxy.extraParams.compfil = COMP_FIL;
                     },
                     load: function (store, records, success, eOpts) {
                         store.isLoaded = true;
@@ -225,7 +229,9 @@ function APMStores() {
                 listeners: {
                     beforeload: function (store, operation, eOpts) {
                         store.isLoaded = false;
-                        store.proxy.extraParams.compfil = COMP_FIL;
+                        store.proxy.extraParams = {
+                                compfil: PSGP.APM.DB.dataStores.recordTilesParams.compfil
+                        };
                     },
                     load: function (store, records, success, eOpts) {
                         store.isLoaded = true;
@@ -257,10 +263,8 @@ function APMStores() {
                     startDateMS = endDateMS - dateRangeId;
                 }
 
-                PSGP.APM.DB.dataStores.recordTilesParams = {
-                    startDateMS: startDateMS,
-                    endDateMS: endDateMS
-                };
+                PSGP.APM.DB.dataStores.recordTilesParams.startDateMS = startDateMS;
+                PSGP.APM.DB.dataStores.recordTilesParams.endDateMS = endDateMS;
                 PSGP.APM.DB.dataStores.recordTilesData.isRefreshed = true;
                 PSGP.APM.DB.dataStores.recordTilesData.load();
             },
@@ -307,9 +311,10 @@ function APMStores() {
             callRecordChartsRestlet: function () {
 
                 var dataParams = this.recordChartsParams;
+                dataParams.compfil = this.recordTilesParams.compfil;
 
                 Ext4.Ajax.request({
-                    url: '/app/site/hosting/scriptlet.nl?script=customscript_apm_db_sl_record_charts&deploy=customdeploy_apm_db_sl_record_charts&testmode=' + TEST_MODE + '&compfil=' + COMP_FIL,
+                    url: '/app/site/hosting/scriptlet.nl?script=customscript_apm_db_sl_record_charts&deploy=customdeploy_apm_db_sl_record_charts&testmode=' + TEST_MODE,
                     timeout: 180000,
                     params: dataParams,
                     method: 'GET',

@@ -38,12 +38,36 @@ _6788.requestbuilder.EWAYRequestBuilder = function EWAYRequestBuilder(dataAccess
         obj["customerBillingStreet"] = obj["customerBillingStreet"].substr(0, 50);
         obj["customerBillingStreet2"] = obj["customerBillingStreet2"].substr(0, 50);
 
+        //for payment transactions
+        obj = findOriginalTransactionId(obj);
+
         var stringFormatter = new _5038.string.StringFormatter();
         for ( var i in obj) {
             obj[i] = stringFormatter.setString(obj[i]).escapeJSON().toString();
         }
 
         return obj;
+    };
+
+    /**
+     * Replace transactionId from Created from or Invoice
+     *
+     * @param params
+     * @return {*}
+     */
+    function findOriginalTransactionId(params) {
+        if (params['transactionCreatedFrom']) {
+            var refTransaction = dataAccessObject.RetrieveReferenceTransactionDetails(params['transactionCreatedFrom']);
+            if (refTransaction.tranid) {
+                params['transactionId'] = refTransaction.tranid;
+            }
+        }
+        //for payment, use invoice number for transaction id
+        else if(params['salesTranNumber']){
+            params['transactionId'] = params['salesTranNumber'];
+        }
+
+        return params;
     };
     
     

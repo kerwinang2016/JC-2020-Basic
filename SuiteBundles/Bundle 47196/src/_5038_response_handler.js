@@ -47,7 +47,7 @@ _5038.responsehandler.ResponseHandler = function ResponseHandler() {
 
 
 
-        result.setAnExternalSystemWasContacted(response.isExternalCheckout());
+        //result.setAnExternalSystemWasContacted(response.isExternalCheckout()); Issue 552429: API deprecated. As per payment team, this can be safely removed
 
 
 

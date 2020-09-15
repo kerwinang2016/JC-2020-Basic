@@ -63,5 +63,9 @@ _CCP.VALIDATE_POSTBACK_UNAUTHORIZE_MESSAGE = "Authorization failed";
 _CCP.WEBSTORE_REJECT_MESSAGE = "Invalid credit card details. Please try again or choose a different payment method.";
 
 //Payment Instrument Types
-_CCP.EXTERNAL_CHECKOUT = 'external_checkout';
+_CCP.EXTERNAL_CHECKOUT = 'EXTERNAL_CHECKOUT';
 _CCP.PAYMENT_CARD = 'PAYMENT_CARD';
+
+//Asiapay Payment Type
+_CCP.ASIAPAY_PAY_TYPE_SALE = "N";
+_CCP.ASIAPAY_PAY_TYPE_AUTH = "H";

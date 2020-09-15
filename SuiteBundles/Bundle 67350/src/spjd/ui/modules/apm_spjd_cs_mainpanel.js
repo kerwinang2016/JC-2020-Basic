@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
  
 /**
@@ -9,6 +9,8 @@
  * 1.00       02 Jan 2018     jmarimla         Initial
  * 2.00       08 Jan 2018     jmarimla         Instance details grid
  * 3.00       11 Jun 2018     jmarimla         Translation engine
+ * 4.00       24 May 2019     erepollo         Removed header BG
+ * 5.00       14 Aug 2019     jmarimla         Filters expand/collapse
  *
  */
 
@@ -68,6 +70,7 @@ APMSPJD._mainPanel = function () {
                 APMSPJD.Components.$ScriptTypeFilter.find('.psgp-combobox').selectmenu('refresh');
                 SPJD_PARAMS.scriptType = null;
             }
+            APMSPJD.Components.$FilterPanel.psgpFilterPanel('collapse');
             
             APMSPJD.Services.refreshData();
             APMSPJD.Services.hideLoading();
@@ -83,7 +86,6 @@ APMSPJD._mainPanel = function () {
         var cssStyle = '' +
             '<style type="text/css">' +
             '.psgp-main-content *, .psgp-dialog *, .psgp-settings-dialog *, .psgp-dialog input, .psgp-settings-dialog input { font-family: ' + fontFamily + ';}' +
-            '.psgp-portlet-header { background-color: ' + themeColor + ';}' +
             '.psgp-dialog .ui-dialog-titlebar { background-color: ' + themeColor + ';}' +
             '</style>';
         $(cssStyle).appendTo($('#spjd-main-content'));

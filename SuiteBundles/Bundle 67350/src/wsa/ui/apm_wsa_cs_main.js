@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -20,7 +20,7 @@ function waitDone() {
     } ( function ($, Highcharts, window, document) {
         
         // load libraries
-    	ApmJqWidgets();
+        ApmJqWidgets();
         APMWSA.Services = new APMWSA._Services();
         APMWSA.Components = new APMWSA._Components();
         APMWSA.Highcharts = new APMWSA._Highcharts();

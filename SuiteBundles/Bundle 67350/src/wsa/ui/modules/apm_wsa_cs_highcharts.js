@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 /**
  * Module Description
@@ -28,6 +28,9 @@
  * 21.00      21 Jul 2018     rwong            Translation strings
  * 22.00      26 Jul 2018     rwong            Highcharts translation
  * 23.00      31 Jul 2018     rwong            Translation strings
+ * 24.00      20 Sep 2019     jmarimla         Rejected Integration Concurrency
+ * 25.00      24 Sep 2019     jmarimla         Total requests
+ * 26.00      07 Jan 2020     earepollo        Translation readiness for new strings
  *
  */
 APMWSA = APMWSA || {};
@@ -463,29 +466,50 @@ APMWSA._Highcharts = function() {
                     width: 80
                 },
                 labelFormatter: function() {
-                    var name = this.name;
-                    if(name == 'Finished')
-                        return APMTranslation.apm.ns.status.finished();
-                    if(name == 'Failed')
-                        return APMTranslation.apm.common.label.failed();
-                    if(name == 'Rejected User Concurrency')
-                        return APMTranslation.apm.common.label.rejecteduserconcurrency();
-                    if(name == 'Rejected Account Concurrency')
-                        return APMTranslation.apm.common.label.rejectedaccountconcurrency();
+                    switch (this.name) {
+                    case 'finished':
+                        name = APMTranslation.apm.ns.status.finished();
+                        break;
+                    case 'failed':
+                        name = APMTranslation.apm.common.label.failed();
+                        break;
+                    case 'rejecteduserconcurrency':
+                        name = APMTranslation.apm.common.label.rejecteduserconcurrency();
+                        break;
+                    case 'rejectedintegrationconcurrency':
+                        name = APMTranslation.apm.r2020a.rejectedintegrationconcurrency();
+                        break;
+                    case 'rejectedaccountconcurrency':
+                        name = APMTranslation.apm.common.label.rejectedaccountconcurrency();
+                        break;
+                    default: 
+                        name = this.name;
+                    }
+                    return name;
                 }
             },
             tooltip: {
                 formatter: function() {
-
-                    var name = this.point.name;
-                    if(name == 'Finished')
+                    var name = '';
+                    switch (this.point.name) {
+                    case 'finished':
                         name = APMTranslation.apm.ns.status.finished();
-                    if(name == 'Failed')
+                        break;
+                    case 'failed':
                         name = APMTranslation.apm.common.label.failed();
-                    if(name == 'Rejected User Concurrency')
+                        break;
+                    case 'rejecteduserconcurrency':
                         name = APMTranslation.apm.common.label.rejecteduserconcurrency();
-                    if(name == 'Rejected Account Concurrency')
+                        break;
+                    case 'rejectedintegrationconcurrency':
+                        name = APMTranslation.apm.r2020a.rejectedintegrationconcurrency();
+                        break;
+                    case 'rejectedaccountconcurrency':
                         name = APMTranslation.apm.common.label.rejectedaccountconcurrency();
+                        break;
+                    default: 
+                        name = this.point.name;
+                    }
 
                     var table = '<table>';
                     table += '<tr><td colspan="3" align="center"><b>' + name + ' (' + this.percentage.toFixed(2) + ' %)' + '</b></td></tr>';
@@ -563,21 +587,33 @@ APMWSA._Highcharts = function() {
                     width: 80
                 },
                 labelFormatter: function() {
-                    var name = this.name;
-                    if(name == 'Finished')
-                        return APMTranslation.apm.ns.status.finished();
-                    if(name == 'Failed')
-                        return APMTranslation.apm.common.label.failed();
+                    switch (this.name) {
+                    case 'finished':
+                        name = APMTranslation.apm.ns.status.finished();
+                        break;
+                    case 'failed':
+                        name = APMTranslation.apm.common.label.failed();
+                        break;
+                    default: 
+                        name = this.name;
+                    }
+                    return name;
                 }
             },
             tooltip: {
                 formatter: function() {
 
-                    var name = this.point.name;
-                    if(name == 'Finished')
+                    var name = '';
+                    switch (this.point.name) {
+                    case 'finished':
                         name = APMTranslation.apm.ns.status.finished();
-                    if(name == 'Failed')
+                        break;
+                    case 'failed':
                         name = APMTranslation.apm.common.label.failed();
+                        break;
+                    default: 
+                        name = this.point.name;
+                    }
 
                     var table = '<table>';
                     table += '<tr><td colspan="3" align="center"><b>' + name + ' (' + this.percentage.toFixed(2) + ' %)' + '</b></td></tr>';
@@ -970,14 +1006,16 @@ APMWSA._Highcharts = function() {
                     var idx = chartData.categories.indexOf(this.x);
                     var finished = chartData.throughput['finished'][idx][1];
                     var rejecteduserconcurrency = chartData.throughput['rejecteduserconcurrency'][idx][1];
+                    var rejectedintegrationconcurrency = chartData.throughput['rejectedintegrationconcurrency'][idx][1];
                     var rejectedaccountconcurrency = chartData.throughput['rejectedaccountconcurrency'][idx][1];
                     var failed = chartData.throughput['failed'][idx][1];
-                    var total = finished + failed + rejecteduserconcurrency + rejectedaccountconcurrency;
+                    var total = finished + failed + rejecteduserconcurrency + rejectedaccountconcurrency + rejectedintegrationconcurrency;
 
                     var table = '<table>';
                     table += '<tr><td align="center" colspan="3"><b>' + this.x + '</b></td></tr>';
                     table += '<tr><td align="center">' + APMTranslation.apm.ns.status.finished() + '</td><td>:</td><td align="center">' + finished + '</td></tr>';
                     table += '<tr><td align="center">' + APMTranslation.apm.common.label.rejecteduserconcurrency() + '</td><td>:</td><td align="center">' + rejecteduserconcurrency + '</td></tr>';
+                    table += '<tr><td align="center">' + APMTranslation.apm.r2020a.rejectedintegrationconcurrency() + '</td><td>:</td><td align="center">' + rejectedintegrationconcurrency + '</td></tr>';
                     table += '<tr><td align="center">' + APMTranslation.apm.common.label.rejectedaccountconcurrency() + '</td><td>:</td><td align="center">' + rejectedaccountconcurrency + '</td></tr>';
                     table += '<tr><td align="center">' + APMTranslation.apm.common.label.failed() + '</td><td>:</td><td align="center">' + failed + '</td></tr>';
                     table += '<tr><td align="center"><b>' + APMTranslation.apm.common.label.total() + '</b></td><td>:</td><td align="center">' + total + '</td></tr>';
@@ -1048,7 +1086,7 @@ APMWSA._Highcharts = function() {
             },
             series: [{
                 name: APMTranslation.apm.common.label.failed(),
-                legendIndex: 3,
+                legendIndex: 4,
                 type: 'column',
                 stacking: 'normal',
                 animation: false,
@@ -1059,7 +1097,7 @@ APMWSA._Highcharts = function() {
                 data: chartData.throughput['failed']
             }, {
                 name: APMTranslation.apm.common.label.rejectedaccountconcurrency(),
-                legendIndex: 2,
+                legendIndex: 3,
                 type: 'column',
                 stacking: 'normal',
                 animation: false,
@@ -1068,6 +1106,17 @@ APMWSA._Highcharts = function() {
                 lineColor: 'rgba(250, 182, 93, 0.8)',
                 lineWidth: 0,
                 data: chartData.throughput['rejectedaccountconcurrency']
+            }, {
+                name: APMTranslation.apm.r2020a.rejectedintegrationconcurrency(),
+                legendIndex: 2,
+                type: 'column',
+                stacking: 'normal',
+                animation: false,
+                color: '#8F82B8',
+                fillColor: 'rgba(143, 130, 184, 0.8)',
+                lineColor: 'rgba(143, 130, 184, 0.8)',
+                lineWidth: 0,
+                data: chartData.throughput['rejectedintegrationconcurrency']
             }, {
                 name: APMTranslation.apm.common.label.rejecteduserconcurrency(),
                 legendIndex: 1,

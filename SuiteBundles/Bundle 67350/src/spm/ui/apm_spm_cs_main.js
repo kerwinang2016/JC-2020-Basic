@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -38,6 +38,9 @@
  * 19.00      29 Jun 2018     jmarimla         Translation readiness
  * 20.00      16 Jul 2018     jmarimla         Modify converttime
  * 21.00      08 Jan 2019     jmarimla         Translation
+ * 22.00      24 May 2019     erepollo         Removed header BG
+ * 23.00      14 Jan 2020     jmarimla         Customer debug changes
+ * 24.00      23 Jan 2020     jmarimla         Blank customer
  *
  */
 
@@ -46,7 +49,7 @@ var fParams = false;
 var params = new Object();
 
 function waitDone() {
-	APMExtJSCommon();
+    APMExtJSCommon();
     APMModels();
     APMStores();
     APMComponents();
@@ -56,35 +59,34 @@ function waitDone() {
 }
 
 function ExtReady() {
-	Ext4.onReady(function () {
+    Ext4.onReady(function () {
 
-	    checkPermissions();
-	    
-	    Ext4.QuickTips.init();
-	    
-	    splashscreen = new Ext4.LoadMask(Ext4.getBody(), MASK_CONFIG);
-	    splashscreen.show();
+        checkPermissions();
+        
+        Ext4.QuickTips.init();
+        
+        splashscreen = new Ext4.LoadMask(Ext4.getBody(), MASK_CONFIG);
+        splashscreen.show();
 
-	    params = convertParams();
-	    fParams = params.fparam;
+        params = convertParams();
+        fParams = params.fparam;
 
-	    if (params.fparam == true){
-	        PSGP.APM.SPM.dataStores.endToEndTimeParams = {
-	                recordtype : params.rectype  ,
-	                oper : params.oper          ,
-	                email : params.email        ,
-	                startDate : params.sdatetime,
-	                endDate : params.edatetime  ,
-	                responseTimeOper : params.responsetimeoper,
-	                responseTime1 : params.responsetime1,
-	                responseTime2 : params.responsetime2
-	        };
-	    }
-	    PSGP.APM.SPM.dataStores.recordTypeComboBox.load();
-//	    PSGP.APM.SPM.dataStores.roleComboBox.load();
-	    PSGP.APM.SPM.dataStores.getSetUpSummary();
-	    waitForStores();
-	});
+        PSGP.APM.SPM.dataStores.endToEndTimeParams.compfil = COMP_FIL;
+        if (params.fparam == true){
+            PSGP.APM.SPM.dataStores.endToEndTimeParams.recordtype = params.rectype; 
+            PSGP.APM.SPM.dataStores.endToEndTimeParams.oper = params.oper;
+            PSGP.APM.SPM.dataStores.endToEndTimeParams.email = params.email;
+            PSGP.APM.SPM.dataStores.endToEndTimeParams.startDate = params.sdatetime;
+            PSGP.APM.SPM.dataStores.endToEndTimeParams.endDate = params.edatetime;
+            PSGP.APM.SPM.dataStores.endToEndTimeParams.responseTimeOper = params.responsetimeoper;
+            PSGP.APM.SPM.dataStores.endToEndTimeParams.responseTime1 = params.responsetime1;
+            PSGP.APM.SPM.dataStores.endToEndTimeParams.responseTime2 = params.responsetime2;
+        }
+        PSGP.APM.SPM.dataStores.recordTypeComboBox.load();
+//      PSGP.APM.SPM.dataStores.roleComboBox.load();
+        PSGP.APM.SPM.dataStores.getSetUpSummary();
+        waitForStores();
+    });
 }
 
 var sleep;
@@ -112,10 +114,9 @@ function init() {
     var element = document.getElementById('ns_navigation');
     var headerColor = getStyle(element,'background-color');
     if(headerColor == null) {
-    	headerColor = "rgb(96, 121, 152)";
+        headerColor = "rgb(96, 121, 152)";
     }
     var cssText = '';
-    cssText += '.apm-panel-portlet .x4-panel-header { background-color: '+headerColor+' ;}';
     cssText += '.x4-nlg .apm-panel-portlet .x4-panel-header { background-color: '+headerColor+' ;}';
     cssText += '.apm-window .x4-window-header { background-color: '+headerColor+' ;}';
     cssTool.createStyleSheet(cssText, 'apm-css');

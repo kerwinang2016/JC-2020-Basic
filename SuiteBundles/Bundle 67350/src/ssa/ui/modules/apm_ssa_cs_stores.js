@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -42,6 +42,8 @@
  * 24.00      04 May 2018     jmarimla         Removed parseFloat
  * 25.00      29 Jun 2018     jmarimla         Translation readiness
  * 26.00      18 Oct 2018     jmarimla         Fixed label
+ * 27.00      17 Jul 2019     erepollo         Added script name in customer debug
+ * 28.00      15 Jan 2020     jmarimla         Customer debug changes
  *
  */
 
@@ -59,6 +61,7 @@ function APMStores() {
                 , drilldownStartDate: ''
                 , drilldownEndDate: ''
                 , clientEventType: ''
+                , compfil: ''
             },
 
             scriptTypeComboBox : Ext4.create('Ext4.data.Store', {
@@ -150,6 +153,7 @@ function APMStores() {
                           , scriptId : dataParams.scriptId
                           , clientEventType: dataParams.clientEventType
                           , context : dataParams.context
+                          , compfil: dataParams.compfil
                     };
                 } else {
                     requestParams = {
@@ -159,11 +163,12 @@ function APMStores() {
                           , scriptId : dataParams.scriptId
                           , clientEventType: dataParams.clientEventType
                           , context : dataParams.context
+                          , compfil: dataParams.compfil
                     };
                 }
 
                 Ext4.Ajax.request({
-                    url: '/app/site/hosting/scriptlet.nl?script=customscript_apm_ssa_sl_ss_summary&deploy=customdeploy_apm_ssa_sl_ss_summary&testmode='+TEST_MODE+'&compfil='+COMP_FIL,
+                    url: '/app/site/hosting/scriptlet.nl?script=customscript_apm_ssa_sl_ss_summary&deploy=customdeploy_apm_ssa_sl_ss_summary&testmode='+TEST_MODE,
                     timeout: 180000,
                     params: requestParams,
                     method: 'GET',
@@ -242,7 +247,7 @@ function APMStores() {
                 var dataParams = this.suiteScriptParams;
 
                 Ext4.Ajax.request({
-                    url: '/app/site/hosting/scriptlet.nl?script=customscript_apm_ssa_sl_perfchart&deploy=customdeploy_apm_ssa_sl_perfchart&testmode='+TEST_MODE+'&compfil='+COMP_FIL,
+                    url: '/app/site/hosting/scriptlet.nl?script=customscript_apm_ssa_sl_perfchart&deploy=customdeploy_apm_ssa_sl_perfchart&testmode='+TEST_MODE,
                     timeout: 180000,
                     params: dataParams,
                     method: 'GET',
@@ -276,7 +281,7 @@ function APMStores() {
                 var dataParams = this.suiteScriptParams;
 
                 Ext4.Ajax.request({
-                    url: '/app/site/hosting/scriptlet.nl?script=customscript_apm_ssa_sl_perfchart&deploy=customdeploy_apm_ssa_sl_perfchart&testmode='+TEST_MODE+'&compfil='+COMP_FIL,
+                    url: '/app/site/hosting/scriptlet.nl?script=customscript_apm_ssa_sl_perfchart&deploy=customdeploy_apm_ssa_sl_perfchart&testmode='+TEST_MODE,
                     timeout: 180000,
                     params: dataParams,
                     method: 'GET',
@@ -349,7 +354,7 @@ function APMStores() {
                                   , scriptId : dataParams.scriptId
                                   , clientEventType: dataParams.clientEventType
                                   , context : dataParams.context
-                                  , compfil : COMP_FIL
+                                  , compfil : PSGP.APM.SSA.dataStores.suiteScriptParams.compfil
                             };
                         } else {
                             requestParams = {
@@ -359,7 +364,7 @@ function APMStores() {
                                   , scriptId : dataParams.scriptId
                                   , clientEventType: dataParams.clientEventType
                                   , context : dataParams.context
-                                  , compfil : COMP_FIL
+                                  , compfil : PSGP.APM.SSA.dataStores.suiteScriptParams.compfil
                             };
                         }
                         store.proxy.extraParams = requestParams;
@@ -414,8 +419,10 @@ function APMStores() {
                 } else {
                     var dataParams = this.suiteScriptParams;
 
-                    if ((COMPID_MODE == 'T') && (COMP_FIL)) {
-                        Ext4.getCmp('psgp-apm-ssa-display-summary-scriptname').setValue(dataParams.scriptId);
+                    if ((COMPID_MODE == 'T') && (PSGP.APM.SSA.dataStores.suiteScriptParams.compfil != MYCOMPANY)) {
+                        //Make sure scriptId and scriptName are not the same
+                        var script = (dataParams.scriptName && dataParams.scriptName != dataParams.scriptId) ? dataParams.scriptId + ' ' + dataParams.scriptName : dataParams.scriptId;
+                        Ext4.getCmp('psgp-apm-ssa-display-summary-scriptname').setValue(script);
                     } else {
                         Ext4.getCmp('psgp-apm-ssa-display-summary-scriptname').setValue(dataParams.scriptName);
                     }

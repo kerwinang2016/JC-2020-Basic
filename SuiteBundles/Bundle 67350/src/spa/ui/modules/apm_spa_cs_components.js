@@ -1,10 +1,10 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
  * Module Description
- * 
+ *
  * Version    Date            Author           Remarks
  * 1.00       03 Aug 2017     jmarimla         Initial
  * 2.00       08 Aug 2017     jmarimla         Saved search tiles
@@ -15,30 +15,35 @@
  * 7.00       17 Nov 2017     jmarimla         Adjust tiles
  * 8.00       11 Jun 2018     jmarimla         Translation engine
  * 9.00       19 Jun 2018     justaris         Translation
- * 10.00      02 Jul 2018	  justaris         Translation Readiness
+ * 10.00      02 Jul 2018     justaris         Translation Readiness
  * 11.00      03 Aug 2018     jmarimla         Set html search name
+ * 12.00      29 Mar 2019     jmarimla         Average time
+ * 13.00      03 Apr 2019     jmarimla         Translation
+ * 14.00      28 Jun 2019     erepollo         Translation for new texts
+ * 15.00      13 Jan 2020     earepollo        Customer debugging changes
+ * 16.00      15 Jan 2020     earepollo        Customer debugging changes
  *
  */
 
 APMSPA = APMSPA || {};
 
 APMSPA._Components = function() {
-    
+
     var $TitleBar = $('<div>').psgpSuiteletTitle({
         title: APMTranslation.apm.spa.label.searchperformanceanalysis()
     });
-    
+
     var $CustomerDebuggingDialog =  $('' +
             '<div class="apm-spa-dialog-custdebug">' +
                 '<div class="container-field-customer"><span class="psgp-field-label">' + APMTranslation.apm.common.label.companyid() + '</span><div class="field-customer"></div></div>' +
                 '<div class="buttons"><div class="btn-save"></div><div class="btn-cancel"></div></div>' +
             '</div>')
             .psgpSettingsDialog({width: 240});
-    
+
     $CustomerDebuggingDialog.find('.field-customer').psgpTextBox({
         width:  250
     });
-    
+
     $CustomerDebuggingDialog.find('.btn-save').psgpBlueButton({
         text: APMTranslation.apm.common.button.done(),
         handler: function () {
@@ -46,14 +51,14 @@ APMSPA._Components = function() {
             var globalSettings = APMSPA.Services.getGlobalSettings();
             var $dialog = $(me).parents('.apm-spa-dialog-custdebug');
             $dialog.dialog('close');
-            
+
             var compfil = $dialog.find('.field-customer .psgp-textbox').val();
-            globalSettings.compfil = compfil;
-            globalSettings.endDateMS = '' + new Date().setSeconds(0, 0); 
+            globalSettings.compfil = compfil.trim();
+            globalSettings.endDateMS = '' + new Date().setSeconds(0, 0);
             APMSPA.Services.refreshData();
         }
     });
-    
+
     $CustomerDebuggingDialog.find('.btn-cancel').psgpGrayButton({
         text: APMTranslation.apm.common.button.cancel(),
         handler: function () {
@@ -61,22 +66,22 @@ APMSPA._Components = function() {
             var globalSettings = APMSPA.Services.getGlobalSettings();
             var $dialog = $(me).parents('.apm-spa-dialog-custdebug');
             $dialog.dialog('close');
-            
+
             var oldCompfil = globalSettings.compfil;
             $dialog.find('.field-customer .psgp-textbox').val(oldCompfil);
         }
     });
-    
+
     var $CustomerDebuggingLabel = $('<div>').addClass('apm-spa-settings-custdebug')
         .psgpSuiteletSettings({
             label: APMTranslation.apm.common.label.customerdebugsettings(),
             $dialog: $CustomerDebuggingDialog
         });
-    
+
     if (SPA_PARAMS.debugMode) {
         $TitleBar.append($CustomerDebuggingLabel);
     }
-    
+
     var $ColumnPanel = $('<div>').psgpColumnPanel({
         columndef: [{
             width: '99%',
@@ -86,24 +91,24 @@ APMSPA._Components = function() {
             padding: '0px 0px 0px 0px'
         }]
     });
-    
+
     var $TilesPortletRefreshBtn = $('<div>').psgpPortletRefreshBtn({
         handler: function () {
             var globalSettings = APMSPA.Services.getGlobalSettings();
-            globalSettings.endDateMS = '' + new Date().setSeconds(0, 0);            
+            globalSettings.endDateMS = '' + new Date().setSeconds(0, 0);
             APMSPA.Services.refreshData();
         }
     });
-    
+
     var $TilesPortlet = $('<div>').psgpPortlet({
         title: APMTranslation.apm.spa.label.savedsearches(),
         buttons: [
             $TilesPortletRefreshBtn
         ]
     });
-    
+
     var $TilesToolbar = $('<div class="apm-spa-tiles-toolbar"><div class="left"></div><div class="right"></div></div>');
-    
+
     $TilesPortlet.psgpPortlet('getBody')
         .append($TilesToolbar);
 
@@ -125,11 +130,11 @@ APMSPA._Components = function() {
             var globalSettings = APMSPA.Services.getGlobalSettings();
             globalSettings.endDateMS = '' + new Date().setSeconds(0, 0);
             globalSettings.dateRangeSelect = '' + newValue;
-            
+
             APMSPA.Services.refreshData();
         }
     });
-    
+
     var $TilesSortCombobox = $('<div class="combo-sort"></div>').psgpComboBox({
             list: [
                 { 'name': APMTranslation.apm.spa.label.mostrequested(), 'id': 'requested' }
@@ -143,82 +148,94 @@ APMSPA._Components = function() {
             var globalSettings = APMSPA.Services.getGlobalSettings();
             globalSettings.endDateMS = '' + new Date().setSeconds(0, 0);
             globalSettings.sorting = newValue;
-            
+
             APMSPA.Services.refreshData();
         }
     });
-    
+
     $TilesToolbar.find('.left')
         .append($TilesDateCombobox)
         .append('<div class="text-date"></div>');
     $TilesToolbar.find('.right')
         .append('<div class="label">' + APMTranslation.apm.common.label.sorting() + '</div>')
         .append($TilesSortCombobox);
-    
+
     function renderTiles(tilesData, config){
         var $Portlet = $TilesPortlet.psgpPortlet('getBody');
         $Portlet.find('.apm-spa-tiles-column').remove();
-        
+
         if (!tilesData || tilesData.length < 1) return;
-        
+
         var tilesPerColumn = 5;
         var tilesTotal = tilesData.length;
         var columnTotal = Math.ceil(tilesTotal/tilesPerColumn);
-        
+
         var columnMarkUp = '<div class="apm-spa-tiles-column"></div>'
-        
+
         var tileMarkUp = '<div class="apm-spa-tile">' +
-                            '<div class="main">' +
-                                '<div class="header">' +
-                                    '<div class="searchname">' +
-                                    '</div>' +
-                                    '<div class="searchid">' +
-                                    '</div>' +
-                                    '<div class="recordtype">' +
-                                    '</div>' +
-                                '</div>' +
-                                '<div class="body">' +
-                                    '<div class="kpi-row-1">' +
-                                        '<div class="kpi col-1">' +
-                                            '<div class="kpi-value executiontime">' +
-                                            '</div>' +
-                                            '<div class="kpi-label">' +
-                                            APMTranslation.apm.common.label.executiontime().toLowerCase() +
-                                            '</div>' +
-                                        '</div>' +
-                                        '<div class="kpi col-2">' +
-                                            '<div class="kpi-value timeoutrate">' +
-                                            '</div>' +
-                                            '<div class="kpi-label">' +
-                                            APMTranslation.apm.common.label.timeoutrate().toLowerCase() +
-                                            '</div>' +
-                                        '</div>' +
-                                    '</div>' +
-                                    '<div class="kpi-row-2">' +
-                                        '<div class="kpi col-1">' +
-                                            '<div class="kpi-label totalusers">' +
-                                            '</div>' +
-                                            '<div class="kpi-value totalusers">' +
-                                            '</div>' +
-                                        '</div>' +
-                                        '<div class="kpi col-2">' +
-                                            '<div class="kpi-label totalrequests">' +
-                                            '</div>' +
-                                            '<div class="kpi-value totalrequests">' +
-                                            '</div>' +
-                                        '</div>' +
-                                    '</div>' +
-                                    '<div class="chart">' +
-                                    '</div>' +
-                                '</div>' +
+            '<div class="main">' +
+                '<div class="header">' +
+                    '<div class="searchname">' +
+                    '</div>' +
+                    '<div class="searchid">' +
+                    '</div>' +
+                    '<div class="recordtype">' +
+                    '</div>' +
+                '</div>' +
+                '<div class="body">' +
+                    '<div class="kpi-label executiontime">' +
+                        APMTranslation.apm.common.label.executiontime().toLowerCase() +
+                    '</div>' +
+                    '<div class="kpi-row-1">' +
+                        '<div class="kpi col-1">' +
+                            '<div class="kpi-value executiontimeavg">' +
                             '</div>' +
-                        '</div>';
-        
+                            '<div class="kpi-label">' +
+                            APMTranslation.apm.r2019a.average().toLowerCase() +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="kpi col-2">' +
+                            '<div class="kpi-value executiontimemed">' +
+                            '</div>' +
+                            '<div class="kpi-label">' +
+                                APMTranslation.apm.common.label.median().toLowerCase() +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="kpi-row-2">' +
+                        '<div class="kpi col-1">' +
+                            '<div class="kpi-value timeoutrate">' +
+                            '</div>' +
+                            '<div class="kpi-label">' +
+                                APMTranslation.apm.common.label.timeoutrate().toLowerCase() +
+                            '</div>' +
+                        '</div>' +
+                        '<div class="kpi col-2">' +
+                            '<div class="kpi-icon">'+
+                                '<div class="kpi-label-icon totalrequests">' +
+                                '</div>' +
+                                '<div class="kpi-value totalrequests">' +
+                                '</div>' +
+                            '</div>'+
+                            '<div class="kpi-icon">'+
+                                '<div class="kpi-label-icon totalusers">' +
+                                '</div>' +
+                                '<div class="kpi-value totalusers">' +
+                                '</div>' +
+                            '</div>'+
+                        '</div>' +
+                    '</div>' +
+                    '<div class="chart">' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>';
+
         for (var i = 0; i < columnTotal; i++ ) {
             var $Column = $(columnMarkUp);
-            $Portlet.append($Column);   
+            $Portlet.append($Column);
         }
-        
+
         for (var i = 0; i < tilesTotal; i++) {
             var $Tile = $(tileMarkUp);
             var tileData = tilesData[i];
@@ -233,13 +250,14 @@ APMSPA._Components = function() {
             $Tile.find('.recordtype').text(recordName);
             $Tile.find('.kpi-value.totalusers').text(tileData.totalUsers);
             $Tile.find('.kpi-value.totalrequests').text(tileData.totalRequests);
-            $Tile.find('.kpi-value.executiontime').text(tileData.executionTime + 's');
+            $Tile.find('.kpi-value.executiontimemed').text(tileData.executionTimeMed + 's');
             $Tile.find('.kpi-value.timeoutrate').text(tileData.timeOutRate + '%');
-            
+            $Tile.find('.kpi-value.executiontimeavg').text(tileData.executionTimeAvg + 's');
+
             $Tile.find('.main').click(function () {
                 var me = this;
                 var searchId = $(me).attr('tileId');
-                
+
                 var globalSettings = APMSPA.Services.getGlobalSettings();
                 var params = {
                         searchId: searchId,
@@ -249,23 +267,24 @@ APMSPA._Components = function() {
                 }
                 APMSPA.Services.redirectToSPD(params)
             });
-            
+
             var columnIndex = Math.floor(i/tilesPerColumn);
             $Portlet.find('.apm-spa-tiles-column').eq(columnIndex).append($Tile);
-            
+
             var $chartContainer = $Tile.find('.chart');
             APMSPA.Highcharts.renderTileChart($chartContainer, tileData.executionTimeSeries, config);
         }
-        
+
     }
-    
+
     return {
         $TitleBar: $TitleBar,
+        $CustomerDebuggingDialog: $CustomerDebuggingDialog,
         $ColumnPanel: $ColumnPanel,
-        
+
         $TilesPortlet: $TilesPortlet,
-        
+
         renderTiles: renderTiles
     }
-    
+
 };

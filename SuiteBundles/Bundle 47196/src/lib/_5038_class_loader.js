@@ -20,12 +20,12 @@ _5038.classloader.ClassLoader = (function ClassLoader(gatewayConfiguration) {
     };
     
     
-    this.createRequestBuilder = function createRequestBuilder(dataAccessObject, gatewayDataAccessObject, gatewayConfiguration, credentials) {
+    this.createRequestBuilder = function createRequestBuilder(dataAccessObject, gatewayDataAccessObject, gatewayConfiguration, credentials, input, operationType) {
     	_5038.stacktrace.StackTrace
     	    .addLogEntry("_5038.classloader.createRequestBuilder: " + gatewayConfiguration.GetRequestBuilder() + ";");
     	
     	var requestBuilderClass = this.loadClass(gatewayConfiguration.GetRequestBuilder());
-        return new requestBuilderClass(dataAccessObject, gatewayDataAccessObject, gatewayConfiguration, credentials);
+        return new requestBuilderClass(dataAccessObject, gatewayDataAccessObject, gatewayConfiguration, credentials, input, operationType);
     };
     
     this.createParser = function createParser() {

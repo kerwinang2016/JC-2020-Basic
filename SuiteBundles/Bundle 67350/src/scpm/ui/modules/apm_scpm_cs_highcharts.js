@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 /**
  * Module Description
@@ -20,6 +20,7 @@
  * 13.00      11 Jun 2018     jmarimla         Translation engine
  * 14.00      02 Jul 2018     rwong            Translation strings
  * 15.00      26 Jul 2018     rwong            Highcharts translation
+ * 16.00      18 Aug 2019     jmarimla         Remove pointer cursor
  *
  */
 APMSCPM = APMSCPM || {};
@@ -535,7 +536,6 @@ APMSCPM._Highcharts = function() {
             },
             plotOptions: {
                 series: {
-                    cursor: 'pointer',
                     events: {
                         mouseOut: function() {
                             hideTooltip();
@@ -736,7 +736,6 @@ APMSCPM._Highcharts = function() {
             },
             plotOptions: {
                 series: {
-                    cursor: 'pointer',
                     events: {
                         mouseOut: function() {
                             hideTooltip();
@@ -1186,7 +1185,6 @@ APMSCPM._Highcharts = function() {
             },
             plotOptions: {
                 series: {
-                    cursor: 'pointer',
                     events: {
                         mouseOut: function() {}
                     },
@@ -1375,7 +1373,6 @@ APMSCPM._Highcharts = function() {
             },
             plotOptions: {
                 series: {
-                    cursor: 'pointer',
                     events: {
                         mouseOut: function() {
                             hideTooltip();
@@ -1612,7 +1609,6 @@ APMSCPM._Highcharts = function() {
             },
             plotOptions: {
                 series: {
-                    cursor: 'pointer',
                     events: {
                         mouseOut: function() {
                             hideTooltip();

@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -12,7 +12,7 @@
  * 4.00       18 Sep 2017     jmarimla         Customer debugging
  * 5.00       11 Jun 2018     jmarimla         Translation engine
  * 6.00       19 Jun 2018     justaris         Translation
- * 7.00       02 Jul 2018	  justaris         Translation Readiness
+ * 7.00       02 Jul 2018     justaris         Translation Readiness
  *
  */
 

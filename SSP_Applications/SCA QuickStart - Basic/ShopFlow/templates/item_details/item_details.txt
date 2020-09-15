@@ -130,6 +130,7 @@
 																		CMT Fabric
 																	</a>
 																</div>
+																<div style="padding: 0px 15px;color:red" id="cmtvendorwarning"></div>
 																<div id="fabric-cmt-options" class="accordion-body collapse">
 																	<div class="control-group">
 																			<label class="control-label" for="fabric-cmt-vendor" style="font-size: 13px;font-weight: normal;line-height: 18px;width:30%;">Fabric Vendor </label>

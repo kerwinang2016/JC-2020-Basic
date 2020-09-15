@@ -1,5 +1,5 @@
 /**
- * Copyright © 2015, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -21,7 +21,8 @@
  * 13.00      03 Aug 2018     jmarimla         Translate custom date
  * 14.00      14 Dec 2018     jmarimla         Limit not available
  * 15.00      07 Jan 2019     rwong            Added note to customer debugging for concurrency limit
- * 16.00      12 Feb 2019     rwong            Support concurrency limit for customer debugging 
+ * 16.00      12 Feb 2019     rwong            Support concurrency limit for customer debugging
+ * 17.00      17 Sep 2019     erepollo         Parameter passing
  *
  */
 
@@ -45,6 +46,7 @@ APMCM._Services = function() {
     var _globalSettings = {
         dateRangeSelect: '' + 1000 * 60 * 60 * 24,
         startDateMS: '',
+        endDateMS: '',
         asOf: ''
     };
 

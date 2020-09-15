@@ -121,7 +121,12 @@ function setNewValues(estimateRecord, requestData, method) {
 		estimateRecord.setLineItemValue('item', 'custcol_designoptions_trouser', 1, requestData.items[index].displayOptionsTrouser);
 		estimateRecord.setLineItemValue('item', 'custcol_designoptions_waistcoat', 1, requestData.items[index].displayOptionsWaistcoat);
 		estimateRecord.setLineItemValue('item', 'custcol_designoptions_overcoat', 1, requestData.items[index].displayOptionsOvercoat);
-		estimateRecord.setLineItemValue('item', 'custcol_designoptions_shirt', 1, requestData.items[index].displayOptionsShirt);
+        estimateRecord.setLineItemValue('item', 'custcol_designoptions_shirt', 1, requestData.items[index].displayOptionsShirt);
+        estimateRecord.setLineItemValue('item', 'custcol_designoptions_ladiesjacket', 1, requestData.items[index].displayOptionsLadiesJacket);
+        estimateRecord.setLineItemValue('item', 'custcol_designoptions_ladiespants', 1, requestData.items[index].displayOptionsLadiesPant);
+        estimateRecord.setLineItemValue('item', 'custcol_designoptions_ladiesskirt', 1, requestData.items[index].displayOptionsLadiesSkirt);
+        estimateRecord.setLineItemValue('item', 'custcol_designoptions_ssshirt', 1, requestData.items[index].displayOptionsShortSleevesShirt);
+        estimateRecord.setLineItemValue('item', 'custcol_designoptions_trenchcoat', 1, requestData.items[index].displayOptionsTrenchcoat);
 		estimateRecord.setLineItemValue('item', 'custcol_designoption_message', 1, requestData.items[index].displayOpNotes);
 		
 		//Fit Profile
@@ -129,7 +134,12 @@ function setNewValues(estimateRecord, requestData, method) {
 		estimateRecord.setLineItemValue('item', 'custcol_fitprofile_trouser', 1, requestData.items[index].fitProfileTrouser);
 		estimateRecord.setLineItemValue('item', 'custcol_fitprofile_waistcoat', 1, requestData.items[index].fitProfileWaistcoat);
 		estimateRecord.setLineItemValue('item', 'custcol_fitprofile_overcoat', 1, requestData.items[index].fitProfileOvercoat);
-		estimateRecord.setLineItemValue('item', 'custcol_fitprofile_shirt', 1, requestData.items[index].fitProfileShirt);
+        estimateRecord.setLineItemValue('item', 'custcol_fitprofile_shirt', 1, requestData.items[index].fitProfileShirt);
+        estimateRecord.setLineItemValue('item', 'custcol_fitprofile_ladiesjacket', 1, requestData.items[index].fitProfileLadiesJacket);
+        estimateRecord.setLineItemValue('item', 'custcol_fitprofile_ladiespants', 1, requestData.items[index].fitProfileLadiesPants);
+        estimateRecord.setLineItemValue('item', 'custcol_fitprofile_ladiesskirt', 1, requestData.items[index].fitProfileLadiesSkirt);
+        estimateRecord.setLineItemValue('item', 'custcol_fitprofile_ssshirt', 1, requestData.items[index].fitProfileShortSleevesShirt);
+        estimateRecord.setLineItemValue('item', 'custcol_fitprofile_trenchcoat', 1, requestData.items[index].fitProfileTrenchcoat);
 		estimateRecord.setLineItemValue('item', 'custcol_fitprofile_message', 1, requestData.items[index].fitProfileNotes);
 		estimateRecord.setLineItemValue('item', 'custcol_custom_fabric_details', 1, requestData.items[index].customFabricDetails);
 		//Quantity

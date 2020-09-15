@@ -18,7 +18,7 @@ function processSetup(input, output) {
 };
 
 function authorization(input, output) {
-    if( input.getTransactionDetails().getPaymentMethodObject().getType() == _CCP.EXTERNAL_CHECKOUT) {
+    if( input.getPaymentInstrument().getType().toUpperCase() == _CCP.EXTERNAL_CHECKOUT) {
         (new _5038.processor.PaymentGatewayProcessor())
             .transactByExtChckout(input, output, _CCP.GATEWAY_OPERATION_AUTHORIZATION);
     } else {
@@ -33,7 +33,7 @@ function capture(input, output) {
 };
 
 function sale(input, output) {
-    if( input.getTransactionDetails().getPaymentMethodObject().getType() == _CCP.EXTERNAL_CHECKOUT) {
+    if( input.getPaymentInstrument().getType().toUpperCase() == _CCP.EXTERNAL_CHECKOUT) {
         (new _5038.processor.PaymentGatewayProcessor())
             .transactByExtChckout(input, output, _CCP.GATEWAY_OPERATION_PAYMENT);
     } else {

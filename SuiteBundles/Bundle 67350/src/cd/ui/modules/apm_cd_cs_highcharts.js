@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 /**
  * Module Description
@@ -17,6 +17,7 @@
  * 10.00      02 Jul 2018     justaris         Translation Readiness
  * 11.00      26 Jul 2018     rwong            Highcharts translation
  * 12.00      27 Nov 2018     jmarimla         Corrected strings
+ * 13.00      12 Apr 2019     jmarimla         Corrected strings
  *
  */
 APMCD = APMCD || {};
@@ -367,7 +368,7 @@ APMCD._Highcharts = function() {
                     var groupAggString = '';
                     if (groupAggMS < 1000 * 60) {
                         var value = groupAggMS / (1000);
-                        var label = (value > 1) ? APMTranslation.apm.common.label.secs() : APMTranslation.apm.common.label.sec();
+                        var label = (value > 1) ? APMTranslation.apm.cd.label.secs() : APMTranslation.apm.cd.label.sec();
                         groupAggString = '' + value + ' ' + label;
                     } else if (groupAggMS < 1000 * 60 * 60) {
                         var value = groupAggMS / (1000 * 60);

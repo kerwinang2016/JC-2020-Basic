@@ -22,7 +22,7 @@ function processSetup(input, output) {
 
 function authorization(input, output) {
 	
-	if( input.getTransactionDetails().getPaymentMethodObject().getType() == _CCP.EXTERNAL_CHECKOUT){
+	if( input.getPaymentInstrument().getType().toUpperCase() == _CCP.EXTERNAL_CHECKOUT){
 		(new _5038.processor.PaymentGatewayProcessor())
         .transactByExtChckout(input, output, _CCP.GATEWAY_OPERATION_AUTHORIZATION);
 	}
@@ -40,7 +40,7 @@ function capture(input, output) {
 
 function sale(input, output) {
 	
-	if( input.getTransactionDetails().getPaymentMethodObject().getType() == _CCP.EXTERNAL_CHECKOUT){
+	if( input.getPaymentInstrument().getType().toUpperCase() == _CCP.EXTERNAL_CHECKOUT){
 		(new _5038.processor.PaymentGatewayProcessor())
         .transactByExtChckout(input, output, _CCP.GATEWAY_OPERATION_PAYMENT);
 	}
@@ -51,7 +51,7 @@ function sale(input, output) {
 };
 
 function credit(input, output) {
-	if( input.getTransactionDetails().getPaymentMethodObject().getType() == _CCP.EXTERNAL_CHECKOUT){
+	if( input.getPaymentInstrument().getType().toUpperCase() == _CCP.EXTERNAL_CHECKOUT){
 		throw nlapiCreateError("PGP009", "Unable to process transaction. The payment method you selected is available for webstore orders only. Select a credit card payment method and try again.");
 	}
 	else{

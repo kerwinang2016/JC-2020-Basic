@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -16,6 +16,7 @@
  * 3.00       05 Aug 2016     jmarimla         Support for suitescript context
  * 4.00       29 Jun 2018     jmarimla         Translation readiness
  * 5.00       18 Oct 2018     jmarimla         Frht id
+ * 6.00       13 Nov 2019     lemarcelo        Added support for Error Code
  *
  */
 
@@ -56,6 +57,9 @@ function APMModels() {
                   }, {
                       name : 'records',
                       type : 'int'
+                  }, {
+                      name : 'errorcode',
+                      type : 'string'
                   }, {
                       name: 'context',
                       type: 'string'

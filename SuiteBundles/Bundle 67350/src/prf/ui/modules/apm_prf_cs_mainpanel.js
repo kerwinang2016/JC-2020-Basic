@@ -1,5 +1,5 @@
 /**
- * Copyright � 2018, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 /**
  * Module Description
@@ -7,6 +7,7 @@
  * Version    Date            Author           Remarks
  * 1.00       08 Aug 2018     rwong            Initial
  * 2.00       16 Oct 2018     jmarimla         Frht id
+ * 3.00       24 May 2019     erepollo         Removed header BG
  *
  */
 APMPRF = APMPRF || {};
@@ -58,7 +59,6 @@ APMPRF._mainPanel = function() {
         var cssStyle = '' +
             '<style type="text/css">' +
             '.psgp-main-content *, .psgp-dialog *, .psgp-settings-dialog *, .psgp-dialog input, .psgp-settings-dialog input { font-family: ' + fontFamily + ';}' +
-            '.psgp-portlet-header { background-color: ' + themeColor + ';}' +
             '.psgp-dialog .ui-dialog-titlebar { background-color: ' + themeColor + ';}' +
             '</style>';
         $(cssStyle).appendTo($('#prf-main-content'));

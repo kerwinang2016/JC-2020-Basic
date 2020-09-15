@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 /**
  * Module Description
@@ -18,6 +18,7 @@
  * 11.00      12 Jan 2017     rwong            Combine Queue Utilization and Script Instance Count
  * 12.00      03 Feb 2017     jmarimla         Add resize event
  * 13.00      06 Jul 2018     jmarimla         Translation readiness
+ * 14.00      24 May 2019     erepollo         Removed header BG
  *
  */
 APMSQM = APMSQM || {};
@@ -88,7 +89,6 @@ APMSQM._mainPanel = function () {
         var cssStyle = '' +
             '<style type="text/css">' +
             '.psgp-main-content *, .psgp-dialog *, .psgp-settings-dialog *, .psgp-dialog input, .psgp-settings-dialog input { font-family: ' + fontFamily + ';}' +
-            '.psgp-portlet-header { background-color: ' + themeColor + ';}' +
             '.psgp-dialog .ui-dialog-titlebar { background-color: ' + themeColor + ';}' +
             '</style>';
         $(cssStyle).appendTo($('#sqm-main-content'));

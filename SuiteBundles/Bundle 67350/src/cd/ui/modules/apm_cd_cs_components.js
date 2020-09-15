@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -14,10 +14,10 @@
  * 6.00       24 May 2018     jmarimla         Append LIMITEXCEEDED
  * 7.00       07 Jun 2018     jmarimla         Hide back button
  * 8.00       11 Jun 2018     jmarimla         Translation engine
- * 9.00       02 Jul 2018	  justaris         Translation Readiness
+ * 9.00       02 Jul 2018     justaris         Translation Readiness
  * 10.00      27 Nov 2018     jmarimla         CSV export
  * 11.00      15 Jan 2019     jmarimla         Translation
- * 
+ *
  */
 
 APMCD = APMCD || {};
@@ -41,24 +41,24 @@ APMCD._Components = function() {
     var $ConcurrencyDetailsPortlet = $('<div>').psgpPortlet({
         title: APMTranslation.apm.cd.label.detailedconcurrency()
     });
-    
+
     $ConcurrencyMainDiv = $('<div class="apm-cd-exactconcurrency-main"></div>');
-    
+
     var $BtnDrillUp = $('<div class="apm-cd-btn-drillup"></div>').psgpGrayButton({
         text: APMTranslation.apm.cd.button.back(),
         handler: function () {
             APMCD.Services.refreshData();
         }
     }).hide();
-    
+
     $ConcurrencyMainDiv
         .append($BtnDrillUp)
         .append('<div class="apm-cd-exactconcurrency panel-1"></div>')
         .append('<div class="apm-cd-exactconcurrency panel-2"></div>');
-    
+
     $ConcurrencyDetailsPortlet.psgpPortlet('getBody')
         .append($ConcurrencyMainDiv);
-    
+
     function showInstancesPopup(params) {
         var $obj;
 
@@ -91,16 +91,16 @@ APMCD._Components = function() {
                 }, {
                     dataIndex: 'type',
                     text: APMTranslation.apm.common.label.type(),
-					renderer: function (value, record) {
+                    renderer: function (value, record) {
                         if(value == "WEBSERVICE"){
-						return value = APMTranslation.apm.common.label.webservice().toUpperCase();
-						}
-						if(value == "RESTLET"){
-						return value = APMTranslation.apm.common.label.restlet().toUpperCase();
-						}
-						else{
-						return value;
-						}
+                        return value = APMTranslation.apm.common.label.webservice().toUpperCase();
+                        }
+                        if(value == "RESTLET"){
+                        return value = APMTranslation.apm.common.label.restlet().toUpperCase();
+                        }
+                        else{
+                        return value;
+                        }
                     }
                 }, {
                     dataIndex: 'integration',
@@ -129,16 +129,16 @@ APMCD._Components = function() {
                     renderer: function (value, record) {
                         var translated = '';
                         switch (value) {
-                        case 'FINISHED': 
+                        case 'FINISHED':
                             translated = APMTranslation.apm.ns.status.finished();
                             break;
-                        case 'FAILED': 
+                        case 'FAILED':
                             translated = APMTranslation.apm.common.label.failed();
                             break;
-                        case 'REJECTEDACCOUNTCONCURRENCY': 
+                        case 'REJECTEDACCOUNTCONCURRENCY':
                             translated = APMTranslation.apm.common.label.rejectedaccountconcurrency();
                             break;
-                        case 'REJECTEDUSERCONCURRENCY': 
+                        case 'REJECTEDUSERCONCURRENCY':
                             translated = APMTranslation.apm.common.label.rejecteduserconcurrency();
                             break;
                         default: translated = value;
@@ -162,7 +162,7 @@ APMCD._Components = function() {
         });
 
         var $grid = $obj.find('.grid').psgpGrid(gridOptions);
-        
+
         $grid.psgpGrid('refreshDataRemote', params);
     }
 
@@ -170,7 +170,7 @@ APMCD._Components = function() {
         $TitleBar: $TitleBar,
         $ColumnPanel: $ColumnPanel,
         $ConcurrencyDetailsPortlet: $ConcurrencyDetailsPortlet,
-        
+
         showInstancesPopup: showInstancesPopup
     };
 

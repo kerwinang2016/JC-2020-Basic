@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -113,7 +113,7 @@ APMSPJD._Services = function() {
                 })
                 .fail(function(response) {
                     //console.log(response);
-                	alert(APMTranslation.apm.common.alert.errorinsuitelet());
+                    alert(APMTranslation.apm.common.alert.errorinsuitelet());
                 })
         ).then(
                 function () {

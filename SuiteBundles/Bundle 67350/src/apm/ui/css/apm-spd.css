@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
  
 /**
@@ -13,6 +13,7 @@
  * 5.00       18 Sep 2017     jmarimla         Customer debugging
  * 6.00       21 Sep 2017     jmarimla         Header css
  * 7.00       03 Aug 2018     jmarimla         FRHT css
+ * 8.00       24 May 2019     erepollo         Changed header BG to white
  *
  */
  
@@ -21,7 +22,7 @@
  */
 .apm-spd-container-ssdetailscharts {
     padding: 10px 10px 10px 10px;
-    background-color: #DFE3EA;
+    background-color: #ffffff;
     width: 100%;
 } 
 

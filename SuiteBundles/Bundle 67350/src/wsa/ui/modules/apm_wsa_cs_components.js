@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 /**
  * Module Description
@@ -28,6 +28,8 @@
  * 21.00      02 Jul 2018     rwong            Translation strings
  * 22.00      19 Jul 2018     rwong            Translation strings
  * 23.00      03 Aug 2018     jmarimla         Fixed custom date
+ * 24.00      15 Jan 2020     earepollo        Customer debugging changes
+ * 25.00      20 Jan 2020     earepollo        Fixed bug in integration dropdown
  *
  */
 APMWSA = APMWSA || {};
@@ -232,7 +234,7 @@ APMWSA._Components = function() {
             globalSettings.integration = newInteg;
 
             var compfil = $dialog.find('.field-customer .psgp-textbox').val();
-            globalSettings.compfil = compfil;
+            globalSettings.compfil = compfil.trim();
 
             APMWSA.Services.refreshData();
         }
@@ -253,7 +255,7 @@ APMWSA._Components = function() {
             var integParams = {
                 compfil: oldCompfil,
                 restoreOldValue: true,
-                oldIntegration: globalSettings.integration
+                integration: globalSettings.integration
             }
             APMWSA.Services.refreshIntegrationData(integParams);
         }
@@ -322,22 +324,22 @@ APMWSA._Components = function() {
 
     var $OverviewCharts = $(
         '<div class="apm-wsa-container-wsocharts">' +
-        	'<div class="chart-row">' +
-        		'<div class="chart-outer">' +
-        			'<div class="chart execution"></div>' +
-        		'</div>' +
-        		'<div class="chart-outer">' +
-        			'<div class="chart throughput"></div>' +
-        		'</div>' +
-        	'</div>' +
-        	'<div class="chart-row">' +
-        		'<div class="chart-outer">' +
-        			'<div class="chart errorrate"></div>' +
-        		'</div>' +
-        		'<div class="chart-outer">' +
-        			'<div class="chart records"></div>' +
-        		'</div>' +
-        	'</div>' +
+            '<div class="chart-row">' +
+                '<div class="chart-outer">' +
+                    '<div class="chart execution"></div>' +
+                '</div>' +
+                '<div class="chart-outer">' +
+                    '<div class="chart throughput"></div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="chart-row">' +
+                '<div class="chart-outer">' +
+                    '<div class="chart errorrate"></div>' +
+                '</div>' +
+                '<div class="chart-outer">' +
+                    '<div class="chart records"></div>' +
+                '</div>' +
+            '</div>' +
         '</div>'
     );
 
@@ -393,8 +395,8 @@ APMWSA._Components = function() {
 
         var markUp = '' +
             '<div class="apm-wsa-dialog-wsrpcharts">' +
-            	'<div class="toolbar"><div class="combo-operation"></div></div>' +
-            	'<div class="chart"></div>' +
+                '<div class="toolbar"><div class="combo-operation"></div></div>' +
+                '<div class="chart"></div>' +
             '</div>';
         $obj = $(markUp);
 
@@ -443,7 +445,7 @@ APMWSA._Components = function() {
 
         var markUp = '' +
             '<div class="apm-wsa-dialog-wsobreakdown">' +
-            	'<div class="chart"></div>' +
+                '<div class="chart"></div>' +
             '</div>';
         $obj = $(markUp);
 

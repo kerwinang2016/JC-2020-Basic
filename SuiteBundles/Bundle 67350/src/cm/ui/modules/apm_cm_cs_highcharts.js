@@ -1,5 +1,5 @@
 /**
- * Copyright © 2015, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 /**
  * Module Description
@@ -23,6 +23,8 @@
  * 16.00      26 Jul 2018     rwong            Highcharts translation
  * 17.00      07 Jan 2019     rwong            Added note to customer debugging for concurrency limit
  * 18.00      12 Feb 2019     rwong            Support concurrency limit for customer debugging
+ * 19.00      03 Mar 2019     jmarimla         Footnote for invalid concurrency
+ * 20.00      28 Jun 2019     erepollo         Translation for new texts
  *
  */
 APMCM = APMCM || {};
@@ -96,6 +98,11 @@ APMCM._Highcharts = function() {
             chartData = _concurrencyHMData;
             $('.apm-cm-concurrency-legend').show();
             $('.apm-cm-concurrency-footnote').html('<i>' + APMTranslation.apm.cm.label.note() + ': </i>' + APMTranslation.apm.cm.label.percentvaluesareapproximate());
+            var concLimit = $($( "div[dataindex='concurrencylimit']" )[0]).find('.psgp-kpipanel-item-value').html();
+            if ( !concLimit || concLimit == '\u2014' ) {
+                $('.apm-cm-concurrency-footnote').append('<br><i>' + APMTranslation.apm.r2019a.important() + ':</i><br>' + APMTranslation.apm.r2019a.concurrencynote1());
+                $('.apm-cm-concurrency-footnote').append('<br>' + APMTranslation.apm.r2019a.concurrencynote2());
+            }
         } else {
             chartData = _violationsHMData;
             $('.apm-cm-concurrency-legend').hide();

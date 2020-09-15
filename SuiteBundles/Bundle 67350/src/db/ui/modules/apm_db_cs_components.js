@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -37,6 +37,8 @@
  * 28.00      29 Jun 2018     jmarimla         Translation readiness
  * 29.00      06 Jul 2018     jmarimla         Polishing translation
  * 30.00      26 Jul 2018     jmarimla         Translation string
+ * 31.00      02 Oct 2019     erepollo         Fixed 'as of date' alignment issue in chrome
+ * 32.00      10 Jan 2020     jmarimla         Customer debug changes
  *
  */
 
@@ -501,6 +503,7 @@ function APMComponents() {
     Ext4.define('PSGP.APM.DB.Component.RefreshDateField', {
         extend : 'Ext4.form.field.Display',
         value: APMTranslation.apm.common.label.asof({params: [ '' ]}),
+        width: 400,
         fieldCls : 'apm-display-toolbar-field',
         updateValue: function () {
             var me = this;
@@ -891,7 +894,7 @@ function APMComponents() {
             var endtime = Ext4.getCmp('psgp-apm-db-customdatetime-endtime').getValue();
 
             if(!startdate) {
-            	alert(APMTranslation.apm.common.alert.startdaterequired());
+                alert(APMTranslation.apm.common.alert.startdaterequired());
                 return;
             }
             if (!Ext4.getCmp('psgp-apm-db-customdatetime-startdate').isValid()) {
@@ -899,7 +902,7 @@ function APMComponents() {
                 return;
             }
             if(!starttime) {
-            	alert(APMTranslation.apm.db.alert.starttimerequired());
+                alert(APMTranslation.apm.db.alert.starttimerequired());
                 return;
             }
             if(!enddate) {
@@ -1199,7 +1202,8 @@ function APMComponents() {
         text: APMTranslation.apm.common.button.done(),
         handler: function() {
             var newCompFil = Ext4.getCmp('psgp-apm-db-quickselector-field-compid').getValue();
-            COMP_FIL = newCompFil;
+            newCompFil = newCompFil.trim();
+            PSGP.APM.DB.dataStores.recordTilesParams.compfil = newCompFil;
             Ext4.getCmp('psgp-apm-db-quicksel-compid').hide();
 
             //UI changes
@@ -1226,10 +1230,10 @@ function APMComponents() {
         hidden: true,
         listeners: {
             beforerender: function () {
-                Ext4.getCmp('psgp-apm-db-quickselector-field-compid').setValue(COMP_FIL);
+                Ext4.getCmp('psgp-apm-db-quickselector-field-compid').setValue(PSGP.APM.DB.dataStores.recordTilesParams.compfil);
             },
             hide: function () {
-                Ext4.getCmp('psgp-apm-db-quickselector-field-compid').setValue(COMP_FIL);
+                Ext4.getCmp('psgp-apm-db-quickselector-field-compid').setValue(PSGP.APM.DB.dataStores.recordTilesParams.compfil);
             }
         },
         items: [

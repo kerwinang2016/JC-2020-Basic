@@ -39,8 +39,7 @@ function refund(input, output) {
 function holdPayment(output){
 	var result = output.getResult();
 	var holddetails = 'Payment for this transaction is on hold due to retirement of eWAY gateway integration. To continue processing credit card payment, edit the transaction to use eWAY Rapid processing profile.';
-    result.setPaymentStatus('HOLD');
-    result.setHoldReason('GENERAL_HOLD');
-    result.setHoldDetails(holddetails);
+    result.setStatus('GENERAL_HOLD');
+    result.setStatusDetails(holddetails);
     result.setExternalRejectMessageForFailure(holddetails);
 };

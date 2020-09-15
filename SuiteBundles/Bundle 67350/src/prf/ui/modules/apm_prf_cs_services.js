@@ -1,5 +1,5 @@
 /**
- * Copyright � 2018, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -10,6 +10,8 @@
  * 2.00       10 Aug 2018     jmarimla         Chart and grid data
  * 3.00       28 Sep 2018     jmarimla         Drilldown timeline
  * 4.00       16 Oct 2018     jmarimla         Frht id
+ * 5.00       11 Apr 2019     erepollo         Added drilldown param as flag when drilling down
+ * 6.00       15 Apr 2019     rwong            Added support for filtering api calls, merge ids under name
  *
  */
 
@@ -22,18 +24,18 @@ APMPRF._Services = function() {
     var _urls = {
             kpi: '/app/site/hosting/scriptlet.nl?script=customscript_apm_prf_sl_kpi&deploy=customdeploy_apm_prf_sl_kpi' + _testModeParam,
             frhtLogs: '/app/site/hosting/scriptlet.nl?script=customscript_apm_prf_sl_frhtlogs&deploy=customdeploy_apm_prf_sl_frhtlogs' + _testModeParam,
-            apiCalls: '/app/site/hosting/scriptlet.nl?script=customscript_apm_prf_sl_apicalls&deploy=customdeploy_apm_prf_sl_apicalls' + _testModeParam,
     };
 
     var _globalParams = {};
 
     var _globalSettings = {
-    		compfil: null,
-    		operationId: null,
-    		parentId: null,
-    		frhtId: null,
-    		type: null,
-    		breadcrumbs: []
+            compfil: null,
+            operationId: null,
+            parentId: null,
+            frhtId: null,
+            type: null,
+            breadcrumbs: [],
+            drillDown: false
     };
 
     function getGlobalSettings() {
@@ -68,9 +70,10 @@ APMPRF._Services = function() {
                 operationId : _globalSettings.operationId,
                 parentId: _globalSettings.parentId,
                 frhtId: _globalSettings.frhtId,
-                compfil: _globalSettings.compfil
+                compfil: _globalSettings.compfil,
+                drillDown: _globalSettings.drillDown
             };
-        
+
         $.when(
                 _getKPIData(params)
                 .done(function(response) {
@@ -79,7 +82,11 @@ APMPRF._Services = function() {
                         return;
                     }
                     //console.log(response);
-                    APMPRF.Components.refreshKPI(response.data);
+
+                    if(params.drillDown != true) {
+                        APMPRF.Components.refreshKPI(response.data);
+                    }
+
                     _globalSettings.breadcrumbs = response.data.breadcrumbs;
                     APMPRF.Components.refreshBreadcrumbs();
                 })
@@ -89,11 +96,11 @@ APMPRF._Services = function() {
                 })
         ).then(
                 function () {
-                	_globalSettings.frhtId = null;
+                    _globalSettings.frhtId = null;
                     $('.psgp-main-content').removeClass('psgp-loading-mask');
                 }
         );
-        
+
         APMPRF.Components.$FrhtGrid.psgpGrid('refreshDataRemote', params);
     }
 

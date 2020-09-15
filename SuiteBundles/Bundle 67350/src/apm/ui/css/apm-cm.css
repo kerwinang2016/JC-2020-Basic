@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -12,11 +12,13 @@
  * 4.00       19 Feb 2018     rwong            Violation chart
  * 5.00       15 May 2018     jmarimla         Remove italic
  * 6.00       14 Dec 2018     jmarimla         Not available css
+ * 7.00       03 Apr 2019     jmarimla         Footnote css
+ * 8.00       24 May 2019     erepollo         Change concurrency toolbar BG to white
  *
  */
 
 .psgp-kpipanel-item-value.notavailable {
-	color: #ff5833;
+    color: #ff5833;
 }
 
 /*
@@ -78,13 +80,13 @@
 
 .apm-cm-concurrency-toolbar {
     height: 39px;
-    background: #e7e7e7;
+    background: #ffffff;
     padding: 4px 10px;
 }
 
 .apm-cm-concurrency-legend {
-	height: 50px;
-	width: 100%;
+    height: 50px;
+    width: 100%;
     background: #ffffff;
 }
 
@@ -146,12 +148,12 @@
 }
 
 .apm-cm-concurrency-footnote {
-	height: 20px;
     background: #ffffff;
     padding: 3px 20px;
     font-size: 12px;
     font-weight: normal;
     color: #333333;
+    width: 100%;
 }
 
 /*

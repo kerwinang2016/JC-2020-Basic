@@ -1,5 +1,5 @@
 /**
- * Copyright © 2015, 2017, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 /**
  * Module Description
@@ -25,12 +25,15 @@
  * 18.00      11 Jun 2018     jmarimla         Translation engine
  * 19.00      29 Jun 2018     jmarimla         Translation readiness
  * 20.00      08 Jan 2019     jmarimla         Translation
+ * 21.00      24 May 2019     erepollo         Removed header BG
+ * 22.00      10 Jan 2020     jmarimla         Customer debug changes
+ * 23.00      23 Jan 2020     jmarimla         Blank customer
  *
  */
 var splashscreen = {};
 
 function waitDone() {
-	APMExtJSCommon();
+    APMExtJSCommon();
     APMModels();
     APMStores();
     APMComponents();
@@ -40,26 +43,25 @@ function waitDone() {
 }
 
 function ExtReady() {
-	Ext4.onReady(function () {
+    Ext4.onReady(function () {
 
-	    checkPermissions();
+        checkPermissions();
 
-	    splashscreen = new Ext4.LoadMask(Ext4.getBody(), MASK_CONFIG);
-	    splashscreen.show();
+        splashscreen = new Ext4.LoadMask(Ext4.getBody(), MASK_CONFIG);
+        splashscreen.show();
 
-	    var endDateMS = new Date().setSeconds(0, 0);
-	    var startDateMS = endDateMS - (1000 * 60 * 60 * 24); //1 Day ago
-	    PSGP.APM.DB.dataStores.recordTilesParams = {
-	        startDateMS: startDateMS,
-	        endDateMS: endDateMS
-	    };
-	    PSGP.APM.DB.dataStores.recordTypes.load();
-	    PSGP.APM.DB.dataStores.recordTilesData.load();
-	    PSGP.APM.DB.dataStores.watchList.load();
-	    PSGP.APM.DB.dataStores.customDateTime.load();
-	    PSGP.APM.DB.dataStores.getSetupGeneral();
-	    waitForStores();
-	});
+        var endDateMS = new Date().setSeconds(0, 0);
+        var startDateMS = endDateMS - (1000 * 60 * 60 * 24); //1 Day ago
+        PSGP.APM.DB.dataStores.recordTilesParams.startDateMS = startDateMS;
+        PSGP.APM.DB.dataStores.recordTilesParams.endDateMS = endDateMS;
+        PSGP.APM.DB.dataStores.recordTilesParams.compfil = COMP_FIL;
+        PSGP.APM.DB.dataStores.recordTypes.load();
+        PSGP.APM.DB.dataStores.recordTilesData.load();
+        PSGP.APM.DB.dataStores.watchList.load();
+        PSGP.APM.DB.dataStores.customDateTime.load();
+        PSGP.APM.DB.dataStores.getSetupGeneral();
+        waitForStores();
+    });
 }
 
 var sleep;
@@ -90,7 +92,6 @@ function init() {
         headerColor = "rgb(96, 121, 152)";
     }
     var cssText = '';
-    cssText += '.apm-panel-portlet .x4-panel-header { background-color: ' + headerColor + ' ;}';
     cssText += '.x4-nlg .apm-panel-portlet .x4-panel-header { background-color: ' + headerColor + ' ;}';
     cssText += '.apm-window .x4-window-header { background-color: ' + headerColor + ' ;}';
     cssText += '.apm-tabpanel { background-color: ' + headerColor + ' ;}';

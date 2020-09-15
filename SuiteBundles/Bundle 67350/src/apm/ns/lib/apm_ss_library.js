@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -32,6 +32,7 @@
  *24.00       18 Sep 2017     jmarimla         Add account
  *25.00       09 Oct 2017     jmarimla         WSDL API functions
  *26.00       24 Nov 2017     jmarimla         Changed unreleased tag
+ *27.00       04 Apr 2019     jmarimla         APM NA
  *
  */
 
@@ -387,6 +388,8 @@ psgp_apm.serverlibrary.getRecordTypesJson = function () {
 psgp_apm.serverlibrary.validateCompanyFilter = function (companyFilter) {
     var allowedList = [
                        'NLCORP'
+                     , '5515663' //APM-NA
+                     , '4642954' //APM-EU
                      , '3930908' //dev account
                      , '3547087' //dev account
                      , '3949168' //qa account
@@ -394,7 +397,6 @@ psgp_apm.serverlibrary.validateCompanyFilter = function (companyFilter) {
                      , '4294543' //qa
                      , '4290356' //qa
                      , '4290353' //qa
-                     , '4642954' //jay yeh
                      ];
     if (nlapiGetContext().getVersion() < 2015.2) {
         return '';

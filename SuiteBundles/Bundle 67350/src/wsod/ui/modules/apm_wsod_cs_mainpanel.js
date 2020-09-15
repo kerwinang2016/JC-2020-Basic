@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -12,6 +12,7 @@
  * 4.00       20 Jul 2017     rwong            Top Record Performance
  * 5.00       25 Jul 2017     jmarimla         Company filter
  * 6.00       11 Jun 2018     jmarimla         Translation engine
+ * 7.00       24 May 2019     erepollo         Removed header BG
  *
  */
 
@@ -73,7 +74,6 @@ APMWSOD._MainPanel = function() {
         var cssStyle = '' +
             '<style type="text/css">' +
             '.psgp-main-content *, .psgp-dialog *, .psgp-settings-dialog *, .psgp-dialog input, .psgp-settings-dialog input { font-family: ' + fontFamily + ';}' +
-            '.psgp-portlet-header { background-color: ' + themeColor + ';}' +
             '.psgp-dialog .ui-dialog-titlebar { background-color: ' + themeColor + ';}' +
             '</style>';
         $(cssStyle).appendTo($('#wsod-main-content'));

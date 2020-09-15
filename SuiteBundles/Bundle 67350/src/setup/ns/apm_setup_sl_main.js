@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -22,6 +22,9 @@
  * 14.00      11 Jun 2018     jmarimla         Translation engine
  * 15.00      29 Jun 2018     jmarimla         Translation readiness
  * 16.00      28 Sep 2018     jmarimla         Include PRF
+ * 17.00      28 Aug 2019     jmarimla         Include AH, rebuild setup
+ * 18.00      05 Sep 2019     erepollo         Added success message for rebuild setup
+ * 19.00      07 Jan 2020     earepollo        Translation readiness for new strings
  *
  */
 
@@ -47,6 +50,7 @@ var SCRIPTID = {
       , CM : '_apm_cm_sl_main'
       , CD : '_apm_cd_sl_main'
       , PRF : '_apm_prf_sl_main'
+      , AH : '_apm_ah_sl_main'
 };
 
 function entryPoint(request, response){
@@ -67,7 +71,7 @@ function getData(request, response) {
     var form = nlapiCreateForm(translationStrings.apm.setup.label.apmsetup());
 
     //define components
-    var fHelp = form.addField('custpage_f_help', 'help', translationStrings.apm.setup.label.setuppermissionlabel());
+    var fHelp = form.addField('custpage_f_help', 'help', translationStrings.apm.r2020a.allowaccesstotheapm());
 
     var permissionsTab = form.addTab('custpage_tab_permissions', 'Permissions');
 
@@ -87,44 +91,105 @@ function getData(request, response) {
     var apmDbLink = nlapiResolveURL('SUITELET', 'customscript'+SCRIPTID.DB, 'customdeploy'+SCRIPTID.DB);
     var cancelScript = "window.location = '"+apmDbLink+"'";
     var bCancel = form.addButton('custpage_b_cancel', translationStrings.apm.common.button.cancel(), cancelScript );
-
-    //enter current settings
-    var sc = new Array();
-    sc.push(new nlobjSearchColumn('custrecord_apm_setup_ra_role'));
-    sc.push(new nlobjSearchColumn('custrecord_apm_setup_ra_top10'));
-    var searchResults = nlapiSearchRecord('customrecord_apm_setup_roles_access', null, null, sc);
-    var slRow = 1;
-    for (var i in searchResults) {
-        var role = searchResults[i].getValue('custrecord_apm_setup_ra_role');
-        var top10 = searchResults[i].getValue('custrecord_apm_setup_ra_top10');
-        if (!role) continue;
-        slRolesAccess.setLineItemValue('custpage_sl_access_role', slRow, role);
-        slRolesAccess.setLineItemValue('custpage_sl_access_role_top10', slRow, top10);
-        slRow++;
-    }
-
-    sc = new Array();
-    sc.push(new nlobjSearchColumn('custrecord_apm_setup_ea_employee'));
-    sc.push(new nlobjSearchColumn('custrecord_apm_setup_ea_top10'));
-    searchResults = nlapiSearchRecord('customrecord_apm_setup_employees_access', null, null, sc);
-    slRow = 1;
-    var employees = new Array();
-    for (var i in searchResults) {
-        var employee = searchResults[i].getValue('custrecord_apm_setup_ea_employee');
-        employees.push(employee);
-    }
-    employees = (employees && employees.length > 0) ? filterEmployeesWithAccess(employees) : new Array();
-    logger.debug('filtered employees ids', employees);
     
-    for (var i in searchResults) {
-        var employee = searchResults[i].getValue('custrecord_apm_setup_ea_employee');
-        var top10 = searchResults[i].getValue('custrecord_apm_setup_ea_top10');
-        if (!employee || (employees.indexOf(employee) == -1)) continue;
-        slEmployeesAccess.setLineItemValue('custpage_sl_access_employee', slRow, employee);
-        slEmployeesAccess.setLineItemValue('custpage_sl_access_employee_top10', slRow, top10);
-        slRow++;
-    }
+    var apmSetupLink = nlapiResolveURL('SUITELET', 'customscript_apm_setup_sl_main', 'customdeploy_apm_setup_sl_main');
+    var rebuildScript = "window.location = '"+apmSetupLink+"&rebuildsetup=T"+"'";
+    var bRebuild = form.addButton('custpage_b_retrieve', translationStrings.apm.r2020a.rebuildsetup(), rebuildScript );
+    
+    var isRebuildSetup = (request.getParameter('rebuildsetup') == 'T') ? true : false;
+    
+    if (isRebuildSetup) {
+        form.addField('custpage_success_message', 'inlinehtml')
+            .setLayoutType('outsidebelow','startrow')
+            .setDefaultValue("<br><p style='font-size:8pt;font-style:Open Sans,Helvetica,sans-serif;color:#800000'>" + translationStrings.apm.r2020a.yourprevioussetupwasretrieved() + "</p>");
 
+        var deployIds = getDeploymentIds();
+        logger.debug('deploy ids', deployIds);
+        
+        var allRolesArr = [];
+        var allEmployeesArr = [];
+
+        if (deployIds && (deployIds.length <= Object.keys(SCRIPTID).length)) {
+            for (var i in deployIds) {
+                var sdRec = nlapiLoadRecord('scriptdeployment', deployIds[i]);
+                
+                var roleAccess = sdRec.getFieldValues('audslctrole');
+                if (roleAccess && roleAccess.length > 0) {
+                    logger.debug('role access: '+deployIds[i], roleAccess.join());
+                    allRolesArr = allRolesArr.concat(roleAccess);
+                }
+                
+                var employeeAccess = sdRec.getFieldValues('audemployee');
+                if (employeeAccess && employeeAccess.length > 0) {
+                    logger.debug('employee access: '+deployIds[i], employeeAccess.join());
+                    allEmployeesArr = allEmployeesArr.concat(employeeAccess);
+                }
+            }
+        }
+        
+        var roleAccessUnique = allRolesArr.filter(function(item, index){
+            return allRolesArr.indexOf(item) >= index;
+        });
+        logger.debug('all role access', roleAccessUnique.join());
+        var slRow = 1;
+        for (var i in roleAccessUnique) {
+            slRolesAccess.setLineItemValue('custpage_sl_access_role', slRow, roleAccessUnique[i]);
+            slRolesAccess.setLineItemValue('custpage_sl_access_role_top10', slRow, 'T');
+            slRow++;
+        }
+        
+        var employeeAccessUnique = allEmployeesArr.filter(function(item, index){
+            return allEmployeesArr.indexOf(item) >= index;
+        });
+        logger.debug('all employee access', employeeAccessUnique.join());
+        slRow = 1;
+        for (var i in employeeAccessUnique) {
+            slEmployeesAccess.setLineItemValue('custpage_sl_access_employee', slRow, employeeAccessUnique[i]);
+            slEmployeesAccess.setLineItemValue('custpage_sl_access_employee_top10', slRow, 'T');
+            slRow++;
+        }
+        
+    } else {
+        
+        //enter current settings
+        var sc = new Array();
+        sc.push(new nlobjSearchColumn('custrecord_apm_setup_ra_role'));
+        sc.push(new nlobjSearchColumn('custrecord_apm_setup_ra_top10'));
+        var searchResults = nlapiSearchRecord('customrecord_apm_setup_roles_access', null, null, sc);
+        var slRow = 1;
+        for (var i in searchResults) {
+            var role = searchResults[i].getValue('custrecord_apm_setup_ra_role');
+            var top10 = searchResults[i].getValue('custrecord_apm_setup_ra_top10');
+            if (!role) continue;
+            slRolesAccess.setLineItemValue('custpage_sl_access_role', slRow, role);
+            slRolesAccess.setLineItemValue('custpage_sl_access_role_top10', slRow, top10);
+            slRow++;
+        }
+
+        sc = new Array();
+        sc.push(new nlobjSearchColumn('custrecord_apm_setup_ea_employee'));
+        sc.push(new nlobjSearchColumn('custrecord_apm_setup_ea_top10'));
+        searchResults = nlapiSearchRecord('customrecord_apm_setup_employees_access', null, null, sc);
+        slRow = 1;
+        var employees = new Array();
+        for (var i in searchResults) {
+            var employee = searchResults[i].getValue('custrecord_apm_setup_ea_employee');
+            employees.push(employee);
+        }
+        employees = (employees && employees.length > 0) ? filterEmployeesWithAccess(employees) : new Array();
+        logger.debug('filtered employees ids', employees);
+        
+        for (var i in searchResults) {
+            var employee = searchResults[i].getValue('custrecord_apm_setup_ea_employee');
+            var top10 = searchResults[i].getValue('custrecord_apm_setup_ea_top10');
+            if (!employee || (employees.indexOf(employee) == -1)) continue;
+            slEmployeesAccess.setLineItemValue('custpage_sl_access_employee', slRow, employee);
+            slEmployeesAccess.setLineItemValue('custpage_sl_access_employee_top10', slRow, top10);
+            slRow++;
+        }
+        
+    }
+    
     response.writePage(form);
 
 };
@@ -251,6 +316,8 @@ function getDeploymentIds() {
       , ['scriptid', 'is', 'customdeploy'+SCRIPTID.CD]
       , 'or'
       , ['scriptid', 'is', 'customdeploy'+SCRIPTID.PRF]
+      , 'or'
+      , ['scriptid', 'is', 'customdeploy'+SCRIPTID.AH]
     ];
 
     var searchResults = nlapiSearchRecord('scriptdeployment', null, sf, sc);

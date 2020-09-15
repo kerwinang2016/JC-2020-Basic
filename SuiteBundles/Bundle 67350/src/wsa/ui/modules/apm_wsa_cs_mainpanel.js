@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -17,6 +17,8 @@
  * 9.00       06 Jun 2017     jmarimla         Integration data
  * 10.00      22 Jun 2017     jmarimla         API portlet
  * 11.00      11 Jun 2018     jmarimla         Translation engine
+ * 12.00      24 May 2019     erepollo         Removed header BG
+ * 13.00      15 Jan 2020     earepollo        Customer debugging changes
  *
  */
 
@@ -26,14 +28,14 @@ APMWSA._mainPanel = function () {
 
     function render() {
         var $mainContent = $('#wsa-main-content').addClass('psgp-main-content');
-        
+
         $mainContent.append(APMWSA.Components.$TitleBar)
             .append(APMWSA.Components.$BtnRefresh)
             .append($('<div>').psgpSpacer({
                 height: 15
             }))
             .append(APMWSA.Components.$ColumnPanel);
-        
+
         APMWSA.Components.$ColumnPanel.find('.psgp-column-panel-1')
             .append(APMWSA.Components.$OverviewPortlet)
             .append($('<div>').psgpSpacer({
@@ -48,9 +50,9 @@ APMWSA._mainPanel = function () {
                 height: 15
             }))
             .append(APMWSA.Components.$ApiPortlet);
-        
+
         $mainContent.removeClass('psgp-loading-mask');
-        
+
         //resize event
         $(window).resize(function() {
             var delay = 250;
@@ -65,28 +67,32 @@ APMWSA._mainPanel = function () {
                     APMWSA.Components.$StatusBreakdownPortlet.find('.apm-wsa-statusbreakdown-chart.panel-2').highcharts(),
                     APMWSA.Components.$ApiPortlet.psgpPortlet('getBody').highcharts()
                 ];
-                
+
                 for (var i in charts) {
                     if (charts[i]) charts[i].reflow();
                 }
             }, delay);
         });
-        
+
         var globalSettings = APMWSA.Services.getGlobalSettings();
         var initialDateRangeSelect = 1000*60*60*24;
         globalSettings.endDateMS = '' + new Date().setSeconds(0, 0);
         globalSettings.dateRangeSelect = '' + initialDateRangeSelect;
+        globalSettings.compfil = WSA_PARAMS.myCompany;
+
+        APMWSA.Components.$SettingsDateRangeDialog.find('.field-customer .psgp-textbox').val(WSA_PARAMS.myCompany);
         APMWSA.Components.$SettingsDateRangeDialog.find('.field-daterange .psgp-combobox').val(globalSettings.dateRangeSelect);
         APMWSA.Components.$SettingsDateRangeDialog.find('.field-daterange .psgp-combobox').selectmenu('refresh');
-        
+
         var integParams = {
                 startDateMS : globalSettings.endDateMS - initialDateRangeSelect,
-                endDateMS : globalSettings.endDateMS
+                endDateMS : globalSettings.endDateMS,
+                compfil : globalSettings.compfil
         }
         APMWSA.Services.refreshIntegrationData(integParams);
-        
+
         APMWSA.Services.refreshData();
-        
+
     };
 
     function adjustCSS() {
@@ -97,7 +103,6 @@ APMWSA._mainPanel = function () {
         var cssStyle = '' +
             '<style type="text/css">' +
             '.psgp-main-content *, .psgp-dialog *, .psgp-settings-dialog *, .psgp-dialog input, .psgp-settings-dialog input { font-family: ' + fontFamily + ';}' +
-            '.psgp-portlet-header { background-color: ' + themeColor + ';}' +
             '.psgp-dialog .ui-dialog-titlebar { background-color: ' + themeColor + ';}' +
             '</style>';
         $(cssStyle).appendTo($('#wsa-main-content'));

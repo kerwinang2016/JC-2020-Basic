@@ -30,7 +30,6 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             , 'keypress [name="quantity"]': 'ignoreEnter'
             , 'click [data-header="design-option-parent"]': 'scrolltodesignoption'
             , 'click [data-type="add-to-cart"]': 'addToCart'
-
             , 'shown .collapse': 'storeColapsiblesState'
             , 'hidden .collapse': 'storeColapsiblesState'
 
@@ -56,7 +55,6 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             , 'change #fitprofile-message': 'fitProfileMessageChange'
             , 'change #fabric-cmt-vendor': 'fabricVendorChange'
         }
-
         , initialize: function (options) {
             var self = this;
             jQuery.get(_.getAbsoluteUrl('js/extraQuantity.json')).done(function (data) {
@@ -2147,6 +2145,10 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             window.tempQuantity = jQuery(e.target).val();
         }
         , fabricVendorChange: function(e){
+          var vendors = ['AC Shirt', 'Albini/Thomas Mason', 'Ariston', 'Artextile', 'Carnet', 'Dormeuil', 'Drago', 'Dugdale Bros', 'Filarte', 'Gladson', 'Harrisons', 'Loro Piana']
+          if(vendors.indexOf(jQuery('#fabric-cmt-vendor option:selected').text()) != -1){
+            jQuery('#cmtvendorwarning').html('You have selected '+jQuery('#fabric-cmt-vendor option:selected').text()+' as the vendor for a CMT item. Please check if this item already exists in our system by searching on the previous page.');
+          }else{jQuery('#cmtvendorwarning').html('');}
           if(jQuery(e.target).val() == '33'){
             jQuery('#fabric-cmt-othervendorname').parent().show();
           }else{

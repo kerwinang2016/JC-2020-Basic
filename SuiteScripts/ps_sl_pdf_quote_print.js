@@ -12,9 +12,9 @@
  * @returns {Void} Any output is written via response object
  */
 var context = nlapiGetContext();
-var site = "https://system.na2.netsuite.com";
+var site = "https://3857857.app.netsuite.com";
 if (context.getEnvironment() == 'SANDBOX') {
-  site = "https://system.netsuite.com"
+  site = "https://3857857-sb1.app.netsuite.com"
 }
 function printQuotePdf(request, response){
 	var templateDetails = {};

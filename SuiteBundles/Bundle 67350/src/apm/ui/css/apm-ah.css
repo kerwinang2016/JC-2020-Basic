@@ -1,0 +1,758 @@
+/**
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
+ */
+/**
+ * Module Description
+ *
+ * Version    Date            Author           Remarks
+ *  1.00      11 Mar 2019     alaurito         Initial
+ *  2.00      20 Mar 2019     alaurito         Adjust column width
+ *  3.00      22 Mar 2019     alaurito         Modify for new mockup
+ *  4.00      14 May 2019     rwong            Added css for the performance portlet
+ *  5.00      21 May 2019     jmarimla         Records grid
+ *  6.00      23 May 2019     jmarimla         Snoozed css
+ *  7.00      27 May 2019     rwong            Subtabs icon css
+ *  8.00      10 Jul 2019     rwong            New UI
+ *  9.00      18 Jul 2019     jmarimla         Expandable grid
+ * 10.00      24 Jul 2019     rwong            Updated CSS and icon
+ * 11.00      02 Aug 2019     jmarimla         Grid contents
+ * 12.00      16 Aug 2019     jmarimla         font weights
+ * 13.00      13 Sep 2019     jmarimla         Snooze
+ * 14.00      23 Sep 2019     erepollo         Customer debugging
+ * 15.00      04 Oct 2019     jmarimla         Update tile UI, snoozed UI
+ * 16.00      10 Oct 2019     erepollo         Removed customization css
+ *
+ */
+
+#apm-ah-main-content {
+    min-width: 1400px;
+}
+
+/*
+ * Settings Dialog
+ */
+.apm-ah-settings-custdebug {
+    position: absolute;
+    right: 0px;
+    top: 15px;
+}
+
+.apm-ah-dialog-custdebug.ui-dialog-content {
+    padding: 20px;
+}
+
+.apm-ah-dialog-custdebug .buttons {
+    padding: 15px 5px 5px 5px;
+    width: 100%;
+}
+
+.apm-ah-dialog-custdebug .buttons * {
+    display: inline-block;
+}
+
+.apm-ah-dialog-custdebug .btn-save {
+    margin: 0px 20px 0px 0px;
+}
+
+/**
+ * Account Overview Toolbar
+ */
+.apm-ah-accountoverview-toolbar {
+    height: 30px;
+    padding: 4px 10px;
+    position: relative;
+}
+
+.apm-ah-accountoverview-toolbar .apm-ah-label {
+    color: #555555;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.apm-ah-accountoverview-toolbar .apm-ah-sublabel {
+    color: #555555;
+    font-size: 14px;
+    left: 5px;
+    margin: 0px 0px 0px 5px;
+    top: 4px;
+}
+
+.apm-ah-accountoverview-toolbar .apm-ah-info {
+    display:inline-block;
+    background-image: url(ns_images/info.svg);
+    background-size: 24px;
+    width: 24px;
+    height: 24px;
+    margin: 0px 0px 0px 5px;
+}
+
+.apm-ah-accountoverview-toolbar .left {
+    left: 0px;
+    padding: 6px 0px 0px 12px;
+    position: absolute;
+    top: 0px;
+}
+
+.apm-ah-accountoverview-toolbar .left div {
+    float: left;
+}
+
+.apm-ah-accountoverview-toolbar .right {
+    padding: 6px 12px 0px 0px;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+}
+
+.apm-ah-accountoverview-toolbar .right div {
+    float: left;
+}
+
+
+/**
+ * Snooze
+ */
+.apm-ah-snooze {
+    margin: 10px 0px 0px 0px;
+}
+
+.apm-ah-snooze-icon {
+    background-image: url(ns_images/ui-dle-off.png);
+    cursor: pointer;
+    height: 20px;
+    margin: 0px 0px 0px 0px;
+    width: 50px;
+}
+
+.apm-ah-snooze-icon.on{
+    background-image: url(ns_images/ui-dle-on.png);
+}
+
+.apm-ah-snooze-label {
+    color: #999999;
+    font-size: 12px;
+    font-weight: normal;
+    padding: 0px 0px 0px 5px;
+    position: relative;
+    text-transform: uppercase;
+}
+
+
+/**
+ * Tiles
+ */
+.apm-ah-tiles-row {
+    height: 290px;
+    position: relative;
+    width: 100%;
+}
+
+.apm-ah-tile {
+    float: left;
+    height: 100%;
+    position: relative;
+    width: 20%;
+    padding: 0 10px;
+}
+
+.apm-ah-tile .main.selectable:hover {
+    border: 1px solid #2e82e8;
+    cursor: pointer;
+    box-shadow: -1px 2px 4px 0px rgba(46, 130, 232, 0.75);
+    -moz-box-shadow: -1px 2px 4px 0px rgba(46, 130, 232, 0.75);
+    -webkit-box-shadow: -1px 2px 4px 0px rgba(46, 130, 232, 0.75);
+}
+
+.apm-ah-tile .main {
+    border: 1px solid #dadfe6;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    height: 250px;
+    margin: 5% 0px;
+    position:relative;
+    width: 100%;
+}
+
+.apm-ah-tile .main .anchor {
+    width: 32px;
+    height: 0px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.apm-ah-tile .main.selectable.clicked {
+    border: #2e82e8 solid 2px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    box-shadow: -2px 2px 5px 0px #616161;
+    -moz-box-shadow: -2px 2px 5px 0px #616161;
+    -webkit-box-shadow: -2px 2px 5px 0px #616161;
+}
+
+.apm-ah-tile .main.selectable.clicked .anchor:before {
+    border-color: #2e82e8 transparent;
+    border-style: solid;
+    border-width: 16px 16px 0;
+    content: "";
+    display: block;
+    left: 0px;
+    position: absolute;
+    top: 248px;
+    width: 0;
+    z-index: 1;
+}
+
+.apm-ah-tile .main.selectable.clicked .anchor:after {
+    border-color: #FFFFFF transparent;
+    border-style: solid;
+    border-width: 15px 15px 0;
+    content: "";
+    display: block;
+    left: 1px;
+    position: absolute;
+    top: 245px;
+    width: 0;
+    z-index: 2;
+}
+
+.apm-ah-tile .header {
+    background-color: #e6ebf2;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
+    width: 100%;
+}
+
+.apm-ah-tile .body {
+    width: 100%;
+    font-size: 12px;
+    padding: 5px 10px 5px 10px;
+}
+
+.apm-ah-tile .body .issues div {
+    display:inline-block;
+    width: 50%;
+}
+
+.apm-ah-tile .body .issues .column-1 div{
+    width: 100%;
+}
+
+.apm-ah-tile .body .issues .column-2 {
+    vertical-align: top;
+    height: 100%;
+    text-align: right;
+    color: #777777;
+}
+
+.apm-ah-tile .body .no-data .no-data-icon {
+    display:inline-block;
+    background-image: url(ns_images/checkFill.svg);
+    background-size: 24px;
+    width: 24px;
+    height: 24px;
+}
+
+.apm-ah-tile .body .no-data .no-data-text {
+    display:inline-block;
+    margin: 0px 0px 0px 5px;
+    height: 24px;
+    vertical-align: bottom;
+}
+
+.apm-ah-tile .body .no-data .no-data-sub-text {
+    color: #777777;
+    margin: 5px 0px 0px 0px;
+}
+
+.apm-ah-tile .error-issues-count, .apm-ah-tile .performance-issues-count, .apm-ah-tile .compliance-issues-count  {
+    font-size: 28px;
+}
+
+.apm-ah-tile .error-issues-label, .apm-ah-tile .performance-issues-label, .apm-ah-tile .compliance-issues-label {
+    font-size: 12px;
+}
+
+.apm-ah-tile .body .error-issues, .apm-ah-tile .body .performance-issues, .apm-ah-tile .body .compliance-issues {
+    display: flex;
+    flex-direction: row;
+}
+
+.apm-ah-tile .body .error-issues.hidden, .apm-ah-tile .body .performance-issues.hidden, .apm-ah-tile .body .compliance-issues.hidden {
+    display: none;
+}
+
+.apm-ah-tile .body .error-issues .error-issues-column-1 {
+    color: #B85B5B;
+    font-weight: 700;
+    display: flex;
+    flex-direction: column;
+}
+
+.apm-ah-tile .body .performance-issues .performance-issues-column-1 {
+    color: #B87241;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+}
+
+.apm-ah-tile .body .compliance-issues .compliance-issues-column-1 {
+    color: #777777;
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+}
+
+.apm-ah-tile .body hr {
+    border-color: #80808014;
+}
+
+/**
+ * Sub Tabs
+ */
+
+.apm-ah-accountoverview-tab-container {
+    padding: 4px 10px 0px 10px;
+}
+
+.apm-ah-accountoverview-tab .psgp-subtabs .ui-tabs-panel {
+    padding: 0px;
+}
+
+.apm-ah-accountoverview-grid-container {
+    padding: 0px 12px 4px 12px;
+}
+
+/**
+ * Expandable Grid
+ */
+.apm-ah-expandablegrid tbody * {
+    color: #777777;
+}
+
+.apm-ah-expandablegrid .cell-main {
+    height: 37px;
+    overflow: hidden;
+}
+
+.apm-ah-expandablegrid .cell-expand {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.apm-ah-expandablegrid .cell-expand .btn{
+    width: 12px;
+    height: 12px;
+    background-image: url(ns_images/da-expand.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+.apm-ah-expandablegrid .cell-expand .btn.expanded{
+    background-image: url(ns_images/da-collapse.png);
+}
+
+.apm-ah-expandablegrid .cell-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+}
+
+.apm-ah-expandablegrid .cell-actions .investigate,
+.apm-ah-expandablegrid .cell-actions .snooze {
+    margin: 0px 7px;
+    cursor: pointer;
+}
+
+.apm-ah-expandablegrid .cell-actions .investigate {
+    color: #255599;
+    font-size: 12px;
+    font-weight: bold;
+    text-decoration: none;
+    min-width: 70px;
+}
+
+.apm-ah-expandablegrid .cell-actions .investigate:hover {
+    text-decoration: underline;
+}
+
+.apm-ah-expandablegrid .cell-actions .no-action {
+    min-width: 70px;
+    margin: 0px 7px;
+}
+
+.apm-ah-expandablegrid .cell-actions .snooze {
+    background-image: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding: 0px 15px;
+    height: 24px;
+    line-height: 24px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #333333;
+    border: 1px solid #b2b2b2;
+    background-color: #fafafa;
+    background-image: -webkit-linear-gradient(top, #fafafa, #e5e5e5); /* For Chrome and Safari */
+    background-image: -moz-linear-gradient(top, #fafafa, #e5e5e5); /* For old Fx (3.6 to 15) */
+    background-image: -ms-linear-gradient(top, #fafafa, #e5e5e5); /* For pre-releases of IE 10*/
+    background-image: -o-linear-gradient(top, #fafafa, #e5e5e5); /* For old Opera (11.1 to 12.0) */
+    background-image: linear-gradient(to bottom, #fafafa, #e5e5e5); /* Standard syntax; must be last */
+}
+
+.apm-ah-expandablegrid .cell-actions .snooze .toggle {
+    height: 22px;
+    width: 50px;
+    background-image: url(ns_images/ui-dle-off.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.apm-ah-expandablegrid .cell-actions .snooze .toggle.on{
+    background-image: url(ns_images/ui-dle-on.png);
+}
+
+.apm-ah-expandablegrid .tr-expandable td {
+    padding: 0px 0px 0px 40px;
+}
+
+.apm-ah-expandablegrid .tr-expandable .metrics {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0px;
+}
+
+.apm-ah-expandablegrid .tr-expandable .metric {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 20px 0px 0px;
+}
+
+.apm-ah-expandablegrid .tr-expandable .metric .label {
+    color: #999999;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.apm-ah-expandablegrid .tr-expandable .metric .value {
+    font-size: 12px;
+}
+
+.apm-ah-expandablegrid .tr-expandable .chart.daily-error-rates {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.apm-ah-expandablegrid .tr-expandable .chart.daily-error-rates .title {
+    width: 100%;
+    padding: 10px 0px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.apm-ah-expandablegrid .tr-expandable .chart.daily-error-rates .body {
+    height: 300px;
+    width: 600px;
+}
+
+
+/**
+  * Record Grid
+  */
+.apm-ah-expandablegrid.record .cell-issue,
+.apm-ah-expandablegrid.record .cell-record,
+.apm-ah-expandablegrid.record .cell-operation,
+.apm-ah-expandablegrid.record .cell-measured-value {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 12px;
+}
+
+.apm-ah-expandablegrid.record .cell-issue.cell-error {
+    color: #B85B5B;
+    font-weight: 700;
+}
+
+.apm-ah-expandablegrid.record .cell-issue.cell-performance {
+    color: #B87241;
+    font-weight: 600;
+}
+
+.apm-ah-expandablegrid.record .cell-issue.cell-standardsupdate {
+    font-weight: 400;
+}
+
+.apm-ah-expandablegrid.record .cell-measured-value {
+    font-weight: 700;
+}
+
+.apm-ah-expandablegrid.record .cell-record {
+    font-weight: 600;
+}
+
+.apm-ah-expandablegrid.record .cell-operation {
+    font-weight: 400;
+}
+
+.apm-ah-expandablegrid.record .median-times .title {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.apm-ah-expandablegrid.record .tr-expandable .median-times .bars {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    padding: 10px 0px;
+}
+
+.apm-ah-expandablegrid.record .tr-expandable .median-times .bar {
+    height: 20px;
+}
+
+.apm-ah-expandablegrid.record .tr-expandable .median-times .list {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding: 10px 0px;
+}
+
+.apm-ah-expandablegrid.record .tr-expandable .median-time {
+    display: flex;
+    flex-direction: column;
+    padding: 0px 20px 0px 0px
+}
+
+.apm-ah-expandablegrid.record .tr-expandable .median-time .label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: #999999;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.apm-ah-expandablegrid.record .tr-expandable .median-time .label-dot {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    margin: 0px 3px 0px 0px;
+}
+
+.apm-ah-expandablegrid.record .tr-expandable .median-time .label-text {
+    color: #999999;
+    font-size: 12px;
+    text-transform: uppercase;
+}
+
+.apm-ah-expandablegrid.record .tr-expandable .median-time .value {
+    padding: 0px 0px 0px 15px;
+}
+
+.apm-ah-expandablegrid.record .tr-expandable .median-time .value-time {
+    font-size: 12px;
+    padding: 0px 3px 0px 0px;
+}
+
+.apm-ah-expandablegrid.record .tr-expandable .median-time .value-perc {
+    font-size: 12px;
+    color: #999999;
+}
+
+/**
+  * Script Grid
+  */
+.apm-ah-expandablegrid.script .cell-issue,
+.apm-ah-expandablegrid.script .cell-script,
+.apm-ah-expandablegrid.script .cell-deployment,
+.apm-ah-expandablegrid.script .cell-stage,
+.apm-ah-expandablegrid.script .cell-measured-value {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 12px;
+}
+
+.apm-ah-expandablegrid.script .cell-issue.cell-error {
+    color: #B85B5B;
+    font-weight: 700;
+}
+
+.apm-ah-expandablegrid.script .cell-issue.cell-performance {
+    color: #B87241;
+    font-weight: 600;
+}
+
+.apm-ah-expandablegrid.script .cell-issue.cell-standardsupdate {
+    font-weight: 400;
+}
+
+.apm-ah-expandablegrid.script .cell-script {
+    font-weight: 600;
+}
+
+.apm-ah-expandablegrid.script .cell-deployment {
+    font-weight: 400;
+}
+
+.apm-ah-expandablegrid.script .cell-stage {
+    font-weight: 400;
+}
+
+.apm-ah-expandablegrid.script .cell-measured-value {
+    font-weight: 700;
+}
+
+.apm-ah-expandablegrid.script .tr-expandable .script-high-error-rate {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/**
+  * Saved Search Grid
+  */
+.apm-ah-expandablegrid.savedsearch .cell-issue,
+.apm-ah-expandablegrid.savedsearch .cell-savedsearch,
+.apm-ah-expandablegrid.savedsearch .cell-record,
+.apm-ah-expandablegrid.savedsearch .cell-measured-value {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 12px;
+}
+
+.apm-ah-expandablegrid.savedsearch .cell-issue.cell-error {
+    color: #B85B5B;
+    font-weight: 700;
+}
+
+.apm-ah-expandablegrid.savedsearch .cell-issue.cell-performance {
+    color: #B87241;
+    font-weight: 600;
+}
+
+.apm-ah-expandablegrid.savedsearch .cell-issue.cell-standardsupdate {
+    font-weight: 400;
+}
+
+.apm-ah-expandablegrid.savedsearch .cell-measured-value {
+    font-weight: 700;
+}
+
+.apm-ah-expandablegrid.savedsearch .cell-savedsearch {
+    font-weight: 600;
+}
+
+.apm-ah-expandablegrid.savedsearch .cell-record {
+    font-weight: 400;
+}
+
+/**
+  * Integration Grid
+  */
+.apm-ah-expandablegrid.integration .cell-issue,
+.apm-ah-expandablegrid.integration .cell-integration,
+.apm-ah-expandablegrid.integration .cell-operation,
+.apm-ah-expandablegrid.integration .cell-measured-value {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 12px;
+}
+
+.apm-ah-expandablegrid.integration .cell-issue.cell-error {
+    color: #B85B5B;
+    font-weight: 700;
+}
+
+.apm-ah-expandablegrid.integration .cell-issue.cell-performance {
+    color: #B87241;
+    font-weight: 600;
+}
+
+.apm-ah-expandablegrid.integration .cell-issue.cell-standardsupdate {
+    font-weight: 400;
+}
+
+.apm-ah-expandablegrid.integration .cell-measured-value {
+    font-weight: 700;
+}
+
+.apm-ah-expandablegrid.integration .cell-integration {
+    font-weight: 600;
+}
+
+.apm-ah-expandablegrid.integration .cell-operation {
+    font-weight: 400;
+}
+/**
+  * Processor Grid
+  */
+.apm-ah-expandablegrid.processor .cell-issue,
+.apm-ah-expandablegrid.processor .cell-measured-value {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    font-size: 12px;
+}
+
+.apm-ah-expandablegrid.processor .cell-issue.cell-error {
+    color: #B85B5B;
+    font-weight: 700;
+}
+
+.apm-ah-expandablegrid.processor .cell-issue.cell-performance {
+    color: #B87241;
+    font-weight: 600;
+}
+
+.apm-ah-expandablegrid.processor .cell-issue.cell-standardsupdate {
+    font-weight: 400;
+}
+
+.apm-ah-expandablegrid.processor .cell-measured-value {
+    font-weight: 700;
+}
+
+/*
+ * Snoozed Items
+ */
+.apm-ah-expandablegrid .main-tbody .tr-main.snoozed * {
+    color: #C0C0C0;
+}
+
+.apm-ah-expandablegrid .tr-main.snoozed .cell-issue.cell-error {
+    color: #C0C0C0;
+}
+
+.apm-ah-expandablegrid .tr-main.snoozed .cell-issue.cell-performance {
+    color: #C0C0C0;
+}
+
+.apm-ah-expandablegrid .tr-main.snoozed .cell-actions .investigate {
+    color: #255599;
+}
+
+.apm-ah-expandablegrid .tr-main.snoozed .cell-actions .snooze {
+    color: #333333;
+}

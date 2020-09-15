@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -18,6 +18,9 @@
  * 10.00      11 Jun 2018     jmarimla         Translation engine
  * 11.00      29 Jun 2018     jmarimla         Translation readiness
  * 12.00      01 Jan 2019     rwong            Translation strings replacement
+ * 13.00      11 Oct 2019     jmarimla         Search by operationid
+ * 14.00      17 Jan 2020     jmarimla         Customer debug changes
+ * 15.00      23 Jan 2020     jmarimla         Blank customer
  *
  */
 
@@ -44,14 +47,9 @@ function ExtReady() {
 
         params = convertParams();
 
+        PSGP.APM.SIA.dataStores.params.compfil = COMP_FIL;
         if (params.fparam){
-            PSGP.APM.SIA.dataStores.params = {
-                threadid : params.threadid  ,
-                threadid2 : params.threadid2 ,
-                startdate : params.startdate,
-                enddate : params.enddate,
-                email: params.email
-            };
+            PSGP.APM.SIA.dataStores.params.operationId = params.operationId;
         }
         waitForStores();
     });
@@ -94,11 +92,14 @@ function init() {
         width: Ext.getBody().getViewSize().width,
         params: convertParams()
     });
+    
+    Ext4.create('PSGP.APM.SIA.Component.CompIdQuickSelector');
 
     Ext4.EventManager.onWindowResize(function() {
         mainContainer.setWidth(Ext.getBody().getViewSize().width);
         mainContainer.doLayout();
         PSGP.APM.SIA.Highcharts.resizeAllCharts();
+        if (Ext4.getCmp('psgp-apm-sia-quicksel-compid').isVisible()) Ext4.getCmp('psgp-apm-sia-quicksel-compid').showBy(Ext4.getCmp('psgp-apm-sia-btn-suiteletsettings').getEl(), 'tr-br?');
     });
 
     if(params.fparam){
@@ -125,7 +126,7 @@ function getStyle(el,styleProp)
 
 function convertParams() {
     var params = JSON.parse(nlapiGetFieldValue('apm_sia_params'));
-    if(params.threadid != '' || params.threadid2 != ''){
+    if(params.operationId){
         params.fparam = true;
     } else {
         params.fparam = false;

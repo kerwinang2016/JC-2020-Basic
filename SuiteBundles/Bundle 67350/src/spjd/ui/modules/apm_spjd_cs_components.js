@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -25,7 +25,7 @@ APMSPJD = APMSPJD || {};
 APMSPJD._Components = function () {
     
     var $TitleBar = $('<div>').psgpSuiteletTitle({
-    	title: APMTranslation.apm.spjd.label.suitecouldprocessorsjobdetails()
+        title: APMTranslation.apm.spjd.label.suitecouldprocessorsjobdetails()
     });
     
     var $BtnRefresh = $('<div>').psgpBlueButton({
@@ -38,11 +38,11 @@ APMSPJD._Components = function () {
 
             //validate dates
             if (!$StartDateTimeFilter.psgpDateTimeField('isDateValid')) {
-            	alert(APMTranslation.apm.common.alert.entervalidstartdate());
+                alert(APMTranslation.apm.common.alert.entervalidstartdate());
                 return;
             }
             if (!$EndDateTimeFilter.psgpDateTimeField('isDateValid')) {
-            	alert(APMTranslation.apm.common.alert.entervalidenddate());
+                alert(APMTranslation.apm.common.alert.entervalidenddate());
                 return;
             }
 
@@ -50,12 +50,12 @@ APMSPJD._Components = function () {
             var endDateMS = APMSPJD.Services.convertToDateObj(etDate, etTime).getTime();
             //validate date range
             if(startDateMS > endDateMS) {
-            	alert(APMTranslation.apm.common.alert.startdateearlierthanenddate());
+                alert(APMTranslation.apm.common.alert.startdateearlierthanenddate());
                 return;
             }
             //max 30 days
             if(endDateMS - startDateMS > 1000*60*60*24*30) {
-            	alert(apm.common.alert.daterange._30days());
+                alert(apm.common.alert.daterange._30days());
                 return false;
             }
             
@@ -80,11 +80,11 @@ APMSPJD._Components = function () {
     var $FilterPanel = $('<div>').psgpFilterPanel({});
     
     var $StartDateTimeFilter = $('<div>').psgpDateTimeField({
-    	label: APMTranslation.apm.common.label.startdatetime()
+        label: APMTranslation.apm.common.label.startdatetime()
     });
     
     var $EndDateTimeFilter = $('<div>').psgpDateTimeField({
-    	label: APMTranslation.apm.common.label.enddatetime()
+        label: APMTranslation.apm.common.label.enddatetime()
     });
     
     var $ScriptTypeFilter = $('<div class="psgp-filter-combo"><div><span class="psgp-field-label">' + APMTranslation.apm.spjd.label.tasktype() + '</span><div class="filter-scripttype"></div></div></div>'); 
@@ -118,7 +118,7 @@ APMSPJD._Components = function () {
     $FilterPanel.psgpFilterPanel('addFilterField', $DeploymentFilter);
     
     var $InstanceDetailsPortlet = $('<div>').psgpPortlet({
-    	title: APMTranslation.apm.spjd.label.jobdetails()
+        title: APMTranslation.apm.spjd.label.jobdetails()
     });
     
     var deploymentsGridOptions = {
@@ -170,7 +170,7 @@ APMSPJD._Components = function () {
                         if(value == 'MAPREDUCE')
                             return APMTranslation.apm.common.label.mapreduce();
                         if(value == 'SCHEDULED')
-                        	return APMTranslation.apm.common.label.scheduled();
+                            return APMTranslation.apm.common.label.scheduled();
                         return value;
                     }
 
@@ -198,7 +198,7 @@ APMSPJD._Components = function () {
                         if(value == 2)
                             return APMTranslation.apm.common.priority.standard();
                         if(value == 3)
-                        	return APMTranslation.apm.common.priority.standard();
+                            return APMTranslation.apm.common.priority.standard();
                         return value;
                     }
                 },
@@ -207,11 +207,11 @@ APMSPJD._Components = function () {
                     text: APMTranslation.apm.common.label.elevatedpriority(),
                     renderer: function (value) {
                         if(value == 1)
-                        	return APMTranslation.apm.common.priority.high();
+                            return APMTranslation.apm.common.priority.high();
                         if(value == 2)
-                        	return APMTranslation.apm.common.priority.standard();
+                            return APMTranslation.apm.common.priority.standard();
                         if(value == 3)
-                        	return APMTranslation.apm.common.priority.standard();
+                            return APMTranslation.apm.common.priority.standard();
                         return value;
                     }
                 },
@@ -255,22 +255,22 @@ APMSPJD._Components = function () {
                         return (value) ? value : '-';
                     }
                 }/*, 
-	            {
-	                dataIndex: 'viewDetails',
-	                text: APMTranslation.apm.common.label.viewfrhtdetails(),
-	                width: '130px',
-	                renderer: function(value, record) {
-	                    var $markUp = $('<div><div class="apm-spjd-instancedetails-viewdetails-icon"></div></div>');
-	                    $markUp.find('.apm-spjd-instancedetails-viewdetails-icon').attr('param-oper', value);
-	                    return $markUp.html();
-	                },
-	                resizable: false,
-	                sortable: false
-	            }*/
+                {
+                    dataIndex: 'viewDetails',
+                    text: APMTranslation.apm.common.label.viewfrhtdetails(),
+                    width: '130px',
+                    renderer: function(value, record) {
+                        var $markUp = $('<div><div class="apm-spjd-instancedetails-viewdetails-icon"></div></div>');
+                        $markUp.find('.apm-spjd-instancedetails-viewdetails-icon').attr('param-oper', value);
+                        return $markUp.html();
+                    },
+                    resizable: false,
+                    sortable: false
+                }*/
             ],
             listeners: {
                 afterRefreshData: function (grid) {
-//                	  var rows = grid.element.find('tbody tr');
+//                    var rows = grid.element.find('tbody tr');
 //                    var gData = grid.options.data;
 //                    var gParams = grid.options.params;
 //                    rows.each(function(index) {

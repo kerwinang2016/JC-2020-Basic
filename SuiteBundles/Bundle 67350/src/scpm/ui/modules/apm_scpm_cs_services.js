@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 /**
  * Module Description
@@ -15,6 +15,7 @@
  * 8.00       02 Jul 2018     rwong            Translation strings
  * 9.00       19 Jul 2018     rwong            Translation strings
  * 10.00      03 Aug 2018     jmarimla         Translate custom date
+ * 11.00      17 Sep 2019     erepollo         Parameter passing
  *
  */
 APMSCPM = APMSCPM || {};
@@ -41,6 +42,7 @@ APMSCPM._Services = function() {
     var _globalSettings = {
         dateRangeSelect: '' + 1000 * 60 * 60 * 24,
         startDateMS: '',
+        endDateMS: '',
         asOf: ''
     };
 
@@ -334,7 +336,7 @@ APMSCPM._Services = function() {
             })
             .fail(function(response) {
                 //console.log(response);
-            	alert(APMTranslation.apm.common.alert.errorinsuitelet());
+                alert(APMTranslation.apm.common.alert.errorinsuitelet());
             });
 
     }

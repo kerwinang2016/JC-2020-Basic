@@ -1,0 +1,101 @@
+{
+    "name": "CstmProfile",
+    "fantasyName": "CstmProfile",
+    "vendor": "DSC",
+    "type": "extension",
+    "target": "SCA,SCS",
+    "version": "1.0.0",
+    "description": "My cool extension does magic!",
+    "assets": {
+        "img": {
+            "files": []
+        },
+        "fonts": {
+            "files": []
+        },
+        "services": {
+            "files": [
+                "services/CstemProfile.Service.ss"
+            ]
+        }
+    },
+    "configuration": {
+        "files": []
+    },
+    "templates": {
+        "application": {
+            "shopping": {
+                "files": [
+                    "Modules/CstemProfile/Templates/dsc_cstmprofile_cstemprofile.tpl",
+                    "Modules/CstemProfile/Templates/stock_list.tpl"
+                ]
+            },
+            "myaccount": {
+                "files": [
+                    "Modules/CstemProfile/Templates/dsc_cstmprofile_cstemprofile.tpl",
+                    "Modules/CstemProfile/Templates/stock_list.tpl"
+                ]
+            },
+            "checkout": {
+                "files": [
+                    "Modules/CstemProfile/Templates/dsc_cstmprofile_cstemprofile.tpl",
+                    "Modules/CstemProfile/Templates/stock_list.tpl"
+                ]
+            }
+        }
+    },
+    "sass": {
+        "entry_points": {
+            "shopping": "Modules/CstemProfile/Sass/_cstmprofile-cstemprofile.scss",
+            "myaccount": "Modules/CstemProfile/Sass/_cstmprofile-cstemprofile.scss",
+            "checkout": "Modules/CstemProfile/Sass/_cstmprofile-cstemprofile.scss"
+        },
+        "files": [
+            "Modules/CstemProfile/Sass/_cstmprofile-cstemprofile.scss"
+        ]
+    },
+    "javascript": {
+        "entry_points": {
+            "shopping": "Modules/CstemProfile/JavaScript/DSC.CstmProfile.CstemProfile.js",
+            "myaccount": "Modules/CstemProfile/JavaScript/DSC.CstmProfile.CstemProfile.js",
+            "checkout": "Modules/CstemProfile/JavaScript/DSC.CstmProfile.CstemProfile.js"
+        },
+        "application": {
+            "shopping": {
+                "files": [
+                    "Modules/CstemProfile/JavaScript/DSC.CstmProfile.CstemProfile.js",
+                    "Modules/CstemProfile/JavaScript/CstemProfile.View.js",
+                    "Modules/CstemProfile/JavaScript/DSCFitProfile.Model.js",
+                    "Modules/CstemProfile/JavaScript/DSCProfile.Router.js",
+                    "Modules/CstemProfile/JavaScript/DSCStockList.View.js"
+                ]
+            },
+            "myaccount": {
+                "files": [
+                    "Modules/CstemProfile/JavaScript/DSC.CstmProfile.CstemProfile.js",
+                    "Modules/CstemProfile/JavaScript/CstemProfile.View.js",
+                    "Modules/CstemProfile/JavaScript/DSCFitProfile.Model.js",
+                    "Modules/CstemProfile/JavaScript/DSCProfile.Router.js",
+                    "Modules/CstemProfile/JavaScript/DSCStockList.View.js"
+                ]
+            },
+            "checkout": {
+                "files": [
+                    "Modules/CstemProfile/JavaScript/DSC.CstmProfile.CstemProfile.js",
+                    "Modules/CstemProfile/JavaScript/CstemProfile.View.js",
+                    "Modules/CstemProfile/JavaScript/DSCFitProfile.Model.js",
+                    "Modules/CstemProfile/JavaScript/DSCProfile.Router.js",
+                    "Modules/CstemProfile/JavaScript/DSCStockList.View.js"
+                ]
+            }
+        }
+    },
+    "ssp-libraries": {
+        "entry_point": "Modules/CstemProfile/SuiteScript/DSC.CstmProfile.CstemProfile.js",
+        "files": [
+            "Modules/CstemProfile/SuiteScript/DSC.CstmProfile.CstemProfile.js",
+            "Modules/CstemProfile/SuiteScript/CstemProfile.ServiceController.js",
+            "Modules/CstemProfile/SuiteScript/DSCProfile.Model.js"
+        ]
+    }
+}

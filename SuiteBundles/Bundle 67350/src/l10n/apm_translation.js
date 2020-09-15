@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -25,36 +25,36 @@ define([
     
     function identifyLocaleToUse() {
         var availableLocaleModules = [
-        	'cs_CZ',
-        	'da_DK',
-        	'de_DE',
-        	'en_US',
-        	'es_AR',
-        	'es_ES',
-        	'fi_FI',
-        	'fr_CA',
-        	'fr_FR',
-        	'id_ID',
-        	'it_IT',
-        	'ja_JP',
-        	'ko_KR',
-        	'nl_NL',
-        	'no_NO',
-        	'pt_BR',
-        	'ru_RU',
-        	'sv_SE',
-        	'th_TH',
-        	'tr_TR',
-        	'vi_VN',
-        	'zh_CN',
-        	'zh_TW'
+            'cs_CZ',
+            'da_DK',
+            'de_DE',
+            'en_US',
+            'es_AR',
+            'es_ES',
+            'fi_FI',
+            'fr_CA',
+            'fr_FR',
+            'id_ID',
+            'it_IT',
+            'ja_JP',
+            'ko_KR',
+            'nl_NL',
+            'no_NO',
+            'pt_BR',
+            'ru_RU',
+            'sv_SE',
+            'th_TH',
+            'tr_TR',
+            'vi_VN',
+            'zh_CN',
+            'zh_TW'
         ];
         
         var configObj = config.load({
-        	type: config.Type.USER_PREFERENCES
+            type: config.Type.USER_PREFERENCES
         });
         var language = configObj.getValue({
-        	fieldId: 'LANGUAGE'
+            fieldId: 'LANGUAGE'
         });
         
         return availableLocaleModules.indexOf(language) !== -1 ? language : 'en_US';

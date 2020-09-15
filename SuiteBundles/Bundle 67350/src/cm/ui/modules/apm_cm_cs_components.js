@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -18,7 +18,7 @@
  * 10.00      17 Apr 2018     jmarimla         Customer debugging
  * 11.00      11 May 2018     jmarimla         Chart Legend and footnote
  * 12.00      11 Jun 2018     jmarimla         Translation engine
- * 13.00      02 Jul 2018	  justaris         Translation Readiness
+ * 13.00      02 Jul 2018     justaris         Translation Readiness
  *
  */
 
@@ -288,55 +288,55 @@ APMCM._Components = function() {
     
     var $ConcurrencyLegend = $(
             '<div class="apm-cm-concurrency-legend">' +
-	            '<div class="legend-container">' +
-	                '<div class="legend-item">' +
-	                    '<div class="legend-icon icon-1">' +
-	                    '</div>' +
-	                    '<div class="legend-text">' +
-	                        '0%' +
-	                    '</div>' + 
-	                '</div>' +
-	                '<div class="legend-item">' +
-	                    '<div class="legend-icon icon-2">' +
-	                    '</div>' +
-	                    '<div class="legend-text">' +
-	                        '1%-25%' +
-	                    '</div>' + 
-	                '</div>' +
-	                '<div class="legend-item">' +
-	                    '<div class="legend-icon icon-3">' +
-	                    '</div>' +
-	                    '<div class="legend-text">' +
-	                        '26%-50%' +
-	                    '</div>' + 
-	                '</div>' +
-	                '<div class="legend-item">' +
-	                    '<div class="legend-icon icon-4">' +
-	                    '</div>' +
-	                    '<div class="legend-text">' +
-	                        '51%-75%' +
-	                    '</div>' + 
-	                '</div>' +
-	                '<div class="legend-item">' +
-	                    '<div class="legend-icon icon-5">' +
-	                    '</div>' +
-	                    '<div class="legend-text">' +
-	                        '76%-100%' +
-	                    '</div>' + 
-	                '</div>' +
-	                '<div class="legend-item">' +
-	                    '<div class="legend-icon icon-6">' +
-	                    '</div>' +
-	                    '<div class="legend-text">' +
-	                        APMTranslation.apm.cm.label._101andabove() +
-	                    '</div>' + 
-	                '</div>' + 
-	            '</div>' +
-	        '</div>'
-	);
+                '<div class="legend-container">' +
+                    '<div class="legend-item">' +
+                        '<div class="legend-icon icon-1">' +
+                        '</div>' +
+                        '<div class="legend-text">' +
+                            '0%' +
+                        '</div>' + 
+                    '</div>' +
+                    '<div class="legend-item">' +
+                        '<div class="legend-icon icon-2">' +
+                        '</div>' +
+                        '<div class="legend-text">' +
+                            '1%-25%' +
+                        '</div>' + 
+                    '</div>' +
+                    '<div class="legend-item">' +
+                        '<div class="legend-icon icon-3">' +
+                        '</div>' +
+                        '<div class="legend-text">' +
+                            '26%-50%' +
+                        '</div>' + 
+                    '</div>' +
+                    '<div class="legend-item">' +
+                        '<div class="legend-icon icon-4">' +
+                        '</div>' +
+                        '<div class="legend-text">' +
+                            '51%-75%' +
+                        '</div>' + 
+                    '</div>' +
+                    '<div class="legend-item">' +
+                        '<div class="legend-icon icon-5">' +
+                        '</div>' +
+                        '<div class="legend-text">' +
+                            '76%-100%' +
+                        '</div>' + 
+                    '</div>' +
+                    '<div class="legend-item">' +
+                        '<div class="legend-icon icon-6">' +
+                        '</div>' +
+                        '<div class="legend-text">' +
+                            APMTranslation.apm.cm.label._101andabove() +
+                        '</div>' + 
+                    '</div>' + 
+                '</div>' +
+            '</div>'
+    );
     
     $ConcurrencyFootnote = $(
-    		'<div class="apm-cm-concurrency-footnote"></div>'
+            '<div class="apm-cm-concurrency-footnote"></div>'
     );
 
     $ConcurrencyPortlet.psgpPortlet('getBody')

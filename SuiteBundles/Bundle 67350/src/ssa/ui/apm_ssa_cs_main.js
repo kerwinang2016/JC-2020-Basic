@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -33,6 +33,8 @@
  * 19.00      11 Jun 2018     jmarimla         Translation engine
  * 20.00      29 Jun 2018     jmarimla         Translation readiness
  * 21.00      16 Jul 2018     jmarimla         Set translated time
+ * 22.00      15 Jan 2020     jmarimla         Customer debug changes
+ * 23.00      23 Jan 2020     jmarimla         Blank customer
  *
  */
 
@@ -41,7 +43,7 @@ var fParams = false;
 var params = new Object();
 
 function waitDone() {
-	APMExtJSCommon();
+    APMExtJSCommon();
     APMModels();
     APMStores();
     APMComponents();
@@ -63,17 +65,16 @@ function ExtReady() {
         params = convertParams();
         fParams = params.fparam;
 
+        PSGP.APM.SSA.dataStores.suiteScriptParams.compfil = COMP_FIL;
         if (params.fparam == true){
-            PSGP.APM.SSA.dataStores.suiteScriptParams = {
-                      startDate : params.sdatetime
-                    , endDate : params.edatetime
-                    , scriptType : params.scripttype
-                    , scriptId: params.scriptid
-                    , scriptName: params.scriptname
-                    , clientEventType: 'pageInit'
-                    , context: params.context
-                    , drilldown: 'F'
-            };
+            PSGP.APM.SSA.dataStores.suiteScriptParams.startDate = params.sdatetime
+            PSGP.APM.SSA.dataStores.suiteScriptParams.endDate = params.edatetime
+            PSGP.APM.SSA.dataStores.suiteScriptParams.scriptType = params.scripttype
+            PSGP.APM.SSA.dataStores.suiteScriptParams.scriptId = params.scriptid
+            PSGP.APM.SSA.dataStores.suiteScriptParams.scriptName = params.scriptname
+            PSGP.APM.SSA.dataStores.suiteScriptParams.clientEventType = 'pageInit'
+            PSGP.APM.SSA.dataStores.suiteScriptParams.context = params.context
+            PSGP.APM.SSA.dataStores.suiteScriptParams.drilldown = 'F'
         }
 
         init();

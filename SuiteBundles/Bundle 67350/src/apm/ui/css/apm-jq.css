@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 /**
  * Module Description
@@ -24,6 +24,13 @@
  * 17.00      04 Aug 2017     jmarimla         Modified refresh button
  * 18.00      08 Aug 2018     jmarimla         Subpanel
  * 19.00      23 Nov 2018     jmarimla         Export csv
+ * 20.00      14 May 2019     rwong            Added psgTabs css
+ * 21.00      21 May 2019     jmarimla         Free form grid
+ * 22.00      23 May 2019     jmarimla         Free form row hover
+ * 23.00      24 May 2019     erepollo         Added portlet shadow. Modified icons
+ * 24.00      10 Jul 2019     rwong            Updated psgtabs to psgsubtabs
+ * 25.00      18 Jul 2019     jmarimla         Expandable grid
+ * 26.00      20 Feb 2019     jmarimla         Loading css
  *
  */
 
@@ -88,7 +95,7 @@ div.ui-selectmenu-open {
     height: 37px;
     width: 100%;
     position: relative;
-} 
+}
 
 .psgp-suitelet-title-text {
     position: absolute;
@@ -156,16 +163,16 @@ div.ui-selectmenu-open {
     background-color: #4c9dff;
     background-image: -webkit-linear-gradient(top, #4c9dff, #187bf2);
     /* For Chrome and Safari */
-    
+
     background-image: -moz-linear-gradient(top, #4c9dff, #187bf2);
     /* For old Fx (3.6 to 15) */
-    
+
     background-image: -ms-linear-gradient(top, #4c9dff, #187bf2);
     /* For pre-releases of IE 10*/
-    
+
     background-image: -o-linear-gradient(top, #4c9dff, #187bf2);
     /* For old Opera (11.1 to 12.0) */
-    
+
     background-image: linear-gradient(to bottom, #4c9dff, #187bf2);
     /* Standard syntax; must be last */
 }
@@ -204,27 +211,89 @@ div.ui-selectmenu-open {
 }
 
 /**
+ * Sub Tabs
+ */
+ .psgp-subtabs {
+    background: #ffffff;
+    border: none;
+ }
+
+ .psgp-subtabs .ui-tabs {
+    background: #ffffff;
+}
+
+.psgp-subtabs .ui-widget-header {
+    background: #dddddd;
+    border: none;
+    -moz-border-radius: 0px;
+    -webkit-border-radius: 0px;
+    border-radius: 0px;
+    border-bottom: 1px solid #dddddd;
+}
+
+.psgp-subtabs .ui-tabs-nav .ui-state-default {
+    background: #dddddd;
+    border: none;
+}
+
+.psgp-subtabs .ui-tabs-nav .ui-state-active {
+    border: none;
+}
+
+.psgp-subtabs .ui-tabs-nav .ui-state-default a {
+    color: #000000;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.psgp-subtabs .ui-tabs-nav .ui-state-active a {
+    font-weight: bold;
+}
+
+.psgp-subtabs .ui-tabs-nav .ui-state-active a:after {
+    content: "";
+    position: absolute;
+    top: 25px;
+    left: 40%;
+    border-style: solid;
+    border-width: 0 12px 8px 12px;
+    border-color: #ffffff transparent;
+    display: block;
+    width: 0;
+    z-index: 2;
+}
+
+.psgp-subtabs .ui-tabs-anchor .ui-state-default{
+    background: #dddddd;
+    border: none;
+}
+
+.psgp-subtabs .ui-tabs-panel {
+    background: #ffffff;
+}
+
+/**
  * Portlet
  */
 
 .psgp-portlet {
-    border: 1px solid #dddddd;
+    box-shadow: 0 0 8px 0 #cccccc;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
 }
 .psgp-portlet-header {
-    background-color: #dddddd;
-    height: 36px;
-    line-height: 36px;
+    height: 51px;
     position: relative;
 }
 .psgp-portlet-header .title {
     position: absolute;
-    left: 15px;
-    top: 0px;
+    padding: 16px 13px 13px 13px;
 }
 .psgp-portlet-header-title {
-    color: #ffffff;
+    color: #000000;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 600;
 }
 .psgp-portlet-header .buttons {
     position: absolute;
@@ -241,12 +310,24 @@ div.ui-selectmenu-open {
 .psgp-portlet-btn-refresh {
     background: transparent;
     border: none;
-    background-image: url(ns_images/portlet-refresh.png);
+    background-image: url(ns_images/portlet-refresh_blue2.png);
     background-position: center;
     background-repeat: no-repeat;
     height: 20px;
     width: 20px;
-    margin: 7px 0px;
+    margin: 16px 0px;
+    cursor: pointer;
+}
+
+.psgp-portlet-btn-refresh:hover {
+    background: transparent;
+    border: none;
+    background-image: url(ns_images/portlet-refresh_blue2_2.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 20px;
+    width: 20px;
+    margin: 16px 0px;
     cursor: pointer;
 }
 
@@ -361,7 +442,7 @@ div.ui-selectmenu-open {
     padding-left: 3px;
     height: 27px;
     width: 170px;
-} 
+}
 
 /**
  * Date Picker
@@ -406,7 +487,7 @@ div.ui-selectmenu-open {
 .ui-datepicker table {
     table-layout: fixed;
     width: 200px;
-    margin-left: auto; 
+    margin-left: auto;
     margin-right: auto;
     margin-top: 15px;
     margin-bottom: 15px;
@@ -795,7 +876,6 @@ input.psgp-textbox:focus {
     border-color: #fafafa;
 }
 
-
 /**
  * Column Panel
  */
@@ -808,12 +888,12 @@ input.psgp-textbox:focus {
 /**
  * KPI Panel
  */
- 
+
  .psgp-kpipanel {
     display: -webkit-flex; /* Safari */
     display: flex;
  }
- 
+
 .psgp-kpipanel-item {
     -webkit-flex: 1;  /* Safari 6.1+ */
     -ms-flex: 1;  /* IE 10 */
@@ -918,4 +998,106 @@ input.psgp-textbox:focus {
   background-image: url(ns_images/loading-ani.gif);
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.psgp-component-loading-mask {
+  position: relative;
+}
+
+.psgp-component-loading-mask::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  z-index: 1;
+}
+
+.psgp-component-loading-mask::after {
+  content: "";
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  top: calc(50% - 30px);
+  left: calc(50% - 30px);
+  background-image: url(ns_images/loading-ani.gif);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/**
+ * Expandable Grid
+ */
+
+.psgp-expandable-grid {
+    width: 100%;
+}
+.psgp-expandable-grid table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+.psgp-expandable-grid .main-tbody .tr-even {
+    background-color: #fafafa;
+}
+.psgp-expandable-grid .main-tbody > tr:hover {
+    background-color: #fefeee;
+}
+.psgp-expandable-grid .grid-header {
+    background: #e5e5e5;
+}
+.psgp-expandable-grid thead th {
+    padding: 0px 5px 0px 0px;
+    font-size: 11px;
+    text-transform: uppercase;
+    height: 28px;
+    color: #555555;
+    background: #e5e5e5;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: left;
+}
+.psgp-expandable-grid thead span {
+    padding-right: 12px;
+    background-position: right center;
+    background-repeat: no-repeat;
+}
+.psgp-expandable-grid thead span.asc {
+    background-image: url('ns_images/sort_up.png');
+}
+.psgp-expandable-grid thead span.desc {
+    background-image: url('ns_images/sort_down.png');
+}
+
+.psgp-expandable-grid .thead-2 th{
+    height: 0px;
+    max-height: 0px;
+    overflow:hidden;
+    font-size:0; 
+    margin:0;
+}
+
+.psgp-expandable-grid tfoot tr {
+    font-size: 12px;
+    font-weight: bold;
+    height: 34px;
+}
+.psgp-expandable-grid tfoot td {
+    color: #555555;
+    padding: 0px 8px;
+    border-bottom: solid 1px #ededed;
+}
+.psgp-expandable-grid a {
+    color: #255599;
+    text-decoration: none;
+}
+.psgp-expandable-grid a:hover {
+    text-decoration: underline;
+}
+
+.psgp-expandable-grid .tr-main td {
+    padding: 0px 10px 0px 0px;
 }

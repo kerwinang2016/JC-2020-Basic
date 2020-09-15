@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 /**
  * Module Description
@@ -241,7 +241,7 @@ APMWSA._Services = function() {
             _getRecordTypesData(params)
             .done(function(response) {
                 if (!response.success) {
-                	alert(APMTranslation.apm.common.alert.errorinsearch());
+                    alert(APMTranslation.apm.common.alert.errorinsearch());
                     return;
                 }
                 //console.log(response);
@@ -255,7 +255,7 @@ APMWSA._Services = function() {
             _getKPIData(params)
             .done(function(response) {
                 if (!response.success) {
-                	alert(APMTranslation.apm.common.alert.errorinsearch());
+                    alert(APMTranslation.apm.common.alert.errorinsearch());
                     return;
                 }
                 //console.log(response);
@@ -270,7 +270,7 @@ APMWSA._Services = function() {
             _getTopOperationsData(params)
             .done(function(response) {
                 if (!response.success) {
-                	alert(APMTranslation.apm.common.alert.errorinsearch());
+                    alert(APMTranslation.apm.common.alert.errorinsearch());
                     return;
                 }
                 //console.log(response);

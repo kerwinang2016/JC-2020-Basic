@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -9,6 +9,7 @@
  * 1.00       07 Jun 2017     jmarimla         Initial
  * 2.00       16 Jun 2017     jmarimla         Perf details css
  * 3.00       26 Jul 2018     jmarimla         FRHT icon
+ * 4.00       24 May 2019     erepollo         Changed header BG to white
  *
  */
 
@@ -17,18 +18,18 @@
  */
 
 .apm-wsod-kpi-container {
-	width: 100%;
-	padding: 0px 50px;
+    width: 100%;
+    padding: 0px 50px;
 }
 
 .apm-wsod-kpi-row {
-	width: 100%;
+    width: 100%;
 }
 
 .apm-wsod-kpi-block {
-	width: 33%;
-	display: inline-block;
-	padding: 15px 0px;
+    width: 33%;
+    display: inline-block;
+    padding: 15px 0px;
 }
 
 .apm-wsod-kpi-block .label{
@@ -49,7 +50,7 @@
  */
 .apm-wsod-container-perfdetailscharts {
     padding: 10px 10px 10px 10px;
-    background-color: #DFE3EA;
+    background-color: #ffffff;
     width: 100%;
 } 
 

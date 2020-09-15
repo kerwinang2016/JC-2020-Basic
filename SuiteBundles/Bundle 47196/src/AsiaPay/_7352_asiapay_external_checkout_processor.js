@@ -27,9 +27,9 @@ _7352.processor.AsiaPayExternalCheckoutProcessor = function AsiaPayExternalCheck
         var gatewayConfiguration = gatewayDataAccessObject.RetrievePaymentGatewayConfiguration();
         var classLoader = new _5038.classloader.ClassLoader(gatewayConfiguration);
         var parser = classLoader.createParser();
-        
+
         var body = input.getBody();
-        var jsonBody = parser.parse(body);
+        var jsonBody = parser.parse(body, true);
 
         var gatewayProfileData = getProfileData(input);
         var isSignatureValid = validateSignature(_7352.processor.ASIAPAY_RESPONSE_SIGNATURE_TEMPLATE, gatewayProfileData, jsonBody);
@@ -64,7 +64,7 @@ _7352.processor.AsiaPayExternalCheckoutProcessor = function AsiaPayExternalCheck
 
         return transactionKey;
     }
-    
+
     function getProfileData(input) {
         // retrieve payment gateway hard-coded id's - permission is restricted, and USE ENCRYPTED FORMAT is checked in custom record type field record
         // DO NOT print this info in logs
@@ -81,7 +81,7 @@ _7352.processor.AsiaPayExternalCheckoutProcessor = function AsiaPayExternalCheck
 
     function validateSignature(signatureTemplate, gatewayProfileData, jsonBody) {
         jsonBody.secureHashSecret = gatewayProfileData.secureHashSecret;
-        
+
         var hashGenerator = new _9384.hashgenerator.SHA1();
         var signatureGenerator = new _7352.signaturegenerator.SignatureGenerator(hashGenerator);
 

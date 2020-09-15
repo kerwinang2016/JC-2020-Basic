@@ -1,5 +1,5 @@
 /**
- * Copyright © 2015, 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -37,8 +37,13 @@
  * 17.00      18 Oct 2018     jmarimla         Redirect to profiler
  * 18.00      26 Oct 2018     jmarimla         Frht label
  * 19.00      04 Jan 2019     rwong            Client Script Event Type translation field
- * 20.00      23 Jan 2019     jmarimla         Hide frht
- * 21.00      12 Feb 2019     rwong            Fix issue with client csv export
+ * 20.00      12 Feb 2019     rwong            Fix issue with client csv export
+ * 21.00      07 Mar 2019     jmarimla         Client script disable frht
+ * 22.00      28 Jun 2019     erepollo         Translation for new texts
+ * 23.00      13 Nov 2019     lemarcelo        Added Error Code column
+ * 24.00      27 Nov 2019     lemarcelo        Update error code label and remove error count display condition
+ * 25.00      07 Jan 2020     earepollo        Translation readiness for new strings
+ * 26.00      15 Jan 2020     jmarimla         Customer debug changes
  *
  */
 
@@ -61,7 +66,7 @@ function APMComponents() {
                 return false;
             }
 
-            if ((COMPID_MODE == 'T') && (COMP_FIL)) {
+            if ((COMPID_MODE == 'T') && (PSGP.APM.SSA.dataStores.suiteScriptParams.compfil != MYCOMPANY)) {
                 if (!Ext4.getCmp('psgp-apm-ssa-filters-scriptid').getValue()) {
                     alert(APMTranslation.apm.ssa.alert.enterscriptid());
                     return false;
@@ -91,7 +96,7 @@ function APMComponents() {
 
             var scriptType = Ext4.getCmp('psgp-apm-ssa-filters-scripttype').getValue();
             var scriptId;
-            if ((COMPID_MODE == 'T') && (COMP_FIL)) {
+            if ((COMPID_MODE == 'T') && (PSGP.APM.SSA.dataStores.suiteScriptParams.compfil != MYCOMPANY)) {
                 scriptId = Ext4.getCmp('psgp-apm-ssa-filters-scriptid').getValue();
             } else {
                 scriptId = Ext4.getCmp('psgp-apm-ssa-filters-scriptname').getValue();
@@ -115,16 +120,15 @@ function APMComponents() {
                 clientEventType = Ext4.getCmp('psgp-apm-ssa-filters-clienteventtype').getValue();
             }
 
-            PSGP.APM.SSA.dataStores.suiteScriptParams = {
-                        startDate : Ext4.Date.format(startDateObj, 'Y-m-d') + 'T' + Ext4.Date.format(startDateObj, 'H:i:s')
-                      , endDate : Ext4.Date.format(endDateObj, 'Y-m-d') + 'T' + Ext4.Date.format(endDateObj, 'H:i:s')
-                      , scriptType : scriptType
-                      , scriptId : scriptId
-                      , scriptName : scriptName
-                      , drilldown : 'F'
-                      , clientEventType: clientEventType
-                      , context : context
-            };
+            PSGP.APM.SSA.dataStores.suiteScriptParams.startDate = Ext4.Date.format(startDateObj, 'Y-m-d') + 'T' + Ext4.Date.format(startDateObj, 'H:i:s')
+            PSGP.APM.SSA.dataStores.suiteScriptParams.endDate = Ext4.Date.format(endDateObj, 'Y-m-d') + 'T' + Ext4.Date.format(endDateObj, 'H:i:s')
+            PSGP.APM.SSA.dataStores.suiteScriptParams.scriptType = scriptType
+            PSGP.APM.SSA.dataStores.suiteScriptParams.scriptId = scriptId
+            PSGP.APM.SSA.dataStores.suiteScriptParams.scriptName = scriptName
+            PSGP.APM.SSA.dataStores.suiteScriptParams.drilldown = 'F'
+            PSGP.APM.SSA.dataStores.suiteScriptParams.clientEventType = clientEventType
+            PSGP.APM.SSA.dataStores.suiteScriptParams.context = context
+            
             PSGP.APM.SSA.dataStores.callSuiteScriptSummaryRESTlet();
             PSGP.APM.SSA.dataStores.callPerfChartRESTlet();
 
@@ -271,7 +275,7 @@ function APMComponents() {
                                   , scriptId : dataParams.scriptId
                                   , clientEventType: dataParams.clientEventType
                                   , context : dataParams.context
-                                  , compfil : COMP_FIL
+                                  , compfil : PSGP.APM.SSA.dataStores.suiteScriptParams.compfil
                             };
                         } else {
                             requestParams = {
@@ -281,7 +285,7 @@ function APMComponents() {
                                   , scriptId : dataParams.scriptId
                                   , clientEventType: dataParams.clientEventType
                                   , context : dataParams.context
-                                  , compfil : COMP_FIL
+                                  , compfil : PSGP.APM.SSA.dataStores.suiteScriptParams.compfil
                             };
                         }
                         var urlRequest = '/app/site/hosting/scriptlet.nl?script=customscript_apm_ssa_sl_ss_detail&deploy=customdeploy_apm_ssa_sl_ss_detail&testmode='+TEST_MODE
@@ -410,18 +414,30 @@ function APMComponents() {
                             }
                             return value;
                         }
-                    }/*,
+                    },
+                    {
+                        text: APMTranslation.apm.r2020a.includeserrors(),
+                        dataIndex: 'errorcode'
+                    },
                     Ext4.create('PSGP.APM.Component.ColumnAction.Details',
                          {
-                             text: APMTranslation.apm.common.label.profilerdetails(),
+                             text: APMTranslation.apm.r2019a.profilerdetails(),
                              items: [
                                  {
                                     handler: function(grid, rowIndex, colIndex) {
                                          var rec = grid.getStore().getAt(rowIndex);
+
+                                         //dont redirect if clientscript
+                                         var scriptType = PSGP.APM.SSA.dataStores.suiteScriptParams.scriptType;
+                                         if (scriptType == 'client') {
+                                             alert(APMTranslation.apm.r2019a.profilerdetailsalert());
+                                             return;
+                                         }
+
                                          var operationId = rec.get('operationId');
                                          var frhtId = rec.get('frhtId');
                                          var dataParams = {
-                                                 compfil : ((COMPID_MODE == 'T') && (COMP_FIL)) ? COMP_FIL : '',
+                                                 compfil : PSGP.APM.SSA.dataStores.suiteScriptParams.compfil,
                                                  operationId: operationId,
                                                  frhtId: frhtId
                                          };
@@ -438,7 +454,7 @@ function APMComponents() {
                                  }
                              ]
                          }
-                     )*/
+                     )
                     ]
         },
         listeners : {
@@ -626,21 +642,17 @@ function APMComponents() {
         text: APMTranslation.apm.common.button.done(),
         handler: function() {
             var newCompFil = Ext4.getCmp('psgp-apm-ssa-quickselector-field-compid').getValue();
-            COMP_FIL = newCompFil;
+            newCompFil = newCompFil.trim();
+            PSGP.APM.SSA.dataStores.suiteScriptParams.compfil = newCompFil;
             Ext4.getCmp('psgp-apm-ssa-quicksel-compid').hide();
 
             //UI changes
-            if (COMP_FIL) {
+            if (PSGP.APM.SSA.dataStores.suiteScriptParams.compfil != MYCOMPANY) {
                 Ext4.getCmp('psgp-apm-ssa-container-filters-scriptname').hide();
                 Ext4.getCmp('psgp-apm-ssa-container-filters-scriptid').show();
-                PSGP.APM.SSA.dataStores.suiteScriptSummaryData.filterBy(function (record, id) {
-                    if (id != 'errorCount') return true;
-                    else return false;
-                }, this);
             } else {
                 Ext4.getCmp('psgp-apm-ssa-container-filters-scriptname').show();
                 Ext4.getCmp('psgp-apm-ssa-container-filters-scriptid').hide();
-                PSGP.APM.SSA.dataStores.suiteScriptSummaryData.clearFilter();
             }
         }
     });
@@ -659,10 +671,10 @@ function APMComponents() {
         hidden: true,
         listeners: {
             beforerender: function () {
-                Ext4.getCmp('psgp-apm-ssa-quickselector-field-compid').setValue(COMP_FIL);
+                Ext4.getCmp('psgp-apm-ssa-quickselector-field-compid').setValue(PSGP.APM.SSA.dataStores.suiteScriptParams.compfil);
             },
             hide: function () {
-                Ext4.getCmp('psgp-apm-ssa-quickselector-field-compid').setValue(COMP_FIL);
+                Ext4.getCmp('psgp-apm-ssa-quickselector-field-compid').setValue(PSGP.APM.SSA.dataStores.suiteScriptParams.compfil);
             }
         },
         items: [

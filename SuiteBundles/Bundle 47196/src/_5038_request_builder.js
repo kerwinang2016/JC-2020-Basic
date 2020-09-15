@@ -10,7 +10,7 @@ if (!_5038) {
 if (!_5038.requestbuilder) {
     _5038.requestbuilder = {};
 }
-_5038.requestbuilder.AbstractRequestBuilder = function AbstractRequestBuilder(dataAccessObject, gatewayDataAccessObject, gatewayConfiguration, credentials) {
+_5038.requestbuilder.AbstractRequestBuilder = function AbstractRequestBuilder(dataAccessObject, gatewayDataAccessObject, gatewayConfiguration, credentials, input, operationType) {
     
 	this.getDefaultParameters = function getDefaultParameters(dataAccessObject, parameters) {
         _5038.stacktrace.StackTrace
@@ -91,7 +91,7 @@ _5038.requestbuilder.AbstractRequestBuilder = function AbstractRequestBuilder(da
 };
 
 
-_5038.requestbuilder.BaseRequestBuilder = function BaseRequestBuilder(dataAccessObject, gatewayDataAccessObject, gatewayConfiguration, credentials) {
+_5038.requestbuilder.BaseRequestBuilder = function BaseRequestBuilder(dataAccessObject, gatewayDataAccessObject, gatewayConfiguration, credentials, input, operationType) {
     var obj = new _5038.requestbuilder.AbstractRequestBuilder();
     
     obj.getDefaultParameters = function getDefaultParameters() {
@@ -103,7 +103,7 @@ _5038.requestbuilder.BaseRequestBuilder = function BaseRequestBuilder(dataAccess
         parameters = obj
         	.addTransactionParameters(dataAccessObject, parameters);
         parameters = obj
-            .compileParameters(dataAccessObject, gatewayConfiguration, parameters);
+            .compileParameters(dataAccessObject, gatewayConfiguration, parameters, input);
         parameters = obj
             .addCredentialParameters(gatewayConfiguration, credentials, parameters);
         
@@ -225,6 +225,17 @@ _5038.requestbuilder.BaseRequestBuilder = function BaseRequestBuilder(dataAccess
         obj.addRequestVariables(request, parameters, urlTemplate, postTemplate, headerTemplate);
         
         return request;
+    };
+
+    obj.generateSignature = function generateSignature(signatureTemplate, signatureParams) {
+        _5038.stacktrace.StackTrace
+            .addLogEntry("_5038.requestbuilder.BaseRequestBuilder.generateSignature");
+
+        var classLoader = new _5038.classloader.ClassLoader(gatewayConfiguration);
+        var hashGenerator = classLoader.createHashGenerator();
+
+        var signatureGenerator = new _7352.signaturegenerator.SignatureGenerator(hashGenerator);
+        return signatureGenerator.generateSignature(signatureTemplate, signatureParams);
     };
     
     return obj;

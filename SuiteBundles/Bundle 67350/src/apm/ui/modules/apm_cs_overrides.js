@@ -1,10 +1,10 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved. 
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
  * Module Description
- * 
+ *
  * Version    Date            Author           Remarks
  * 1.00       05 Dec 2014     jmarimla         Override for view.table
  * 2.00       14 Jul 2015     jmarimla         Enable text selection on tables
@@ -22,21 +22,21 @@ if (!String.prototype.endsWith) {
     };
 }
 
-Ext4.override(Ext4.view.Table, { 
-  /* 
-    Fix for error when hovering on first row of grid 
-  */ 
-  getRowStyleTableElOriginal: Ext4.view.Table.prototype.getRowStyleTableEl, 
-  getRowStyleTableEl: function() { 
-    var el = this.getRowStyleTableElOriginal.apply(this, arguments); 
-    if (!el) { 
-      el = { 
-        addCls: Ext4.emptyFn, 
-        removeCls: Ext4.emptyFn, 
-        tagName: {} 
-      }; 
-    } 
-    return el; 
+Ext4.override(Ext4.view.Table, {
+  /*
+    Fix for error when hovering on first row of grid
+  */
+  getRowStyleTableElOriginal: Ext4.view.Table.prototype.getRowStyleTableEl,
+  getRowStyleTableEl: function() {
+    var el = this.getRowStyleTableElOriginal.apply(this, arguments);
+    if (!el) {
+      el = {
+        addCls: Ext4.emptyFn,
+        removeCls: Ext4.emptyFn,
+        tagName: {}
+      };
+    }
+    return el;
   },
   enableTextSelection: true
 });

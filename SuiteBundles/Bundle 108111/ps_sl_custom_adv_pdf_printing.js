@@ -14,18 +14,18 @@
 // Special Processing variable
 var PDF_INVOICE_TEMPLATE = '4'
 var context = nlapiGetContext();
-var site = "https://system.na2.netsuite.com";
+var site = "https://3857857.app.netsuite.com/";
 if (context.getEnvironment() == 'SANDBOX') {
 	site = "https://system.netsuite.com"
 }
-
+nlapiLogExecution('debug','site',site);
 function suiteletAdvPdfPrinting(request, response) {
 	var logoUrl = '';
 	var vatreversecharge = '';
 	var recordId = request.getParameter('custparam_record_id');
 	var recordType = request.getParameter('custparam_record_type');
 	var templateId = request.getParameter('custparam_template');
-
+	
 	var objTransaction = nlapiLoadRecord(recordType, recordId);
 	if (recordType == 'salesorder') {
 		var tailorId = objTransaction.getFieldValue('entity');
@@ -53,11 +53,11 @@ function suiteletAdvPdfPrinting(request, response) {
 	if (recordType == 'invoice') {
 		var tailorId = objTransaction.getFieldValue('entity');
 		nlapiLogExecution('debug', 'tailorId', tailorId);
-		var vatListId = nlapiLookupField('customer', tailorId, 'custentity_vat_reverse_charge_message');
-		nlapiLogExecution('debug', 'vatListId', vatListId);
-		if (vatListId) {
-			vatreversecharge = nlapiLookupField('customlist_vat_reverse_charge', vatListId, 'name');
-		}
+		var vatreversecharge = nlapiLookupField('customer', tailorId, 'custentity_vat_reverse_charge_message',true);
+		// nlapiLogExecution('debug', 'vatListId', vatListId);
+		// if (vatListId) {
+			// vatreversecharge = nlapiLookupField('customlist_vat_reverse_charge', vatListId, 'name');
+		// }
 
 	}
 
@@ -94,6 +94,7 @@ function suiteletAdvPdfPrinting(request, response) {
 					}
 
 					var results = nlapiSearchRecord(null, templateDetails.search, filters, null);
+                  nlapiLogExecution('debug','resultsresults',JSON.stringify(results));
 					if (templateDetails.isgroupedsearch == 'T') {
 
 						var dummyRecordForSearchResult = nlapiCreateRecord('customrecord_dummy_record');
@@ -154,7 +155,7 @@ function suiteletAdvPdfPrinting(request, response) {
 	}
 
 	var xml = renderer.renderToString();
-	xml = xml.replace('system.netsuite.com', 'system.na2.netsuite.com');
+	xml = xml.replace('system.netsuite.com', 'https://3857857.app.netsuite.com');
 	nlapiLogExecution('DEBUG', 'ps_sl_custom_adv_pdf_printing.js>xml', xml);
 
 	nlapiLogExecution('DEBUG', 'USAGE REMAINING BEFORE', nlapiGetContext().getRemainingUsage());

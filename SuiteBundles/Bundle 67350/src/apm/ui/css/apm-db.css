@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -11,6 +11,7 @@
  * 3.00       28 Jan 2015     jmarimla         Css for selected record tile and record charts
  * 4.00       10 Mar 2015     rwong            Added css for delete icon
  * 5.00       21 Mar 2015     jmarimla         Added css for new record tiles ui
+ * 6.00       24 May 2019     erepollo         Changed subpanel BG to white
  *
  */
 
@@ -224,7 +225,7 @@
 */
 
 .apm-db-subpanel-recordcharts {
-    background-color: #dfe3ea;
+    background-color: #ffffff;
 }
 
 .apm-db-recordchart {

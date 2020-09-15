@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 
 /**
@@ -11,6 +11,9 @@
  * 3.00       29 Jan 2018     rwong            Added concurrency heatmap
  * 4.00       23 Mar 2018     jmarimla         Default daterange
  * 5.00       11 Jun 2018     jmarimla         Translation engine
+ * 6.00       24 May 2019     erepollo         Removed header BG
+ * 7.00       17 Sep 2019     erepollo         Parameter passing
+ * 8.00       23 Sep 2019     erepollo         Added compfil parameter
  *
  */
 
@@ -58,9 +61,11 @@ APMCM._mainPanel = function () {
         });
 
         var globalSettings = APMCM.Services.getGlobalSettings();
-        var initialDateRangeSelect = 1000*60*60*24 *3; //default: last 3 days
+        var initialDateRangeSelect = CM_PARAMS.endDateMS ? 1000*60*60*24*7 : 1000*60*60*24 *3; //default: last 3 days
         globalSettings.endDateMS = '' + new Date().setSeconds(0, 0);
         globalSettings.dateRangeSelect = '' + initialDateRangeSelect;
+        globalSettings.compfil = CM_PARAMS.compfil;
+        APMCM.Components.$SettingsDateRangeDialog.find('.field-customer .psgp-textbox').val(globalSettings.compfil);
         APMCM.Components.$SettingsDateRangeDialog.find('.field-daterange .psgp-combobox').val(globalSettings.dateRangeSelect);
         APMCM.Components.$SettingsDateRangeDialog.find('.field-daterange .psgp-combobox').selectmenu('refresh');
 
@@ -76,7 +81,6 @@ APMCM._mainPanel = function () {
         var cssStyle = '' +
             '<style type="text/css">' +
             '.psgp-main-content *, .psgp-dialog *, .psgp-settings-dialog *, .psgp-dialog input, .psgp-settings-dialog input { font-family: ' + fontFamily + ';}' +
-            '.psgp-portlet-header { background-color: ' + themeColor + ';}' +
             '.psgp-dialog .ui-dialog-titlebar { background-color: ' + themeColor + ';}' +
             '</style>';
         $(cssStyle).appendTo($('#cm-main-content'));

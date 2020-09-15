@@ -29467,8 +29467,7 @@
 					,	"name":"T016923"
 					,	"type":"select"
 					,	"texts": [
-							"Please select"
-						,	"Same as body lining"
+							"Same as body lining"
 						,	"--CORE COLLECTION--"
 						,	"TR133 white twill"
 						,	"TR135 gold"
@@ -29840,8 +29839,7 @@
 						,	"TR681"
 						]
 					,	"values": [
-							"Please select"
-						,	"Same as body lining"
+							"Same as body lining"
 						,	"CORE COLLECTION"
 						,	"TR133"
 						,	"TR135"
@@ -31229,7 +31227,7 @@
                         "name": "T010702",
                         "type": "select",
                         "texts": [
-                            "G sleeves",
+                            "Long sleeves",
                             "Long Sleeves without Placket"
                         ],
                         "values": [
@@ -31679,12 +31677,12 @@
                         "name": "T010722",
                         "type": "select",
                         "texts": [
-                            "Yes",
-                            "No"
+                            "No",
+                            "Yes"
                         ],
                         "values": [
-                            "T01072201",
-                            "T01072202"
+                            "T01072202",
+                            "T01072201"
                         ]
                     },
                     {
@@ -31692,12 +31690,12 @@
                         "name": "T010723",
                         "type": "select",
                         "texts": [
-                            "Yes",
-                            "No"
+                            "No",
+                            "Yes"
                         ],
                         "values": [
-                            "T01072301",
-                            "T01072302"
+                            "T01072302",
+                            "T01072301"
                         ]
                     },
                     {
@@ -33370,7 +33368,7 @@
                         ]
                     },
                     {
-                        "label": "Handkerchief",
+                        "label": "Handkerchief Contrast",
                         "name": "T010737",
                         "type": "select",
                         "texts": [

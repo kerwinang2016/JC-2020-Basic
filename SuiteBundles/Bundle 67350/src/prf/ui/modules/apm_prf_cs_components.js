@@ -1,5 +1,5 @@
 /**
- * Copyright © 2018, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 /**
  * Module Description
@@ -11,6 +11,18 @@
  * 4.00       28 Sep 2018     jmarimla         Drilldown timeline
  * 5.00       26 Oct 2018     jmarimla         Kpi labels
  * 6.00       14 Dec 2018     jmarimla         Update labels
+ * 7.00       25 Mar 2019     rwong            Adjusted profiler columns
+ * 8.00       11 Apr 2019     erepollo         Renamed path id to profiler id. Removed parent id. Added request urls and web services
+ * 9.00       12 Apr 2019     jmarimla         Has children
+ * 10.00      15 Apr 2019     rwong            Added support for filtering api calls, merge ids under name
+ * 11.00      16 Apr 2019     rwong            Added support for links in name
+ * 12.00      17 Apr 2019     rwong            Adjusted labels for record and remove webservices
+ * 13.00      18 Jun 2019     jmarimla         New grid columns
+ * 14.00      19 Jun 2019     jmarimla         Request url column
+ * 15.00      28 Jun 2019     erepollo         Translation for new texts
+ * 16.00      08 Jul 2019     erepollo         Translation for new text
+ * 17.00      08 Aug 2019     erepollo         Added deployment name
+ * 18.00      27 Jan 2020     jmarimla         Customer debug changes
  *
  */
 APMPRF = APMPRF || {};
@@ -18,7 +30,7 @@ APMPRF = APMPRF || {};
 APMPRF._Components = function() {
 
     var $TitleBar = $('<div>').psgpSuiteletTitle({
-        title: "Profiler"
+        title: APMTranslation.apm.r2019a.profiler()
     });
 
     var $ColumnPanel = $('<div>').psgpColumnPanel({
@@ -32,7 +44,7 @@ APMPRF._Components = function() {
     });
 
     var $ProfilerDetailsPortlet = $('<div>').psgpPortlet({
-        title: 'Profiler Details'
+        title: APMTranslation.apm.r2019a.profilerdetails()
     });
 
     var $Breadcrumbs = $('<div class="apm-prf-breadcrumbs">');
@@ -40,11 +52,11 @@ APMPRF._Components = function() {
     var $KPIDetails = $('<div>')
 
     var $FrhtChartSubPanel = $('<div class="apm-prf-subpanel-frhtchart">').psgpSubPanel({
-        title: 'Timeline'
+        title: APMTranslation.apm.common.label.timeline()
     });
 
     var $FrhtGridSubPanel = $('<div class="apm-prf-subpanel-frhtgrid">').psgpSubPanel({
-        title: 'Timing Details'
+        title: APMTranslation.apm.r2019a.timingdetails()
     });
 
     var frhtGridOptions = {
@@ -56,92 +68,139 @@ APMPRF._Components = function() {
         columns: [{
                 dataIndex: 'date',
                 sortable: false,
-                text: 'Date & Time'
+                text: APMTranslation.apm.r2019a.datetime()
             },
-//            {
-//                dataIndex: 'Id',
-//                sortable: false,
-//                text: 'ID'
-//            },
-//            {
-//                dataIndex: 'parentId',
-//                sortable: false,
-//                text: 'Parent ID'
-//            },
             {
                 dataIndex: 'type',
                 sortable: false,
-                text: 'Type'
+                text: APMTranslation.apm.common.label.type()
+            },
+            {
+                dataIndex: 'name',
+                sortable: false,
+                text: APMTranslation.apm.common.label.name(),
+                renderer: function(value, record) {
+                    var globalSettings = APMPRF.Services.getGlobalSettings();
+                    if(globalSettings.compfil == PRF_PARAMS.myCompany && record.nameUrl != '') {
+                        return '<a href="' + record.nameUrl + '" target="_blank" class="apm-a">'
+                        + value + '</a>';
+                    }
+                    return value;
+                }
             },
             {
                 dataIndex: 'executionTime',
                 sortable: false,
-                text: 'Execution Time',
+                text: APMTranslation.apm.common.label.executiontime(),
                 renderer: function(value, record) {
                     return (value) ? value.toFixed(3) + ' s' : 0;
                 }
             },
             {
-                dataIndex: 'scriptsTotal',
+                dataIndex: 'email',
                 sortable: false,
-                text: 'Scripts'
-            },
-            {
-                dataIndex: 'searchesTotal',
-                sortable: false,
-                text: 'Searches'
-            },
-            {
-                dataIndex: 'workflowsTotal',
-                sortable: false,
-                text: 'Workflows'
+                text: APMTranslation.apm.common.label.user()
             },
             {
                 dataIndex: 'operation',
                 sortable: false,
-                text: 'Operation'
+                text: APMTranslation.apm.common.label.operation()
+            },
+            {
+                dataIndex: 'searches',
+                sortable: false,
+                text: APMTranslation.apm.ptd.label.searches()
+            },
+            {
+                dataIndex: 'workflows',
+                sortable: false,
+                text: APMTranslation.apm.r2019a.workflows()
+            },
+            {
+                dataIndex: 'customRecordOperations',
+                sortable: false,
+                text: APMTranslation.apm.r2019a.recordsfromscriptsworkflows()
+            },
+            {
+                dataIndex: 'requestUrls',
+                sortable: false,
+                text: APMTranslation.apm.r2019a.requesturls()
             },
             {
                 dataIndex: 'recordType',
                 sortable: false,
-                text: 'Record Type'
+                text: APMTranslation.apm.common.label.recordtype()
             },
+
             {
                 dataIndex: 'context',
                 sortable: false,
-                text: 'Context'
-            },
-            {
-                dataIndex: 'entryPoint',
-                sortable: false,
-                text: 'Entry Point'
+                text: APMTranslation.apm.common.label.context()
             },
             {
                 dataIndex: 'scriptType',
                 sortable: false,
-                text: 'Script Type'
+                text: APMTranslation.apm.ssa.label.scripttype()
+            },
+            {
+                dataIndex: 'deployment',
+                sortable: false,
+                text: APMTranslation.apm.spjd.label.deployment(),
+                renderer: function(value, record) {
+                    var globalSettings = APMPRF.Services.getGlobalSettings();
+                    if(globalSettings.compfil == PRF_PARAMS.myCompany && record.deploymentUrl != '') {
+                        return '<a href="' + record.deploymentUrl + '" target="_blank" class="apm-a">'
+                        + value + '</a>';
+                    }
+                    return value;
+                }
+            },
+            {
+                dataIndex: 'entryPoint',
+                sortable: false,
+                text: APMTranslation.apm.r2019a.entrypoint()
             },
             {
                 dataIndex: 'triggerType',
                 sortable: false,
-                text: 'Trigger Type'
+                text: APMTranslation.apm.r2019a.triggertype()
+            },
+            {
+                dataIndex: 'bundle',
+                sortable: false,
+                text: APMTranslation.apm.pts.label.bundle()
+            },
+            {
+                dataIndex: 'method',
+                sortable: false,
+                text: APMTranslation.apm.r2019a.method()
+            },
+            {
+                dataIndex: 'wsOperation',
+                sortable: false,
+                text: APMTranslation.apm.r2019a.webserviceoperation()
+            },
+            {
+                dataIndex: 'apiVersion',
+                sortable: false,
+                text: APMTranslation.apm.r2019a.apiversion()
             },
             {
                 dataIndex: 'viewCalls',
                 text: '',
                 width: '40px',
                 renderer: function(value, record) {
-                	var type = record.type;
-                	var frhtConfig = APMPRF.Highcharts.frhtTypes[type];
+                    var type = record.type;
+                    var frhtConfig = APMPRF.Highcharts.frhtTypes[type];
                     frhtConfig = frhtConfig ? frhtConfig : APMPRF.Highcharts.frhtTypes['default'];
                     var enableBtn = frhtConfig.viewCalls;
-                	if (enableBtn) {
-                		var $markUp = $('<div><div class="apm-prf-frhtgrid-viewcalls-icon"></div></div>');
+                    if (enableBtn && record.viewCalls) {
+                        var $markUp = $('<div><div class="apm-prf-frhtgrid-viewcalls-icon"></div></div>');
                         $markUp.find('.apm-prf-frhtgrid-viewcalls-icon').attr('param-oper', value);
                         return $markUp.html();
-                	} else {
-                		return '';
-                	}
+                    } else {
+                        return '';
+                    }
                 },
                 resizable: false,
                 sortable: false
@@ -151,17 +210,15 @@ APMPRF._Components = function() {
                 text: '',
                 width: '40px',
                 renderer: function(value, record) {
-                	var type = record.type;
-                	var frhtConfig = APMPRF.Highcharts.frhtTypes[type];
-                    frhtConfig = frhtConfig ? frhtConfig : APMPRF.Highcharts.frhtTypes['default'];
-                    var enableBtn = frhtConfig.drilldown;
-                	if (enableBtn) {
-                		var $markUp = $('<div><div class="apm-prf-frhtgrid-drilldown-icon"></div></div>');
+                    var hasChildren = record.hasChildren;
+                    var enableBtn = (hasChildren) ? true : false;
+                    if (enableBtn) {
+                        var $markUp = $('<div><div class="apm-prf-frhtgrid-drilldown-icon"></div></div>');
                         $markUp.find('.apm-prf-frhtgrid-drilldown-icon').attr('param-oper', value);
                         return $markUp.html();
-                	} else {
-                		return '';
-                	}
+                    } else {
+                        return '';
+                    }
                 },
                 resizable: false,
                 sortable: false
@@ -215,37 +272,33 @@ APMPRF._Components = function() {
 
     function refreshKPI(kpiData) {
         var kpiConfig = [{
-	            id: 'operationId',
-	            label: 'Path Id'
-	        },
-	        {
-	            id: 'parentId',
-	            label: 'Parent Profiler Id'
-	        },
-	        {
-	            id: 'startDate',
-	            label: 'Start Time and Date'
-	        },
+                id: 'operationId',
+                label: APMTranslation.apm.r2019a.profileroperationid()
+            },
+            {
+                id: 'startDate',
+                label: APMTranslation.apm.r2019a.starttimeanddate()
+            },
             {
                 id: 'scripts',
-                label: 'Scripts'
+                label: APMTranslation.apm.r2019a.scripts()
             },
             {
                 id: 'searches',
-                label: 'Searches'
+                label: APMTranslation.apm.ptd.label.searches()
             },
             {
                 id: 'workflows',
-                label: 'Workflows'
+                label: APMTranslation.apm.r2019a.workflows()
             },
             {
                 id: 'records',
-                label: 'Records'
+                label: APMTranslation.apm.r2019a.recordsfromscriptsworkflows()
             },
             {
-                id: 'requests',
-                label: 'Requests'
-            }
+                id: 'requesturls',
+                label: APMTranslation.apm.r2019a.requesturls()
+            },
         ];
 
         var blockMarkUp =
@@ -299,18 +352,18 @@ APMPRF._Components = function() {
             },
             columns: [{
                     dataIndex: 'startTimeMS',
-                    text: 'Start Time',
+                    text: APMTranslation.apm.db.label.starttime(),
                     renderer: function(value, record) {
                         return record.startTime;
                     }
                 },
                 {
                     dataIndex: 'name',
-                    text: 'Name'
+                    text: APMTranslation.apm.common.label.name()
                 },
                 {
                     dataIndex: 'executionTime',
-                    text: 'Execution Time',
+                    text: APMTranslation.apm.common.label.executiontime(),
                     renderer: function(value, record) {
                         return (value) ? value.toFixed(3) + ' s' : 0;
                     }
@@ -319,7 +372,7 @@ APMPRF._Components = function() {
         };
 
         $obj.psgpDialog({
-            title: 'API Calls',
+            title: APMTranslation.apm.r2019a.apicalls(),
             width: 900
         });
         $obj.parents('.ui-dialog').css({
@@ -330,7 +383,7 @@ APMPRF._Components = function() {
 
         var $grid = $obj.find('.grid').psgpGrid(gridOptions);
 
-        $grid.psgpGrid('refreshDataRemote', params);
+        $grid.psgpGrid('refreshData', params.apiCalls);
     }
 
     function refreshBreadcrumbs() {
@@ -343,7 +396,7 @@ APMPRF._Components = function() {
             var breadcrumbsFunc = 'APMPRF.Components.getBreadcrumbsData(' + i + ')';
             if (i == 0) {
                 if (breadcrumbs.length > 1) {
-                    markup += '<a href="#" onclick="' + breadcrumbsFunc + ';return false;">TOP</a>'
+                    markup += '<a href="#" onclick="' + breadcrumbsFunc + ';return false;">' + APMTranslation.apm.r2019a.top().toUpperCase() + '</a>'
                 }
             } else if (i == (breadcrumbs.length - 1)) {
                 markup += ' > ';

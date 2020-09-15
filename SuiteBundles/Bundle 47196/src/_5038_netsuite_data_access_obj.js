@@ -389,17 +389,18 @@ _5038.dataaccess.AbstractTransactionDataAccessObject = function AbstractTransact
 _5038.dataaccess.BaseTransactionDataAccessObject = function BaseTransactionDataAccessObject(input) {
     
     var obj = new _5038.dataaccess.AbstractTransactionDataAccessObject(input);
-    
+
     obj.RetrieveCustomerData = function retrieveCustomerData() {
         var customerData = null;
         var transactionInput = obj.RetrieveInput();
         var transactionDetails = transactionInput ? transactionInput.getTransactionDetails() : null;
+        var customerDetails =  transactionDetails ? transactionDetails.getCustomer() : null;
         
         if (transactionDetails && transactionDetails != null) {
             var customerDataObj = {};
             
-            customerDataObj.customerId = transactionDetails.getEntityId();
-            customerDataObj.customerName = transactionDetails.getCustomerName();
+            customerDataObj.customerId = customerDetails.getId();
+            customerDataObj.customerName = customerDetails.getName();
             customerDataObj.companyName = customerDataObj.customerName;
             customerDataObj.customerEmail = transactionDetails.getEmail() || "";
             customerDataObj.customerCode = transactionDetails.getCustomerCode() || "";
@@ -443,6 +444,7 @@ _5038.dataaccess.BaseTransactionDataAccessObject = function BaseTransactionDataA
         var transactionInput = obj.RetrieveInput();
         var transactionDetails = transactionInput ? transactionInput.getTransactionDetails() : null;
         var paymentPreference = transactionInput ? transactionInput.getPaymentReference() : null;
+        var paymentInstrument = transactionInput ? transactionInput.getPaymentInstrument() : null;
 
         if (transactionDetails && transactionDetails != null) {
             var transactionDataObj = {};
@@ -450,16 +452,15 @@ _5038.dataaccess.BaseTransactionDataAccessObject = function BaseTransactionDataA
             
             if(paymentPreference && paymentPreference != null)
             	delayCode = paymentPreference.getReferenceCode();
-            
-            transactionDataObj.transactionId = transactionDetails.getTransactionId();          
+
+            transactionDataObj.transactionId = transactionDetails.getTransactionNumber();
             transactionDataObj.transactionDelayCode = delayCode;
             transactionDataObj.transactionAmount = transactionDetails.getAmount() || 0;
             transactionDataObj.transactionReferenceNumber = transactionDetails.getReferenceNumber();
             transactionDataObj.transactionCurrencyISO = transactionDetails.getCurrencyISO();
             transactionDataObj.transactionNumber = transactionDetails.getDocumentNumber();
-            transactionDataObj.transactionTaxTotal = transactionDetails.getTaxTotal();
             transactionDataObj.transactionPaymentMethod = transactionDetails.getPaymentMethodObject().getId();
-            transactionDataObj.transactionDescription = transactionDetails.getSoftDescriptor() || "";
+            transactionDataObj.transactionDescription = transactionDetails.getMemo() || "";
             transactionDataObj.transactionPhoneNumber = transactionDetails.getDescriptorPhone() || "";
             transactionDataObj.transactionSettlementCurrencyISO = transactionDetails.getSettlementCurrencyISO();
             transactionDataObj.transactionPurchaseOrderNumber = transactionDetails.getPurchaseOrderNumber() || "";
@@ -468,9 +469,13 @@ _5038.dataaccess.BaseTransactionDataAccessObject = function BaseTransactionDataA
             transactionDataObj.transactionExternalId = delayCode;
             transactionDataObj.transactionAuthorizationCode = transactionDetails.getValueOfField("authcode");
             transactionDataObj.transactionCreatedFrom = transactionDetails.getValueOfField("createdfrom");
-            transactionDataObj.transactionInternalId = transactionDetails.getTransactionKey();
-            transactionDataObj.transactionIsExternalCheckout = transactionDetails.getPaymentMethodObject().getType() == _CCP.EXTERNAL_CHECKOUT;
-            transactionDataObj.transactionPaymentRequestId = transactionDetails.getPaymentRequestId();
+            transactionDataObj.transactionInternalId = transactionDetails.getInternalId();
+            transactionDataObj.transactionIsExternalCheckout = paymentInstrument.getType().toUpperCase() == _CCP.EXTERNAL_CHECKOUT;
+            transactionDataObj.transactionPaymentRequestId = transactionInput.getPaymentRequestId();
+			
+            //for payment transactions. Store invoice # if created from invoice
+            transactionDataObj.salesTranNumber = transactionInput.getSalesTransactions() &&
+                transactionInput.getSalesTransactions()[0] && transactionInput.getSalesTransactions()[0].getTransactionNumber();
 
             transactionDataClass = new _5038.dataaccess.TransactionData(transactionDataObj);
         }
@@ -486,7 +491,7 @@ _5038.dataaccess.BaseTransactionDataAccessObject = function BaseTransactionDataA
         if (transactionInput && transactionInput != null) {
             var cardDetails = transactionInput.getPaymentInstrument();
 
-            if ((cardDetails && cardDetails != null) && (cardDetails.getType() === _CCP.PAYMENT_CARD)) {
+            if ((cardDetails && cardDetails != null) && (cardDetails.getType().toUpperCase() === _CCP.PAYMENT_CARD)) {
                 cardDetailsObj.creditCardNumber = cardDetails.getNumber() || "";
                 cardDetailsObj.creditCardName = cardDetails.getNameOnCard() || "";
                 cardDetailsObj.creditCardExpirationDate = cardDetails.getExpirationDate() || "";

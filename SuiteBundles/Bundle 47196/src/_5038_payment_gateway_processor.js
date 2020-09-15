@@ -148,7 +148,7 @@ _5038.processor.PaymentGatewayProcessor = (function() {
             var headerTemplate = (operation.header && operation.header.length > 0) ? operation.header : gatewayConfiguration
                 .GetAsObject().headerTemplate;
             var credentials = classLoader.loadCredentials(input, gatewayConfiguration.GetAsObject());
-            var requestBuilder = classLoader.createRequestBuilder(dataAccessObject, gatewayDataAccessObject, gatewayConfiguration, credentials);
+            var requestBuilder = classLoader.createRequestBuilder(dataAccessObject, gatewayDataAccessObject, gatewayConfiguration, credentials, input, operationType);
             var parser = classLoader.createParser();
             var responseBuilder = classLoader.createResponseBuilder(dataAccessObject, gatewayDataAccessObject, gatewayConfiguration, parser);
             var messageHandler = new _5038.message.MessageHandler();

@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 /**
  * Module Description
@@ -23,6 +23,10 @@
  * 16.00      26 Jan 2017     jmarimla         Hidden personalize link
  * 17.00      02 Oct 2017     jmarimla         Remove sched script portlet
  * 18.00      29 Jun 2018     jmarimla         Translation readiness
+ * 19.00      24 May 2019     erepollo         New portlet container
+ * 20.00      24 Sep 2019     jmarimla         Page title
+ * 21.00      07 Jan 2020     earepollo        Translation readiness for new strings
+ * 22.00      21 Feb 2020     lemarcelo        Renamed title to Dashboard
  *
  */
 
@@ -117,7 +121,7 @@ function APMMainPanel() {
                     })
                 ]
             }),
-            Ext4.create('PSGP.APM.Component.EmptyPanel', {
+            Ext4.create('PSGP.APM.Component.PortletContainer', {
                 margin: '10 30 10 30',
                 id: 'psgp-apm-db-portletcontainer-recordpages',
                 listeners: {
@@ -166,7 +170,7 @@ function APMMainPanel() {
                                 }),
                                 Ext4.create('PSGP.APM.DB.Component.RefreshDateField', {
                                     id: 'psgp-apm-db-display-refreshdate',
-                                    marging: '0 10 0 0'
+                                    margin: '0 10 0 0'
                                 }),
                                 '->',
                                 Ext4.create('Ext4.form.field.Display', {

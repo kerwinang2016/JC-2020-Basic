@@ -64,7 +64,12 @@ _4978.requestbuilder.SecurePayRequestBuilder = function SecurePayRequestBuilder(
                 obj["purchaseOrderNumber"] = oldParams.pon;
             }
         }
-        
+		
+        //for payment, if has invoice attached to transaction, use it. If direct payment, use the payment ID
+        if(obj['salesTranNumber']){
+        	obj['transactionId'] = obj['salesTranNumber'];
+        }
+		
         // if transaction ID is null, we must be refunding from a Credit Memo
         if (!obj['transactionId'] && obj['transactionExternalId']) {
         	

@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 /**
  * Module Description
@@ -20,6 +20,9 @@
  * 13.00      26 Jul 2018     jmarimla         FRHT link
  * 14.00      26 Jul 2018     rwong            Highcharts translation
  * 15.00      31 Jul 2018     rwong            Translation strings
+ * 16.00      20 Sep 2019     jmarimla         Rejected Integration Concurrency
+ * 17.00      24 Sep 2019     jmarimla         Total requests
+ * 18.00      07 Jan 2020     earepollo        Translation readiness for new strings
  *
  */
 APMWSOD = APMWSOD || {};
@@ -378,9 +381,10 @@ APMWSOD._Highcharts = function() {
 
                     var finished = chartData.throughput['finished'][pointIndex][1];
                     var rejecteduserconcurrency = chartData.throughput['rejecteduserconcurrency'][pointIndex][1];
+                    var rejectedintegrationconcurrency = chartData.throughput['rejectedintegrationconcurrency'][pointIndex][1];
                     var rejectedaccountconcurrency = chartData.throughput['rejectedaccountconcurrency'][pointIndex][1];
                     var failed = chartData.throughput['failed'][pointIndex][1];
-                    var total = finished + failed + rejecteduserconcurrency + rejectedaccountconcurrency;
+                    var total = finished + failed + rejecteduserconcurrency + rejectedaccountconcurrency + rejectedintegrationconcurrency;
 
                     if (total == 0) return false;
 
@@ -417,6 +421,7 @@ APMWSOD._Highcharts = function() {
                     table += '<tr><td align="center" colspan="3"><b>' + groupAggString + ' (' + fromDate + ' - ' + toDate + ')</b></td></tr>';
                     table += '<tr><td align="center">' + APMTranslation.apm.ns.status.finished() + '</td><td>:</td><td align="center">' + finished + '</td></tr>';
                     table += '<tr><td align="center">' + APMTranslation.apm.common.label.rejecteduserconcurrency() + '</td><td>:</td><td align="center">' + rejecteduserconcurrency + '</td></tr>';
+                    table += '<tr><td align="center">' + APMTranslation.apm.r2020a.rejectedintegrationconcurrency() + '</td><td>:</td><td align="center">' + rejectedintegrationconcurrency + '</td></tr>';
                     table += '<tr><td align="center">' + APMTranslation.apm.common.label.rejectedaccountconcurrency() + '</td><td>:</td><td align="center">' + rejectedaccountconcurrency + '</td></tr>';
                     table += '<tr><td align="center">' + APMTranslation.apm.common.label.failed() + '</td><td>:</td><td align="center">' + failed + '</td></tr>';
                     table += '<tr><td align="center"><b>' + APMTranslation.apm.common.label.total() + '</b></td><td>:</td><td align="center">' + total + '</td></tr>';
@@ -534,7 +539,7 @@ APMWSOD._Highcharts = function() {
             },
             series: [{
                     name: APMTranslation.apm.common.label.failed(),
-                    legendIndex: 3,
+                    legendIndex: 4,
                     type: 'area',
                     stacking: 'normal',
                     animation: false,
@@ -554,7 +559,7 @@ APMWSOD._Highcharts = function() {
                 },
                 {
                     name: APMTranslation.apm.common.label.rejectedaccountconcurrency(),
-                    legendIndex: 2,
+                    legendIndex: 3,
                     type: 'area',
                     stacking: 'normal',
                     animation: false,
@@ -571,6 +576,26 @@ APMWSOD._Highcharts = function() {
                         }
                     },
                     data: chartData.throughput['rejectedaccountconcurrency']
+                },
+                {
+                    name: APMTranslation.apm.r2020a.rejectedintegrationconcurrency(),
+                    legendIndex: 2,
+                    type: 'area',
+                    stacking: 'normal',
+                    animation: false,
+                    color: '#8F82B8',
+                    marker: {
+                        enabled: false,
+                        states: {
+                            hover: {
+                                fillColor: '#FFFFFF',
+                                lineColor: 'rgba(143, 130, 184, 0.8)',
+                                radiusPlus: 2,
+                                lineWidthPlus: 1
+                            }
+                        }
+                    },
+                    data: chartData.throughput['rejectedintegrationconcurrency']
                 },
                 {
                     name: APMTranslation.apm.common.label.rejecteduserconcurrency(),

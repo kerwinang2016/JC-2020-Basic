@@ -35,7 +35,7 @@ function getPaymentMethod(objTransaction) {
 			columns.push(new nlobjSearchColumn('paymentmethod'));
 			
 			var searchResult =  nlapiSearchRecord('transaction', null, filters, columns);
-			
+			nlapiLogExecution('debug','searchResult',JSON.stringify(searchResult));
 			if (!Function.isUndefinedNullOrEmpty(searchResult)) {
 				if (searchResult.length > 0) {
 					for (var i in searchResult) {

@@ -1,5 +1,5 @@
 /**
- * Copyright © 2019, Oracle and/or its affiliates. All rights reserved.
+ * Copyright © 2015, 2020, Oracle and/or its affiliates. All rights reserved.
  */
 /**
  * Module Description
@@ -15,8 +15,9 @@
  * 8.00       26 Oct 2018     jmarimla         Frht labels
  * 9.00       27 Nov 2018     rwong            CSV export
  * 10.00      08 Jan 2019     jmarimla         Translation
- * 11.00      15 Jan 2019     jmarimla         Translation
- * 12.00      23 Jan 2019     jmarimla         Hide frht
+ * 11.00      28 Jun 2019     erepollo         Translation for new texts
+ * 12.00      20 Sep 2019     jmarimla         Rejected integration concurrency
+ * 13.00      07 Jan 2020     earepollo        Translation readiness for new strings
  *
  */
 APMWSOD = APMWSOD || {};
@@ -185,28 +186,31 @@ APMWSOD._Components = function() {
                         width: '25%',
                         text: APMTranslation.apm.common.label.status(),
                         renderer: function (value, record) {
-                        	var translated = '';
-                        	switch (value) {
-                        	case 'FINISHED': 
-                        		translated = APMTranslation.apm.ns.status.finished();
-                        		break;
-                        	case 'FAILED': 
-                        		translated = APMTranslation.apm.common.label.failed();
-                        		break;
-                        	case 'REJECTEDACCOUNTCONCURRENCY': 
-                        		translated = APMTranslation.apm.common.label.rejectedaccountconcurrency();
-                        		break;
-                        	case 'REJECTEDUSERCONCURRENCY': 
-                        		translated = APMTranslation.apm.common.label.rejecteduserconcurrency();
-                        		break;
-                        	default: translated = value;
-                        	}
+                            var translated = '';
+                            switch (value) {
+                            case 'FINISHED': 
+                                translated = APMTranslation.apm.ns.status.finished();
+                                break;
+                            case 'FAILED': 
+                                translated = APMTranslation.apm.common.label.failed();
+                                break;
+                            case 'REJECTEDACCOUNTCONCURRENCY': 
+                                translated = APMTranslation.apm.common.label.rejectedaccountconcurrency();
+                                break;
+                            case 'REJECTEDINTEGRATIONCONCURRENCY': 
+                                translated = APMTranslation.apm.r2020a.rejectedintegrationconcurrency();
+                                break;
+                            case 'REJECTEDUSERCONCURRENCY': 
+                                translated = APMTranslation.apm.common.label.rejecteduserconcurrency();
+                                break;
+                            default: translated = value;
+                            }
                             return translated;
                         }
-                    }/*,
+                    },
                     {
                         dataIndex: 'viewDetails',
-                        text: APMTranslation.apm.common.label.profilerdetails(),
+                        text: APMTranslation.apm.r2019a.profilerdetails(),
                         width: '130px',
                         renderer: function(value, record) {
                             var $markUp = $('<div><div class="apm-wsod-wsologs-viewdetails-icon"></div></div>');
@@ -215,7 +219,7 @@ APMWSOD._Components = function() {
                         },
                         resizable: false,
                         sortable: false
-                    }*/
+                    }
                 ],
 
                 listeners: {
@@ -334,10 +338,10 @@ APMWSOD._Components = function() {
                             }
                             return translated;
                         }
-                    }/*,
+                    },
                     {
                         dataIndex: 'viewDetails',
-                        text: APMTranslation.apm.common.label.profilerdetails(),
+                        text: APMTranslation.apm.r2019a.profilerdetails(),
                         width: '130px',
                         renderer: function(value, record) {
                             var $markUp = $('<div><div class="apm-wsod-wsrplogs-viewdetails-icon"></div></div>');
@@ -346,7 +350,7 @@ APMWSOD._Components = function() {
                         },
                         resizable: false,
                         sortable: false
-                    }*/
+                    }
                 ],
 
                 listeners: {

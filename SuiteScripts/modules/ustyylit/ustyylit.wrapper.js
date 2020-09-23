@@ -50,6 +50,191 @@ var StatusData = {
   }
 };
  var garmentData = {
+   "FitTool_Shorts": {
+			"TOTAL-RISE-MAX": "mkzd_jiashangdang",
+			"TOTAL-RISE-MIN": "mkzd_jianshangdang",
+			"FRONT-RISE-MAX": "mkzd_jiaqiandang",
+			"FRONT-RISE-MIN": "mkzd_jianqiandang",
+			"BACK-RISE-MAX":  "mkzd_jiahoudang",
+			"BACK-RISE-MIN": "mkzd_jianhoudang",
+			"FLAT-SEAT-MIN": "mkzd_jiandangwei",
+			"BACK-RISE-CURVE-MIN": "mkzd_jiandang",
+			"BACK-RISE-CURVE-MAX": "mkzd_jiadang",
+			"CROTCH-MAX": "mkzd_jiadadangkuan",
+			"CROTCH-MIN": "mkzd_jiandadangkuan",
+			"1/2-WAIST-MAX": "mkzd_jiayaowei",
+			"1/2-WAIST-MIN": "mkzd_jianyaowei",
+			"1/2-SEAT-MAX": "mkzd_jiatunwei",
+			"1/2-SEAT-MIN": "mkzd_jiantunwei",
+			"1/2-HIP-MAX": "mkzd_jiacetunwei",
+			"1/2-HIP-MIN": "mkzd_jiancetunwei",
+			"1/2-FOOT-MAX": "mkzd_jiajiaokoukuan",
+			"1/2-FOOT-MIN": "mkzd_jianjiaokoukuan",
+			"LEG-LENGTH-LEFT-MAX": "mkzd_jiazuotuichang",
+			"LEG-LENGTH-LEFT-MIN": "mkzd_jianzuotuichang",
+			"LEG-LENGTH-RIGHT-MAX": "mkzd_jiayoutuichang",
+			"LEG-LENGTH-RIGHT-MIN": "mkzd_jianyoutuichang"
+		},
+		"FitTool_Morning-Coat":{
+			"1/2-BACK-MAX": "mtux_jiabeikuan",
+			"1/2-BACK-MIN": "mtux_jianbeikuan",
+			"1/2-CHEST-MAX": "mtux_jiaxiongwei",
+			"1/2-CHEST-MIN": "mtux_jianxiongwei",
+			"1/2-CHEST-FRONT-MAX": "mtux_jiaqianxiongkuan",
+			"1/2-CHEST-FRONT-MIN": "mtux_jianqianxiongkuan",
+			"1/2-COLLAR-MIN": "mtux_jianlingkou",
+			"1/2-FRONT-MAX": "mtux_jiaqianzhikou",
+			"1/2-FRONT-MIN": "mtux_jianqianzhikou",
+			"1/2-GIRTH-MAX": "mtux_jiayaowei",
+			"1/2-GIRTH-MIN": "mtux_jianyaowei",
+			"1/2-HAND-MAX": "mtux_jiaxiukou",
+			"1/2-HAND-MIN": "mtux_jianxiukou",
+			"1/2-SHOULDER-MAX": "mtux_jiajiankuan",
+			"1/2-SHOULDER-MIN": "mtux_jianjiankuan",
+			"UPPER-ARM-MAX": "mtux_jiaxiufei",
+			"UPPER-ARM-MIN": "mtux_jianxiufei",
+			"ARMHOLE-DEPTH-MAX": "mtux_jiaxiulong",
+			"ARMHOLE-DEPTH-MIN": "mtux_jianxiulong",
+			"CHEST-POCKET-POSITION-MAX": "mtux_jiaxiongdouwei",
+			"COLLAR-HEIGHT-MAX": "mtux_jialinggao",
+			"COLLAR-HEIGHT-MIN": "mtux_jianlinggao",
+			"LAPEL-LENGTH-MAX": "mtux_jiachangbotou",
+			"LAPEL-LENGTH-MIN": "mtux_suoduanbotou",
+			"LENGTH-MAX": "mtux_jiahouyichang",
+			"LENGTH-MIN": "mtux_jianhouyichang",
+			"POSTURE-MAX": "mtux_tuobeiti",
+			"POSTURE-MIN": "mtux_houyangti",
+			"SHOULDER-HEIGHT-LEFT-MAX": "mtux_jiazuojiangao",
+			"SHOULDER-HEIGHT-LEFT-MIN": "mtux_jianzuojiangao",
+			"SHOULDER-HEIGHT-RIGHT-MIN": "mtux_jianyoujiangao",
+			"SHOULDER-HEIGHT-RIGHT-MAX": "mtux_jiayoujiangao",
+			"SHOULDER-POSITION-MAX": "mtux_qianchongjian",
+			"SHOULDER-POSITION-MIN": "mtux_houchongjian",
+			"SLEEVE-LENGTH-LEFT-MIN": "mtux_jianzuoxiuchang",
+			"SLEEVE-LENGTH-LEFT-MAX": "mtux_jiazuoxiuchang",
+			"SLEEVE-LENGTH-RIGHT-MAX": "mtux_jiayouxiuchang",
+			"SLEEVE-LENGTH-RIGHT-MIN": "mtux_jianyouxiuchang",
+			"SLEEVE-POSITION-MAX": "mtux_qianxiuyiwei",
+			"SLEEVE-POSITION-MIN": "mtux_houxiuyiwei",
+			"ARMHOLE-WIDTH": "mtux_jiakuanxiulong"
+		},
+		"FitTool_Camp-Shirt":{
+			"1/2-CHEST-MAX": "mxxcsd_jiaxiongwei",
+			"1/2-CHEST-MIN": "mxxcsd_jianxiongwei",
+			"1/2-CHEST-FRONT-MAX": "mxxcsd_jiaqianxiongwei",
+			"1/2-CHEST-FRONT-MIN": "mxxcsd_jianqianxiongwei",
+			"1/2-HIP-MAX": "mxxcsd_jiatunwei",
+			"1/2-HIP-MIN": "mxxcsd_jiantunwei",
+			"1/2-SHOULDER-MAX": "mxxcsd_jiajiankuan",
+			"1/2-SHOULDER-MIN": "mxxcsd_jianjiankuan",
+			"1/2-WAIST-MAX": "mxxcsd_jiayaowei",
+			"1/2-WAIST-MIN": "mxxcsd_jianyaowei",
+			"ARMHOLE-DEPTH-MAX": "mxxcsd_jiaxiulong",
+			"ARMHOLE-DEPTH-MIN": "mxxcsd_jianxiulong",
+			"COLLAR-SIZE-MAX": "mxxcsd_jialingkuan",
+			"COLLAR-SIZE-MIN": "mxxcsd_jianlingkuan",
+			"CUFF-WIDTH-LEFT-MAX": "mxxcsd_jiazuoxiukoukuan",
+			"CUFF-WIDTH-LEFT-MIN": "mxxcsd_jianzuoxiukoukuan",
+			"CUFF-WIDTH-RIGHT-MAX": "mxxcsd_jiayouxiukoukuan",
+			"CUFF-WIDTH-RIGHT-MIN": "mxxcsd_jianyouxiukoukuan",
+			"FRONT-LENGTH-MAX": "mxxcsd_jiaqianyichang",
+			"FRONT-LENGTH-MIN": "mxxcsd_jianqianyichang",
+			"LENGTH-MAX": "mxxcsd_jiahouyichang",
+			"LENGTH-MIN": "mxxcsd_jianhouyichang",
+			"NECKBAND-POSITION-MAX": "mxxcsd_jialingshen",
+			"NECKBAND-POSITION-MIN": "mxxcsd_jianlingshen",
+			"SHOULDER-HEIGHT-LEFT-MAX": "mxxcsd_jiazuojiangao",
+			"SHOULDER-HEIGHT-LEFT-MIN": "mxxcsd_jianzuojiangao",
+			"SHOULDER-HEIGHT-RIGHT-MAX": "mxxcsd_jiayoujiangao",
+			"SHOULDER-HEIGHT-RIGHT-MIN": "mxxcsd_jianyoujiangao",
+			"SLEEVE-LENGTH-LEFT-MAX": "mxxcsd_jiazuoxiuchang",
+			"SLEEVE-LENGTH-LEFT-MIN": "mxxcsd_jianzuoxiuchang",
+			"SLEEVE-LENGTH-RIGHT-MAX": "mxxcsd_jiayouxiuchang",
+			"SLEEVE-LENGTH-RIGHT-MIN": "mxxcsd_jianyouxiuchang",
+			"TOP-BUTTON-POSITION-MIN": "mxxcsd_jiankouweigao",
+			"UPPER-ARM/ARMHOLE-MAX": "mxxcsd_jiadabiwei",
+			"UPPER-ARM/ARMHOLE-MIN": "mxxcsd_jiandabiwei"
+		},
+		"FitTool_Shirt-Jacket":{
+			"1/2-CHEST-MAX": "mxxcs_jiaxiongwei",
+			"1/2-CHEST-MIN": "mxxcs_jianxiongwei",
+			"1/2-CHEST-FRONT-MIN": "mxxcs_jianqianxiongwei",
+			"1/2-CHEST-FRONT-MAX": "mxxcs_jiaqianxiongwei",
+			"1/2-HIP-MAX": "mxxcs_jiatunwei",
+			"1/2-HIP-MIN": "mxxcs_jiantunwei",
+			"1/2-SHOULDER-MIN": "mxxcs_jianjiankuan",
+			"1/2-SHOULDER-MAX": "mxxcs_jiajiankuan",
+			"1/2-WAIST-MAX": "mxxcs_jiayaowei",
+			"1/2-WAIST-MIN": "mxxcs_jianyaowei",
+			"ARMHOLE-DEPTH-MAX": "mxxcs_jiaxiulong",
+			"ARMHOLE-DEPTH-MIN": "mxxcs_jianxiulong",
+			"COLLAR-SIZE-MAX": "mxxcs_jialingkuan",
+			"COLLAR-SIZE-MIN": "mxxcs_jianlingkuan",
+			"CUFF-WIDTH-LEFT-MAX": "mxxcs_jiazuoxiukoukuan",
+			"CUFF-WIDTH-LEFT-MIN": "mxxcs_jianzuoxiukoukuan",
+			"CUFF-WIDTH-RIGHT-MIN": "mxxcs_jianyouxiukoukuan",
+			"CUFF-WIDTH-RIGHT-MAX": "mxxcs_jiayouxiukoukuan",
+			"FRONT-LENGTH-MAX": "mxxcs_jiaqianyichang",
+			"FRONT-LENGTH-MIN": "mxxcs_jianqianyichang",
+			"LENGTH-MIN": "mxxcs_jianhouyichang",
+			"LENGTH-MAX": "mxxcs_jiahouyichang",
+			"NECKBAND-POSITION-MIN": "mxxcs_jianlingshen",
+			"NECKBAND-POSITION-MAX": "mxxcs_jialingshen",
+			"SHOULDER-HEIGHT-LEFT-MIN": "mxxcs_jianzuojiangao",
+			"SHOULDER-HEIGHT-LEFT-MAX": "mxxcs_jiazuojiangao",
+			"SHOULDER-HEIGHT-RIGHT-MAX": "mxxcs_jiayoujiangao",
+			"SHOULDER-HEIGHT-RIGHT-MIN": "mxxcs_jianyoujiangao",
+			"SLEEVE-LENGTH-LEFT-MAX": "mxxcs_jiazuoxiuchang",
+			"SLEEVE-LENGTH-LEFT-MIN": "mxxcs_jianzuoxiuchang",
+			"SLEEVE-LENGTH-RIGHT-MIN": "mxxcs_jianyouxiuchang",
+			"SLEEVE-LENGTH-RIGHT-MAX": "mxxcs_jiayouxiuchang",
+			"TOP-BUTTON-POSITION-MIN": "mxxcs_jiankouweigao",
+			"UPPER-ARM/ARMHOLE-MAX": "mxxcs_jiadabiwei",
+			"UPPER-ARM/ARMHOLE-MIN": "mxxcs_jiandabiwei"
+		},
+		"FitTool_Safari-Jacket": {
+			"1/2-BACK-MAX": "mxxsy_jiabeikuan",
+			"1/2-BACK-MIN": "mxxsy_jianbeikuan",
+			"1/2-CHEST-MIN": "mxxsy_jianxiongwei",
+			"1/2-CHEST-MAX": "mxxsy_jiaxiongwei",
+			"1/2-CHEST-FRONT-MAX": "mxxsy_jiaqianxiongkuan",
+			"1/2-CHEST-FRONT-MIN": "mxxsy_jianqianxiongkuan",
+			"1/2-COLLAR-MAX": "mxxsy_jialingkou",
+			"1/2-COLLAR-MIN": "mxxsy_jianlingkou",
+			"1/2-FRONT-MAX": "mxxsy_jiaqianzhikou",
+			"1/2-FRONT-MIN": "mxxsy_jianqianzhikou",
+			"1/2-GIRTH-MIN": "mxxsy_jianyaowei",
+			"1/2-GIRTH-MAX": "mxxsy_jiayaowei",
+			"1/2-HAND-MAX": "mxxsy_jiaxiukou",
+			"1/2-HAND-MIN": "mxxsy_jianxiukou",
+			"1/2-HIP-MAX": "mxxsy_jiabaiwei",
+			"1/2-HIP-MIN": "mxxsy_jianbaiwei",
+			"1/2-SHOULDER-MIN": "mxxsy_jianjiankuan",
+			"1/2-SHOULDER-MAX": "mxxsy_jiajiankuan",
+			"1/2-UPPER-ARM-MAX": "mxxsy_jiaxiufei",
+			"1/2-UPPER-ARM-MIN": "mxxsy_jianxiufei",
+			"ARMHOLE-DEPTH-MIN": "mxxsy_jianxiulong",
+			"ARMHOLE-DEPTH-MAX": "mxxsy_jiaxiulong",
+			"ARMHOLE-WIDTH-MAX": "mxxsy_jiakuanxiulong",
+			"CHEST-POCKET-POSITION-MAX": "mxxsy_jiaxiongdouw",
+			"COLLAR-HEIGHT-MIN": "mxxsy_jianlinggao",
+			"COLLAR-HEIGHT-MAX": "mxxsy_jialinggao",
+			"LENGTH-MIN": "mxxsy_jianhouyichang",
+			"LENGTH-MAX": "mxxsy_jiahouyichang",
+			"POSTURE-MAX": "mxxsy_tuobeiti",
+			"POSTURE-MIN": "mxxsy_houyangti",
+			"SHOULDER-HEIGHT-LEFT-MAX": "mxxsy_jiazuojiangao",
+			"SHOULDER-HEIGHT-LEFT-MIN": "mxxsy_jianzuojiangao",
+			"SHOULDER-HEIGHT-RIGHT-MAX": "mxxsy_jiayoujiangao",
+			"SHOULDER-HEIGHT-RIGHT-MIN": "mxxsy_jianyoujiangao",
+			"SLEEVE-LENGTH-LEFT-MIN": "mxxsy_jianzuoxiuchang",
+			"SLEEVE-LENGTH-LEFT-MAX": "mxxsy_jiazuoxiuchang",
+			"SLEEVE-LENGTH-RIGHT-MAX": "mxxsy_jiayouxiuchang",
+			"SLEEVE-LENGTH-RIGHT-MIN": "mxxsy_jianyouxiuchang",
+			"SLEEVE-POSITION-MAX": "mxxsy_qianxiuyiwei",
+			"SLEEVE-POSITION-MIN": "mxxsy_houxiuyiwei"
+		},
+
 	"FitTool_Jacket": {
 		"POSTURE-MAX": "msy_tuobeiti",
 		"POSTURE-MIN": "msy_houyangti",
@@ -1588,11 +1773,11 @@ var StatusData = {
 		}]
 	}
  }
-var sampleJSONdata = {  
+var sampleJSONdata = {
    "Action":"CreateOrder",
-   "orders":{  
-      "Order":[  
-         {  
+   "orders":{
+      "Order":[
+         {
             "brand":"TU",
             "mainorder":"8632991",
             "shop":"Web shop 1",
@@ -1611,14 +1796,14 @@ var sampleJSONdata = {
             "back":"https%3A%2F%2Fd3dgk6r8ca2pzn.cloudfront.net%2Fimages%2Fcustomer_profiles%2Fx1482444813.1580473625.customer.6554935.0.large.jpeg.pagespeed.ic.wtXUj1YfjJ.jpg ",
             "sideLeft":"https%3A%2F%2Fd3dgk6r8ca2pzn.cloudfront.net%2Fimages%2Fcustomer_profiles%2Fx1482444813.546762578.customer.6554935.1.large.jpeg.pagespeed.ic.wtXUj1YfjJ.jpg ",
             "sideRight":"https%3A%2F%2Fd3dgk6r8ca2pzn.cloudfront.net%2Fimages%2Fcustomer_profiles%2Fx1482444814.949463591.customer.6554935.3.large.jpeg.pagespeed.ic.wtXUj1YfjJ.jpg ",
-            "OrderDetails":[  
-               {  
+            "OrderDetails":[
+               {
                   "orderdetailid":"456775",
                   "order":"8632991",
                   "combination":"TU0101",
                   "mode":"01",
-                  "fabric":[  
-                     {  
+                  "fabric":[
+                     {
                         "sku":"TROC012",
                         "mode":"02",
                         "Vendor":"",
@@ -1627,8 +1812,8 @@ var sampleJSONdata = {
                         "Length":"3"
                      }
                   ],
-                  "lining":[  
-                     {  
+                  "lining":[
+                     {
                         "sku":"3223",
                         "mode":"01",
                         "Vendor":"",
@@ -1646,13 +1831,13 @@ var sampleJSONdata = {
                   "fit":"Regular",
                   "remark":""
                },
-               {  
+               {
                   "orderdetailid":"456775",
                   "order":"8632991",
                   "combination":"TU0101",
                   "mode":"01",
-                  "fabric":[  
-                     {  
+                  "fabric":[
+                     {
                         "sku":"TROC012",
                         "mode":"02",
                         "Vendor":"",
@@ -1661,8 +1846,8 @@ var sampleJSONdata = {
                         "Length":"3"
                      }
                   ],
-                  "lining":[  
-                     {  
+                  "lining":[
+                     {
                         "sku":"",
                         "mode":"",
                         "Vendor":"",
@@ -1680,13 +1865,13 @@ var sampleJSONdata = {
                   "fit":"Regular",
                   "remark":""
                },
-               {  
+               {
                   "orderdetailid":"345433",
                   "order":"8632991",
                   "combination":"TU0101",
                   "mode":"01",
-                  "fabric":[  
-                     {  
+                  "fabric":[
+                     {
                         "sku":"TROC012",
                         "mode":"02",
                         "Vendor":"",
@@ -1695,8 +1880,8 @@ var sampleJSONdata = {
                         "Length":"3"
                      }
                   ],
-                  "lining":[  
-                     {  
+                  "lining":[
+                     {
                         "sku":"3223",
                         "mode":"01",
                         "Vendor":"",
@@ -1714,13 +1899,13 @@ var sampleJSONdata = {
                   "fit":"Regular",
                   "remark":""
                },
-               {  
+               {
                   "orderdetailid":"345433",
                   "order":"8632991",
                   "combination":"TU0101",
                   "mode":"01",
-                  "fabric":[  
-                     {  
+                  "fabric":[
+                     {
                         "sku":"TROC012",
                         "mode":"02",
                         "Vendor":"",
@@ -1729,8 +1914,8 @@ var sampleJSONdata = {
                         "Length":"3"
                      }
                   ],
-                  "lining":[  
-                     {  
+                  "lining":[
+                     {
                         "sku":"",
                         "mode":"01",
                         "Vendor":"",
@@ -1749,8 +1934,8 @@ var sampleJSONdata = {
                   "remark":""
                }
             ],
-            "Measurements":[  
-               {  
+            "Measurements":[
+               {
                   "orderdetailid":"456775",
                   "styleno":"01",
                   "class":"02",
@@ -1758,7 +1943,7 @@ var sampleJSONdata = {
                   "tryon_adjustment":"1.5",
                   "value":"NULL"
                },
-               {  
+               {
                   "orderdetailid":"456775",
                   "styleno":"01",
                   "class":"02",
@@ -1766,7 +1951,7 @@ var sampleJSONdata = {
                   "tryon_adjustment":"1.5",
                   "value":"NULL"
                },
-               {  
+               {
                   "orderdetailid":"456775",
                   "styleno":"02",
                   "class":"05",
@@ -1774,7 +1959,7 @@ var sampleJSONdata = {
                   "tryon_adjustment":"2.5",
                   "value":"NULL"
                },
-               {  
+               {
                   "orderdetailid":"456775",
                   "styleno":"02",
                   "class":"05",
@@ -1782,7 +1967,7 @@ var sampleJSONdata = {
                   "tryon_adjustment":"1.5",
                   "value":"NULL"
                },
-               {  
+               {
                   "orderdetailid":"345433",
                   "styleno":"01",
                   "class":"02",
@@ -1790,7 +1975,7 @@ var sampleJSONdata = {
                   "tryon_adjustment":"1.5",
                   "value":"NULL"
                },
-               {  
+               {
                   "orderdetailid":"345433",
                   "styleno":"01",
                   "class":"02",
@@ -1798,7 +1983,7 @@ var sampleJSONdata = {
                   "tryon_adjustment":"1.5",
                   "value":"NULL"
                },
-               {  
+               {
                   "orderdetailid":"345433",
                   "styleno":"02",
                   "class":"05",
@@ -1806,7 +1991,7 @@ var sampleJSONdata = {
                   "tryon_adjustment":"2.5",
                   "value":"NULL"
                },
-               {  
+               {
                   "orderdetailid":"345433",
                   "styleno":"02",
                   "class":"05",
@@ -1815,57 +2000,57 @@ var sampleJSONdata = {
                   "value":"NULL"
                }
             ],
-            "Options":[  
-               {  
+            "Options":[
+               {
                   "orderdetailid":"456775",
                   "styleno":"01",
                   "class":"02",
                   "option_type":" T010201",
                   "option_code":" T01020102"
                },
-               {  
+               {
                   "orderdetailid":"456775",
                   "styleno":"01",
                   "class":"02",
                   "option_type":" T010202",
                   "option_code":" T01020201"
                },
-               {  
+               {
                   "orderdetailid":"456775",
                   "styleno":"02",
                   "class":"05",
                   "option_type":" T010501",
                   "option_code":" T01050102"
                },
-               {  
+               {
                   "orderdetailid":"456775",
                   "styleno":"02",
                   "class":"05",
                   "option_type":" T010502",
                   "option_code":" T01050201"
                },
-               {  
+               {
                   "orderdetailid":"345433",
                   "styleno":"01",
                   "class":"02",
                   "option_type":" T010201",
                   "option_code":" T01020101"
                },
-               {  
+               {
                   "orderdetailid":"345433",
                   "styleno":"01",
                   "class":"02",
                   "option_type":" T010202",
                   "option_code":" T01020202"
                },
-               {  
+               {
                   "orderdetailid":"345433",
                   "styleno":"02",
                   "class":"05",
                   "option_type":" T010501",
                   "option_code":" T01050101"
                },
-               {  
+               {
                   "orderdetailid":"345433",
                   "styleno":"02",
                   "class":"05",
@@ -1874,7 +2059,7 @@ var sampleJSONdata = {
                }
             ]
          },
-         {  
+         {
             "brand":"TU",
             "mainorder":"8632992",
             "shop":" Web shop 1 ",
@@ -1895,14 +2080,14 @@ var sampleJSONdata = {
             "back":"https%3A%2F%2Fd3dgk6r8ca2pzn.cloudfront.net%2Fimages%2Fcustomer_profiles%2Fx1482444813.1580473625.customer.6554935.0.large.jpeg.pagespeed.ic.wtXUj1YfjJ.jpg ",
             "sideLeft":"https%3A%2F%2Fd3dgk6r8ca2pzn.cloudfront.net%2Fimages%2Fcustomer_profiles%2Fx1482444813.546762578.customer.6554935.1.large.jpeg.pagespeed.ic.wtXUj1YfjJ.jpg ",
             "sideRight":"https%3A%2F%2Fd3dgk6r8ca2pzn.cloudfront.net%2Fimages%2Fcustomer_profiles%2Fx1482444814.949463591.customer.6554935.3.large.jpeg.pagespeed.ic.wtXUj1YfjJ.jpg ",
-            "OrderDetails":[  
-               {  
+            "OrderDetails":[
+               {
                   "orderdetailid":"233222",
                   "order":"8632992",
                   "combination":"TU0101",
                   "mode":"01",
-                  "fabric":[  
-                     {  
+                  "fabric":[
+                     {
                         "sku":"TROC012",
                         "mode":"02",
                         "Vendor":"",
@@ -1911,8 +2096,8 @@ var sampleJSONdata = {
                         "Length":"3"
                      }
                   ],
-                  "lining":[  
-                     {  
+                  "lining":[
+                     {
                         "sku":" L400",
                         "mode":"01",
                         "Vendor":"",
@@ -1930,13 +2115,13 @@ var sampleJSONdata = {
                   "fit":"Regular",
                   "remark":""
                },
-               {  
+               {
                   "orderdetailid":"233223",
                   "order":"8632992",
                   "combination":"TU0102",
                   "mode":"01",
-                  "fabric":[  
-                     {  
+                  "fabric":[
+                     {
                         "sku":"TROC012",
                         "mode":"02",
                         "Vendor":"",
@@ -1945,8 +2130,8 @@ var sampleJSONdata = {
                         "Length":"3"
                      }
                   ],
-                  "lining":[  
-                     {  
+                  "lining":[
+                     {
                         "sku":" L400",
                         "mode":"01",
                         "Vendor":"",
@@ -1965,8 +2150,8 @@ var sampleJSONdata = {
                   "remark":""
                }
             ],
-            "Measurements":[  
-               {  
+            "Measurements":[
+               {
                   "orderdetailid":"233222",
                   "styleno":"01",
                   "class":"02",
@@ -1974,7 +2159,7 @@ var sampleJSONdata = {
                   "tryon_adjustment":"1.5",
                   "value":"NULL"
                },
-               {  
+               {
                   "orderdetailid":"233222",
                   "styleno":"01",
                   "class":"02",
@@ -1982,7 +2167,7 @@ var sampleJSONdata = {
                   "tryon_adjustment":"1.5",
                   "value":"NULL"
                },
-               {  
+               {
                   "orderdetailid":"233222",
                   "styleno":"02",
                   "class":"05",
@@ -1990,7 +2175,7 @@ var sampleJSONdata = {
                   "tryon_adjustment":"2.5",
                   "value":"NULL"
                },
-               {  
+               {
                   "orderdetailid":"233222",
                   "styleno":"02",
                   "class":"05",
@@ -1998,7 +2183,7 @@ var sampleJSONdata = {
                   "tryon_adjustment":"1.5",
                   "value":"NULL"
                },
-               {  
+               {
                   "orderdetailid":"233223",
                   "styleno":"01",
                   "class":"02",
@@ -2006,7 +2191,7 @@ var sampleJSONdata = {
                   "tryon_adjustment":"1.5",
                   "value":"NULL"
                },
-               {  
+               {
                   "orderdetailid":"233223",
                   "styleno":"01",
                   "class":"02",
@@ -2014,7 +2199,7 @@ var sampleJSONdata = {
                   "tryon_adjustment":"1.5",
                   "value":"NULL"
                },
-               {  
+               {
                   "orderdetailid":"233223",
                   "styleno":"02",
                   "class":"05",
@@ -2022,7 +2207,7 @@ var sampleJSONdata = {
                   "tryon_adjustment":"2.5",
                   "value":"NULL"
                },
-               {  
+               {
                   "orderdetailid":"233223",
                   "styleno":"02",
                   "class":"05",
@@ -2031,57 +2216,57 @@ var sampleJSONdata = {
                   "value":"NULL"
                }
             ],
-            "Options":[  
-               {  
+            "Options":[
+               {
                   "orderdetailid":"233222",
                   "styleno":"01",
                   "class":"02",
                   "option_type":" T010201",
                   "option_code":" T01020102"
                },
-               {  
+               {
                   "orderdetailid":"233222",
                   "styleno":"01",
                   "class":"02",
                   "option_type":" T010202",
                   "option_code":" T01020201"
                },
-               {  
+               {
                   "orderdetailid":"233222",
                   "styleno":"02",
                   "class":"05",
                   "option_type":" T010501",
                   "option_code":" T01050102"
                },
-               {  
+               {
                   "orderdetailid":"233222",
                   "styleno":"02",
                   "class":"05",
                   "option_type":" T010502",
                   "option_code":" T01050201"
                },
-               {  
+               {
                   "orderdetailid":"233223",
                   "styleno":"01",
                   "class":"02",
                   "option_type":" T010201",
                   "option_code":" T01020101"
                },
-               {  
+               {
                   "orderdetailid":"233223",
                   "styleno":"01",
                   "class":"02",
                   "option_type":" T010202",
                   "option_code":" T01020202"
                },
-               {  
+               {
                   "orderdetailid":"233223",
                   "styleno":"02",
                   "class":"05",
                   "option_type":" T010501",
                   "option_code":" T01050101"
                },
-               {  
+               {
                   "orderdetailid":"233223",
                   "styleno":"02",
                   "class":"05",
@@ -2149,7 +2334,7 @@ function getAesStr(orders, accesstoken){//orders appsecret accesstoken
 			appsecret: APPSECRET,
 			accessToken: accesstoken//getAccessToken()
 		}
-		
+
 		var response = HTTPMOD.post({
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/GetAesStr',
 			body: data
@@ -2165,7 +2350,7 @@ function getAesStr(orders, accesstoken){//orders appsecret accesstoken
 		}
 	}catch(e){
 		LOGMOD.error('getAesStr', 'ERROR : ' + e.message);
-	}	
+	}
 }
 
 function getDeAes(orders){
@@ -2174,7 +2359,7 @@ function getDeAes(orders){
 			orders: orders,
 			AccessToken: getAccessToken()
 		}
-	
+
 		var response = HTTPMOD.post({
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/GetDeAes',
 			body: data
@@ -2218,7 +2403,7 @@ function getOrderConsume(orders){
 			orders: orders,
 			appsecrets: APPSECRET
 		}
-		
+
 		var response = HTTPMOD.post({
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/GetOrderConsume',
 			body: data
@@ -2243,7 +2428,7 @@ function getOrderInfo(ordernos){
 			orders: ordernos,
 			appsecrets: APPSECRET
 		}
-		
+
 		var response = HTTPMOD.post({
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/GetOrderInfo',
 			body: data
@@ -2269,7 +2454,7 @@ function getPartsInfo(classid, optiontypecode){
 			classid: classid,
 			optiontypecode: optiontypecode
 		}
-	
+
 		var response = HTTPMOD.post({
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/GetPartsInfo',
 			body: data
@@ -2294,7 +2479,7 @@ function getStock(){
 			AccessToken: getAccessToken(),
 			appsecrets: APPSECRET
 		}
-		
+
 		var response = HTTPMOD.post({
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/GetStock',
 			body: data
@@ -2320,7 +2505,7 @@ function getStockByFtno(ftnos){
 			appsecrets: APPSECRET,
 			ftnos: ftnos
 		}
-		
+
 		var response = HTTPMOD.post({
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/GetStockByFtno',
 			body: data
@@ -2336,7 +2521,7 @@ function getStockByFtno(ftnos){
 		}
 	}catch(e){
 		LOGMOD.error('getStockByFtno', 'ERROR : ' + e.message);
-	}	
+	}
 }
 
 function receiveOrder(orders){
@@ -2349,7 +2534,7 @@ function receiveOrder(orders){
 			Brand: BRAND,
 			orders: encryptedOrder
 		}
-		
+
 		var response = HTTPMOD.post({
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/ReceiveOrder',
 			body: data
@@ -2365,7 +2550,7 @@ function receiveOrder(orders){
 		}
 	}catch(e){
 		LOGMOD.error('receiveOrder', 'ERROR : ' + e.message);
-	}		
+	}
 }
 
 function receiveOrderTest(orders){
@@ -2375,7 +2560,7 @@ function receiveOrderTest(orders){
 			Brand: BRAND,
 			orders: orders
 		}
-		
+
 		var response = HTTPMOD.post({
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/ReceiveOrderTest',
 			body: data
@@ -2391,7 +2576,7 @@ function receiveOrderTest(orders){
 		}
 	}catch(e){
 		LOGMOD.error('receiveOrderTest', 'ERROR : ' + e.message);
-	}	
+	}
 }
 
 function sendOrderUnencrypted(orders){
@@ -2402,7 +2587,7 @@ function sendOrderUnencrypted(orders){
 			appsecrets: APPSECRET,
 			Brand: BRAND
 		}
-	
+
 		var response = HTTPMOD.post({
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/SendOrderUnencrypted',
 			body: data
@@ -2429,7 +2614,7 @@ function sendOrderUnencryptedTest(orders){
 			appsecrets: APPSECRET,
 			Brand: BRAND
 		}
-	
+
 		var response = HTTPMOD.post({
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/SendOrderUnencryptedTest',
 			body: data
@@ -2466,7 +2651,7 @@ function getCustomerLiningUrl(){
 		var data = {
 			appsecrect: APPSECRET
 		}
-	
+
 		var response = HTTPSMOD.post({
 			url:'https://api.dayang.cn/TokenService.asmx/GetCustomerLiningUrl',
 			body: data
@@ -2487,7 +2672,7 @@ function getStyylcartUrl(){
 		var data = {
 			appsecrect: APPSECRET
 		}
-	
+
 		var response = HTTPSMOD.post({
 			url:'https://api.dayang.cn/TokenService.asmx/GetStyylcartUrl',
 			body: data

@@ -256,6 +256,13 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 												label	:	field.label,
 												name	: 	field.name
 										};
+										if(field.showOnSelection){
+											designOptions[clothingType.item_type][component.label][field.label]["showOnSelection"] = field.showOnSelection;
+											designOptions[clothingType.item_type][component.label][field.label]["hiddenOption"] = field.hiddenOption;
+										}
+										if(field.defaultValue){
+											designOptions[clothingType.item_type][component.label][field.label]["defaultValue"] = field.defaultValue;
+										}
 									}
 								}
 
@@ -276,16 +283,15 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 											datatype: field.datatype? field.datatype: "",
 											value	: 	currentFavouriteOption?currentFavouriteOption:(_.isObjectExist(objCartDesignOptionsMapping['' + field.name + ''])) ? objCartDesignOptionsMapping['' + field.name + ''] : ''
 									};
+									if(field.defaultValue){
+										designOptions[clothingType.item_type][component.label][field.label]["defaultValue"] = field.defaultValue;
+									}
 								}
-
 							}
 						});
 					});
-
 				}
-
 			});
-
 			jQuery('#clothing-details').html(SC.macros.itemDetailsDesignOptions(designOptions, itemCheck, customerliningurl));
 		}
 	};

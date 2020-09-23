@@ -1,16 +1,20 @@
 <% registerMacro('itemDetailsDesignOptions', function (designOptions,isItemCheck, customerliningurl) { %>
 	<%
-
-	var Jacket = ['Monogram Underside Collar','Monogram Lining','Branding','Chest Pocket Emblem or Monogram'];
-	var Trouser = ['Monogram','Branding'];
-	var Waistcoat = ['Branding'];
-	var Overcoat = ['Monogram Under Collar','Monogram Interior Lining','Branding'];
-	var Shirt = ['Chest Pocket Emblem','Contrast','Monogram','Branding and Presentation'];
-	var Trenchcoat = ['Monogram Under Collar', 'Monogram Interior Lining', 'Branding'];
-	var LadiesJacket = ['Monogram', 'Branding'];
-	var LadiesSkirt = [];
-	var LadiesPants = [], Shorts=[],CampShirt=[],SafariJacket=[],MorningCoat=[],ShirtJacket=[];
-	var ShortSleevesShirt = ['Monogram','Chest Pocket Emblem','Branding and Presentation'];
+	var Jacket = ['Monogram Underside Collar','Monogram Lining','Branding','Chest Pocket Emblem or Monogram'],
+	Trouser = ['Monogram','Branding'],
+	Waistcoat = ['Branding'],
+	Overcoat = ['Monogram Under Collar','Monogram Interior Lining','Branding'],
+	Shirt = ['Chest Pocket Emblem','Contrast','Monogram','Branding and Presentation'],
+	Trenchcoat = ['Monogram Under Collar', 'Monogram Interior Lining', 'Branding'],
+	LadiesJacket = ['Monogram', 'Branding'],
+	LadiesSkirt = ['Branding'],
+	LadiesPants = ['Branding'],
+	Shorts = [],
+	CampShirt = ['Contrast','Monogram','Branding and Presentation'],
+	SafariJacket = ['Monogram Underside Collar','Monogram Lining','Branding','Chest Pocket Emblem or Monogram'],
+	MorningCoat = ['Monogram Underside Collar','Monogram Lining','Branding'],
+	ShirtJacket = ['Contrast','Monogram','Branding and Presentation'],
+	ShortSleevesShirt = ['Monogram','Chest Pocket Emblem','Branding and Presentation'];
 	var collapse = [];
 	collapse['Jacket'] = Jacket;
 	collapse['Trouser'] = Trouser;
@@ -95,7 +99,9 @@
 
 											<% if (isSelectType) { %>
 												<div class="controls" style="display:inline-block;">
-													<select fieldname="<%= field %>" id="<%= currentField.name %>" class="input-xlarge display-option-dropdown" name="<%= currentField.name %>" data-type="fav-option-customization">
+													<select fieldname="<%= field %>" id="<%= currentField.name %>" class="input-xlarge display-option-dropdown" name="<%= currentField.name %>" data-type="fav-option-customization"
+													<% if(currentField.showOnSelection){ %> data-showOnSelection="<%= currentField.showOnSelection %>" data-hiddenOption="<%= currentField.hiddenOption %>"  <% } %>
+													<% if(currentField.defaultValue){ %> data-defaultValue="<%= currentField.defaultValue %>" <% } %>>
 														<% var fieldCount = 0; %>
 														<% _.each(currentField.values, function (option) { %>
 															<option
@@ -136,7 +142,9 @@
 													placeholder="<%= currentField.placeholder%>" type="text" maxlength="<%= currentField.maxlength%>"
 													fieldname="<%= field %>" id="<%= currentField.name %>" class="input-xlarge"
 													name="<%= currentField.name %>" value="<%= currentField.value %>" data-type="fav-option-customization"
-													onkeypress="return (event.charCode != 60 && event.charCode != 62)">
+													onkeypress="return (event.charCode != 60 && event.charCode != 62)"
+													<% if(currentField.showOnSelection){ %> data-showOnSelection="<%= currentField.showOnSelection %>" data-hiddenOption="<%= currentField.hiddenOption %>"  <% } %>
+													<% if(currentField.defaultValue){ %> data-defaultValue="<%= currentField.defaultValue %>" <% } %>>
 												</div>
 												<div class="show-options-img" id="more-info_<%= currentField.name %>">
 															<%= SC.macros.displayMoreInfo(currentField.name+"|"+currentField.label+"|"+ currentField.name)%>
@@ -144,7 +152,9 @@
 											<% 	}  %>
 											<% if (isNumberType) {%>
 												<div class="controls" style="margin-bottom: 15px;display:inline">
-													<input type="number" fieldname="<%= field %>" step="0.01" min="<%= clothingType == 'Jacket'?0.88:clothingType == 'Waistcoat'? 0.84:0 %>" id="<%= currentField.name %>" class="input-xlarge" name="<%= currentField.name %>" value="<%= currentField.value %>" data-type="fav-option-customization">
+													<input type="number" fieldname="<%= field %>" step="0.01" min="<%= clothingType == 'Jacket'?0.88:clothingType == 'Waistcoat'? 0.84:0 %>" id="<%= currentField.name %>" class="input-xlarge" name="<%= currentField.name %>" value="<%= currentField.value %>" data-type="fav-option-customization"
+													<% if(currentField.showOnSelection){ %> data-showOnSelection="<%= currentField.showOnSelection %>" data-hiddenOption="<%= currentField.hiddenOption %>"  <% } %>
+													<% if(currentField.defaultValue){ %> data-defaultValue="<%= currentField.defaultValue %>" <% } %>>
 												</div>
 												<div class="show-options-img" id="more-info_<%= currentField.name %>">
 															<%= SC.macros.displayMoreInfo(currentField.name+"|"+currentField.label +"|"+ currentField.name)%>

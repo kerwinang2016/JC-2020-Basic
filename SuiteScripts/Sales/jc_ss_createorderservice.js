@@ -1,15 +1,15 @@
-811499/**
+/**
  * @NApiVersion 2.x
  * @NScriptType ScheduledScript
  * @NAmdConfig /SuiteScripts/amd-config.json
  */
- define(['N/record', 'N/search', 'N/log', 'N/format', 'N/file', 'N/email', 'ustyylit/integration'], 
+ define(['N/record', 'N/search', 'N/log', 'N/format', 'N/file', 'N/email', 'ustyylit/integration'],
 	function runScheduledScript(record, search, log, format, file, nlemail, ustyylit){
-		
+
 		function execute(){
 			//Search all orders that are pending approval
 			var orders = getPendingApprovalOrders();
-			
+
 		}
 		var ordernolist = ['26049-1','26990-1','26707-1','21099-4'];
 		function getPendingApprovalOrders(){
@@ -19,7 +19,7 @@
 				['internalid','anyof',[848125,869975,775391,874172]], 'AND',
 				//["internalid","anyof",["725826",'725825','725823','725822','722789','722788','722787','722786','722781','722780','722777','722776','722775','722774','722773','722772',
 				//'721815','721814','721797','721796','721795','721785','721781','721775','721774','722807','725858','726774']],"AND",
-				["type", "anyof", "SalesOrd"],"AND", 
+				["type", "anyof", "SalesOrd"],"AND",
 				["mainline", "is", true]//, "AND", ["status", "anyof", "SalesOrd:A"]
 				//"AND", ["custbodycustbody_api_sales_ord_st_json","isnot","Success"], "AND", ["custbodycustbody_api_sales_ord_st_json","isnot","Old Order"]
 				],
@@ -42,8 +42,8 @@
 				order.push(orderObj);
 				orderLists.push(orderObj);
 				//Send it
-				
-				
+
+
 				var receiveOrderData = {
 					"Action": "CreateOrder",
 					"orders": {"Order":order}
@@ -56,7 +56,7 @@
 					folder: '2042'
 				})
 				var f_id = f.save();
-				
+
 				// var responseData = "";
 				  // responseData = ustyylit.receiveOrder(receiveOrderData);
 				 // orders.push({
@@ -68,15 +68,15 @@
 					// recipients: 97,
 					// subject: 'JSON DATA for Order: '+ result.getValue('tranid'),//+' pushed using NS Service',
 					// body: "Response Data returned from Ustyylit \n" + responseData + "\n **Attached the JSON text.",
-					// attachments: [f]//file.load({id: f_id})			
+					// attachments: [f]//file.load({id: f_id})
 				// });
 				return true;
 			});
-				
+
 			return orders;
 		}
 		function createOrder(order){
-			
+
 			var rec = record.load({
 				type: order.recordType
 				, id:order.id
@@ -90,7 +90,7 @@
 				brand = "GCTU";
 			else
 				brand = "JETU";
-			
+
 			var shopname = rec.getText('entity');
 			if(!isNaN(shopname.split(" ")[0])){
 				shopname = shopname.split(" ");
@@ -105,7 +105,7 @@
 				addrphone = addrSubrecord.getValue('addrphone'),
 				address1 = addrSubrecord.getValue("addr1");
 				var orderDetailsObj = createOrderDetails(rec);
-			var orderObj = {  
+			var orderObj = {
 				"brand":brand,
 				"mainorder":rec.getValue('tranid'),
 				"shop":TESTMODE? "TUTEST": shopname,
@@ -132,7 +132,7 @@
 			if(orderDetailsObj.observations.length>0){
 				orderObj.Observations = orderDetailsObj.observations;
 			}
-			
+
 			return orderObj;
 		}
 		function getCombination(productType){
@@ -159,7 +159,7 @@
 		}
 		function getMeasurementMode(fpSummary){
 			var mode = "";
-			
+
 			if(fpSummary && fpSummary.length >0){
 				if(fpSummary[0].type == 'Block')
 					mode = "01";
@@ -179,11 +179,11 @@
 				else
 					code = itemname;
 			}
-			
+
 			return code;
 		}
 		function getOrderDetails(rec,line, designoptions,liningname,garmentname,fitprofile, garmentclass, fabriccode, fabricmode, clf, styleno){
-			var measurementmode = getMeasurementMode(JSON.parse(rec.getSublistValue('item','custcol_fitprofile_summary',line)));					
+			var measurementmode = getMeasurementMode(JSON.parse(rec.getSublistValue('item','custcol_fitprofile_summary',line)));
 			var liningcode = "", liningmode = "01", garmentmake = "", tryoncode = "", fitcode = "";
 			var liningqty = "";
 			//var designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_jacket',line));
@@ -216,43 +216,43 @@
 						o.push(p);
 					}
 						return o;
-					},[]);	
+					},[]);
 					liningqty = liqty.length>0?liqty[0].value:"";
 				}
 				if(liningcode == 'CMT Lining')
 					liningmode = '02';
 			}
-			var gm = designoptions.reduce(function(o,p){ 
+			var gm = designoptions.reduce(function(o,p){
 				if(p.name == garmentname){
 					o.push(p);
 				}
 				return o;
-				},[]);			
+				},[]);
 			garmentmake = gm.length>0?gm[0].value:"";
-			
+
 			// var fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_jacket',line));
 			if(measurementmode == '01'){
-				var toc = fitprofile.reduce(function(o,p){ 
+				var toc = fitprofile.reduce(function(o,p){
 				if(p.name == 'block')
 					o.push(p);
 				return o;
 				},[]);
 				tryoncode = toc.length>0?toc[0].value:'';
 			}
-			var fc = fitprofile.reduce(function(o,p){ 
+			var fc = fitprofile.reduce(function(o,p){
 				if(p.name == 'fit')
 					o.push(p)
 					return o;
 					},[]);
 				fitcode = fc.length>0?fc[0].value:'';
-			
-			return {  
+
+			return {
 			  "orderdetailid":rec.getSublistValue('item','custcol_so_id',line),
 			  "order":rec.getValue('tranid'),
 			  "combination":getCombination(rec.getSublistValue('item','custcol_producttype',line)),
 			  "mode": measurementmode,
-			  "fabric":[  
-				 {  
+			  "fabric":[
+				 {
 					"sku": fabriccode,
 					"mode":fabricmode,
 					"Vendor":"",
@@ -261,8 +261,8 @@
 					"Length":rec.getSublistValue('item','quantity',line).toString()
 				 }
 			  ],
-			  "lining":[  
-				 {  
+			  "lining":[
+				 {
 					"sku": liningcode,
 					"mode": liningcode?liningmode:'',
 					"Vendor":"",
@@ -283,14 +283,14 @@
 		}
 		function getOrderOptions(rec, line, designoptions, liningprefix, othersuffix, garmentname, styleno, garmentclass){
 			var options = [];
-			//log.debug('orderoptions ' + line, JSON.stringify(designoptions[0])); 
+			//log.debug('orderoptions ' + line, JSON.stringify(designoptions[0]));
 			for(var z=0;z<designoptions.length;z++){
-				if(designoptions[z].name.indexOf(othersuffix) == -1 
+				if(designoptions[z].name.indexOf(othersuffix) == -1
 				&& designoptions[z].name.indexOf(liningprefix) == -1
 				&& designoptions[z].name.indexOf(garmentname) == -1 ){
 					var value = designoptions[z].value;
 					if(designoptions[z].value == 'other'){
-						var other = designoptions.reduce(function(o,p){ 
+						var other = designoptions.reduce(function(o,p){
 							if(p.name == designoptions[z].name + othersuffix)
 								o.push(p);
 								return o;
@@ -332,7 +332,7 @@
 					case '39':	fitToolGarmentData = garmentData['FitTool_Short-Sleeeves-Shirt']; break;
 				}
 				//BLOCK
-				
+
 				for(var i=0; i< fitprofile.length; i++){
 					var fitItem = fitprofile[i];
 					var name = fitItem.name;
@@ -341,7 +341,7 @@
 					var fitToolValue = fitToolGarmentData[name.toUpperCase()];
 					if(fitToolValue){
 						if(value && parseFloat(value) != 0){
-							measurements.push({  
+							measurements.push({
 							  "orderdetailid": rec.getSublistValue('item','custcol_so_id',line),
 							  "styleno":styleno,
 							  "class":garmentclass,
@@ -376,7 +376,7 @@
 						var garmentDataName = fitToolGarmentData[keys[j]];
 						// log.debug('garment data', garmentDataName);
 						if(name.toUpperCase() == keys[j] || name.toUpperCase() == 'ALLOWANCE-'+keys[j]){
-							
+
 							var refValue = "";
 							if(typeof fitToolGarmentData[keys[j]] == 'object'){
 								//log.debug('found object', JSON.stringify(fitToolGarmentData[keys[j]]));
@@ -388,7 +388,7 @@
 										'styleno': styleno,
 										'class': garmentclass,
 										'item_code': refObservationObj.NAME,
-										'value': refObservationObj.VALUE										
+										'value': refObservationObj.VALUE
 									});
 								}
 							}else{
@@ -416,11 +416,11 @@
 										// 'tryon_adjustment': "NULL"
 									// });
 									bodyMeasurements.push({name: fitToolName, value: fitToolValue});
-									
+
 								}
-								
+
 							}
-							
+
 						}
 					}
 				}
@@ -454,7 +454,7 @@
 				}
 				//log.debug('measurements',JSON.stringify(measurements));
 			}
-			
+
 			return {measurements:measurements, observations: observations};
 		}
 		function createOrderDetails(rec){
@@ -466,7 +466,7 @@
 						var producttype = rec.getSublistValue('item','custcol_producttype',i);
 						var clf = '0', fabricmode = '02';
 						if(
-                          //rec.getSublistValue('item','povendor',i) == '675' || 
+                          //rec.getSublistValue('item','povendor',i) == '675' ||
                           rec.getSublistValue('item','povendor',i) == '689' || rec.getSublistValue('item','povendor',i) == '671')
 							clf = '1';
 						if(rec.getSublistValue('item','povendor',i) == '675' || rec.getSublistValue('item','povendor',i) == '689' || rec.getSublistValue('item','povendor',i) == '671'
@@ -481,16 +481,16 @@
 						}
 						if(producttype == '2-Piece-Suit' || producttype == '3-Piece-Suit'){
 							if(producttype == '2-Piece-Suit'){
-								var garmentclass = '02', 
-									liningname = 'li-b-j', 
+								var garmentclass = '02',
+									liningname = 'li-b-j',
 									garmentname = 'jm-ms-j',
 									designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_jacket',i)),
 									fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_jacket',i)),
 									styleno = "01";
-								
+
 								var details = getOrderDetails(
 									rec,
-									i,										
+									i,
 									designoptions,
 									liningname,
 									garmentname,
@@ -518,16 +518,16 @@
 								if(measurementObservationObj.observations.length != 0 )
 								observations = observations.concat(measurementObservationObj.observations);
 								//Trouser
-								var garmentclass = '05', 
-									liningname = '', 
+								var garmentclass = '05',
+									liningname = '',
 									garmentname = 'tm-m-t',
 									designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_trouser',i)),
 									fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_trouser',i)),
 									styleno = "02";
-								
+
 								var details = getOrderDetails(
 									rec,
-									i,										
+									i,
 									designoptions,
 									liningname,
 									garmentname,
@@ -555,16 +555,16 @@
 								if(measurementObservationObj.observations.length != 0 )
 								observations = observations.concat(measurementObservationObj.observations);
 							}else {
-								var garmentclass = '02', 
-									liningname = 'li-b-j', 
+								var garmentclass = '02',
+									liningname = 'li-b-j',
 									garmentname = 'jm-ms-j',
 									designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_jacket',i)),
 									fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_jacket',i)),
 									styleno = "01";
-								
+
 								var details = getOrderDetails(
 									rec,
-									i,										
+									i,
 									designoptions,
 									liningname,
 									garmentname,
@@ -592,16 +592,16 @@
 								if(measurementObservationObj.observations.length != 0 )
 								observations = observations.concat(measurementObservationObj.observations);
 								//Trouser
-								var garmentclass = '05', 
-									liningname = '', 
+								var garmentclass = '05',
+									liningname = '',
 									garmentname = 'tm-m-t',
 									designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_trouser',i)),
 									fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_trouser',i)),
 									styleno = "02";
-								
+
 								var details = getOrderDetails(
 									rec,
-									i,										
+									i,
 									designoptions,
 									liningname,
 									garmentname,
@@ -628,16 +628,16 @@
 								measurements = measurements.concat(measurementObservationObj.measurements);
 								if(measurementObservationObj.observations.length != 0 )
 								observations = observations.concat(measurementObservationObj.observations);
-								var garmentclass = '17', 
-								liningname = 'li-bl-w', 
+								var garmentclass = '17',
+								liningname = 'li-bl-w',
 								garmentname = 'm-ms-w',
 								designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_waistcoat',i)),
 								fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_waistcoat',i)),
 								styleno = "03";
-							
+
 								var details = getOrderDetails(
 									rec,
-									i,										
+									i,
 									designoptions,
 									liningname,
 									garmentname,
@@ -663,20 +663,20 @@
 								var measurementObservationObj = getOrderMeasurements(rec, i, styleno, garmentclass, fitprofile);
 								measurements = measurements.concat(measurementObservationObj.measurements);
 								if(measurementObservationObj.observations.length != 0 )
-								observations = observations.concat(measurementObservationObj.observations);	
+								observations = observations.concat(measurementObservationObj.observations);
 							}
 						}
 						else if(producttype == 'L-3PC-Suit'){
-							var garmentclass = '72', 
-								liningname = 'li-b-lj', 
+							var garmentclass = '72',
+								liningname = 'li-b-lj',
 								garmentname = 'jm-ms-lj',
 								designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_ladiesjacket',i)),
 								fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_ladiesjacket',i)),
 								styleno = "01";
-							
+
 							var details = getOrderDetails(
 								rec,
-								i,										
+								i,
 								designoptions,
 								liningname,
 								garmentname,
@@ -704,16 +704,16 @@
 							if(measurementObservationObj.observations.length != 0 )
 							observations = observations.concat(measurementObservationObj.observations);
 							//Trouser
-							var garmentclass = '74', 
-								liningname = '', 
+							var garmentclass = '74',
+								liningname = '',
 								garmentname = 'tm-m-lt',
 								designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_ladiespants',i)),
 								fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_ladiespants',i)),
 								styleno = "02";
-							
+
 							var details = getOrderDetails(
 								rec,
-								i,										
+								i,
 								designoptions,
 								liningname,
 								garmentname,
@@ -740,16 +740,16 @@
 							measurements = measurements.concat(measurementObservationObj.measurements);
 							if(measurementObservationObj.observations.length != 0 )
 							observations = observations.concat(measurementObservationObj.observations);
-							var garmentclass = '73', 
-									liningname = 'li-fo-ls', 
+							var garmentclass = '73',
+									liningname = 'li-fo-ls',
 									garmentname = 'sma-sw-ls',
 									designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_ladiesskirt',i)),
 									fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_ladiesskirt',i)),
 									styleno = "03";
-								
+
 								var details = getOrderDetails(
 									rec,
-									i,										
+									i,
 									designoptions,
 									liningname,
 									garmentname,
@@ -778,16 +778,16 @@
 								observations = observations.concat(measurementObservationObj.observations);
 						}
 						else if(producttype == 'L-2PC-Skirt'){
-							var garmentclass = '72', 
-								liningname = 'li-b-lj', 
+							var garmentclass = '72',
+								liningname = 'li-b-lj',
 								garmentname = 'jm-ms-lj',
 								designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_ladiesjacket',i)),
 								fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_ladiesjacket',i)),
 								styleno = "01";
-							
+
 							var details = getOrderDetails(
 								rec,
-								i,										
+								i,
 								designoptions,
 								liningname,
 								garmentname,
@@ -815,16 +815,16 @@
 							if(measurementObservationObj.observations.length != 0 )
 							observations = observations.concat(measurementObservationObj.observations);
 							//Trouser
-							var garmentclass = '73', 
-								liningname = 'li-fo-ls', 
+							var garmentclass = '73',
+								liningname = 'li-fo-ls',
 								garmentname = 'sma-sw-ls',
 								designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_ladiesskirt',i)),
 								fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_ladiesskirt',i)),
 								styleno = "02";
-							
+
 							var details = getOrderDetails(
 								rec,
-								i,										
+								i,
 								designoptions,
 								liningname,
 								garmentname,
@@ -851,19 +851,19 @@
 							measurements = measurements.concat(measurementObservationObj.measurements);
 							if(measurementObservationObj.observations.length != 0 )
 							observations = observations.concat(measurementObservationObj.observations);
-						
+
 						}
 						else if(producttype == 'L-2PC-Pants'){
-							var garmentclass = '72', 
-								liningname = 'li-b-lj', 
+							var garmentclass = '72',
+								liningname = 'li-b-lj',
 								garmentname = 'jm-ms-lj',
 								designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_ladiesjacket',i)),
 								fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_ladiesjacket',i)),
 								styleno = "01";
-							
+
 							var details = getOrderDetails(
 								rec,
-								i,										
+								i,
 								designoptions,
 								liningname,
 								garmentname,
@@ -891,16 +891,16 @@
 							if(measurementObservationObj.observations.length != 0 )
 							observations = observations.concat(measurementObservationObj.observations);
 							//Trouser
-							var garmentclass = '74', 
-								liningname = '', 
+							var garmentclass = '74',
+								liningname = '',
 								garmentname = 'tm-m-lt',
 								designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_ladiespants',i)),
 								fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_ladiespants',i)),
 								styleno = "02";
-							
+
 							var details = getOrderDetails(
 								rec,
-								i,										
+								i,
 								designoptions,
 								liningname,
 								garmentname,
@@ -930,17 +930,17 @@
 						}
 						else{
 							switch(producttype){
-								case 'Jacket' : 
-									var garmentclass = '02', 
-										liningname = 'li-b-j', 
+								case 'Jacket' :
+									var garmentclass = '02',
+										liningname = 'li-b-j',
 										garmentname = 'jm-ms-j',
 										designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_jacket',i)),
 										fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_jacket',i)),
 										styleno = "01";
-									
+
 									var details = getOrderDetails(
 										rec,
-										i,										
+										i,
 										designoptions,
 										liningname,
 										garmentname,
@@ -969,18 +969,18 @@
 									if(measurementObservationObj.observations.length != 0 )
 									observations = observations.concat(measurementObservationObj.observations);
 									break;
-									
-								case 'Trouser': 
-									var garmentclass = '05', 
-									liningname = '', 
+
+								case 'Trouser':
+									var garmentclass = '05',
+									liningname = '',
 									garmentname = 'tm-m-t',
 									designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_trouser',i)),
 									fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_trouser',i)),
 									styleno = "01";
-								
+
 									var details = getOrderDetails(
 										rec,
-										i,										
+										i,
 										designoptions,
 										liningname,
 										garmentname,
@@ -1008,19 +1008,19 @@
 									if(measurementObservationObj.observations.length != 0 )
 									observations = observations.concat(measurementObservationObj.observations);
 									break;
-									
-								case 'Waistcoat': 
-								
-									var garmentclass = '17', 
-									liningname = 'li-bl-w', 
+
+								case 'Waistcoat':
+
+									var garmentclass = '17',
+									liningname = 'li-bl-w',
 									garmentname = 'm-ms-w',
 									designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_waistcoat',i)),
 									fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_waistcoat',i)),
 									styleno = "01";
-								
+
 									var details = getOrderDetails(
 										rec,
-										i,										
+										i,
 										designoptions,
 										liningname,
 										garmentname,
@@ -1049,17 +1049,17 @@
 									observations = observations.concat(measurementObservationObj.observations);
 
 									break;
-								case 'Overcoat': 
-									var garmentclass = '04', 
-									liningname = 'li-bl-o', 
+								case 'Overcoat':
+									var garmentclass = '04',
+									liningname = 'li-bl-o',
 									garmentname = 'm-msl-o',
 									designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_overcoat',i)),
 									fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_overcoat',i)),
 									styleno = "01";
-								
+
 									var details = getOrderDetails(
 										rec,
-										i,										
+										i,
 										designoptions,
 										liningname,
 										garmentname,
@@ -1089,17 +1089,17 @@
 									observations = observations.concat(measurementObservationObj.observations);
 
 									break;
-								case 'Shirt': 
-									var garmentclass = '06', 
-									liningname = '', 
+								case 'Shirt':
+									var garmentclass = '06',
+									liningname = '',
 									garmentname = 'sm-ms-s',
 									designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_shirt',i)),
 									fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_shirt',i)),
 									styleno = "01";
-								
+
 									var details = getOrderDetails(
 										rec,
-										i,										
+										i,
 										designoptions,
 										liningname,
 										garmentname,
@@ -1129,16 +1129,16 @@
 
 									break;
 								case "Ladies-Jacket":
-									var garmentclass = '72', 
-									liningname = 'li-b-lj', 
+									var garmentclass = '72',
+									liningname = 'li-b-lj',
 									garmentname = 'jm-ms-lj',
 									designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_ladiesjacket',i)),
 									fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_ladiesjacket',i)),
 									styleno = "01";
-								
+
 									var details = getOrderDetails(
 										rec,
-										i,										
+										i,
 										designoptions,
 										liningname,
 										garmentname,
@@ -1168,16 +1168,16 @@
 									break;
 								case "Ladies-Pants":
 									//Trouser
-									var garmentclass = '74', 
-										liningname = '', 
+									var garmentclass = '74',
+										liningname = '',
 										garmentname = 'tm-m-lt',
 										designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_ladiespants',i)),
 										fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_ladiespants',i)),
 										styleno = "01";
-									
+
 									var details = getOrderDetails(
 										rec,
-										i,										
+										i,
 										designoptions,
 										liningname,
 										garmentname,
@@ -1206,16 +1206,16 @@
 									observations = observations.concat(measurementObservationObj.observations);
 									break;
 								case "Ladies-Skirt":
-									var garmentclass = '73', 
-										liningname = 'li-fo-ls', 
+									var garmentclass = '73',
+										liningname = 'li-fo-ls',
 										garmentname = 'sma-sw-ls',
 										designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_ladiesskirt',i)),
 										fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_ladiesskirt',i)),
 										styleno = "01";
-									
+
 									var details = getOrderDetails(
 										rec,
-										i,										
+										i,
 										designoptions,
 										liningname,
 										garmentname,
@@ -1244,16 +1244,16 @@
 									observations = observations.concat(measurementObservationObj.observations);
 									break;
 								case "Trenchcoat":
-									var garmentclass = '16', 
-										liningname = 'li-bl-tc', 
+									var garmentclass = '16',
+										liningname = 'li-bl-tc',
 										garmentname = 'm-msl-tc',
 										designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_trenchcoat',i)),
 										fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_trenchcoat',i)),
 										styleno = "01";
-									
+
 									var details = getOrderDetails(
 										rec,
-										i,										
+										i,
 										designoptions,
 										liningname,
 										garmentname,
@@ -1282,18 +1282,18 @@
 									observations = observations.concat(measurementObservationObj.observations);
 									break;
 								break;
-									
+
 								case "Short-Sleeves-Shirt":
-									var garmentclass = '39', 
-										liningname = '', 
+									var garmentclass = '39',
+										liningname = '',
 										garmentname = 'sm-ms-ss',
 										designoptions = JSON.parse(rec.getSublistValue('item','custcol_designoptions_ssshirt',i)),
 										fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_ssshirt',i)),
 										styleno = "01";
-									
+
 									var details = getOrderDetails(
 										rec,
-										i,										
+										i,
 										designoptions,
 										liningname,
 										garmentname,
@@ -1323,7 +1323,7 @@
 									break;
 								break;
 							}
-							
+
 						}
 					}else{
 							//Not Non Inventory.. hmm
@@ -1331,7 +1331,7 @@
 				}
 			}
 			return {orderdetails:orderdetails, measurements:measurements, options:options, observations:observations};
-			
+
 		}
 		return {
 		   execute:execute

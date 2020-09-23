@@ -37,7 +37,7 @@ function userEventAfterApproveSO(type){
 		var custfields = nlapiLookupField('customer',newSORecord.getFieldValue('entity'),['custentity_delivery_days','pricelevel','currency',
 		'custentity_thomasmason_pricelevel', 'custentity_loropiana_pricelevel', 'custentity_huddersfield_pricelevel', 'custentity_filarte_pricelevel',
 		'custentity_dugdale_pricelevel', 'custentity_drago_pricelevel', 'custentity_dormeuil_pricelevel', 'custentity_carnet_pricelevel',
-		'custentity_artextile_pricelevel', 'custentity_ariston_pricelevel', 'custentity_acshirt_pricelevel']);
+		'custentity_artextile_pricelevel', 'custentity_ariston_pricelevel', 'custentity_acshirt_pricelevel','custentity_harrisons_pricelevel']);
 		var itemCount = newSORecord.getLineItemCount('item');
 
 		for (var ii=1; ii<=itemCount; ii++){
@@ -183,7 +183,7 @@ function userEventAfterSubmitSO(type) {
 			//20
 			var custfields = nlapiLookupField('customer',newSORecord.getFieldValue('entity'),['custentity_delivery_days','pricelevel','currency',
 			'custentity_thomasmason_pricelevel', 'custentity_loropiana_pricelevel', 'custentity_huddersfield_pricelevel', 'custentity_filarte_pricelevel',
-			'custentity_dugdale_pricelevel', 'custentity_drago_pricelevel', 'custentity_dormeuil_pricelevel', 'custentity_carnet_pricelevel',
+			'custentity_dugdale_pricelevel', 'custentity_drago_pricelevel', 'custentity_dormeuil_pricelevel', 'custentity_carnet_pricelevel', 'custentity_harrisons_pricelevel',
 			'custentity_artextile_pricelevel', 'custentity_ariston_pricelevel', 'custentity_acshirt_pricelevel', 'custentity_donotsendorderemails']);
 			var soNumber =  newSORecord.getFieldValue('tranid'),
 			itemCount = newSORecord.getLineItemCount('item'),
@@ -255,7 +255,7 @@ function userEventAfterSubmitSO(type) {
 				//30 + 5x
 				var itemfields = nlapiLookupField('item',itemID,['custitem_clothing_type','custitem_jerome_cmt_serviceitem']);
 				var clothingtype = itemfields.custitem_clothing_type;
-				
+
 				if ((type == 'create') && (executionContext == 'userinterface' || executionContext == 'webstore' || executionContext == 'restlet'))
 				{
 					var dateNeededValue = newSORecord.getLineItemValue('item', 'custcol_avt_date_needed', ii);
@@ -296,7 +296,7 @@ function userEventAfterSubmitSO(type) {
 								break;
 							case 'L-2PC-Pants':
 								pushliningarray(lining_arr,newSORecord,'custcol_designoptions_ladiesjacket',"li-b-lj","Ladies-Jacket");
-								break;								
+								break;
 							case "Ladies-Skirt":
 								pushliningarray(lining_arr,newSORecord,'custcol_designoptions_ladiesskirt',"li-fo-ls","Ladies-Skirt");
 								break;
@@ -593,7 +593,7 @@ function userEventAfterSubmitSO(type) {
 
 					if (isServiceItem != 'T'){
 						var description = newSORecord.getLineItemValue('item','description',ii);
-				
+
 						var priceLevel = newSORecord.getLineItemValue('item', 'price', ii);
 						// set quantity to fabric quantity
 						//30 + 15x
@@ -638,7 +638,8 @@ function userEventAfterSubmitSO(type) {
 							// nlapiLogExecution('debug','oldpricelevel',useCustomerPriceLevel);
 							// nlapiLogExecution('debug','povendor',povendor);
 							if(povendor == '689' || povendor == '88' || povendor == '785' || povendor == '596' || povendor == '15' ||
-							povendor == '672' || povendor == '79' || povendor == '675' || povendor == '784' || povendor == '59' || povendor == '92'){
+							povendor == '672' || povendor == '79' || povendor == '675' || povendor == '784' || povendor == '59' || povendor == '92' ||
+              povendor == '54' ){
 								switch(povendor){
 									case '689' :
 										if(custfields.custentity_acshirt_pricelevel)
@@ -684,6 +685,10 @@ function userEventAfterSubmitSO(type) {
 										if(custfields.custentity_thomasmason_pricelevel)
 											useCustomerPriceLevel = custfields.custentity_thomasmason_pricelevel;
 										break;
+                  case '54' :
+										if(custfields.custentity_harrisons_pricelevel)
+											useCustomerPriceLevel = custfields.custentity_harrisons_pricelevel;
+										break;
 									default:
 								}
 							}
@@ -699,21 +704,21 @@ function userEventAfterSubmitSO(type) {
 								var price = parseFloat(result[0].getValue('unitprice','pricing'));
 
 								switch(itemtype){
-									case '2-Piece-Suit' : 
-									case '3-Piece-Suit': 
-									case 'Jacket': 
-									case 'Trouser': 
-									case 'Waistcoat': 
-									case 'Overcoat': 
-									case 'Shirt': 
-									case 'Trenchcoat' : 
-									case 'Short-Sleeves-Shirt': 
-									case 'Ladies-Jacket': 
-									case 'Ladies-Pants': 
-									case 'Ladies-Skirt': 
-									case 'L-2PC-Skirt': 
-									case 'L-3PC-Suit': 
-									case 'L-2PC-Pants': 
+									case '2-Piece-Suit' :
+									case '3-Piece-Suit':
+									case 'Jacket':
+									case 'Trouser':
+									case 'Waistcoat':
+									case 'Overcoat':
+									case 'Shirt':
+									case 'Trenchcoat' :
+									case 'Short-Sleeves-Shirt':
+									case 'Ladies-Jacket':
+									case 'Ladies-Pants':
+									case 'Ladies-Skirt':
+									case 'L-2PC-Skirt':
+									case 'L-3PC-Suit':
+									case 'L-2PC-Pants':
 									case 'Shorts':
 									case 'Camp-Shirt':
 									case 'Shirt-Jacket':
@@ -727,7 +732,7 @@ function userEventAfterSubmitSO(type) {
 								newSORecord.setCurrentLineItemValue('item','amount',currentAmount);
 								description = newSORecord.getCurrentLineItemText('item','item') + " " + newSORecord.getCurrentLineItemValue('item','amount');
 								//newSORecord.setCurrentLineItemValue('item','description', description);
-								
+
 							}
 						}
 						//nlapiLogExecution('debug','currentRate',currentRate);
@@ -828,7 +833,7 @@ function userEventAfterSubmitSO(type) {
 									description += "\n"+t_surcharge.description + " " + (parseFloat(currentAmount) * parseFloat(t_surcharge.rate)).toFixed(2);
 									totaladditionalsurcharge += parseFloat(j_surcharge.rate) + parseFloat(t_surcharge.rate);
 								}
-								
+
 								else{
 									var singlesurcharge;
 									if(fpsJSON[0].name == 'Jacket'){
@@ -1016,7 +1021,7 @@ function getSurcharge(ptype,dop,fabric_surcharges, fabric_customsurcharges, tail
 	// var additionalsurcharge = 0;
 	var additionalsurcharge = 0, description = "";
 	if(dop){
-		
+
 		var surcharges = _.filter(fabric_surcharges,function(z){
 			//surchargerate,code,name,min,max,producttype
 			return z.producttype == ptype;
@@ -1039,7 +1044,7 @@ function getSurcharge(ptype,dop,fabric_surcharges, fabric_customsurcharges, tail
 			}
 		}
 		return {description: description, rate: additionalsurcharge};
-	
+
 	}
 	return {description: "No Surcharge", rate:0};
 	// return additionalsurcharge;

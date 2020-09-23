@@ -1744,7 +1744,6 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             }
             return designOptionsList;
         }
-
         , getAvtDesignOptions: function (clothingType) {
             var $ = jQuery;
             var arrObjDesignOptionsList = [];
@@ -1793,203 +1792,28 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             this.application.trigger('profileRefresh');
         }
         , showHideGroupedOptions: function(){
-            if(jQuery('#T010622').val() == "Other"){
-              jQuery('#T010622_other').parent().parent().show();
-            }else{
-              jQuery('#T010622_other').parent().parent().hide();
-            }
-            if(jQuery('#T010623').val() == "Other"){
-              jQuery('#T010623_other').parent().parent().show();
-            }else{
-              jQuery('#T010623_other').parent().parent().hide();
-            }
-            if(jQuery('#T010624').val() == "Other"){
-              jQuery('#T010624_other').parent().parent().show();
-            }else{
-              jQuery('#T010624_other').parent().parent().hide();
-            }
-            if(jQuery('#T010625').val() == "Other"){
-              jQuery('#T010625_other').parent().parent().show();
-            }else{
-              jQuery('#T010625_other').parent().parent().hide();
-            }
-            if(jQuery('#T010626').val() == "Other"){
-              jQuery('#T010626_other').parent().parent().show();
-            }else{
-              jQuery('#T010626_other').parent().parent().hide();
-            }
-            if(jQuery('#T010627').val() == "Other"){
-              jQuery('#T010627_other').parent().parent().show();
-            }else{
-              jQuery('#T010627_other').parent().parent().hide();
-            }
-            if(jQuery('#T010628').val() == "Other"){
-              jQuery('#T010628_other').parent().parent().show();
-            }else{
-              jQuery('#T010628_other').parent().parent().hide();
-            }
-            if(jQuery('#T010629').val() == "Other"){
-              jQuery('#T010629_other').parent().parent().show();
-            }else{
-              jQuery('#T010629_other').parent().parent().hide();
-            }
-            if(jQuery('#T010630').val() == "Other"){
-              jQuery('#T010630_other').parent().parent().show();
-            }else{
-              jQuery('#T010630_other').parent().parent().hide();
-            }
-            if(jQuery('#T010631').val() == "Other"){
-              jQuery('#T010631_other').parent().parent().show();
-            }else{
-              jQuery('#T010631_other').parent().parent().hide();
-            }
-            if(jQuery('#T010632').val() == "Other"){
-              jQuery('#T010632_other').parent().parent().show();
-            }else{
-              jQuery('#T010632_other').parent().parent().hide();
-            }
-
-            if(jQuery('#T010257').val() == "T01025702"){
-              jQuery('#T010258').parent().parent().hide();
-              jQuery('#T010258').val('');
-              jQuery('#T010259').parent().parent().hide();
-              jQuery('#T010259').val('NA');
-            }else{
-              jQuery('#T010258').parent().parent().show();
-              jQuery('#T010259').parent().parent().show();
-            }
-            if(jQuery('#T010643').val() == "T01064302"){
-              jQuery('#T010644').parent().parent().hide();
-              jQuery('#T010644').val('');
-              jQuery('#T010645').parent().parent().hide();
-              jQuery('#T010645').val('');
-            }else{
-              jQuery('#T010644').parent().parent().show();
-              jQuery('#T010645').parent().parent().show();
-            }
-          // if(jQuery(e.target).attr("id") == 'T010243'){
-            if(jQuery('#T010243').val() == 'T01024302'){
-              //hide stuff
-              jQuery('#T010235').parent().parent().hide();
-              jQuery('#T010235').val('NA');
-              jQuery('#T010236').parent().parent().hide();
-              jQuery('#T010236').val('NA');
-              jQuery('#T010238').parent().parent().hide();
-              jQuery('#T010238').val('');
-            }
-            else{
-              //show
-              jQuery('#T010235').parent().parent().show();
-              jQuery('#T010236').parent().parent().show();
-              jQuery('#T010238').parent().parent().show();
-            }
-          // }
-          // else if(jQuery(e.target).attr("id") == 'T010244'){
-            if(jQuery('#T010244').val() == 'T01024402'){
-              //hide stuff
-              jQuery('#T010245').parent().parent().hide();
-              jQuery('#T010245').val('NA');
-              jQuery('#T010237').parent().parent().hide();
-              jQuery('#T010237').val('NA');
-              jQuery('#T010239').parent().parent().hide();
-              jQuery('#T010239').val('');
-              jQuery('#T010240').parent().parent().hide();
-              jQuery('#T010240').val('');
-              jQuery('#T010250').parent().parent().hide();
-              jQuery('#T010250').val('');
-              jQuery('#T010261').parent().parent().hide();
-              jQuery('#T010261').val('');
-            }
-            else{
-              //show
-              jQuery('#T010245').parent().parent().show();
-              jQuery('#T010237').parent().parent().show();
-              jQuery('#T010239').parent().parent().show();
-              jQuery('#T010240').parent().parent().show();
-              jQuery('#T010250').parent().parent().show();
-              jQuery('#T010261').parent().parent().show();
-            }
-          // }
-          // else if(jQuery(e.target).attr("id") == 'T010522'){
-            if(jQuery('#T010522').val() == 'T01052202'){
-              //hide stuff
-              jQuery('#T010523').parent().parent().hide();
-              jQuery('#T010523').val('NA');
-              jQuery('#T010524').parent().parent().hide();
-              jQuery('#T010524').val('NA');
-              jQuery('#T010525').parent().parent().hide();
-              jQuery('#T010525').val('');
-            }
-            else{
-              //show
-              jQuery('#T010523').parent().parent().show();
-              jQuery('#T010524').parent().parent().show();
-              jQuery('#T010525').parent().parent().show();
-            }
-          // }
-          // else if(jQuery(e.target).attr("id") == 'T010419'){
-            if(jQuery('#T010419').val() == 'T01041902'){
-              //hide stuff
-              jQuery('#T010420').parent().parent().hide();
-              jQuery('#T010420').val('NA');
-              jQuery('#T010421').parent().parent().hide();
-              jQuery('#T010421').val('NA');
-              jQuery('#T010422').parent().parent().hide();
-              jQuery('#T010422').val('');
-            }
-            else{
-              //show
-              jQuery('#T010420').parent().parent().show();
-              jQuery('#T010421').parent().parent().show();
-              jQuery('#T010422').parent().parent().show();
-            }
-          // }
-          // else if(jQuery(e.target).attr("id") == 'T010423'){
-            if(jQuery('#T010423').val() == 'T01042302'){
-              //hide stuff
-              jQuery('#T010424').parent().parent().hide();
-              jQuery('#T010424').val('NA');
-              jQuery('#T010425').parent().parent().hide();
-              jQuery('#T010425').val('NA');
-              jQuery('#T010426').parent().parent().hide();
-              jQuery('#T010426').val('NA');
-              jQuery('#T010427').parent().parent().hide();
-              jQuery('#T010427').val('');
-              jQuery('#T010428').parent().parent().hide();
-              jQuery('#T010428').val('');
-            }
-            else{
-              //show
-              jQuery('#T010424').parent().parent().show();
-              jQuery('#T010425').parent().parent().show();
-              jQuery('#T010426').parent().parent().show();
-              jQuery('#T010427').parent().parent().show();
-              jQuery('#T010428').parent().parent().show();
-            }
-          // }
-          // else if(jQuery(e.target).attr("id") == 'T010633'){
-            if(jQuery('#T010633').val() == 'T01063302'){
-              //hide stuff
-              jQuery('#T010634').parent().parent().hide();
-              jQuery('#T010634').val('');
-              jQuery('#T010635').parent().parent().hide();
-              jQuery('#T010635').val('NA');
-              jQuery('#T010636').parent().parent().hide();
-              jQuery('#T010636').val('NA');
-              jQuery('#T010637').parent().parent().hide();
-              jQuery('#T010637').val('NA');
-              jQuery('#T010638').parent().parent().hide();
-              jQuery('#T010638').val('NA');
-            }
-            else{
-              //show
-              jQuery('#T010634').parent().parent().show();
-              jQuery('#T010635').parent().parent().show();
-              jQuery('#T010636').parent().parent().show();
-              jQuery('#T010637').parent().parent().show();
-              jQuery('#T010638').parent().parent().show();
-            }
-          // }
+          var clothingtypes = this.model.get('custitem_clothing_type').split(',');
+          for(var i=0;i<clothingtypes.length;i++){
+            var clothingType = clothingtypes[i];
+            jQuery("div#design-option-" + clothingType + "").find(":input").each(function () {
+              //console.log(jQuery(this).val());
+              if(jQuery(this).data().showonselection){
+                if(jQuery(this).val() == jQuery(this).data().showonselection){
+                  var hiddenoptions = jQuery(this).data().hiddenoption.split(',');
+                  for(var i=0;i<hiddenoptions.length;i++){
+                    jQuery('#'+hiddenoptions[i]).parent().parent().show();
+                  }
+                }else{
+                  //Make sure to default the values
+                  var hiddenoptions = jQuery(this).data().hiddenoption.split(',');
+                  for(var i=0;i<hiddenoptions.length;i++){
+                    jQuery('#'+hiddenoptions[i]).val(jQuery('#'+hiddenoptions[i]).data().defaultvalue);
+                    jQuery('#'+hiddenoptions[i]).parent().parent().hide();
+                  }
+                }
+              }
+            });
+          }
         }
         , designOptionMessageChange: function (e) {
             window.tempOptionsNotes = jQuery("#designoption-message").val();

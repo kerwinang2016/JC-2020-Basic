@@ -574,7 +574,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 					return b.custrecord_md_blockmeasurement == block && b.custrecord_md_bodyparttext == blockfield.dataset.field && b.custrecord_md_fitoptionstext == fit	&& b.custrecord_md_producttypetext == producttype;
 				});
 				if(a){
-					var mdvalue = a.custrecord_md_value ?parseFloat(a.custrecord_md_value).toFixed(1):'---';
+					var mdvalue = a.custrecord_md_value?parseFloat(a.custrecord_md_value).toFixed(1):'---';
 					jQuery('[data-container="'+blockfield.dataset.field+'-block"]').html(mdvalue);
 					jQuery('[data-container="'+blockfield.dataset.field+'-finished"]').html(mdvalue);
 				}
@@ -584,7 +584,6 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 					var in_items = _.filter(self.options.layout.currentView.influences,function(c){
 						return c.custrecord_in_producttypetext== producttype && c.custrecord_in_bodyparttext == blockfield.dataset.field;
 					});
-
 					if(in_items && in_items.length>0){
 						var blockval = parseFloat(blockfield.value);
 						for(var i=0;i<in_items.length;i++){
@@ -974,7 +973,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 						, formData = new Object()
 						, param = new Object();
 					if (field == "custrecord_fp_client" || field == "name" || field == "custrecord_fp_product_type" || field == "custrecord_fp_measure_type") {
-						
+
 						formData.name = field;
 						if (field == "custrecord_fp_client" || field == "name") {
 							formData.value = value; //value.split(" ").join("+"); //value.replace("+", " ");

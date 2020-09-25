@@ -1,6 +1,6 @@
 /**
  * Module Description
- * 
+ *
  * Version    Date            Author           Remarks
  * 1.00       01 Oct 2016     gauravsrivastava
  *
@@ -14,10 +14,118 @@ var URL_SavePOFab = 'https://system.na2.netsuite.com/app/site/hosting/scriptlet.
 var URL_DashboardRequest = 'https://system.na2.netsuite.com/app/site/hosting/scriptlet.nl?script=179&deploy=1';
 var DATA_Approve =  new Array();
 
+var HoldSO = function()
+{
+  var data = {};
+  data.action = "holdso";
+  data.orders = [];
+	var count = nlapiGetLineItemCount( 'custpage_subslist1');
+	for( var x=1; x<=count;x++)
+	{
+		var isapp = nlapiGetLineItemValue( 'custpage_subslist1', 'custpage_choose', x);
+		if( isapp == 'T')
+		{
+			var object = new Object();
+			object.internalid  = nlapiGetLineItemValue( 'custpage_subslist1', 'internalid', x);
+			object.id = x;
+			data.transactions.push(object);
+		}
+	}
+
+  if( data.transactions.length>0)
+	{
+		var url = nlapiResolveURL('SUITELET','179','1')
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST',url);
+		xhr.setRequestHeader('Content-Type','application/json');
+		xhr.send(JSON.stringify(data));
+		xhr.onreadystatechange = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+				Run_HoldSOResponse_rest(xhr);
+			}
+		}
+	}else
+	{
+		console.log( "Nothing to send...All finished");
+	}
+};
+var Run_HoldSOResponse_rest = function(response){
+
+	if(response)
+	{
+		var data  = JSON.parse(response.responseText);
+
+		for(var i =0; i<data.transactions.length; i++){
+			if( data.transactions[i].status == false || data.transactions[i].status == 'false')
+			{
+					nlapiSetLineItemValue( 'custpage_subslist1', 'custpage_status', data.transactions[i].id, 'Error processing');
+			}else
+			{
+					nlapiSetLineItemValue( 'custpage_subslist1', 'custpage_status', data.transactions[i].id, 'Processed');
+			}
+		}
+	}
+}
+var HoldSOLine = function()
+{
+  var data = {};
+  data.action = "holdsoline";
+  data.orders = [];
+	var count = nlapiGetLineItemCount( 'custpage_subslist1');
+	for( var x=1; x<=count;x++)
+	{
+		var isapp = nlapiGetLineItemValue( 'custpage_subslist1', 'custpage_choose', x);
+		if( isapp == 'T')
+		{
+      var obj = new Object();
+      obj.internalid  = nlapiGetLineItemValue( 'custpage_subslist_app', 'internalid', x);
+      //alert( obj.soid );
+      obj.id = x; //nlapiGetLineItemValue( 'custpage_subslist1', '', x);
+      obj.soid  = nlapiGetLineItemValue( 'custpage_subslist_app', 'custcol_so_id', x );
+      obj.lineno =  nlapiGetLineItemValue( 'custpage_subslist_app', 'lineuniquekey', x);
+      obj.item =  nlapiGetLineItemValue( 'custpage_subslist_app', 'item', x);
+			data.transactions.push(obj);
+		}
+	}
+
+  if( data.transactions.length>0)
+	{
+		var url = nlapiResolveURL('SUITELET','179','1')
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST',url);
+		xhr.setRequestHeader('Content-Type','application/json');
+		xhr.send(JSON.stringify(data));
+		xhr.onreadystatechange = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+				Run_HoldSOLineResponse_rest(xhr);
+			}
+		}
+	}else
+	{
+		console.log( "Nothing to send...All finished");
+	}
+};
+var Run_HoldSOLineResponse_rest = function(response){
+
+	if(response)
+	{
+		var data  = JSON.parse(response.responseText);
+
+		for(var i =0; i<data.transactions.length; i++){
+			if( data.transactions[i].status == false || data.transactions[i].status == 'false')
+			{
+					nlapiSetLineItemValue( 'custpage_subslist1', 'custpage_status', data.transactions[i].id, 'Error processing');
+			}else
+			{
+					nlapiSetLineItemValue( 'custpage_subslist1', 'custpage_status', data.transactions[i].id, 'Processed');
+			}
+		}
+	}
+}
 var ApproveSO = function()
 {
-	console.log( "Approve SO");	
-	
+	console.log( "Approve SO");
+
 	var count = nlapiGetLineItemCount( 'custpage_subslist1');
 	for( var x=1; x<=count;x++)
 	{
@@ -28,20 +136,19 @@ var ApproveSO = function()
 			object.internalid  = nlapiGetLineItemValue( 'custpage_subslist1', 'internalid', x);
 			object.id = x;
 			DATA_Approve.push( object);
-			console.log( "Added", JSON.stringify( object));
 		}
 	}
-	
+
 	nlapiDisableField( 'custpage_btapprve', true);
-	
+
 	Run_ApproveSO();
 };
 
 var SaveSO = function()
 {
 	console.log( "Save SO..");
-	
-	
+
+
 	var count = nlapiGetLineItemCount( 'custpage_subslist_app');
 	for( var x=1; x<=count; x++)
 	{
@@ -57,14 +164,13 @@ var SaveSO = function()
 			obj.item =  nlapiGetLineItemValue( 'custpage_subslist_app', 'item', x);
 			obj.cmtno =  nlapiGetLineItemValue( 'custpage_subslist_app', 'custcol_avt_cmtno', x);
 			obj.save = true;
-			
+
 			DATA_Approve.push( obj);
-			console.log( "Added", JSON.stringify( obj));
 		}
 	}
-	
+
 	nlapiDisableField( 'custpage_btsave', true);
-	
+
 	Run_SaveSO();
 };
 
@@ -72,7 +178,7 @@ var SaveSO = function()
 var ApproveSOLine = function()
 {
 	//alert( (new Date()).toString() );
-	
+
 	console.log( "Approve SOLine");
 	var count = nlapiGetLineItemCount( 'custpage_subslist_app');
 	for( var x=1; x<=count; x++)
@@ -87,14 +193,13 @@ var ApproveSOLine = function()
 			obj.soid  = nlapiGetLineItemValue( 'custpage_subslist_app', 'custcol_so_id', x );
 			obj.lineno =  nlapiGetLineItemValue( 'custpage_subslist_app', 'lineuniquekey', x);
 			obj.item =  nlapiGetLineItemValue( 'custpage_subslist_app', 'item', x);
-			
+
 			DATA_Approve.push( obj);
-			console.log( "Added", JSON.stringify( obj));
 		}
 	}
-	
+
 	nlapiDisableField( 'custpage_btapprve', true);
-	
+
 	Run_ApproveSOLine();
 };
 
@@ -136,7 +241,7 @@ var Run_ApproveSO = function()
 
 var Run_ApproveSOLine = function()
 {
-	
+
 	// console.log( 'url ' + URL_ApproveSOLine);
 	// console.log( 'Sending ...DATA ' + JSON.stringify(DATA_Approve));
 	var url = nlapiResolveURL('SUITELET','163','1');
@@ -154,13 +259,13 @@ var Run_ApproveSOLine = function()
 	{
 		console.log( "Nothing to send...All finished");
 	}
-	
+
 };
 
 
 var Run_SaveSO = function()
 {
-	
+
 	// console.log( 'url ' + URL_ApproveSOLine);
 	// console.log( 'Sending ...DATA ' + JSON.stringify(DATA_Approve));
 	var url = nlapiResolveURL('SUITELET','163','1');
@@ -178,7 +283,7 @@ var Run_SaveSO = function()
 	{
 		console.log( "Nothing to send...All finished");
 	}
-	
+
 };
 
 var Run_ApproveSOResponse = function(response, textStatus, jqXHR)
@@ -186,7 +291,7 @@ var Run_ApproveSOResponse = function(response, textStatus, jqXHR)
 	if( response)
 	{
 		var data  =  response;
-		if( data.status == false || data.status == 'false') 
+		if( data.status == false || data.status == 'false')
 		{
 			nlapiSetLineItemValue( 'custpage_subslist1', 'custpage_status', data.id, 'Error processing');
 		}else
@@ -197,7 +302,7 @@ var Run_ApproveSOResponse = function(response, textStatus, jqXHR)
 			//jQuery( '#item_' + data.id).animate( { scrollTop: jQuerytarget.offset().top }, 1000 );
 
 		}
-		
+
 	}
 
 	DATA_Approve.shift();
@@ -219,8 +324,8 @@ var Run_ApproveSOLineResponse = function(response, textStatus, jqXHR)
 	{
 		var data  =  response;
 		console.log( ' data.... ' + JSON.stringify( data ));
-		
-		if( data.status == false || data.status == 'false') 
+
+		if( data.status == false || data.status == 'false')
 		{
 			nlapiSetLineItemValue( 'custpage_subslist_app', 'custpage_status', data.id, 'Error processing');
 		}else
@@ -231,7 +336,7 @@ var Run_ApproveSOLineResponse = function(response, textStatus, jqXHR)
 			//jQuery( '#item_' + data.id).animate( { scrollTop: jQuerytarget.offset().top }, 1000 );
 
 		}
-		
+
 	}
 
 	DATA_Approve.shift();
@@ -253,8 +358,8 @@ var Run_SaveSOResponse = function(response, textStatus, jqXHR)
 	{
 		var data  =  response;
 		console.log( ' data.... ' + JSON.stringify( data ));
-		
-		if( data.status == false || data.status == 'false') 
+
+		if( data.status == false || data.status == 'false')
 		{
 			nlapiSetLineItemValue( 'custpage_subslist_app', 'custpage_status', data.id, 'Error processing');
 		}else
@@ -265,7 +370,7 @@ var Run_SaveSOResponse = function(response, textStatus, jqXHR)
 			//jQuery( '#item_' + data.id).animate( { scrollTop: jQuerytarget.offset().top }, 1000 );
 
 		}
-		
+
 	}
 
 	DATA_Approve.shift();
@@ -305,7 +410,7 @@ var POCMTFilter = function()
 	var url = '';
 	if(window.location.search.indexOf('script=160') != -1)
 	url =  nlapiResolveURL( 'SUITELET', 'customscript_avt_po_approval_cmt', '1');
-	else if(window.location.search.indexOf('script=185') != -1)	
+	else if(window.location.search.indexOf('script=185') != -1)
 	url =  nlapiResolveURL( 'SUITELET', 'customscript_run_polinescmt_usa', '1');
 	else if(window.location.search.indexOf('script=215') != -1)
 	url =  nlapiResolveURL( 'SUITELET', 'customscript_run_polinescmt_uk', '1');
@@ -318,10 +423,10 @@ var POCMTFilter = function()
 	parameters +='&expecteddatesent='+escape(expdate);
 	if(cmtstatus.length>0)
 	parameters += '&cmtstatus='+cmtstatus.toString();
-			
+
 		url = url +parameters;
 		window.onbeforeunload = null;
-		window.location.href= url;	
+		window.location.href= url;
 };
 
 var POCMTBilledFilter = function()
@@ -335,21 +440,21 @@ var POCMTBilledFilter = function()
 	url =  nlapiResolveURL( 'SUITELET', 'customscript_run_polinescmtbilleduk', '1');
 	else
 	url = window.location.href;
-	var expdate =  nlapiGetFieldValue( 'custpage_expecteddatesent');	
+	var expdate =  nlapiGetFieldValue( 'custpage_expecteddatesent');
 	var parameters = "";
 	if(expdate)
 	parameters +='&expecteddatesent='+escape(expdate);
-			
+
 		url = url +parameters;
 		window.onbeforeunload = null;
-		window.location.href= url;	
+		window.location.href= url;
 };
 
 var POFilterBilled = function()
 {
 	var vendor =  nlapiGetFieldValue( 'custpage_vendor');
 	vendor == null? vendor =  '': null;
-	
+
 	{
 		var url = '';
 		if(window.location.search.indexOf('script=175') != -1)
@@ -360,7 +465,7 @@ var POFilterBilled = function()
 		url =  nlapiResolveURL( 'SUITELET', 'customscript_run_polinesfabricbilleduk', '1');
 		else
 		url = window.location.href;
-		
+
 		url = url +='&vendor='+vendor;
 		window.onbeforeunload = null;
 		window.location.href= url;
@@ -418,7 +523,7 @@ var getCMTLines = function(line, data , arg){
 			data.action = "savecmt";
 			}
 		}
-		
+
 	}
 	return data;
 }
@@ -472,9 +577,12 @@ var SavePOCMT = function( arg)
 	data = getCMTLines('custpage_subslist41', data, arg);
 	data = getCMTLines('custpage_subslist42', data, arg);
 	data = getCMTLines('custpage_subslist43', data, arg);
+	data = getCMTLines('custpage_subslist44', data, arg);
+	data = getCMTLines('custpage_subslist45', data, arg);
+	data = getCMTLines('custpage_subslist46', data, arg);
 	if( arg ==  true )
 	{
-		nlapiDisableField( 'custpage_btapprve_bill', true);	
+		nlapiDisableField( 'custpage_btapprve_bill', true);
 	}else
 	{
 		nlapiDisableField( 'custpage_btapprve', true);
@@ -483,7 +591,7 @@ var SavePOCMT = function( arg)
 	if(data.transactions.length!= 0)
 		DATA_Approve.push(data);
 	Run_SavePOCMT();
-	
+
 };
 
 var SavePOFab = function(arg)
@@ -524,8 +632,8 @@ var SavePOFab = function(arg)
 			transactionAdd.internalid = nlapiGetLineItemValue( 'custpage_subslist1', 'internalid', x);
 			transactionAdd.items = [];
 			}
-			//objToSend.transactions.push(transactionAdd);			
-			
+			//objToSend.transactions.push(transactionAdd);
+
 			var object = new Object();
 			object.internalid  = nlapiGetLineItemValue( 'custpage_subslist1', 'internalid', x);
 			object.id = x;
@@ -558,11 +666,11 @@ var SavePOFab = function(arg)
 			data.action = "savefabric";
 		}
 		}
-		
+
 	}
 	if( arg ==  true )
 	{
-		nlapiDisableField( 'custpage_btapprve_bill', true);	
+		nlapiDisableField( 'custpage_btapprve_bill', true);
 	}else
 	{
 		nlapiDisableField( 'custpage_btapprve', true);
@@ -573,7 +681,7 @@ var SavePOFab = function(arg)
 };
 
 var SavePOLining = function(arg)
-{	
+{
 	var count = nlapiGetLineItemCount( 'custpage_subslist1');
 	var data = {};
 	if(arg) data.bill = true;
@@ -614,7 +722,7 @@ var SavePOLining = function(arg)
 			object.internalid  = nlapiGetLineItemValue( 'custpage_subslist1', 'internalid', x);
 			object.id = x;
 			object.lineno = nlapiGetLineItemValue( 'custpage_subslist1', 'lineuniquekey', x);
-			object.item = nlapiGetLineItemValue( 'custpage_subslist1', 'item', x);			
+			object.item = nlapiGetLineItemValue( 'custpage_subslist1', 'item', x);
 			object.custcol_cmt_lining_datesent = nlapiGetLineItemValue( 'custpage_subslist1', 'custcol_cmt_lining_datesent', x);
 			object.custcol_cmt_lining_status = nlapiGetLineItemValue( 'custpage_subslist1', 'custcol_cmt_lining_status', x);
 			object.custcol_cmt_lining_status_text = nlapiGetLineItemText( 'custpage_subslist1', 'custcol_cmt_lining_status', x);
@@ -646,11 +754,11 @@ var SavePOLining = function(arg)
 			data.action = "savelining";
 		}
 		}
-		
+
 	}
 	if( arg ==  true )
 	{
-		nlapiDisableField( 'custpage_btapprve_bill', true);	
+		nlapiDisableField( 'custpage_btapprve_bill', true);
 	}else
 	{
 		nlapiDisableField( 'custpage_btapprve', true);
@@ -680,11 +788,11 @@ var Run_SavePOLining = function()
 	}
 };
 var Run_SavePOLiningResponse_rest = function(response){
-	
+
 	if(response)
 	{
 		var data  = JSON.parse(response.responseText);
-		
+
 		for(var i =0; i<data.transactions.length; i++){
 			if( data.transactions[i].status == false || data.transactions[i].status == 'false')
 			{
@@ -704,11 +812,11 @@ var Run_SavePOLiningResponse_rest = function(response){
 }
 
 var Run_SavePOFabResponse_rest = function(response){
-	
+
 	if(response)
 	{
 		var data  = JSON.parse(response.responseText);
-		
+
 		for(var i =0; i<data.transactions.length; i++){
 			if( data.transactions[i].status == false || data.transactions[i].status == 'false')
 			{
@@ -732,7 +840,7 @@ var Run_SavePOCMT = function()
 {
 	// console.log( 'url ' + URL_SavePOCMT);
 	// console.log( 'DATA ' + JSON.stringify(DATA_Approve));
-	
+
 	if( DATA_Approve[0] != null )
 	{
 	  var url = nlapiResolveURL('SUITELET','179','1')
@@ -758,7 +866,7 @@ var Run_SavePOCMTResponse = function(response, textStatus, jqXHR)
 	if( response)
 	{
 		var data  =  response;
-		if( data.status == false || data.status == 'false') 
+		if( data.status == false || data.status == 'false')
 		{
 			nlapiSetLineItemValue( data.sublist, 'custpage_status', data.id, 'Error processing');
 		}else
@@ -769,7 +877,7 @@ var Run_SavePOCMTResponse = function(response, textStatus, jqXHR)
 			//jQuery( '#item_' + data.id).animate( { scrollTop: jQuerytarget.offset().top }, 1000 );
 
 		}
-		
+
 	}
 
 	DATA_Approve.shift();
@@ -790,7 +898,7 @@ var Run_SavePOFab = function()
 {
 	// console.log( 'url ' + URL_SavePOFab);
 	// console.log( 'DATA ' + JSON.stringify(DATA_Approve));
-	
+
 	if( DATA_Approve[0] != null )
 	{
 	  // jQuery.ajax({
@@ -819,11 +927,11 @@ var Run_SavePOFab = function()
 	}
 };
 var Run_SavePOCMTResponse_rest = function(response){
-	
+
 	if( response)
 	{
 		var data  = JSON.parse(response.responseText);
-		
+
 		for(var i =0; i<data.transactions.length; i++){
 			if( data.transactions[i].status == false || data.transactions[i].status == 'false')
 			{
@@ -875,7 +983,7 @@ var Run_SavePOFabResponseError = function(jqXHR, textStatus, errorThrown)
 
 
 function fieldchanged(type, name, line){
-	if(type == 'custpage_subslist1' || type == 'custpage_subslist2' || type == 'custpage_subslist3' || 
+	if(type == 'custpage_subslist1' || type == 'custpage_subslist2' || type == 'custpage_subslist3' ||
 	type == 'custpage_subslist4' || type == 'custpage_subslist5' || type == 'custpage_subslist6' || type == 'custpage_subslist7' || type == 'custpage_subslist8'){
 		if(name == 'custcol_avt_cmt_date_sent'){
 			var sentdate = nlapiGetLineItemValue(type,name,line);
@@ -895,63 +1003,66 @@ function fieldchanged(type, name, line){
 	}
 }
 var ExportCMT = function(){
-	var data = {};	
-	
+	var data = {};
+
 	data.contents = "data:text/csv;charset=utf-8,Date,SO-ID,ClientName,Item,FabricVendor,FabricDetail,FabricStatus,CMTStage,ExpectedShipping,ConfirmedShipping,Tracking,DateNeeded,CMTStatus,Notes\n";
 	data.action = 'downloadccsv';
 	data = generateExport(data , 'custpage_subslist1');
-	data = generateExport(data, 'custpage_subslist2');	
-	data = generateExport(data, 'custpage_subslist3');	
-	data = generateExport(data, 'custpage_subslist4');	
-	data = generateExport(data, 'custpage_subslist5');	
-	data = generateExport(data, 'custpage_subslist6');	
-	data = generateExport(data, 'custpage_subslist7');	
-	data = generateExport(data, 'custpage_subslist8');	
-	data = generateExport(data, 'custpage_subslist9');	
-	data = generateExport(data, 'custpage_subslist10');	
-	data = generateExport(data, 'custpage_subslist11');	
-	data = generateExport(data, 'custpage_subslist12');	
-	data = generateExport(data, 'custpage_subslist13');	
-	data = generateExport(data, 'custpage_subslist14');	
-	data = generateExport(data, 'custpage_subslist15');	
-	data = generateExport(data, 'custpage_subslist16');	
-	data = generateExport(data, 'custpage_subslist17');	
-	data = generateExport(data, 'custpage_subslist18');	
+	data = generateExport(data, 'custpage_subslist2');
+	data = generateExport(data, 'custpage_subslist3');
+	data = generateExport(data, 'custpage_subslist4');
+	data = generateExport(data, 'custpage_subslist5');
+	data = generateExport(data, 'custpage_subslist6');
+	data = generateExport(data, 'custpage_subslist7');
+	data = generateExport(data, 'custpage_subslist8');
+	data = generateExport(data, 'custpage_subslist9');
+	data = generateExport(data, 'custpage_subslist10');
+	data = generateExport(data, 'custpage_subslist11');
+	data = generateExport(data, 'custpage_subslist12');
+	data = generateExport(data, 'custpage_subslist13');
+	data = generateExport(data, 'custpage_subslist14');
+	data = generateExport(data, 'custpage_subslist15');
+	data = generateExport(data, 'custpage_subslist16');
+	data = generateExport(data, 'custpage_subslist17');
+	data = generateExport(data, 'custpage_subslist18');
 	data = generateExport(data, 'custpage_subslist19');
 	data = generateExport(data, 'custpage_subslist20');
-	data = generateExport(data, 'custpage_subslist21');	
+	data = generateExport(data, 'custpage_subslist21');
 	data = generateExport(data, 'custpage_subslist22');
 	data = generateExport(data, 'custpage_subslist23');
-	data = generateExport(data, 'custpage_subslist24');	
-	data = generateExport(data, 'custpage_subslist25');	
-	data = generateExport(data, 'custpage_subslist26');	
-	data = generateExport(data, 'custpage_subslist27');	
-	data = generateExport(data, 'custpage_subslist28');	
-	data = generateExport(data, 'custpage_subslist29');	
-	data = generateExport(data, 'custpage_subslist30');	
-	data = generateExport(data, 'custpage_subslist31');	
-	data = generateExport(data, 'custpage_subslist32');	
-	data = generateExport(data, 'custpage_subslist33');	
-	data = generateExport(data, 'custpage_subslist34');	
-	data = generateExport(data, 'custpage_subslist35');	
-	data = generateExport(data, 'custpage_subslist36');	
-	data = generateExport(data, 'custpage_subslist37');	
-	data = generateExport(data, 'custpage_subslist38');	
-	data = generateExport(data, 'custpage_subslist39');	
-	data = generateExport(data, 'custpage_subslist40');	
-	data = generateExport(data, 'custpage_subslist41');	
-	data = generateExport(data, 'custpage_subslist42');	
-	data = generateExport(data, 'custpage_subslist43');	
+	data = generateExport(data, 'custpage_subslist24');
+	data = generateExport(data, 'custpage_subslist25');
+	data = generateExport(data, 'custpage_subslist26');
+	data = generateExport(data, 'custpage_subslist27');
+	data = generateExport(data, 'custpage_subslist28');
+	data = generateExport(data, 'custpage_subslist29');
+	data = generateExport(data, 'custpage_subslist30');
+	data = generateExport(data, 'custpage_subslist31');
+	data = generateExport(data, 'custpage_subslist32');
+	data = generateExport(data, 'custpage_subslist33');
+	data = generateExport(data, 'custpage_subslist34');
+	data = generateExport(data, 'custpage_subslist35');
+	data = generateExport(data, 'custpage_subslist36');
+	data = generateExport(data, 'custpage_subslist37');
+	data = generateExport(data, 'custpage_subslist38');
+	data = generateExport(data, 'custpage_subslist39');
+	data = generateExport(data, 'custpage_subslist40');
+	data = generateExport(data, 'custpage_subslist41');
+	data = generateExport(data, 'custpage_subslist42');
+	data = generateExport(data, 'custpage_subslist43');
+	data = generateExport(data, 'custpage_subslist44');
+	data = generateExport(data, 'custpage_subslist45');
+	data = generateExport(data, 'custpage_subslist46');
 	var encodedUri = encodeURI(data.contents);
 	var link = document.createElement("a");
 	link.setAttribute("href", encodedUri);
 	link.setAttribute("download", "OrderDetails.csv");
-	document.body.appendChild(link); 
+	document.body.appendChild(link);
 	link.click();
 }
 function generateExport(data, sublist){
 	var replace = new Array("\r", ",", "\n");
-	var count = nlapiGetLineItemCount(sublist);	
+	var count = nlapiGetLineItemCount(sublist);
 	for( var x=1; x<=count;x++)
 	{
 		var isapp = nlapiGetLineItemValue(sublist, 'custpage_choose', x);
@@ -966,13 +1077,13 @@ function generateExport(data, sublist){
 			data.contents +=nlapiGetLineItemValue(sublist, 'custcol_tailor_client_name', x) +',';
 			data.contents +=nlapiGetLineItemValue(sublist, 'custpage_fab_item_text', x) +',';
 			data.contents +=nlapiGetLineItemValue(sublist, 'custpage_fabvendor', x) +',';
-			data.contents +=nlapiGetLineItemValue(sublist, 'custpage_fabric_status', x) +',';	
+			data.contents +=nlapiGetLineItemValue(sublist, 'custpage_fabric_status', x) +',';
 			data.contents +=fabstat+',';
 			data.contents +=nlapiGetLineItemValue(sublist, 'custcol_avt_cmt_status_text', x) +',';
 			data.contents +=nlapiGetLineItemValue(sublist, 'date_sent', x) +',';
 			data.contents +=nlapiGetLineItemValue(sublist,'custcol_avt_cmt_date_sent',x) +',';
 			data.contents +=nlapiGetLineItemValue(sublist, 'custcol_avt_cmt_tracking', x) +',';
-			data.contents +=nlapiGetLineItemValue(sublist, 'date_needed', x) +',';			
+			data.contents +=nlapiGetLineItemValue(sublist, 'date_needed', x) +',';
 			data.contents +=cmtstat+',';
 			data.contents +=nlapiGetLineItemValue(sublist,'custcol_column_notes',x) +'\n';
 		}

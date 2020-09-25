@@ -73,6 +73,12 @@ function dashBoardRequest(request){
 			case "savelining":
 				returnObj = saveLining(datain);
 				break;
+      case "holdso":
+				returnObj = holdSO(datain);
+				break;
+      case "holdsoline":
+				returnObj = holdSOLine(datain);
+				break;
 			default:{
 				nlapiLogExecution('debug','Action Not Supported');
 				returnObj.status = false;
@@ -85,7 +91,12 @@ function dashBoardRequest(request){
 	}
 	response.write(JSON.stringify(returnObj));
 }
+function holdSO(data){
 
+}
+function holdSOLine(data){
+
+}
 function saveLining(data){
 	var returnObj = {};
 	returnObj = data;
@@ -490,7 +501,9 @@ var Run_DisplaySO = function( request, response)
 	{
 		var obj = new MyObj( request, response);
 		obj.Form_Approval();
-	}
+	}else{
+
+  }
 };
 
 var Run_DisplaySOLines = function( request, response)
@@ -499,7 +512,9 @@ var Run_DisplaySOLines = function( request, response)
 	{
 		var obj = new MyObj( request, response);
 		obj.Form_Approval_Line();
-	}
+	}else{
+
+  }
 };
 
 var Run_POLinesFabric = function( request, response)
@@ -1015,6 +1030,7 @@ var MyObj = function( request, response )
 	{
 		var form =  nlapiCreateForm( 'Sales Orders To Approve');
 		form.addButton( 'custpage_btapprve', 'Approve Now', 'ApproveSO()');
+    form.addButton( 'custpage_btnhold', 'Hold Orders', 'HoldSO()');
 		form.setScript( 'customscript_avt_so_approval_cs');
 
 		var filter = new Array();
@@ -1063,7 +1079,7 @@ var MyObj = function( request, response )
 		form.addButton( 'custpage_btapprve', 'Approve Now', 'ApproveSOLine()');
 		form.addButton( 'custpage_filter', 'Filter', 'FilterSOLine()');
 		form.addButton( 'custpage_btsave', 'Save', 'SaveSO');
-
+    form.addButton( 'custpage_btnhold', 'Hold', 'HoldSOLine()');
 		var fld_itemselect  = form.addField( 'custpage_item', 'select', 'Filter Item', 'item');
 		form.setScript( 'customscript_avt_so_approval_cs');
 
@@ -1115,6 +1131,7 @@ var MyObj = function( request, response )
 		sublist.addField( 'custcol_fabric_quantity', 'text', 'Meters');
 		var fld_ven = sublist.addField( 'vendor', 'text', 'Vendor');
 		fld_item.setDisplayType( 'inline');
+
 		var fld_status  = sublist.addField( 'custpage_status', 'text', 'Status');
 		fld_status.setDisplayType( 'entry');
 		sublist.addField( 'custcol_avt_so_line_approved', 'checkbox', 'Is Approved');

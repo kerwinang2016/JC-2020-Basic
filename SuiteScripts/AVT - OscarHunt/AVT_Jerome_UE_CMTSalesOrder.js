@@ -1,15 +1,15 @@
 /**
  * Module Description
- * 
+ *
  * Version    Date            Author           Remarks
  * 1.00       08 Dec 2015     rdutt
  *
  */
 
 /**
- * The recordType (internal id) corresponds to the "Applied To" record in your script deployment. 
+ * The recordType (internal id) corresponds to the "Applied To" record in your script deployment.
  * @appliedtorecord salesorder
- * 
+ *
  * @param {String} type Operation types: create, edit, delete, xedit
  *                      approve, reject, cancel (SO, ER, Time Bill, PO & RMA only)
  *                      pack, ship (IF)
@@ -20,24 +20,24 @@
  */
 function userEventBeforeSubmitSO(type){
 	try{
-		
+
 		var context =  nlapiGetContext();
 		var executionContext =  context.getExecutionContext();
 		//nlapiLogExecution('debug','CONTEXT',executionContext);
 		if (!(executionContext == 'userinterface' || executionContext == 'webstore' || executionContext == 'restlet')) {
 			return;
 		}
-		
+
 		var objRecordSO = nlapiGetNewRecord();
-		
+
 		var currentUser = nlapiGetContext().getUser();
 		//nlapiLogExecution('debug','currentUser',currentUser);
 		var status = objRecordSO.getFieldText('orderstatus');
-		
+
 		if (type == 'create'){//|| (type == 'edit' && status == "Pending Approval")){
 			objRecordSO.setFieldValue('custbody_so_created_by',nlapiGetContext().getUser());
 			//Check if the address is set.. if not use the default address.
-				
+
 			// Get tailor (Customer) ID and check the tailor's CMT preference
 			var bqm = getBlockQuantityMeasurements();
 			var parent = nlapiLookupField('customer',objRecordSO.getFieldValue('entity'),'parent');
@@ -46,7 +46,7 @@ function userEventBeforeSubmitSO(type){
 			var tailorID = objRecordSO.getFieldValue('entity');
 			var createdBy = objRecordSO.getFieldValue('custbody_so_created_by');
 			// From the tailor record, get the CMT service preference and discount rate
-			
+
 			var customer = nlapiLoadRecord('customer',parent);
 			if(!objRecordSO.getFieldValue('shipaddress')){
 				if(customer.getLineItemCount('addressbook') != 0){
@@ -57,7 +57,7 @@ function userEventBeforeSubmitSO(type){
 					}
 				}
 			}
-			
+
 			if(!objRecordSO.getFieldValue('billaddress')){
 				if(customer.getLineItemCount('addressbook') != 0){
 					for(var i=1; i<=customer.getLineItemCount('addressbook'); i++){
@@ -67,7 +67,7 @@ function userEventBeforeSubmitSO(type){
 					}
 				}
 			}
-			
+
 			var customerfields = nlapiLookupField('customer', tailorID, ['currency','pricelevel','custentity_surcharge_discount','custentity_cmt_discount_jacket','custentity_cmt_discount_waistcoat','custentity_cmt_discount_trouser','custentity_cmt_discount_shirt','custentity_cmt_discount_overcoat','custentity_cmt_discount_2pc','custentity_cmt_discount_3pc','terms','custentity_dayang_pricelevel',
 			'custentity_cmt_discount_ss_shirt','custentity_cmt_discount_ladies_skirt','custentity_cmt_discount_ladies_pants','custentity_cmt_discount_ladies_jacket','custentity_cmt_discount_trenchcoat','custentity_cmt_discount_l2pc_pants','custentity_cmt_discount_l3pc_suit','custentity_cmt_discount_l2pc_skirt',
 			'custentity_cmt_discount_shorts','custentity_cmt_discount_morning_coat','custentity_cmt_discount_shirt_jacket','custentity_cmt_discount_camp_shirt','custentity_cmt_discount_safari_jacket']);
@@ -80,17 +80,17 @@ function userEventBeforeSubmitSO(type){
 			}
 			var tailorCMTPrefMaster = nlapiLookupField('customer', tailorID, 'custentity_jerome_cmt_service_preference',true);
 			var tailorSurchargeDisc = customerfields.custentity_surcharge_discount;
-			// CHange this discount to per item of the customer.. check the item			
+			// CHange this discount to per item of the customer.. check the item
 			if(!tailorSurchargeDisc) tailorSurchargeDisc = 0;
 			if(customerfields.terms == '12'){
 				var d = new Date();
 				d.setDate(d.getDate() + (7-d.getDay())%7+1);
 				objRecordSO.setFieldValue('enddate',nlapiDateToString(d));
 			}
-			// Loop through all items in the SO 
+			// Loop through all items in the SO
 			var itemCount = objRecordSO.getLineItemCount('item');
-			
-			
+
+
 			//Check the Design Options and have a lookup from the custom record design options surcharge
 			var filters = [];
 			filters.push(new nlobjSearchFilter('isinactive',null,'is','F'));
@@ -102,6 +102,7 @@ function userEventBeforeSubmitSO(type){
 			cols.push(new nlobjSearchColumn('custrecord_do_itemtype'));
 			cols.push(new nlobjSearchColumn('custrecord_sleeveliningsurcharge'));
 			cols.push(new nlobjSearchColumn('custrecord_exempt_from_surcharge'));
+      cols.push(new nlobjSearchColumn('custrecord_dos_exempt_selected_options'));
 			var do_surchargessearch = nlapiCreateSearch('customrecord_design_options_surcharge',filters,cols).runSearch();
 			var do_surcharges = [];
 			var surcharges = [];
@@ -121,7 +122,8 @@ function userEventBeforeSubmitSO(type){
 						description:do_surcharges[k].getValue('custrecord_do_description'),
 						surcharge:do_surcharges[k].getValue('custrecord_do_surcharge'),
 						sleeveliningsurcharge:do_surcharges[k].getValue('custrecord_sleeveliningsurcharge'),
-						exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(',')
+						exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(','),
+            exemptselectedoptions: do_surcharges[k].getValue('custrecord_dos_exempt_selected_options')
 						});
 					}
 					else{
@@ -135,7 +137,8 @@ function userEventBeforeSubmitSO(type){
 						description:do_surcharges[k].getValue('custrecord_do_description'),
 						surcharge:do_surcharges[k].getValue('custrecord_do_surcharge'),
 						sleeveliningsurcharge:do_surcharges[k].getValue('custrecord_sleeveliningsurcharge'),
-						exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(',')
+						exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(','),
+            exemptselectedoptions: do_surcharges[k].getValue('custrecord_dos_exempt_selected_options')
 						}]
 					});
 					}
@@ -143,7 +146,7 @@ function userEventBeforeSubmitSO(type){
 				pssearchid += 1000;
 			} while (do_surcharges.length >= 1000);
 
-			
+
 			filters = [];
 			filters.push(new nlobjSearchFilter('isinactive',null,'is','F'));
 			filters.push(new nlobjSearchFilter('custrecord_do_discount_tailor',null,'is',tailorID));
@@ -157,16 +160,16 @@ function userEventBeforeSubmitSO(type){
 				for(var k=0; k<do_surcharges_discount.length;k++){
 					//name:location,
 					//values:{[]}
-					
+
 					surcharges_discount.push({
 						do_internalid:do_surcharges_discount[k].getValue('custrecord_designoption'),
 						ratepercent:do_surcharges_discount[k].getValue('custrecordrate')
 					});
-					
+
 				}
 			}
 			var count = 1;
-			
+
 			for (var ii=1; ii<=itemCount; ii++){
 				UpdateFitProfile(ii, objRecordSO, bqm);
 				var tailorCMTDisc = 0;
@@ -175,7 +178,7 @@ function userEventBeforeSubmitSO(type){
 					var fabCollection = nlapiLookupField('item',objRecordSO.getLineItemValue('item','item',ii),'custitem_fabric_collection',true);
 					var prodType = objRecordSO.getLineItemValue('item','custcol_producttype',ii);
 					var currentPricelevel = customerfields.custentity_dayang_pricelevel?customerfields.custentity_dayang_pricelevel:customerfields.pricelevel;
-					//nlapiLogExecution('debug','FABRIC TAX RATE BEFORE', objRecordSO.getLineItemValue('item','taxrate1',ii)); 
+					//nlapiLogExecution('debug','FABRIC TAX RATE BEFORE', objRecordSO.getLineItemValue('item','taxrate1',ii));
 					if(fabCollection && prodType && currentPricelevel != ""){
 						var prodTypeId = "";
 						switch(prodType){
@@ -195,7 +198,7 @@ function userEventBeforeSubmitSO(type){
 							case 'L-3PC-Suit': prodTypeId = '18'; break;
 							case 'L-2PC-Pants': prodTypeId = '19'; break;
 							case 'Morning-Coat': prodTypeId = '27'; break;
-							case 'Shorts': prodTypeId = '28'; break;							
+							case 'Shorts': prodTypeId = '28'; break;
 							case 'Camp-Shirt': prodTypeId = '29'; break;
 							case 'Shirt-Jacket': prodTypeId = '30'; break;
 							case 'Safari-Jacket': prodTypeId = '31'; break;
@@ -230,8 +233,8 @@ function userEventBeforeSubmitSO(type){
 								objRecordSO.setCurrentLineItemValue('item','description', fabdescription);
 
 								objRecordSO.commitLineItem('item');
-							
-							}							
+
+							}
 						}else{
 							var currentRate = objRecordSO.getLineItemValue('item','rate',ii);
 							objRecordSO.selectLineItem('item',ii);
@@ -243,7 +246,7 @@ function userEventBeforeSubmitSO(type){
 							objRecordSO.setCurrentLineItemValue('item','description', fabdescription);
 
 							objRecordSO.commitLineItem('item');
-						
+
 						}
 					}else{
 						var currentRate = objRecordSO.getLineItemValue('item','rate',ii);
@@ -255,23 +258,23 @@ function userEventBeforeSubmitSO(type){
 						fabdescription += objRecordSO.getCurrentLineItemText('item','item') + " " + objRecordSO.getCurrentLineItemValue('item','amount');
 						objRecordSO.setCurrentLineItemValue('item','description', fabdescription);
 						objRecordSO.commitLineItem('item');
-				
+
 					}
-					
-					
-					//nlapiLogExecution('debug','FABRIC TAX RATE AFTER', objRecordSO.getLineItemValue('item','taxrate1',ii)); 
+
+
+					//nlapiLogExecution('debug','FABRIC TAX RATE AFTER', objRecordSO.getLineItemValue('item','taxrate1',ii));
 				}
-				
+
 				var itemID = objRecordSO.getLineItemValue('item', 'item', ii);
 				//var quantity = objRecordSO.getLineItemValue('item', 'quantity', ii);
-				
-				
+
+
 				//Check the Clothing type of the item. If it is ONLY a shirt, then it must be basic CMT.
 				//Replacing this arItemType since we added a new line item field
 				//var arItemType = nlapiLookupField('noninventoryitem', itemID, 'custitem_clothing_type',true);
 				var arItemType = objRecordSO.getLineItemValue('item','custcol_producttype',ii);
 				if(arItemType){
-					//var itemTypeArray = arItemType.split(',');					
+					//var itemTypeArray = arItemType.split(',');
 					//if(itemTypeArray.length == 2){
 					if(arItemType == '2-Piece-Suit'){
 						tailorCMTDisc = customerfields.custentity_cmt_discount_2pc;
@@ -347,17 +350,17 @@ function userEventBeforeSubmitSO(type){
 					//Lets get the lining surcharge and find out what type of surcharge it is
 					var dop_liningsurcharge = _.find(dop,function(x){return x.name == 'li-b-j'});
 					var LiningSurcharge;
-					
+
 					var itemsurcharge_Liningsurcharge = _.find(itemsurcharges,function(x){return x.name == 'li-b-j'});
 					if(itemsurcharge_Liningsurcharge && dop_liningsurcharge){
 						LiningSurcharge = _.find(itemsurcharge_Liningsurcharge.values,function(x){ return x.code == dop_liningsurcharge.value;});
 					}
 					for(var kk=0;kk<itemsurcharges.length;kk++){
 						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});
-						
+
 						if(dop_value){
 							var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value});
-							
+
 							//We have a match on design options and the value in the table.
 							if(dop_surcharge){
 								//nlapiLogExecution('debug','surcharges', JSON.stringify(dop_surcharge));
@@ -371,15 +374,15 @@ function userEventBeforeSubmitSO(type){
 								if(dop_surcharge.code == 'T01692102' && itemsurcharges[kk].name == 'T016921'){
 									//Find the Sleeve Dependent
 									if(LiningSurcharge){
-										
+
 										var surcharge = (parseFloat(LiningSurcharge.sleeveliningsurcharge)).toFixed(2);
-										if(isExempt) 
+										if(isExempt)
 											surcharge = 0;
 										surcharge = (1-percentdiscount) * parseFloat(surcharge);
 										surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
 										surcharge = Math.round(surcharge);
 										surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
-										surchargedescription += "Safari Jacket Sleeve " + LiningSurcharge.description + " " + parseFloat(surcharge).toFixed(2)+"\n";						
+										surchargedescription += "Safari Jacket Sleeve " + LiningSurcharge.description + " " + parseFloat(surcharge).toFixed(2)+"\n";
 									}
 								}else{
 									var surcharge;
@@ -388,15 +391,15 @@ function userEventBeforeSubmitSO(type){
 										//get the lining quantity
 										var dop_liningqty = _.find(dop,function(x){return x.name == 'li-qty'});
 										if(!dop_liningqty.value) continue;
-										
+
 										surcharge = (parseFloat(dop_surcharge.surcharge) * parseFloat(dop_liningqty.value)* exRate).toFixed(2);
 									}else{
 										surcharge = (parseFloat(dop_surcharge.surcharge)).toFixed(2);
 									}
-									if(isExempt) 
+									if(isExempt)
 										surcharge = 0;
 									surcharge = (1-percentdiscount) * parseFloat(surcharge);
-									surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);									
+									surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
 									surcharge = Math.round(surcharge);
 									surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
 									surchargedescription += "Safari Jacket " + dop_surcharge.description + " " + parseFloat(surcharge).toFixed(2)+"\n";
@@ -412,17 +415,17 @@ function userEventBeforeSubmitSO(type){
 					//Lets get the lining surcharge and find out what type of surcharge it is
 					var dop_liningsurcharge = _.find(dop,function(x){return x.name == 'li-b-j'});
 					var LiningSurcharge;
-					
+
 					var itemsurcharge_Liningsurcharge = _.find(itemsurcharges,function(x){return x.name == 'li-b-j'});
 					if(itemsurcharge_Liningsurcharge && dop_liningsurcharge){
 						LiningSurcharge = _.find(itemsurcharge_Liningsurcharge.values,function(x){ return x.code == dop_liningsurcharge.value;});
 					}
 					for(var kk=0;kk<itemsurcharges.length;kk++){
 						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});
-						
+
 						if(dop_value){
 							var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value});
-							
+
 							//We have a match on design options and the value in the table.
 							if(dop_surcharge){
 								//nlapiLogExecution('debug','surcharges', JSON.stringify(dop_surcharge));
@@ -436,9 +439,9 @@ function userEventBeforeSubmitSO(type){
 								if(dop_surcharge.code == 'T01492503' && itemsurcharges[kk].name == 'T014925'){
 									//Find the Sleeve Dependent
 									if(LiningSurcharge){
-										
+
 										var surcharge = (parseFloat(LiningSurcharge.sleeveliningsurcharge)).toFixed(2);
-										if(isExempt) 
+										if(isExempt)
 											surcharge = 0;
 										surcharge = (1-percentdiscount) * parseFloat(surcharge);
 										surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
@@ -453,15 +456,15 @@ function userEventBeforeSubmitSO(type){
 										//get the lining quantity
 										var dop_liningqty = _.find(dop,function(x){return x.name == 'li-qty'});
 										if(!dop_liningqty.value) continue;
-										
+
 										surcharge = (parseFloat(dop_surcharge.surcharge) * parseFloat(dop_liningqty.value)* exRate).toFixed(2);
 									}else{
 										surcharge = (parseFloat(dop_surcharge.surcharge)).toFixed(2);
 									}
-									if(isExempt) 
+									if(isExempt)
 										surcharge = 0;
 									surcharge = (1-percentdiscount) * parseFloat(surcharge);
-									surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);									
+									surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
 									surcharge = Math.round(surcharge);
 									surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
 									surchargedescription += "Morning Coat " + dop_surcharge.description + " " + parseFloat(surcharge).toFixed(2)+"\n";
@@ -477,21 +480,32 @@ function userEventBeforeSubmitSO(type){
 					//Lets get the lining surcharge and find out what type of surcharge it is
 					var dop_liningsurcharge = _.find(dop,function(x){return x.name == 'li-b-j'});
 					var LiningSurcharge;
-					
+
 					var itemsurcharge_Liningsurcharge = _.find(itemsurcharges,function(x){return x.name == 'li-b-j'});
 					if(itemsurcharge_Liningsurcharge && dop_liningsurcharge){
 						LiningSurcharge = _.find(itemsurcharge_Liningsurcharge.values,function(x){ return x.code == dop_liningsurcharge.value;});
 					}
 					for(var kk=0;kk<itemsurcharges.length;kk++){
 						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});
-						
+
 						if(dop_value){
 							var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value});
-							
+
 							//We have a match on design options and the value in the table.
 							if(dop_surcharge){
 								//nlapiLogExecution('debug','surcharges', JSON.stringify(dop_surcharge));
 								var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(tailorID)!=-1?true:false;
+                if(dop_surcharge.exemptselectedoptions){
+                  var exemptselectedoptionsJSON = JSON.parse(dop_surcharge.exemptselectedoptions);
+                  var keys = Object.keys(exemptselectedoptionsJSON);
+                  for(var a=0;a<keys.length;a++){
+                      var foundexemption = _.find(dop,function(x){return x.name == keys[a] && x.value == exemptselectedoptionsJSON[keys[a]]});
+                      if(foundexemption){
+                        isExempt = true;
+                        break;
+                      }
+                  }
+                }
 								var surchargeDiscount = _.find(surcharges_discount,function(x){return x.do_internalid == dop_surcharge.internalid});
 								var percentdiscount = 0;
 								if(surchargeDiscount){
@@ -501,15 +515,15 @@ function userEventBeforeSubmitSO(type){
 								if(dop_surcharge.code == 'T01022502' && itemsurcharges[kk].name == 'T010225'){
 									//Find the Sleeve Dependent
 									if(LiningSurcharge){
-										
+
 										var surcharge = (parseFloat(LiningSurcharge.sleeveliningsurcharge)).toFixed(2);
-										if(isExempt) 
+										if(isExempt)
 											surcharge = 0;
 										surcharge = (1-percentdiscount) * parseFloat(surcharge);
 										surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
 										surcharge = Math.round(surcharge);
 										surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
-										surchargedescription += "Jacket Sleeve " + LiningSurcharge.description + " " + parseFloat(surcharge).toFixed(2)+"\n";						
+										surchargedescription += "Jacket Sleeve " + LiningSurcharge.description + " " + parseFloat(surcharge).toFixed(2)+"\n";
 									}
 								}else{
 									var surcharge;
@@ -518,15 +532,15 @@ function userEventBeforeSubmitSO(type){
 										//get the lining quantity
 										var dop_liningqty = _.find(dop,function(x){return x.name == 'li-qty'});
 										if(!dop_liningqty.value) continue;
-										
+
 										surcharge = (parseFloat(dop_surcharge.surcharge) * parseFloat(dop_liningqty.value)* exRate).toFixed(2);
 									}else{
 										surcharge = (parseFloat(dop_surcharge.surcharge)).toFixed(2);
 									}
-									if(isExempt) 
+									if(isExempt)
 										surcharge = 0;
 									surcharge = (1-percentdiscount) * parseFloat(surcharge);
-									surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);									
+									surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
 									surcharge = Math.round(surcharge);
 									surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
 									surchargedescription += "Jacket " + dop_surcharge.description + " " + parseFloat(surcharge).toFixed(2)+"\n";
@@ -541,29 +555,29 @@ function userEventBeforeSubmitSO(type){
 					var dop = JSON.parse(objRecordSO.getLineItemValue('item', 'custcol_designoptions_waistcoat', ii));
 					for(var kk=0;kk<itemsurcharges.length;kk++){
 						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});
-						
+
 						if(dop_value){
 							var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value});
-							
-							if(dop_surcharge){ 
+
+							if(dop_surcharge){
 							var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(tailorID)!=-1?true:false;
 							var surchargeDiscount = _.find(surcharges_discount,function(x){return x.do_internalid == dop_surcharge.internalid});
 							var percentdiscount = 0;
 							if(surchargeDiscount){
 								percentdiscount = parseFloat(surchargeDiscount.ratepercent?surchargeDiscount.ratepercent:0)/100;
 							}
-							
+
 							var surcharge;
 							if(itemsurcharges[kk].name == 'li-vnd' && dop_surcharge.code == 'Custom Lining'){
 								//get the lining quantity
 								var dop_liningqty = _.find(dop,function(x){return x.name == 'li-qty'});
 								if(!dop_liningqty.value) continue;
-								
+
 								surcharge = (parseFloat(dop_surcharge.surcharge) * parseFloat(dop_liningqty.value)* exRate).toFixed(2);
 							}else{
 								surcharge = (parseFloat(dop_surcharge.surcharge)).toFixed(2);
 							}
-							if(isExempt) 
+							if(isExempt)
 								surcharge = 0;
 							surcharge = (1-percentdiscount) * parseFloat(surcharge);
 							surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
@@ -577,11 +591,11 @@ function userEventBeforeSubmitSO(type){
 					var itemsurcharges = surcharges.filter(function(i){return i.type == "Trouser";});
 					var dop = JSON.parse(objRecordSO.getLineItemValue('item', 'custcol_designoptions_trouser', ii));
 					for(var kk=0;kk<itemsurcharges.length;kk++){
-						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});						
+						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});
 						if(dop_value){
 							var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value})
-							
-							if(dop_surcharge){ 
+
+							if(dop_surcharge){
 							var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(tailorID)!=-1?true:false;
 							var surchargeDiscount = _.find(surcharges_discount,function(x){return x.do_internalid == dop_surcharge.internalid});
 							var percentdiscount = 0;
@@ -589,7 +603,7 @@ function userEventBeforeSubmitSO(type){
 								percentdiscount = parseFloat(surchargeDiscount.ratepercent?surchargeDiscount.ratepercent:0)/100;
 							}
 							var surcharge = (parseFloat(dop_surcharge.surcharge)).toFixed(2);
-							if(isExempt) 
+							if(isExempt)
 								surcharge = 0;
 							surcharge = (1-percentdiscount) * parseFloat(surcharge);
 							surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
@@ -605,18 +619,18 @@ function userEventBeforeSubmitSO(type){
 					//Lets get the lining surcharge and find out what type of surcharge it is
 					var dop_liningsurcharge = _.find(dop,function(x){return x.name == 'li-bl-o'});
 					var LiningSurcharge;
-					
+
 					var itemsurcharge_Liningsurcharge = _.find(itemsurcharges,function(x){return x.name == 'li-bl-o'});
 					if(itemsurcharge_Liningsurcharge && dop_liningsurcharge){
 						LiningSurcharge = _.find(itemsurcharge_Liningsurcharge.values,function(x){ return x.code == dop_liningsurcharge.value;});
 					}
 					for(var kk=0;kk<itemsurcharges.length;kk++){
 						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});
-						
+
 						if(dop_value){
 							var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value})
-							
-							if(dop_surcharge){ 
+
+							if(dop_surcharge){
 								var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(tailorID)!=-1?true:false;
 								var surchargeDiscount = _.find(surcharges_discount,function(x){return x.do_internalid == dop_surcharge.internalid});
 								var percentdiscount = 0;
@@ -628,17 +642,17 @@ function userEventBeforeSubmitSO(type){
 									//Find the Sleeve Dependent
 									if(LiningSurcharge){
 										var surcharge = (parseFloat(LiningSurcharge.sleeveliningsurcharge)).toFixed(2);
-										if(isExempt) 
+										if(isExempt)
 											surcharge = 0;
 										surcharge = (1-percentdiscount) * parseFloat(surcharge);
 										surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
 										surcharge = Math.round(surcharge);
 										surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
-										surchargedescription += "Overcoat Sleeve " + LiningSurcharge.description + " " + parseFloat(surcharge).toFixed(2)+"\n";						
+										surchargedescription += "Overcoat Sleeve " + LiningSurcharge.description + " " + parseFloat(surcharge).toFixed(2)+"\n";
 									}
 								}else{
 									var surcharge = (parseFloat(dop_surcharge.surcharge)).toFixed(2);
-									if(isExempt) 
+									if(isExempt)
 										surcharge = 0;
 									surcharge = (1-percentdiscount) * parseFloat(surcharge);
 									surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
@@ -657,8 +671,8 @@ function userEventBeforeSubmitSO(type){
 						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name})
 						if(dop_value){
 							var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value});
-							
-							if(dop_surcharge){ 
+
+							if(dop_surcharge){
 							var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(tailorID)!=-1?true:false;
 							var surchargeDiscount = _.find(surcharges_discount,function(x){return x.do_internalid == dop_surcharge.internalid});
 							var percentdiscount = 0;
@@ -666,7 +680,7 @@ function userEventBeforeSubmitSO(type){
 								percentdiscount = parseFloat(surchargeDiscount.ratepercent?surchargeDiscount.ratepercent:0)/100;
 							}
 							var surcharge = (parseFloat(dop_surcharge.surcharge)).toFixed(2);
-							if(isExempt) 
+							if(isExempt)
 								surcharge = 0;
 							surcharge = (1-percentdiscount) * parseFloat(surcharge);
 							surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
@@ -683,8 +697,8 @@ function userEventBeforeSubmitSO(type){
 						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name})
 						if(dop_value){
 							var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value});
-							
-							if(dop_surcharge){ 
+
+							if(dop_surcharge){
 							var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(tailorID)!=-1?true:false;
 							var surchargeDiscount = _.find(surcharges_discount,function(x){return x.do_internalid == dop_surcharge.internalid});
 							var percentdiscount = 0;
@@ -692,7 +706,7 @@ function userEventBeforeSubmitSO(type){
 								percentdiscount = parseFloat(surchargeDiscount.ratepercent?surchargeDiscount.ratepercent:0)/100;
 							}
 							var surcharge = (parseFloat(dop_surcharge.surcharge)).toFixed(2);
-							if(isExempt) 
+							if(isExempt)
 								surcharge = 0;
 							surcharge = (1-percentdiscount) * parseFloat(surcharge);
 							surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
@@ -708,17 +722,17 @@ function userEventBeforeSubmitSO(type){
 					//Lets get the lining surcharge and find out what type of surcharge it is
 					var dop_liningsurcharge = _.find(dop,function(x){return x.name == 'li-b-lj'});
 					var LiningSurcharge;
-					
+
 					var itemsurcharge_Liningsurcharge = _.find(itemsurcharges,function(x){return x.name == 'li-b-lj'});
 					if(itemsurcharge_Liningsurcharge && dop_liningsurcharge){
 						LiningSurcharge = _.find(itemsurcharge_Liningsurcharge.values,function(x){ return x.code == dop_liningsurcharge.value;});
 					}
 					for(var kk=0;kk<itemsurcharges.length;kk++){
 						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});
-						
+
 						if(dop_value){
 							var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value});
-							
+
 							//We have a match on design options and the value in the table.
 							if(dop_surcharge){
 								//nlapiLogExecution('debug','surcharges', JSON.stringify(dop_surcharge));
@@ -732,15 +746,15 @@ function userEventBeforeSubmitSO(type){
 								if(dop_surcharge.code == 'T02722801' && itemsurcharges[kk].name == 'T027228'){
 									//Find the Sleeve Dependent
 									if(LiningSurcharge){
-										
+
 										var surcharge = (parseFloat(LiningSurcharge.sleeveliningsurcharge)).toFixed(2);
-										if(isExempt) 
+										if(isExempt)
 											surcharge = 0;
 										surcharge = (1-percentdiscount) * parseFloat(surcharge);
 										surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
 										surcharge = Math.round(surcharge);
 										surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
-										surchargedescription += "Ladies-Jacket Sleeve " + LiningSurcharge.description + " " + parseFloat(surcharge).toFixed(2)+"\n";						
+										surchargedescription += "Ladies-Jacket Sleeve " + LiningSurcharge.description + " " + parseFloat(surcharge).toFixed(2)+"\n";
 									}
 								}else{
 									var surcharge;
@@ -748,15 +762,15 @@ function userEventBeforeSubmitSO(type){
 										//get the lining quantity
 										var dop_liningqty = _.find(dop,function(x){return x.name == 'li-qty'});
 										if(!dop_liningqty.value) continue;
-										
+
 										surcharge = (parseFloat(dop_surcharge.surcharge) * parseFloat(dop_liningqty.value)* exRate).toFixed(2);
 									}else{
 										surcharge = (parseFloat(dop_surcharge.surcharge)).toFixed(2);
-									}		
-									if(isExempt) 
+									}
+									if(isExempt)
 										surcharge = 0;
 									surcharge = (1-percentdiscount) * parseFloat(surcharge);
-									surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);									
+									surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
 									surcharge = Math.round(surcharge);
 									surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
 									surchargedescription += "Ladies-Jacket " + dop_surcharge.description + " " + parseFloat(surcharge).toFixed(2)+"\n";
@@ -773,8 +787,8 @@ function userEventBeforeSubmitSO(type){
 						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name})
 						if(dop_value){
 							var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value});
-							
-							if(dop_surcharge){ 
+
+							if(dop_surcharge){
 							var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(tailorID)!=-1?true:false;
 							var surchargeDiscount = _.find(surcharges_discount,function(x){return x.do_internalid == dop_surcharge.internalid});
 							var percentdiscount = 0;
@@ -783,7 +797,7 @@ function userEventBeforeSubmitSO(type){
 							}
 
 							var surcharge = (parseFloat(dop_surcharge.surcharge)).toFixed(2);
-							if(isExempt) 
+							if(isExempt)
 								surcharge = 0;
 							surcharge = (1-percentdiscount) * parseFloat(surcharge);
 							surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
@@ -798,13 +812,13 @@ function userEventBeforeSubmitSO(type){
 					var dop = JSON.parse(objRecordSO.getLineItemValue('item', 'custcol_designoptions_ladiesskirt', ii));
 					//Lets get the lining surcharge and find out what type of surcharge it is
 					var dop_liningsurcharge = _.find(dop,function(x){return x.name == 'li-fo-ls'});
-					
+
 					for(var kk=0;kk<itemsurcharges.length;kk++){
 						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});
-						
+
 						if(dop_value){
 							var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value});
-							
+
 							//We have a match on design options and the value in the table.
 							if(dop_surcharge){
 								//nlapiLogExecution('debug','surcharges', JSON.stringify(dop_surcharge));
@@ -815,15 +829,15 @@ function userEventBeforeSubmitSO(type){
 									percentdiscount = parseFloat(surchargeDiscount.ratepercent?surchargeDiscount.ratepercent:0)/100;
 								}
 								var surcharge = (parseFloat(dop_surcharge.surcharge)).toFixed(2);
-								if(isExempt) 
+								if(isExempt)
 									surcharge = 0;
 								surcharge = (1-percentdiscount) * parseFloat(surcharge);
-								surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);									
+								surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
 								surcharge = Math.round(surcharge);
 								surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
 								surchargedescription += "Ladies-Skirt " + dop_surcharge.description + " " + parseFloat(surcharge).toFixed(2)+"\n";
 								//nlapiLogExecution('debug','HAS ROUND');
-							
+
 							}
 						}
 					}
@@ -834,17 +848,17 @@ function userEventBeforeSubmitSO(type){
 					//Lets get the lining surcharge and find out what type of surcharge it is
 					var dop_liningsurcharge = _.find(dop,function(x){return x.name == 'li-bl-tc'});
 					var LiningSurcharge;
-					
+
 					var itemsurcharge_Liningsurcharge = _.find(itemsurcharges,function(x){return x.name == 'li-bl-tc'});
 					if(itemsurcharge_Liningsurcharge && dop_liningsurcharge){
 						LiningSurcharge = _.find(itemsurcharge_Liningsurcharge.values,function(x){ return x.code == dop_liningsurcharge.value;});
 					}
 					for(var kk=0;kk<itemsurcharges.length;kk++){
 						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});
-						
+
 						if(dop_value){
 							var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value});
-							
+
 							//We have a match on design options and the value in the table.
 							if(dop_surcharge){
 								//nlapiLogExecution('debug','surcharges', JSON.stringify(dop_surcharge));
@@ -858,22 +872,22 @@ function userEventBeforeSubmitSO(type){
 								if(dop_surcharge.code == 'T01161402' && itemsurcharges[kk].name == 'T011614'){
 									//Find the Sleeve Dependent
 									if(LiningSurcharge){
-										
+
 										var surcharge = (parseFloat(LiningSurcharge.sleeveliningsurcharge)).toFixed(2);
-										if(isExempt) 
+										if(isExempt)
 											surcharge = 0;
 										surcharge = (1-percentdiscount) * parseFloat(surcharge);
 										surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
 										surcharge = Math.round(surcharge);
 										surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
-										surchargedescription += "Trenchcoat Sleeve " + LiningSurcharge.description + " " + parseFloat(surcharge).toFixed(2)+"\n";						
+										surchargedescription += "Trenchcoat Sleeve " + LiningSurcharge.description + " " + parseFloat(surcharge).toFixed(2)+"\n";
 									}
 								}else{
 									var surcharge = (parseFloat(dop_surcharge.surcharge)).toFixed(2);
-									if(isExempt) 
+									if(isExempt)
 										surcharge = 0;
 									surcharge = (1-percentdiscount) * parseFloat(surcharge);
-									surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);									
+									surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
 									surcharge = Math.round(surcharge);
 									surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
 									surchargedescription += "Trenchcoat " + dop_surcharge.description + " " + parseFloat(surcharge).toFixed(2)+"\n";
@@ -887,11 +901,11 @@ function userEventBeforeSubmitSO(type){
 					var itemsurcharges = surcharges.filter(function(i){return i.type == "Shorts";});
 					var dop = JSON.parse(objRecordSO.getLineItemValue('item', 'custcol_designoptions_shorts', ii));
 					for(var kk=0;kk<itemsurcharges.length;kk++){
-						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});						
+						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});
 						if(dop_value){
 							var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value})
-							
-							if(dop_surcharge){ 
+
+							if(dop_surcharge){
 							var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(tailorID)!=-1?true:false;
 							var surchargeDiscount = _.find(surcharges_discount,function(x){return x.do_internalid == dop_surcharge.internalid});
 							var percentdiscount = 0;
@@ -899,7 +913,7 @@ function userEventBeforeSubmitSO(type){
 								percentdiscount = parseFloat(surchargeDiscount.ratepercent?surchargeDiscount.ratepercent:0)/100;
 							}
 							var surcharge = (parseFloat(dop_surcharge.surcharge)).toFixed(2);
-							if(isExempt) 
+							if(isExempt)
 								surcharge = 0;
 							surcharge = (1-percentdiscount) * parseFloat(surcharge);
 							surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
@@ -913,11 +927,11 @@ function userEventBeforeSubmitSO(type){
 					var itemsurcharges = surcharges.filter(function(i){return i.type == "Shirt-Jacket";});
 					var dop = JSON.parse(objRecordSO.getLineItemValue('item', 'custcol_designoptions_shirt_jacket', ii));
 					for(var kk=0;kk<itemsurcharges.length;kk++){
-						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});						
+						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});
 						if(dop_value){
 							var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value})
-							
-							if(dop_surcharge){ 
+
+							if(dop_surcharge){
 							var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(tailorID)!=-1?true:false;
 							var surchargeDiscount = _.find(surcharges_discount,function(x){return x.do_internalid == dop_surcharge.internalid});
 							var percentdiscount = 0;
@@ -925,7 +939,7 @@ function userEventBeforeSubmitSO(type){
 								percentdiscount = parseFloat(surchargeDiscount.ratepercent?surchargeDiscount.ratepercent:0)/100;
 							}
 							var surcharge = (parseFloat(dop_surcharge.surcharge)).toFixed(2);
-							if(isExempt) 
+							if(isExempt)
 								surcharge = 0;
 							surcharge = (1-percentdiscount) * parseFloat(surcharge);
 							surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
@@ -939,11 +953,11 @@ function userEventBeforeSubmitSO(type){
 					var itemsurcharges = surcharges.filter(function(i){return i.type == "Camp-Shirt";});
 					var dop = JSON.parse(objRecordSO.getLineItemValue('item', 'custcol_designoptions_camp_shirt', ii));
 					for(var kk=0;kk<itemsurcharges.length;kk++){
-						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});						
+						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name});
 						if(dop_value){
 							var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value})
-							
-							if(dop_surcharge){ 
+
+							if(dop_surcharge){
 							var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(tailorID)!=-1?true:false;
 							var surchargeDiscount = _.find(surcharges_discount,function(x){return x.do_internalid == dop_surcharge.internalid});
 							var percentdiscount = 0;
@@ -951,7 +965,7 @@ function userEventBeforeSubmitSO(type){
 								percentdiscount = parseFloat(surchargeDiscount.ratepercent?surchargeDiscount.ratepercent:0)/100;
 							}
 							var surcharge = (parseFloat(dop_surcharge.surcharge)).toFixed(2);
-							if(isExempt) 
+							if(isExempt)
 								surcharge = 0;
 							surcharge = (1-percentdiscount) * parseFloat(surcharge);
 							surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
@@ -975,7 +989,7 @@ function userEventBeforeSubmitSO(type){
 					switch (tailorCMTPref){
 						case 'Premium CMT':
 							if(arItemType){
-								//var itemTypeArray = arItemType.split(',');					
+								//var itemTypeArray = arItemType.split(',');
 								//if(itemTypeArray.length == 2){
 								if(arItemType == '2-Piece-Suit'){
 									cmtServiceItem = '9910';
@@ -1041,10 +1055,10 @@ function userEventBeforeSubmitSO(type){
 							//cmtServiceItem = nlapiLookupField('noninventoryitem', itemID, 'custitem_jerome_cmt_premium');
 							cmtServicePrice = nlapiLookupField('noninventoryitem', cmtServiceItem, 'custitem_jerome_cmt_basic_price',false);
 							break;
-						case 'Basic CMT':						
+						case 'Basic CMT':
 						default:
 							if(arItemType){
-								//var itemTypeArray = arItemType.split(',');					
+								//var itemTypeArray = arItemType.split(',');
 								//if(itemTypeArray.length == 2){
 								if(arItemType == '2-Piece-Suit'){
 									cmtServiceItem = '9903';
@@ -1111,49 +1125,49 @@ function userEventBeforeSubmitSO(type){
 							cmtServicePrice = nlapiLookupField('noninventoryitem', cmtServiceItem, 'custitem_jerome_cmt_basic_price',false);
 							break;
 					}
-					
-				
+
+
 					// go in to the service item, and look up the price based on premium or basic preference.
-					
-		
+
+
 					if (!Function.isUndefinedNullOrEmpty(cmtServiceItem) && !Function.isUndefinedNullOrEmpty(cmtServicePrice)){
 						var price = (parseFloat(cmtServicePrice) + (parseFloat(cmtServicePrice*tailorCMTDisc/100))).toFixed(2);
 						var description = tailorCMTPref + " " + price +"\n";
-						
+
 						//Update the price here to include the surcharges
 						//calculate the service item price
 						var serviceItemPrice = (parseFloat(surchargeamount) +parseFloat(cmtServicePrice) + (parseFloat(cmtServicePrice*tailorCMTDisc/100))).toFixed(2);
-						
+
 						description+= surchargedescription;
-						
+
 						//increment line number, as we want to add the service items underneath the corresponding line items.
 						ii++;
 						//Insert line after the current line item
 						objRecordSO.insertLineItem('item', ii);
-						
+
 						//Set the service item as the line item value
 						objRecordSO.setLineItemValue('item', 'item', ii, cmtServiceItem);
-						
+
 						//Set the quantity to the quantity of the item above
 						objRecordSO.setLineItemValue('item', 'quantity', ii, 1);
-						//nlapiLogExecution('debug','CMT TAX RATE BEFORE', objRecordSO.getLineItemValue('item','taxrate1',ii)); 
+						//nlapiLogExecution('debug','CMT TAX RATE BEFORE', objRecordSO.getLineItemValue('item','taxrate1',ii));
 						objRecordSO.setLineItemValue('item', 'description', ii, description);
 						//Set the price to the calculated service item price above
 						objRecordSO.setLineItemValue('item', 'price', ii, -1);
 						//nlapiLogExecution('debug','RATE', serviceItemPrice);
 						objRecordSO.setLineItemValue('item', 'rate', ii, serviceItemPrice);
-						
+
 						//nlapiLogExecution('debug','CMT TAX RATE AFTER', objRecordSO.getLineItemValue('item','taxrate1',ii));
 						var soNumber =  objRecordSO.getFieldValue( 'tranid');
 						//SO Line ID
 						objRecordSO.setLineItemValue('item', 'custcol_so_id', ii, soNumber + '-' + count);
-						
+
 						count++;
-						
-						//get new line item count	
+
+						//get new line item count
 						itemCount = objRecordSO.getLineItemCount('item');
-						
-						
+
+
 					} else {
 						if (Function.isUndefinedNullOrEmpty(cmtServiceItem)){
 							nlapiLogExecution('ERROR', 'Error:', "Service item for item " + itemID + " is blank in the item record.");
@@ -1161,14 +1175,14 @@ function userEventBeforeSubmitSO(type){
 							nlapiLogExecution('ERROR', 'Error:', "Service item price for item " + itemID + " is blank in the item record.");
 						}
 					}
-					
+
 				} catch(e){
 					nlapiLogExecution('DEBUG', 'Error', e.message);
 				}
-				//}	
+				//}
 			}
 			custName = objRecordSO.getFieldValue('custbody_customer_name');
-			
+
 			//nlapiLogExecution('DEBUG', 'custName after loop', custName);
 		}
 	} catch(err){
@@ -1185,7 +1199,7 @@ function userEventBeforeSubmitSO(type){
 			description += "Quantity : " + nlapiGetLineItemValue('item','quantity',i) + "\n";
 			description += "Product Type : " + nlapiGetLineItemValue('item','custcol_producttype',i) + "\n";
 			description += "Vendor : " + nlapiGetLineItemValue('item','custcol_vendorpicked',i) + "\n";
-			
+
 			switch(nlapiGetLineItemValue('item','custcol_producttype',i)){
 				case "Shirt" :
 					description += "Design Options Shirt: " + nlapiGetLineItemValue("item","custcol_designoptions_shirt",i) + "\n";
@@ -1199,7 +1213,7 @@ function userEventBeforeSubmitSO(type){
 					description += "Design Options Jacket: " + nlapiGetLineItemValue("item","custcol_designoptions_jacket",i) + "\n";
 					description += "Fit Profile Jacket : " + nlapiGetLineItemValue("item","custcol_fitprofile_jacket",i) + "\n";
 					break;
-				case "Waistcoat" : 
+				case "Waistcoat" :
 					description += "Design Options Waistcoat: " + nlapiGetLineItemValue("item","custcol_designoptions_waistcoat",i) + "\n";
 					description += "Fit Profile Waistcoat : " + nlapiGetLineItemValue("item","custcol_fitprofile_waistcoat",i) + "\n";
 					break;
@@ -1252,11 +1266,11 @@ function userEventBeforeSubmitSO(type){
 				case "Ladies-Jacket" :
 					description += "Design Options Ladies-Jacket: " + nlapiGetLineItemValue("item","custcol_designoptions_ladiesjacket",i) + "\n";
 					description += "Fit Profile Ladies-Jacket : " + nlapiGetLineItemValue("item","custcol_fitprofile_ladiesjacket",i) + "\n";
-					break;				
+					break;
 				case "Trenchcoat" :
 					description += "Design Options Trenchcoat: " + nlapiGetLineItemValue("item","custcol_designoptions_trenchcoat",i) + "\n";
 					description += "Fit Profile Trenchcoat : " + nlapiGetLineItemValue("item","custcol_fitprofile_trenchcoat",i) + "\n";
-					break;				
+					break;
 				case "Short-Sleeves-Shirt" :
 					description += "Design Options Short-Sleeves-Shirt: " + nlapiGetLineItemValue("item","custcol_designoptions_ssshirt",i) + "\n";
 					description += "Fit Profile Short-Sleeves-Shirt : " + nlapiGetLineItemValue("item","custcol_fitprofile_ssshirt",i) + "\n";
@@ -1283,10 +1297,10 @@ function userEventBeforeSubmitSO(type){
 function UpdateFitProfile(i, objRecordSO, bqm){
 	if(objRecordSO.getLineItemValue("item","custcol_fitprofile_summary",i)){
 		var fitprofileJSON = JSON.parse(objRecordSO.getLineItemValue("item","custcol_fitprofile_summary",i));
-	
+
 		for(var j=0; j< fitprofileJSON.length; j++){
 			switch(fitprofileJSON[j].name){
-				case "Jacket": 
+				case "Jacket":
 					var val = fitprofileJSON[j].id;
 					var bval = fitprofileJSON[j].blockvalue;
 					if(val){
@@ -1294,7 +1308,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 						var mval = nlapiLookupField('customrecord_sc_fit_profile',val,['custrecord_fp_measure_value','custrecord_fp_measure_type','custrecord_fp_block_value']);
 						// if(mval.custrecord_fp_block_value != bval){
 							// var now;
-							// if(fitprofileJSON.length == 1){								
+							// if(fitprofileJSON.length == 1){
 								// now = _.find(bqm,function(o){
 									// return o.custrecord_bqm_producttext == "Jacket" && o.custrecord_bqm_block == mval.custrecord_fp_block_value;
 								// });
@@ -1304,7 +1318,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 							// }
 							// fitprofileJSON[j].blockvalue = mval.custrecord_fp_block_value;
 						// }
-							
+
 						if(mval.custrecord_fp_measure_type != '1'){
 							//This is for Body
 							var fpvIN = JSON.parse(mval.custrecord_fp_measure_value);
@@ -1317,7 +1331,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value/2.54).toFixed(2);
 									}
-								});		
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_jacket',i,mval.custrecord_fp_measure_value);
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_jacket_in',i,JSON.stringify(fpvIN));
 							}
@@ -1339,7 +1353,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 						}
 					}
 				break;
-				case "Waistcoat": 
+				case "Waistcoat":
 					var val = fitprofileJSON[j].id;
 					var bval = fitprofileJSON[j].blockvalue;
 					if(val){
@@ -1367,7 +1381,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value/2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_waistcoat',i,mval.custrecord_fp_measure_value);
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_waistcoat_in',i,JSON.stringify(fpvIN));
 							}
@@ -1380,7 +1394,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value*2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_waistcoat',i,JSON.stringify(fpvIN));
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_waistcoat_in',i,mval.custrecord_fp_measure_value);
 							}
@@ -1389,7 +1403,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 						}
 					}
 				break;
-				case "Trouser" : 
+				case "Trouser" :
 					var val = fitprofileJSON[j].id;
 					var bval = fitprofileJSON[j].blockvalue;
 					if(val){
@@ -1405,7 +1419,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 								// objRecordSO.setLineItemValue('item','custcol_fabric_quantity',i,now.custrecord_bqm_quantity);
 							// }
 							// fitprofileJSON[j].blockvalue = mval.custrecord_fp_block_value;
-								
+
 						// }
 						if(mval.custrecord_fp_measure_type != '1'){
 							var fpvIN = JSON.parse(mval.custrecord_fp_measure_value);
@@ -1418,7 +1432,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value/2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_trouser',i,mval.custrecord_fp_measure_value);
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_trouser_in',i,JSON.stringify(fpvIN));
 							}
@@ -1431,7 +1445,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value*2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_trouser',i,JSON.stringify(fpvIN));
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_trouser_in',i,mval.custrecord_fp_measure_value);
 							}
@@ -1440,7 +1454,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 						}
 					}
 				break;
-				case "Shirt": 
+				case "Shirt":
 					var val = fitprofileJSON[j].id;
 					var bval = fitprofileJSON[j].blockvalue;
 					if(val){
@@ -1468,7 +1482,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value/2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_shirt',i,mval.custrecord_fp_measure_value);
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_shirt_in',i,JSON.stringify(fpvIN));
 							}
@@ -1481,7 +1495,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value*2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_shirt',i,JSON.stringify(fpvIN));
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_shirt_in',i,mval.custrecord_fp_measure_value);
 							}
@@ -1490,7 +1504,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 						}
 					}
 				break;
-				case "Overcoat": 
+				case "Overcoat":
 					var val = fitprofileJSON[j].id;
 					var bval = fitprofileJSON[j].blockvalue;
 					if(val){
@@ -1518,7 +1532,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value/2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_overcoat',i,mval.custrecord_fp_measure_value);
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_overcoat_in',i,JSON.stringify(fpvIN));
 							}
@@ -1531,7 +1545,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value*2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_overcoat',i,JSON.stringify(fpvIN));
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_overcoat_in',i,mval.custrecord_fp_measure_value);
 							}
@@ -1540,8 +1554,8 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 						}
 					}
 				break;
-				
-				case "Ladies-Jacket": 
+
+				case "Ladies-Jacket":
 					var val = fitprofileJSON[j].id;
 					var bval = fitprofileJSON[j].blockvalue;
 					if(val){
@@ -1569,7 +1583,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value/2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_ladiesjacket',i,mval.custrecord_fp_measure_value);
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_ladiesjacket_in',i,JSON.stringify(fpvIN));
 							}
@@ -1582,7 +1596,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value*2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_ladiesjacket',i,JSON.stringify(fpvIN));
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_ladiesjacket_in',i,mval.custrecord_fp_measure_value);
 							}
@@ -1591,8 +1605,8 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 						}
 					}
 				break;
-				
-				case "Ladies-Pants": 
+
+				case "Ladies-Pants":
 					var val = fitprofileJSON[j].id;
 					var bval = fitprofileJSON[j].blockvalue;
 					if(val){
@@ -1620,7 +1634,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value/2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_ladiespants',i,mval.custrecord_fp_measure_value);
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_ladiespants_in',i,JSON.stringify(fpvIN));
 							}
@@ -1633,7 +1647,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value*2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_ladiespants',i,JSON.stringify(fpvIN));
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_ladiespants_in',i,mval.custrecord_fp_measure_value);
 							}
@@ -1642,8 +1656,8 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 						}
 					}
 				break;
-				
-				case "Ladies-Skirt": 
+
+				case "Ladies-Skirt":
 					var val = fitprofileJSON[j].id;
 					var bval = fitprofileJSON[j].blockvalue;
 					if(val){
@@ -1671,7 +1685,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value/2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_ladiesskirt',i,mval.custrecord_fp_measure_value);
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_ladiesskirt_in',i,JSON.stringify(fpvIN));
 							}
@@ -1684,7 +1698,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value*2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_ladiesskirt',i,JSON.stringify(fpvIN));
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_ladiesskirt_in',i,mval.custrecord_fp_measure_value);
 							}
@@ -1693,8 +1707,8 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 						}
 					}
 				break;
-				
-				case "Trenchcoat": 
+
+				case "Trenchcoat":
 					var val = fitprofileJSON[j].id;
 					var bval = fitprofileJSON[j].blockvalue;
 					if(val){
@@ -1722,7 +1736,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value/2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_trenchcoat',i,mval.custrecord_fp_measure_value);
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_trenchcoat_in',i,JSON.stringify(fpvIN));
 							}
@@ -1735,7 +1749,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value*2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_trenchcoat',i,JSON.stringify(fpvIN));
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_trenchcoat_in',i,mval.custrecord_fp_measure_value);
 							}
@@ -1744,8 +1758,8 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 						}
 					}
 				break;
-				
-				case "Short-Sleeves-Shirt": 
+
+				case "Short-Sleeves-Shirt":
 					var val = fitprofileJSON[j].id;
 					var bval = fitprofileJSON[j].blockvalue;
 					if(val){
@@ -1773,7 +1787,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value/2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_ssshirt',i,mval.custrecord_fp_measure_value);
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_ssshirt_in',i,JSON.stringify(fpvIN));
 							}
@@ -1786,7 +1800,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value*2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_ssshirt',i,JSON.stringify(fpvIN));
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_ssshirt_in',i,mval.custrecord_fp_measure_value);
 							}
@@ -1795,12 +1809,12 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 						}
 					}
 				break;
-				case "Shorts": 
+				case "Shorts":
 					var val = fitprofileJSON[j].id;
 					var bval = fitprofileJSON[j].blockvalue;
 					if(val){
 						var mval = nlapiLookupField('customrecord_sc_fit_profile',val,['custrecord_fp_measure_value','custrecord_fp_measure_type','custrecord_fp_block_value']);
-						
+
 						if(mval.custrecord_fp_measure_type != '1'){
 							var fpvIN = JSON.parse(mval.custrecord_fp_measure_value);
 							if (fpvIN[0].value == 'CM') {
@@ -1812,7 +1826,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value/2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_shorts',i,mval.custrecord_fp_measure_value);
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_shorts_in',i,JSON.stringify(fpvIN));
 							}
@@ -1825,7 +1839,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value*2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_shorts',i,JSON.stringify(fpvIN));
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_shorts_in',i,mval.custrecord_fp_measure_value);
 							}
@@ -1834,13 +1848,13 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 						}
 					}
 				break;
-				
-				case "Camp-Shirt": 
+
+				case "Camp-Shirt":
 					var val = fitprofileJSON[j].id;
 					var bval = fitprofileJSON[j].blockvalue;
 					if(val){
 						var mval = nlapiLookupField('customrecord_sc_fit_profile',val,['custrecord_fp_measure_value','custrecord_fp_measure_type','custrecord_fp_block_value']);
-						
+
 						if(mval.custrecord_fp_measure_type != '1'){
 							var fpvIN = JSON.parse(mval.custrecord_fp_measure_value);
 							if (fpvIN[0].value == 'CM') {
@@ -1852,7 +1866,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value/2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_camp_shirt',i,mval.custrecord_fp_measure_value);
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_camp_shirt_in',i,JSON.stringify(fpvIN));
 							}
@@ -1865,7 +1879,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value*2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_camp_shirt',i,JSON.stringify(fpvIN));
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_camp_shirt_in',i,mval.custrecord_fp_measure_value);
 							}
@@ -1874,13 +1888,13 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 						}
 					}
 				break;
-				
-				case "Shirt-Jacket": 
+
+				case "Shirt-Jacket":
 					var val = fitprofileJSON[j].id;
 					var bval = fitprofileJSON[j].blockvalue;
 					if(val){
 						var mval = nlapiLookupField('customrecord_sc_fit_profile',val,['custrecord_fp_measure_value','custrecord_fp_measure_type','custrecord_fp_block_value']);
-						
+
 						if(mval.custrecord_fp_measure_type != '1'){
 							var fpvIN = JSON.parse(mval.custrecord_fp_measure_value);
 							if (fpvIN[0].value == 'CM') {
@@ -1892,7 +1906,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value/2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_shirt_jacket',i,mval.custrecord_fp_measure_value);
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_shirt_jacket_in',i,JSON.stringify(fpvIN));
 							}
@@ -1905,7 +1919,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value*2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_shirt_jacket',i,JSON.stringify(fpvIN));
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_shirt_jacket_in',i,mval.custrecord_fp_measure_value);
 							}
@@ -1914,13 +1928,13 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 						}
 					}
 				break;
-				
-				case "Safari-Jacket": 
+
+				case "Safari-Jacket":
 					var val = fitprofileJSON[j].id;
 					var bval = fitprofileJSON[j].blockvalue;
 					if(val){
 						var mval = nlapiLookupField('customrecord_sc_fit_profile',val,['custrecord_fp_measure_value','custrecord_fp_measure_type','custrecord_fp_block_value']);
-						
+
 						if(mval.custrecord_fp_measure_type != '1'){
 							var fpvIN = JSON.parse(mval.custrecord_fp_measure_value);
 							if (fpvIN[0].value == 'CM') {
@@ -1932,7 +1946,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value/2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_safari_jacket',i,mval.custrecord_fp_measure_value);
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_safari_jacket_in',i,JSON.stringify(fpvIN));
 							}
@@ -1945,7 +1959,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value*2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_safari_jacket',i,JSON.stringify(fpvIN));
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_safari_jacket_in',i,mval.custrecord_fp_measure_value);
 							}
@@ -1954,13 +1968,13 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 						}
 					}
 				break;
-				
-				case "Morning-Coat": 
+
+				case "Morning-Coat":
 					var val = fitprofileJSON[j].id;
 					var bval = fitprofileJSON[j].blockvalue;
 					if(val){
 						var mval = nlapiLookupField('customrecord_sc_fit_profile',val,['custrecord_fp_measure_value','custrecord_fp_measure_type','custrecord_fp_block_value']);
-						
+
 						if(mval.custrecord_fp_measure_type != '1'){
 							var fpvIN = JSON.parse(mval.custrecord_fp_measure_value);
 							if (fpvIN[0].value == 'CM') {
@@ -1972,7 +1986,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value/2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_morning_coat',i,mval.custrecord_fp_measure_value);
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_morning_coat_in',i,JSON.stringify(fpvIN));
 							}
@@ -1985,7 +1999,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 									if (!isNaN(obj[key].value)) {
 										obj[key].value = (obj[key].value*2.54).toFixed(2);
 									}
-								});							
+								});
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_morning_coat',i,JSON.stringify(fpvIN));
 								objRecordSO.setLineItemValue('item','custcol_fitprofile_morning_coat_in',i,mval.custrecord_fp_measure_value);
 							}
@@ -1994,7 +2008,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 						}
 					}
 				break;
-				
+
 				default:
 			}
 		}
@@ -2003,7 +2017,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 			// var highestqty = 0;
 			// for(var j=0; j< fitprofileJSON.length; j++){
 				// var bval = fitprofileJSON[j].blockvalue;
-				// //get the highest quantity 
+				// //get the highest quantity
 				// var now = _.find(bqm,function(o){
 					// return o.custrecord_bqm_producttext == "3-Piece Suit" && o.custrecord_bqm_block == bval;
 				// });
@@ -2026,7 +2040,7 @@ function UpdateFitProfile(i, objRecordSO, bqm){
 				// objRecordSO.setLineItemValue('item','custcol_fabric_quantity',i,now.custrecord_bqm_quantity);
 		// }
 		// newqty += highestqty;
-		
+
 		// var extra = 0;
 		// if(objRecordSO.getLineItemValue('item','custcol_fabric_extra',i)){
 		  // extra = parseFloat(jQuery('#fabric_extra').val())

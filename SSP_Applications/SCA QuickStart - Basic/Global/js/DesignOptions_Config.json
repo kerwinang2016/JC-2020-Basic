@@ -3374,7 +3374,7 @@
                   ]
                },
                {
-                  "label":"HM Buttonholes excl. lapel",
+                  "label":"Handmade Buttonholes excl. lapel",
                   "name":"T010262",
                   "type":"select",
                   "texts":[
@@ -10747,7 +10747,7 @@
                   "texts":[
                      "Long sleeves",
                      "Long with pleats (c.w. traditional make)",
-                     "Long with pleats (only HM)"
+                     "Long with pleats (only Handmade make)"
                   ],
                   "values":[
                      "T01060201",
@@ -11078,7 +11078,7 @@
                      "Side pleats",
                      "Center pleat",
                      "Small pleats (c.w. traditional make)",
-                     "Small pleats (only HM)",
+                     "Small pleats (only Handmade make)",
                      "No pleats"
                   ],
                   "values":[
@@ -14602,7 +14602,7 @@
                      "Side pleats",
                      "Center pleat",
                      "Small pleats (c.w. traditional make)",
-                     "Small pleats (only HM)"
+                     "Small pleats (only handmade make)"
                   ],
                   "values":[
                      "T01060905",
@@ -25933,7 +25933,7 @@
                      "C30 Violet",
                      "C31 Dark Brown",
                      "C32 Mid Green",
-                     "No buttonhole"
+                     "NA"
                   ],
                   "values":[
                      "Tone on tone",
@@ -27476,7 +27476,6 @@
                   "name":"T014926",
                   "type":"select",
                   "texts":[
-                     "Please select",
                      "Same as body lining",
                      "--CORE COLLECTION--",
                      "TR133 white twill",
@@ -27849,7 +27848,6 @@
                      "TR681"
                   ],
                   "values":[
-                     "Please select",
                      "Same as body lining",
                      "CORE COLLECTION",
                      "TR133",
@@ -29211,7 +29209,7 @@
                      "Notch Lapel with Long Collar",
                      "Medium Collar no Lapel",
                      "2B Stand Up Collar",
-                     "2B Stand Up Collar with Detachable Hood",
+                     "2B Stand Up Collar with Fold Away Hood",
                      "2B Stand Up Collar with 2B Flap Hood",
                      "Medium Collar with 2B Flap Hood"
                   ],
@@ -32922,10 +32920,16 @@
                   "name":"T010709",
                   "type":"select",
                   "texts":[
-                     "No placket"
+                     "No placket",
+                     "Soft placket without fusing",
+                     "Placket top stitched one side only",
+                     "No placket with wide fold backing"
                   ],
                   "values":[
-                     "T01070901"
+                     "T01070901",
+                     "T01070902",
+                     "T01070903",
+                     "T01070904"
                   ]
                },
                {
@@ -32945,11 +32949,15 @@
                   "type":"select",
                   "texts":[
                      "1 piece",
-                     "2 pieces"
+                     "2 pieces",
+                     "1 piece wide",
+                     "2 pieces wide"
                   ],
                   "values":[
                      "T01071201",
-                     "T01071202"
+                     "T01071202",
+                     "T01071203",
+                     "T01071204"
                   ]
                },
                {
@@ -32979,10 +32987,12 @@
                   "name":"T010715",
                   "type":"select",
                   "texts":[
-                     "1.0cm"
+                     "1.0cm",
+                     "1.5cm"
                   ],
                   "values":[
-                     "T01071501"
+                     "T01071501",
+                     "T01071503"
                   ]
                },
                {
@@ -35350,10 +35360,14 @@
                   "name":"T010705",
                   "type":"select",
                   "texts":[
-                     "No"
+                     "No",
+                     "Contrast inner edge only",
+                     "Contrast full edge"
                   ],
                   "values":[
-                     "T01070503"
+                     "T01070503",
+                     "T01070501",
+                     "T01070502"
                   ]
                },
                {
@@ -35782,6 +35796,7 @@
                      "Body 35cm/13.8in down",
                      "Body 45cm/17.7in down",
                      "Body 5cm/2in up",
+                     "Chest pocket",
                      "Left collar leaf",
                      "L cuff above",
                      "L cuff under",
@@ -35800,6 +35815,7 @@
                      "T01074804",
                      "T01074805",
                      "T01074806",
+                     "T01074807",
                      "T01074808",
                      "T01074809",
                      "T01074810",
@@ -35863,6 +35879,98 @@
             ]
          },
          {
+            "label":"Chest Pocket Emblem",
+            "name":"cpe-s",
+            "fields":[
+               {
+                  "label":"Pocket Emblem",
+                  "name":"T010750",
+                  "type":"select",
+                  "texts":[
+                     "No",
+                     "Yes"
+                  ],
+                  "values":[
+                     "T01075002",
+                     "T01075001"
+                  ],
+                  "showOnSelection":"T01064301",
+                  "hiddenOption":[
+                     "T010644",
+                     "T010645"
+                  ]
+               },
+               {
+                  "label":"Emblem Design",
+                  "name":"T010751",
+                  "type":"select",
+                  "texts":[
+                     "",
+                     "MP01 2cm",
+                     "MP02 2cm",
+                     "MP03 2cm",
+                     "MP04 2cm"
+                  ],
+                  "values":[
+                     "",
+                     "T01075101",
+                     "T01075102",
+                     "T01075103",
+                     "T01075104"
+                  ],
+                  "defaultValue":""
+               },
+               {
+                  "label":"Emblem Color",
+                  "name":"T010752",
+                  "type":"select",
+                  "texts":[
+                     "",
+                     "Dark blue",
+                     "Gold",
+                     "Off white",
+                     "Red",
+                     "Light pink",
+                     "Dark grey",
+                     "Light blue",
+                     "Raf blue",
+                     "Black",
+                     "White",
+                     "Fuchsia",
+                     "Dark brown",
+                     "Dark purple",
+                     "Lilac",
+                     "Silver",
+                     "Dark green",
+                     "Light green",
+                     "Sand"
+                  ],
+                  "values":[
+                     "",
+                     "Dark blue",
+                     "Gold",
+                     "Off white_1",
+                     "Red",
+                     "Light pink",
+                     "Dark grey",
+                     "Light blue",
+                     "Raf blue",
+                     "Black",
+                     "White",
+                     "Fuchsia",
+                     "Dark brown",
+                     "Dark purple",
+                     "Lilac",
+                     "Silver",
+                     "Dark green",
+                     "Light green",
+                     "Sand"
+                  ],
+                  "defaultValue":""
+               }
+            ]
+         },
+         {
             "label":"Branding and Presentation",
             "name":"l-s",
             "fields":[
@@ -35910,10 +36018,10 @@
                   "name":"T010701",
                   "type":"select",
                   "texts":[
-                     "Yes"
+                     "No"
                   ],
                   "values":[
-                     "T01070102"
+                     "T01070101"
                   ]
                }
             ]
@@ -36124,10 +36232,16 @@
                   "name":"T010709",
                   "type":"select",
                   "texts":[
-                     "No placket"
+                     "No placket",
+                     "Soft placket without fusing",
+                     "Placket top stitched one side only",
+                     "No placket with wide fold backing"
                   ],
                   "values":[
-                     "T01070901"
+                     "T01070901",
+                     "T01070902",
+                     "T01070903",
+                     "T01070904"
                   ]
                },
                {
@@ -36147,11 +36261,15 @@
                   "type":"select",
                   "texts":[
                      "1 piece",
-                     "2 pieces"
+                     "2 pieces",
+                     "1 piece wide",
+                     "2 pieces wide"
                   ],
                   "values":[
                      "T01071201",
-                     "T01071202"
+                     "T01071202",
+                     "T01071203",
+                     "T01071204"
                   ]
                },
                {
@@ -36181,10 +36299,12 @@
                   "name":"T010715",
                   "type":"select",
                   "texts":[
-                     "1.0cm"
+                     "1.0cm",
+                     "1.5cm"
                   ],
                   "values":[
-                     "T01071501"
+                     "T01071501",
+                     "T01071503"
                   ]
                },
                {
@@ -37561,10 +37681,14 @@
                   "name":"T010705",
                   "type":"select",
                   "texts":[
-                     "No"
+                     "No",
+                     "Contrast inner edge only",
+                     "Contrast full edge"
                   ],
                   "values":[
-                     "T01070503"
+                     "T01070503",
+                     "T01070501",
+                     "T01070502"
                   ]
                },
                {
@@ -38165,6 +38289,7 @@
                      "Body 35cm/13.8in down",
                      "Body 45cm/17.7in down",
                      "Body 5cm/2in up",
+                     "Chest pocket",
                      "Left collar leaf"
                   ],
                   "values":[
@@ -38175,6 +38300,7 @@
                      "T01074804",
                      "T01074805",
                      "T01074806",
+                     "T01074807",
                      "T01074808"
                   ],
                   "defaultValue":"NA"

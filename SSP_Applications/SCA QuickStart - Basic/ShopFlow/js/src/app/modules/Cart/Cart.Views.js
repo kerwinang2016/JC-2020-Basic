@@ -1484,7 +1484,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 			// var client_collection = this.client_collection;
 			var param = new Object();
 			var liveOrderDetails = new Array();
-			var root = 'https://jerome.na2.securedcheckout.com';
+			var root = 'https://store.jeromeclothiers.com';
 			var subtotal = 0;
 
 			_.each(this.model.get('lines').models, function (line, index){

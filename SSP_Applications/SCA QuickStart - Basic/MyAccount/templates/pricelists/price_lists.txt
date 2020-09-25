@@ -28,7 +28,7 @@
 			<div class="card-block">
 				<div><a target="_blank" href="<%=window.location.origin+view.surchargesformakeandtrim.url%>">Surcharges for Make, Trims & Design Options</a></div>
 				<br/>
-				<div><a target="_blank" href="https://jerome.na2.securedcheckout.com/myaccount/downloads/Surcharges.xlsx">Surcharges on Fabric Prices</a></div>
+				<div><a target="_blank" href="https://store.jeromeclothiers.com/myaccount/downloads/Surcharges.xlsx">Surcharges on Fabric Prices</a></div>
 				<br/>
 			</div>
 	  </div>

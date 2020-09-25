@@ -78,11 +78,11 @@
                                 </td>
                                 <td style="text-align:center;">
                                 <% if(order.clearstatus == true){ %>
-                      						<img src="https://checkout.na2.netsuite.com/c.3857857/myaccount/img/clear.png">
+                      						<img src="https://store.jeromeclothiers.com/myaccount/img/clear.png">
                       					<% }else if(order.tranline_status == true){ %>
-                      						<img src="https://checkout.na2.netsuite.com/c.3857857/myaccount/img/red.png">
+                      						<img src="https://store.jeromeclothiers.com/myaccount/img/red.png">
                       						<% }else{ %>
-                      						<img src="https://checkout.na2.netsuite.com/c.3857857/myaccount/img/green.png">
+                      						<img src="https://store.jeromeclothiers.com/myaccount/img/green.png">
                       						<% } %>
                       					</td>
                                 <td>

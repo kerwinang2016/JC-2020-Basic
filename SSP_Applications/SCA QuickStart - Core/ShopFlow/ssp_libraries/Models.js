@@ -1224,6 +1224,18 @@ Application.defineModel('LiveOrder', {
   			if(dop_surcharge){
   				//Check for Sleeve Linings
           var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(currentUser.toString())!=-1?true:false;
+
+          if(dop_surcharge.exemptselectedoptions){
+            var exemptselectedoptionsJSON = JSON.parse(dop_surcharge.exemptselectedoptions);
+            var keys = Object.keys(exemptselectedoptionsJSON);
+            for(var a=0;a<keys.length;a++){
+                var foundexemption = _.find(dop,function(x){return x.name == keys[a] && x.value == exemptselectedoptionsJSON[keys[a]]});
+                if(foundexemption){
+                  isExempt = true;
+                  break;
+                }
+            }
+          }
   				if(dop_surcharge.code == 'T01022502' && itemsurcharges[kk].name == 'T010225'){
   					//Find the Sleeve Dependent
   					if(LiningSurcharge){
@@ -1650,6 +1662,7 @@ Application.defineModel('LiveOrder', {
 	cols.push(new nlobjSearchColumn('custrecord_do_itemtype'));
 	cols.push(new nlobjSearchColumn('custrecord_sleeveliningsurcharge'));
   cols.push(new nlobjSearchColumn('custrecord_exempt_from_surcharge'));
+  cols.push(new nlobjSearchColumn('custrecord_dos_exempt_selected_options'));
   var search = nlapiCreateSearch('customrecord_design_options_surcharge',filters,cols);
   var resultSet = search.runSearch();
   var searchid = 0;
@@ -1666,7 +1679,8 @@ Application.defineModel('LiveOrder', {
     			description:do_surcharges[k].getValue('custrecord_do_description'),
     			surcharge:do_surcharges[k].getValue('custrecord_do_surcharge'),
     			sleeveliningsurcharge:do_surcharges[k].getValue('custrecord_sleeveliningsurcharge'),
-          exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(',')
+          exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(','),
+          exemptselectedoptions: do_surcharges[k].getValue('custrecord_dos_exempt_selected_options')
           });
     		}
     		else{
@@ -1678,7 +1692,8 @@ Application.defineModel('LiveOrder', {
     			description:do_surcharges[k].getValue('custrecord_do_description'),
     			surcharge:do_surcharges[k].getValue('custrecord_do_surcharge'),
     			sleeveliningsurcharge:do_surcharges[k].getValue('custrecord_sleeveliningsurcharge'),
-          exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(',')
+          exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(','),
+          exemptselectedoptions: do_surcharges[k].getValue('custrecord_dos_exempt_selected_options')
           }]
     		});
     		}
@@ -1686,36 +1701,6 @@ Application.defineModel('LiveOrder', {
       searchid+=1000;
     }
   }while(do_surcharges && do_surcharges.length == 1000);
-	// var do_surcharges = nlapiSearchRecord('customrecord_design_options_surcharge',null,filters,cols);
-
-	// for(var k=0; k<do_surcharges.length;k++){
-		//name:location,
-		//values:{[]}
-		// var custom = _.find(surcharges,function(x){return x.name == do_surcharges[k].getValue('custrecord_do_location')});
-		// if(custom){
-		// 	custom.codes.push(do_surcharges[k].getValue('custrecord_do_code'));
-		// 	custom.values.push({
-		// 	code:do_surcharges[k].getValue('custrecord_do_code'),
-		// 	description:do_surcharges[k].getValue('custrecord_do_description'),
-		// 	surcharge:do_surcharges[k].getValue('custrecord_do_surcharge'),
-		// 	sleeveliningsurcharge:do_surcharges[k].getValue('custrecord_sleeveliningsurcharge'),
-    //   exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(',')
-    //   });
-		// }
-		// else{
-		// surcharges.push({
-		// 	name:do_surcharges[k].getValue('custrecord_do_location'),
-		// 	type:do_surcharges[k].getText('custrecord_do_itemtype'),
-		// 	codes:[do_surcharges[k].getValue('custrecord_do_code')],
-		// 	values:[{code:do_surcharges[k].getValue('custrecord_do_code'),
-		// 	description:do_surcharges[k].getValue('custrecord_do_description'),
-		// 	surcharge:do_surcharges[k].getValue('custrecord_do_surcharge'),
-		// 	sleeveliningsurcharge:do_surcharges[k].getValue('custrecord_sleeveliningsurcharge'),
-    //   exemptfromsurcharge: do_surcharges[k].getValue('custrecord_exempt_from_surcharge').split(',')
-    //   }]
-		// });
-		// }
-	// }
   return surcharges;
 }
 , getShippingSurcharges: function(){

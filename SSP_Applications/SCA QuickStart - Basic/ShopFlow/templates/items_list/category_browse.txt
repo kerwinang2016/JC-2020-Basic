@@ -32,7 +32,7 @@
 						</a>
 					</div>
 					<% } %>
-					<%= displayInRows(facet.values.values, categoryCell, 4, facet.values.id == 'category', clientId) %>
+					<%= displayInRowsCategory(facet.values.values, categoryCell, facet.values.id == 'category', clientId) %>
 				<% }) %>
 				<div id="banner-section-bottom" class="content-banner banner-section-bottom"></div>
 			</section>

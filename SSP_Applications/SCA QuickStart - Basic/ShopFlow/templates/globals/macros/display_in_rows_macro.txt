@@ -2,31 +2,27 @@
 	<% items_per_row = parseInt(items_per_row, 10) || 3 %>
 	<% var span = 12 / items_per_row %>
 	<% if(isCategory){ %>
-	<div><div class='mensbanner fa'>
-	Mens
-	</div>
-<% if(clientId) { %>
-	<div style="float:right;">
-
-	<a href="https://store.jeromeclothiers.com/myaccount/index.ssp?#/productlists/?id=<%=clientId%>" class="btn">
-								My Product List
-							</a>
-							</div>
-							<% } %>
-	</div>
+	<div>
+		<div class='mensbanner fa'>Mens</div>
+			<% if(clientId) { %>
+				<div style="float:right;">
+					<a href="https://store.jeromeclothiers.com/myaccount/index.ssp?#/productlists/?id=<%=clientId%>" class="btn">My Product List</a>
+				</div>
+			<% } %>
+		</div>
 	<% } %>
-	<div class="row-fluid" style="margin-top:20px;">
-	<% var count = 0;
-	_.each(items, function (item, index){
-	%>
-		<% if (((count % items_per_row) == 0 || index == 9) && index > 0 ){
+		<div class="row-fluid" style="margin-top:20px;">
+		<% var count = 0;
+			_.each(items, function (item, index){
+		%>
+		<% if (((count % items_per_row) == 0 || index == 14) && index > 0 ){
 			count=0; %>
 			</div>
-			<% if(index == 9 && isCategory){ %>
-			<div class='womensbanner fa collapsed' data-toggle="collapse" data-target="#womensbanner" data-parent=".womensbanner">
-			<span style="margin-right:75px;">Womens</span>
-			</div>
-			<div id="womensbanner" class="collapse" style="height:0px;">
+			<% if(index == 14 && isCategory){ %>
+				<div class='womensbanner fa collapsed' data-toggle="collapse" data-target="#womensbanner" data-parent=".womensbanner">
+				<span style="margin-right:75px;">Womens</span>
+				</div>
+				<div id="womensbanner" class="collapse" style="height:0px;">
 			<% } %>
 
 			<div class="row-fluid" style="margin-top:20px;">

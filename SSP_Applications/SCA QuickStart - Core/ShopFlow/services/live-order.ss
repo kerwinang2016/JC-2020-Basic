@@ -45,19 +45,14 @@ function service (request)
 
 		//nlapiLogExecution('debug', 'live-order.ss', '[' + fileInfo + ']');
 
-
-
-		if (method === 'GET')
-		{
-			Application.sendContent(LiveOrder.get());
-		}
-		// If we are not in the checkout OR we are logged in
-		// When on store, login in is not required
-		// when on checkout, login is required
-		else if (!~request.getURL().indexOf('https') || session.isLoggedIn())
+		//nlapiLogExecution('debug','Live Order')
+		if (session.isLoggedIn())
 		{
 			switch (method)
 			{
+				case 'GET':
+					Application.sendContent(LiveOrder.get());
+					break;
 				case 'PUT':
 					// Pass the data to the LiveOrder's update method and send it response
 					LiveOrder.update(data);

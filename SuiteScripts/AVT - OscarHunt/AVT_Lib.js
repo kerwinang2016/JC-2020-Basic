@@ -6,7 +6,8 @@
  * 2.00		  	08 Sep 2020	  	Kim Morfe			Optimized the nlapiLoadSearch to prevent multiple calls to NS server and speed up the loading of the page
  * 2.01			14 Sep 2020		Kim Morfe			Added Kerwin's code update from production script
  * 2.02  		15 Sep 2020		Kim Morfe			Modified and optimized the searchCMTPurchaseOrders, Form_Approval_POLineCMT_UK and generateCMTSublist functions
- * 2.03			16 Sep 2020		Kim Morfe			Modified the Form_Approval_POLineCMT_USA function
+ * 2.03			16 Sep 2020		Kim Morfe			Modified the functions for UK, USA, Internal and Others functions
+ * 3.00			21 Sep 2020		Kim Morfe			Modified the script to make the tailor list dynamic
  *
  */
 
@@ -16,6 +17,7 @@ var dataRetrieved = false;
 var soLinesList = null;
 var createdFromMasterList = new Array();
 var cmtList = new Array();
+var tailorList = new Array();
 
 var avt_post = function(datain){
 	var returnObj = new Object();
@@ -73,12 +75,6 @@ function dashBoardRequest(request){
 			case "savelining":
 				returnObj = saveLining(datain);
 				break;
-      case "holdso":
-				returnObj = holdSO(datain);
-				break;
-      case "holdsoline":
-				returnObj = holdSOLine(datain);
-				break;
 			default:{
 				nlapiLogExecution('debug','Action Not Supported');
 				returnObj.status = false;
@@ -91,12 +87,7 @@ function dashBoardRequest(request){
 	}
 	response.write(JSON.stringify(returnObj));
 }
-function holdSO(data){
 
-}
-function holdSOLine(data){
-
-}
 function saveLining(data){
 	var returnObj = {};
 	returnObj = data;
@@ -501,9 +492,7 @@ var Run_DisplaySO = function( request, response)
 	{
 		var obj = new MyObj( request, response);
 		obj.Form_Approval();
-	}else{
-
-  }
+	}
 };
 
 var Run_DisplaySOLines = function( request, response)
@@ -512,9 +501,7 @@ var Run_DisplaySOLines = function( request, response)
 	{
 		var obj = new MyObj( request, response);
 		obj.Form_Approval_Line();
-	}else{
-
-  }
+	}
 };
 
 var Run_POLinesFabric = function( request, response)
@@ -1030,7 +1017,6 @@ var MyObj = function( request, response )
 	{
 		var form =  nlapiCreateForm( 'Sales Orders To Approve');
 		form.addButton( 'custpage_btapprve', 'Approve Now', 'ApproveSO()');
-    form.addButton( 'custpage_btnhold', 'Hold Orders', 'HoldSO()');
 		form.setScript( 'customscript_avt_so_approval_cs');
 
 		var filter = new Array();
@@ -1079,7 +1065,7 @@ var MyObj = function( request, response )
 		form.addButton( 'custpage_btapprve', 'Approve Now', 'ApproveSOLine()');
 		form.addButton( 'custpage_filter', 'Filter', 'FilterSOLine()');
 		form.addButton( 'custpage_btsave', 'Save', 'SaveSO');
-    form.addButton( 'custpage_btnhold', 'Hold', 'HoldSOLine()');
+
 		var fld_itemselect  = form.addField( 'custpage_item', 'select', 'Filter Item', 'item');
 		form.setScript( 'customscript_avt_so_approval_cs');
 
@@ -1131,7 +1117,6 @@ var MyObj = function( request, response )
 		sublist.addField( 'custcol_fabric_quantity', 'text', 'Meters');
 		var fld_ven = sublist.addField( 'vendor', 'text', 'Vendor');
 		fld_item.setDisplayType( 'inline');
-
 		var fld_status  = sublist.addField( 'custpage_status', 'text', 'Status');
 		fld_status.setDisplayType( 'entry');
 		sublist.addField( 'custcol_avt_so_line_approved', 'checkbox', 'Is Approved');
@@ -1233,7 +1218,7 @@ var MyObj = function( request, response )
 			{
 				fld_vendor.setDefaultValue(vendorval );
 			}
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['741','961','706','932','958','605','947','921','600','840','848','844','813','801','728','562','587','627','685','716','772','854']);
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['961','706','932','958','605','947','921','600','840','848','844','813','801','728','562','587','627','685','716','772','854']);
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 		var searchid = 'customsearch_avt_so_to_approve_2_2';
@@ -1422,7 +1407,7 @@ var MyObj = function( request, response )
 			{
 				fld_vendor.setDefaultValue(vendorval );
 			}
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['1002','1018','914','84','118','758']);
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['914','84','118','758']);
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 		var searchid = 'customsearch_avt_so_to_approve_2_2';
@@ -1969,7 +1954,7 @@ var MyObj = function( request, response )
 			{
 				fld_vendor.setDefaultValue(vendorval );
 			}
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['1002','1018','914','84','118','758']);//Filter Dayan
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['914','84','118','758']);//Filter Dayan
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 		var searchid = 'customsearch_avt_so_to_approve_2_2_3';
@@ -2139,7 +2124,7 @@ var MyObj = function( request, response )
 			{
 				fld_vendor.setDefaultValue(vendorval );
 			}
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['741','961','706','932','958','605','947','921','600','840','848','844','813','801','728','562','587','627','685','716','772','854']);//Filter Dayan
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['961','706','932','958','605','947','921','600','840','848','844','813','801','728','562','587','627','685','716','772','854']);//Filter Dayan
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 		var searchid = 'customsearch_avt_so_to_approve_2_2_3';
@@ -2286,38 +2271,9 @@ var MyObj = function( request, response )
 		// form.addTab('custpage_ldc_satorial',"126 JEI_LDC Sartorial");
 		// form.addTab('custpage_colmore',"123 JEI_Colmore Tailors");
 		// form.addTab('custpage_clementsandchurch',"44 JEI_Clements and Church UK");
-		form.addTab('custpage_tab1', 'Tab1');
-		form.addTab('custpage_tab2', 'Tab2');
-		form.addTab('custpage_tab3', 'Tab3');
+
+
 		var fld_expdatesent = form.addField( 'custpage_expecteddatesent', 'date', 'Expected Shipping');
-		var sublist = form.addSubList( 'custpage_subslist1', 'list', 'Jerome UK','custpage_tab1');
-		var sublist2 = form.addSubList( 'custpage_subslist2', 'list', '40 JEI_Jack Davidson','custpage_tab1');
-    var sublist14 = form.addSubList( 'custpage_subslist14', 'list', '44 JEI_Clements and Church UK','custpage_tab1');
-    var sublist17 = form.addSubList( 'custpage_subslist17', 'list', '47 JEI_Faustus','custpage_tab1');
-		var sublist3 = form.addSubList( 'custpage_subslist3', 'list', '52 JEI_Joseph Darcy','custpage_tab1');
-		var sublist4 = form.addSubList( 'custpage_subslist4', 'list', '75 JEI_Jonathan Quearney','custpage_tab1');
-		var sublist20 = form.addSubList( 'custpage_subslist20', 'list', '82 JEI_Hackett Limited','custpage_tab1');
-		var sublist5 = form.addSubList( 'custpage_subslist5', 'list', '88 JEI_Abrahams Tailoring','custpage_tab1');
-		var sublist7 = form.addSubList( 'custpage_subslist7', 'list', '93 JEI_So Bespoke','custpage_tab1');
-    var sublist22 = form.addSubList( 'custpage_subslist22', 'list', '99 JEI_Jasper Littman','custpage_tab1');
-    var sublist6 = form.addSubList( 'custpage_subslist6', 'list', '108 JEI_Made by Everyone','custpage_tab1');
-
-		var sublist8 = form.addSubList( 'custpage_subslist8', 'list', '112 JEI_Richard George','custpage_tab2');
-		var sublist9 = form.addSubList( 'custpage_subslist9', 'list', '114 JEI_Mason & Sons','custpage_tab2');
-		var sublist10 = form.addSubList( 'custpage_subslist10', 'list', '125 JEI_Bosi and Charles','custpage_tab2');
-		var sublist11 = form.addSubList( 'custpage_subslist11', 'list', "128 JEI_Mens Finest",'custpage_tab2');
-		var sublist12 = form.addSubList( 'custpage_subslist12', 'list', '126 JEI_LDC Sartorial','custpage_tab2');
-		var sublist13 = form.addSubList( 'custpage_subslist13', 'list', '123 JEI_Colmore Tailors','custpage_tab2');
-
-
-    var sublist15 = form.addSubList( 'custpage_subslist15', 'list', '151 JEI_The Bespoke Tailor','custpage_tab2');
-		var sublist19 = form.addSubList( 'custpage_subslist19', 'list', '154 JEI_Michelsberg Tailoring','custpage_tab2');
-		var sublist16 = form.addSubList( 'custpage_subslist16', 'list', '158 JEI_The Chapar','custpage_tab2');
-		var sublist18 = form.addSubList( 'custpage_subslist18', 'list', '161 JEI_Sarto Luxury Tailoring','custpage_tab2');
-		var sublist21 = form.addSubList( 'custpage_subslist21', 'list', '162 JEI_Acre & Row','custpage_tab3');
-
-
-
 
 		if(dateval){
 			fld_expdatesent.setDefaultValue(dateval);
@@ -2327,54 +2283,55 @@ var MyObj = function( request, response )
 		}
 
 		var context = nlapiGetContext();
+		var tailorRegion = context.getSetting('SCRIPT', 'custscript_cmt_tailor_region_uk');	//Retrieve the Tailor Region from the script parameter
 
-		var tailorsIDs = context.getSetting('SCRIPT', 'custscript_cmt_tailors_uk');	//Retrieve the list of Tailor IDs from the script parameter
-		log('tailorsIDs', tailorsIDs);
+		//Perform a Tailor search filtered by UK region
+		searchTailors(tailorRegion);
 
-		//Convert the string to array
-		if (tailorsIDs != null && tailorsIDs != ''){
-			tailorsIDs = tailorsIDs.split(',');
-			log('tailorsIDs length', tailorsIDs.length);
-		}
+		var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));
+		log('uniqueTailorIDs UK', uniqueTailorIDs);
 
 		//Perform a Purchase Order Search to retrieve the data to populate the sublist
-		searchCMTPurchaseOrders({'dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
+		searchCMTPurchaseOrders({'dateval':dateval,'cmtstatus':cmtstatus}, uniqueTailorIDs);
 
-		//For Bespoke Detroit and Birmingham ,'580'
-		this.generateCMTSublist(sublist,{'entity':'562','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist2,{'entity':'587','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
+		//Create tabs in multiples of 10
+		var tabIndex = 0;
+		var tabID = '';
+		for (var tailorIndex = 0; tailorIndex < tailorList.length; tailorIndex++){	//Loop through the TailorList to build a tab and sublist for each tailor
 
-		this.generateCMTSublist(sublist3,{'entity':'627','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
+			if (tailorIndex % 10 == 0){	//Create a new tab for tailors divisible by 10
+				tabID = 'custpage_page'+tabIndex;
+				tabID = tabID.toString();
+				var tabFirstLetter = tailorList[tailorIndex].name.substring(0,1);
+				var tabMaxIndex = tailorIndex + 9;
+				log('tabMaxIndex', tabMaxIndex + ' - tailorList.length: ' + tailorList.length);
+				if (tabMaxIndex >= tailorList.length){
+					tabMaxIndex = tailorList.length - 1;
+				}
+				log('tabMaxIndex after', tabMaxIndex);
+				var tabLastLetter = tailorList[tabMaxIndex].name.substring(0,1);
 
-		this.generateCMTSublist(sublist4,{'entity':'685','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist5,{'entity':'716','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
+				var tabName = tabFirstLetter + ' - ' + tabLastLetter;
+				//tabName = tabName.toString();
+				form.addTab(tabID, tabName);
+				tabIndex++;
+			}
 
-		this.generateCMTSublist(sublist6,{'entity':'772','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist7,{'entity':'728','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist8,{'entity':'801','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist9,{'entity':'813','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist10,{'entity':'844','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist11,{'entity':'854','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist12,{'entity':'848','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist13,{'entity':'840','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist14,{'entity':'600','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist15,{'entity':'921','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist16,{'entity':'947','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist17,{'entity':'605','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist18,{'entity':'958','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist19,{'entity':'932','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist20,{'entity':'706','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist21,{'entity':'961','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-    this.generateCMTSublist(sublist22,{'entity':'741','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
+			//Create a sublist for each tailor and use the tailorIndex as the sublist ID
+			var sublistID = 'custpage_sublist'+tailorIndex;
+			sublistID = sublistID.toString();
+			var tailorSublist = form.addSubList(sublistID, 'list', tailorList[tailorIndex].name, tabID);
+
+			this.generateCMTSublist(tailorSublist,{'entity':tailorList[tailorIndex].id,'dateval':dateval,'cmtstatus':cmtstatus}, uniqueTailorIDs);
+
+		}
+
 		this.response.writePage( form);
 
 	};
 	this.Form_Approval_POLineCMT_USA = function()
 	{
-		var dateval = this.request.getParameter('expecteddatesent');
-		var cmtstatus = this.request.getParameter('cmtstatus');
-
-		var form =  nlapiCreateForm( 'CMT Purchase Order Lines To Manage USA');
+		var form =  nlapiCreateForm( 'CMT Purchase Order Lines To Manage NA');
 		form.addButton( 'custpage_btapprve', 'Save', 'SavePOCMT()');
 		form.addButton( 'custpage_btapprve_bill', 'Bill', 'SavePOCMT(true)');
 		form.addButton( 'custpage_btfilter', 'Filter', 'POCMTFilter()');
@@ -2386,20 +2343,11 @@ var MyObj = function( request, response )
 		fld_cmtstatus.addSelectOption('4','Error');
 		fld_cmtstatus.setDisplaySize('150', '2')
 
-		form.addTab('custpage_bespokedetroit','1701 Bespoke Detroit');
-		form.addTab('custpage_oscarhuntjerome','20 Jerome Clothiers');
-		form.addTab('custpage_mrcavaliere','62 JEI_Mr Cavaliere');
-		form.addTab('custpage_harrison','103 JEI_Harrison & Hines');
-		form.addTab('custpage_clementsandchurchusa','148 JEI_Clements and Church USA');
-		form.addTab('custpage_sewt','176 JEI_SEWT');
-		form.addTab('custpage_omj','182 JEI_OMJ Clothing');
+		var dateval = this.request.getParameter('expecteddatesent');
+		var cmtstatus = this.request.getParameter('cmtstatus');
+
 		var fld_expdatesent = form.addField( 'custpage_expecteddatesent', 'date', 'Expected Shipping');
-		var sublist = form.addSubList( 'custpage_subslist1', 'list', 'CMT Purchase Order Lines','custpage_bespokedetroit');
-		var sublist2 = form.addSubList( 'custpage_subslist2', 'list', 'CMT Purchase Order Lines','custpage_oscarhuntjerome');
-		var sublist3 = form.addSubList( 'custpage_subslist3', 'list', 'CMT Purchase Order Lines','custpage_harrison');
-		var sublist4 = form.addSubList( 'custpage_subslist4', 'list', 'CMT Purchase Order Lines','custpage_clementsandchurchusa');
-		var sublist5 = form.addSubList( 'custpage_subslist5', 'list', 'CMT Purchase Order Lines','custpage_omj');
-		var sublist6 = form.addSubList( 'custpage_subslist6', 'list', 'CMT Purchase Order Lines','custpage_sewt');
+
 		if(dateval){
 			fld_expdatesent.setDefaultValue(dateval);
 		}
@@ -2408,27 +2356,48 @@ var MyObj = function( request, response )
 		}
 
 		var context = nlapiGetContext();
+		var tailorRegion = context.getSetting('SCRIPT', 'custscript_cmt_tailor_region_us');	//Retrieve the Tailor Region from the script parameter
 
-		var tailorsIDs = context.getSetting('SCRIPT', 'custscript_cmt_tailors_usa');	//Retrieve the list of Tailor IDs from the script parameter
-		log('tailorsIDs', tailorsIDs);
+		//Perform a Tailor search filtered by EU region
+		searchTailors(tailorRegion);
 
-		//Convert the string to array
-		if (tailorsIDs != null && tailorsIDs != ''){
-			tailorsIDs = tailorsIDs.split(',');
-			log('tailorsIDs length', tailorsIDs.length);
-		}
+		var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));
+		log('uniqueTailorIDs', uniqueTailorIDs);
 
 		//Perform a Purchase Order Search to retrieve the data to populate the sublist
-		searchCMTPurchaseOrders({'dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
+		searchCMTPurchaseOrders({'dateval':dateval,'cmtstatus':cmtstatus}, uniqueTailorIDs);
 
-		//For Bespoke Detroit and Birmingham
-		this.generateCMTSublist(sublist,{'entity':'84','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		//For Christian Henry
-		this.generateCMTSublist(sublist2,{'entity':'118','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist3,{'entity':'758','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist4,{'entity':'914','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist6,{'entity':'1002','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist5,{'entity':'1018','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
+		//Create tabs in multiples of 10
+		var tabIndex = 0;
+		var tabID = '';
+		for (var tailorIndex = 0; tailorIndex < tailorList.length; tailorIndex++){	//Loop through the TailorList to build a tab and sublist for each tailor
+
+			if (tailorIndex % 10 == 0){	//Create a new tab for tailors divisible by 10
+				tabID = 'custpage_page'+tabIndex;
+				tabID = tabID.toString();
+				var tabFirstLetter = tailorList[tailorIndex].name.substring(0,1);
+				var tabMaxIndex = tailorIndex + 9;
+				log('tabMaxIndex', tabMaxIndex + ' - tailorList.length: ' + tailorList.length);
+				if (tabMaxIndex >= tailorList.length){
+					tabMaxIndex = tailorList.length - 1;
+				}
+				log('tabMaxIndex after', tabMaxIndex);
+				var tabLastLetter = tailorList[tabMaxIndex].name.substring(0,1);
+
+				var tabName = tabFirstLetter + ' - ' + tabLastLetter;
+				//tabName = tabName.toString();
+				form.addTab(tabID, tabName);
+				tabIndex++;
+			}
+
+			//Create a sublist for each tailor and use the tailorIndex as the sublist ID
+			var sublistID = 'custpage_sublist'+tailorIndex;
+			sublistID = sublistID.toString();
+			var tailorSublist = form.addSubList(sublistID, 'list', tailorList[tailorIndex].name, tabID);
+
+			this.generateCMTSublist(tailorSublist,{'entity':tailorList[tailorIndex].id,'dateval':dateval,'cmtstatus':cmtstatus}, uniqueTailorIDs);
+
+		}
 
 		this.response.writePage( form);
 
@@ -2450,15 +2419,8 @@ var MyObj = function( request, response )
 		fld_cmtstatus.addSelectOption('4','Error');
 		fld_cmtstatus.setDisplaySize('150', '2')
 
-		form.addTab('custpage_oscarhunt','Oscar Hunt Pty Ltd');
-		form.addTab('custpage_oscarhuntsydney','Oscar Hunt Sydney Pty Ltd');
-		form.addTab('custpage_gcmenswear','70 GC Menswear');
-		form.addTab('custpage_adelaide','83 Oscar Hunt Adelaide Pty Ltd');
 		var fld_expdatesent = form.addField( 'custpage_expecteddatesent', 'date', 'Expected Shipping');
-		var sublist = form.addSubList( 'custpage_subslist1', 'list', 'CMT Purchase Order Lines','custpage_oscarhunt');
-		var sublist2 = form.addSubList( 'custpage_subslist2', 'list', 'CMT Purchase Order Lines','custpage_oscarhuntsydney');
-		var sublist3 = form.addSubList( 'custpage_subslist3', 'list', 'CMT Purchase Order Lines','custpage_gcmenswear');
-		var sublist4 = form.addSubList( 'custpage_subslist4', 'list', 'CMT Purchase Order Lines','custpage_adelaide');
+
 		if(dateval){
 			fld_expdatesent.setDefaultValue(dateval);
 		}
@@ -2467,39 +2429,64 @@ var MyObj = function( request, response )
 		}
 
 		var context = nlapiGetContext();
+		var tailorRegion = context.getSetting('SCRIPT', 'custscript_cmt_tailor_region_au');	//Retrieve the Tailor Region from the script parameter
 
-		var tailorsIDs = context.getSetting('SCRIPT', 'custscript_cmt_tailors_au');	//Retrieve the list of Tailor IDs from the script parameter
-		log('tailorsIDs', tailorsIDs);
+		//Perform a Tailor search filtered by EU region
+		searchTailors(tailorRegion);
 
-		//Convert the string to array
-		if (tailorsIDs != null && tailorsIDs != ''){
-			tailorsIDs = tailorsIDs.split(',');
-			log('tailorsIDs length', tailorsIDs.length);
-		}
+		var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));
+		log('uniqueTailorIDs', uniqueTailorIDs);
 
 		//Perform a Purchase Order Search to retrieve the data to populate the sublist
-		searchCMTPurchaseOrders({'dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
+		searchCMTPurchaseOrders({'dateval':dateval,'cmtstatus':cmtstatus}, uniqueTailorIDs);
 
-		this.generateCMTSublist(sublist,{'entity':'5','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		//For Sydney
-		this.generateCMTSublist(sublist2,{'entity':'75','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist3,{'entity':'669','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist4,{'entity':'708','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
+		//Create tabs in multiples of 10
+		var tabIndex = 0;
+		var tabID = '';
+		for (var tailorIndex = 0; tailorIndex < tailorList.length; tailorIndex++){	//Loop through the TailorList to build a tab and sublist for each tailor
+
+			if (tailorIndex % 10 == 0){	//Create a new tab for tailors divisible by 10
+				tabID = 'custpage_page'+tabIndex;
+				tabID = tabID.toString();
+				var tabFirstLetter = tailorList[tailorIndex].name.substring(0,1);
+				var tabMaxIndex = tailorIndex + 9;
+				log('tabMaxIndex', tabMaxIndex + ' - tailorList.length: ' + tailorList.length);
+				if (tabMaxIndex >= tailorList.length){
+					tabMaxIndex = tailorList.length - 1;
+				}
+				log('tabMaxIndex after', tabMaxIndex);
+				var tabLastLetter = tailorList[tabMaxIndex].name.substring(0,1);
+
+				var tabName = tabFirstLetter + ' - ' + tabLastLetter;
+				//tabName = tabName.toString();
+				form.addTab(tabID, tabName);
+				tabIndex++;
+			}
+
+			//Create a sublist for each tailor and use the tailorIndex as the sublist ID
+			var sublistID = 'custpage_sublist'+tailorIndex;
+			sublistID = sublistID.toString();
+			var tailorSublist = form.addSubList(sublistID, 'list', tailorList[tailorIndex].name, tabID);
+
+			this.generateCMTSublist(tailorSublist,{'entity':tailorList[tailorIndex].id,'dateval':dateval,'cmtstatus':cmtstatus}, uniqueTailorIDs);
+
+		}
+
 		this.response.writePage( form);
 
 	};
 	this.generateCMTSublist = function(sublist, parameters, tailorsIDs){
 
-		log('this.searchResultList', searchResultList);
+		//log('this.searchResultList', searchResultList + ' - sublist: ' + sublist);
 
 		var createdFromList = new Array();
 		var mylist = new Array();
 		var getSOLines  =  null;
 
 		if (searchResultList != null && searchResultList != ''){	//Proceed with getting the fields from the saved search result if searchResultList is not empty
-			log('searchResultList is not empty');
+			//log('searchResultList is not empty');
 			var searchid = 0;
-			log('dataRetrieved', dataRetrieved);
+			//log('dataRetrieved', dataRetrieved);
 			if (!dataRetrieved){
 				log('retrieving data from search');
 				do{
@@ -2553,10 +2540,10 @@ var MyObj = function( request, response )
 			if(createdFromList.length > 0 )
 			{
 				if (!soLinesList){
-					log('soLinesList is empty');
+					//log('soLinesList is empty');
 					getSOLines = this.getAllSOLineJoin( createdFromList, tailorsIDs);
 				} else {
-					log('soLinesList is not empty');
+					//log('soLinesList is not empty');
 					getSOLines = soLinesList;
 				}
 
@@ -2723,7 +2710,7 @@ var MyObj = function( request, response )
 		fld_notes.setDisplayType('entry');
 
 		if (sr != null) log('sr length', sr.length);
-		log('mylist length', mylist.length);
+		//log('mylist length', mylist.length);
 		//if( sr != null && sr.length > 0 )
 		if( mylist != null && mylist.length > 0 )
 		{
@@ -3194,15 +3181,11 @@ var MyObj = function( request, response )
 		form.addTab('custpage_hedricks',"21 Hedrick's");
 		form.addTab('custpage_harrison','103 JEI_Harrison & Hines');
 		form.addTab('custpage_clementsandchurchusa','148 JEI_Clements and Church USA');
-		form.addTab('custpage_sewt','176 JEI_SEWT');
-		form.addTab('custpage_omj','182 JEI_OMJ Clothing');
 		var fld_expdatesent = form.addField( 'custpage_expecteddatesent', 'date', 'Confirmed Shipping');
 		var sublist = form.addSubList( 'custpage_subslist1', 'list', 'CMT Purchase Order Lines','custpage_bespokedetroit');
 		var sublist2 = form.addSubList( 'custpage_subslist2', 'list', 'CMT Purchase Order Lines','custpage_oscarhuntjerome');
 		var sublist3 = form.addSubList( 'custpage_subslist3', 'list', 'CMT Purchase Order Lines','custpage_harrison');
 		var sublist4 = form.addSubList( 'custpage_subslist4', 'list', 'CMT Purchase Order Lines','custpage_clementsandchurchusa');
-		var sublist5 = form.addSubList( 'custpage_subslist5', 'list', 'CMT Purchase Order Lines','custpage_omj');
-		var sublist6 = form.addSubList( 'custpage_subslist6', 'list', 'CMT Purchase Order Lines','custpage_sewt');
 		if(dateval){
 			fld_expdatesent.setDefaultValue(dateval);
 		}
@@ -3213,8 +3196,6 @@ var MyObj = function( request, response )
 		this.generateCMTBilledSublist(sublist2,{'entity':'118','dateval':dateval});
 		this.generateCMTBilledSublist(sublist3,{'entity':'758','dateval':dateval});
 		this.generateCMTBilledSublist(sublist4,{'entity':'914','dateval':dateval});
-		this.generateCMTBilledSublist(sublist5,{'entity':'1018','dateval':dateval});
-		this.generateCMTBilledSublist(sublist6,{'entity':'1002','dateval':dateval});
 		this.response.writePage( form);
 
 	};
@@ -3278,7 +3259,7 @@ var MyObj = function( request, response )
 			{
 				fld_vendor.setDefaultValue(vendorval );
 			}
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['1032','987','646','726','700','780','786']);
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['987','646','726','700','780','786']);
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 		var searchid = 'customsearch_avt_so_to_approve_2_2';
@@ -3466,7 +3447,7 @@ var MyObj = function( request, response )
 			{
 				fld_vendor.setDefaultValue(vendorval );
 			}
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['1032','987','646','726','700','780','786']);//Filter Dayan
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['987','646','726','700','780','786']);//Filter Dayan
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 		var searchid = 'customsearch_avt_so_to_approve_2_2_3';
@@ -3597,24 +3578,8 @@ var MyObj = function( request, response )
 		fld_cmtstatus.addSelectOption('4','Error');
 		fld_cmtstatus.setDisplaySize('150', '2')
 
-
-		form.addTab('custpage_kale','60 JEI_Kale & Co Bespoke');
-		form.addTab('custpage_henrybucks','92 JEI_Henry Bucks');
-		form.addTab('custpage_mexico','79 JEI_Rooks & Rocks Mexico');
-		form.addTab('custpage_henrybuckssydney','110 JEI_Henry Bucks SYDNEY');
-		form.addTab('custpage_mitchell','111 JEI_Mitchell Ogilvie');
-		form.addTab('custpage_governor','170 JEI_Governor Apparel');
-    form.addTab('custpage_reykjavik','188 JEI_Suitup Reykjavik');
 		var fld_expdatesent = form.addField( 'custpage_expecteddatesent', 'date', 'Expected Shipping');
 
-		var sublist = form.addSubList( 'custpage_subslist1', 'list', 'CMT Purchase Order Lines','custpage_kale');
-		var sublist1 = form.addSubList( 'custpage_subslist2', 'list', 'CMT Purchase Order Lines','custpage_henrybucks');
-
-		var sublist2 = form.addSubList( 'custpage_subslist3', 'list', 'CMT Purchase Order Lines','custpage_mexico');
-		var sublist3 = form.addSubList( 'custpage_subslist4', 'list', 'CMT Purchase Order Lines','custpage_henrybuckssydney');
-		var sublist4 = form.addSubList( 'custpage_subslist5', 'list', 'CMT Purchase Order Lines','custpage_mitchell');
-		var sublist5 = form.addSubList( 'custpage_subslist6', 'list', 'CMT Purchase Order Lines','custpage_governor');
-    var sublist6 = form.addSubList( 'custpage_subslist7', 'list', 'CMT Purchase Order Lines','custpage_reykjavik');
 		if(dateval){
 			fld_expdatesent.setDefaultValue(dateval);
 		}
@@ -3623,28 +3588,49 @@ var MyObj = function( request, response )
 		}
 
 		var context = nlapiGetContext();
+		var tailorRegion = context.getSetting('SCRIPT', 'custscript_cmt_tailor_region_others');	//Retrieve the Tailor Region from the script parameter
 
-		var tailorsIDs = context.getSetting('SCRIPT', 'custscript_cmt_tailors_other');	//Retrieve the list of Tailor IDs from the script parameter
-		log('tailorsIDs', tailorsIDs);
+		//Perform a Tailor search filtered by EU region
+		searchTailors(tailorRegion);
 
-		//Convert the string to array
-		if (tailorsIDs != null && tailorsIDs != ''){
-			tailorsIDs = tailorsIDs.split(',');
-			log('tailorsIDs length', tailorsIDs.length);
-		}
+		var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));
+		log('uniqueTailorIDs', uniqueTailorIDs);
 
 		//Perform a Purchase Order Search to retrieve the data to populate the sublist
-		searchCMTPurchaseOrders({'dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
+		searchCMTPurchaseOrders({'dateval':dateval,'cmtstatus':cmtstatus}, uniqueTailorIDs);
 
-		//For Bespoke Detroit and Birmingham
-		this.generateCMTSublist(sublist,{'entity':'646','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist1,{'entity':'726','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
+		//Create tabs in multiples of 10
+		var tabIndex = 0;
+		var tabID = '';
+		for (var tailorIndex = 0; tailorIndex < tailorList.length; tailorIndex++){	//Loop through the TailorList to build a tab and sublist for each tailor
 
-		this.generateCMTSublist(sublist2,{'entity':'700','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist3,{'entity':'780','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist4,{'entity':'786','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist5,{'entity':'987','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-    this.generateCMTSublist(sublist6,{'entity':'1032','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
+			if (tailorIndex % 10 == 0){	//Create a new tab for tailors divisible by 10
+				tabID = 'custpage_page'+tabIndex;
+				tabID = tabID.toString();
+				var tabFirstLetter = tailorList[tailorIndex].name.substring(0,1);
+				var tabMaxIndex = tailorIndex + 9;
+				log('tabMaxIndex', tabMaxIndex + ' - tailorList.length: ' + tailorList.length);
+				if (tabMaxIndex >= tailorList.length){
+					tabMaxIndex = tailorList.length - 1;
+				}
+				log('tabMaxIndex after', tabMaxIndex);
+				var tabLastLetter = tailorList[tabMaxIndex].name.substring(0,1);
+
+				var tabName = tabFirstLetter + ' - ' + tabLastLetter;
+				//tabName = tabName.toString();
+				form.addTab(tabID, tabName);
+				tabIndex++;
+			}
+
+			//Create a sublist for each tailor and use the tailorIndex as the sublist ID
+			var sublistID = 'custpage_sublist'+tailorIndex;
+			sublistID = sublistID.toString();
+			var tailorSublist = form.addSubList(sublistID, 'list', tailorList[tailorIndex].name, tabID);
+
+			this.generateCMTSublist(tailorSublist,{'entity':tailorList[tailorIndex].id,'dateval':dateval,'cmtstatus':cmtstatus}, uniqueTailorIDs);
+
+		}
+
 		this.response.writePage( form);
 
 	};
@@ -3662,7 +3648,6 @@ var MyObj = function( request, response )
 		form.addTab('custpage_henrybuckssydney','110 JEI_Henry Bucks SYDNEY');
 		form.addTab('custpage_mitchell','111 JEI_Mitchell Ogilvie');
 		form.addTab('custpage_governor','170 JEI_Governor Apparel');
-    form.addTab('custpage_reykjavik','188 JEI_Suitup Reykjavik');
 		var fld_expdatesent = form.addField( 'custpage_expecteddatesent', 'date', 'Confirmed Shipping');
 
 		var sublist = form.addSubList( 'custpage_subslist1', 'list', 'CMT Purchase Order Lines','custpage_kale');
@@ -3672,7 +3657,6 @@ var MyObj = function( request, response )
 		var sublist3 = form.addSubList( 'custpage_subslist4', 'list', 'CMT Purchase Order Lines','custpage_henrybuckssydney');
 		var sublist4 = form.addSubList( 'custpage_subslist5', 'list', 'CMT Purchase Order Lines','custpage_mitchell');
 		var sublist5 = form.addSubList( 'custpage_subslist6', 'list', 'CMT Purchase Order Lines','custpage_governor');
-    var sublist6 = form.addSubList( 'custpage_subslist7', 'list', 'CMT Purchase Order Lines','custpage_reykjavik');
 		if(dateval){
 			fld_expdatesent.setDefaultValue(dateval);
 		}
@@ -3684,7 +3668,6 @@ var MyObj = function( request, response )
 		this.generateCMTBilledSublist(sublist3,{'entity':'780','dateval':dateval});
 		this.generateCMTBilledSublist(sublist4,{'entity':'786','dateval':dateval});
 		this.generateCMTBilledSublist(sublist5,{'entity':'987','dateval':dateval});
-    this.generateCMTBilledSublist(sublist6,{'entity':'1032','dateval':dateval});
 		this.response.writePage( form);
 
 	};
@@ -3751,7 +3734,7 @@ var MyObj = function( request, response )
 			{
 				fld_vendor.setDefaultValue(vendorval );
 			}
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['1020','1023','1010','993','966','980','978','963','970','951','934','953','891','927','911','925','919','889','881','909','877','885','852','835','842','815','837','761','594','613','604','617','624','644','640','639','677','667','673','732','734','730','654','776','750']);
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['1010','993','966','980','978','963','970','951','934','953','891','927','911','925','919','889','881','909','877','885','852','835','842','815','837','761','594','613','604','617','624','644','640','639','677','667','673','732','734','730','654','776','750']);
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 		var searchid = 'customsearch_avt_so_to_approve_2_2';
@@ -3939,7 +3922,7 @@ var MyObj = function( request, response )
 				fld_vendor.setDefaultValue(vendorval );
 			}
 			//KM 15Sep2020 - Added Kerwin's update in production
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['1020','1023','1010','993','966','980','978','963','970','951','934','953','891','927','911','925','919','889','881','909','877','885','852','835','842','815','837','761','594','613','604','617','624','644','640','639','677','667','673','732','734','730','654','776','750']);//Filter Dayan
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['1010','993','966','980','978','963','970','951','934','953','891','927','911','925','919','889','881','909','877','885','852','835','842','815','837','761','594','613','604','617','624','644','640','639','677','667','673','732','734','730','654','776','750']);//Filter Dayan
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 		var searchid = 'customsearch_avt_so_to_approve_2_2_3';
@@ -4068,66 +4051,10 @@ var MyObj = function( request, response )
 		var fld_cmtstatus = form.addField( 'custpage_cmtstatus', 'multiselect', 'CMT Stage');
 		fld_cmtstatus.addSelectOption('8','Confirmed');
 		fld_cmtstatus.addSelectOption('4','Error');
-		fld_cmtstatus.setDisplaySize('150', '2')
+		fld_cmtstatus.setDisplaySize('150', '2');
 
-		form.addTab('custpage_page1','1-69');
-		form.addTab('custpage_page2','71-118');
-		form.addTab('custpage_page3','119-140');
-		form.addTab('custpage_page4','146-166');
-		form.addTab('custpage_page5','167+');
+
 		var fld_expdatesent = form.addField( 'custpage_expecteddatesent', 'date', 'Expected Shipping');
-		var sublist = form.addSubList( 'custpage_subslist1', 'list', '43 Jerome NL','custpage_page1');
-		var sublist2 = form.addSubList( 'custpage_subslist3', 'list', '46 JEI_Spreng Menswear','custpage_page1');
-		var sublist1 = form.addSubList( 'custpage_subslist2', 'list', '48 JEI_O Maggio B.V','custpage_page1');
-		var sublist3 = form.addSubList( 'custpage_subslist4', 'list', '49 JEI_GORUNN','custpage_page1');
-		var sublist4 = form.addSubList( 'custpage_subslist5', 'list', '51 JEI_O Maggio B.V-Hayo','custpage_page1');
-		var sublist5 = form.addSubList( 'custpage_subslist6', 'list', '57 JEI_Victor Giglio','custpage_page1');
-		var sublist6 = form.addSubList( 'custpage_subslist7', 'list', '58 JEI_OJK BV','custpage_page1');
-		var sublist7 = form.addSubList( 'custpage_subslist8', 'list', '59 JEI_Rooks & Rocks','custpage_page1');
-		var sublist14 = form.addSubList( 'custpage_subslist15', 'list', '64 JEI_Michael & Giso AMSTERDAM','custpage_page1');
-		var sublist8 = form.addSubList( 'custpage_subslist9', 'list', '69 JEI_Caine Clothiers','custpage_page1');
-		var sublist9 = form.addSubList( 'custpage_subslist10', 'list', '71 JEI_Bespoke Athens','custpage_page2');
-		var sublist10 = form.addSubList( 'custpage_subslist11', 'list', '72 JEI_Willem Marten','custpage_page2');
-		var sublist11 = form.addSubList( 'custpage_subslist12', 'list', '94 JEI_The Wardrobe','custpage_page2');
-		var sublist12 = form.addSubList( 'custpage_subslist13', 'list', '95 JEI_Caccia Uomo','custpage_page2');
-		var sublist13 = form.addSubList( 'custpage_subslist14', 'list', '96 JEI_Senso','custpage_page2');
-		var sublist16 = form.addSubList( 'custpage_subslist17', 'list', '102 JEI_Emanuel Berg','custpage_page2');
-		var sublist18 = form.addSubList( 'custpage_subslist19', 'list', '104 JEI_Mond of Copenhagen','custpage_page2');
-		var sublist15 = form.addSubList( 'custpage_subslist16', 'list', '109 JEI_Micheal & Giso BREDA','custpage_page2');
-		var sublist21 = form.addSubList( 'custpage_subslist22', 'list', '115 JEI_I AM LUIGI','custpage_page2');
-		//var sublist17 = form.addSubList( 'custpage_subslist18', 'list', '118 JEI_Glenn Ross Puro Gusto','custpage_page2');
-
-		var sublist23 = form.addSubList( 'custpage_subslist24', 'list', '121 JEI_Le Premier','custpage_page3');
-		var sublist20 = form.addSubList( 'custpage_subslist21', 'list', '122 JEI_Mill Tailoring','custpage_page3');
-
-		var sublist22 = form.addSubList( 'custpage_subslist23', 'list', '124 JEI_Thom Lisser','custpage_page3');
-		var sublist24 = form.addSubList( 'custpage_subslist25', 'list', '127 JEI_Oger','custpage_page3');
-		//var sublist26 = form.addSubList( 'custpage_subslist27', 'list', '130 JEI_Rasmus Seidlitz Andersen','custpage_page3');	//KM 15Sep2020 - Added Kerwin's update in production
-		var sublist27 = form.addSubList( 'custpage_subslist28', 'list', '133 JEI_I Am Luigi Corporate','custpage_page3');
-		var sublist29 = form.addSubList( 'custpage_subslist30', 'list', '136 JEI_Suitery','custpage_page3');
-		var sublist25 = form.addSubList( 'custpage_subslist26', 'list', '138 JEI_ORGANIC FOREST SRL','custpage_page3');
-		var sublist30 = form.addSubList( 'custpage_subslist31', 'list', '140 JEI_Tod-B Tailoring','custpage_page3');
-		var sublist35 = form.addSubList( 'custpage_subslist36', 'list', '141 JEI_Atelier Wiberg','custpage_page4');
-		var sublist28 = form.addSubList( 'custpage_subslist29', 'list', '146 JEI_Atelier Vinkenoog','custpage_page4');
-		var sublist33 = form.addSubList( 'custpage_subslist34', 'list', '147 JEI_Max Vela','custpage_page4');
-
-		var sublist31 = form.addSubList( 'custpage_subslist32', 'list', '150 JEI_Suittruck','custpage_page4');
-		var sublist32 = form.addSubList( 'custpage_subslist33', 'list', '152 JEI_Edel Bespoke','custpage_page4');
-		var sublist34 = form.addSubList( 'custpage_subslist35', 'list', '153 JEI_Mastro Sarto','custpage_page4');
-		var sublist36 = form.addSubList( 'custpage_subslist37', 'list', '155 JEI_Herrenstolz','custpage_page4');
-		var sublist39 = form.addSubList( 'custpage_subslist40', 'list', '159 JEI_KingsmanHouse','custpage_page4');
-		var sublist37 = form.addSubList( 'custpage_subslist38', 'list', '160 JEI_Vestiti del Capo','custpage_page4');
-		var sublist40 = form.addSubList( 'custpage_subslist41', 'list', '163 JEI_Crema Tailoring','custpage_page4');
-		var sublist19 = form.addSubList( 'custpage_subslist20', 'list', '164 JEI_Birkhoven GmbH','custpage_page4');
-		var sublist38 = form.addSubList( 'custpage_subslist39', 'list', '165 JEI_Butch Tailors','custpage_page4');
-
-		var sublist41 = form.addSubList( 'custpage_subslist42', 'list', '167 JEI_Atelier Ruperti','custpage_page5');
-		var sublist42 = form.addSubList( 'custpage_subslist43', 'list', '168 JEI_Atelier Ruperti Corporate','custpage_page5');
-		var sublist43 = form.addSubList( 'custpage_subslist44', 'list', '172 JEI_Tudor Personal Tailor','custpage_page5');	//KM 15Sep2020 - Added Kerwin's update in production
-		var sublist44 = form.addSubList( 'custpage_subslist45', 'list', '180 JEI_Zano Clothing','custpage_page5');	//KM 15Sep2020 - Added Kerwin's update in production
-		var sublist45 = form.addSubList( 'custpage_subslist46', 'list', '183 JEI_Cove Magazzino','custpage_page5');
-		var sublist46 = form.addSubList( 'custpage_subslist47', 'list', '185 JEI_MM & Co','custpage_page5');
-
 
 		if(dateval){
 			fld_expdatesent.setDefaultValue(dateval);
@@ -4137,71 +4064,49 @@ var MyObj = function( request, response )
 		}
 
 		var context = nlapiGetContext();
+		var tailorRegion = context.getSetting('SCRIPT', 'custscript_cmt_tailor_region_eu');	//Retrieve the Tailor Region from the script parameter
 
-		var tailorsIDs = context.getSetting('SCRIPT', 'custscript_cmt_tailors');	//Retrieve the list of Tailor IDs from the script parameter
-		log('tailorsIDs', tailorsIDs);
+		//Perform a Tailor search filtered by EU region
+		searchTailors(tailorRegion);
 
-		//Convert the string to array
-		if (tailorsIDs != null && tailorsIDs != ''){
-			tailorsIDs = tailorsIDs.split(',');
-			log('tailorsIDs length', tailorsIDs.length);
-		}
+		var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));
+		log('uniqueTailorIDs', uniqueTailorIDs);
 
 		//Perform a Purchase Order Search to retrieve the data to populate the sublist
-		searchCMTPurchaseOrders({'dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
+		searchCMTPurchaseOrders({'dateval':dateval,'cmtstatus':cmtstatus}, uniqueTailorIDs);
 
+		//Create tabs in multiples of 10
+		var tabIndex = 0;
+		var tabID = '';
+		for (var tailorIndex = 0; tailorIndex < tailorList.length; tailorIndex++){	//Loop through the TailorList to build a tab and sublist for each tailor
 
-		this.generateCMTSublist(sublist,{'entity':'594','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist1,{'entity':'613','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist2,{'entity':'604','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
+			if (tailorIndex % 10 == 0){	//Create a new tab for tailors divisible by 10
+				tabID = 'custpage_page'+tabIndex;
+				tabID = tabID.toString();
+				var tabFirstLetter = tailorList[tailorIndex].name.substring(0,1);
+				var tabMaxIndex = tailorIndex + 9;
+				log('tabMaxIndex', tabMaxIndex + ' - tailorList.length: ' + tailorList.length);
+				if (tabMaxIndex >= tailorList.length){
+					tabMaxIndex = tailorList.length - 1;
+				}
+				log('tabMaxIndex after', tabMaxIndex);
+				var tabLastLetter = tailorList[tabMaxIndex].name.substring(0,1);
 
-		this.generateCMTSublist(sublist3,{'entity':'617','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist4,{'entity':'624','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist5,{'entity':'639','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist6,{'entity':'640','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist7,{'entity':'644','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist8,{'entity':'667','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist9,{'entity':'673','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist10,{'entity':'677','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
+				var tabName = tabFirstLetter + ' - ' + tabLastLetter;
+				//tabName = tabName.toString();
+				form.addTab(tabID, tabName);
+				tabIndex++;
+			}
 
-		this.generateCMTSublist(sublist11,{'entity':'730','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist12,{'entity':'732','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist13,{'entity':'734','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
+			//Create a sublist for each tailor and use the tailorIndex as the sublist ID
+			var sublistID = 'custpage_sublist'+tailorIndex;
+			sublistID = sublistID.toString();
+			var tailorSublist = form.addSubList(sublistID, 'list', tailorList[tailorIndex].name, tabID);
 
-		this.generateCMTSublist(sublist14,{'entity':'654','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist15,{'entity':'776','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist16,{'entity':'750','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		//this.generateCMTSublist(sublist17,{'entity':'828','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist18,{'entity':'761','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		//this.generateCMTSublist(sublist19,{'entity':'830','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist20,{'entity':'837','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist21,{'entity':'815','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist22,{'entity':'842','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist23,{'entity':'835','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist24,{'entity':'852','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist25,{'entity':'885','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		//this.generateCMTSublist(sublist26,{'entity':'857','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);	//KM 15Sep2020 - Added Kerwin's update in production
-		this.generateCMTSublist(sublist27,{'entity':'877','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist28,{'entity':'909','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist29,{'entity':'881','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist30,{'entity':'889','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist35,{'entity':'891','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist31,{'entity':'919','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist32,{'entity':'925','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist33,{'entity':'911','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist34,{'entity':'927','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist36,{'entity':'934','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist37,{'entity':'953','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist38,{'entity':'970','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist39,{'entity':'951','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist40,{'entity':'963','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist41,{'entity':'978','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist42,{'entity':'980','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist19,{'entity':'966','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist43,{'entity':'993','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);	//KM 15Sep2020 - Added Kerwin's update in production
-		this.generateCMTSublist(sublist44,{'entity':'1010','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);	//KM 15Sep2020 - Added Kerwin's update in production
-		this.generateCMTSublist(sublist45,{'entity':'1020','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
-		this.generateCMTSublist(sublist46,{'entity':'1023','dateval':dateval,'cmtstatus':cmtstatus}, tailorsIDs);
+			this.generateCMTSublist(tailorSublist,{'entity':tailorList[tailorIndex].id,'dateval':dateval,'cmtstatus':cmtstatus}, uniqueTailorIDs);
+
+		}
+
 		this.response.writePage( form);
 
 	};
@@ -4268,8 +4173,6 @@ var MyObj = function( request, response )
 		var sublist42 = form.addSubList( 'custpage_subslist43', 'list', '168 JEI_Atelier Ruperti Corporate','custpage_page5');
 		var sublist43 = form.addSubList( 'custpage_subslist44', 'list', '172 JEI_Tudor Personal Tailor','custpage_page5');	//KM 15Sep2020 - Added Kerwin's update in production
 		var sublist44 = form.addSubList( 'custpage_subslist45', 'list', '180 JEI_Zano Clothing','custpage_page5');	//KM 15Sep2020 - Added Kerwin's update in production
-		var sublist45 = form.addSubList( 'custpage_subslist46', 'list', '183 JEI_Cove Magazzino','custpage_page5');
-		var sublist46 = form.addSubList( 'custpage_subslist47', 'list', '185 JEI_MM & Co','custpage_page5');
 
 
 
@@ -4325,8 +4228,6 @@ var MyObj = function( request, response )
 		this.generateCMTBilledSublist(sublist26,{'entity':'966','dateval':dateval});
 		this.generateCMTBilledSublist(sublist43,{'entity':'993','dateval':dateval});	//KM 15Sep2020 - Added Kerwin's update in production
 		this.generateCMTBilledSublist(sublist44,{'entity':'1010','dateval':dateval});	//KM 15Sep2020 - Added Kerwin's update in production
-		this.generateCMTBilledSublist(sublist45,{'entity':'1020','dateval':dateval});
-		this.generateCMTBilledSublist(sublist46,{'entity':'1023','dateval':dateval});
 		this.response.writePage( form);
 
 	};
@@ -5063,10 +4964,7 @@ var MyObj = function( request, response )
 function searchCMTPurchaseOrders(parameters, tailorsIDs){
 	try {
 
-
-
 		log('parameters.dateval', parameters.dateval + ' - parameters.cmtstatus: ' + parameters.cmtstatus);
-
 
 		var filter = new Array();
 		filter.push(new nlobjSearchFilter( 'mainline', null, 'is', 'F'));
@@ -5079,8 +4977,6 @@ function searchCMTPurchaseOrders(parameters, tailorsIDs){
 		}
 		filter.push(new nlobjSearchFilter('entity','createdfrom','anyof',tailorsIDs));
 
-
-
 		var searchid = 'customsearch_avt_so_to_approve_2_2_2';
 
 		var search = nlapiLoadSearch('purchaseorder', searchid);
@@ -5091,57 +4987,53 @@ function searchCMTPurchaseOrders(parameters, tailorsIDs){
 		searchResultList = resultSet;
 		log('resultSet', resultSet);
 
-		/*var searchid = 0;
-
-		var createdFromList = new Array();
-		var mylist = new Array();
-
-		do{
-			var sr = resultSet.getResults(searchid,searchid+1000);
-			if(sr){
-				for( var x in sr )
-				{
-					var object = new Object();
-					object.trandate = sr[x].getValue('trandate');
-					object.soid  =  sr[x].getValue( 'custcol_so_id');
-					object.line  =  sr[x].getValue( 'lineuniquekey');
-					object.createdfrom =  sr[x].getValue( 'custbody_avt_salesorder_ref');
-					object.createdfrom == null || object.createdfrom == ''? object.createdfrom = sr[x].getValue('createdfrom'): null;
-					object.internalid  =  sr[x].getValue( 'internalid');
-					object.entity  =  sr[x].getValue( 'entity');
-					object.item =  sr[x].getValue( 'item');
-					object.fab_text  = '';
-					object.fab_item = null;
-					object.fab_itemtext = '';
-					object.fab_status = '';// sr[x].getValue( 'custcol_avt_fabric_status');
-					object.cmt_status  = sr[x].getValue( 'custcol_avt_cmt_status');
-					object.cmt_status_text  = sr[x].getText( 'custcol_avt_cmt_status');
-					object.cmt_datesent = sr[x].getValue( 'custcol_avt_cmt_date_sent');
-					object.cmt_tracking = sr[x].getValue( 'custcol_avt_cmt_tracking');
-					object.notes = sr[x].getValue('custcol_column_notes');
-
-					if( createdFromList[ object.createdfrom ] ==  null)
-					{
-						createdFromList[ object.createdfrom ] = object.createdfrom;
-			 		}
-					object.clientname  = sr[x].getValue( 'custcol_tailor_client_name');
-					object.fab_vendor  = ""//sr[x].getValue( 'entityid','vendor');
-					mylist.push( object);
-				}
-				searchid+= 1000;
-			}
-		}while(sr.length == 1000);
-
-		log('mylist length', mylist.length);
-		log('mylist', JSON.stringify(mylist));
-		*/
-
-
 
 	} catch (e){
 		log('An error occurred on searchCMTPurchaseOrders()', e);
 	}
 }
+
+function searchTailors(searchTailors){
+	try {
+
+		var customerSearch = nlapiSearchRecord("customer",null,
+			[
+			   ["isperson","is","F"],
+			   "AND",
+			   ["parent","anyof","@NONE@"],
+			   "AND",
+			   ["custentity_cmt_tailor_region","anyof",searchTailors],
+			   "AND",
+			   ["isinactive","is","F"]
+			],
+			[
+			   new nlobjSearchColumn("entityid"),
+			   new nlobjSearchColumn("isperson"),
+			   new nlobjSearchColumn("altname"),
+			   new nlobjSearchColumn("companyname"),
+			   new nlobjSearchColumn("custentity_cmt_dashboard_name").setSort(false),
+			   new nlobjSearchColumn("shipaddress"),
+			   new nlobjSearchColumn("shipcountry"),
+			   new nlobjSearchColumn("custentity_cmt_tailor_region")
+			]
+		);
+
+
+		if (customerSearch != null && customerSearch.length > 0){
+			log('customerSearch length', customerSearch.length);
+			for (var i = 0; i < customerSearch.length; i++){
+				tailorList.push({
+					id: customerSearch[i].id,
+					name: customerSearch[i].getValue('custentity_cmt_dashboard_name')
+				});
+			}
+		}
+
+
+	} catch (e){
+		log('An error occurred on searchTailors()', e);
+	}
+};
 
 var log  = function(  param1, param2 )
 {

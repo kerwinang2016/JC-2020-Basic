@@ -15,11 +15,12 @@
 			var rs = search.create({
 				type : "salesorder",
 				filters : [
-				['internalid','anyof',[848125,869975,775391,874172]], 'AND',
+				['internalid','anyof',[900778]], 'AND',
 				["type", "anyof", "SalesOrd"],"AND",
 				["mainline", "is", true], "AND", ["status", "anyof", "SalesOrd:A"],
-        //"AND", ["trandate","after","22/9/2020"],
-				//"AND", ["custbodycustbody_api_sales_ord_st_json","isnot","Success"], "AND", ["custbodycustbody_api_sales_ord_st_json","isnot","Processed"]
+        "AND", ["trandate","after","22/9/2020"],
+				"AND", ["custbodycustbody_api_sales_ord_st_json","isnot","Success"],
+        "AND", ["custbodycustbody_api_sales_ord_st_json","isnot","Processed"]
 				],
 				columns : [
 					search.createColumn({
@@ -37,8 +38,8 @@
 				//Create Orders
 				var order = [];
         var rec = record.load({
-  				type: order.recordType
-  				, id:order.id
+  				type: result.recordType
+  				, id:result.id
   				, isDynamic: true
   			});
   			//log.debug('order.id', order.id);
@@ -66,9 +67,11 @@
 					  id:result.id,
 					  type: result.recordType
 				  });
-          //[{"orderno":"TU26373-1","error_code":"9001"},{"orderno":"TU26373-1","error_code":"1039"},{"orderno":"TU26373-1","error_code":"1040"},{"orderno":"TU26373-1","error_code":"1041"},{"orderno":"TU26373-1","error_code":"1042"},{"orderno":"TU26373-1","error_code":"1043"},{"orderno":"TU26373-1","error_code":"1044"},{"orderno":"TU26373-1","error_code":"1045"},{"orderno":"TU26373-1","error_code":"1046"},{"orderno":"TU26373-1","error_code":"1047"},{"orderno":"TU26373-1","error_code":"1048"},{"orderno":"TU26373-1","error_code":"1392"},{"orderno":"TU26373-1","error_code":"1049"}]
-          //{ 'Result': '100', 'msgid': '200106qN747PLjFw' }
+          // responseData = '[{"orderno":"TU27976-1","error_code":"9001"},{"orderno":"TU27976-1","error_code":"1039"},{"orderno":"TU27976-1","error_code":"1040"},{"orderno":"TU26373-1","error_code":"1041"},{"orderno":"TU26373-1","error_code":"1042"},{"orderno":"TU26373-1","error_code":"1043"},{"orderno":"TU26373-1","error_code":"1044"},{"orderno":"TU26373-1","error_code":"1045"},{"orderno":"TU27976-1","error_code":"1046"},{"orderno":"TU27976-1","error_code":"1047"},{"orderno":"TU27976-1","error_code":"1048"},{"orderno":"TU27976-1","error_code":"1392"},{"orderno":"TU27976-1","error_code":"1049"}]';
+          // responseData = { 'Result': '100', 'msgid': '200106qN747PLjFw' };
           //Create a log on which the order is processed
+
+          responseData = responseData.replace(/'/g,'"');
           updateOrderStatus(orderObj, responseData, rec);
           createIntegrationLog(orderObj, responseData, rec);
   				nlemail.send({
@@ -84,15 +87,66 @@
 			return orders;
 		}
     function updateOrderStatus(orderObj, responseData, rec){
-      orderObj.OrderDetails[x].orderdetailid //soid
-      if(rec.getValue('entity') == '5' || rec.getValue('entity') == '5')
-				brand = "TU";
-			else if(rec.getValue('entity') == '669')
-				brand = "GCTU";
-			else
-				brand = "JETU";
+      //[{"orderno":"TU26373-1","error_code":"9001"},{"orderno":"TU26373-1","error_code":"1039"},{"orderno":"TU26373-1","error_code":"1040"},{"orderno":"TU26373-1","error_code":"1041"},{"orderno":"TU26373-1","error_code":"1042"},{"orderno":"TU26373-1","error_code":"1043"},{"orderno":"TU26373-1","error_code":"1044"},{"orderno":"TU26373-1","error_code":"1045"},{"orderno":"TU26373-1","error_code":"1046"},{"orderno":"TU26373-1","error_code":"1047"},{"orderno":"TU26373-1","error_code":"1048"},{"orderno":"TU26373-1","error_code":"1392"},{"orderno":"TU26373-1","error_code":"1049"}]
+      //{ 'Result': '100', 'msgid': '200106qN747PLjFw' }
+      var data = JSON.parse(responseData);
+      log.debug('responseData type', typeof(data));
+      // var data = responseData;
+      if(Array.isArray(data)){
+          //must be error
+          for(var i=0; i<orderObj.OrderDetails.length; i++){
+              var soid = orderObj.OrderDetails[i].orderdetailid; //soid
+              for(var j=0;j<rec.getLineCount('item');j++){
+                if(soid == rec.getSublistValue('item','custcol_so_id',j)){
+                  var errordata = [];
+                  for(var k=0; k<data.length; k++){
+                    if(data[k].orderno.indexOf(soid) != -1){
+                      errordata.push(data[k].error_code);
+                    }
+                  }
+                  //ITEM CREATED SUCCESSFULLY. MsgId:20092525sSVqv8zB
+                  rec.selectLine('item',j);
+                    rec.setCurrentSublistValue('item','custcolcustcol_api_status_fld','Error');
+                    rec.setCurrentSublistValue('item','custcolcustcol_api_error_desc_fld','Error:'+errordata.toString());
+                  rec.commitLine('item')
+                }
+              }
+          }
+      }else if(typeof(data) == "object"){
+        //must be Success
+        for(var i=0; i<orderObj.OrderDetails.length; i++){
+            var soid = orderObj.OrderDetails[i].orderdetailid; //soid
+            for(var j=0;j<rec.getLineCount('item');j++){
+              if(soid == rec.getSublistValue('item','custcol_so_id',j)){
+                //ITEM CREATED SUCCESSFULLY. MsgId:20092525sSVqv8zB
+                rec.selectLine('item',j);
+                  rec.setCurrentSublistValue('item','custcolcustcol_api_status_fld','Success');
+                  rec.setCurrentSublistValue('item','custcolcustcol_api_error_desc_fld','ITEM CREATED SUCCESSFULLY. MsgId:'+data.msgid);
+                rec.commitLine('item');
+              }
+            }
+        }
+      }
+      //rec.setValue('custbodycustbody_api_sales_ord_st_json','Processed');
+      rec.save();
     }
-    function createIntegrationLog(orderObj, responseData, rec){
+    function createIntegrationLog(orderObj, responseData, so){
+      // var data = responseData;
+      var data = JSON.parse(responseData);
+      var status = 'Success';
+      if(Array.isArray(data)){
+        status = 'Error'
+      }
+      var rec = record.create({type:'customrecord_api_integration_log'});
+      rec.setValue('custrecord_ail_api','1');//1 for ustyylit
+      rec.setValue('custrecord_ail_date', new Date());
+      rec.setValue('custrecord_ail_action', 'ReceiveOrder');
+      rec.setValue('custrecord_ail_created_by', 'Scheduled Script');
+      rec.setValue('custrecord_ail_status',status);
+      rec.setValue('custrecord_ail_request_data', JSON.stringify(orderObj));
+      rec.setValue('custrecord_ail_response_data', JSON.stringify(responseData));
+      rec.setValue('custrecord_ail_related_record', so.id);
+      rec.save();
 
     }
 		function createOrder(rec){
@@ -578,7 +632,8 @@
 				var itemNumber = i+1;
 				if(itemNumber % 2 != 0 ){//&& ordernolist.indexOf(rec.getSublistValue('item','custcol_so_id',i))!=-1){
 					if(rec.getSublistValue('item','itemtype',i) == 'NonInvtPart'){
-            if(rec.getSublistValue('item','item',i) == '253776' || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Hold" || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Processed" || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Success"){
+            if(rec.getSublistValue('item','item',i) == '253776' || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Hold" || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Processed"
+            || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Success"){
               continue;
             }
 
@@ -637,7 +692,7 @@
 								if(measurementObservationObj.observations.length != 0 )
 								observations = observations.concat(measurementObservationObj.observations);
 								//Trouser
-								var var garmentclass = garmentClass['Trouser'],
+								var garmentclass = garmentClass['Trouser'],
                   liningname = liningName['Trouser'],
                   garmentname = garmentName['Trouser'],
                   designoptions = JSON.parse(rec.getSublistValue('item',designOptions['Trouser'],i)),

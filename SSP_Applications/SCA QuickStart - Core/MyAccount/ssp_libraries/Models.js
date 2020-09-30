@@ -5519,12 +5519,39 @@ Application.defineModel('Case', {
 			priority_option_values.push(priority_option_value);
 		});
 
+		var item_field = case_record.getField('item');
+		var item_options = item_field.getSelectOptions();
+		var item_option_values = [];
+
+		_(item_options).each(function (item_option) {
+			var item_option_value = {
+				id: item_option.id
+				, text: item_option.text
+			};
+
+			item_option_values.push(item_option_value);
+		});
+		var issue_field = case_record.getField('issue');
+		var issue_options = issue_field.getSelectOptions();
+		var issue_option_values = [];
+
+		_(issue_options).each(function (issue_option) {
+			var issue_option_value = {
+				id: issue_option.id
+				, text: issue_option.text
+			};
+
+			issue_option_values.push(issue_option_value);
+		});
+
 		// New record to return
 		var newRecord = {
 			categories: category_option_values
 			, origins: origin_option_values
 			, statuses: status_option_values
 			, priorities: priority_option_values
+			, items: item_option_values
+			, issues: issue_option_values
 		};
 
 		return newRecord;
@@ -5545,6 +5572,8 @@ Application.defineModel('Case', {
 			, new nlobjSearchColumn('lastmessagedate')
 			, new nlobjSearchColumn('priority')
 			, new nlobjSearchColumn('email')
+			, new nlobjSearchColumn('item')
+			, new nlobjSearchColumn('issue')
 		];
 	}
 
@@ -5721,6 +5750,8 @@ Application.defineModel('Case', {
 		data.category && newCaseRecord.setFieldValue('category', data.category);
 		data.email && newCaseRecord.setFieldValue('email', data.email);
 		customerId && newCaseRecord.setFieldValue('company', customerId);
+		data.issue && newCaseRecord.setFieldValue('issue', data.issue);
+		data.item && newCaseRecord.setFieldValue('item', data.item);
 
 		var default_values = this.configuration.default_values;
 

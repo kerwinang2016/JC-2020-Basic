@@ -55,10 +55,13 @@
 		,	'LivePayment'
 		,	'PaymentWizard'
 		,	'TransactionHistory'
-		,	'ProductList' 
+		,	'ProductList'
 		,	'PrintStatement'
+        ,   'Transferwise'
+        ,   'Reports'
+        ,   'PriceLists'
 		//,	'Quote'
-		// ,	'Case'
+		,	'Case'
 		, 'TrainingGuides'
 		]
 

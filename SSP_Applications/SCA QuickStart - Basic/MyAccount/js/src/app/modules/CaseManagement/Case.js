@@ -22,39 +22,39 @@ function (CaseDetailView, CaseCollection, CaseModel, CaseRouter, CaseCreateView,
 
 		,	name: function ()
 			{
-				return _('Support').translate();
+				return _('Issues').translate();
 			}
 
 		,	index: 5
 
-		// ,	children: function ()
-		// 	{
-		// 		var items = [
-		// 			/*{ JHD-29
-		// 				parent: 'cases'
-		// 			,	id: 'cases_all'
-		// 			,	name: _('All My Cases').translate()
-		// 			,	url: 'cases'
-		// 			,	index: 1
-		// 			}
-		//
-		// 		,	{
-		// 				parent: 'cases'
-		// 			,	id: 'newcase'
-		// 			,	name: _('Submit New Case').translate()
-		// 			,	url: 'newcase'
-		// 			,	index: 2
-		// 		}*/
-		// 		// ,	{
-		// 		// 		parent: 'cases'
-		// 		// 	,	id: 'faqs'
-		// 		// 	,	name: _('FAQS').translate()
-		// 		// 	,	url: ''
-		// 		// 	,	index: 3
-		// 		// 	}
-		// 		// ,
-		// 		return items;
-		// 	}
+		,	children: function ()
+			{
+				var items = [
+					{
+						parent: 'cases'
+					,	id: 'cases_all'
+					,	name: _('All My Issues').translate()
+					,	url: 'cases'
+					,	index: 1
+					}
+
+				,	{
+						parent: 'cases'
+					,	id: 'newcase'
+					,	name: _('Submit New Issue').translate()
+					,	url: 'newcase'
+					,	index: 2
+				}
+				,	{
+						parent: 'cases'
+					,	id: 'faqs'
+					,	name: _('FAQS').translate()
+					,	url: ''
+					,	index: 3
+					}
+				];
+				return items;
+			}
 
 		,	permission: 'lists.listCase.1'
 		};
@@ -92,7 +92,7 @@ function (CaseDetailView, CaseCollection, CaseModel, CaseRouter, CaseCreateView,
 		{
 			app = application;
 			application.CaseModule = CaseModule;
-
+			console.log('this')
 			// always start our router.
 			return new CaseRouter(application);
 		};

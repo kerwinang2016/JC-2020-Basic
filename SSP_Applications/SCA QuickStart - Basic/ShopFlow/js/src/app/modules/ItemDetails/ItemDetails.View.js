@@ -1800,15 +1800,15 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
               if(jQuery(this).data().showonselection){
                 if(jQuery(this).val() == jQuery(this).data().showonselection){
                   var hiddenoptions = jQuery(this).data().hiddenoption.split(',');
-                  for(var i=0;i<hiddenoptions.length;i++){
-                    jQuery('#'+hiddenoptions[i]).parent().parent().show();
+                  for(var j=0;j<hiddenoptions.length;j++){
+                    jQuery('#'+hiddenoptions[j]).parent().parent().show();
                   }
                 }else{
                   //Make sure to default the values
                   var hiddenoptions = jQuery(this).data().hiddenoption.split(',');
-                  for(var i=0;i<hiddenoptions.length;i++){
-                    jQuery('#'+hiddenoptions[i]).val(jQuery('#'+hiddenoptions[i]).data().defaultvalue);
-                    jQuery('#'+hiddenoptions[i]).parent().parent().hide();
+                  for(var j=0;j<hiddenoptions.length;j++){
+                    jQuery('#'+hiddenoptions[j]).val(jQuery('#'+hiddenoptions[j]).data().defaultvalue);
+                    jQuery('#'+hiddenoptions[j]).parent().parent().hide();
                   }
                 }
               }

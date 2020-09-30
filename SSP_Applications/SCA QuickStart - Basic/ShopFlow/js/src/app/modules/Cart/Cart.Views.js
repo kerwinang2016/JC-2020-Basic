@@ -718,6 +718,15 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 								clothType = 'Ladies-Pants';
 							else if(clothType == 'Ladiesskirt')
 								clothType = 'Ladies-Skirt';
+							else if(clothType == 'Morning_coat')
+								clothType = 'Morning-Coat';
+							else if(clothType == 'Safari_jacket')
+								clothType = 'Safari-Jacket';
+							else if(clothType == 'Shirt_jacket')
+								clothType = 'Shirt-Jacket';
+							else if(clothType == 'Camp_shirt')
+								clothType = 'Camp-Shirt';
+							
 							var currentItemSelectedOptions = JSON.parse(itemOptions[item_id].label);
 
 							for (var index in currentItemSelectedOptions){

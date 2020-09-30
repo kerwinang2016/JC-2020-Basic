@@ -50,7 +50,19 @@
 
 							 %>
 								<li> <%= fitProfileOption.name %> : <%= fitProfileOption.value %> </li>
-									<% var fp = _.find(line.get('options'),function(d){return d.id == "CUSTCOL_FITPROFILE_" + fitProfileOption.name.toUpperCase();});
+									<%
+									var clothType = fitProfileOption.name;
+									switch(fitProfileOption.name){
+										case 'Short-Sleeves-Shirt': clothType = 'Ssshirt'; break;
+										case 'Ladies-Jacket': clothType = 'Ladiesjacket'; break;
+										case 'Ladies-Pants': clothType = 'Ladiespants'; break;
+										case 'Ladies-Skirt': clothType = 'Ladiesskirt'; break;
+										case 'Morning-Coat': clothType = 'Morning_coat'; break;
+										case 'Safari-Jacket': clothType = 'Safari_jacket'; break;
+										case 'Camp-Shirt': clothType = 'Camp_shirt'; break;
+										case 'Shirt-Jacket': clothType = 'Shirt_jacket'; break;
+									}
+									var fp = _.find(line.get('options'),function(d){return d.id == "CUSTCOL_FITPROFILE_" + clothType.toUpperCase();});
 										if(fp){
 											var jsonFP = JSON.parse(fp.displayvalue);
 											if(jsonFP && jsonFP.length>0){

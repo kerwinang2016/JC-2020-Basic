@@ -476,7 +476,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 													});
 												}
 												if(item.get("options").custcol_designoptions_shirt_jacket){
-													var opValues = JSON.parse(item.get("options").custcol_designoptions_ssshirt.value);
+													var opValues = JSON.parse(item.get("options").custcol_designoptions_shirt_jacket.value);
 
 													_.each(opValues, function(value){
 														if(value){

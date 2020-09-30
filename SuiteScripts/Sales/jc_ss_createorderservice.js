@@ -20,6 +20,7 @@
 				["mainline", "is", true], "AND", ["status", "anyof", "SalesOrd:A"],
         "AND", ["trandate","after","22/9/2020"],
 				"AND", ["custbodycustbody_api_sales_ord_st_json","isnot","Success"],
+        "AND", ["custbodycustbody_api_sales_ord_st_json","isnot","Hold Order"],
         "AND", ["custbodycustbody_api_sales_ord_st_json","isnot","Processed"]
 				],
 				columns : [

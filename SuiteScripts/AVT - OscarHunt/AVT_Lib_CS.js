@@ -18,7 +18,7 @@ var HoldSO = function()
 {
   var data = {};
   data.action = "holdso";
-  data.orders = [];
+  data.transactions = [];
 	var count = nlapiGetLineItemCount( 'custpage_subslist1');
 	for( var x=1; x<=count;x++)
 	{
@@ -70,11 +70,11 @@ var HoldSOLine = function()
 {
   var data = {};
   data.action = "holdsoline";
-  data.orders = [];
-	var count = nlapiGetLineItemCount( 'custpage_subslist1');
+  data.transactions = [];
+	var count = nlapiGetLineItemCount( 'custpage_subslist_app');
 	for( var x=1; x<=count;x++)
 	{
-		var isapp = nlapiGetLineItemValue( 'custpage_subslist1', 'custpage_choose', x);
+		var isapp = nlapiGetLineItemValue( 'custpage_subslist_app', 'custpage_choose', x);
 		if( isapp == 'T')
 		{
       var obj = new Object();
@@ -114,10 +114,10 @@ var Run_HoldSOLineResponse_rest = function(response){
 		for(var i =0; i<data.transactions.length; i++){
 			if( data.transactions[i].status == false || data.transactions[i].status == 'false')
 			{
-					nlapiSetLineItemValue( 'custpage_subslist1', 'custpage_status', data.transactions[i].id, 'Error processing');
+					nlapiSetLineItemValue( 'custpage_subslist_app', 'custpage_status', data.transactions[i].id, 'Error processing');
 			}else
 			{
-					nlapiSetLineItemValue( 'custpage_subslist1', 'custpage_status', data.transactions[i].id, 'Processed');
+					nlapiSetLineItemValue( 'custpage_subslist_app', 'custpage_status', data.transactions[i].id, 'Processed');
 			}
 		}
 	}
@@ -534,6 +534,7 @@ var SavePOCMT = function( arg)
 	if(arg) data.bill = true;
 	data.transactions = [];
 	data.action = "savecmt";
+  data = getCMTLines('custpage_subslist0', data, arg);
 	data = getCMTLines('custpage_subslist1', data, arg);
 	data = getCMTLines('custpage_subslist2', data, arg);
 	data = getCMTLines('custpage_subslist3', data, arg);
@@ -1007,7 +1008,8 @@ var ExportCMT = function(){
 
 	data.contents = "data:text/csv;charset=utf-8,Date,SO-ID,ClientName,Item,FabricVendor,FabricDetail,FabricStatus,CMTStage,ExpectedShipping,ConfirmedShipping,Tracking,DateNeeded,CMTStatus,Notes\n";
 	data.action = 'downloadccsv';
-	data = generateExport(data , 'custpage_subslist1');
+  data = generateExport(data, 'custpage_subslist0');
+	data = generateExport(data, 'custpage_subslist1');
 	data = generateExport(data, 'custpage_subslist2');
 	data = generateExport(data, 'custpage_subslist3');
 	data = generateExport(data, 'custpage_subslist4');

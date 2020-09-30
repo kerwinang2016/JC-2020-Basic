@@ -75,6 +75,12 @@ function dashBoardRequest(request){
 			case "savelining":
 				returnObj = saveLining(datain);
 				break;
+      case "holdso":
+				returnObj = holdSO(datain);
+				break;
+      case "holdsoline":
+				returnObj = holdSOLine(datain);
+				break;
 			default:{
 				nlapiLogExecution('debug','Action Not Supported');
 				returnObj.status = false;
@@ -87,7 +93,37 @@ function dashBoardRequest(request){
 	}
 	response.write(JSON.stringify(returnObj));
 }
-
+function holdSO(data){
+  var returnObj = {};
+	returnObj = data;
+  for(var i=0; i<data.transactions.length; i++){
+    var tran = data.transactions[i];
+    try{
+      nlapiSubmitField('salesorder',tran.internalid,'custbodycustbody_api_sales_ord_st_json','Hold Order');
+      data.transactions[i].status = true;
+    }catch(e){
+      nlapiLogExecution('error','holdSO', e);
+      data.transactions[i].status = false;
+    }
+  }
+  return data;
+}
+function holdSOLine(data){
+  var returnObj = {};
+	returnObj = data;
+  for(var i=0; i<data.transactions.length; i++){
+    var tran = data.transactions[i];
+    var so = nlapiLoadRecord('salesorder',tran.internalid);
+    for(var i=1;i<=so.getLineItemCount('item');i++){
+      if( so.getLineItemValue('item','custcol_so_id',i) == tran.soid ){
+          so.setLineItemValue('item','custcolcustcol_api_status_fld',i,'Hold');
+      }
+    }
+    tran.status = true;
+    nlapiSubmitRecord(so);
+  }
+  return data
+}
 function saveLining(data){
 	var returnObj = {};
 	returnObj = data;
@@ -1017,6 +1053,7 @@ var MyObj = function( request, response )
 	{
 		var form =  nlapiCreateForm( 'Sales Orders To Approve');
 		form.addButton( 'custpage_btapprve', 'Approve Now', 'ApproveSO()');
+    form.addButton( 'custpage_btnhold', 'Hold Orders', 'HoldSO()');
 		form.setScript( 'customscript_avt_so_approval_cs');
 
 		var filter = new Array();
@@ -1065,7 +1102,7 @@ var MyObj = function( request, response )
 		form.addButton( 'custpage_btapprve', 'Approve Now', 'ApproveSOLine()');
 		form.addButton( 'custpage_filter', 'Filter', 'FilterSOLine()');
 		form.addButton( 'custpage_btsave', 'Save', 'SaveSO');
-
+    form.addButton( 'custpage_btnhold', 'Hold', 'HoldSOLine()');
 		var fld_itemselect  = form.addField( 'custpage_item', 'select', 'Filter Item', 'item');
 		form.setScript( 'customscript_avt_so_approval_cs');
 
@@ -2318,7 +2355,7 @@ var MyObj = function( request, response )
 			}
 
 			//Create a sublist for each tailor and use the tailorIndex as the sublist ID
-			var sublistID = 'custpage_sublist'+tailorIndex;
+			var sublistID = 'custpage_subslist'+tailorIndex;
 			sublistID = sublistID.toString();
 			var tailorSublist = form.addSubList(sublistID, 'list', tailorList[tailorIndex].name, tabID);
 
@@ -2391,7 +2428,7 @@ var MyObj = function( request, response )
 			}
 
 			//Create a sublist for each tailor and use the tailorIndex as the sublist ID
-			var sublistID = 'custpage_sublist'+tailorIndex;
+			var sublistID = 'custpage_subslist'+tailorIndex;
 			sublistID = sublistID.toString();
 			var tailorSublist = form.addSubList(sublistID, 'list', tailorList[tailorIndex].name, tabID);
 
@@ -2464,7 +2501,7 @@ var MyObj = function( request, response )
 			}
 
 			//Create a sublist for each tailor and use the tailorIndex as the sublist ID
-			var sublistID = 'custpage_sublist'+tailorIndex;
+			var sublistID = 'custpage_subslist'+tailorIndex;
 			sublistID = sublistID.toString();
 			var tailorSublist = form.addSubList(sublistID, 'list', tailorList[tailorIndex].name, tabID);
 
@@ -3623,7 +3660,7 @@ var MyObj = function( request, response )
 			}
 
 			//Create a sublist for each tailor and use the tailorIndex as the sublist ID
-			var sublistID = 'custpage_sublist'+tailorIndex;
+			var sublistID = 'custpage_subslist'+tailorIndex;
 			sublistID = sublistID.toString();
 			var tailorSublist = form.addSubList(sublistID, 'list', tailorList[tailorIndex].name, tabID);
 
@@ -4099,7 +4136,7 @@ var MyObj = function( request, response )
 			}
 
 			//Create a sublist for each tailor and use the tailorIndex as the sublist ID
-			var sublistID = 'custpage_sublist'+tailorIndex;
+			var sublistID = 'custpage_subslist'+tailorIndex;
 			sublistID = sublistID.toString();
 			var tailorSublist = form.addSubList(sublistID, 'list', tailorList[tailorIndex].name, tabID);
 

@@ -114,7 +114,7 @@ define('Cart.CopyProduct.View'
 											(selected_options[i].id).toLowerCase() == "custcol_fitprofile_trouser" ||
 											(selected_options[i].id).toLowerCase() == "custcol_fitprofile_waistcoat" ||
 											(selected_options[i].id).toLowerCase() == "custcol_fitprofile_trouser_in" ||
-											(selected_options[i].id).toLowerCase() == "custcol_fitprofile_waistcoat_in") {
+											(selected_options[i].id).toLowerCase() == "custcol_fitprofile_waistcoat_in" ) {
 											selected_options[i].value = "";
 									}
 								}

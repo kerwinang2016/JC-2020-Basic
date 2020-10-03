@@ -1,0 +1,694 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SendOrderUnencrypted">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="orders" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AccessToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="appsecrets" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Brand" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendOrderUnencryptedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendOrderUnencryptedResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveOrder">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="orders" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AccessToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Brand" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReceiveOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReceiveOrderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAesStr">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="orders" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="appsecret" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AccessToken" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAesStrResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAesStrResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAccessToken">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetAccessTokenResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAccessTokenResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetErrorCode">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetErrorCodeResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetErrorCodeResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeAes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="orders" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="AccessToken" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetDeAesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetDeAesResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderInfo">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="orders" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="appsecrets" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetOrderInfoResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetOrderInfoResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStock">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="AccessToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="appsecret" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStockResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStockResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SendOrderUnencryptedSoapIn">
+    <wsdl:part name="parameters" element="tns:SendOrderUnencrypted" />
+  </wsdl:message>
+  <wsdl:message name="SendOrderUnencryptedSoapOut">
+    <wsdl:part name="parameters" element="tns:SendOrderUnencryptedResponse" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:ReceiveOrder" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:ReceiveOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAesStrSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAesStr" />
+  </wsdl:message>
+  <wsdl:message name="GetAesStrSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAesStrResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAccessTokenSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAccessToken" />
+  </wsdl:message>
+  <wsdl:message name="GetAccessTokenSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAccessTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorCodeSoapIn">
+    <wsdl:part name="parameters" element="tns:GetErrorCode" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorCodeSoapOut">
+    <wsdl:part name="parameters" element="tns:GetErrorCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetDeAesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetDeAes" />
+  </wsdl:message>
+  <wsdl:message name="GetDeAesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetDeAesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderInfoSoapIn">
+    <wsdl:part name="parameters" element="tns:GetOrderInfo" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderInfoSoapOut">
+    <wsdl:part name="parameters" element="tns:GetOrderInfoResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStockSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStock" />
+  </wsdl:message>
+  <wsdl:message name="GetStockSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStockResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendOrderUnencryptedHttpGetIn">
+    <wsdl:part name="orders" type="s:string" />
+    <wsdl:part name="AccessToken" type="s:string" />
+    <wsdl:part name="appsecrets" type="s:string" />
+    <wsdl:part name="Brand" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendOrderUnencryptedHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveOrderHttpGetIn">
+    <wsdl:part name="orders" type="s:string" />
+    <wsdl:part name="AccessToken" type="s:string" />
+    <wsdl:part name="Brand" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveOrderHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAesStrHttpGetIn">
+    <wsdl:part name="orders" type="s:string" />
+    <wsdl:part name="appsecret" type="s:string" />
+    <wsdl:part name="AccessToken" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAesStrHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAccessTokenHttpGetIn" />
+  <wsdl:message name="GetAccessTokenHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorCodeHttpGetIn" />
+  <wsdl:message name="GetErrorCodeHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDeAesHttpGetIn">
+    <wsdl:part name="orders" type="s:string" />
+    <wsdl:part name="AccessToken" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDeAesHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderInfoHttpGetIn">
+    <wsdl:part name="orders" type="s:string" />
+    <wsdl:part name="appsecrets" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderInfoHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetStockHttpGetIn">
+    <wsdl:part name="AccessToken" type="s:string" />
+    <wsdl:part name="appsecret" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetStockHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SendOrderUnencryptedHttpPostIn">
+    <wsdl:part name="orders" type="s:string" />
+    <wsdl:part name="AccessToken" type="s:string" />
+    <wsdl:part name="appsecrets" type="s:string" />
+    <wsdl:part name="Brand" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SendOrderUnencryptedHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveOrderHttpPostIn">
+    <wsdl:part name="orders" type="s:string" />
+    <wsdl:part name="AccessToken" type="s:string" />
+    <wsdl:part name="Brand" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="ReceiveOrderHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAesStrHttpPostIn">
+    <wsdl:part name="orders" type="s:string" />
+    <wsdl:part name="appsecret" type="s:string" />
+    <wsdl:part name="AccessToken" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAesStrHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetAccessTokenHttpPostIn" />
+  <wsdl:message name="GetAccessTokenHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetErrorCodeHttpPostIn" />
+  <wsdl:message name="GetErrorCodeHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDeAesHttpPostIn">
+    <wsdl:part name="orders" type="s:string" />
+    <wsdl:part name="AccessToken" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetDeAesHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderInfoHttpPostIn">
+    <wsdl:part name="orders" type="s:string" />
+    <wsdl:part name="appsecrets" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetOrderInfoHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="GetStockHttpPostIn">
+    <wsdl:part name="AccessToken" type="s:string" />
+    <wsdl:part name="appsecret" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="GetStockHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="TUServiceSoap">
+    <wsdl:operation name="SendOrderUnencrypted">
+      <wsdl:input message="tns:SendOrderUnencryptedSoapIn" />
+      <wsdl:output message="tns:SendOrderUnencryptedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveOrder">
+      <wsdl:input message="tns:ReceiveOrderSoapIn" />
+      <wsdl:output message="tns:ReceiveOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAesStr">
+      <wsdl:input message="tns:GetAesStrSoapIn" />
+      <wsdl:output message="tns:GetAesStrSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccessToken">
+      <wsdl:input message="tns:GetAccessTokenSoapIn" />
+      <wsdl:output message="tns:GetAccessTokenSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorCode">
+      <wsdl:input message="tns:GetErrorCodeSoapIn" />
+      <wsdl:output message="tns:GetErrorCodeSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeAes">
+      <wsdl:input message="tns:GetDeAesSoapIn" />
+      <wsdl:output message="tns:GetDeAesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderInfo">
+      <wsdl:input message="tns:GetOrderInfoSoapIn" />
+      <wsdl:output message="tns:GetOrderInfoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStock">
+      <wsdl:input message="tns:GetStockSoapIn" />
+      <wsdl:output message="tns:GetStockSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="TUServiceHttpGet">
+    <wsdl:operation name="SendOrderUnencrypted">
+      <wsdl:input message="tns:SendOrderUnencryptedHttpGetIn" />
+      <wsdl:output message="tns:SendOrderUnencryptedHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveOrder">
+      <wsdl:input message="tns:ReceiveOrderHttpGetIn" />
+      <wsdl:output message="tns:ReceiveOrderHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAesStr">
+      <wsdl:input message="tns:GetAesStrHttpGetIn" />
+      <wsdl:output message="tns:GetAesStrHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccessToken">
+      <wsdl:input message="tns:GetAccessTokenHttpGetIn" />
+      <wsdl:output message="tns:GetAccessTokenHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorCode">
+      <wsdl:input message="tns:GetErrorCodeHttpGetIn" />
+      <wsdl:output message="tns:GetErrorCodeHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeAes">
+      <wsdl:input message="tns:GetDeAesHttpGetIn" />
+      <wsdl:output message="tns:GetDeAesHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderInfo">
+      <wsdl:input message="tns:GetOrderInfoHttpGetIn" />
+      <wsdl:output message="tns:GetOrderInfoHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStock">
+      <wsdl:input message="tns:GetStockHttpGetIn" />
+      <wsdl:output message="tns:GetStockHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="TUServiceHttpPost">
+    <wsdl:operation name="SendOrderUnencrypted">
+      <wsdl:input message="tns:SendOrderUnencryptedHttpPostIn" />
+      <wsdl:output message="tns:SendOrderUnencryptedHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveOrder">
+      <wsdl:input message="tns:ReceiveOrderHttpPostIn" />
+      <wsdl:output message="tns:ReceiveOrderHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAesStr">
+      <wsdl:input message="tns:GetAesStrHttpPostIn" />
+      <wsdl:output message="tns:GetAesStrHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAccessToken">
+      <wsdl:input message="tns:GetAccessTokenHttpPostIn" />
+      <wsdl:output message="tns:GetAccessTokenHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorCode">
+      <wsdl:input message="tns:GetErrorCodeHttpPostIn" />
+      <wsdl:output message="tns:GetErrorCodeHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetDeAes">
+      <wsdl:input message="tns:GetDeAesHttpPostIn" />
+      <wsdl:output message="tns:GetDeAesHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderInfo">
+      <wsdl:input message="tns:GetOrderInfoHttpPostIn" />
+      <wsdl:output message="tns:GetOrderInfoHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStock">
+      <wsdl:input message="tns:GetStockHttpPostIn" />
+      <wsdl:output message="tns:GetStockHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TUServiceSoap" type="tns:TUServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendOrderUnencrypted">
+      <soap:operation soapAction="http://tempuri.org/SendOrderUnencrypted" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveOrder">
+      <soap:operation soapAction="http://tempuri.org/ReceiveOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAesStr">
+      <soap:operation soapAction="http://tempuri.org/GetAesStr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccessToken">
+      <soap:operation soapAction="http://tempuri.org/GetAccessToken" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorCode">
+      <soap:operation soapAction="http://tempuri.org/GetErrorCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeAes">
+      <soap:operation soapAction="http://tempuri.org/GetDeAes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderInfo">
+      <soap:operation soapAction="http://tempuri.org/GetOrderInfo" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStock">
+      <soap:operation soapAction="http://tempuri.org/GetStock" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TUServiceSoap12" type="tns:TUServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SendOrderUnencrypted">
+      <soap12:operation soapAction="http://tempuri.org/SendOrderUnencrypted" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveOrder">
+      <soap12:operation soapAction="http://tempuri.org/ReceiveOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAesStr">
+      <soap12:operation soapAction="http://tempuri.org/GetAesStr" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccessToken">
+      <soap12:operation soapAction="http://tempuri.org/GetAccessToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorCode">
+      <soap12:operation soapAction="http://tempuri.org/GetErrorCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeAes">
+      <soap12:operation soapAction="http://tempuri.org/GetDeAes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderInfo">
+      <soap12:operation soapAction="http://tempuri.org/GetOrderInfo" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStock">
+      <soap12:operation soapAction="http://tempuri.org/GetStock" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TUServiceHttpGet" type="tns:TUServiceHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="SendOrderUnencrypted">
+      <http:operation location="/SendOrderUnencrypted" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveOrder">
+      <http:operation location="/ReceiveOrder" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAesStr">
+      <http:operation location="/GetAesStr" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccessToken">
+      <http:operation location="/GetAccessToken" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorCode">
+      <http:operation location="/GetErrorCode" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeAes">
+      <http:operation location="/GetDeAes" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderInfo">
+      <http:operation location="/GetOrderInfo" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStock">
+      <http:operation location="/GetStock" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="TUServiceHttpPost" type="tns:TUServiceHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="SendOrderUnencrypted">
+      <http:operation location="/SendOrderUnencrypted" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReceiveOrder">
+      <http:operation location="/ReceiveOrder" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAesStr">
+      <http:operation location="/GetAesStr" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAccessToken">
+      <http:operation location="/GetAccessToken" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetErrorCode">
+      <http:operation location="/GetErrorCode" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetDeAes">
+      <http:operation location="/GetDeAes" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetOrderInfo">
+      <http:operation location="/GetOrderInfo" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStock">
+      <http:operation location="/GetStock" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TUService">
+    <wsdl:port name="TUServiceSoap" binding="tns:TUServiceSoap">
+      <soap:address location="http://tuservice.ustyylit.com/tuservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TUServiceSoap12" binding="tns:TUServiceSoap12">
+      <soap12:address location="http://tuservice.ustyylit.com/tuservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TUServiceHttpGet" binding="tns:TUServiceHttpGet">
+      <http:address location="http://tuservice.ustyylit.com/tuservice.asmx" />
+    </wsdl:port>
+    <wsdl:port name="TUServiceHttpPost" binding="tns:TUServiceHttpPost">
+      <http:address location="http://tuservice.ustyylit.com/tuservice.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

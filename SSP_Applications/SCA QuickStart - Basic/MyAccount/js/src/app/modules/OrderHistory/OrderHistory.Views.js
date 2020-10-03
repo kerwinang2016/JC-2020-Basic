@@ -1,7 +1,7 @@
 // OrderHistory.Views.js
 // -----------------------
 // Views for order's details
-define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices'], function (ItemDetailsModel, TrackingServices) {
+define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Model','CaseFields.Model'], function (ItemDetailsModel, TrackingServices, CaseModel,CaseFieldsModel) {
 	'use strict';
 
 	var Views = {};
@@ -42,8 +42,60 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices'], function
 			, 'click [data-re-order-item-link]': 'reorderItem'
 			, 'click .returnauthorizations-warning a': 'goToReturns'
 			, 'click #returnauthorizations-details-header': 'toggleReturns'
-		}
+			, 'click [data-requestrush]' : 'requestRush'
+			, 'click [data-requestdiscount]' : 'requestDiscount'
+			, 'click [data-requestcancel]' : 'requestCancel'
+			, 'click [data-requesthold]' : 'requestHold'
 
+		}
+		, requestRush: function(e){
+
+			var cm = new CaseModel();
+			cm.set('title',"Request for rush on order " + jQuery(e.target).data('requestrush'));
+			cm.set('message', "Request for rush on order " + jQuery(e.target).data('requestrush'));
+			cm.set('category',5);//external request
+			cm.set('issue',2);//request for rush
+			cm.set('custevent_so_id',jQuery(e.target).data('requestrush'));
+			cm.set('custevent_related_sales_order',this.model.get('internalid'));
+			cm.save();
+			alert('An issue was created for this request');
+		}
+		, requestDiscount: function(e){
+			var cm = new CaseModel();
+			cm.set('title',"Request for discount on order " + jQuery(e.target).data('requestdiscount'));
+			cm.set('message', "Request for discount on order " + jQuery(e.target).data('requestdiscount'));
+			cm.set('category',4);//internal request
+			cm.set('issue',3);//request for rush
+
+			cm.set('custevent_so_id',jQuery(e.target).data('requestdiscount'));
+			cm.set('custevent_related_sales_order',this.model.get('internalid'));
+			cm.save();
+			alert('An issue was created for this request');
+		}
+		, requestCancel: function(e){
+			//Create Case Model then save
+			var cm = new CaseModel();
+			cm.set('title',"Request for cancel on order " + jQuery(e.target).data('requestcancel'));
+			cm.set('message', "Request for cancel on order " + jQuery(e.target).data('requestcancel'));
+			cm.set('category',5);//external request
+			cm.set('issue',4);//request for rush
+			cm.set('custevent_so_id',jQuery(e.target).data('requestcancel'));
+			cm.set('custevent_related_sales_order',this.model.get('internalid'));
+			cm.save();
+			alert('An issue was created for this request');
+		}
+		, requestHold: function(e){
+			//Create Case Model then save
+			var cm = new CaseModel();
+			cm.set('title',"Request for hold on order " + jQuery(e.target).data('requesthold'));
+			cm.set('message', "Request for hold on order " + jQuery(e.target).data('requesthold'));
+			cm.set('category',4);//internal request
+			cm.set('issue',5);//request for rush
+			cm.set('custevent_so_id',jQuery(e.target).data('requesthold'));
+			cm.set('custevent_related_sales_order',this.model.get('internalid'));
+			cm.save();
+			alert('An issue was created for this request');
+		}
 		, showContent: function () {
 			var self = this;
 			self.shipgroups = {};
@@ -231,8 +283,6 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices'], function
 			param.data = JSON.stringify({ filters: ["custrecord_fp_client||anyof|list|" + clientId], columns: ["internalid", "name", "created", "lastmodified", "custrecord_fp_product_type", "custrecord_fp_measure_type", "custrecord_fp_measure_value"] });
 			_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "GET", param).always(function (data) {
 				if (data) {
-					//console.log(JSON.parse(data));
-					//console.log(fitProfiles);
 					_.each(fitProfiles, function (el) {
 						var selectedFitProfile = _.findWhere(JSON.parse(data), { internalid: el.id });
 						fitProfileCollection.push(selectedFitProfile);

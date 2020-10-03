@@ -2799,6 +2799,18 @@ function setLines(placed_order, result, user ) {
 				, name: 'Extra'
 				, value: placed_order.getLineItemValue('item', 'custcol_fabric_extra', i)?escape(placed_order.getLineItemValue('item', 'custcol_fabric_extra', i)):""
 			});
+			lineOption.push({
+				id: 'custcol_so_id'
+				, cartOptionId: 'custcol_so_id'
+				, name: 'SOID'
+				, value: placed_order.getLineItemValue('item', 'custcol_so_id', i)?placed_order.getLineItemValue('item', 'custcol_so_id', i):""
+			});
+			lineOption.push({
+				id: 'custcol_avt_cmt_status'
+				, cartOptionId: 'custcol_avt_cmt_status'
+				, name: 'CMT Status'
+				, value: placed_order.getLineItemValue('item', 'custcol_avt_cmt_status', i)?placed_order.getLineItemValue('item', 'custcol_avt_cmt_status', i):""
+			});
 			/** end date needed, hold fabric, hold production **/
 
 			if(item_type != 'Markup'){

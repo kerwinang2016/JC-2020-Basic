@@ -1,11 +1,4 @@
-<!--
-Change History
---------------
-Date: 18-03-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-37
-Change Description: Incorrect currency symbol showing in many places
--->
+
 <%
 	var model = view.model
 	,	lines = model.get('lines')
@@ -37,9 +30,6 @@ Change Description: Incorrect currency symbol showing in many places
 		var url1 = "https://"+window.location.hostname+"/app/site/hosting/scriptlet.nl?script=121&deploy=1&custparam_record_id="+model.get('receipts').models[0].get('internalid')+"&custparam_record_type=invoice&custparam_template=4";
 		elements.push({value: '<a class="download-invoice" target="_blank" href="'+url1+'">' + _('Download Invoice').translate() + '</a>'});
 	}
-	console.log(model);
-	//Test Issue #102 - Fit Profile and Design Options are not added to the Sales Order when the item is reordered from the My account Page
-	//Removed 'Reorder All' option 17/06/2016
 
 	elements.push({value: _('Status: <span class="payment-status order-status">$(0)</span>').translate(model.get('status'))});
 %>

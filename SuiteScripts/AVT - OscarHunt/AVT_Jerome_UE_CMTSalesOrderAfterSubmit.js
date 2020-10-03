@@ -419,6 +419,12 @@ function userEventAfterSubmitSO(type) {
 									case '42': //Bernstein & Benleys
 												newSORecord.setCurrentLineItemValue('item','povendor','939');
 												break;
+                  case '43': //Marling & Evans
+                        newSORecord.setCurrentLineItemValue('item','povendor','1045');
+                        break;
+                  case '44': //Standeven
+                        newSORecord.setCurrentLineItemValue('item','povendor','1044');
+                        break;
 								}
 							}
 						}
@@ -516,6 +522,12 @@ function userEventAfterSubmitSO(type) {
 										break;
 							case '906': //Fox Brothers
 										newSORecord.setCurrentLineItemValue('item','custcol_vendorpicked','41');
+										break;
+              case '1044': //Standeven
+										newSORecord.setCurrentLineItemValue('item','custcol_vendorpicked','44');
+										break;
+							case '1045': //Marling & Evans
+										newSORecord.setCurrentLineItemValue('item','custcol_vendorpicked','43');
 										break;
 						}
 					}

@@ -15,7 +15,7 @@
 			var rs = search.create({
 				type : "salesorder",
 				filters : [
-				['internalid','anyof',[900778]], 'AND',
+				['internalid','anyof',[903328]], 'AND',
 				["type", "anyof", "SalesOrd"],"AND",
 				["mainline", "is", true], "AND", ["status", "anyof", "SalesOrd:A"],
         "AND", ["trandate","after","22/9/2020"],
@@ -399,6 +399,7 @@
 			var measurements = [], observations = [];
 			if(measurementmode == '01'){
 				var fitToolGarmentData;
+        log.debug('Garment Class', garmentclass);
 				switch(garmentclass){
 					case '02':	fitToolGarmentData = garmentData['FitTool_Jacket']; break;
 					case '05':	fitToolGarmentData = garmentData['FitTool_Trousers']; break;
@@ -547,7 +548,7 @@
 			var garmentClass = {
 				"Jacket": "02",
 				"Overcoat": "04",
-				"Trousers": "05",
+				"Trouser": "05",
 				"Shirt": "06",
 				"Waistcoat": "17",
 				"Trenchcoat": "16",
@@ -564,7 +565,7 @@
 			var liningName = {
 				"Jacket": 'li-b-j',
 				"Overcoat": "li-bl-o",
-				"Trousers": "",
+				"Trouser": "",
 				"Shirt": "",
 				"Waistcoat": "li-bl-w",
 				"Trenchcoat": "li-bl-tc",
@@ -581,7 +582,7 @@
 			var garmentName = {
 				"Jacket": 'jm-ms-j',
 				"Overcoat": "m-msl-o",
-				"Trousers": "tm-m-t",
+				"Trouser": "tm-m-t",
 				"Shirt": "sm-ms-s",
 				"Waistcoat": "m-ms-w",
 				"Trenchcoat": "m-msl-tc",
@@ -598,7 +599,7 @@
 			var designOptions = {
 				"Jacket": 'custcol_designoptions_jacket',
 				"Overcoat": "custcol_designoptions_overcoat",
-				"Trousers": "custcol_designoptions_trouser",
+				"Trouser": "custcol_designoptions_trouser",
 				"Shirt": "custcol_designoptions_shirt",
 				"Waistcoat": "custcol_designoptions_waistcoat",
 				"Trenchcoat": "custcol_designoptions_trenchcoat",
@@ -615,7 +616,7 @@
 			var fitProfiles = {
 				"Jacket": 'custcol_fitprofile_jacket',
 				"Overcoat": "custcol_fitprofile_overcoat",
-				"Trousers": "custcol_fitprofile_trouser",
+				"Trouser": "custcol_fitprofile_trouser",
 				"Shirt": "custcol_fitprofile_shirt",
 				"Waistcoat": "custcol_fitprofile_waistcoat",
 				"Trenchcoat": "custcol_fitprofile_trenchcoat",
@@ -633,7 +634,8 @@
 				var itemNumber = i+1;
 				if(itemNumber % 2 != 0 ){//&& ordernolist.indexOf(rec.getSublistValue('item','custcol_so_id',i))!=-1){
 					if(rec.getSublistValue('item','itemtype',i) == 'NonInvtPart'){
-            if(rec.getSublistValue('item','item',i) == '253776' || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Hold" || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Processed"
+            if(rec.getSublistValue('item','item',i) == '253776' || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Hold"
+			|| rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Processed"
             || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Success"){
               continue;
             }
@@ -644,7 +646,8 @@
 						  //rec.getSublistValue('item','povendor',i) == '675' ||
 						  rec.getSublistValue('item','povendor',i) == '689' || rec.getSublistValue('item','povendor',i) == '671')
 							clf = '1';
-						if(rec.getSublistValue('item','povendor',i) == '675' || rec.getSublistValue('item','povendor',i) == '689' || rec.getSublistValue('item','povendor',i) == '671'
+						if(rec.getSublistValue('item','povendor',i) == '675' || rec.getSublistValue('item','povendor',i) == '689'
+						|| rec.getSublistValue('item','povendor',i) == '671'
 						|| rec.getSublistValue('item','povendor',i) == '17')
 							fabricmode = '01';
 						var fabriccode = getFabricSku(rec.getSublistText('item','item',i),rec.getSublistValue('item','custcol_custom_fabric_details',i),rec.getSublistValue('item','custcol_producttype',i));
@@ -691,13 +694,13 @@
 								var measurementObservationObj = getOrderMeasurements(rec, i, styleno, garmentclass, fitprofile);
 								measurements = measurements.concat(measurementObservationObj.measurements);
 								if(measurementObservationObj.observations.length != 0 )
-								observations = observations.concat(measurementObservationObj.observations);
+									observations = observations.concat(measurementObservationObj.observations);
 								//Trouser
 								var garmentclass = garmentClass['Trouser'],
-                  liningname = liningName['Trouser'],
-                  garmentname = garmentName['Trouser'],
-                  designoptions = JSON.parse(rec.getSublistValue('item',designOptions['Trouser'],i)),
-                  fitprofile = JSON.parse(rec.getSublistValue('item',fitProfiles['Trouser'],i)),
+									  liningname = liningName['Trouser'],
+									  garmentname = garmentName['Trouser'],
+									  designoptions = JSON.parse(rec.getSublistValue('item',designOptions['Trouser'],i)),
+									  fitprofile = JSON.parse(rec.getSublistValue('item',fitProfiles['Trouser'],i)),
 									styleno = "02";
 
 								var details = getOrderDetails(

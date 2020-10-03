@@ -1,0 +1,14 @@
+6/26/2017 3:29:37 PM: NetsuiteEntryPoint initiated
+6/26/2017 3:30:15 PM: Inside EntryPoint
+6/26/2017 3:30:18 PM: [Error]: Error Occured: You have entered an invalid email address or password. Please try again.
+6/26/2017 3:30:19 PM: [Error]: Error Occured: Your connection has timed out.  Please log in again.
+6/26/2017 3:32:45 PM: [Error]: Error Occured for order: 
+6/26/2017 3:32:57 PM: NetsuiteEntryPoint initiated
+6/26/2017 3:33:25 PM: Inside EntryPoint
+6/26/2017 3:33:47 PM: [Error]: Error Occured: You have entered an invalid email address or password. Please try again.
+6/26/2017 3:33:48 PM: [Error]: Error Occured: Your connection has timed out.  Please log in again.
+6/26/2017 3:34:12 PM: [Error]: Error Occured for order: 
+6/26/2017 3:34:16 PM: NetsuiteEntryPoint initiated
+6/26/2017 3:34:43 PM: Inside EntryPoint
+6/26/2017 3:34:48 PM: [Error]: Error Occured: You have entered an invalid email address or password. Please try again.
+6/26/2017 3:34:49 PM: [Error]: Error Occured: Your connection has timed out.  Please log in again.

@@ -4601,14 +4601,11 @@ Application.defineModel('ProductList', {
 
 			productLists.push(productList);
 		});
-		nlapiLogExecution('debug','PL LENGTH', productLists.length);
-		nlapiLogExecution('debug','PL internalid', productLists[0].internalid);
 		var plitems = ProductListItem.search(null, include_store_items, {
 			sort: 'created'
 			, order: '-1'
 			, page: -1
 		},parentparam);
-		nlapiLogExecution('debug','PLI LENGTH', plitems.length);
 		for(var i=0; i<productLists.length; i++){
 			var items = _.filter(plitems, function(pli){
 				return pli.productListId == productLists[i].internalid;
@@ -4616,7 +4613,6 @@ Application.defineModel('ProductList', {
 			productLists[i].items = items;
 		}
 
-		nlapiLogExecution('debug','PLI LENGTH', productLists[0].items.length);
 		//Sort the product list.. get the first name by splitting space, sort if number
 		var numberedlists = [];
 		var textlist = [];
@@ -5752,12 +5748,14 @@ Application.defineModel('Case', {
 		customerId && newCaseRecord.setFieldValue('company', customerId);
 		data.issue && newCaseRecord.setFieldValue('issue', data.issue);
 		data.item && newCaseRecord.setFieldValue('item', data.item);
+		data.custevent_so_id && newCaseRecord.setFieldValue('custevent_so_id', data.custevent_so_id);
+		data.custevent_related_sales_order && newCaseRecord.setFieldValue('custevent_related_sales_order', data.custevent_related_sales_order);
 
 		var default_values = this.configuration.default_values;
 
 		newCaseRecord.setFieldValue('status', default_values.status_start.id); // Not Started
 		newCaseRecord.setFieldValue('origin', default_values.origin.id); // Web
-
+		newCaseRecord.setFieldValue('profile', 2); // Jerome Clothiers
 		return nlapiSubmitRecord(newCaseRecord);
 	}
 

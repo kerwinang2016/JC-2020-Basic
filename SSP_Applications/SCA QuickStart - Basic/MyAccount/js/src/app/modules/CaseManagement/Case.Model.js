@@ -22,21 +22,21 @@ define('Case.Model', function ()
 
 	,	validation:
 		{
-			title: { 
+			title: {
 				required: true
-			,	msg: _('Subject is required').translate() 
+			,	msg: _('Subject is required').translate()
 			}
-		
-		,	message: { 
+
+		,	message: {
 				required: true
-			,	msg: _('Message is required').translate() 
+			,	msg: _('Message is required').translate()
 			}
-		
-		,	reply: { 
+
+		,	reply: {
 				required: true
-			,	msg: _('Reply is required').translate() 
+			,	msg: _('Reply is required').translate()
 			}
-		
+
 		,	email: {
 				fn: validateEmail
 			}

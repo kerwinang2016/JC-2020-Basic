@@ -2538,7 +2538,7 @@ function receiveOrder(orders){
 		var response = HTTPMOD.post({
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/ReceiveOrder',
 			body: data
-			});
+		});
 		LOGMOD.audit('receiveOrder', 'receiveOrder response | Code : ' + response.code + ' | Body : ' + response.body);
 		if(response.code == 200){
 			var xml_path = XMLMOD.Parser.fromString(response.body)

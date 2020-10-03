@@ -17,14 +17,13 @@ define('CaseCreate.View', function ()
 			'submit form': 'saveForm'
 		,	'keypress [type="text"]': 'preventEnter'
 		,	'click input[name="include_email"]': 'includeAnotherEmail'
+		, 'change #issue': 'updateIssue'
 		}
 
 	,	attributes: {
 			'class': 'newCase'
 		}
- 	, events:{
-		'change #issue': 'updateIssue'
-	}
+
 	,	initialize: function (options)
 		{
 			this.options = options;
@@ -34,8 +33,6 @@ define('CaseCreate.View', function ()
 			this.model.on('sync', jQuery.proxy(this, 'showSuccess'));
 		}
 	, updateIssue: function(e){
-		console.log('hello')
-		console.log(e);
 	}
 		// Prevents not desired behaviour when hitting enter
 	,	preventEnter: function(event)

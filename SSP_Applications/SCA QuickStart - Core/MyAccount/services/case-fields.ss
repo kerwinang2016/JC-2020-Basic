@@ -16,7 +16,7 @@ function service (request)
 				case 'GET':
 					var Case = Application.getModel('Case');
 
-					Application.sendContent(Case.getNew());				
+					Application.sendContent(Case.getNew());
 				break;
 
 				default:

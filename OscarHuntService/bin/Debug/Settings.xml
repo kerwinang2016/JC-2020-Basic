@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Configuration>
+  <Username value="+mY9FDLO7WOhokrcugpSRrBXZ2f3IckIoi2reE/yfJKbMRuZ3OSJVSYVXfVm60RB" />
+  <Password value="yfBsgzojRs+VCHoeFguow/oldovTtGCTIUy/2VxIcX8=" />
+  <Account value="xZu73PoCG9TkZXMHbLVKOQ==" />
+  <RoleId value="3" />
+  <ServiceInterval value="5" />
+  <SendAPISalesOrderStatusMail value="true" />
+  <FromEmail value="matt.perolli@gmail.com" />
+  <ToEmail value="matt@oscarhunt.com.au" />
+  <MailUsername value="matt.perolli@gmail.com" />
+  <MailPassword value="veOmv6rmqL7v4t398tVh6qSD67LZfZVEKfoGIc7UVhY=" />
+  <SmtpServer value="smtp.gmail.com" />
+  <SmtpPort value="587" />
+  <EnableSslMail value="true" />
+  <AppId value="8CA80836-4422-4A14-B91D-B386AE9815FD" />
+  <AppSecret value="80dec8520q6e9r7dk4oy8cr89o6t7ow3" />
+  <Environment value="PRODUCTION" />
+  <BrandNameTest value="TU" />
+  <ShopNameTest value="TUTEST" />
+  <GenerateJson value="JSON" />
+  <JsonOrderNo value="24230" />
+  <PushData value="false" />
+</Configuration>

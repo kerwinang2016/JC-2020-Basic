@@ -325,7 +325,7 @@
 	{
 		//symbol = _.where(SC._applications.Shopping.getConfig("siteSettings").currencies, {internalid: SC.ENVIRONMENT.LOGOBRAND.cur})[0].symbol;
 		symbol = SC.getSessionInfo('currency').symbol; //Added salman JHD-37
-		
+
 		var value_float = parseFloat(value);
 
 		if (isNaN(value_float))
@@ -602,9 +602,9 @@
 		params = params || {};
 		params.n = SC.ENVIRONMENT.siteSettings.siteid;
 
-		var origin = window.location.origin ? window.location.origin :
-				(window.location.protocol + '//' + window.location.hostname + (window.location.port ? (':' + window.location.port) : ''));
-		return  _.addParamsToUrl(origin + _.getAbsoluteUrl('download.ssp'), params);
+		// var origin = window.location.origin ? window.location.origin :
+		// 		(window.location.protocol + '//' + window.location.hostname + (window.location.port ? (':' + window.location.port) : ''));
+		return  _.addParamsToUrl(_.getAbsoluteUrl('download.ssp'), params);
 	}
 
 	//Fixes anchor elements, preventing default behavior so that

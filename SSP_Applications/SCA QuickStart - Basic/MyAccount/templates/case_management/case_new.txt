@@ -42,6 +42,10 @@ var categories = view.fields.get('categories')
 				<% }); %>
 			</select>
 		</div>
+		<div class="case-new-ordernumber control-group">
+			<label for="message"><%= _('Message').translate() %>: </label>
+			<textarea name="message" id="message" class="form-control input-xlarge input-case-message"></textarea>
+		</div>
 
 		<div class="case-new-message control-group">
 			<label for="message"><%= _('Message').translate() %>: </label>

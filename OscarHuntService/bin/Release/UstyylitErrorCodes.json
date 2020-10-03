@@ -1,0 +1,4286 @@
+﻿[
+  {
+    "brand": "TU",
+    "pt_code": "diyilikouout",
+    "error_code": "",
+    "remark": "The value of Top Button (Optional) is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiwei_halfmust",
+    "error_code": "",
+    "remark": "missing value of 1/2 Knee"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiwei_halfdup",
+    "error_code": "",
+    "remark": "Duplication of 1/2 Knee"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiwei_halfout",
+    "error_code": "",
+    "remark": "The value of 1/2 Knee is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010601must",
+    "error_code": "100023",
+    "remark": "missing value of Washed"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010602must",
+    "error_code": "100024",
+    "remark": "missing value of Sleeve Type"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010603must",
+    "error_code": "100025",
+    "remark": "missing value of Collar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010604must",
+    "error_code": "100026",
+    "remark": "missing value of Cuff"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010605must",
+    "error_code": "100027",
+    "remark": "missing value of Sleeve Vent"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010606must",
+    "error_code": "100028",
+    "remark": "missing value of Fusing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010607must",
+    "error_code": "100029",
+    "remark": "missing value of Front Placket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010608must",
+    "error_code": "100030",
+    "remark": "missing value of Collar Stays"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010609must",
+    "error_code": "100031",
+    "remark": "missing value of Back Pleats"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010610must",
+    "error_code": "100032",
+    "remark": "missing value of Yoke Type"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010611must",
+    "error_code": "100033",
+    "remark": "missing value of Back Darts"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010612must",
+    "error_code": "100034",
+    "remark": "missing value of Chest Pocket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010613must",
+    "error_code": "100035",
+    "remark": "missing value of Stitching From Edge"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010614must",
+    "error_code": "100036",
+    "remark": "missing value of Button Attachment"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010615must",
+    "error_code": "100037",
+    "remark": "missing value of Elbow Patches"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010616must",
+    "error_code": "100038",
+    "remark": "missing value of Handkerchief"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010617must",
+    "error_code": "100039",
+    "remark": "missing value of Buttons"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010618must",
+    "error_code": "100040",
+    "remark": "missing value of Yarn Thickness"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010619must",
+    "error_code": "100041",
+    "remark": "missing value of Button Thread Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010620must",
+    "error_code": "100042",
+    "remark": "missing value of Buttonhole Thread Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010621must",
+    "error_code": "100043",
+    "remark": "missing value of Collar/Cuff Stitch Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010622must",
+    "error_code": "100044",
+    "remark": "missing value of Contrast Whole Collar & Neckband"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010623must",
+    "error_code": "100045",
+    "remark": "missing value of Contrast Inside Neckband"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010201must",
+    "error_code": "100046",
+    "remark": "missing value of Canvas"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011701must",
+    "error_code": "100047",
+    "remark": "missing value of Closure"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010501must",
+    "error_code": "100048",
+    "remark": "missing value of Pleat Qty"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010624must",
+    "error_code": "100049",
+    "remark": "missing value of Contrast Whole Neckband"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010625must",
+    "error_code": "100050",
+    "remark": "missing value of Contrast Bottom Neckband (Piping)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010626must",
+    "error_code": "100051",
+    "remark": "missing value of Contrast Total Cuff"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010202must",
+    "error_code": "100052",
+    "remark": "missing value of Closure"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010502must",
+    "error_code": "100053",
+    "remark": "missing value of Pleat Depth"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011702must",
+    "error_code": "100054",
+    "remark": "missing value of Lapel"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010627must",
+    "error_code": "100055",
+    "remark": "missing value of Contrast Inside Cuff"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010628must",
+    "error_code": "100056",
+    "remark": "missing value of Contrast Buttonhole-Side Placket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010629must",
+    "error_code": "100057",
+    "remark": "missing value of Contrast Buttons-Side Placket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010203must",
+    "error_code": "100058",
+    "remark": "missing value of Lapel"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011703must",
+    "error_code": "100059",
+    "remark": "missing value of Chest Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010503must",
+    "error_code": "100060",
+    "remark": "missing value of Pleat Direction"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010630must",
+    "error_code": "100061",
+    "remark": "missing value of Contrast Elbow Patches"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010631must",
+    "error_code": "100062",
+    "remark": "missing value of Contrast Sleeve Placket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010632must",
+    "error_code": "100063",
+    "remark": "missing value of Contrast Handkerchief"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010204must",
+    "error_code": "100064",
+    "remark": "missing value of Lapel Button Hole"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010504must",
+    "error_code": "100065",
+    "remark": "missing value of Smoking Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011704must",
+    "error_code": "100066",
+    "remark": "missing value of Side Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011710must",
+    "error_code": "100067",
+    "remark": "missing value of Smoking Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010633must",
+    "error_code": "100068",
+    "remark": "missing value of Monogram"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010634must",
+    "error_code": "100069",
+    "remark": "missing value of Monogram Text"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010635must",
+    "error_code": "100070",
+    "remark": "missing value of Monogram Font"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010636must",
+    "error_code": "100071",
+    "remark": "missing value of Font Size"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010637must",
+    "error_code": "100072",
+    "remark": "missing value of Monogram Position"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010638must",
+    "error_code": "100073",
+    "remark": "missing value of Monogram Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010639must",
+    "error_code": "100074",
+    "remark": "missing value of Size Label"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010640must",
+    "error_code": "100075",
+    "remark": "missing value of Fabric Label"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011705must",
+    "error_code": "100076",
+    "remark": "missing value of Back Exterior"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010505must",
+    "error_code": "100077",
+    "remark": "missing value of Button Code"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010205must",
+    "error_code": "100078",
+    "remark": "missing value of Formal Treatment"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010206must",
+    "error_code": "100079",
+    "remark": "missing value of Smoking Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010506must",
+    "error_code": "100080",
+    "remark": "missing value of Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011706must",
+    "error_code": "100081",
+    "remark": "missing value of Button Code"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010520must",
+    "error_code": "100082",
+    "remark": "missing value of Pocket Jetting Formal Treatment"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011707must",
+    "error_code": "100083",
+    "remark": "missing value of Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010507must",
+    "error_code": "100084",
+    "remark": "missing value of Waistband Closure"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010207must",
+    "error_code": "100085",
+    "remark": "missing value of Button Code"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010208must",
+    "error_code": "100086",
+    "remark": "missing value of Shoulder Type"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010509must",
+    "error_code": "100087",
+    "remark": "missing value of Waistband Style"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011708must",
+    "error_code": "100088",
+    "remark": "missing value of Pick Stitching"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011709must",
+    "error_code": "100089",
+    "remark": "missing value of Pick Stitch Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010508must",
+    "error_code": "100090",
+    "remark": "missing value of Buckle Loop"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010209must",
+    "error_code": "100091",
+    "remark": "missing value of Front Dart"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010210must",
+    "error_code": "100092",
+    "remark": "missing value of Chest Pocket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010510must",
+    "error_code": "100093",
+    "remark": "missing value of Side Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010511must",
+    "error_code": "100094",
+    "remark": "missing value of Left Back Pocket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010211must",
+    "error_code": "100095",
+    "remark": "missing value of Side Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010212must",
+    "error_code": "100096",
+    "remark": "missing value of Side Pocket Flap Size"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010512must",
+    "error_code": "100097",
+    "remark": "missing value of Right Back Pocket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010513must",
+    "error_code": "100098",
+    "remark": "missing value of Suspender Buttons"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010213must",
+    "error_code": "100099",
+    "remark": "missing value of Ticket Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010214must",
+    "error_code": "100100",
+    "remark": "missing value of Ticket Pocket Flap Size"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010514must",
+    "error_code": "100101",
+    "remark": "missing value of Fly Closing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010526must",
+    "error_code": "100102",
+    "remark": "missing value of Zipper Type"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010515must",
+    "error_code": "100103",
+    "remark": "missing value of Lining Placement"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010215must",
+    "error_code": "100104",
+    "remark": "missing value of Back Style"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010216must",
+    "error_code": "100105",
+    "remark": "missing value of Vents"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010516must",
+    "error_code": "100106",
+    "remark": "missing value of Int. Pkt & Trim Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010517must",
+    "error_code": "100107",
+    "remark": "missing value of Bottom Finishing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010217must",
+    "error_code": "100108",
+    "remark": "missing value of Cuff Finishing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010247must",
+    "error_code": "100109",
+    "remark": "missing value of Sleeve Button Qty"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010219must",
+    "error_code": "100110",
+    "remark": "missing value of Sleeve Button Spacing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010518must",
+    "error_code": "100111",
+    "remark": "missing value of Pick Stitching"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010218must",
+    "error_code": "100112",
+    "remark": "missing value of Sleeve Ribbon"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010519must",
+    "error_code": "100113",
+    "remark": "missing value of Pick Stitch Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010220must",
+    "error_code": "100114",
+    "remark": "missing value of Elbow Patches"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010221must",
+    "error_code": "100115",
+    "remark": "missing value of Melton Undercollar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010521must",
+    "error_code": "100116",
+    "remark": "missing value of Crotch Piece"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010522must",
+    "error_code": "100117",
+    "remark": "missing value of Monogram Heel Tape"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010523must",
+    "error_code": "100118",
+    "remark": "missing value of Monogram Font"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010524must",
+    "error_code": "100119",
+    "remark": "missing value of Monogram Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010525must",
+    "error_code": "100120",
+    "remark": "missing value of Mongram Text"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010222must",
+    "error_code": "100121",
+    "remark": "missing value of Throat Tab"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010223must",
+    "error_code": "100122",
+    "remark": "missing value of Interior Construction"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010224must",
+    "error_code": "100123",
+    "remark": "missing value of Lining Placement"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010225must",
+    "error_code": "100124",
+    "remark": "missing value of Sleeve Lining"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010226must",
+    "error_code": "100125",
+    "remark": "missing value of Mobile Phone Pocket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010227must",
+    "error_code": "100126",
+    "remark": "missing value of Interior Pocket Piping"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010228must",
+    "error_code": "100127",
+    "remark": "missing value of Pick Stitching"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010229must",
+    "error_code": "100128",
+    "remark": "missing value of Pick Stitch Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010230must",
+    "error_code": "100129",
+    "remark": "missing value of Front Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010231must",
+    "error_code": "100130",
+    "remark": "missing value of Lapel Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010232must",
+    "error_code": "100131",
+    "remark": "missing value of Sleeve Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010233must",
+    "error_code": "100132",
+    "remark": "missing value of 1st Sleeve Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010234must",
+    "error_code": "100133",
+    "remark": "missing value of Interior Pick Stitch Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010243must",
+    "error_code": "100134",
+    "remark": "missing value of Monogram Under Collar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010235must",
+    "error_code": "100135",
+    "remark": "missing value of Monogram Font"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010236must",
+    "error_code": "100136",
+    "remark": "missing value of Under Collar Monogram Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010238must",
+    "error_code": "100137",
+    "remark": "missing value of Under Collar Monogram Text"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010244must",
+    "error_code": "100138",
+    "remark": "missing value of Interior Lining Monogram"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010245must",
+    "error_code": "100139",
+    "remark": "missing value of Monogram Font"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010237must",
+    "error_code": "100140",
+    "remark": "missing value of Interior Lining Monogram Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010239must",
+    "error_code": "100141",
+    "remark": "missing value of Monogram Text Line 1"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010240must",
+    "error_code": "100142",
+    "remark": "missing value of Monogram Text Line 2"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010249must",
+    "error_code": "100143",
+    "remark": "missing value of Shop label"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010527must",
+    "error_code": "100144",
+    "remark": "missing value of Shop label"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010641must",
+    "error_code": "100145",
+    "remark": "missing value of Shop label"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011711must",
+    "error_code": "100146",
+    "remark": "missing value of Shop label"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010246must",
+    "error_code": "100147",
+    "remark": "missing value of Fabric Supplier Label "
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010601dup",
+    "error_code": "100148",
+    "remark": "Duplication of Washed"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010602dup",
+    "error_code": "100149",
+    "remark": "Duplication of Sleeve Type"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010603dup",
+    "error_code": "100150",
+    "remark": "Duplication of Collar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010604dup",
+    "error_code": "100151",
+    "remark": "Duplication of Cuff"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010605dup",
+    "error_code": "100152",
+    "remark": "Duplication of Sleeve Vent"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010606dup",
+    "error_code": "100153",
+    "remark": "Duplication of Fusing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010607dup",
+    "error_code": "100154",
+    "remark": "Duplication of Front Placket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010608dup",
+    "error_code": "100155",
+    "remark": "Duplication of Collar Stays"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010609dup",
+    "error_code": "100156",
+    "remark": "Duplication of Back Pleats"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010610dup",
+    "error_code": "100157",
+    "remark": "Duplication of Yoke Type"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010611dup",
+    "error_code": "100158",
+    "remark": "Duplication of Back Darts"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010612dup",
+    "error_code": "100159",
+    "remark": "Duplication of Chest Pocket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010613dup",
+    "error_code": "100160",
+    "remark": "Duplication of Stitching From Edge"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010614dup",
+    "error_code": "100161",
+    "remark": "Duplication of Button Attachment"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010615dup",
+    "error_code": "100162",
+    "remark": "Duplication of Elbow Patches"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010616dup",
+    "error_code": "100163",
+    "remark": "Duplication of Handkerchief"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010617dup",
+    "error_code": "100164",
+    "remark": "Duplication of Buttons"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010618dup",
+    "error_code": "100165",
+    "remark": "Duplication of Yarn Thickness"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010619dup",
+    "error_code": "100166",
+    "remark": "Duplication of Button Thread Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010620dup",
+    "error_code": "100167",
+    "remark": "Duplication of Buttonhole Thread Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010621dup",
+    "error_code": "100168",
+    "remark": "Duplication of Collar/Cuff Stitch Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010622dup",
+    "error_code": "100169",
+    "remark": "Duplication of Contrast Whole Collar & Neckband"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010623dup",
+    "error_code": "100170",
+    "remark": "Duplication of Contrast Inside Neckband"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010201dup",
+    "error_code": "100171",
+    "remark": "Duplication of Canvas"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011701dup",
+    "error_code": "100172",
+    "remark": "Duplication of Closure"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010501dup",
+    "error_code": "100173",
+    "remark": "Duplication of Pleat Qty"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010624dup",
+    "error_code": "100174",
+    "remark": "Duplication of Contrast Whole Neckband"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010625dup",
+    "error_code": "100175",
+    "remark": "Duplication of Contrast Bottom Neckband (Piping)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010626dup",
+    "error_code": "100176",
+    "remark": "Duplication of Contrast Total Cuff"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010202dup",
+    "error_code": "100177",
+    "remark": "Duplication of Closure"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010502dup",
+    "error_code": "100178",
+    "remark": "Duplication of Pleat Depth"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011702dup",
+    "error_code": "100179",
+    "remark": "Duplication of Lapel"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010627dup",
+    "error_code": "100180",
+    "remark": "Duplication of Contrast Inside Cuff"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010628dup",
+    "error_code": "100181",
+    "remark": "Duplication of Contrast Buttonhole-Side Placket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010629dup",
+    "error_code": "100182",
+    "remark": "Duplication of Contrast Buttons-Side Placket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010203dup",
+    "error_code": "100183",
+    "remark": "Duplication of Lapel"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011703dup",
+    "error_code": "100184",
+    "remark": "Duplication of Chest Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010503dup",
+    "error_code": "100185",
+    "remark": "Duplication of Pleat Direction"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010630dup",
+    "error_code": "100186",
+    "remark": "Duplication of Contrast Elbow Patches"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010631dup",
+    "error_code": "100187",
+    "remark": "Duplication of Contrast Sleeve Placket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010632dup",
+    "error_code": "100188",
+    "remark": "Duplication of Contrast Handkerchief"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010204dup",
+    "error_code": "100189",
+    "remark": "Duplication of Lapel Button Hole"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010504dup",
+    "error_code": "100190",
+    "remark": "Duplication of Smoking Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011704dup",
+    "error_code": "100191",
+    "remark": "Duplication of Side Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011710dup",
+    "error_code": "100192",
+    "remark": "Duplication of Smoking Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010633dup",
+    "error_code": "100193",
+    "remark": "Duplication of Monogram"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010634dup",
+    "error_code": "100194",
+    "remark": "Duplication of Monogram Text"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010635dup",
+    "error_code": "100195",
+    "remark": "Duplication of Monogram Font"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010636dup",
+    "error_code": "100196",
+    "remark": "Duplication of Font Size"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010637dup",
+    "error_code": "100197",
+    "remark": "Duplication of Monogram Position"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010638dup",
+    "error_code": "100198",
+    "remark": "Duplication of Monogram Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010639dup",
+    "error_code": "100199",
+    "remark": "Duplication of Size Label"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010640dup",
+    "error_code": "100200",
+    "remark": "Duplication of Fabric Label"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011705dup",
+    "error_code": "100201",
+    "remark": "Duplication of Back Exterior"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010505dup",
+    "error_code": "100202",
+    "remark": "Duplication of Button Code"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010205dup",
+    "error_code": "100203",
+    "remark": "Duplication of Formal Treatment"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010206dup",
+    "error_code": "100204",
+    "remark": "Duplication of Smoking Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010506dup",
+    "error_code": "100205",
+    "remark": "Duplication of Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011706dup",
+    "error_code": "100206",
+    "remark": "Duplication of Button Code"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010520dup",
+    "error_code": "100207",
+    "remark": "Duplication of Pocket Jetting Formal Treatment"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011707dup",
+    "error_code": "100208",
+    "remark": "Duplication of Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010507dup",
+    "error_code": "100209",
+    "remark": "Duplication of Waistband Closure"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010207dup",
+    "error_code": "100210",
+    "remark": "Duplication of Button Code"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010208dup",
+    "error_code": "100211",
+    "remark": "Duplication of Shoulder Type"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010509dup",
+    "error_code": "100212",
+    "remark": "Duplication of Waistband Style"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011708dup",
+    "error_code": "100213",
+    "remark": "Duplication of Pick Stitching"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011709dup",
+    "error_code": "100214",
+    "remark": "Duplication of Pick Stitch Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010508dup",
+    "error_code": "100215",
+    "remark": "Duplication of Buckle Loop"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010209dup",
+    "error_code": "100216",
+    "remark": "Duplication of Front Dart"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010210dup",
+    "error_code": "100217",
+    "remark": "Duplication of Chest Pocket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010510dup",
+    "error_code": "100218",
+    "remark": "Duplication of Side Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010511dup",
+    "error_code": "100219",
+    "remark": "Duplication of Left Back Pocket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010211dup",
+    "error_code": "100220",
+    "remark": "Duplication of Side Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010212dup",
+    "error_code": "100221",
+    "remark": "Duplication of Side Pocket Flap Size"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010512dup",
+    "error_code": "100222",
+    "remark": "Duplication of Right Back Pocket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010513dup",
+    "error_code": "100223",
+    "remark": "Duplication of Suspender Buttons"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010213dup",
+    "error_code": "100224",
+    "remark": "Duplication of Ticket Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010214dup",
+    "error_code": "100225",
+    "remark": "Duplication of Ticket Pocket Flap Size"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010514dup",
+    "error_code": "100226",
+    "remark": "Duplication of Fly Closing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010526dup",
+    "error_code": "100227",
+    "remark": "Duplication of Zipper Type"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010515dup",
+    "error_code": "100228",
+    "remark": "Duplication of Lining Placement"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010215dup",
+    "error_code": "100229",
+    "remark": "Duplication of Back Style"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010216dup",
+    "error_code": "100230",
+    "remark": "Duplication of Vents"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010516dup",
+    "error_code": "100231",
+    "remark": "Duplication of Int. Pkt & Trim Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010517dup",
+    "error_code": "100232",
+    "remark": "Duplication of Bottom Finishing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010217dup",
+    "error_code": "100233",
+    "remark": "Duplication of Cuff Finishing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010247dup",
+    "error_code": "100234",
+    "remark": "Duplication of Sleeve Button Qty"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010219dup",
+    "error_code": "100235",
+    "remark": "Duplication of Sleeve Button Spacing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010518dup",
+    "error_code": "100236",
+    "remark": "Duplication of Pick Stitching"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010218dup",
+    "error_code": "100237",
+    "remark": "Duplication of Sleeve Ribbon"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010519dup",
+    "error_code": "100238",
+    "remark": "Duplication of Pick Stitch Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010220dup",
+    "error_code": "100239",
+    "remark": "Duplication of Elbow Patches"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010221dup",
+    "error_code": "100240",
+    "remark": "Duplication of Melton Undercollar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010521dup",
+    "error_code": "100241",
+    "remark": "Duplication of Crotch Piece"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010522dup",
+    "error_code": "100242",
+    "remark": "Duplication of Monogram Heel Tape"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010523dup",
+    "error_code": "100243",
+    "remark": "Duplication of Monogram Font"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010524dup",
+    "error_code": "100244",
+    "remark": "Duplication of Monogram Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010525dup",
+    "error_code": "100245",
+    "remark": "Duplication of Mongram Text"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010222dup",
+    "error_code": "100246",
+    "remark": "Duplication of Throat Tab"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010223dup",
+    "error_code": "100247",
+    "remark": "Duplication of Interior Construction"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010224dup",
+    "error_code": "100248",
+    "remark": "Duplication of Lining Placement"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010225dup",
+    "error_code": "100249",
+    "remark": "Duplication of Sleeve Lining"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010226dup",
+    "error_code": "100250",
+    "remark": "Duplication of Mobile Phone Pocket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010227dup",
+    "error_code": "100251",
+    "remark": "Duplication of Interior Pocket Piping"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010228dup",
+    "error_code": "100252",
+    "remark": "Duplication of Pick Stitching"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010229dup",
+    "error_code": "100253",
+    "remark": "Duplication of Pick Stitch Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010230dup",
+    "error_code": "100254",
+    "remark": "Duplication of Front Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010231dup",
+    "error_code": "100255",
+    "remark": "Duplication of Lapel Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010232dup",
+    "error_code": "100256",
+    "remark": "Duplication of Sleeve Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010233dup",
+    "error_code": "100257",
+    "remark": "Duplication of 1st Sleeve Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010234dup",
+    "error_code": "100258",
+    "remark": "Duplication of Interior Pick Stitch Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010243dup",
+    "error_code": "100259",
+    "remark": "Duplication of Monogram Under Collar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010235dup",
+    "error_code": "100260",
+    "remark": "Duplication of Monogram Font"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010236dup",
+    "error_code": "100261",
+    "remark": "Duplication of Under Collar Monogram Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010238dup",
+    "error_code": "100262",
+    "remark": "Duplication of Under Collar Monogram Text"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010244dup",
+    "error_code": "100263",
+    "remark": "Duplication of Interior Lining Monogram"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010245dup",
+    "error_code": "100264",
+    "remark": "Duplication of Monogram Font"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010237dup",
+    "error_code": "100265",
+    "remark": "Duplication of Interior Lining Monogram Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010239dup",
+    "error_code": "100266",
+    "remark": "Duplication of Monogram Text Line 1"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010240dup",
+    "error_code": "100267",
+    "remark": "Duplication of Monogram Text Line 2"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010249dup",
+    "error_code": "100268",
+    "remark": "Duplication of Shop label"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010527dup",
+    "error_code": "100269",
+    "remark": "Duplication of Shop label"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010641dup",
+    "error_code": "100270",
+    "remark": "Duplication of Shop label"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011711dup",
+    "error_code": "100271",
+    "remark": "Duplication of Shop label"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010246dup",
+    "error_code": "100272",
+    "remark": "Duplication of Fabric Supplier Label "
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_houchongjian",
+    "error_code": "100273",
+    "remark": "Duplication of msy_houchongjian"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_houxiuyiwei",
+    "error_code": "100274",
+    "remark": "Duplication of msy_houxiuyiwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_houyangti",
+    "error_code": "100275",
+    "remark": "Duplication of msy_houyangti"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiachangbotou",
+    "error_code": "100276",
+    "remark": "Duplication of msy_jiachangbotou"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiadusheng",
+    "error_code": "100277",
+    "remark": "Duplication of msy_jiadusheng"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiakaiqichang",
+    "error_code": "100278",
+    "remark": "Duplication of msy_jiakaiqichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiakouweigao",
+    "error_code": "100279",
+    "remark": "Duplication of msy_jiakouweigao"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiakuanxiulong",
+    "error_code": "100280",
+    "remark": "Duplication of msy_jiakuanxiulong"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jialinggao",
+    "error_code": "100281",
+    "remark": "Duplication of msy_jialinggao"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianhoubeihu",
+    "error_code": "100282",
+    "remark": "Duplication of msy_jianhoubeihu"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiankaiqichang",
+    "error_code": "100283",
+    "remark": "Duplication of msy_jiankaiqichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiankouweigao",
+    "error_code": "100284",
+    "remark": "Duplication of msy_jiankouweigao"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianlinggao",
+    "error_code": "100285",
+    "remark": "Duplication of msy_jianlinggao"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianlingkou",
+    "error_code": "100286",
+    "remark": "Duplication of msy_jianlingkou"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianqianbaiwei",
+    "error_code": "100287",
+    "remark": "Duplication of msy_jianqianbaiwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianqianxiongkuan",
+    "error_code": "100288",
+    "remark": "Duplication of msy_jianqianxiongkuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianqianzhikou",
+    "error_code": "100289",
+    "remark": "Duplication of msy_jianqianzhikou"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianxiulong",
+    "error_code": "100290",
+    "remark": "Duplication of msy_jianxiulong"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianyoujiangao",
+    "error_code": "100291",
+    "remark": "Duplication of msy_jianyoujiangao"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianzuojiangao",
+    "error_code": "100292",
+    "remark": "Duplication of msy_jianzuojiangao"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiaqianxiongkuan",
+    "error_code": "100293",
+    "remark": "Duplication of msy_jiaqianxiongkuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiaqianzhikou",
+    "error_code": "100294",
+    "remark": "Duplication of msy_jiaqianzhikou"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiaxiongdouwei",
+    "error_code": "100295",
+    "remark": "Duplication of msy_jiaxiongdouwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiaxiongsheng",
+    "error_code": "100296",
+    "remark": "Duplication of msy_jiaxiongsheng"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiaxiulong",
+    "error_code": "100297",
+    "remark": "Duplication of msy_jiaxiulong"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiayoujiangao",
+    "error_code": "100298",
+    "remark": "Duplication of msy_jiayoujiangao"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiazuojiangao",
+    "error_code": "100299",
+    "remark": "Duplication of msy_jiazuojiangao"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_pingtun",
+    "error_code": "100300",
+    "remark": "Duplication of msy_pingtun"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_qianchongjian",
+    "error_code": "100301",
+    "remark": "Duplication of msy_qianchongjian"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_qianxiuyiwei",
+    "error_code": "100302",
+    "remark": "Duplication of msy_qianxiuyiwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_suoduanbotou",
+    "error_code": "100303",
+    "remark": "Duplication of msy_suoduanbotou"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_tuobeiti",
+    "error_code": "100304",
+    "remark": "Duplication of msy_tuobeiti"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiabaiwei",
+    "error_code": "100305",
+    "remark": "Duplication of msy_jiabaiwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianbaiwei",
+    "error_code": "100306",
+    "remark": "Duplication of msy_jianbaiwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiabeikuan",
+    "error_code": "100307",
+    "remark": "Duplication of msy_jiabeikuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianbeikuan",
+    "error_code": "100308",
+    "remark": "Duplication of msy_jianbeikuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianxiufei",
+    "error_code": "100309",
+    "remark": "Duplication of msy_jianxiufei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiaxiufei",
+    "error_code": "100310",
+    "remark": "Duplication of msy_jiaxiufei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiahouyichang",
+    "error_code": "100311",
+    "remark": "Duplication of msy_jiahouyichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianhouyichang",
+    "error_code": "100312",
+    "remark": "Duplication of msy_jianhouyichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiajiankuan",
+    "error_code": "100313",
+    "remark": "Duplication of msy_jiajiankuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianjiankuan",
+    "error_code": "100314",
+    "remark": "Duplication of msy_jianjiankuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianqianyichang",
+    "error_code": "100315",
+    "remark": "Duplication of msy_jianqianyichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiaqianyichang",
+    "error_code": "100316",
+    "remark": "Duplication of msy_jiaqianyichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianxiongwei",
+    "error_code": "100317",
+    "remark": "Duplication of msy_jianxiongwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiaxiongwei",
+    "error_code": "100318",
+    "remark": "Duplication of msy_jiaxiongwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianyouxiuchang",
+    "error_code": "100319",
+    "remark": "Duplication of msy_jianyouxiuchang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianzuoxiuchang",
+    "error_code": "100320",
+    "remark": "Duplication of msy_jianzuoxiuchang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiayouxiuchang",
+    "error_code": "100321",
+    "remark": "Duplication of msy_jiayouxiuchang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiazuoxiuchang",
+    "error_code": "100322",
+    "remark": "Duplication of msy_jiazuoxiuchang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianxiukou",
+    "error_code": "100323",
+    "remark": "Duplication of msy_jianxiukou"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiaxiukou",
+    "error_code": "100324",
+    "remark": "Duplication of msy_jiaxiukou"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jianyaowei",
+    "error_code": "100325",
+    "remark": "Duplication of msy_jianyaowei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "msy_jiayaowei",
+    "error_code": "100326",
+    "remark": "Duplication of msy_jiayaowei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jiadadangkuan",
+    "error_code": "100327",
+    "remark": "Duplication of mkz_jiadadangkuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jiadang",
+    "error_code": "100328",
+    "remark": "Duplication of mkz_jiadang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jiancetunwei",
+    "error_code": "100329",
+    "remark": "Duplication of mkz_jiancetunwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jiandadangkuan",
+    "error_code": "100330",
+    "remark": "Duplication of mkz_jiandadangkuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jiandangwei",
+    "error_code": "100331",
+    "remark": "Duplication of mkz_jiandangwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jiadatuiwei",
+    "error_code": "100332",
+    "remark": "Duplication of mkz_jiadatuiwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jiandatuiwei",
+    "error_code": "100333",
+    "remark": "Duplication of mkz_jiandatuiwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jiahoudang",
+    "error_code": "100334",
+    "remark": "Duplication of mkz_jiahoudang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jianhoudang",
+    "error_code": "100335",
+    "remark": "Duplication of mkz_jianhoudang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jiajiaokoukuan",
+    "error_code": "100336",
+    "remark": "Duplication of mkz_jiajiaokoukuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jianjiaokoukuan",
+    "error_code": "100337",
+    "remark": "Duplication of mkz_jianjiaokoukuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jianyoutuichang",
+    "error_code": "100338",
+    "remark": "Duplication of mkz_jianyoutuichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jianzuotuichang",
+    "error_code": "100339",
+    "remark": "Duplication of mkz_jianzuotuichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jiayoutuichang",
+    "error_code": "100340",
+    "remark": "Duplication of mkz_jiayoutuichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jiazuotuichang",
+    "error_code": "100341",
+    "remark": "Duplication of mkz_jiazuotuichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jianqiandang",
+    "error_code": "100342",
+    "remark": "Duplication of mkz_jianqiandang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jiaqiandang",
+    "error_code": "100343",
+    "remark": "Duplication of mkz_jiaqiandang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jianshangdang",
+    "error_code": "100344",
+    "remark": "Duplication of mkz_jianshangdang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jiashangdang",
+    "error_code": "100345",
+    "remark": "Duplication of mkz_jiashangdang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jiantunwei",
+    "error_code": "100346",
+    "remark": "Duplication of mkz_jiantunwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jiatunwei",
+    "error_code": "100347",
+    "remark": "Duplication of mkz_jiatunwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jianxiwei",
+    "error_code": "100348",
+    "remark": "Duplication of mkz_jianxiwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jiaxiwei",
+    "error_code": "100349",
+    "remark": "Duplication of mkz_jiaxiwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jianyaowei",
+    "error_code": "100350",
+    "remark": "Duplication of mkz_jianyaowei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mkz_jiayaowei",
+    "error_code": "100351",
+    "remark": "Duplication of mkz_jiayaowei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jialingshen",
+    "error_code": "100352",
+    "remark": "Duplication of mcs_jialingshen"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jiankouweigao",
+    "error_code": "100353",
+    "remark": "Duplication of mcs_jiankouweigao"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jianlingshen",
+    "error_code": "100354",
+    "remark": "Duplication of mcs_jianlingshen"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jianqianxiongwei",
+    "error_code": "100355",
+    "remark": "Duplication of mcs_jianqianxiongwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jianyoujiangao",
+    "error_code": "100356",
+    "remark": "Duplication of mcs_jianyoujiangao"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jianzuojiangao",
+    "error_code": "100357",
+    "remark": "Duplication of mcs_jianzuojiangao"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jiaqianxiongwei",
+    "error_code": "100358",
+    "remark": "Duplication of mcs_jiaqianxiongwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jiayoujiangao",
+    "error_code": "100359",
+    "remark": "Duplication of mcs_jiayoujiangao"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jiazuojiangao",
+    "error_code": "100360",
+    "remark": "Duplication of mcs_jiazuojiangao"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jiantunwei",
+    "error_code": "100361",
+    "remark": "Duplication of mcs_jiantunwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jiatunwei",
+    "error_code": "100362",
+    "remark": "Duplication of mcs_jiatunwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jiadabiwei",
+    "error_code": "100363",
+    "remark": "Duplication of mcs_jiadabiwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jiandabiwei",
+    "error_code": "100364",
+    "remark": "Duplication of mcs_jiandabiwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jiajiankuan",
+    "error_code": "100365",
+    "remark": "Duplication of mcs_jiajiankuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jianjiankuan",
+    "error_code": "100366",
+    "remark": "Duplication of mcs_jianjiankuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jialingkuan",
+    "error_code": "100367",
+    "remark": "Duplication of mcs_jialingkuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jianlingkuan",
+    "error_code": "100368",
+    "remark": "Duplication of mcs_jianlingkuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jianqianyichang",
+    "error_code": "100369",
+    "remark": "Duplication of mcs_jianqianyichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jiaqianyichang",
+    "error_code": "100370",
+    "remark": "Duplication of mcs_jiaqianyichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jianxiongwei",
+    "error_code": "100371",
+    "remark": "Duplication of mcs_jianxiongwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jiaxiongwei",
+    "error_code": "100372",
+    "remark": "Duplication of mcs_jiaxiongwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jianyouxiuchang",
+    "error_code": "100373",
+    "remark": "Duplication of mcs_jianyouxiuchang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jianzuoxiuchang",
+    "error_code": "100374",
+    "remark": "Duplication of mcs_jianzuoxiuchang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jiayouxiuchang",
+    "error_code": "100375",
+    "remark": "Duplication of mcs_jiayouxiuchang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jiazuoxiuchang",
+    "error_code": "100376",
+    "remark": "Duplication of mcs_jiazuoxiuchang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jianyouxiukoukuan",
+    "error_code": "100377",
+    "remark": "Duplication of mcs_jianyouxiukoukuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jianzuoxiukoukuan",
+    "error_code": "100378",
+    "remark": "Duplication of mcs_jianzuoxiukoukuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jiayouxiukoukuan",
+    "error_code": "100379",
+    "remark": "Duplication of mcs_jiayouxiukoukuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jiazuoxiukoukuan",
+    "error_code": "100380",
+    "remark": "Duplication of mcs_jiazuoxiukoukuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jianyaowei",
+    "error_code": "100381",
+    "remark": "Duplication of mcs_jianyaowei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jiayaowei",
+    "error_code": "100382",
+    "remark": "Duplication of mcs_jiayaowei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jiahouyichang",
+    "error_code": "100383",
+    "remark": "Duplication of mcs_jiahouyichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mcs_jianhouyichang",
+    "error_code": "100384",
+    "remark": "Duplication of mcs_jianhouyichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_houyangti",
+    "error_code": "100385",
+    "remark": "Duplication of mmj_houyangti"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jiabotou",
+    "error_code": "100386",
+    "remark": "Duplication of mmj_jiabotou"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jianbotou",
+    "error_code": "100387",
+    "remark": "Duplication of mmj_jianbotou"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jiangxiulong",
+    "error_code": "100388",
+    "remark": "Duplication of mmj_jiangxiulong"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jianqianzhikou",
+    "error_code": "100389",
+    "remark": "Duplication of mmj_jianqianzhikou"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jianyoujiangao",
+    "error_code": "100390",
+    "remark": "Duplication of mmj_jianyoujiangao"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jianzuojiangao",
+    "error_code": "100391",
+    "remark": "Duplication of mmj_jianzuojiangao"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jiaqianzhikou",
+    "error_code": "100392",
+    "remark": "Duplication of mmj_jiaqianzhikou"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jiayoujiangao",
+    "error_code": "100393",
+    "remark": "Duplication of mmj_jiayoujiangao"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jiazuojiangao",
+    "error_code": "100394",
+    "remark": "Duplication of mmj_jiazuojiangao"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_taigaokouwei",
+    "error_code": "100395",
+    "remark": "Duplication of mmj_taigaokouwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_taixiulong",
+    "error_code": "100396",
+    "remark": "Duplication of mmj_taixiulong"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_tiaodikouwei",
+    "error_code": "100397",
+    "remark": "Duplication of mmj_tiaodikouwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_tuobeiti",
+    "error_code": "100398",
+    "remark": "Duplication of mmj_tuobeiti"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jiabaiwei",
+    "error_code": "100399",
+    "remark": "Duplication of mmj_jiabaiwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jianbaiwei",
+    "error_code": "100400",
+    "remark": "Duplication of mmj_jianbaiwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jiahoubeikuan",
+    "error_code": "100401",
+    "remark": "Duplication of mmj_jiahoubeikuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jianhoubeikuan",
+    "error_code": "100402",
+    "remark": "Duplication of mmj_jianhoubeikuan"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jiahouyichang",
+    "error_code": "100403",
+    "remark": "Duplication of mmj_jiahouyichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jianhouyichang",
+    "error_code": "100404",
+    "remark": "Duplication of mmj_jianhouyichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jianqianyichang",
+    "error_code": "100405",
+    "remark": "Duplication of mmj_jianqianyichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jiaqianyichang",
+    "error_code": "100406",
+    "remark": "Duplication of mmj_jiaqianyichang"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jianxiongwei",
+    "error_code": "100407",
+    "remark": "Duplication of mmj_jianxiongwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jiaxiongwei",
+    "error_code": "100408",
+    "remark": "Duplication of mmj_jiaxiongwei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jianyaowei",
+    "error_code": "100409",
+    "remark": "Duplication of mmj_jianyaowei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mmj_jiayaowei",
+    "error_code": "100410",
+    "remark": "Duplication of mmj_jiayaowei"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "lingweimust",
+    "error_code": "100411",
+    "remark": "missing value of Finished Collar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiongwei_halfmust",
+    "error_code": "100412",
+    "remark": "missing value of 1/2 Chest"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yaowei_half",
+    "error_code": "100413",
+    "remark": "missing value of 1/2 Waist"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "baiwei_halfmust",
+    "error_code": "100414",
+    "remark": "missing value of 1/2 Hips"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "jiankuanmust",
+    "error_code": "100415",
+    "remark": "missing value of Shoulder Width"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yichangmust",
+    "error_code": "100416",
+    "remark": "missing value of Back Length"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_rmust",
+    "error_code": "100417",
+    "remark": "missing value of Finished Sleeve (R)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_lmust",
+    "error_code": "100418",
+    "remark": "missing value of Finished Sleeve (L)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiukou_rmust",
+    "error_code": "100419",
+    "remark": "missing value of Finished Cuff (R)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiukou_lmust",
+    "error_code": "100420",
+    "remark": "missing value of Finished Cuff (L)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "dabiwei_halfmust",
+    "error_code": "100421",
+    "remark": "missing value of 1/2 Upperarm"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "lingweidup",
+    "error_code": "100422",
+    "remark": "Duplication of Finished Collar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiongwei_halfdup",
+    "error_code": "100423",
+    "remark": "Duplication of 1/2 Chest"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yaowei_half",
+    "error_code": "100424",
+    "remark": "Duplication of 1/2 Waist"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "baiwei_halfdup",
+    "error_code": "100425",
+    "remark": "Duplication of 1/2 Hips"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "jiankuandup",
+    "error_code": "100426",
+    "remark": "Duplication of Shoulder Width"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yichangdup",
+    "error_code": "100427",
+    "remark": "Duplication of Back Length"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_rdup",
+    "error_code": "100428",
+    "remark": "Duplication of Finished Sleeve (R)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_ldup",
+    "error_code": "100429",
+    "remark": "Duplication of Finished Sleeve (L)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiukou_rdup",
+    "error_code": "100430",
+    "remark": "Duplication of Finished Cuff (R)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiukou_ldup",
+    "error_code": "100431",
+    "remark": "Duplication of Finished Cuff (L)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "dabiwei_halfdup",
+    "error_code": "100432",
+    "remark": "Duplication of 1/2 Upperarm"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "lingweiout",
+    "error_code": "100433",
+    "remark": "The value of Finished Collar is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiongwei_halfout",
+    "error_code": "100434",
+    "remark": "The value of 1/2 Chest is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yaowei_half",
+    "error_code": "100435",
+    "remark": "The value of 1/2 Waist is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "baiwei_halfout",
+    "error_code": "100436",
+    "remark": "The value of 1/2 Hips is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "jiankuanout",
+    "error_code": "100437",
+    "remark": "The value of Shoulder Width is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yichangout",
+    "error_code": "100438",
+    "remark": "The value of Back Length is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_rout",
+    "error_code": "100439",
+    "remark": "The value of Finished Sleeve (R) is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_lout",
+    "error_code": "100440",
+    "remark": "The value of Finished Sleeve (L) L is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiukou_rout",
+    "error_code": "100441",
+    "remark": "The value of Finished Cuff (R) is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiukou_lout",
+    "error_code": "100442",
+    "remark": "The value of Finished Cuff (L) is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "dabiwei_halfout",
+    "error_code": "100443",
+    "remark": "The value of 1/2 Upperarm is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T63must",
+    "error_code": "100444",
+    "remark": "missing value of 1/2 Shoulder"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T64must",
+    "error_code": "100445",
+    "remark": "missing value of 1/2 Back"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T65must",
+    "error_code": "100446",
+    "remark": "missing value of 1/2 Girth"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T66must",
+    "error_code": "100447",
+    "remark": "missing value of Back Length"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T69must",
+    "error_code": "100448",
+    "remark": "missing value of Outsleeve L"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T70must",
+    "error_code": "100449",
+    "remark": "missing value of Outsleeve R"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T72must",
+    "error_code": "100450",
+    "remark": "missing value of 1/2 Waist"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T73must",
+    "error_code": "100451",
+    "remark": "missing value of 1/2 Seat"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T74must",
+    "error_code": "100452",
+    "remark": "missing value of Rise"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T75must",
+    "error_code": "100453",
+    "remark": "missing value of Outseam (L)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T76must",
+    "error_code": "100454",
+    "remark": "missing value of Outseam (R)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T77must",
+    "error_code": "100455",
+    "remark": "missing value of 1/2 Thigh"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T78must",
+    "error_code": "100456",
+    "remark": "missing value of 1/2 Knee"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T79must",
+    "error_code": "100457",
+    "remark": "missing value of 1/2 Foot"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T80must",
+    "error_code": "100458",
+    "remark": "missing value of Back Length"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T81must",
+    "error_code": "100459",
+    "remark": "missing value of 1/2 Waist"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T82must",
+    "error_code": "100460",
+    "remark": "missing value of 1/2 Back"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T63dup",
+    "error_code": "100461",
+    "remark": "Duplication of 1/2 Shoulder"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T64dup",
+    "error_code": "100462",
+    "remark": "Duplication of 1/2 Back"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T65dup",
+    "error_code": "100463",
+    "remark": "Duplication of 1/2 Girth"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T66dup",
+    "error_code": "100464",
+    "remark": "Duplication of Back Length"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T69dup",
+    "error_code": "100465",
+    "remark": "Duplication of Outsleeve L"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T70dup",
+    "error_code": "100466",
+    "remark": "Duplication of Outsleeve R"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T72dup",
+    "error_code": "100467",
+    "remark": "Duplication of 1/2 Waist"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T73dup",
+    "error_code": "100468",
+    "remark": "Duplication of 1/2 Seat"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T74dup",
+    "error_code": "100469",
+    "remark": "Duplication of Rise"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T75dup",
+    "error_code": "100470",
+    "remark": "Duplication of Outseam (L)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T76dup",
+    "error_code": "100471",
+    "remark": "Duplication of Outseam (R)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T77dup",
+    "error_code": "100472",
+    "remark": "Duplication of 1/2 Thigh"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T78dup",
+    "error_code": "100473",
+    "remark": "Duplication of 1/2 Knee"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T79dup",
+    "error_code": "100474",
+    "remark": "Duplication of 1/2 Foot"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T80dup",
+    "error_code": "100475",
+    "remark": "Duplication of Back Length"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T81dup",
+    "error_code": "100476",
+    "remark": "Duplication of 1/2 Waist"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T82dup",
+    "error_code": "100477",
+    "remark": "Duplication of 1/2 Back"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T63out",
+    "error_code": "100478",
+    "remark": "The value of 1/2 Shoulder is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T64out",
+    "error_code": "100479",
+    "remark": "The value of 1/2 Back is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T65out",
+    "error_code": "100480",
+    "remark": "The value of 1/2 Girth is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T66out",
+    "error_code": "100481",
+    "remark": "The value of Back Length is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T69out",
+    "error_code": "100482",
+    "remark": "The value of Outsleeve L is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T70out",
+    "error_code": "100483",
+    "remark": "The value of Outsleeve R is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T72out",
+    "error_code": "100484",
+    "remark": "The value of 1/2 Waist is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T73out",
+    "error_code": "100485",
+    "remark": "The value of 1/2 Seat is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T74out",
+    "error_code": "100486",
+    "remark": "The value of Rise is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T75out",
+    "error_code": "100487",
+    "remark": "The value of Outseam (L) is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T76out",
+    "error_code": "100488",
+    "remark": "The value of Outseam (R) is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T77out",
+    "error_code": "100489",
+    "remark": "The value of 1/2 Thigh is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T78out",
+    "error_code": "100490",
+    "remark": "The value of 1/2 Knee is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T79out",
+    "error_code": "100491",
+    "remark": "The value of 1/2 Foot is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T80out",
+    "error_code": "100492",
+    "remark": "The value of Back Length is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T81out",
+    "error_code": "100493",
+    "remark": "The value of 1/2 Waist is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T82out",
+    "error_code": "100494",
+    "remark": "The value of 1/2 Back is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "jiankuanmust",
+    "error_code": "100495",
+    "remark": "missing value of Shoulder Width"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiongwei_halfmust",
+    "error_code": "100496",
+    "remark": "missing value of 1/2 Chest"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yaowei_halfmust",
+    "error_code": "100497",
+    "remark": "missing value of 1/2 Waist"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "baiwei_halfmust",
+    "error_code": "100498",
+    "remark": "missing value of 1/2 Hips"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_lmust",
+    "error_code": "100499",
+    "remark": "missing value of Finished Sleeve (L)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_rmust",
+    "error_code": "100500",
+    "remark": "missing value of Finished Sleeve (R)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiukou_lmust",
+    "error_code": "100501",
+    "remark": "missing value of Finished Cuff (L)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiukou_rmust",
+    "error_code": "100502",
+    "remark": "missing value of Finished Cuff (R)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "dabiwei_halfmust",
+    "error_code": "100503",
+    "remark": "missing value of 1/2 Upperarm"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "jiankuandup",
+    "error_code": "100504",
+    "remark": "Duplication of Shoulder Width"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiongwei_halfdup",
+    "error_code": "100505",
+    "remark": "Duplication of 1/2 Chest"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yaowei_halfdup",
+    "error_code": "100506",
+    "remark": "Duplication of 1/2 Waist"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "baiwei_halfdup",
+    "error_code": "100507",
+    "remark": "Duplication of 1/2 Hips"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_ldup",
+    "error_code": "100508",
+    "remark": "Duplication of Finished Sleeve (L)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_rdup",
+    "error_code": "100509",
+    "remark": "Duplication of Finished Sleeve (R)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiukou_ldup",
+    "error_code": "100510",
+    "remark": "Duplication of Finished Cuff (L)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiukou_rdup",
+    "error_code": "100511",
+    "remark": "Duplication of Finished Cuff (R)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "dabiwei_halfdup",
+    "error_code": "100512",
+    "remark": "Duplication of 1/2 Upperarm"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "jiankuanout",
+    "error_code": "100513",
+    "remark": "The value of Shoulder Width is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiongwei_halfout",
+    "error_code": "100514",
+    "remark": "The value of 1/2 Chest is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yaowei_halfout",
+    "error_code": "100515",
+    "remark": "The value of 1/2 Waist is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "baiwei_halfout",
+    "error_code": "100516",
+    "remark": "The value of 1/2 Hips is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_lout",
+    "error_code": "100517",
+    "remark": "The value of Finished Sleeve (L) is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_rout",
+    "error_code": "100518",
+    "remark": "The value of Finished Sleeve (R) is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiukou_lout",
+    "error_code": "100519",
+    "remark": "The value of Finished Cuff (L) is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiukou_rout",
+    "error_code": "100520",
+    "remark": "The value of Finished Cuff (R) is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "dabiwei_halfout",
+    "error_code": "100521",
+    "remark": "The value of 1/2 Upperarm is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "jiankuan_halfmust",
+    "error_code": "100522",
+    "remark": "missing value of 1/2 Shoulder"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiongwei_halfmust",
+    "error_code": "100523",
+    "remark": "missing value of 1/2 Chest"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yaowei_halfmust",
+    "error_code": "100524",
+    "remark": "missing value of 1/2 Waist"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "baiwei_halfmust",
+    "error_code": "100525",
+    "remark": "missing value of 1/2 Seat"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "houyichangmust",
+    "error_code": "100526",
+    "remark": "missing value of Back Length"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_lmust",
+    "error_code": "100527",
+    "remark": "missing value of Sleeve Outseam (L)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_rmust",
+    "error_code": "100528",
+    "remark": "missing value of Sleeve Outseam (R)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "dabiwei_halfmust",
+    "error_code": "100529",
+    "remark": "missing value of 1/2 Upperarm"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "jiankuan_halfdup",
+    "error_code": "100530",
+    "remark": "Duplication of 1/2 Shoulder"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiongwei_halfdup",
+    "error_code": "100531",
+    "remark": "Duplication of 1/2 Chest"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yaowei_halfdup",
+    "error_code": "100532",
+    "remark": "Duplication of 1/2 Waist"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "baiwei_halfdup",
+    "error_code": "100533",
+    "remark": "Duplication of 1/2 Seat"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "houyichangdup",
+    "error_code": "100534",
+    "remark": "Duplication of Back Length"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_ldup",
+    "error_code": "100535",
+    "remark": "Duplication of Sleeve Outseam (L)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_rdup",
+    "error_code": "100536",
+    "remark": "Duplication of Sleeve Outseam (R)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "dabiwei_halfdup",
+    "error_code": "100537",
+    "remark": "Duplication of 1/2 Upperarm"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "jiankuan_halfout",
+    "error_code": "100538",
+    "remark": "The value of 1/2 Shoulder is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiongwei_halfout",
+    "error_code": "100539",
+    "remark": "The value of 1/2 Chest is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yaowei_halfout",
+    "error_code": "100540",
+    "remark": "The value of 1/2 Waist is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "baiwei_halfout",
+    "error_code": "100541",
+    "remark": "The value of 1/2 Seat is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "houyichangout",
+    "error_code": "100542",
+    "remark": "The value of Back Length is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_lout",
+    "error_code": "100543",
+    "remark": "The value of Sleeve Outseam (L) is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiuchang_rout",
+    "error_code": "100544",
+    "remark": "The value of Sleeve Outseam (R) is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "dabiwei_halfout",
+    "error_code": "100545",
+    "remark": "The value of 1/2 Upperarm is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yaowei_halfmust",
+    "error_code": "100546",
+    "remark": "missing value of 1/2 Waist (Fin.)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "tunwei_halfmust",
+    "error_code": "100547",
+    "remark": "missing value of 1/2 Seat (Fin.)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "quandangchangmust",
+    "error_code": "100548",
+    "remark": "missing value of U Rise"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "kuchang_lmust",
+    "error_code": "100549",
+    "remark": "missing value of Outseam (L)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "kuchang_rmust",
+    "error_code": "100550",
+    "remark": "missing value of Outseam (R)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "hengdang_halfmust",
+    "error_code": "100551",
+    "remark": "missing value of 1/2 Crotch"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "jiaokou_halfmust",
+    "error_code": "100552",
+    "remark": "missing value of 1/2 Foot"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yaowei_halfdup",
+    "error_code": "100553",
+    "remark": "Duplication of 1/2 Waist (Fin.)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "tunwei_halfdup",
+    "error_code": "100554",
+    "remark": "Duplication of 1/2 Seat (Fin.)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "quandangchangdup",
+    "error_code": "100555",
+    "remark": "Duplication of U Rise"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "kuchang_ldup",
+    "error_code": "100556",
+    "remark": "Duplication of Outseam (L)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "kuchang_rdup",
+    "error_code": "100557",
+    "remark": "Duplication of Outseam (R)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "hengdang_halfdup",
+    "error_code": "100558",
+    "remark": "Duplication of 1/2 Crotch"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "jiaokou_halfdup",
+    "error_code": "100559",
+    "remark": "Duplication of 1/2 Foot"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yaowei_halfout",
+    "error_code": "100560",
+    "remark": "The value of 1/2 Waist (Fin.) is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "tunwei_halfout",
+    "error_code": "100561",
+    "remark": "The value of 1/2 Seat (Fin.) is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "quandangchangout",
+    "error_code": "100562",
+    "remark": "The value of U Rise is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "kuchang_lout",
+    "error_code": "100563",
+    "remark": "The value of Outseam (L) is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "kuchang_rout",
+    "error_code": "100564",
+    "remark": "The value of Outseam (R) is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "hengdang_halfout",
+    "error_code": "100565",
+    "remark": "The value of 1/2 Crotch is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "jiaokou_halfout",
+    "error_code": "100566",
+    "remark": "The value of 1/2 Foot is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "houyichangmust",
+    "error_code": "100567",
+    "remark": "missing value of Back Length"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiongwei_halfmust",
+    "error_code": "100568",
+    "remark": "missing value of 1/2 Chest"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yaowei_halfmust",
+    "error_code": "100569",
+    "remark": "missing value of 1/2 Waist"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "houyichangdup",
+    "error_code": "100570",
+    "remark": "Duplication of Back Length"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiongwei_halfdup",
+    "error_code": "100571",
+    "remark": "Duplication of 1/2 Chest"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yaowei_halfdup",
+    "error_code": "100572",
+    "remark": "Duplication of 1/2 Waist"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "houyichangout",
+    "error_code": "100573",
+    "remark": "The value of Back Length is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiongwei_halfout",
+    "error_code": "100574",
+    "remark": "The value of 1/2 Chest is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "yaowei_halfout",
+    "error_code": "100575",
+    "remark": "The value of 1/2 Waist is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "qianyichangout",
+    "error_code": "100576",
+    "remark": "The value of Front Length is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "xiukou_halfout",
+    "error_code": "100577",
+    "remark": "The value of 1/2 hand width is out of range"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010401must",
+    "error_code": "100578",
+    "remark": "missing value of Closure & Lapel"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010402must",
+    "error_code": "100579",
+    "remark": "missing value of Contrast Top Collar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010403must",
+    "error_code": "100580",
+    "remark": "missing value of Lapel Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010404must",
+    "error_code": "100581",
+    "remark": "missing value of Side Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010405must",
+    "error_code": "100582",
+    "remark": "missing value of Ticket Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010406must",
+    "error_code": "100583",
+    "remark": "missing value of Chest Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010407must",
+    "error_code": "100584",
+    "remark": "missing value of Vents"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010408must",
+    "error_code": "100585",
+    "remark": "missing value of Cuff Finishing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010409must",
+    "error_code": "100586",
+    "remark": "missing value of Pick Stitching"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010410must",
+    "error_code": "100587",
+    "remark": "missing value of Shoulder Type"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010411must",
+    "error_code": "100588",
+    "remark": "missing value of Interior Construction"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010412must",
+    "error_code": "100589",
+    "remark": "missing value of Sleeve Lining"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010413must",
+    "error_code": "100590",
+    "remark": "missing value of Mobile Phone Pocket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010414must",
+    "error_code": "100591",
+    "remark": "missing value of Button"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010415must",
+    "error_code": "100592",
+    "remark": "missing value of Interior Pocket Piping"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010416must",
+    "error_code": "100593",
+    "remark": "missing value of Interior Pick Stitching Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010417must",
+    "error_code": "100594",
+    "remark": "missing value of 1st Sleeve Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010418must",
+    "error_code": "100595",
+    "remark": "missing value of Melton Undercollar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010419must",
+    "error_code": "100596",
+    "remark": "missing value of Monogram Under Collar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010423must",
+    "error_code": "100597",
+    "remark": "missing value of Interior Lining Monogram"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010522must",
+    "error_code": "100598",
+    "remark": "missing value of Monogram Heel Tape"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010429must",
+    "error_code": "100599",
+    "remark": "missing value of Sleeve Button Spacing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010430must",
+    "error_code": "100600",
+    "remark": "missing value of Front Dart"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010527must",
+    "error_code": "100601",
+    "remark": "missing value of Shop label"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010431must",
+    "error_code": "100602",
+    "remark": "missing value of Shop label"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010250must",
+    "error_code": "100603",
+    "remark": "missing value of Above Left Pocket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010432must",
+    "error_code": "100604",
+    "remark": "missing value of Fabric Supplier Label "
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010528must",
+    "error_code": "100605",
+    "remark": "missing value of Leg Pressing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010529must",
+    "error_code": "100606",
+    "remark": "missing value of Waistband V-Split"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010251must",
+    "error_code": "100607",
+    "remark": "missing value of Lapel Buttonhole Style"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010252must",
+    "error_code": "100608",
+    "remark": "missing value of Formal Treatment Collar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010253must",
+    "error_code": "100609",
+    "remark": "missing value of Formal Treatment Breast Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010254must",
+    "error_code": "100610",
+    "remark": "missing value of Formal Treatment Pocket Jetting"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010255must",
+    "error_code": "100611",
+    "remark": "missing value of Formal Treatment Side Flap Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010530must",
+    "error_code": "100612",
+    "remark": "missing value of Back Pocket Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011712must",
+    "error_code": "100613",
+    "remark": "missing value of Formal Treatment Lapel"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011713must",
+    "error_code": "100614",
+    "remark": "missing value of Formal Treatment Chest Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011714must",
+    "error_code": "100615",
+    "remark": "missing value of Formal Treatment Side Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011715must",
+    "error_code": "100616",
+    "remark": "missing value of Formal Treatment Collar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010531must",
+    "error_code": "100617",
+    "remark": "missing value of Side Stripe Formal Treatment"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010528must",
+    "error_code": "100618",
+    "remark": "missing value of Leg Pressing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010529must",
+    "error_code": "100619",
+    "remark": "missing value of Waistband V-Split"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010530must",
+    "error_code": "100620",
+    "remark": "missing value of Back Pocket Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010531must",
+    "error_code": "100621",
+    "remark": "missing value of Side Stripe Formal Treatment"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010401dup",
+    "error_code": "100622",
+    "remark": "Duplication of Closure & Lapel"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010402dup",
+    "error_code": "100623",
+    "remark": "Duplication of Contrast Top Collar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010403dup",
+    "error_code": "100624",
+    "remark": "Duplication of Lapel Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010404dup",
+    "error_code": "100625",
+    "remark": "Duplication of Side Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010405dup",
+    "error_code": "100626",
+    "remark": "Duplication of Ticket Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010406dup",
+    "error_code": "100627",
+    "remark": "Duplication of Chest Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010407dup",
+    "error_code": "100628",
+    "remark": "Duplication of Vents"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010408dup",
+    "error_code": "100629",
+    "remark": "Duplication of Cuff Finishing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010409dup",
+    "error_code": "100630",
+    "remark": "Duplication of Pick Stitching"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010410dup",
+    "error_code": "100631",
+    "remark": "Duplication of Shoulder Type"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010411dup",
+    "error_code": "100632",
+    "remark": "Duplication of Interior Construction"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010412dup",
+    "error_code": "100633",
+    "remark": "Duplication of Sleeve Lining"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010413dup",
+    "error_code": "100634",
+    "remark": "Duplication of Mobile Phone Pocket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010414dup",
+    "error_code": "100635",
+    "remark": "Duplication of Button"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010415dup",
+    "error_code": "100636",
+    "remark": "Duplication of Interior Pocket Piping"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010416dup",
+    "error_code": "100637",
+    "remark": "Duplication of Interior Pick Stitching Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010417dup",
+    "error_code": "100638",
+    "remark": "Duplication of 1st Sleeve Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010418dup",
+    "error_code": "100639",
+    "remark": "Duplication of Melton Undercollar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010419dup",
+    "error_code": "100640",
+    "remark": "Duplication of Monogram Under Collar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010423dup",
+    "error_code": "100641",
+    "remark": "Duplication of Interior Lining Monogram"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010522dup",
+    "error_code": "100642",
+    "remark": "Duplication of Monogram Heel Tape"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010429dup",
+    "error_code": "100643",
+    "remark": "Duplication of Sleeve Button Spacing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010430dup",
+    "error_code": "100644",
+    "remark": "Duplication of Front Dart"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010527dup",
+    "error_code": "100645",
+    "remark": "Duplication of Shop label"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010431dup",
+    "error_code": "100646",
+    "remark": "Duplication of Shop label"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010250dup",
+    "error_code": "100647",
+    "remark": "Duplication of Above Left Pocket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010432dup",
+    "error_code": "100648",
+    "remark": "Duplication of Fabric Supplier Label "
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010528dup",
+    "error_code": "100649",
+    "remark": "Duplication of Leg Pressing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010529dup",
+    "error_code": "100650",
+    "remark": "Duplication of Waistband V-Split"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010251dup",
+    "error_code": "100651",
+    "remark": "Duplication of Lapel Buttonhole Style"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010252dup",
+    "error_code": "100652",
+    "remark": "Duplication of Formal Treatment Collar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010253dup",
+    "error_code": "100653",
+    "remark": "Duplication of Formal Treatment Breast Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010254dup",
+    "error_code": "100654",
+    "remark": "Duplication of Formal Treatment Pocket Jetting"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010255dup",
+    "error_code": "100655",
+    "remark": "Duplication of Formal Treatment Side Flap Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010530dup",
+    "error_code": "100656",
+    "remark": "Duplication of Back Pocket Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011712dup",
+    "error_code": "100657",
+    "remark": "Duplication of Formal Treatment Lapel"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011713dup",
+    "error_code": "100658",
+    "remark": "Duplication of Formal Treatment Chest Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011714dup",
+    "error_code": "100659",
+    "remark": "Duplication of Formal Treatment Side Pockets"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T011715dup",
+    "error_code": "100660",
+    "remark": "Duplication of Formal Treatment Collar"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010531dup",
+    "error_code": "100661",
+    "remark": "Duplication of Side Stripe Formal Treatment"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010528dup",
+    "error_code": "100662",
+    "remark": "Duplication of Leg Pressing"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010529dup",
+    "error_code": "100663",
+    "remark": "Duplication of Waistband V-Split"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010530dup",
+    "error_code": "100664",
+    "remark": "Duplication of Back Pocket Buttonhole Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010531dup",
+    "error_code": "100665",
+    "remark": "Duplication of Side Stripe Formal Treatment"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010420must",
+    "error_code": "100666",
+    "remark": "missing value of Monogram Font"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010421must",
+    "error_code": "100667",
+    "remark": "missing value of Under Collar Monogram Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010422must",
+    "error_code": "100668",
+    "remark": "missing value of Under Collar Monogram Text"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010424must",
+    "error_code": "100669",
+    "remark": "missing value of Monogram Font"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010425must",
+    "error_code": "100670",
+    "remark": "missing value of Interior Lining Monogram Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010426must",
+    "error_code": "100671",
+    "remark": "missing value of Monogram Line Qty"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010427must",
+    "error_code": "100672",
+    "remark": "missing value of Monogram Text Line 1"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010428must",
+    "error_code": "100673",
+    "remark": "missing value of Monogram Text Line 2"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010523must",
+    "error_code": "100674",
+    "remark": "missing value of Monogram Font"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010524must",
+    "error_code": "100675",
+    "remark": "missing value of Monogram Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010525must",
+    "error_code": "100676",
+    "remark": "missing value of Mongram Text"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010250must",
+    "error_code": "100677",
+    "remark": "missing value of Above Left Pocket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010532must",
+    "error_code": "100678",
+    "remark": "missing value of Watch Pocket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010532must",
+    "error_code": "100679",
+    "remark": "missing value of watch pocket"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010256must",
+    "error_code": "100680",
+    "remark": "missing value of Closure Buttonhole"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010257must",
+    "error_code": "100681",
+    "remark": "missing value of Chest Pocket Monogram"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010258must",
+    "error_code": "100682",
+    "remark": "missing value of Jacket Breast Pocket Emblem"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010259must",
+    "error_code": "100683",
+    "remark": "missing value of Monogram Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010642must",
+    "error_code": "100684",
+    "remark": "missing value of Formal Front with Studs"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010642must",
+    "error_code": "100685",
+    "remark": "missing value of Formal Front with Studs"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010643must",
+    "error_code": "100686",
+    "remark": "missing value of Chest Pocket Monogram"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010644must",
+    "error_code": "100687",
+    "remark": "missing value of Jacket Breast Pocket Emblem"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010645must",
+    "error_code": "100688",
+    "remark": "missing value of Monogram Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010643must",
+    "error_code": "100689",
+    "remark": "missing value of Chest Pocket Monogram"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010644must",
+    "error_code": "100690",
+    "remark": "missing value of Jacket Breast Pocket Emblem"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "T010645must",
+    "error_code": "100691",
+    "remark": "missing value of Monogram Color"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "brand",
+    "error_code": "1039",
+    "remark": "missing brand"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mainorder",
+    "error_code": "1040",
+    "remark": "missing mainorder"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "order",
+    "error_code": "1041",
+    "remark": "missing order"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "mode",
+    "error_code": "1042",
+    "remark": "missing mode"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "shop",
+    "error_code": "1043",
+    "remark": "missing shop"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "combination",
+    "error_code": "1044",
+    "remark": "missing combination"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "customer",
+    "error_code": "1045",
+    "remark": "missing customer"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "cdate",
+    "error_code": "1046",
+    "remark": "missing cdate"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "fabric",
+    "error_code": "1047",
+    "remark": "missing fabric"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "lining",
+    "error_code": "1048",
+    "remark": "missing lining"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "NoRecord",
+    "error_code": "1049",
+    "remark": "No order detail record"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "MissingGoods",
+    "error_code": "1050",
+    "remark": "missing goods records"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "fabric_outstock",
+    "error_code": "1051",
+    "remark": "The fabric is out of stock"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "lining_outstock",
+    "error_code": "1052",
+    "remark": "The lining is out of stock"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "fabricUnavailable",
+    "error_code": "1061",
+    "remark": "the fabric is not Available"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "fabricNonexist",
+    "error_code": "1062",
+    "remark": "the fabric is not Exist"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "liningUnavailable",
+    "error_code": "1063",
+    "remark": "the lining is not Available"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "liningNonexist",
+    "error_code": "1064",
+    "remark": "the lining is not Exist"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "OrderDup",
+    "error_code": "1382",
+    "remark": "Duplication of Order"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "MissingFit",
+    "error_code": "1383",
+    "remark": "missing value of Fit"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "MissingOrderClass",
+    "error_code": "1385",
+    "remark": "missing value of class"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "MissingMade",
+    "error_code": "1386",
+    "remark": "missing value of Made"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "1387",
+    "error_code": "1387",
+    "remark": "Decryption data error"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "1388",
+    "error_code": "1388",
+    "remark": "Convert JSON data error"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "1389",
+    "error_code": "1389",
+    "remark": "JSON data error"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "1390",
+    "error_code": "1390",
+    "remark": "Contains orders that have been imported"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "1391",
+    "error_code": "1391",
+    "remark": "The order does no exist"
+  },
+  {
+    "brand": "TU",
+    "pt_code": "brand",
+    "error_code": "1392",
+    "remark": "Try on Size not found"
+  },
+  {
+    "brand": "TU",
+    "pt_code": null,
+    "error_code": "400",
+    "remark": "The request cannot be fulfilled due to bad syntax"
+  },
+  {
+    "brand": "TU",
+    "pt_code": null,
+    "error_code": "401",
+    "remark": "The request was a legal request, but the server is refusing to respond to it. For use when authentication is possible but has failed or not yet been provided"
+  },
+  {
+    "brand": "TU",
+    "pt_code": null,
+    "error_code": "404",
+    "remark": "The requested page could not be found but may be available again in the future"
+  },
+  {
+    "brand": "TU",
+    "pt_code": null,
+    "error_code": "406",
+    "remark": "The server can only generate a response that is not accepted by the client"
+  },
+  {
+    "brand": "TU",
+    "pt_code": null,
+    "error_code": "500",
+    "remark": "A generic error message, given when no more specific message is suitable"
+  },
+  {
+    "brand": "TU",
+    "pt_code": null,
+    "error_code": "503",
+    "remark": "The server is currently unavailable (overloaded or down)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": null,
+    "error_code": "801",
+    "remark": "Appsecret is not correct"
+  },
+  {
+    "brand": "TU",
+    "pt_code": null,
+    "error_code": "9001",
+    "remark": "USTYYLIT Data write error"
+  },
+  {
+    "brand": "TU",
+    "pt_code": null,
+    "error_code": "9002",
+    "remark": "Styleno error. example,for different class, the first line is 01 , second line is 02 "
+  },
+  {
+    "brand": "TU",
+    "pt_code": null,
+    "error_code": "9003",
+    "remark": "missing value of Smoking color(Jacket)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": null,
+    "error_code": "9004",
+    "remark": "missing value of Smoking color(Trousers)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": null,
+    "error_code": "9005",
+    "remark": "missing value of Button code (Jacket)"
+  },
+  {
+    "brand": "TU",
+    "pt_code": null,
+    "error_code": "9006",
+    "remark": "Missing Design Options"
+  }
+]

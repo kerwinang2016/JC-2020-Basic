@@ -2,7 +2,7 @@
 registerMacro('itemDetails', function (line) { %>
 <%
 	var item = line.item;
-	var fabricdetails = _.where(item.get("options"), {id:"custcol_custom_fabric_details"})
+	var fabricdetails = _.where(item.get("options"), {id:"custcol_custom_fabric_details"});
 	if(fabricdetails[0]){
 		var fabricjson = JSON.parse(fabricdetails[0].value);
 		if(fabricjson.code && fabricjson.collection){
@@ -14,7 +14,12 @@ registerMacro('itemDetails', function (line) { %>
 	{
 		return option.id +'='+ option.value;
 	}).join(',');
-
+	var so_id = _.find(line.options,function(option){
+		return option.id == "custcol_so_id";
+	});
+	var cmtstatus = _.find(line.options,function(option){
+		return option.id == "custcol_avt_cmt_status";
+	});
 	var link_attributes = false
 	,	url = line.item.get('_isPurchasable') ? line.item.get('_url') : null;
 
@@ -117,9 +122,18 @@ registerMacro('itemDetails', function (line) { %>
 	<tr class="re-order-item <%if(!line.amount){%>hide<%}%>">
 		<td colspan="5">
 		<% if(line.item.get("itemtype") != 'GiftCert') { %>
-			<button class="btn-link" data-re-order-item-link="<%= line.id %>" data-item-id="<%= line.item.get('_id') %>" data-item-quantity="<%= line.quantity %>" data-parent-id="<%=line.item.get('parent_internalid') %>" data-item-options='<%= line.format_options %>'>
+			<button class="btn-link" data-re-order-item-link="<%= line.id %>" data-item-id="<%= line.item.get('_id') %>" data-item-quantity="<%= line.quantity %>"
+			 data-parent-id="<%=line.item.get('parent_internalid') %>">
 				<%= line.quantity > 1 ? _('Reorder these Items').translate() : _('Reorder this Item').translate() %>
-			</button>
+			</button> |
+			<button data-requestdiscount="<%= so_id.value %>" data-line="<%= line.id %>" class="btn-link">Request Discount</button>
+			<% if(cmtstatus == '1' || cmtstatus == '2' || cmtstatus == '5' || cmtstatus == '6' || cmtstatus == '7' || cmtstatus == '8') { %> |
+			<button data-requestrush="<%= so_id.value %>" data-line="<%= line.id %>" class="btn-link">Request Rush</button> |
+			<button data-requestcancel="<%= so_id.value %>" data-line="<%= line.id %>" class="btn-link">Request Cancel</button>
+			<% } %>
+			<% if(cmtstatus == '1' || cmtstatus == '2' || cmtstatus == '5' || cmtstatus == '7' || cmtstatus == '8') { %> |
+			<button data-requesthold="<%= so_id.value %>" data-line="<%= line.id %>" class="btn-link">Request Hold</button>
+			<% } %>
 		<% } else { %>
 			<a data-giftcard-item-link="<%= line.item.get('_url') %>" data-giftcard-item-name="<%= line.item.get('_sku') %>" data-parent-id="<%=line.item.get('parent_internalid') %>" data-item-options='<%= line.format_options %>' href="#">
 			</a>

@@ -45,7 +45,6 @@ define('PriceLists.View', function ()
 					self.surchargesformakeandtrim = JSON.parse(data);
 				}
 			});
-			console.log(self.surchargesformakeandtrim)
 		}
 	,	events: {
 			'click [data-action="downloadCMTStockedFabric"]': 'downloadCMTStockedFabric'

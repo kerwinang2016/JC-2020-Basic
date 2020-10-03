@@ -92,7 +92,6 @@ function (CaseDetailView, CaseCollection, CaseModel, CaseRouter, CaseCreateView,
 		{
 			app = application;
 			application.CaseModule = CaseModule;
-			console.log('this')
 			// always start our router.
 			return new CaseRouter(application);
 		};

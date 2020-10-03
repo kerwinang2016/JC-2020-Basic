@@ -293,71 +293,42 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				//Add a check for fitprofile
 
 				var ptype = _.where(line.get("options"), {id: "CUSTCOL_PRODUCTTYPE"})[0].value;
-
+				var ProductTypeProfileMap = {
+					'Jacket': "CUSTCOL_FITPROFILE_JACKET",
+					'Trouser': 'CUSTCOL_FITPROFILE_TROUSER',
+					'Waistcoat': 'CUSTCOL_FITPROFILE_WAISTCOAT',
+					'Overcoat': 'CUSTCOL_FITPROFILE_OVERCOAT',
+					'Shirt': 'CUSTCOL_FITPROFILE_SHIRT',
+					'Ladies-Jacket': 'CUSTCOL_FITPROFILE_LADIESJACKET',
+					'Ladies-Pants': 'CUSTCOL_FITPROFILE_LADIESPANTS',
+					'Ladies-Skirt': 'CUSTCOL_FITPROFILE_LADIESSKIRT',
+					'Short-Sleeves-Shirt': 'CUSTCOL_FITPROFILE_SSSHIRT',
+					'Trenchcoat': 'CUSTCOL_FITPROFILE_TRENCHCOAT',
+					'Shorts': 'CUSTCOL_FITPROFILE_SHORTS',
+					'Safari-Jacket': 'CUSTCOL_FITPROFILE_SAFARI_JACKET',
+					'Morning-Coat': 'CUSTCOL_FITPROFILE_MORNING_COAT',
+					'Shirt-Jacket': 'CUSTCOL_FITPROFILE_SHIRT_JACKET',
+					'Camp-Shirt': 'CUSTCOL_FITPROFILE_CAMP_SHIRT'
+				};
+				var ProductTypeOptionsMap = {
+					'Jacket': "CUSTCOL_DESIGNOPTIONS_JACKET",
+					'Trouser': 'CUSTCOL_DESIGNOPTIONS_TROUSER',
+					'Waistcoat': 'CUSTCOL_DESIGNOPTIONS_WAISTCOAT',
+					'Overcoat': 'CUSTCOL_DESIGNOPTIONS_OVERCOAT',
+					'Shirt': 'CUSTCOL_DESIGNOPTIONS_SHIRT',
+					'Ladies-Jacket': 'CUSTCOL_DESIGNOPTIONS_LADIESJACKET',
+					'Ladies-Pants': 'CUSTCOL_DESIGNOPTIONS_LADIESPANTS',
+					'Ladies-Skirt': 'CUSTCOL_DESIGNOPTIONS_LADIESSKIRT',
+					'Short-Sleeves-Shirt': 'CUSTCOL_DESIGNOPTIONS_SSSHIRT',
+					'Trenchcoat': 'CUSTCOL_DESIGNOPTIONS_TRENCHCOAT',
+					'Shorts': 'CUSTCOL_DESIGNOPTIONS_SHORTS',
+					'Safari-Jacket': 'CUSTCOL_DESIGNOPTIONS_SAFARI_JACKET',
+					'Morning-Coat': 'CUSTCOL_DESIGNOPTIONS_MORNING_COAT',
+					'Shirt-Jacket': 'CUSTCOL_DESIGNOPTIONS_SHIRT_JACKET',
+					'Camp-Shirt': 'CUSTCOL_DESIGNOPTIONS_CAMP_SHIRT'
+				}
 				if(ptype){
-
 					switch(ptype){
-						case 'Jacket':
-								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_JACKET"});
-								if(!ptype_profile || ptype_profile.length == 0 || ptype_profile[0].value == "[]" || ptype_profile[0].value == ""){
-									hasError = true;
-									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
-								}
-								var ptype_dop = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_JACKET"});
-
-								if(!ptype_dop || ptype_dop.length == 0 || ptype_dop[0].value == "[]" || ptype_dop[0].value == ""){
-									hasError = true;
-									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without design options', 'error', true));
-								}
-								 break;
-						case 'Trouser':
-								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_TROUSER"});
-								if(!ptype_profile || ptype_profile.length == 0 || ptype_profile[0].value == "[]" || ptype_profile[0].value == ""){
-									hasError = true;
-									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
-								}
-								var ptype_dop = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_TROUSER"});
-								if(!ptype_dop || ptype_dop.length == 0 || ptype_dop[0].value == "[]" || ptype_dop[0].value == ""){
-									hasError = true;
-									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without design options', 'error', true));
-								}
-								break;
-						case 'Waistcoat':
-								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_WAISTCOAT"});
-								if(!ptype_profile || ptype_profile.length == 0 || ptype_profile[0].value == "[]" || ptype_profile[0].value == ""){
-									hasError = true;
-									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
-								}
-								var ptype_dop = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_WAISTCOAT"});
-								if(!ptype_dop || ptype_dop.length == 0 || ptype_dop[0].value == "[]" || ptype_dop[0].value == ""){
-									hasError = true;
-									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without design options', 'error', true));
-								}
-								break;
-						case 'Overcoat':
-								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_OVERCOAT"});
-								if(!ptype_profile || ptype_profile.length == 0 || ptype_profile[0].value == "[]" || ptype_profile[0].value == ""){
-									hasError = true;
-									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
-								}
-								var ptype_dop = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_OVERCOAT"});
-								if(!ptype_dop || ptype_dop.length == 0 || ptype_dop[0].value == "[]" || ptype_dop[0].value == ""){
-									hasError = true;
-									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without design options', 'error', true));
-								}
-								break;
-						case 'Shirt':
-								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_SHIRT"});
-								if(!ptype_profile || ptype_profile.length == 0 || ptype_profile[0].value == "[]" || ptype_profile[0].value == ""){
-									hasError = true;
-									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
-								}
-								var ptype_dop = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_SHIRT"});
-								if(!ptype_dop || ptype_dop.length == 0 || ptype_dop[0].value == "[]" || ptype_dop[0].value == ""){
-									hasError = true;
-									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without design options', 'error', true));
-								}
-								break;
 						case '2-Piece-Suit':
 								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_JACKET"});
 								if(!ptype_profile || ptype_profile.length == 0 || ptype_profile[0].value == "[]" || ptype_profile[0].value == ""){
@@ -412,72 +383,6 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without design options', 'error', true));
 								}
 								break;
-						case 'Ladies-Jacket':
-								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_LADIESJACKET"});
-								if(!ptype_profile || ptype_profile.length == 0 || ptype_profile[0].value == "[]" || ptype_profile[0].value == ""){
-									hasError = true;
-									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
-								}
-								var ptype_dop = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_LADIESJACKET"});
-
-								if(!ptype_dop || ptype_dop.length == 0 || ptype_dop[0].value == "[]" || ptype_dop[0].value == ""){
-									hasError = true;
-									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without design options', 'error', true));
-								}
-								 break;
-						 case 'Ladies-Pants':
- 								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_LADIESPANTS"});
- 								if(!ptype_profile || ptype_profile.length == 0 || ptype_profile[0].value == "[]" || ptype_profile[0].value == ""){
- 									hasError = true;
- 									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
- 								}
- 								var ptype_dop = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_LADIESPANTS"});
-
- 								if(!ptype_dop || ptype_dop.length == 0 || ptype_dop[0].value == "[]" || ptype_dop[0].value == ""){
- 									hasError = true;
- 									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without design options', 'error', true));
- 								}
- 								 break;
-						 case 'Ladies-Skirt':
- 								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_LADIESSKIRT"});
- 								if(!ptype_profile || ptype_profile.length == 0 || ptype_profile[0].value == "[]" || ptype_profile[0].value == ""){
- 									hasError = true;
- 									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
- 								}
- 								var ptype_dop = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_LADIESSKIRT"});
-
- 								if(!ptype_dop || ptype_dop.length == 0 || ptype_dop[0].value == "[]" || ptype_dop[0].value == ""){
- 									hasError = true;
- 									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without design options', 'error', true));
- 								}
- 								 break;
-						 case 'Short-Sleeves-Shirt':
- 								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_SSSHIRT"});
- 								if(!ptype_profile || ptype_profile.length == 0 || ptype_profile[0].value == "[]" || ptype_profile[0].value == ""){
- 									hasError = true;
- 									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
- 								}
- 								var ptype_dop = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_SSSHIRT"});
-
- 								if(!ptype_dop || ptype_dop.length == 0 || ptype_dop[0].value == "[]" || ptype_dop[0].value == ""){
- 									hasError = true;
- 									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without design options', 'error', true));
- 								}
- 								 break;
-						 case 'Trenchcoat':
- 								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_TRENCHCOAT"});
- 								if(!ptype_profile || ptype_profile.length == 0 || ptype_profile[0].value == "[]" || ptype_profile[0].value == ""){
- 									hasError = true;
- 									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
- 								}
- 								var ptype_dop = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_TRENCHCOAT"});
-
- 								if(!ptype_dop || ptype_dop.length == 0 || ptype_dop[0].value == "[]" || ptype_dop[0].value == ""){
- 									hasError = true;
- 									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without design options', 'error', true));
- 								}
- 								 break;
-
 		 				case 'L-3PC-Suit':
 								var ptype_profile = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_LADIESJACKET"});
 								if(!ptype_profile || ptype_profile.length == 0 || ptype_profile[0].value == "[]" || ptype_profile[0].value == ""){
@@ -561,6 +466,20 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without design options', 'error', true));
 								}
 								break;
+						default:
+								var ptype_profile = _.where(line.get("options"), {id: ProductTypeProfileMap[ptype]});
+
+								if(!ptype_profile || ptype_profile.length == 0 || ptype_profile[0].value == "[]" || ptype_profile[0].value == ""){
+									hasError = true;
+									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
+								}
+								var ptype_dop = _.where(line.get("options"), {id: ProductTypeOptionsMap[ptype]});
+
+								if(!ptype_dop || ptype_dop.length == 0 || ptype_dop[0].value == "[]" || ptype_dop[0].value == ""){
+									hasError = true;
+									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without design options', 'error', true));
+								}
+								 break;
 					}
 				}
 				previousLineInternalId = line.get('internalid');
@@ -726,7 +645,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 								clothType = 'Shirt-Jacket';
 							else if(clothType == 'Camp_shirt')
 								clothType = 'Camp-Shirt';
-							
+
 							var currentItemSelectedOptions = JSON.parse(itemOptions[item_id].label);
 
 							for (var index in currentItemSelectedOptions){
@@ -1079,7 +998,8 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 			if(ptype.value == 'Jacket' || ptype.value == 'Trouser' || ptype.value == 'Waistcoat' ||
 				ptype.value == 'Shirt' || ptype.value == 'Overcoat' || ptype.value == 'Short-Sleeves-Shirt' ||
 				ptype.value == 'Ladies-Jacket' || ptype.value == 'Ladies-Pants' || ptype.value == 'Ladies-Skirt' ||
-				ptype.value == 'Trenchcoat' || ptype.value == 'Shorts' ){
+				ptype.value == 'Trenchcoat' || ptype.value == 'Shorts' || ptype.value == 'Shirt-Jacket' || ptype.value == 'Safari-Jacket' ||
+				ptype.value == 'Camp-Shirt' || ptype.value == 'Morning-Coat' ){
 
 				var selected_item = product.get('item');
 				var selected_item_internalid = selected_item.get('internalid');

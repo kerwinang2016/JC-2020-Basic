@@ -1637,7 +1637,13 @@ var MyObj = function( request, response )
 			{
 				fld_vendor.setDefaultValue(vendorval );
 			}
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['75','5','669','708']);
+			//Perform a Tailor search filtered by Internal region
+			searchTailors(2);	//Internal ID of Region: Internal
+			log('tailorList', tailorList);
+			var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));
+			log('uniqueTailorIDs', uniqueTailorIDs);
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', uniqueTailorIDs);
+			//filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['75','5','669','708']);
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 
@@ -2444,7 +2450,7 @@ var MyObj = function( request, response )
 		var dateval = this.request.getParameter('expecteddatesent');
 		var cmtstatus = this.request.getParameter('cmtstatus');
 
-		var form =  nlapiCreateForm( 'CMT Purchase Order Lines To Manage');
+		var form =  nlapiCreateForm( 'CMT Purchase Order Lines To Manage (Internal)');
 		form.addButton( 'custpage_btapprve', 'Save', 'SavePOCMT()');
 		form.addButton( 'custpage_btapprve_bill', 'Bill', 'SavePOCMT(true)');
 		form.addButton( 'custpage_btfilter', 'Filter', 'POCMTFilter()');
@@ -5030,7 +5036,7 @@ function searchCMTPurchaseOrders(parameters, tailorsIDs){
 	}
 }
 
-function searchTailors(searchTailors){
+function searchTailors(tailorRegion){
 	try {
 
 		var customerSearch = nlapiSearchRecord("customer",null,
@@ -5039,7 +5045,7 @@ function searchTailors(searchTailors){
 			   "AND",
 			   ["parent","anyof","@NONE@"],
 			   "AND",
-			   ["custentity_cmt_tailor_region","anyof",searchTailors],
+			   ["custentity_cmt_tailor_region","anyof",tailorRegion],
 			   "AND",
 			   ["isinactive","is","F"]
 			],

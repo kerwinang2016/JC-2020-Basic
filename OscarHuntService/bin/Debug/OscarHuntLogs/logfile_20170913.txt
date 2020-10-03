@@ -1,0 +1,69 @@
+9/13/2017 10:07:39 AM: NetsuiteEntryPoint initiated
+9/13/2017 10:08:15 AM: Inside EntryPoint
+9/13/2017 10:08:35 AM: [Error]: Error Occured: Only one request may be made against a session at a time
+9/13/2017 10:08:47 AM: NetsuiteEntryPoint initiated
+9/13/2017 10:09:21 AM: Inside EntryPoint
+9/13/2017 10:09:49 AM: Started manual order processing for order no:2822
+9/13/2017 10:09:51 AM: Processing started for order no:2822
+9/13/2017 10:09:58 AM: [Error]: Error for Order-TU2822-1 is:  pt_code:
+9/13/2017 10:09:58 AM: [Error]: Error for Order-TU2822-1 is:  pt_code:
+9/13/2017 10:09:58 AM: [Error]: Error for Order-TU2822-1 is:  pt_code:
+9/13/2017 10:09:58 AM: [Error]: Error for Order-TU2822-1 is:  pt_code:
+9/13/2017 10:09:58 AM: [Error]: Error for Order-TU2822-1 is:  pt_code:
+9/13/2017 10:09:58 AM: [Error]: Error for Order-TU2822-1 is:  pt_code:
+9/13/2017 10:09:58 AM: [Error]: Error for Order-TU2822-1 is:  pt_code:
+9/13/2017 10:09:58 AM: [Error]: Error for Order-TU2822-1 is:  pt_code:
+9/13/2017 10:09:58 AM: [Error]: Error for Order-TU2822-1 is:  pt_code:
+9/13/2017 10:09:58 AM: [Error]: Error for Order-TU2822-1 is:  pt_code:
+9/13/2017 10:09:58 AM: [Error]: Error for Order-TU2822-1 is:  pt_code:
+9/13/2017 10:09:58 AM: [Error]: Error for Order-TU2822-1 is:  pt_code:
+9/13/2017 10:09:58 AM: [Error]: Error for Order-TU2822-1 is:  pt_code:
+9/13/2017 10:09:58 AM: [Error]: Error for Order-TU2822-1 is:  pt_code:
+9/13/2017 10:09:58 AM: [Error]: Error for Order-TU2822-1 is:  pt_code:
+9/13/2017 10:09:58 AM: [Error]: Error for Order-TU2822-1 is:  pt_code:
+9/13/2017 10:09:58 AM: [Error]: Error for Order-TU2822-1 is:  pt_code:
+9/13/2017 10:10:05 AM: Error sending mail for order:2822
+9/13/2017 10:10:05 AM: [Error]: Error Occured: Your connection has timed out.  Please log in again.
+9/13/2017 10:10:11 AM: [Error]: Error Occured for order: 
+9/13/2017 10:10:42 AM: [Error]: Error Occured: Your connection has timed out.  Please log in again.
+9/13/2017 10:11:37 AM: NetsuiteEntryPoint initiated
+9/13/2017 10:12:06 AM: Inside EntryPoint
+9/13/2017 10:12:21 AM: Started manual order processing for order no:2822
+9/13/2017 10:12:23 AM: Processing started for order no:2822
+9/13/2017 10:15:09 AM: NetsuiteEntryPoint initiated
+9/13/2017 10:15:39 AM: Inside EntryPoint
+9/13/2017 10:15:44 AM: [Error]: Error Occured: Only one request may be made against a session at a time
+9/13/2017 10:15:45 AM: [Error]: Error Occured: Your connection has timed out.  Please log in again.
+9/13/2017 10:15:54 AM: NetsuiteEntryPoint initiated
+9/13/2017 10:16:24 AM: Inside EntryPoint
+9/13/2017 10:16:40 AM: Started manual order processing for order no:2825
+9/13/2017 10:16:42 AM: Processing started for order no:2825
+9/13/2017 10:34:00 AM: NetsuiteEntryPoint initiated
+9/13/2017 10:34:18 AM: NetsuiteEntryPoint initiated
+9/13/2017 10:34:47 AM: Inside EntryPoint
+9/13/2017 10:35:06 AM: Started manual order processing for order no:2822
+9/13/2017 10:35:08 AM: Processing started for order no:2822
+9/13/2017 3:53:04 PM: NetsuiteEntryPoint initiated
+9/13/2017 3:53:39 PM: Inside EntryPoint
+9/13/2017 3:54:11 PM: Started manual order processing for order no:2847
+9/13/2017 3:54:13 PM: Processing started for order no:2847
+9/13/2017 4:09:44 PM: NetsuiteEntryPoint initiated
+9/13/2017 4:10:17 PM: Inside EntryPoint
+9/13/2017 4:10:31 PM: Started manual order processing for order no:2847
+9/13/2017 4:10:48 PM: Processing started for order no:2847
+9/13/2017 4:11:41 PM: NetsuiteEntryPoint initiated
+9/13/2017 4:12:14 PM: Inside EntryPoint
+9/13/2017 4:12:21 PM: Started manual order processing for order no:2847
+9/13/2017 4:12:24 PM: Processing started for order no:2847
+9/13/2017 4:13:44 PM: NetsuiteEntryPoint initiated
+9/13/2017 4:14:16 PM: Inside EntryPoint
+9/13/2017 4:14:51 PM: Started manual order processing for order no:2847
+9/13/2017 4:15:03 PM: Processing started for order no:2847
+9/13/2017 4:20:57 PM: NetsuiteEntryPoint initiated
+9/13/2017 4:21:29 PM: Inside EntryPoint
+9/13/2017 4:21:37 PM: Started manual order processing for order no:2847
+9/13/2017 4:21:45 PM: Processing started for order no:2847
+9/13/2017 4:23:04 PM: NetsuiteEntryPoint initiated
+9/13/2017 4:23:38 PM: Inside EntryPoint
+9/13/2017 4:24:16 PM: Started manual order processing for order no:2848
+9/13/2017 4:24:18 PM: Processing started for order no:2848

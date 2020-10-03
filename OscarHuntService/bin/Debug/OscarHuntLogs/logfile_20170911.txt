@@ -1,0 +1,30 @@
+9/11/2017 3:26:16 PM: NetsuiteEntryPoint initiated
+9/11/2017 3:28:16 PM: NetsuiteEntryPoint initiated
+9/11/2017 3:30:11 PM: NetsuiteEntryPoint initiated
+9/11/2017 3:32:37 PM: NetsuiteEntryPoint initiated
+9/11/2017 3:33:24 PM: Inside EntryPoint
+9/11/2017 3:33:31 PM: [Error]: Error Occured: You have entered an invalid email address or password. Please try again.
+9/11/2017 3:33:32 PM: [Error]: Error Occured: Your connection has timed out.  Please log in again.
+9/11/2017 3:33:34 PM: [Error]: Error Occured for order: 
+9/11/2017 3:36:12 PM: NetsuiteEntryPoint initiated
+9/11/2017 3:37:04 PM: Inside EntryPoint
+9/11/2017 3:37:10 PM: [Error]: Error Occured: You have entered an invalid email address or password. Please try again.
+9/11/2017 3:37:11 PM: [Error]: Error Occured: Your connection has timed out.  Please log in again.
+9/11/2017 3:37:45 PM: [Error]: Error Occured for order: 
+9/11/2017 3:37:56 PM: NetsuiteEntryPoint initiated
+9/11/2017 3:39:26 PM: NetsuiteEntryPoint initiated
+9/11/2017 3:40:33 PM: NetsuiteEntryPoint initiated
+9/11/2017 3:44:01 PM: Inside EntryPoint
+9/11/2017 3:45:38 PM: [Error]: Error Occured: You have entered an invalid email address or password. Please try again.
+9/11/2017 3:45:51 PM: [Error]: Error Occured: Your connection has timed out.  Please log in again.
+9/11/2017 3:57:58 PM: NetsuiteEntryPoint initiated
+9/11/2017 3:58:27 PM: Inside EntryPoint
+9/11/2017 3:58:32 PM: Started manual order processing for order no:1056
+9/11/2017 3:58:38 PM: Processing started for order no:1056
+9/11/2017 3:58:54 PM: NetsuiteEntryPoint initiated
+9/11/2017 3:59:21 PM: Inside EntryPoint
+9/11/2017 3:59:26 PM: Started manual order processing for order no:1056
+9/11/2017 4:01:42 PM: NetsuiteEntryPoint initiated
+9/11/2017 4:02:10 PM: Inside EntryPoint
+9/11/2017 4:02:38 PM: Started manual order processing for order no:2791
+9/11/2017 4:03:12 PM: Processing started for order no:2791

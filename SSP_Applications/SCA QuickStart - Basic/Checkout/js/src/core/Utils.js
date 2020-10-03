@@ -601,9 +601,9 @@
 		params = params || {};
 		params.n = SC.ENVIRONMENT.siteSettings.siteid;
 
-		var origin = window.location.origin ? window.location.origin :
-				(window.location.protocol + '//' + window.location.hostname + (window.location.port ? (':' + window.location.port) : ''));
-		return  _.addParamsToUrl(origin + _.getAbsoluteUrl('download.ssp'), params);
+		// var origin = window.location.origin ? window.location.origin :
+		// 		(window.location.protocol + '//' + window.location.hostname + (window.location.port ? (':' + window.location.port) : ''));
+		return  _.addParamsToUrl(_.getAbsoluteUrl('download.ssp'), params);
 	}
 
 	//Fixes anchor elements, preventing default behavior so that

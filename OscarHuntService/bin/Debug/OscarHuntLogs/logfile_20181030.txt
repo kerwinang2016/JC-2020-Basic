@@ -1,0 +1,2 @@
+10/30/2018 3:24:16 PM: NetsuiteEntryPoint initiated
+10/30/2018 3:25:44 PM: NetsuiteEntryPoint initiated

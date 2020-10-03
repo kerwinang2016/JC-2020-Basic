@@ -1,0 +1,1011 @@
+{
+"FitTool_Jacket": {
+"POSTURE-MAX": "msy_tuobeiti",
+"POSTURE-MIN": "msy_houyangti",
+"COLLAR-HEIGHT-MAX": "msy_jialinggao",
+"COLLAR-HEIGHT-MIN": "msy_jianlinggao",
+"SHOULDER-HEIGHT-LEFT-MAX": "msy_jiazuojiangao",
+"SHOULDER-HEIGHT-LEFT-MIN": "msy_jianzuojiangao",
+"SHOULDER-HEIGHT-RIGHT-MAX": "msy_jiayoujiangao",
+"SHOULDER-HEIGHT-RIGHT-MIN": "msy_jianyoujiangao",
+"ARMHOLE-DEPTH-MAX": "msy_jiaxiulong",
+"ARMHOLE-DEPTH-MIN": "msy_jianxiulong",
+"SLEEVE-POSITION-MAX": "msy_qianxiuyiwei",
+"SLEEVE-POSITION-MIN": "msy_houxiuyiwei",
+"STRONG-DART-MAX": "msy_jiadusheng",
+"LAPEL-LENGTH-MAX": "msy_jiachangbotou",
+"LAPEL-LENGTH-MIN": "msy_suoduanbotou",
+"SHOULDER-POSITION-MAX": "msy_qianchongjian",
+"SHOULDER-POSITION-MIN": "msy_houchongjian",
+"SWAY-BACK-MIN": "msy_pingtun",
+"CENTER-BACK-SEAM-MIN": "msy_jianhoubeihu",
+"1/2-COLLAR-MIN": "msy_jianlingkou",
+"1/2-SHOULDER-MAX": "msy_jiajiankuan",
+"1/2-SHOULDER-MIN": "msy_jianjiankuan",
+"1/2-BACK-MAX": "msy_jiabeikuan",
+"1/2-BACK-MIN": "msy_jianbeikuan",
+"1/2-CHEST-MAX": "msy_jiaxiongwei",
+"1/2-CHEST-MIN": "msy_jianxiongwei",
+"1/2-CHEST-FRONT-MAX": "msy_jiaqianxiongkuan",
+"1/2-CHEST-FRONT-MIN": "msy_jianqianxiongkuan",
+"1/2-GIRTH-MAX": "msy_jiayaowei",
+"1/2-GIRTH-MIN": "msy_jianyaowei",
+"1/2-FRONT-MAX": "msy_jiaqianzhikou",
+"1/2-FRONT-MIN": "msy_jianqianzhikou",
+"1/2-HIP-MAX": "msy_jiabaiwei",
+"1/2-HIP-MIN": "msy_jianbaiwei",
+"1/2-FRONT-SKIRT-MIN": "msy_jianqianbaiwei",
+"UPPER-ARM-MAX": "msy_jiaxiufei",
+"UPPER-ARM-MIN": "msy_jianxiufei",
+"1/2-HAND-MAX": "msy_jiaxiukou",
+"1/2-HAND-MIN": "msy_jianxiukou",
+"LENGTH-MAX": "msy_jiahouyichang",
+"LENGTH-MIN": "msy_jianhouyichang",
+"FRONT-LENGTH-MAX": "msy_jiaqianyichang",
+"FRONT-LENGTH-MIN": "msy_jianqianyichang",
+"SLEEVE-LENGTH-LEFT-MAX": "msy_jiazuoxiuchang",
+"SLEEVE-LENGTH-LEFT-MIN": "msy_jianzuoxiuchang",
+"SLEEVE-LENGTH-RIGHT-MAX": "msy_jiayouxiuchang",
+"SLEEVE-LENGTH-RIGHT-MIN": "msy_jianyouxiuchang",
+"CLOSING-BUTTON-HEIGHT-MAX": "msy_jiakouweigao",
+"CLOSING-BUTTON-HEIGHT-MIN": "msy_jiankouweigao",
+"CHEST-POCKET-POSITION-MAX": "msy_jiaxiongdouwei",
+"VENT-LENGTH-MAX": "msy_jiakaiqichang",
+"VENT-LENGTH-MIN": "msy_jiankaiqichang"
+},
+"FitTool_Trousers": {
+"TOTAL-RISE-MAX": "mkz_jiashangdang",
+"TOTAL-RISE-MIN": "mkz_jianshangdang",
+"FRONT-RISE-MAX": "mkz_jiaqiandang",
+"FRONT-RISE-MIN": "mkz_jianqiandang",
+"BACK-RISE-MAX": "mkz_jiahoudang",
+"BACK-RISE-MIN": "mkz_jianhoudang",
+"FLAT-SEAT-MIN": "mkz_jiandangwei",
+"BACK-RISE-CURVE-MIN": "mkz_jiadang",
+"CROTCH-MAX": "mkz_jiadadangkuan",
+"CROTCH-MIN": "mkz_jiandadangkuan",
+"1/2-WAIST-MAX": "mkz_jiayaowei",
+"1/2-WAIST-MIN": "mkz_jianyaowei",
+"1/2-SEAT-MAX": "mkz_jiatunwei",
+"1/2-SEAT-MIN": "mkz_jiantunwei",
+"1/2-HIP-MIN": "mkz_jiancetunwei",
+"1/2-THIGH-MAX": "mkz_jiadatuiwei",
+"1/2-THIGH-MIN": "mkz_jiandatuiwei",
+"1/2-KNEE-MAX": "mkz_jiaxiwei",
+"1/2-KNEE-MIN": "mkz_jianxiwei",
+"1/2-FOOT-MAX": "mkz_jiajiaokoukuan",
+"1/2-FOOT-MIN": "mkz_jianjiaokoukuan",
+"LEG-LENGTH-LEFT-MAX": "mkz_jiazuotuichang",
+"LEG-LENGTH-LEFT-MIN": "mkz_jianzuotuichang",
+"LEG-LENGTH-RIGHT-MAX": "mkz_jiayoutuichang",
+"LEG-LENGTH-RIGHT-MIN": "mkz_jianyoutuichang"
+},
+"FitTool_Waistcoat": {
+"POSTURE-MAX": "mmj_tuobeiti",
+"POSTURE-MIN": "mmj_houyangti",
+"SHOULDER-HEIGHT-LEFT-MAX": "mmj_jiazuojiangao",
+"SHOULDER-HEIGHT-LEFT-MIN": "mmj_jianzuojiangao",
+"SHOULDER-HEIGHT-RIGHT-MAX": "mmj_jiayoujiangao",
+"SHOULDER-HEIGHT-RIGHT-MIN": "mmj_jianyoujiangao",
+"1/2-CHEST-MAX": "mmj_jiaxiongwei",
+"1/2-CHEST-MIN": "mmj_jianxiongwei",
+"1/2-WAIST-MAX": "mmj_jiayaowei",
+"1/2-WAIST-MIN": "mmj_jianyaowei",
+"1/2-SEAT-MAX": "mmj_jiabaiwei",
+"1/2-SEAT-MIN": "mmj_jianbaiwei",
+"1/2-FRONT-MAX": "mmj_jiaqianzhikou",
+"1/2-FRONT-MIN": "mmj_jianqianzhikou",
+"1/2-BACK-MAX": "mmj_jiahoubeikuan",
+"1/2-BACK-MIN": "mmj_jianhoubeikuan",
+"LENGTH-MAX": "mmj_jiahouyichang",
+"LENGTH-MIN": "mmj_jianhouyichang",
+"FRONT-LENGTH-MAX": "mmj_jiaqianyichang",
+"FRONT-LENGTH-MIN": "mmj_jianqianyichang",
+"LAPELS-MAX": "mmj_jiabotou",
+"LAPELS-MIN": "mmj_jianbotou",
+"CLOSING-BUTTON-MAX": "mmj_taigaokouwei",
+"CLOSING-BUTTON-MIN": "mmj_tiaodikouwei",
+"ARMHOLE-MAX": "mmj_taixiulong",
+"ARMHOLE-MIN": "mmj_jiangxiulong"
+},
+"FitTool_Shirt": {
+"SHOULDER-HEIGHT-RIGHT-MAX": "mcs_jiayoujiangao",
+"SHOULDER-HEIGHT-RIGHT-MIN": "mcs_jianyoujiangao",
+"SHOULDER-HEIGHT-LEFT-MAX": "mcs_jiazuojiangao",
+"SHOULDER-HEIGHT-LEFT-MIN": "mcs_jianzuojiangao",
+"COLLAR-SIZE-MAX": "mcs_jialingkuan",
+"COLLAR-SIZE-MIN": "mcs_jianlingkuan",
+"1/2-CHEST-MAX": "mcs_jiaxiongwei",
+"1/2-CHEST-MIN": "mcs_jianxiongwei",
+"1/2-CHEST-FRONT-MAX": "mcs_jiaqianxiongwei",
+"1/2-CHEST-FRONT-MIN": "mcs_jianqianxiongwei",
+"1/2-WAIST-MAX": "mcs_jiayaowei",
+"1/2-WAIST-MIN": "mcs_jianyaowei",
+"1/2-HIP-MAX": "mcs_jiatunwei",
+"1/2-HIP-MIN": "mcs_jiantunwei",
+"1/2-SHOULDER-MAX": "mcs_jiajiankuan",
+"1/2-SHOULDER-MIN": "mcs_jianjiankuan",
+"UPPER-ARM/ARMHOLE-MAX": "mcs_jiadabiwei",
+"UPPER-ARM/ARMHOLE-MIN": "mcs_jiandabiwei",
+"CUFF-WIDTH-RIGHT-MAX": "mcs_jiayouxiukoukuan",
+"CUFF-WIDTH-RIGHT-MIN": "mcs_jianyouxiukoukuan",
+"CUFF-WIDTH-LEFT-MAX": "mcs_jiazuoxiukoukuan",
+"CUFF-WIDTH-LEFT-MIN": "mcs_jianzuoxiukoukuan",
+"FRONT-LENGTH-MAX": "mcs_jiaqianyichang",
+"FRONT-LENGTH-MIN": "mcs_jianqianyichang",
+"LENGTH-MAX": "mcs_jiahouyichang",
+"LENGTH-MIN": "mcs_jianhouyichang",
+"SLEEVE-LENGTH-RIGHT-MAX": "mcs_jiayouxiuchang",
+"SLEEVE-LENGTH-RIGHT-MIN": "mcs_jianyouxiuchang",
+"SLEEVE-LENGTH-LEFT-MAX": "mcs_jiazuoxiuchang",
+"SLEEVE-LENGTH-LEFT-MIN": "mcs_jianzuoxiuchang",
+"NECKBAND-POSITION-MAX": "mcs_jialingshen",
+"NECKBAND-POSITION-MIN": "mcs_jianlingshen",
+"TOP-BUTTON-POSITION-MIN": "mcs_jiankouweigao"
+},
+"FitTool_Overcoat": {
+"POSTURE-MAX": "mdy_tuobeiti",
+"POSTURE-MIN": "mdy_houyangti",
+"COLLAR-HEIGHT-MAX": "mdy_jialinggao",
+"COLLAR-HEIGHT-MIN": "mdy_jianlinggao",
+"SHOULDER-HEIGHT-RIGHT-MAX": "mdy_jiayoujiangao",
+"SHOULDER-HEIGHT-RIGHT-MIN": "mdy_jianyoujiangao",
+"SHOULDER-HEIGHT-LEFT-MAX": "mdy_jiazuojiangao",
+"SHOULDER-HEIGHT-LEFT-MIN": "mdy_jianzuojiangao",
+"CLOSING-BUTTON-HEIGHT-MAX": "mdy_jiakouweigao",
+"CLOSING-BUTTON-HEIGHT-MIN": "mdy_jiankouweigao",
+"ARMHOLE-MAX": "mdy_jiaxiulong",
+"ARMHOLE-MIN": "mdy_jianxiulong",
+"SLEEVE-POSITION-MAX": "mdy_qianxiuyiwei",
+"SLEEVE-POSITION-MIN": "mdy_houxiuyiwei",
+"1/2-COLLAR-MIN": "mdy_jianlingkou",
+"1/2-SHOULDER-MAX": "mdy_jiajiankuan",
+"1/2-SHOULDER-MIN": "mdy_jianjiankuan",
+"1/2-BACK-MAX": "mdy_jiabeikuan",
+"1/2-BACK-MIN": "mdy_jianbeikuan",
+"1/2-CHEST-MAX": "mdy_jiaxiongwei",
+"1/2-CHEST-MIN": "mdy_jianxiongwei",
+"1/2-WAIST-MAX": "mdy_jiayaowei",
+"1/2-WAIST-MIN": "mdy_jianyaowei",
+"1/2-HIP-MAX": "mdy_jiatunwei",
+"1/2-HIP-MIN": "mdy_jiantunwei",
+"1/2-SKIRT-MIN": "mdy_jianbaiwei",
+"1/2-FRONT-MAX": "mdy_jiaqianpian",
+"1/2-FRONT-MIN": "mdy_jianqianpian",
+"UPPER-ARM/ARMHOLE-MAX": "mdy_jiadabiwei",
+"UPPER-ARM/ARMHOLE-MIN": "mdy_jiandabiwei",
+"1/2-HAND-WIDTH-MAX": "mdy_jiaxiukou",
+"1/2-HAND-WIDTH-MIN": "mdy_jianxiukou",
+"LAPELS-MAX": "mdy_jiachangbotou",
+"LAPELS-MIN": "mdy_suoduanbotou",
+"FRONT-LENGTH-MAX": "mdy_jiaqianyichang",
+"FRONT-LENGTH-MIN": "mdy_jianqianyichang",
+"LENGTH-MAX": "mdy_jiahouyichang",
+"LENGTH-MIN": "mdy_jianhouyichang",
+"LENGTH-WITHOUT-POCKETS/WAIST-MAX": "mdy_jiahouyichangwudou",
+"LENGTH-WITHOUT-POCKETS/WAIST-MIN": "mdy_jianhouyichangwudou",
+"SLEEVE-LENGTH-RIGHT-MAX": "mdy_jiayouxiuchang",
+"SLEEVE-LENGTH-RIGHT-MIN": "mdy_jianyouxiuchang",
+"SLEEVE-LENGTH-LEFT-MAX": "mdy_jiazuoxiuchang",
+"SLEEVE-LENGTH-LEFT-MIN": "mdy_jianzuoxiuchang",
+"VENT-LENGTH-MAX": "mdy_jiahoukaiqichang",
+"VENT-LENGTH-MIN": "mdy_jianhoukaiqichang",
+"CHEST-POCKET-POSITION-MAX": "mdy_jiaxiongdouwei",
+"CHEST-POCKET-POSITION-MIN": "mdy_jianxiongdouwei"
+},
+"FitTool_Shirt_GM": {
+"NECK": "lingwei",
+"SHOULDER": "jiankuan",
+"CHEST": "xiongwei_half",
+"WAIST": "yaowei_half",
+"HIPS": "baiwei_half",
+"UPPERARM": "dabiwei_half",
+"SLEEVE-LEFT": "xiuchang_l",
+"SLEEVE-RIGHT": "xiuchang_r",
+"CUFF-LEFT": "xiukou_l",
+"CUFF-RIGHT": "xiukou_r",
+"BACK-LENGTH": "yichang",
+"FRONT-LENGTH": "qianyichang",
+"SHOULDER-DESCRIPTION-L": [
+{
+"HIGH MIN 0.5": {
+"NAME": "T03",
+"VALUE": "T0304"
+},
+"HIGH AVG 1": {
+"NAME": "T03",
+"VALUE": "T0301"
+},
+"HIGH EXT 1.5": {
+"NAME": "T03",
+"VALUE": "T0302"
+},
+"HIGH MAX 2": {
+"NAME": "T03",
+"VALUE": "T0303"
+},
+"SLOPING MIN 0.5": {
+"NAME": "T04",
+"VALUE": "T0404"
+},
+"SLOPING AVG 1": {
+"NAME": "T04",
+"VALUE": "T0401"
+},
+"SLOPING EXT 1.5": {
+"NAME": "T04",
+"VALUE": "T0402"
+},
+"SLOPING MAX 2": {
+"NAME": "T04",
+"VALUE": "T0403"
+}
+}
+],
+"SHOULDER-DESCRIPTION-R": [
+{
+"HIGH MIN 0.5": {
+"NAME": "T05",
+"VALUE": "T0504"
+},
+"HIGH AVG 1": {
+"NAME": "T05",
+"VALUE": "T0501"
+},
+"HIGH EXT 1.5": {
+"NAME": "T05",
+"VALUE": "T0502"
+},
+"HIGH MAX 2": {
+"NAME": "T05",
+"VALUE": "T0503"
+},
+"SLOPING MIN 0.5": {
+"NAME": "T06",
+"VALUE": "T0604"
+},
+"SLOPING AVG 1": {
+"NAME": "T06",
+"VALUE": "T0601"
+},
+"SLOPING EXT 1.5": {
+"NAME": "T06",
+"VALUE": "T0602"
+},
+"SLOPING MAX 2": {
+"NAME": "T06",
+"VALUE": "T0603"
+}
+}
+],
+"CHEST-STATURE": [
+{
+"FLAT MIN 0.5": {
+"NAME": "T11",
+"VALUE": "T1103"
+},
+"FLAT AVG 1": {
+"NAME": "T11",
+"VALUE": "T1101"
+},
+"FLAT MAX 1.5": {
+"NAME": "T11",
+"VALUE": "T1104"
+},
+"FULL MIN 0.5": {
+"NAME": "T12",
+"VALUE": "T1203"
+},
+"FULL AVG 1": {
+"NAME": "T12",
+"VALUE": "T1201"
+},
+"FULL MAX 1.5": {
+"NAME": "T12",
+"VALUE": "T1204"  
+}
+}
+],
+"COLLAR-POSITION": [
+{
+"RAISE MIN 1": {
+"NAME": "T96",
+"VALUE": "T9601"
+},
+"RAISE AVG 1.5": {
+"NAME": "T96",
+"VALUE": "T9602"
+},
+"RAISE MAX 2": {
+"NAME": "T96",
+"VALUE": "T9603"
+},
+"LOWER MIN 1": {
+"NAME": "T99",
+"VALUE": "T9901"
+},
+"LOWER AVG 1.5": {
+"NAME": "T99",
+"VALUE": "T9902"
+},
+"LOWER MAX 2": {
+"NAME": "T99",
+"VALUE": "T9903"
+}
+}
+],
+"ARMHOLE": [
+{
+"RAISE MIN 1": {
+"NAME": "T93",
+"VALUE": "T9301"
+},
+"RAISE AVG 2.5": {
+"NAME": "T93",
+"VALUE": "T9302"
+},
+"RAISE MAX 4": {
+"NAME": "T93",
+"VALUE": "T9303"
+},
+"LOWER MIN 1": {
+"NAME": "T94",
+"VALUE": "T9401"
+},
+"LOWER AVG 2.5": {
+"NAME": "T94",
+"VALUE": "T9402"
+},
+"LOWER MAX 4": {
+"NAME": "T94",
+"VALUE": "T9403"
+}
+}
+]
+},
+"FitTool_Jacket_GM": {
+"SHOULDER": "jiankuan",
+"CHEST": "xiongwei_half",
+"WAIST": "yaowei_half",
+"SEAT": "baiwei_half",
+"BACK-LT": "houyichang",
+"SLEEVE-L": "xiuchang_l",
+"SLEEVE-R": "xiuchang_r",
+"UPPERARM": "dabiwei_half",
+"CUFF": "xiukou_half",
+"FRONT-LT": "qianyichang",
+"TOP-BUTTON": "diyilikou",
+"SHOULDER-DESCRIPTION-L": [
+{
+"HIGH MIN 0.5": {
+"NAME": "T03",
+"VALUE": "T0304"
+},
+"HIGH AVG 1": {
+"NAME": "T03",
+"VALUE": "T0301"
+},
+"HIGH EXT 1.5": {
+"NAME": "T03",
+"VALUE": "T0302"
+},
+"HIGH MAX 2": {
+"NAME": "T03",
+"VALUE": "T0303"  
+},
+"SLOPING MIN 0.5": {
+"NAME": "T04",
+"VALUE": "T0404"
+},
+"SLOPING AVG 1": {
+"NAME": "T04",
+"VALUE": "T0401"
+},
+"SLOPING EXT 1.5": {
+"NAME": "T04",
+"VALUE": "T0402"
+},
+"SLOPING MAX 2": {
+"NAME": "T04",
+"VALUE": "T0403"  
+}
+}
+],
+"SHOULDER-DESCRIPTION-R": [
+{
+"HIGH MIN 0.5": {
+"NAME": "T05",
+"VALUE": "T0504"
+},
+"HIGH AVG 1": {
+"NAME": "T05",
+"VALUE": "T0501"
+},
+"HIGH EXT 1.5": {
+"NAME": "T05",
+"VALUE": "T0502"
+},
+"HIGH MAX 2": {
+"NAME": "T05",
+"VALUE": "T0503"  
+},
+"SLOPING MIN 0.5": {
+"NAME": "T06",
+"VALUE": "T0604"
+},
+"SLOPING AVG 1": {
+"NAME": "T06",
+"VALUE": "T0601"
+},
+"SLOPING EXT 1.5": {
+"NAME": "T06",
+"VALUE": "T0602"
+},
+"SLOPING MAX 2": {
+"NAME": "T06",
+"VALUE": "T0603" 
+}
+}
+],
+"POSTURE": [
+{
+"STOOPING MIN 0.5": {
+"NAME": "T09",
+"VALUE": "T0904"
+},
+"STOOPING AVG 1": {
+"NAME": "T09",
+"VALUE": "T0901"
+},
+"STOOPING EXT 1.5": {
+"NAME": "T09",
+"VALUE": "T0902"
+},
+"STOOPING MAX 2": {
+"NAME": "T09",
+"VALUE": "T0903"  
+},
+"ERECT MIN 0.5": {
+"NAME": "T08",
+"VALUE": "T0804"
+},
+"ERECT AVG 1": {
+"NAME": "T08",
+"VALUE": "T0801"
+},
+"ERECT EXT 1.5": {
+"NAME": "T08",
+"VALUE": "T0802"
+},
+"ERECT MAX 2": {
+"NAME": "T08",
+"VALUE": "T0803"  
+}
+}
+],
+"CHEST-STATURE": [
+{
+"FLAT MIN 0.5": {
+"NAME": "T11",
+"VALUE": "T1103"
+},
+"FLAT AVG 1": {
+"NAME": "T11",
+"VALUE": "T1101"
+},
+"FLAT EXT 1.25": {
+"NAME": "T11",
+"VALUE": "T1104"
+},
+"FLAT MAX 1.5": {
+"NAME": "T11",
+"VALUE": "T1105"
+},
+"FLAT NO": {
+"NAME": "T11",
+"VALUE": "T1102"  
+},
+"FULL MIN 0.5": {
+"NAME": "T12",
+"VALUE": "T1203"
+},
+"FULL AVG 1": {
+"NAME": "T12",
+"VALUE": "T1201"
+},
+"FULL EXT 1.25": {
+"NAME": "T12",
+"VALUE": "T1204"
+},
+"FULL MAX 1.5": {
+"NAME": "T12",
+"VALUE": "T1205"
+},
+"FULL NO": {
+"NAME": "T12",
+"VALUE": "T1202"  
+}
+}
+],
+"STOMACH-STATURE": [
+{
+"FLAT MIN 0.5": {
+"NAME": "T13",
+"VALUE": "T1307"
+},
+"FLAT AVG 1": {
+"NAME": "T13",
+"VALUE": "T1308"
+},
+"FLAT MORE 1.5": {
+"NAME": "T13",
+"VALUE": "T1309"
+},
+"FLAT EXT 2": {
+"NAME": "T13",
+"VALUE": "T1310"
+},
+"FLAT MAX 2.5": {
+"NAME": "T13",
+"VALUE": "T1311"  
+},
+"FULL MIN 0.5": {
+"NAME": "T13",
+"VALUE": "T1303"
+},
+"FULL AVG 1": {
+"NAME": "T13",
+"VALUE": "T1301"
+},
+"FULL MORE 1.5": {
+"NAME": "T13",
+"VALUE": "T1304"
+},
+"FULL EXT 1.5": {
+"NAME": "T13",
+"VALUE": "T1305"
+},
+"FULL MAX 2.5": {
+"NAME": "T13",
+"VALUE": "T1306"
+}
+}
+],
+"COLLAR-POSITION": [
+{
+"RAISE MIN 0.5": {
+"NAME": "T21",
+"VALUE": "T2101"
+},
+"RAISE AVG 1": {
+"NAME": "T21",
+"VALUE": "T2102"
+},
+"RAISE MAX 2": {
+"NAME": "T21",
+"VALUE": "T2103"  
+},
+"LOWER MIN 0.5": {
+"NAME": "T22",
+"VALUE": "T2201"
+},
+"LOWER AVG 1": {
+"NAME": "T22",
+"VALUE": "T2202"
+},
+"LOWER MAX 2": {
+"NAME": "T22",
+"VALUE": "T2203"
+}
+}
+],
+"COLLAR-LENGTH": [
+{
+"SHORTEN MIN 0.5": {
+"NAME": "T23",
+"VALUE": "T2301"
+},
+"SHORTEN AVG 1": {
+"NAME": "T23",
+"VALUE": "T2302"
+},
+"SHORTEN MAX 1.5": {
+"NAME": "T23",
+"VALUE": "T2303"
+}
+}
+],
+"SHOULDER-POSITION": [
+{
+"FORWARD MIN 0.5": {
+"NAME": "T24",
+"VALUE": "T2403"
+},
+"FORWARD MAX 1": {
+"NAME": "T24",
+"VALUE": "T2401"
+},
+"BACK MIN 0.5": {
+"NAME": "T25",
+"VALUE": "T2503"
+},
+"BACK MAX 1": {
+"NAME": "T25",
+"VALUE": "T2501"
+}
+}
+],
+"ARM-POSITION": [
+{
+"FORWARD MIN 1": {
+"NAME": "T26",
+"VALUE": "T2601"
+},
+"FORWARD AVG 2": {
+"NAME": "T26",
+"VALUE": "T2602"
+},
+"FORWARD EXT 3": {
+"NAME": "T26",
+"VALUE": "T2603"
+},
+"FORWARD MAX 4": {
+"NAME": "T26",
+"VALUE": "T2604"
+},
+"BACK MIN 1": {
+"NAME": "T27",
+"VALUE": "T2701"
+},
+"BACK AVG 2": {
+"NAME": "T27",
+"VALUE": "T2702"
+},
+"BACK EXT 3": {
+"NAME": "T27",
+"VALUE": "T2703"
+},
+"BACK MAX 4": {
+"NAME": "T27",
+"VALUE": "T2704"
+}
+}
+],
+"ARMHOLE-DEPTH": [
+{
+"RAISE MIN 0.5": {
+"NAME": "T28",
+"VALUE": "T2801"
+},
+"RAISE AVG 1": {
+"NAME": "T28",
+"VALUE": "T2802"
+},
+"RAISE EXT 1.5": {
+"NAME": "T28",
+"VALUE": "T2803"
+},
+"RAISE MAX 2": {
+"NAME": "T28",
+"VALUE": "T2804"
+},
+"LOWER MIN 0.5": {
+"NAME": "T29",
+"VALUE": "T2901"
+},
+"LOWER AVG 1": {
+"NAME": "T29",
+"VALUE": "T2902"
+},
+"LOWER EXT 1.5": {
+"NAME": "T29",
+"VALUE": "T2903"
+},
+"LOWER MAX 2": {
+"NAME": "T29",
+"VALUE": "T2904"
+}
+}
+]
+},
+"FitTool_Trousers_GM": {
+"WAIST": "yaowei_half",
+"SEAT": "tunwei_half",
+"U-RISE": "quandangchang",
+"OUTSEAM-L": "kuchang_l",
+"OUTSEAM-R": "kuchang_r",
+"THIGH": "hengdang_half",
+"FOOT": "jiaokou_half",
+"KNEE": "xiwei_half",
+"FRONT-RISE": [
+{
+"RAISE MIN 1": {
+"NAME": "T42",
+"VALUE": "T4201"
+},
+"RAISE MORE 1.5": {
+"NAME": "T42",
+"VALUE": "T4202"
+},
+"RAISE AVG 2": {
+"NAME": "T42",
+"VALUE": "T4203"
+},
+"RAISE EXT 2.5": {
+"NAME": "T42",
+"VALUE": "T4204"
+},
+"RAISE EXT 3": {
+"NAME": "T42",
+"VALUE": "T4205"
+},
+"RAISE MAX 3.5": {
+"NAME": "T42",
+"VALUE": "T4206"  
+},
+"LOWER MIN 0.5": {
+"NAME": "T43",
+"VALUE": "T4301"
+},
+"LOWER AVG 1": {
+"NAME": "T43",
+"VALUE": "T4302"
+},
+"LOWER EXT 1.5": {
+"NAME": "T43",
+"VALUE": "T4303"
+},
+"LOWER MAX 2": {
+"NAME": "T43",
+"VALUE": "T4304"  
+}
+}
+],
+"BACK-RISE": [
+{
+"RAISE MIN 1": {
+"NAME": "T44",
+"VALUE": "T4401"
+},
+"RAISE MORE 1.5": {
+"NAME": "T44",
+"VALUE": "T4402"
+},
+"RAISE AVG 2": {
+"NAME": "T44",
+"VALUE": "T4403"
+},
+"RAISE EXT 2.5": {
+"NAME": "T44",
+"VALUE": "T4404"
+},
+"RAISE EXT 3": {
+"NAME": "T44",
+"VALUE": "T4405"
+},
+"RAISE MAX 3.5": {
+"NAME": "T44",
+"VALUE": "T4406"
+},
+"LOWER MIN 0.5": {
+"NAME": "T45",
+"VALUE": "T4501"
+},
+"LOWER AVG 1": {
+"NAME": "T45",
+"VALUE": "T4502"
+},
+"LOWER EXT 1.5": {
+"NAME": "T45",
+"VALUE": "T4503"
+},
+"LOWER MAX 2": {
+"NAME": "T45",
+"VALUE": "T4504"
+}
+}
+],
+"SEAT-STATURE": [
+{
+"FLAT MIN 1": {
+"NAME": "T16",
+"VALUE": "T1601"
+},
+"FLAT AVG 1.5": {
+"NAME": "T16",
+"VALUE": "T1603"
+},
+"FLAT MAX 2": {
+"NAME": "T16",
+"VALUE": "T1604"  
+}
+}
+]
+},
+"FitTool_Waistcoat_GM": {
+"CHEST": "xiongwei_half",
+"WAIST": "yaowei_half",
+"BACK-LT": "houyichang",
+"FRONT-LT": "qianyichang",
+"TOP-BUTTON": "diyilikou",
+"SHOULDER-DESCRIPTION-L": [
+{
+"HIGH MIN 0.5": {
+"NAME": "T03",
+"VALUE": "T0304"
+},
+"HIGH AVG 1": {
+"NAME": "T03",
+"VALUE": "T0301"
+},
+"HIGH EXT 1.5": {
+"NAME": "T03",
+"VALUE": "T0302"
+},
+"HIGH MAX 2": {
+"NAME": "T03",
+"VALUE": "T0303"
+},
+"SLOPING MIN 0.5": {
+"NAME": "T04",
+"VALUE": "T0404"
+},
+"SLOPING AVG 1": {
+"NAME": "T04",
+"VALUE": "T0401"
+},
+"SLOPING EXT 1.5": {
+"NAME": "T04",
+"VALUE": "T0402"
+},
+"SLOPING MAX 2": {
+"NAME": "T04",
+"VALUE": "T0403"
+}
+}
+],
+"SHOULDER-DESCRIPTION-R": [
+{
+"HIGH MIN 0.5": {
+"NAME": "T05",
+"VALUE": "T0504"
+},
+"HIGH AVG 1": {
+"NAME": "T05",
+"VALUE": "T0501"
+},
+"HIGH EXT 1.5": {
+"NAME": "T05",
+"VALUE": "T0502"
+},
+"HIGH MAX 2": {
+"NAME": "T05",
+"VALUE": "T0503"
+},
+"SLOPING MIN 0.5": {
+"NAME": "T06",
+"VALUE": "T0604"
+},
+"SLOPING AVG 1": {
+"NAME": "T06",
+"VALUE": "T0601"
+},
+"SLOPING EXT 1.5": {
+"NAME": "T06",
+"VALUE": "T0602"
+},
+"SLOPING MAX 2": {
+"NAME": "T06",
+"VALUE": "T0603"
+}
+}
+],
+"POSTURE": [
+{
+"STOOPING MIN 0.5": {
+"NAME": "T09",
+"VALUE": "T0904"
+},
+"STOOPING AVG 1": {
+"NAME": "T09",
+"VALUE": "T0901"
+},
+"STOOPING EXT 1.5": {
+"NAME": "T09",
+"VALUE": "T0902"
+},
+"STOOPING MAX 2": {
+"NAME": "T09",
+"VALUE": "T0903"  
+},
+"ERECT MIN 0.5": {
+"NAME": "T08",
+"VALUE": "T0804"
+},
+"ERECT AVG 1": {
+"NAME": "T08",
+"VALUE": "T0801"
+},
+"ERECT EXT 1.5": {
+"NAME": "T08",
+"VALUE": "T0802"
+},
+"ERECT AVG 2": {
+"NAME": "T08",
+"VALUE": "T0803"
+}
+}
+],
+"STOMACH-STATURE": [
+{
+"FLAT MIN 0.5": {
+"NAME": "T13",
+"VALUE": "T1307"
+},
+"FLAT AVG 1": {
+"NAME": "T13",
+"VALUE": "T1308"
+},
+"FLAT MORE 1.5": {
+"NAME": "T13",
+"VALUE": "T1309"
+},
+"FLAT EXT 2": {
+"NAME": "T13",
+"VALUE": "T1310"
+},
+"FLAT MAX 2.5": {
+"NAME": "T13",
+"VALUE": "T1311"  
+},
+"FULL MIN 0.5": {
+"NAME": "T13",
+"VALUE": "T1303"
+},
+"FULL AVG 1": {
+"NAME": "T13",
+"VALUE": "T1301"
+},
+"FULL MORE 1.5": {
+"NAME": "T13",
+"VALUE": "T1304"
+},
+"FULL EXT 2": {
+"NAME": "T13",
+"VALUE": "T1305"
+},
+"FULL MAX 2.5": {
+"NAME": "T13",
+"VALUE": "T1306"
+}
+}
+],
+"ARMHOLE": [
+{
+"RAISE MIN 0.5": {
+"NAME": "T54",
+"VALUE": "T5401"
+},
+"RAISE AVG 1": {
+"NAME": "T54",
+"VALUE": "T5402"
+},
+"RAISE MAX 1.5": {
+"NAME": "T54",
+"VALUE": "T5403"
+},
+"LOWER MIN 0.5": {
+"NAME": "T55",
+"VALUE": "T5501"
+},
+"LOWER AVG 1": {
+"NAME": "T55",
+"VALUE": "T5502"
+},
+"LOWER MAX 1.5": {
+"NAME": "T55",
+"VALUE": "T5503" 
+}
+}
+]
+}

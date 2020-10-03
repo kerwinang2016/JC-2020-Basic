@@ -1,0 +1,8 @@
+9/26/2017 10:47:53 AM: NetsuiteEntryPoint initiated
+9/26/2017 10:48:24 AM: Inside EntryPoint
+9/26/2017 10:49:01 AM: Started manual order processing for order no:3028
+9/26/2017 10:49:19 AM: Processing started for order no:3028
+9/26/2017 10:50:43 AM: NetsuiteEntryPoint initiated
+9/26/2017 10:51:12 AM: Inside EntryPoint
+9/26/2017 10:51:31 AM: Started manual order processing for order no:3030
+9/26/2017 10:51:33 AM: Processing started for order no:3030

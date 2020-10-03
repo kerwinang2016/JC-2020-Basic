@@ -1,0 +1,78 @@
+9/14/2017 10:50:40 AM: NetsuiteEntryPoint initiated
+9/14/2017 10:52:01 AM: NetsuiteEntryPoint initiated
+9/14/2017 10:52:28 AM: Inside EntryPoint
+9/14/2017 10:52:50 AM: [Error]: Error Occured: Your connection has timed out.  Please log in again.
+9/14/2017 10:57:10 AM: NetsuiteEntryPoint initiated
+9/14/2017 10:57:54 AM: Inside EntryPoint
+9/14/2017 10:58:04 AM: NetsuiteEntryPoint initiated
+9/14/2017 10:59:13 AM: Inside EntryPoint
+9/14/2017 10:59:38 AM: [Error]: Error Occured: Your connection has timed out.  Please log in again.
+9/14/2017 11:00:35 AM: NetsuiteEntryPoint initiated
+9/14/2017 11:01:14 AM: Inside EntryPoint
+9/14/2017 11:01:23 AM: [Error]: Error Occured: Your connection has timed out.  Please log in again.
+9/14/2017 11:05:43 AM: NetsuiteEntryPoint initiated
+9/14/2017 11:06:45 AM: NetsuiteEntryPoint initiated
+9/14/2017 11:07:21 AM: Inside EntryPoint
+9/14/2017 11:07:32 AM: [Error]: Error Occured: Your connection has timed out.  Please log in again.
+9/14/2017 11:08:58 AM: [Error]: Error Occured: Your connection has timed out.  Please log in again.
+9/14/2017 11:09:00 AM: [Error]: Error Occured for order: 
+9/14/2017 11:09:09 AM: NetsuiteEntryPoint initiated
+9/14/2017 11:09:55 AM: Inside EntryPoint
+9/14/2017 11:21:57 AM: NetsuiteEntryPoint initiated
+9/14/2017 11:22:39 AM: Inside EntryPoint
+9/14/2017 11:23:23 AM: [Error]: Error Occured: Only one request may be made against a session at a time
+9/14/2017 11:23:43 AM: NetsuiteEntryPoint initiated
+9/14/2017 11:24:48 AM: Inside EntryPoint
+9/14/2017 11:27:07 AM: NetsuiteEntryPoint initiated
+9/14/2017 11:27:36 AM: Inside EntryPoint
+9/14/2017 11:34:04 AM: NetsuiteEntryPoint initiated
+9/14/2017 11:34:33 AM: Inside EntryPoint
+9/14/2017 11:49:56 AM: NetsuiteEntryPoint initiated
+9/14/2017 11:50:27 AM: Inside EntryPoint
+9/14/2017 11:53:43 AM: NetsuiteEntryPoint initiated
+9/14/2017 11:54:11 AM: Inside EntryPoint
+9/14/2017 11:54:21 AM: [Error]: Error Occured: Your connection has timed out.  Please log in again.
+9/14/2017 11:54:24 AM: [Error]: Error Occured for order: 
+9/14/2017 11:57:54 AM: NetsuiteEntryPoint initiated
+9/14/2017 11:58:22 AM: Inside EntryPoint
+9/14/2017 12:05:00 PM: NetsuiteEntryPoint initiated
+9/14/2017 12:05:28 PM: Inside EntryPoint
+9/14/2017 1:13:27 PM: NetsuiteEntryPoint initiated
+9/14/2017 1:13:57 PM: Inside EntryPoint
+9/14/2017 1:17:38 PM: Started manual order processing for order no:2870
+9/14/2017 1:18:10 PM: Processing started for order no:2870
+9/14/2017 1:22:15 PM: NetsuiteEntryPoint initiated
+9/14/2017 1:22:43 PM: Inside EntryPoint
+9/14/2017 1:22:50 PM: Started manual order processing for order no:2870
+9/14/2017 1:22:52 PM: Processing started for order no:2870
+9/14/2017 2:21:57 PM: NetsuiteEntryPoint initiated
+9/14/2017 2:22:25 PM: Inside EntryPoint
+9/14/2017 2:22:55 PM: Started manual order processing for order no:2865
+9/14/2017 2:23:15 PM: Processing started for order no:2865
+9/14/2017 2:37:31 PM: NetsuiteEntryPoint initiated
+9/14/2017 2:37:59 PM: Inside EntryPoint
+9/14/2017 2:41:43 PM: NetsuiteEntryPoint initiated
+9/14/2017 2:42:11 PM: Inside EntryPoint
+9/14/2017 2:42:51 PM: NetsuiteEntryPoint initiated
+9/14/2017 2:43:20 PM: Inside EntryPoint
+9/14/2017 2:44:26 PM: NetsuiteEntryPoint initiated
+9/14/2017 2:44:54 PM: Inside EntryPoint
+9/14/2017 2:46:51 PM: NetsuiteEntryPoint initiated
+9/14/2017 2:47:18 PM: Inside EntryPoint
+9/14/2017 2:50:22 PM: NetsuiteEntryPoint initiated
+9/14/2017 2:50:50 PM: Inside EntryPoint
+9/14/2017 2:51:08 PM: Started manual order processing for order no:2874
+9/14/2017 2:51:28 PM: Processing started for order no:2874
+9/14/2017 2:54:41 PM: NetsuiteEntryPoint initiated
+9/14/2017 2:55:10 PM: Inside EntryPoint
+9/14/2017 2:58:31 PM: NetsuiteEntryPoint initiated
+9/14/2017 2:58:59 PM: Inside EntryPoint
+9/14/2017 2:59:47 PM: Started manual order processing for order no:2874
+9/14/2017 2:59:50 PM: Processing started for order no:2874
+9/14/2017 3:00:53 PM: [Error]: Error for Order-TU2874-1 is: missing value of 1/2 Shoulder pt_code:T63must
+9/14/2017 3:00:53 PM: [Error]: Error for Order-TU2874-1 is: missing value of 1/2 Back pt_code:T64must
+9/14/2017 3:00:53 PM: [Error]: Error for Order-TU2874-1 is: missing value of 1/2 Girth pt_code:T65must
+9/14/2017 3:00:53 PM: [Error]: Error for Order-TU2874-1 is: missing value of Back Length pt_code:T66must
+9/14/2017 3:00:53 PM: [Error]: Error for Order-TU2874-1 is: missing value of Outsleeve L pt_code:T69must
+9/14/2017 3:00:53 PM: [Error]: Error for Order-TU2874-1 is: missing value of Outsleeve R pt_code:T70must
+9/14/2017 3:00:59 PM: Error sending mail for order:2874

@@ -1,0 +1,39 @@
+D:\Zenith Projects\OscarHunt\Prashant\OscarHuntServiceDebug\OscarHuntService\bin\Debug\Settings.xml
+D:\Zenith Projects\OscarHunt\Prashant\OscarHuntServiceDebug\OscarHuntService\bin\Debug\MappingData.json
+D:\Zenith Projects\OscarHunt\Prashant\OscarHuntServiceDebug\OscarHuntService\bin\Debug\UstyylitErrorCodes.json
+D:\Zenith Projects\OscarHunt\Prashant\OscarHuntServiceDebug\OscarHuntService\bin\Debug\OscarHuntService.exe.config
+D:\Zenith Projects\OscarHunt\Prashant\OscarHuntServiceDebug\OscarHuntService\bin\Debug\OscarHuntService.exe
+D:\Zenith Projects\OscarHunt\Prashant\OscarHuntServiceDebug\OscarHuntService\bin\Debug\OscarHuntService.pdb
+D:\Zenith Projects\OscarHunt\Prashant\OscarHuntServiceDebug\OscarHuntService\bin\Debug\log4net.dll
+D:\Zenith Projects\OscarHunt\Prashant\OscarHuntServiceDebug\OscarHuntService\bin\Debug\Newtonsoft.Json.dll
+D:\Zenith Projects\OscarHunt\Prashant\OscarHuntServiceDebug\OscarHuntService\bin\Debug\log4net.xml
+D:\Zenith Projects\OscarHunt\Prashant\OscarHuntServiceDebug\OscarHuntService\bin\Debug\Newtonsoft.Json.xml
+D:\Zenith Projects\OscarHunt\Prashant\OscarHuntServiceDebug\OscarHuntService\obj\Debug\OscarHuntService.OscarHuntAPIService.resources
+D:\Zenith Projects\OscarHunt\Prashant\OscarHuntServiceDebug\OscarHuntService\obj\Debug\OscarHuntService.ProjectInstaller.resources
+D:\Zenith Projects\OscarHunt\Prashant\OscarHuntServiceDebug\OscarHuntService\obj\Debug\OscarHuntService.csproj.GenerateResource.Cache
+D:\Zenith Projects\OscarHunt\Prashant\OscarHuntServiceDebug\OscarHuntService\obj\Debug\OscarHuntService.exe
+D:\Zenith Projects\OscarHunt\Prashant\OscarHuntServiceDebug\OscarHuntService\obj\Debug\OscarHuntService.pdb
+D:\Zenith Projects\OscarHunt\Prashant\OscarHuntServiceDebug\OscarHuntService\obj\Debug\OscarHuntService.csprojResolveAssemblyReference.cache
+C:\Users\Kerwin\Downloads\OscarHuntService\bin\Debug\OscarHuntService.exe.config
+C:\Users\Kerwin\Downloads\OscarHuntService\obj\Debug\OscarHuntService.exe
+C:\Users\Kerwin\Downloads\OscarHuntService\obj\Debug\OscarHuntService.pdb
+C:\Users\Kerwin\Downloads\OscarHuntService\bin\Debug\Settings.xml
+C:\Users\Kerwin\Downloads\OscarHuntService\bin\Debug\MappingData.json
+C:\Users\Kerwin\Downloads\OscarHuntService\bin\Debug\UstyylitErrorCodes.json
+C:\Users\Kerwin\Downloads\OscarHuntService\bin\Debug\OscarHuntService.exe
+C:\Users\Kerwin\Downloads\OscarHuntService\bin\Debug\OscarHuntService.pdb
+C:\Users\Kerwin\Downloads\OscarHuntService\obj\Debug\OscarHuntService.OscarHuntAPIService.resources
+C:\Users\Kerwin\Downloads\OscarHuntService\obj\Debug\OscarHuntService.ProjectInstaller.resources
+C:\Users\Kerwin\Downloads\OscarHuntService\obj\Debug\OscarHuntService.csproj.GenerateResource.Cache
+C:\Users\Kerwin\Downloads\OscarHuntService\obj\Debug\OscarHuntService.csprojResolveAssemblyReference.cache
+C:\Users\Kerwin\Desktop\Oscar Hunt\OscarHuntService\bin\Debug\Settings.xml
+C:\Users\Kerwin\Desktop\Oscar Hunt\OscarHuntService\bin\Debug\MappingData.json
+C:\Users\Kerwin\Desktop\Oscar Hunt\OscarHuntService\bin\Debug\UstyylitErrorCodes.json
+C:\Users\Kerwin\Desktop\Oscar Hunt\OscarHuntService\bin\Debug\OscarHuntService.exe.config
+C:\Users\Kerwin\Desktop\Oscar Hunt\OscarHuntService\bin\Debug\OscarHuntService.exe
+C:\Users\Kerwin\Desktop\Oscar Hunt\OscarHuntService\bin\Debug\OscarHuntService.pdb
+C:\Users\Kerwin\Desktop\Oscar Hunt\OscarHuntService\obj\Debug\OscarHuntService.OscarHuntAPIService.resources
+C:\Users\Kerwin\Desktop\Oscar Hunt\OscarHuntService\obj\Debug\OscarHuntService.ProjectInstaller.resources
+C:\Users\Kerwin\Desktop\Oscar Hunt\OscarHuntService\obj\Debug\OscarHuntService.csproj.GenerateResource.Cache
+C:\Users\Kerwin\Desktop\Oscar Hunt\OscarHuntService\obj\Debug\OscarHuntService.exe
+C:\Users\Kerwin\Desktop\Oscar Hunt\OscarHuntService\obj\Debug\OscarHuntService.pdb

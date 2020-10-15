@@ -1,7 +1,8 @@
 // OrderHistory.Views.js
 // -----------------------
 // Views for order's details
-define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Model','CaseFields.Model'], function (ItemDetailsModel, TrackingServices, CaseModel,CaseFieldsModel) {
+define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Model','CaseFields.Model','OrderHistory.Requests.Views'],
+	function (ItemDetailsModel, TrackingServices, CaseModel, CaseFieldsModel, OrderHistoryRequestsView) {
 	'use strict';
 
 	var Views = {};
@@ -46,19 +47,28 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Mode
 			, 'click [data-requestdiscount]' : 'requestDiscount'
 			, 'click [data-requestcancel]' : 'requestCancel'
 			, 'click [data-requesthold]' : 'requestHold'
-
 		}
 		, requestRush: function(e){
-
 			var cm = new CaseModel();
 			cm.set('title',"Request for rush on order " + jQuery(e.target).data('requestrush'));
 			cm.set('message', "Request for rush on order " + jQuery(e.target).data('requestrush'));
 			cm.set('category',5);//external request
 			cm.set('issue',2);//request for rush
+			cm.set('custevent_discount_requested','');
+			cm.set('custevent_date_needed','');
+			cm.set('custevent_discount_reasons','');
 			cm.set('custevent_so_id',jQuery(e.target).data('requestrush'));
 			cm.set('custevent_related_sales_order',this.model.get('internalid'));
-			cm.save();
-			alert('An issue was created for this request');
+			cm.set('custevent_replacement_soid','');
+			var case_fields = new CaseFieldsModel();
+			var orderHistoryRequestsView = new OrderHistoryRequestsView({
+				application: this.application,
+				model: cm,
+				fields: case_fields,
+				orderHistoryDetailsView: this
+			});
+			jQuery.when(case_fields.fetch()).then(jQuery.proxy(orderHistoryRequestsView, 'showInModal'));
+
 		}
 		, requestDiscount: function(e){
 			var cm = new CaseModel();
@@ -66,11 +76,20 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Mode
 			cm.set('message', "Request for discount on order " + jQuery(e.target).data('requestdiscount'));
 			cm.set('category',4);//internal request
 			cm.set('issue',3);//request for rush
-
 			cm.set('custevent_so_id',jQuery(e.target).data('requestdiscount'));
 			cm.set('custevent_related_sales_order',this.model.get('internalid'));
-			cm.save();
-			alert('An issue was created for this request');
+			cm.set('custevent_discount_requested','');
+			cm.set('custevent_date_needed','');
+			cm.set('custevent_discount_reasons','');
+			cm.set('custevent_replacement_soid','');
+			var case_fields = new CaseFieldsModel();
+			var orderHistoryRequestsView = new OrderHistoryRequestsView({
+				application: this.application,
+				model: cm,
+				fields: case_fields,
+				orderHistoryDetailsView: this
+			});
+			jQuery.when(case_fields.fetch()).then(jQuery.proxy(orderHistoryRequestsView, 'showInModal'));
 		}
 		, requestCancel: function(e){
 			//Create Case Model then save
@@ -81,8 +100,19 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Mode
 			cm.set('issue',4);//request for rush
 			cm.set('custevent_so_id',jQuery(e.target).data('requestcancel'));
 			cm.set('custevent_related_sales_order',this.model.get('internalid'));
-			cm.save();
-			alert('An issue was created for this request');
+			cm.set('custevent_discount_requested','');
+			cm.set('custevent_date_needed','');
+			cm.set('custevent_discount_reasons','');
+			cm.set('custevent_replacement_soid','');
+			var case_fields = new CaseFieldsModel();
+			var orderHistoryRequestsView = new OrderHistoryRequestsView({
+				application: this.application,
+				model: cm,
+				fields: case_fields,
+				orderHistoryDetailsView: this
+			});
+			jQuery.when(case_fields.fetch()).then(jQuery.proxy(orderHistoryRequestsView, 'showInModal'));
+
 		}
 		, requestHold: function(e){
 			//Create Case Model then save
@@ -93,8 +123,18 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Mode
 			cm.set('issue',5);//request for rush
 			cm.set('custevent_so_id',jQuery(e.target).data('requesthold'));
 			cm.set('custevent_related_sales_order',this.model.get('internalid'));
-			cm.save();
-			alert('An issue was created for this request');
+			cm.set('custevent_discount_requested','');
+			cm.set('custevent_date_needed','');
+			cm.set('custevent_discount_reasons','');
+			cm.set('custevent_replacement_soid','');
+			var case_fields = new CaseFieldsModel();
+			var orderHistoryRequestsView = new OrderHistoryRequestsView({
+				application: this.application,
+				model: cm,
+				fields: case_fields,
+				orderHistoryDetailsView: this
+			});
+			jQuery.when(case_fields.fetch()).then(jQuery.proxy(orderHistoryRequestsView, 'showInModal'));
 		}
 		, showContent: function () {
 			var self = this;

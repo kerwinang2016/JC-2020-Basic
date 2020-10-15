@@ -8,15 +8,20 @@
  * 2.02  		15 Sep 2020		Kim Morfe			Modified and optimized the searchCMTPurchaseOrders, Form_Approval_POLineCMT_UK and generateCMTSublist functions
  * 2.03			16 Sep 2020		Kim Morfe			Modified the functions for UK, USA, Internal and Others functions
  * 3.00			21 Sep 2020		Kim Morfe			Modified the script to make the tailor list dynamic
+ * 3.01			30 Sep 2020		Kim Morfe			Modified the Fabric PO Approval dashboards to make the tailor list dynamic
+ * 3.02 		01 Oct 2020		Kim Morfe			Modified the Fabric PO Historical dashboards to make the tailor list dynamic
+ * 3.03 		13 Oct 2020		Kim Morfe			Fixed issue on CMT PO Approval EU by adding a validation on generateCMTSublist
  *
  */
 
  //Declare universal variables to be used on CMT PO Approval EU
 var searchResultList = new Array();
 var dataRetrieved = false;
+var myListDataPopulated = false;
 var soLinesList = null;
 var createdFromMasterList = new Array();
 var cmtList = new Array();
+var cmtBilledList = new Array();
 var tailorList = new Array();
 
 var avt_post = function(datain){
@@ -54,11 +59,12 @@ var avt_post = function(datain){
 	return returnObj;
 }
 function dashBoardRequest(request){
+  nlapiLogExecution('audit','POST Incoming JSON',request.getBody());
 	var datain = JSON.parse(request.getBody());
 	var returnObj = new Object();
 	//returnObj = datain;
-	nlapiLogExecution('audit','POST Incoming JSON',request.getBody());
-	// nlapiLogExecution('debug','requestbody',datain);
+
+	// nlapiLogExecution('debug','action',datain.action);
 	var action = datain.action;
 	//returnObj.action = action;
 	try{
@@ -81,6 +87,12 @@ function dashBoardRequest(request){
       case "holdsoline":
 				returnObj = holdSOLine(datain);
 				break;
+      case "sendorderlinetoustyylit":
+        returnObj = sendOrderLineToUstyylit(datain);
+        break;
+      case "sendordertoustyylit":
+        returnObj = sendOrderToUstyylit(datain);
+        break;
 			default:{
 				nlapiLogExecution('debug','Action Not Supported');
 				returnObj.status = false;
@@ -92,6 +104,16 @@ function dashBoardRequest(request){
 		nlapiLogExecution("error","Error status",ex);
 	}
 	response.write(JSON.stringify(returnObj));
+}
+function sendOrderLineToUstyylit(data){
+  // nlapiLogExecution('debug','data', data);
+  nlapiScheduleScript('customscript_ss_createorderservice', 'customdeploy_dashboardtrigger1', data);
+  return data;
+}
+function sendOrderToUstyylit(data){
+  // nlapiLogExecution('debug','data', data);
+  nlapiScheduleScript('customscript_ss_createorderservice', 'customdeploy_dashboardtrigger1', data);
+  return data;
 }
 function holdSO(data){
   var returnObj = {};
@@ -1054,7 +1076,8 @@ var MyObj = function( request, response )
 		var form =  nlapiCreateForm( 'Sales Orders To Approve');
 		form.addButton( 'custpage_btapprve', 'Approve Now', 'ApproveSO()');
     form.addButton( 'custpage_btnhold', 'Hold Orders', 'HoldSO()');
-		form.setScript( 'customscript_avt_so_approval_cs');
+    form.addButton( 'custpage_btnsend', 'Send to Ustyylit', 'SendToUstyylit()');
+    form.setScript( 'customscript_avt_so_approval_cs');
 
 		var filter = new Array();
 		filter[ filter.length ] = new nlobjSearchFilter( 'mainline', null, 'is', 'T');
@@ -1103,16 +1126,16 @@ var MyObj = function( request, response )
 		form.addButton( 'custpage_filter', 'Filter', 'FilterSOLine()');
 		form.addButton( 'custpage_btsave', 'Save', 'SaveSO');
     form.addButton( 'custpage_btnhold', 'Hold', 'HoldSOLine()');
+    form.addButton( 'custpage_btnsend', 'Send to Ustyylit', 'SendLineToUstyylit()');
 		var fld_itemselect  = form.addField( 'custpage_item', 'select', 'Filter Item', 'item');
 		form.setScript( 'customscript_avt_so_approval_cs');
 
 		var filter = new Array();
 		filter[ filter.length ] = new nlobjSearchFilter( 'mainline', null, 'is', 'F');
 		var itemid  =  this.request.getParameter( 'itemid');
-		if( itemid  != null && itemid != ''  )
-		{
+		if( itemid  != null && itemid != '' ){
 			filter[ filter.length ] = new nlobjSearchFilter( 'item', null, 'anyof', itemid);
-			fld_itemselect.setDefaultValue( itemid);
+			fld_itemselect.setDefaultValue(itemid);
 		}
 		//filter[ filter.length ] = new nlobjSearchFilter( 'status', null, 'anyof', 'pendingApproval');
 
@@ -1255,7 +1278,13 @@ var MyObj = function( request, response )
 			{
 				fld_vendor.setDefaultValue(vendorval );
 			}
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['961','706','932','958','605','947','921','600','840','848','844','813','801','728','562','587','627','685','716','772','854']);
+			//Perform a Tailor search filtered by Tailor Region
+			searchTailors(4);	//Internal ID of Region: UK
+			log('tailorList', tailorList);
+			var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));
+			log('uniqueTailorIDs', uniqueTailorIDs);
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', uniqueTailorIDs);
+			//filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['961','706','932','958','605','947','921','600','840','848','844','813','801','728','562','587','627','685','716','772','854']);
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 		var searchid = 'customsearch_avt_so_to_approve_2_2';
@@ -1387,7 +1416,7 @@ var MyObj = function( request, response )
 	};
 	this.Form_Approval_POLineFabricUSA = function()
 	{
-		var form =  nlapiCreateForm( 'Fabric Purchase Order  Lines To Manage USA');
+		var form =  nlapiCreateForm( 'Fabric Purchase Order  Lines To Manage NA');
 		//var fld_vendor = form.addField( 'custpage_vendor', 'select', 'Vendor', 'vendor');
 
 		form.addButton( 'custpage_btapprve', 'Save', 'SavePOFab()');
@@ -1444,7 +1473,13 @@ var MyObj = function( request, response )
 			{
 				fld_vendor.setDefaultValue(vendorval );
 			}
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['914','84','118','758']);
+			//Perform a Tailor search filtered by Tailor Region
+			searchTailors(5);	//Internal ID of Region: NA
+			log('tailorList', tailorList);
+			var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));
+			log('uniqueTailorIDs', uniqueTailorIDs);
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', uniqueTailorIDs);
+			//filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['914','84','118','758']);
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 		var searchid = 'customsearch_avt_so_to_approve_2_2';
@@ -1575,7 +1610,7 @@ var MyObj = function( request, response )
 	};
 	this.Form_Approval_POLineFabric = function()
 	{
-		var form =  nlapiCreateForm( 'Fabric Purchase Order  Lines To Manage');
+		var form =  nlapiCreateForm( 'Fabric Purchase Order  Lines To Manage Internal');
 
 		form.addButton( 'custpage_btapprve', 'Save', 'SavePOFab()');
 		form.addButton( 'custpage_btapprve_bill', 'Bill', 'SavePOFab(true)');
@@ -1637,7 +1672,7 @@ var MyObj = function( request, response )
 			{
 				fld_vendor.setDefaultValue(vendorval );
 			}
-			//Perform a Tailor search filtered by Internal region
+			//Perform a Tailor search filtered by Tailor Region
 			searchTailors(2);	//Internal ID of Region: Internal
 			log('tailorList', tailorList);
 			var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));
@@ -1767,7 +1802,7 @@ var MyObj = function( request, response )
 
 	this.Form_Approval_POLineFabricBilled = function()
 	{
-		var form =  nlapiCreateForm( 'Fabric Purchase Order Billed');
+		var form =  nlapiCreateForm( 'Fabric Purchase Order Billed Internal');
 
 		form.setScript( 'customscript_avt_so_approval_cs');
 
@@ -1823,7 +1858,11 @@ var MyObj = function( request, response )
 				fld_vendor.setDefaultValue(vendorval );
 			}
 			form.addButton( 'custpage_btfilter', 'Filter', 'POFilterBilled()');
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['75','5','669','708']);//Filter Dayan
+			//Perform a Tailor search filtered by Tailor Region
+			searchTailors(2);	//Internal ID of Region: Internal
+			var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', uniqueTailorIDs);
+			//filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['75','5','669','708']);//Filter Dayan
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 
@@ -1943,7 +1982,7 @@ var MyObj = function( request, response )
 	this.Form_Approval_POLineFabricBilledUSA = function()
 	{
 
-		var form =  nlapiCreateForm( 'Fabric Purchase Order Billed USA');
+		var form =  nlapiCreateForm( 'Fabric Purchase Order Billed NA');
 		form.addButton( 'custpage_btfilter', 'Filter', 'POFilterBilled()');
 		form.setScript( 'customscript_avt_so_approval_cs');
 
@@ -1997,7 +2036,11 @@ var MyObj = function( request, response )
 			{
 				fld_vendor.setDefaultValue(vendorval );
 			}
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['914','84','118','758']);//Filter Dayan
+			//Perform a Tailor search filtered by Tailor Region
+			searchTailors(5);	//Internal ID of Region: NA
+			var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', uniqueTailorIDs);
+			//filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['914','84','118','758']);//Filter Dayan
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 		var searchid = 'customsearch_avt_so_to_approve_2_2_3';
@@ -2167,7 +2210,11 @@ var MyObj = function( request, response )
 			{
 				fld_vendor.setDefaultValue(vendorval );
 			}
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['961','706','932','958','605','947','921','600','840','848','844','813','801','728','562','587','627','685','716','772','854']);//Filter Dayan
+			//Perform a Tailor search filtered by Tailor Region
+			searchTailors(4);	//Internal ID of Region: UK
+			var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', uniqueTailorIDs);
+			//filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['961','706','932','958','605','947','921','600','840','848','844','813','801','728','562','587','627','685','716','772','854']);//Filter Dayan
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 		var searchid = 'customsearch_avt_so_to_approve_2_2_3';
@@ -2661,7 +2708,7 @@ var MyObj = function( request, response )
 
 
 
-		if( getSOLines != null)
+		if( getSOLines != null && !myListDataPopulated)
 		{
 			for(var x in mylist)
 			{
@@ -2695,6 +2742,7 @@ var MyObj = function( request, response )
 					}
 				}
 			}
+			myListDataPopulated = true;
 		}
 		// var fld_expdatesent = form.addField( 'custpage_expecteddatesent2', 'date', 'Expected Date Sent',null,'custpage_oscarhuntsydney');
 		// var sublist = form.addSubList( 'custpage_subslist1', 'list', 'Order Lines To Approve');
@@ -2843,94 +2891,208 @@ var MyObj = function( request, response )
 			}
 		}
 	};
-	this.generateCMTBilledSublist = function(sublist, parameters){
-		var filter = new Array();
-		filter[ filter.length ] = new nlobjSearchFilter( 'mainline', null, 'is', 'F');
-		if(parameters.dateval){
-			filter[ filter.length ] = new nlobjSearchFilter( 'custcol_avt_cmt_date_sent', null, 'on', parameters.dateval);
-		}
-		//filter[ filter.length ] = new nlobjSearchFilter( 'internalid', null, 'anyof', '4562');
-		/*var role  = nlapiGetRole();
-		var id = nlapiGetRecordId();
-		if( role == '1008' || role == '1009' || role == '1010' || role == '1011' || role == '1012'  || role == '1013') // if role is any of the roles filter by vendor
-		{
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', null, 'anyof', id );
-		}*/
+	this.generateCMTBilledSublist = function(sublist, parameters, tailorsIDs){
 
-		//filter[ filter.length ] = new nlobjSearchFilter( 'itemtype', 'item', 'text', 'service');
-		var context = nlapiGetContext();
-
-		var searchid = 'customsearch_avt_so_to_approve_2_2_2_2';
-
-		var cols = new Array();
-		cols[ cols.length ] =  new nlobjSearchColumn( 'trandate');
-		cols[ cols.length ] =  new nlobjSearchColumn( 'tranid');
-		//cols[ cols.length ] =  new nlobjSearchColumn( 'period');
-		cols[ cols.length ] =  new nlobjSearchColumn( 'entity');
-		cols[ cols.length ] =  new nlobjSearchColumn( 'internalid');
-		cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_so_id');
-		cols[ cols.length ] =  new nlobjSearchColumn( 'custbody_avt_salesorder_ref');
-		cols[ cols.length ] =  new nlobjSearchColumn( 'createdfrom');
-		cols[ cols.length ] =  new nlobjSearchColumn( 'item');
-		cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_avt_cmt_tracking');
-		cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_avt_cmt_date_sent');
-		cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_avt_cmt_status');
-		cols[ cols.length ] = new nlobjSearchColumn( 'lineuniquekey');
-		cols[ cols.length ] = new nlobjSearchColumn( 'custcol_tailor_client_name');
-		cols[ cols.length ] = new nlobjSearchColumn('custcol_column_notes');
-
-		//var sr = nlapiSearchRecord( 'purchaseorder', searchid, filter, cols);
-
-		var search = nlapiLoadSearch('purchaseorder', searchid);
-		search.addFilters(filter);
-		search.addColumns(cols);
-		var searchid = 0;
 		var createdFromList = new Array();
 		var mylist = new Array();
-
-		var resultSet = search.runSearch();
-		do{
-			var sr = resultSet.getResults(searchid,searchid+1000);
-			if(sr){
-				for( var x=0; x<sr.length;x++ )
-				{
-					var object = new Object();
-					object.trandate = sr[x].getValue('trandate');
-					object.soid  =  sr[x].getValue( 'custcol_so_id');
-					object.line  =  sr[x].getValue( 'lineuniquekey');
-					object.createdfrom =  sr[x].getValue( 'custbody_avt_salesorder_ref');
-					object.createdfrom == null || object.createdfrom == ''? object.createdfrom = sr[x].getValue('createdfrom'): null;
-					object.internalid  =  sr[x].getValue( 'internalid');
-					object.entity  =  sr[x].getValue( 'entity');
-					object.item =  sr[x].getValue( 'item');
-					object.fab_text  = '';
-					object.fab_item = null;
-					object.fab_itemtext = '';
-					object.fab_status = '';// sr[x].getValue( 'custcol_avt_fabric_status');
-					object.cmt_status  = sr[x].getValue( 'custcol_avt_cmt_status');
-					object.cmt_datesent = sr[x].getValue( 'custcol_avt_cmt_date_sent');
-					object.cmt_tracking = sr[x].getValue( 'custcol_avt_cmt_tracking');
-					object.notes = sr[x].getValue('custcol_column_notes');
-					if( createdFromList[ object.createdfrom ] ==  null)
-					{
-						createdFromList[ object.createdfrom ] = object.createdfrom;
-					}
-					object.clientname  = sr[x].getValue( 'custcol_tailor_client_name');
-					object.fab_vendor  = '';
-					mylist.push( object);
-				}
-				searchid += sr.length;
-			}
-		}while(sr.length == 1000);
-
 		var getSOLines  =  null;
-		if(createdFromList.length > 0 )
-		{
-			getSOLines = this.getSOLineJoin( createdFromList, parameters.entity );
+
+		if (searchResultList != null && searchResultList != ''){	//Proceed with getting the fields from the saved search result if searchResultList is not empty
+			//log('searchResultList is not empty');
+			var searchid = 0;
+			//log('dataRetrieved', dataRetrieved);
+			if (!dataRetrieved){
+				log('retrieving data from search');
+				do{
+					var sr = searchResultList.getResults(searchid,searchid+1000);
+					if(sr){
+						for( var x=0; x<sr.length;x++ )
+						{
+							var object = new Object();
+							object.trandate = sr[x].getValue('trandate');
+							object.soid  =  sr[x].getValue( 'custcol_so_id');
+							object.line  =  sr[x].getValue( 'lineuniquekey');
+							object.createdfrom =  sr[x].getValue( 'custbody_avt_salesorder_ref');
+							object.createdfrom == null || object.createdfrom == ''? object.createdfrom = sr[x].getValue('createdfrom'): null;
+							object.internalid  =  sr[x].getValue( 'internalid');
+							object.entity  =  sr[x].getValue( 'entity');
+							object.item =  sr[x].getValue( 'item');
+							object.fab_text  = '';
+							object.fab_item = null;
+							object.fab_itemtext = '';
+							object.fab_status = '';// sr[x].getValue( 'custcol_avt_fabric_status');
+							object.cmt_status  = sr[x].getValue( 'custcol_avt_cmt_status');
+							object.cmt_datesent = sr[x].getValue( 'custcol_avt_cmt_date_sent');
+							object.cmt_tracking = sr[x].getValue( 'custcol_avt_cmt_tracking');
+							object.notes = sr[x].getValue('custcol_column_notes');
+							if( createdFromList[ object.createdfrom ] ==  null)
+							{
+								createdFromList[ object.createdfrom ] = object.createdfrom;
+							}
+							object.clientname  = sr[x].getValue( 'custcol_tailor_client_name');
+							object.fab_vendor  = '';
+							mylist.push( object);
+						}
+						searchid += sr.length;
+					}
+				}while(sr.length == 1000);
+				dataRetrieved = true;
+
+				//Populate the createdFromMasterList and cmtBilledList
+				createdFromMasterList = createdFromList;
+				cmtBilledList = mylist;
+
+			} else {
+				//log('retrieving from createdFromMasterList', createdFromMasterList);
+				createdFromList	= createdFromMasterList;	//Get the value of createdFromList from createdFromMasterList
+				mylist = cmtBilledList;	//Get the value of mylist from cmtBilledList
+
+			}
+			//return;
+			//log('createdFromList : ', createdFromList);
+			if(createdFromList.length > 0 )
+			{
+
+				//log('createdFromList length: ' + createdFromList.length);
+				if (!soLinesList){
+					//log('soLinesList is empty');
+					getSOLines = this.getAllSOLineJoin( createdFromList, tailorsIDs);
+				} else {
+					//log('soLinesList is not empty');
+					getSOLines = soLinesList;
+				}
+
+			}
+
+
+		} else {
+
+			var filter = new Array();
+			filter[ filter.length ] = new nlobjSearchFilter( 'mainline', null, 'is', 'F');
+			if(parameters.dateval){
+				filter[ filter.length ] = new nlobjSearchFilter( 'custcol_avt_cmt_date_sent', null, 'on', parameters.dateval);
+			}
+			//filter[ filter.length ] = new nlobjSearchFilter( 'internalid', null, 'anyof', '4562');
+			/*var role  = nlapiGetRole();
+			var id = nlapiGetRecordId();
+			if( role == '1008' || role == '1009' || role == '1010' || role == '1011' || role == '1012'  || role == '1013') // if role is any of the roles filter by vendor
+			{
+				filter[ filter.length ] = new nlobjSearchFilter( 'entity', null, 'anyof', id );
+			}*/
+
+			//filter[ filter.length ] = new nlobjSearchFilter( 'itemtype', 'item', 'text', 'service');
+			var context = nlapiGetContext();
+
+			var searchid = 'customsearch_avt_so_to_approve_2_2_2_2';
+
+			var cols = new Array();
+			cols[ cols.length ] =  new nlobjSearchColumn( 'trandate');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'tranid');
+			//cols[ cols.length ] =  new nlobjSearchColumn( 'period');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'entity');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'internalid');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_so_id');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'custbody_avt_salesorder_ref');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'createdfrom');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'item');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_avt_cmt_tracking');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_avt_cmt_date_sent');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_avt_cmt_status');
+			cols[ cols.length ] = new nlobjSearchColumn( 'lineuniquekey');
+			cols[ cols.length ] = new nlobjSearchColumn( 'custcol_tailor_client_name');
+			cols[ cols.length ] = new nlobjSearchColumn('custcol_column_notes');
+
+			//var sr = nlapiSearchRecord( 'purchaseorder', searchid, filter, cols);
+
+			var search = nlapiLoadSearch('purchaseorder', searchid);
+			search.addFilters(filter);
+			search.addColumns(cols);
+			var searchid = 0;
+			var createdFromList = new Array();
+			var mylist = new Array();
+
+			var resultSet = search.runSearch();
+			do{
+				var sr = resultSet.getResults(searchid,searchid+1000);
+				if(sr){
+					for( var x=0; x<sr.length;x++ )
+					{
+						var object = new Object();
+						object.trandate = sr[x].getValue('trandate');
+						object.soid  =  sr[x].getValue( 'custcol_so_id');
+						object.line  =  sr[x].getValue( 'lineuniquekey');
+						object.createdfrom =  sr[x].getValue( 'custbody_avt_salesorder_ref');
+						object.createdfrom == null || object.createdfrom == ''? object.createdfrom = sr[x].getValue('createdfrom'): null;
+						object.internalid  =  sr[x].getValue( 'internalid');
+						object.entity  =  sr[x].getValue( 'entity');
+						object.item =  sr[x].getValue( 'item');
+						object.fab_text  = '';
+						object.fab_item = null;
+						object.fab_itemtext = '';
+						object.fab_status = '';// sr[x].getValue( 'custcol_avt_fabric_status');
+						object.cmt_status  = sr[x].getValue( 'custcol_avt_cmt_status');
+						object.cmt_datesent = sr[x].getValue( 'custcol_avt_cmt_date_sent');
+						object.cmt_tracking = sr[x].getValue( 'custcol_avt_cmt_tracking');
+						object.notes = sr[x].getValue('custcol_column_notes');
+						if( createdFromList[ object.createdfrom ] ==  null)
+						{
+							createdFromList[ object.createdfrom ] = object.createdfrom;
+						}
+						object.clientname  = sr[x].getValue( 'custcol_tailor_client_name');
+						object.fab_vendor  = '';
+						mylist.push( object);
+					}
+					searchid += sr.length;
+				}
+			}while(sr.length == 1000);
+
+			var getSOLines  =  null;
+			if(createdFromList.length > 0 )
+			{
+				getSOLines = this.getSOLineJoin( createdFromList, parameters.entity );
+			}
+
+			/*if( getSOLines != null)
+			{
+				for(var x in mylist)
+				{
+					for( var k in getSOLines)
+					{
+						var id = mylist[x].soid.split( '-');
+						if( mylist[x].createdfrom ==  getSOLines[k].internalid  &&
+								mylist[x].item !=  getSOLines[k].item && id[1] == getSOLines[k].line)
+						{
+
+							mylist[x].fab_status = getSOLines[k].fab_status;
+							//mylist[x].fab_datesent = getSOLines[k].fab_datesent;
+							//mylist[x].fab_tracking = getSOLines[k].fab_tracking;
+							mylist[x].fab_item = getSOLines[k].item;
+							mylist[x].fab_itemtext = getSOLines[k].itemtext;
+							mylist[x].fab_vendor  = getSOLines[k].fab_vendor;
+							mylist[x].fab_text  =  getSOLines[k].fab_text;
+							mylist[x].expsentdate = getSOLines[k].expsentdate;
+							mylist[x].tailor  =  getSOLines[k].entity;
+							mylist[x].tailorid = getSOLines[k].entityid;
+							//mylist[x].custcol_expected_date_needed = getSOLines[k].custcol_expected_date_needed;
+							mylist[x].custcol_avt_date_needed = getSOLines[k].custcol_avt_date_needed;
+							mylist[x].custcol_tailor_delivery_days = getSOLines[k].custcol_tailor_delivery_days;
+							mylist[x].custcol_expected_production_date = getSOLines[k].custcol_expected_production_date;
+							mylist[x].custcol_cmt_production_time = getSOLines[k].custcol_cmt_production_time;
+							mylist[x].custcol_cmt_lining_text = getSOLines[k].custcol_cmt_lining_text;
+							break;
+						}
+						else{
+							//nlapiLogExecution('audit','Something got removed',JSON.stringify(mylist[x]))
+						}
+					}
+				}
+			}
+			*/
 		}
 
-		if( getSOLines != null)
+		if( getSOLines != null && !myListDataPopulated)
 		{
+			log('mylist length', mylist.length + ' - getSOLines length: ' + getSOLines.length);
 			for(var x in mylist)
 			{
 				for( var k in getSOLines)
@@ -2963,7 +3125,9 @@ var MyObj = function( request, response )
 					}
 				}
 			}
+			myListDataPopulated = true;
 		}
+
 
 		// var sublist = form.addSubList( 'custpage_subslist1', 'list', 'Order Lines To Approve');
 		//sublist.addMarkAllButtons();
@@ -3013,8 +3177,10 @@ var MyObj = function( request, response )
 		fld_notes.setDisplayType('entry');
 
 
-		if( sr != null && sr.length > 0 )
+		//if( sr != null && sr.length > 0 )
+		if( mylist != null && mylist.length > 0 )
 		{
+			//log('mylist: ' + mylist.length);
 			var count =1 ;
 			var today = new Date();
 			for( var x in mylist)
@@ -3048,7 +3214,7 @@ var MyObj = function( request, response )
 				sublist.setLineItemValue('date_needed',count, mylist[x].custcol_avt_date_needed);
 				sublist.setLineItemValue('custcol_cmt_lining_text',count,mylist[x].custcol_cmt_lining_text);
 				//sublist.setLineItemValue( 'custpage_expsentdate', count, mylist[x].expsentdate);custcol_tailor_delivery_days 4  error
-
+				//log('mylist[x].cmt_status' + mylist[x].cmt_status + ' - mylist[x].fab_status: ' + mylist[x].fab_status);
 				if((mylist[x].cmt_status == '7' || mylist[x].cmt_status == '8' || !mylist[x].cmt_status) && mylist[x].fab_status != '1'){
 					//check the dates of the fabric should be sent vs today
 					if(mylist[x].custcol_expected_production_date){
@@ -3102,10 +3268,58 @@ var MyObj = function( request, response )
 	this.Form_Approval_POLineCMTBilled = function()
 	{
 		var dateval = this.request.getParameter('expecteddatesent');
-		var form =  nlapiCreateForm( 'CMT Purchase Order Lines Billed');
+		var form =  nlapiCreateForm( 'CMT Purchase Order Lines Billed Internal');
 		form.addButton( 'custpage_btfilter', 'Filter', 'POCMTBilledFilter()');
 		form.setScript( 'customscript_avt_so_approval_cs');
 
+		var fld_expdatesent = form.addField( 'custpage_expecteddatesent', 'date', 'Confirmed Shipping');
+		if(dateval){
+			fld_expdatesent.setDefaultValue(dateval);
+		}
+
+		//Perform a Tailor search filtered by Tailor region
+		searchTailors(2);	//Tailor Region: Internal
+
+		var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));	//tailorList is a universal variable that is populated on searchTailors
+		log('uniqueTailorIDs', uniqueTailorIDs);
+
+		//Create tabs in multiples of 10
+		var tabIndex = 0;
+		var tabID = '';
+
+		//Perform a Purchase Order Search to retrieve the data to populate the sublist
+		searchCMTPurchaseOrdersBilled({'dateval':dateval}, uniqueTailorIDs);
+
+		for (var tailorIndex = 0; tailorIndex < tailorList.length; tailorIndex++){	//Loop through the TailorList to build a tab and sublist for each tailor
+
+			if (tailorIndex % 10 == 0){	//Create a new tab for tailors divisible by 10
+				tabID = 'custpage_page'+tabIndex;
+				tabID = tabID.toString();
+				var tabFirstLetter = tailorList[tailorIndex].name.substring(0,1);
+				var tabMaxIndex = tailorIndex + 9;
+				log('tabMaxIndex', tabMaxIndex + ' - tailorList.length: ' + tailorList.length);
+				if (tabMaxIndex >= tailorList.length){
+					tabMaxIndex = tailorList.length - 1;
+				}
+				log('tabMaxIndex after', tabMaxIndex);
+				var tabLastLetter = tailorList[tabMaxIndex].name.substring(0,1);
+
+				var tabName = tabFirstLetter + ' - ' + tabLastLetter;
+				//tabName = tabName.toString();
+				form.addTab(tabID, tabName);
+				tabIndex++;
+			}
+
+			//Create a sublist for each tailor and use the tailorIndex as the sublist ID
+			var sublistID = 'custpage_subslist'+tailorIndex;
+			sublistID = sublistID.toString();
+			var tailorSublist = form.addSubList(sublistID, 'list', tailorList[tailorIndex].name, tabID);
+
+			this.generateCMTBilledSublist(tailorSublist,{'entity':tailorList[tailorIndex].id,'dateval':dateval}, uniqueTailorIDs);
+		}
+
+
+		/*
 		form.addTab('custpage_oscarhunt','Oscar Hunt Pty Ltd');
 		form.addTab('custpage_oscarhuntsydney','Oscar Hunt Sydney Pty Ltd');
 		form.addTab('custpage_gcmenswear','70 GC Menswear');
@@ -3126,6 +3340,8 @@ var MyObj = function( request, response )
 		this.generateCMTBilledSublist(sublist2,{'entity':'75','dateval':dateval});
 		this.generateCMTBilledSublist(sublist3,{'entity':'669','dateval':dateval});
 		this.generateCMTBilledSublist(sublist4,{'entity':'708','dateval':dateval});
+		*/
+
 		this.response.writePage( form);
 
 	};
@@ -3136,6 +3352,53 @@ var MyObj = function( request, response )
 		form.addButton( 'custpage_btfilter', 'Filter', 'POCMTBilledFilter()');
 		form.setScript( 'customscript_avt_so_approval_cs');
 
+		var fld_expdatesent = form.addField( 'custpage_expecteddatesent', 'date', 'Confirmed Shipping');
+		if(dateval){
+			fld_expdatesent.setDefaultValue(dateval);
+		}
+
+		//Perform a Tailor search filtered by Tailor region
+		searchTailors(4);	//Tailor Region: UK
+
+		var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));	//tailorList is a universal variable that is populated on searchTailors
+		log('uniqueTailorIDs', uniqueTailorIDs);
+
+		//Create tabs in multiples of 10
+		var tabIndex = 0;
+		var tabID = '';
+
+		//Perform a Purchase Order Search to retrieve the data to populate the sublist
+		searchCMTPurchaseOrdersBilled({'dateval':dateval}, uniqueTailorIDs);
+
+		for (var tailorIndex = 0; tailorIndex < tailorList.length; tailorIndex++){	//Loop through the TailorList to build a tab and sublist for each tailor
+
+			if (tailorIndex % 10 == 0){	//Create a new tab for tailors divisible by 10
+				tabID = 'custpage_page'+tabIndex;
+				tabID = tabID.toString();
+				var tabFirstLetter = tailorList[tailorIndex].name.substring(0,1);
+				var tabMaxIndex = tailorIndex + 9;
+				log('tabMaxIndex', tabMaxIndex + ' - tailorList.length: ' + tailorList.length);
+				if (tabMaxIndex >= tailorList.length){
+					tabMaxIndex = tailorList.length - 1;
+				}
+				log('tabMaxIndex after', tabMaxIndex);
+				var tabLastLetter = tailorList[tabMaxIndex].name.substring(0,1);
+
+				var tabName = tabFirstLetter + ' - ' + tabLastLetter;
+				//tabName = tabName.toString();
+				form.addTab(tabID, tabName);
+				tabIndex++;
+			}
+
+			//Create a sublist for each tailor and use the tailorIndex as the sublist ID
+			var sublistID = 'custpage_subslist'+tailorIndex;
+			sublistID = sublistID.toString();
+			var tailorSublist = form.addSubList(sublistID, 'list', tailorList[tailorIndex].name, tabID);
+
+			this.generateCMTBilledSublist(tailorSublist,{'entity':tailorList[tailorIndex].id,'dateval':dateval}, uniqueTailorIDs);
+		}
+
+		/*
 		// form.addTab('custpage_jeromeuk','Jerome UK');
 		// form.addTab('custpage_jackdavidson','40 JEI_Jack Davidson');
 
@@ -3209,16 +3472,65 @@ var MyObj = function( request, response )
 		this.generateCMTBilledSublist(sublist19,{'entity':'932','dateval':dateval});
 		this.generateCMTBilledSublist(sublist20,{'entity':'706','dateval':dateval});
 		this.generateCMTBilledSublist(sublist21,{'entity':'961','dateval':dateval});
+		*/
 		this.response.writePage( form);
 
 	};
 	this.Form_Approval_POLineCMTBilledUSA = function()
 	{
 		var dateval = this.request.getParameter('expecteddatesent');
-		var form =  nlapiCreateForm( 'CMT Purchase Order Lines Billed USA');
+		var form =  nlapiCreateForm( 'CMT Purchase Order Lines Billed NA');
 		form.addButton( 'custpage_btfilter', 'Filter', 'POCMTBilledFilter()');
 		form.setScript( 'customscript_avt_so_approval_cs');
 
+
+		var fld_expdatesent = form.addField( 'custpage_expecteddatesent', 'date', 'Confirmed Shipping');
+		if(dateval){
+			fld_expdatesent.setDefaultValue(dateval);
+		}
+
+		//Perform a Tailor search filtered by Tailor region
+		searchTailors(5);	//Tailor Region: NA
+
+		var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));	//tailorList is a universal variable that is populated on searchTailors
+		log('uniqueTailorIDs', uniqueTailorIDs);
+
+		//Create tabs in multiples of 10
+		var tabIndex = 0;
+		var tabID = '';
+
+		//Perform a Purchase Order Search to retrieve the data to populate the sublist
+		searchCMTPurchaseOrdersBilled({'dateval':dateval}, uniqueTailorIDs);
+
+		for (var tailorIndex = 0; tailorIndex < tailorList.length; tailorIndex++){	//Loop through the TailorList to build a tab and sublist for each tailor
+
+			if (tailorIndex % 10 == 0){	//Create a new tab for tailors divisible by 10
+				tabID = 'custpage_page'+tabIndex;
+				tabID = tabID.toString();
+				var tabFirstLetter = tailorList[tailorIndex].name.substring(0,1);
+				var tabMaxIndex = tailorIndex + 9;
+				log('tabMaxIndex', tabMaxIndex + ' - tailorList.length: ' + tailorList.length);
+				if (tabMaxIndex >= tailorList.length){
+					tabMaxIndex = tailorList.length - 1;
+				}
+				log('tabMaxIndex after', tabMaxIndex);
+				var tabLastLetter = tailorList[tabMaxIndex].name.substring(0,1);
+
+				var tabName = tabFirstLetter + ' - ' + tabLastLetter;
+				//tabName = tabName.toString();
+				form.addTab(tabID, tabName);
+				tabIndex++;
+			}
+
+			//Create a sublist for each tailor and use the tailorIndex as the sublist ID
+			var sublistID = 'custpage_subslist'+tailorIndex;
+			sublistID = sublistID.toString();
+			var tailorSublist = form.addSubList(sublistID, 'list', tailorList[tailorIndex].name, tabID);
+
+			this.generateCMTBilledSublist(tailorSublist,{'entity':tailorList[tailorIndex].id,'dateval':dateval}, uniqueTailorIDs);
+		}
+
+		/*
 		form.addTab('custpage_bespokedetroit','1701 Bespoke Detroit');
 		form.addTab('custpage_oscarhuntjerome','20 Jerome Clothiers');
 		form.addTab('custpage_hedricks',"21 Hedrick's");
@@ -3239,6 +3551,7 @@ var MyObj = function( request, response )
 		this.generateCMTBilledSublist(sublist2,{'entity':'118','dateval':dateval});
 		this.generateCMTBilledSublist(sublist3,{'entity':'758','dateval':dateval});
 		this.generateCMTBilledSublist(sublist4,{'entity':'914','dateval':dateval});
+		*/
 		this.response.writePage( form);
 
 	};
@@ -3302,7 +3615,13 @@ var MyObj = function( request, response )
 			{
 				fld_vendor.setDefaultValue(vendorval );
 			}
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['987','646','726','700','780','786']);
+			//Perform a Tailor search filtered by Tailor Region
+			searchTailors(3);	//Internal ID of Region: Other
+			log('tailorList', tailorList);
+			var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));
+			log('uniqueTailorIDs', uniqueTailorIDs);
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', uniqueTailorIDs);
+			//filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['987','646','726','700','780','786']);
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 		var searchid = 'customsearch_avt_so_to_approve_2_2';
@@ -3490,7 +3809,11 @@ var MyObj = function( request, response )
 			{
 				fld_vendor.setDefaultValue(vendorval );
 			}
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['987','646','726','700','780','786']);//Filter Dayan
+			//Perform a Tailor search filtered by Tailor Region
+			searchTailors(3);	//Internal ID of Region: Other
+			var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', uniqueTailorIDs);
+			//filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['987','646','726','700','780','786']);//Filter Dayan
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 		var searchid = 'customsearch_avt_so_to_approve_2_2_3';
@@ -3684,7 +4007,53 @@ var MyObj = function( request, response )
 		form.addButton( 'custpage_btfilter', 'Filter', 'POCMTBilledFilter()');
 		form.setScript( 'customscript_avt_so_approval_cs');
 
+		var fld_expdatesent = form.addField( 'custpage_expecteddatesent', 'date', 'Confirmed Shipping');
+		if(dateval){
+			fld_expdatesent.setDefaultValue(dateval);
+		}
 
+		//Perform a Tailor search filtered by Tailor region
+		searchTailors(3);	//Tailor Region: Other
+
+		var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));	//tailorList is a universal variable that is populated on searchTailors
+		log('uniqueTailorIDs', uniqueTailorIDs);
+
+		//Create tabs in multiples of 10
+		var tabIndex = 0;
+		var tabID = '';
+
+		//Perform a Purchase Order Search to retrieve the data to populate the sublist
+		searchCMTPurchaseOrdersBilled({'dateval':dateval}, uniqueTailorIDs);
+
+		for (var tailorIndex = 0; tailorIndex < tailorList.length; tailorIndex++){	//Loop through the TailorList to build a tab and sublist for each tailor
+
+			if (tailorIndex % 10 == 0){	//Create a new tab for tailors divisible by 10
+				tabID = 'custpage_page'+tabIndex;
+				tabID = tabID.toString();
+				var tabFirstLetter = tailorList[tailorIndex].name.substring(0,1);
+				var tabMaxIndex = tailorIndex + 9;
+				log('tabMaxIndex', tabMaxIndex + ' - tailorList.length: ' + tailorList.length);
+				if (tabMaxIndex >= tailorList.length){
+					tabMaxIndex = tailorList.length - 1;
+				}
+				log('tabMaxIndex after', tabMaxIndex);
+				var tabLastLetter = tailorList[tabMaxIndex].name.substring(0,1);
+
+				var tabName = tabFirstLetter + ' - ' + tabLastLetter;
+				//tabName = tabName.toString();
+				form.addTab(tabID, tabName);
+				tabIndex++;
+			}
+
+			//Create a sublist for each tailor and use the tailorIndex as the sublist ID
+			var sublistID = 'custpage_subslist'+tailorIndex;
+			sublistID = sublistID.toString();
+			var tailorSublist = form.addSubList(sublistID, 'list', tailorList[tailorIndex].name, tabID);
+
+			this.generateCMTBilledSublist(tailorSublist,{'entity':tailorList[tailorIndex].id,'dateval':dateval}, uniqueTailorIDs);
+		}
+
+		/*
 		form.addTab('custpage_kale','60 JEI_Kale & Co Bespoke');
 		form.addTab('custpage_henrybucks','92 JEI_Henry Bucks');
 		form.addTab('custpage_mexico','79 JEI_Rooks & Rocks Mexico');
@@ -3711,6 +4080,7 @@ var MyObj = function( request, response )
 		this.generateCMTBilledSublist(sublist3,{'entity':'780','dateval':dateval});
 		this.generateCMTBilledSublist(sublist4,{'entity':'786','dateval':dateval});
 		this.generateCMTBilledSublist(sublist5,{'entity':'987','dateval':dateval});
+		*/
 		this.response.writePage( form);
 
 	};
@@ -3720,7 +4090,7 @@ var MyObj = function( request, response )
 	*/
 	this.Form_Approval_POLineFabricEurope = function()
 	{
-		var form =  nlapiCreateForm( 'Fabric Purchase Order  Lines To Manage Europe');
+		var form =  nlapiCreateForm( 'Fabric Purchase Order Lines To Manage Europe');
 		//var fld_vendor = form.addField( 'custpage_vendor', 'select', 'Vendor', 'vendor');
 
 		form.addButton( 'custpage_btapprve', 'Save', 'SavePOFab()');
@@ -3777,7 +4147,13 @@ var MyObj = function( request, response )
 			{
 				fld_vendor.setDefaultValue(vendorval );
 			}
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['1010','993','966','980','978','963','970','951','934','953','891','927','911','925','919','889','881','909','877','885','852','835','842','815','837','761','594','613','604','617','624','644','640','639','677','667','673','732','734','730','654','776','750']);
+			//Perform a Tailor search filtered by Tailor Region
+			searchTailors(1);	//Internal ID of Region: EU
+			log('tailorList', tailorList);
+			var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));
+			log('uniqueTailorIDs', uniqueTailorIDs);
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', uniqueTailorIDs);
+			//filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['1010','993','966','980','978','963','970','951','934','953','891','927','911','925','919','889','881','909','877','885','852','835','842','815','837','761','594','613','604','617','624','644','640','639','677','667','673','732','734','730','654','776','750']);
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 		var searchid = 'customsearch_avt_so_to_approve_2_2';
@@ -3964,8 +4340,12 @@ var MyObj = function( request, response )
 			{
 				fld_vendor.setDefaultValue(vendorval );
 			}
+			//Perform a Tailor search filtered by Tailor Region
+			searchTailors(1);	//Internal ID of Region: EU
+			var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));
+			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', uniqueTailorIDs);
 			//KM 15Sep2020 - Added Kerwin's update in production
-			filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['1010','993','966','980','978','963','970','951','934','953','891','927','911','925','919','889','881','909','877','885','852','835','842','815','837','761','594','613','604','617','624','644','640','639','677','667','673','732','734','730','654','776','750']);//Filter Dayan
+			//filter[ filter.length ] = new nlobjSearchFilter( 'entity', 'createdfrom', 'anyof', ['1010','993','966','980','978','963','970','951','934','953','891','927','911','925','919','889','881','909','877','885','852','835','842','815','837','761','594','613','604','617','624','644','640','639','677','667','673','732','734','730','654','776','750']);//Filter Dayan
 			vendorval != null && vendorval !=''? filter[ filter.length ] = new nlobjSearchFilter( 'internalid', 'vendor', 'anyof', vendorval): null;
 		}
 		var searchid = 'customsearch_avt_so_to_approve_2_2_3';
@@ -4160,6 +4540,54 @@ var MyObj = function( request, response )
 		form.addButton( 'custpage_btfilter', 'Filter', 'POCMTBilledFilter()');
 		form.setScript( 'customscript_avt_so_approval_cs');
 
+
+		var fld_expdatesent = form.addField( 'custpage_expecteddatesent', 'date', 'Confirmed Shipping');
+		if(dateval){
+			fld_expdatesent.setDefaultValue(dateval);
+		}
+
+		//Perform a Tailor search filtered by Tailor region
+		searchTailors(1);	//Tailor Region: EU
+
+		var uniqueTailorIDs = _.uniq(_.pluck(tailorList, 'id'));	//tailorList is a universal variable that is populated on searchTailors
+		log('uniqueTailorIDs', uniqueTailorIDs);
+
+		//Create tabs in multiples of 10
+		var tabIndex = 0;
+		var tabID = '';
+
+		//Perform a Purchase Order Search to retrieve the data to populate the sublist
+		searchCMTPurchaseOrdersBilled({'dateval':dateval}, uniqueTailorIDs);
+
+		for (var tailorIndex = 0; tailorIndex < tailorList.length; tailorIndex++){	//Loop through the TailorList to build a tab and sublist for each tailor
+
+			if (tailorIndex % 10 == 0){	//Create a new tab for tailors divisible by 10
+				tabID = 'custpage_page'+tabIndex;
+				tabID = tabID.toString();
+				var tabFirstLetter = tailorList[tailorIndex].name.substring(0,1);
+				var tabMaxIndex = tailorIndex + 9;
+				log('tabMaxIndex', tabMaxIndex + ' - tailorList.length: ' + tailorList.length);
+				if (tabMaxIndex >= tailorList.length){
+					tabMaxIndex = tailorList.length - 1;
+				}
+				log('tabMaxIndex after', tabMaxIndex);
+				var tabLastLetter = tailorList[tabMaxIndex].name.substring(0,1);
+
+				var tabName = tabFirstLetter + ' - ' + tabLastLetter;
+				//tabName = tabName.toString();
+				form.addTab(tabID, tabName);
+				tabIndex++;
+			}
+
+			//Create a sublist for each tailor and use the tailorIndex as the sublist ID
+			var sublistID = 'custpage_subslist'+tailorIndex;
+			sublistID = sublistID.toString();
+			var tailorSublist = form.addSubList(sublistID, 'list', tailorList[tailorIndex].name, tabID);
+
+			this.generateCMTBilledSublist(tailorSublist,{'entity':tailorList[tailorIndex].id,'dateval':dateval}, uniqueTailorIDs);
+		}
+
+		/*
 		form.addTab('custpage_page1','1-69');
 		form.addTab('custpage_page2','71-118');
 		form.addTab('custpage_page3','119-140');
@@ -4271,6 +4699,7 @@ var MyObj = function( request, response )
 		this.generateCMTBilledSublist(sublist26,{'entity':'966','dateval':dateval});
 		this.generateCMTBilledSublist(sublist43,{'entity':'993','dateval':dateval});	//KM 15Sep2020 - Added Kerwin's update in production
 		this.generateCMTBilledSublist(sublist44,{'entity':'1010','dateval':dateval});	//KM 15Sep2020 - Added Kerwin's update in production
+		*/
 		this.response.writePage( form);
 
 	};
@@ -5025,6 +5454,54 @@ function searchCMTPurchaseOrders(parameters, tailorsIDs){
 		var search = nlapiLoadSearch('purchaseorder', searchid);
 		search.addFilters(filter);
 
+		var resultSet = search.runSearch();
+
+		searchResultList = resultSet;
+		log('resultSet', resultSet);
+
+
+	} catch (e){
+		log('An error occurred on searchCMTPurchaseOrders()', e);
+	}
+}
+
+function searchCMTPurchaseOrdersBilled(parameters, tailorsIDs){
+	try {
+
+		log('parameters.dateval', parameters.dateval);
+
+		var filter = new Array();
+		filter.push(new nlobjSearchFilter( 'mainline', null, 'is', 'F'));
+
+		if(parameters.dateval){
+			filter.push(new nlobjSearchFilter( 'custcol_avt_cmt_date_sent', null, 'on', parameters.dateval));
+		}
+		/*if(parameters.cmtstatus){
+			filter.push(new nlobjSearchFilter( 'custcol_avt_cmt_status', null, 'anyof', parameters.cmtstatus.split(',')));
+		}*/
+		filter.push(new nlobjSearchFilter('entity','createdfrom','anyof',tailorsIDs));
+
+		var searchid = 'customsearch_avt_so_to_approve_2_2_2_2';
+		var cols = new Array();
+		cols[ cols.length ] =  new nlobjSearchColumn( 'trandate');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'tranid');
+		//cols[ cols.length ] =  new nlobjSearchColumn( 'period');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'entity');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'internalid');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_so_id');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'custbody_avt_salesorder_ref');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'createdfrom');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'item');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_avt_cmt_tracking');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_avt_cmt_date_sent');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_avt_cmt_status');
+		cols[ cols.length ] = new nlobjSearchColumn( 'lineuniquekey');
+		cols[ cols.length ] = new nlobjSearchColumn( 'custcol_tailor_client_name');
+		cols[ cols.length ] = new nlobjSearchColumn('custcol_column_notes');
+
+		var search = nlapiLoadSearch('purchaseorder', searchid);
+		search.addFilters(filter);
+		search.addColumns(cols);
 		var resultSet = search.runSearch();
 
 		searchResultList = resultSet;

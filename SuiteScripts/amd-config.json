@@ -1,5 +1,7 @@
 {
   "paths": {
-	"ustyylit/integration": "/SuiteScripts/modules/ustyylit/ustyylit.wrapper"
+  	"ustyylit/integration": "/SuiteScripts/modules/ustyylit/ustyylit.wrapper",
+    "libraries/underscore": "/SuiteScripts/libraries/underscore",
+    "libraries/lodash": "/SuiteScripts/libraries/lodash"
   }
 }

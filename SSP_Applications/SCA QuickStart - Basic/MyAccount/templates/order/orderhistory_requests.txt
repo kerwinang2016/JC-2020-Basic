@@ -1,0 +1,75 @@
+<%
+	var cm = view.model;
+	var categories = view.fields.get('categories')
+	, issues = view.fields.get('issues')
+	, items = view.fields.get('items')
+	, discountreasons  = view.fields.get('discountreasons')
+	, user = view.user;
+%>
+<section class="orderHIstoryRequests">
+
+	<div data-type="alert-placeholder"></div>
+
+		<div class="case-new-subject control-group">
+			<label for="title"><%= _('Subject').translate() %></label>
+			<input readonly type="text" name="title" id="title" class="form-control input-xlarge" value="<%= cm.get('title') %>" ></input>
+		</div>
+
+		<div class="case-new-issue control-group">
+			<label for="category"><%= _('Issue').translate() %></label>
+			<select readonly name="issue" id="issue" class="form-control input-xlarge select-case-issue">
+				<% _.each(issues, function (issue) { %>
+					<option value="<%= issue.id %>" <% if(cm.get('issue') == issue.id){ %> selected<% } %>>
+						<%= issue.text %>
+					</option>
+				<% }); %>
+			</select>
+		</div>
+
+		<div class="case-soid control-group">
+			<label><%= _('Sales Order ID').translate() %>: </label>
+			<input readonly type="text" id="custevent_so_id" class="form-control input-xlarge" value="<%= cm.get('custevent_so_id') %>"> </input>
+		</div>
+
+		<% if(cm.get('issue') == '3'){ %>
+
+			<div class="case-discount-reason control-group">
+				<label style="color:#ff0000;" for="category"><%= _('Discount Reason?').translate() %></label>
+				<select name="custevent_discount_reasons" id="custevent_discount_reasons" class="form-control input-xlarge">
+						<option value="">Please Select</option>
+					<% _.each(discountreasons, function (reason) { %>
+						<option value="<%= reason.id %>" <% if(cm.get('custevent_discount_reasons') == reason.id){ %> selected<% } %>>
+							<%= reason.text %>
+						</option>
+					<% }); %>
+				</select>
+			</div>
+		<% } %>
+		<% if(cm.get('issue') == '2'){ %>
+			<label style="color:#ff0000;"><%= _('The Following Rush Fees Will Apply').translate() %></label>
+			<img src="/myaccount/img/rushorders.png"/>
+			<div class="case-rushrequest">
+				<label style="color:#ff0000;"><%= _('Shipping Date Needed').translate() %></label>
+
+				<div class="list-header-view-datepicker-container-input">
+					<input class="list-header-view-accordion-body-input" id="custevent_date_needed" name="custevent_date_needed"
+					type="date" autocomplete="off" data-todayhighlight="true" data-format='dd/mm/yyyy'
+					placeholder="Rush Date" value="<%= cm.get('custevent_date_needed') %>"/>
+				</div>
+			</div>
+		<% } %>
+		<% if(cm.get('issue') == '4'){ %>
+		<div class="case-new-subject control-group">
+			<label style="color:#ff0000;"><%= _('If Cut-Length fabric order cannot be cancelled, please specify an order ID to allocate this fabric to. Alternatively, we will hold this fabric for future orders').translate() %></label>
+			<input type="text" name="custevent_replacement_soid" id="custevent_replacement_soid" class="form-control input-xlarge" ></input>
+		</div>
+		<% } %>
+		<div class="case-new-message control-group">
+			<label style="color:#ff0000;" for="message"><%= _('Message/Additional Information?').translate() %>: </label>
+			<textarea name="message" id="message" class="form-control input-xlarge"><%= cm.get('message') %> </textarea>
+		</div>
+
+		<div class="form-actions">
+			<button data-action="submitrequest" class="btn btn-primary"><%= _('Submit Request').translate() %></button>
+		</div>
+</section>

@@ -2,21 +2,21 @@
 <section class="case-management">
 	<header>
 		<h3>
-			<%= view.page_header %>			
+			<%= view.page_header %>
 			<div class="pull-right hidden-phone">
 				<a class="pull-right btn btn-expanded btn-primary" href="#" data-touchpoint="customercenter" data-hashtag="#/newcase">
-					<%= _('Create new case').translate() %>
+					<%= _('Create new request').translate() %>
 				</a>
 			</div>
-		</h3>	
-	</header>	
+		</h3>
+	</header>
 
 	<a class="visible-phone btn btn-expanded btn-primary" href="#" data-touchpoint="customercenter" data-hashtag="#/newcase">
 		<%= _('Create new case').translate() %>
 	</a>
 
 	<hr class="divider-small">
-	
+
 	<div data-confirm-message class="confirm-message"></div>
 
 	<div data-type="list-header-placeholder"></div>
@@ -73,13 +73,13 @@
 						</span>
 					</div>
 					<div class="span2 responsive-align">
-						<span class="list-row-text">							
+						<span class="list-row-text">
 							<span class="case-status status"><%= _('$(0)').translate(the_case.get('status').name) %></span>
 						</span>
 					</div>
 					<div class="visible-phone span1 pull-right text-right">
 						<i class="icon-chevron-right"></i>
-					</div>					
+					</div>
 				</div>
 			</a>
 		<% }); %>

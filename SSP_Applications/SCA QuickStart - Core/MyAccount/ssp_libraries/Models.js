@@ -5539,6 +5539,18 @@ Application.defineModel('Case', {
 
 			issue_option_values.push(issue_option_value);
 		});
+		var discountreasons_field = case_record.getField('custevent_discount_reasons');
+		var discountreasons_options = discountreasons_field.getSelectOptions();
+		var discountreasons_option_values = [];
+
+		_(discountreasons_options).each(function (discountreasons_option) {
+			var discountreasons_option_value = {
+				id: discountreasons_option.id
+				, text: discountreasons_option.text
+			};
+
+			discountreasons_option_values.push(discountreasons_option_value);
+		});
 
 		// New record to return
 		var newRecord = {
@@ -5548,6 +5560,7 @@ Application.defineModel('Case', {
 			, priorities: priority_option_values
 			, items: item_option_values
 			, issues: issue_option_values
+			, discountreasons: discountreasons_option_values
 		};
 
 		return newRecord;
@@ -5570,6 +5583,11 @@ Application.defineModel('Case', {
 			, new nlobjSearchColumn('email')
 			, new nlobjSearchColumn('item')
 			, new nlobjSearchColumn('issue')
+			, new nlobjSearchColumn('custevent_so_id')
+			, new nlobjSearchColumn('custevent_related_sales_order')
+			, new nlobjSearchColumn('custevent_discount_reasons')
+			, new nlobjSearchColumn('custevent_date_needed')
+			, new nlobjSearchColumn('custevent_replacement_soid')
 		];
 	}
 
@@ -5620,6 +5638,7 @@ Application.defineModel('Case', {
 		result.records = _.map(result.records, function (case_record) {
 			var current_record_id = case_record.getId()
 				, created_date = nlapiStringToDate(case_record.getValue('createddate'))
+				, custevent_date_needed = nlapiStringToDate(case_record.getValue('custevent_date_needed'))
 				, last_message_date = nlapiStringToDate(case_record.getValue('lastmessagedate'))
 				, support_case = {
 					internalid: current_record_id
@@ -5646,6 +5665,17 @@ Application.defineModel('Case', {
 						id: case_record.getValue('priority')
 						, name: case_record.getText('priority')
 					}
+					, custevent_so_id: case_record.getValue('custevent_so_id')
+					, custevent_related_sales_order: {
+						id: case_record.getValue('custevent_related_sales_order')
+						, name: case_record.getText('custevent_related_sales_order')
+					}
+					, custevent_discount_reasons: {
+						id: case_record.getValue('custevent_discount_reasons')
+						, name: case_record.getText('custevent_discount_reasons')
+					}
+					, custevent_date_needed: nlapiDateToString(custevent_date_needed ? custevent_date_needed : self.dummy_date, 'date')
+					, custevent_replacement_soid: case_record.getValue('custevent_replacement_soid')
 					, createdDate: nlapiDateToString(created_date ? created_date : self.dummy_date, 'date')
 					, lastMessageDate: nlapiDateToString(last_message_date ? last_message_date : self.dummy_date, 'date')
 					, email: case_record.getValue('email')
@@ -5750,13 +5780,23 @@ Application.defineModel('Case', {
 		data.item && newCaseRecord.setFieldValue('item', data.item);
 		data.custevent_so_id && newCaseRecord.setFieldValue('custevent_so_id', data.custevent_so_id);
 		data.custevent_related_sales_order && newCaseRecord.setFieldValue('custevent_related_sales_order', data.custevent_related_sales_order);
-
+		data.custevent_discount_reasons && newCaseRecord.setFieldValue('custevent_discount_reasons', data.custevent_discount_reasons);
+		data.custevent_date_needed && newCaseRecord.setFieldValue('custevent_date_needed', data.custevent_date_needed);
+		//data.custevent_discount_requested && newCaseRecord.setFieldValue('custevent_discount_requested', data.custevent_discount_requested);
+		data.custevent_replacement_soid && newCaseRecord.setFieldValue('custevent_replacement_soid', data.custevent_replacement_soid);
 		var default_values = this.configuration.default_values;
 
 		newCaseRecord.setFieldValue('status', default_values.status_start.id); // Not Started
 		newCaseRecord.setFieldValue('origin', default_values.origin.id); // Web
 		newCaseRecord.setFieldValue('profile', 2); // Jerome Clothiers
-		return nlapiSubmitRecord(newCaseRecord);
+		var caseid = nlapiSubmitRecord(newCaseRecord);
+		if(data.file){
+			var f = nlapiCreateFile(data.filename, data.filetype, data.file);
+			f.setFolder(1873);
+			var fid = nlapiSubmitFile(f);
+			nlapiAttachRecord("file", fid, "supportcase", caseid);
+		}
+		return caseid;
 	}
 
 	, setSortOrder: function (sort, order, columns) {

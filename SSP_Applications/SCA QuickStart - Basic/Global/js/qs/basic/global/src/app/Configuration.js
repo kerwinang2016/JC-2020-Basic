@@ -52,7 +52,7 @@
 	        		}
 	        	}
 	        ,	{
-	        		text: _('Training and Guides').translate()
+	        		text: _('Guides').translate()
 	        	,	href: '#'
 	        	,	data: {
 	        			touchpoint: 'customercenter'

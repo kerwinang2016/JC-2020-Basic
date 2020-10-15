@@ -1,6 +1,6 @@
 /**
  * Module Description
- * 
+ *
  * Version    Date            Author           Remarks
  * 1.00       26 Mar 2015     rvindal
  *
@@ -236,7 +236,7 @@ function service(request, response) {
 							}
 						}
 					}
-					
+
 					if (resultObj) {
 						responseData = [resultObj];
 					} else {

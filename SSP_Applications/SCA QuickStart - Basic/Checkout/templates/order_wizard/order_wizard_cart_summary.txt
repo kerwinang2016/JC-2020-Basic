@@ -1,11 +1,3 @@
-<!--
-Change History   
--------------- 
-Date: 14-03-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-34
-Change Description: Price in the items matches the total in The order summary
--->
 <%
 	//TODO REMOVE current_position USE!!
 	var current_position = view.wizard.getStepPosition()
@@ -15,7 +7,7 @@ Change Description: Price in the items matches the total in The order summary
 	,	summary = cart.get('summary')
 	,	promocode = cart.get('promocode')
 	,	ismultishipto = cart.get('ismultishipto')
-	,	item_count = _.reduce(cart.get('lines').pluck('quantity'), function (memo, quantity) { return memo + (parseFloat(quantity) || 1); }, 0)
+	, item_count = parseFloat(cart.get('lines').length)
 	,	is_promocode_valid = promocode && promocode.isvalid
 	,	giftcertificates = cart.get('paymentmethods').where({type: 'giftcertificate'}) || [];
 
@@ -113,7 +105,7 @@ Change Description: Price in the items matches the total in The order summary
 							<span itemtype="http://schema.org/Offer" itemscope="" itemprop="offers">
 								<meta content="AUD" itemprop="priceCurrency">
 								<% if(lineTotal) {%> <!-- JHD-34 -->
-									<span data-rate="10" itemprop="price" class="lead-price"><%= _.formatCurrency(lineTotal) %></span>								
+									<span data-rate="10" itemprop="price" class="lead-price"><%= _.formatCurrency(lineTotal) %></span>
 								<%} else{%>
 								<span data-rate="10" itemprop="price" class="lead-price"><%= _.formatCurrency(customPrice) %></span>
 								<% } %>
@@ -131,7 +123,7 @@ Change Description: Price in the items matches the total in The order summary
 				<% if(sum) {%> <!-- JHD-34 -->
 					<span class="pull-right cart-summary-subtotal-formatted" >
 						<%= _.formatCurrency(sum) %>
-					</span>							
+					</span>
 				<%} else{%>
 				<span class="pull-right cart-summary-subtotal-formatted" >
 					<%= _.formatCurrency(cart.get("options").custbody_total_tailor_price) %>
@@ -222,7 +214,7 @@ Change Description: Price in the items matches the total in The order summary
 				<% if(sum) {%> <!-- JHD-34 -->
 					<span class="pull-right cart-summary-total-formatted" >
 						<%= _.formatCurrency(parseFloat(sum) + summary.shippingcost) %>
-					</span>						
+					</span>
 				<%} else{%>
 				<span class="pull-right cart-summary-total-formatted" >
 					<%= _.formatCurrency(parseFloat(cart.get("options").custbody_total_tailor_price) + summary.shippingcost) %>

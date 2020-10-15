@@ -2314,10 +2314,10 @@ function getAccessToken(){
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/GetAccessToken',
 			body: ""
 			});
-		LOGMOD.audit('getAccessToken', 'getAccessToken response | Code : ' + response.code + ' | Body : ' + response.body);
+		// LOGMOD.audit('getAccessToken', 'getAccessToken response | Code : ' + response.code + ' | Body : ' + response.body);
 		if(response.code == 200){
 			var xml_path = XMLMOD.Parser.fromString(response.body)
-			LOGMOD.audit('path',response.body);
+			// LOGMOD.audit('path',response.body);
 			var AccessToken = xml_path.firstChild.textContent;
 			return AccessToken;
 		}
@@ -2339,10 +2339,10 @@ function getAesStr(orders, accesstoken){//orders appsecret accesstoken
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/GetAesStr',
 			body: data
 			});
-		LOGMOD.audit('getAesStr', 'getAesStr response | Code : ' + response.code + ' | Body : ' + response.body);
+		// LOGMOD.audit('getAesStr', 'getAesStr response | Code : ' + response.code + ' | Body : ' + response.body);
 		if(response.code == 200){
 			var xml_path = XMLMOD.Parser.fromString(response.body)
-			LOGMOD.audit('path',response.body);
+			// LOGMOD.audit('path',response.body);
 			var responseData = xml_path.firstChild.textContent;
 			return responseData;
 		}else{
@@ -2364,10 +2364,10 @@ function getDeAes(orders){
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/GetDeAes',
 			body: data
 			});
-		LOGMOD.audit('getDeAes', 'getDeAes response | Code : ' + response.code + ' | Body : ' + response.body);
+		// LOGMOD.audit('getDeAes', 'getDeAes response | Code : ' + response.code + ' | Body : ' + response.body);
 		if(response.code == 200){
 			var xml_path = XMLMOD.Parser.fromString(response.body)
-			LOGMOD.audit('path',response.body);
+			// LOGMOD.audit('path',response.body);
 			var responseData = xml_path.firstChild.textContent;
 			return responseData;
 		}else{
@@ -2382,14 +2382,14 @@ function getErrorCode(){
 	try{
 		var response = HTTPMOD.post({
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/GetErrorCode',
-			body: ""
+			body: {}
 			});
-		LOGMOD.audit('getErrorCode', 'getErrorCode response | Code : ' + response.code + ' | Body : ' + response.body);
+		// LOGMOD.audit('getErrorCode', 'getErrorCode response | Code : ' + response.code + ' | Body : ' + response.body);
 		if(response.code == 200){
 			var xml_path = XMLMOD.Parser.fromString(response.body)
-			LOGMOD.audit('path',response.body);
+			// LOGMOD.audit('path',response.body);
 			var AccessToken = xml_path.firstChild.textContent;
-			return AccessToken;
+			return JSON.parse(AccessToken);
 		}
 		return {error: response.code};
 	}catch(e){
@@ -2408,10 +2408,10 @@ function getOrderConsume(orders){
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/GetOrderConsume',
 			body: data
 			});
-		LOGMOD.audit('getOrderConsume', 'getOrderConsume response | Code : ' + response.code + ' | Body : ' + response.body);
+		// LOGMOD.audit('getOrderConsume', 'getOrderConsume response | Code : ' + response.code + ' | Body : ' + response.body);
 		if(response.code == 200){
 			var xml_path = XMLMOD.Parser.fromString(response.body)
-			LOGMOD.audit('path',response.body);
+			// LOGMOD.audit('path',response.body);
 			var responseData = xml_path.firstChild.textContent;
 			return responseData;
 		}else{
@@ -2433,10 +2433,10 @@ function getOrderInfo(ordernos){
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/GetOrderInfo',
 			body: data
 			});
-		LOGMOD.audit('getOrderInfo', 'getOrderInfo response | Code : ' + response.code + ' | Body : ' + response.body);
+		// LOGMOD.audit('getOrderInfo', 'getOrderInfo response | Code : ' + response.code + ' | Body : ' + response.body);
 		if(response.code == 200){
 			var xml_path = XMLMOD.Parser.fromString(response.body)
-			LOGMOD.audit('path',response.body);
+			// LOGMOD.audit('path',response.body);
 			var responseData = xml_path.firstChild.textContent;
 			return responseData;
 		}else{
@@ -2459,10 +2459,10 @@ function getPartsInfo(classid, optiontypecode){
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/GetPartsInfo',
 			body: data
 			});
-		LOGMOD.audit('getPartsInfo', 'getPartsInfo response | Code : ' + response.code + ' | Body : ' + response.body);
+		// LOGMOD.audit('getPartsInfo', 'getPartsInfo response | Code : ' + response.code + ' | Body : ' + response.body);
 		if(response.code == 200){
 			var xml_path = XMLMOD.Parser.fromString(response.body)
-			LOGMOD.audit('path',response.body);
+			// LOGMOD.audit('path',response.body);
 			var responseData = xml_path.firstChild.textContent;
 			return responseData;
 		}else{
@@ -2484,10 +2484,10 @@ function getStock(){
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/GetStock',
 			body: data
 			});
-		LOGMOD.audit('getStock', 'getStock response | Code : ' + response.code + ' | Body : ' + response.body);
+		// LOGMOD.audit('getStock', 'getStock response | Code : ' + response.code + ' | Body : ' + response.body);
 		if(response.code == 200){
 			var xml_path = XMLMOD.Parser.fromString(response.body)
-			LOGMOD.audit('path',response.body);
+			// LOGMOD.audit('path',response.body);
 			var responseData = xml_path.firstChild.textContent;
 			return responseData;
 		}else{
@@ -2510,10 +2510,10 @@ function getStockByFtno(ftnos){
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/GetStockByFtno',
 			body: data
 			});
-		LOGMOD.audit('getStockByFtno', 'getStockByFtno response | Code : ' + response.code + ' | Body : ' + response.body);
+		// LOGMOD.audit('getStockByFtno', 'getStockByFtno response | Code : ' + response.code + ' | Body : ' + response.body);
 		if(response.code == 200){
 			var xml_path = XMLMOD.Parser.fromString(response.body)
-			LOGMOD.audit('path',response.body);
+			// LOGMOD.audit('path',response.body);
 			var responseData = xml_path.firstChild.textContent;
 			return responseData;
 		}else{
@@ -2528,7 +2528,7 @@ function receiveOrder(orders){
 	try{
 		var accesstoken = getAccessToken();
 		var encryptedOrder = getAesStr(JSON.stringify(orders), accesstoken);
-		LOGMOD.audit('receiveOrder encryptedOrder', encryptedOrder);
+		// LOGMOD.audit('receiveOrder encryptedOrder', encryptedOrder);
 		var data = {
 			AccessToken: accesstoken,
 			Brand: BRAND,
@@ -2539,17 +2539,19 @@ function receiveOrder(orders){
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/ReceiveOrder',
 			body: data
 		});
-		LOGMOD.audit('receiveOrder', 'receiveOrder response | Code : ' + response.code + ' | Body : ' + response.body);
+		// LOGMOD.audit('receiveOrder', 'receiveOrder response | Code : ' + response.code + ' | Body : ' + response.body);
 		if(response.code == 200){
 			var xml_path = XMLMOD.Parser.fromString(response.body)
-			LOGMOD.audit('path',response.body);
+			// LOGMOD.audit('path',response.body);
 			var responseData = xml_path.firstChild.textContent;
 			return responseData;
 		}else{
-			return {error: response.code};
+      LOGMOD.error('response', response)
+			return {error: response};
 		}
 	}catch(e){
 		LOGMOD.error('receiveOrder', 'ERROR : ' + e.message);
+    return {error: e.message};
 	}
 }
 
@@ -2565,10 +2567,10 @@ function receiveOrderTest(orders){
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/ReceiveOrderTest',
 			body: data
 			});
-		LOGMOD.audit('receiveOrderTest', 'receiveOrderTest response | Code : ' + response.code + ' | Body : ' + response.body);
+		// LOGMOD.audit('receiveOrderTest', 'receiveOrderTest response | Code : ' + response.code + ' | Body : ' + response.body);
 		if(response.code == 200){
 			var xml_path = XMLMOD.Parser.fromString(response.body)
-			LOGMOD.audit('path',response.body);
+			// LOGMOD.audit('path',response.body);
 			var responseData = xml_path.firstChild.textContent;
 			return responseData;
 		}else{
@@ -2592,10 +2594,10 @@ function sendOrderUnencrypted(orders){
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/SendOrderUnencrypted',
 			body: data
 			});
-		LOGMOD.audit('sendOrderUnencrypted', 'sendOrderUnencrypted response | Code : ' + response.code + ' | Body : ' + response.body);
+		// LOGMOD.audit('sendOrderUnencrypted', 'sendOrderUnencrypted response | Code : ' + response.code + ' | Body : ' + response.body);
 		if(response.code == 200){
 			var xml_path = XMLMOD.Parser.fromString(response.body)
-			LOGMOD.audit('path',response.body);
+			// LOGMOD.audit('path',response.body);
 			var responseData = xml_path.firstChild.textContent;
 			return responseData;
 		}else{
@@ -2619,10 +2621,10 @@ function sendOrderUnencryptedTest(orders){
 			url:'http://tuservice.ustyylit.com/tuservice.asmx/SendOrderUnencryptedTest',
 			body: data
 			});
-		LOGMOD.audit('sendOrderUnencryptedTest', 'sendOrderUnencryptedTest response | Code : ' + response.code + ' | Body : ' + response.body);
+		// LOGMOD.audit('sendOrderUnencryptedTest', 'sendOrderUnencryptedTest response | Code : ' + response.code + ' | Body : ' + response.body);
 		if(response.code == 200){
 			var xml_path = XMLMOD.Parser.fromString(response.body)
-			LOGMOD.audit('path',response.body);
+			// LOGMOD.audit('path',response.body);
 			var responseData = xml_path.firstChild.textContent;
 			return responseData;
 		}else{
@@ -2656,7 +2658,7 @@ function getCustomerLiningUrl(){
 			url:'https://api.dayang.cn/TokenService.asmx/GetCustomerLiningUrl',
 			body: data
 			});
-		LOGMOD.audit('getCustomerLiningUrl', 'getCustomerLiningUrl response | Code : ' + response.code + ' | Body : ' + response.body);
+		// LOGMOD.audit('getCustomerLiningUrl', 'getCustomerLiningUrl response | Code : ' + response.code + ' | Body : ' + response.body);
 		if(response.code == 200){
 			var responseData = response.body;
 			return responseData;
@@ -2677,7 +2679,7 @@ function getStyylcartUrl(){
 			url:'https://api.dayang.cn/TokenService.asmx/GetStyylcartUrl',
 			body: data
 			});
-		LOGMOD.audit('GetStyylcartUrl', 'GetStyylcartUrl response | Code : ' + response.code + ' | Body : ' + response.body);
+		// LOGMOD.audit('GetStyylcartUrl', 'GetStyylcartUrl response | Code : ' + response.code + ' | Body : ' + response.body);
 		if(response.code == 200){
 			var responseData = response.body;
 			return responseData;

@@ -783,8 +783,8 @@ function userEventAfterSubmitSO(type) {
 											return z.fabricinvoicerecord == blockSurcharges[0].internalid && tailor == z.tailor;
 										});
 										if(customSurcharge){
-											description += "\nLarge Size Surcharge " + customSurcharge.customsurcharge;
-											totaladditionalsurcharge += (parseFloat(currentAmount) * parseFloat(customSurcharge.customsurcharge));
+											description += "\nLarge Size Surcharge " + (parseFloat(currentAmount) * customSurcharge.customsurcharge).toFixed(2);
+											totaladditionalsurcharge += parseFloat(customSurcharge.customsurcharge);
 										}else{
 											description += "\nLarge Size Surcharge " + (parseFloat(currentAmount) * parseFloat(blockSurcharges[0].surchargerate)).toFixed(2);
 											totaladditionalsurcharge += parseFloat(blockSurcharges[0].surchargerate);
@@ -1046,10 +1046,10 @@ function getSurcharge(ptype,dop,fabric_surcharges, fabric_customsurcharges, tail
 						return z.fabricinvoicerecord == surcharges[i].internalid && tailor == z.tailor;
 					});
 					if(customSurcharge){
-						description = description?", " + surcharges[i].code: surcharges[i].code;
+						description += description?", " + surcharges[i].code: surcharges[i].code;
 						additionalsurcharge += parseFloat(customSurcharge.customsurcharge);
 					}else{
-						description = description?", " + surcharges[i].code: surcharges[i].code;
+						description += description?", " + surcharges[i].code: surcharges[i].code;
 						additionalsurcharge += parseFloat(surcharges[i].surchargerate?surcharges[i].surchargerate:0);
 					}
 				}

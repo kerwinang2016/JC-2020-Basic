@@ -74,8 +74,8 @@
 					</li>
 				<% } %>
 			<% } %>
-
 			<!-- Billing -->
+			<% if(Profile.get('hidebillingandcogs') == 'F'){ %>
 			<li class="my-account-item-cell dropdown-submenu">
 				<a tabindex="-1" href="#"><%= _('Billing').translate() %></a>
 				<ul class="dropdown-menu">
@@ -85,7 +85,7 @@
 					<li><a tabindex="-1" href="#" data-touchpoint="customercenter" data-hashtag="#printstatement" data-permissions="transactions.tranStatement.2"><%= _('Print a Statement').translate() %></a></li>
 				</ul>
 			</li>
-
+			<% } %>
 			<!-- Settings -->
 			<li class="my-account-item-cell dropdown-submenu">
 				<a tabindex="-1" href="#"><%= _('Settings').translate() %></a>

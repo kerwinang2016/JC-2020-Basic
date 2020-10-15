@@ -38,7 +38,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 
 			, 'click [id=butt-modal-submit]': 'swxFitProfileModalButtSubmit'
 			, 'click [id=butt-modal-copy]': 'swxFitProfileModalButtCopy'
-			, 'click [id=butt-modal-remove]': 'swxFitProfileModalButtRemove'
+			//, 'click [id=butt-modal-remove]': 'swxFitProfileModalButtRemove'
 			, 'click [id=swx-later-add-order]': 'swxFitProfileAddOrder'
 			, 'blur [name="oh_dateneeded"]': 'updateDateNeeded'
 			,	'change [data-name="flag"]': 'updateFlag'
@@ -466,13 +466,6 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			jQuery("[id='swx-fitprofile-submit']").click();
 		}
 
-		, swxFitProfileModalButtRemove: function (e) {
-			//var $ = jQuery;
-			//var message = _("Are you sure that you want to delete this client and their fit profiles?").translate();
-			//if (window.confirm(message)) {
-			jQuery("[id='swx-fitprofile-remove']").click();
-			//}
-		}
 
 		, swxFitProfileModalButtCopy: function (e) {
 			var $ = jQuery;
@@ -1017,6 +1010,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			, 'change [id="units"]':'changedUnits'
 			, 'change [id*="body-block"]': 'fitBlockChanged'
 			, 'change [id*="body-fit"]': 'fitBlockChanged'
+			, 'click [id=butt-modal-remove]': 'swxFitProfileModalButtRemove'
 		}
 
 		, initialize: function (options) {
@@ -1068,6 +1062,31 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			});
 		}
 
+		, swxFitProfileModalButtRemove: function (e) {
+			e.preventDefault()
+			var $ = jQuery;
+			var message = _("Are you sure that you want to delete this client and their fit profiles?").translate();
+			if (window.confirm(message)) {
+					var self=this;
+					var param = new Object();
+					param.type = "remove_profile"
+					param.id = this.model.get('internalid');
+
+					var currentModel = this.fitprofile.profile_collection.find(function(data){
+						return data.get("internalid") == self.model.get('internalid');
+					})
+					this.fitprofile.set("current_profile","");
+
+					_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "GET", param).always(function(data){
+						var responseData = JSON.parse(data.responseText)
+						if(responseData.status){
+							self.fitprofile.profile_collection.remove(currentModel);
+							jQuery('[data-dismiss="modal"]').click();
+						}
+					})
+				}
+
+		}
 		,changedUnits : function(el){
 			var $ = jQuery;
 

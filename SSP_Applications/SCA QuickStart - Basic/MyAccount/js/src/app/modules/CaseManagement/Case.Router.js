@@ -94,7 +94,7 @@ define('Case.Router', ['Case.Model', 'Case.Collection', 'CaseFields.Model'], fun
 				,	fields: case_fields
 				,	model: new CaseModel()
 			});
-
+			view.model.set('issue',1);
 			jQuery.when(case_fields.fetch()).then(jQuery.proxy(view, 'showContent'));
 		}
 	});

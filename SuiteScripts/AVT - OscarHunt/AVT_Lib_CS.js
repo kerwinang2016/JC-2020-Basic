@@ -1092,3 +1092,51 @@ function generateExport(data, sublist){
 	}
 	return data;
 }
+
+
+function SendLineToUstyylit()
+{
+  var data = {};
+  var count = nlapiGetLineItemCount( 'custpage_subslist_app');
+  var custscript_soids = [];
+	for( var x=1; x<=count;x++)
+	{
+		var isapp = nlapiGetLineItemValue( 'custpage_subslist_app', 'custpage_choose', x);
+		if( isapp == 'T')
+		{
+      custscript_order_ids.push(nlapiGetLineItemValue( 'custpage_subslist_app', 'custcol_so_id', x ));
+		}
+	}
+  var params = {
+    action: "sendorderlinetoustyylit",
+    custscript_allow_cmt: "T",
+    custscript_soids: custscript_soids.toString()
+  };
+  var url = nlapiResolveURL('SUITELET','179','1')
+  nlapiRequestURL(url,JSON.stringify(params));
+  // nlapiScheduleScript('customscript_ss_createorderservice', 'customdeploy_dashboardtrigger', params);
+  alert('Scheduled to execute and send to Ustyylit');
+};
+function SendToUstyylit(){
+
+  var data = {};
+  var count = nlapiGetLineItemCount( 'custpage_subslist1');
+  var custscript_order_ids = [];
+  for( var x=1; x<=count;x++)
+  {
+    var isapp = nlapiGetLineItemValue( 'custpage_subslist1', 'custpage_choose', x);
+    if( isapp == 'T')
+    {
+      custscript_order_ids.push(nlapiGetLineItemValue( 'custpage_subslist1', 'internalid', x));
+    }
+  }
+  var params = {
+    action: "sendordertoustyylit",
+    custscript_allow_cmt: "T",
+    custscript_order_ids: custscript_order_ids.toString()
+  };
+  var url = nlapiResolveURL('SUITELET','179','1')
+  nlapiRequestURL(url,JSON.stringify(params));
+  // nlapiScheduleScript('customscript_ss_createorderservice', 'customdeploy_dashboardtrigger1', params);
+  alert('Scheduled to execute and send to Ustyylit');
+}

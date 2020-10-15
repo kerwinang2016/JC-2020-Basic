@@ -15,6 +15,7 @@ function (CaseDetailView, CaseCollection, CaseModel, CaseRouter, CaseCreateView,
 		}
 
 		return {
+			parent: 'orders',
 			id: function ()
 			{
 				return 'cases';
@@ -22,10 +23,10 @@ function (CaseDetailView, CaseCollection, CaseModel, CaseRouter, CaseCreateView,
 
 		,	name: function ()
 			{
-				return _('Issues').translate();
+				return _('Order Requests').translate();
 			}
 
-		,	index: 5
+		,	index: 3
 
 		,	children: function ()
 			{
@@ -33,7 +34,7 @@ function (CaseDetailView, CaseCollection, CaseModel, CaseRouter, CaseCreateView,
 					{
 						parent: 'cases'
 					,	id: 'cases_all'
-					,	name: _('All My Issues').translate()
+					,	name: _('All My Requests').translate()
 					,	url: 'cases'
 					,	index: 1
 					}
@@ -41,7 +42,7 @@ function (CaseDetailView, CaseCollection, CaseModel, CaseRouter, CaseCreateView,
 				,	{
 						parent: 'cases'
 					,	id: 'newcase'
-					,	name: _('Submit New Issue').translate()
+					,	name: _('Submit New Request').translate()
 					,	url: 'newcase'
 					,	index: 2
 				}

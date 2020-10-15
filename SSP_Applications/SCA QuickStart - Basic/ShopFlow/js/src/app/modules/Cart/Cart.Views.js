@@ -1435,6 +1435,11 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				,	displayOptionsLadiesSkirt = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_LADIESSKIRT"})
 				,	displayOptionsShortSleevesShirt = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_SSSHIRT"})
 				,	displayOptionsTrenchcoat = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_TRENCHCOAT"})
+				,	displayOptionsShorts = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_SHORTS"})
+				,	displayOptionsMorningCoat = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_MORNING_COAT"})
+				,	displayOptionsSafariJacket = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_SAFARI_JACKET"})
+				,	displayOptionsShirtJacket = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_SHIRT_JACKET"})
+				,	displayOptionsCampShirt = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_CAMP_SHIRT"})
 				,	fitProfileJacket = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_JACKET"})
 				,	fitProfileTrouser = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_TROUSER"})
 				,	fitProfileWaistcoat = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_WAISTCOAT"})
@@ -1445,6 +1450,11 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				,	fitProfileLadiesSkirt = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_LADIESSKIRT"})
 				,	fitProfileShortSleevesShirt = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_SSSHIRT"})
 				,	fitProfileTrenchcoat = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_TRENCHCOAT"})
+				,	fitProfileShorts = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_SHORTS"})
+				,	fitProfileMorningCoat = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_MORNING_COAT"})
+				,	fitProfileSafariJacket = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_SAFARI_JACKET"})
+				,	fitProfileShirtJacket = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_SHIRT_JACKET"})
+				,	fitProfileCampShirt = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_CAMP_SHIRT"})
 				,	customFabricDetails = _.where(line.get("options"), {id: "CUSTCOL_CUSTOM_FABRIC_DETAILS"});
 				//,	lineItemTotal = _.where(line.get("options"), {id: "CUSTCOL_ORDER_LIST_LINE_ITEM_TOTAL"}); //JHD-35
 				cartLine.itemName = line.get('item').get('_name');
@@ -1463,6 +1473,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				var linemodeloptions = line.get('options');
 				//Find the line option custcol_tailor_client_name
 				var clientname = _.find(linemodeloptions,function(d){ return d.id == "CUSTCOL_TAILOR_CLIENT_NAME";});
+
 				if(!clientname){
 					//IF THERE IS NO CLIENT NAME WE NEED TO GET IT AND SET IT, OLD RECORDS
 					var clientid = _.find(linemodeloptions,function(d){ return d.id == "CUSTCOL_TAILOR_CLIENT";});
@@ -1481,6 +1492,8 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 							}
 						});
 					}
+				}else{
+					cartLine.clientName = clientname.value;
 				}
 				cartLine.displayOptionsJacket = self.getColumnValue(displayOptionsJacket);
 				cartLine.displayOptionsTrouser = self.getColumnValue(displayOptionsTrouser);
@@ -1492,7 +1505,11 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				cartLine.displayOptionsLadiesSkirt = self.getColumnValue(displayOptionsLadiesSkirt);
 				cartLine.displayOptionsShortSleevesShirt = self.getColumnValue(displayOptionsShortSleevesShirt);
 				cartLine.displayOptionsTrenchcoat = self.getColumnValue(displayOptionsTrenchcoat);
-
+				cartLine.displayOptionsShorts = self.getColumnValue(displayOptionsShorts);
+				cartLine.displayOptionsMorningCoat = self.getColumnValue(displayOptionsMorningCoat);
+				cartLine.displayOptionsSafariJacket = self.getColumnValue(displayOptionsSafariJacket);
+				cartLine.displayOptionsShirtJacket = self.getColumnValue(displayOptionsShirtJacket);
+				cartLine.displayOptionsCampShirt = self.getColumnValue(displayOptionsCampShirt);
 				cartLine.fitProfileJacket = self.getColumnValue(fitProfileJacket);
 				cartLine.fitProfileTrouser = self.getColumnValue(fitProfileTrouser);
 				cartLine.fitProfileWaistcoat = self.getColumnValue(fitProfileWaistcoat);
@@ -1503,6 +1520,11 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				cartLine.fitProfileLadiesSkirt = self.getColumnValue(fitProfileLadiesSkirt);
 				cartLine.fitProfileShortSleevesShirt = self.getColumnValue(fitProfileShortSleevesShirt);
 				cartLine.fitProfileTrenchcoat = self.getColumnValue(fitProfileTrenchcoat);
+				cartLine.fitProfileShorts = self.getColumnValue(fitProfileShorts);
+				cartLine.fitProfileMorningCoat = self.getColumnValue(fitProfileMorningCoat);
+				cartLine.fitProfileSafariJacket = self.getColumnValue(fitProfileSafariJacket);
+				cartLine.fitProfileShirtJacket = self.getColumnValue(fitProfileShirtJacket);
+				cartLine.fitProfileCampShirt = self.getColumnValue(fitProfileCampShirt);
 
 				cartLine.customFabricDetails = self.getColumnValue(customFabricDetails);
 				cartLine.displayOpNotes = self.getColumnValue(displayOpNotesColumn);

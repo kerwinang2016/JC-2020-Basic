@@ -54,7 +54,7 @@
 	</div>
 <div class="gradient-content">
     <div class="container">
-				<div><span style="font-weight:bold;">Reminder: Upcoming Golden Week closure. Please check your shipping schedule for an estimated shipping date</span></div>
+				<div><span style="font-weight:bold;"></span></div>
         <div class="row-fluid view-body">
             <section class="span9">
 								<div id="cart-alert-placeholder" class="alert-placeholder" data-type="alert-placeholder">

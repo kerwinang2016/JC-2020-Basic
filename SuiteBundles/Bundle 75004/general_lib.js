@@ -1,13 +1,13 @@
 function isNullOrEmpty(valueStr)
 {
-   return(valueStr == null || valueStr == "" || valueStr == undefined); 
+   return(valueStr == null || valueStr == "" || valueStr == undefined);
 }
 
-function isNullOrEmptyObject(obj) 
+function isNullOrEmptyObject(obj)
 {
    var hasOwnProperty = Object.prototype.hasOwnProperty;
-   
-   if (obj.length && obj.length > 0) { return false; }   
+
+   if (obj.length && obj.length > 0) { return false; }
    for (var key in obj) { if (hasOwnProperty.call(obj, key)) return false; }
    return true;
 }
@@ -31,55 +31,55 @@ function fixUndefinedClientResponse(paramResponseData)
 		{
 			var isObjKeyIdExist = (isObjectExist(objRef['id']))	? true : false;
 			var isObjKeyRecExist = (isObjectExist(objRef['rec']))	? true : false;
-			
+
 			if (isObjKeyIdExist && isObjKeyRecExist)
 			{
 				var objRec = objRef['rec'];
 				var isObjKeyTcTailorExist = (isObjectExist(objRec['custrecord_tc_tailor'])) ? true : false;
-				
+
 				if (isObjKeyTcTailorExist)
 				{
 					var arrUndefinedCols = [];
-					
+
 					for (var dx in objRec)
 					{
 						var isUndefinedValue = (objRec[dx] == 'undefined') ? true : false;
 						var isPushArrUndefinedCols = (isUndefinedValue) ? arrUndefinedCols.push(dx) : '';
 					}
-					
+
 					var arrUndefinedColsTotal = (!isNullOrEmpty(arrUndefinedCols)) ? arrUndefinedCols.length : 0;
 					var hasArrUndefinedCols = (arrUndefinedColsTotal != 0) ? true : false;
-					
+
 					if (hasArrUndefinedCols)
 					{
 						var arrColumns = [];
 						var arrInternalIds = [];
 						arrInternalIds.push(objRef['id'])
-						
+
 						var arrFilters = [ new nlobjSearchFilter('internalid', null , 'anyof', arrInternalIds) ];
-						
+
 						for (var dx = 0; dx < arrUndefinedColsTotal; dx++)
 						{
-							arrColumns.push(new nlobjSearchColumn(arrUndefinedCols[dx])); 
+							arrColumns.push(new nlobjSearchColumn(arrUndefinedCols[dx]));
 						}
-						
+
 						var searchResults = nlapiSearchRecord('customrecord_sc_tailor_client', null, arrFilters, arrColumns);
 						var searchResultsTotal = (!isNullOrEmpty(searchResults)) ? searchResults.length : 0;
 						var hasSearchResults = (searchResultsTotal != 0) ? true : false;
-						
+
 						if (hasSearchResults)
 						{
 							for (var dx = 0; dx < searchResultsTotal; dx++)
 							{
 								var searchResult = searchResults[dx];
-								
+
 								for (var xj = 0; xj < arrUndefinedColsTotal; xj++)
 								{
 									objRef['rec']['' + arrUndefinedCols[xj] + ''] = searchResult.getValue(arrUndefinedCols[xj])
 								}
 							}
 						}
-						
+
 					}
 				}
 			}
@@ -104,6 +104,7 @@ var recordFunctions = {
 
 			arrFilter.push(new nlobjSearchFilter('isinactive', '', 'is', 'F'));
 			if(filters.length > 0){
+				nlapiLogExecution('debug','Filters',JSON.stringify(filters));
 				for(var i=0; i < filters.length; i++){
 					var filter = filters[i];
 
@@ -190,19 +191,19 @@ var recordFunctions = {
 			return results;
 		}
 	},
-	
+
 	updateRecord: function(type, id, data){
 		if(type && id && data){
 			var rec = nlapiLoadRecord(type, id);
 			var selectedLineitem = false;
 			var sublist_group = "";
 			var recObj = new Object();
-			
+
 			for(var i = 0; i < data.length; i++){
 				var field_name = data[i].name,
 					field_value = data[i].value,
 					field_type = data[i].type;
-				
+
 				if(field_type == "sublist"){
 					var field_sublist = data[i].field_sublist;
 					if(!selectedLineitem){
@@ -226,7 +227,7 @@ var recordFunctions = {
 				}
 			}
 			rec.commitLineItem(sublist_group);
-			
+
 			var recID = nlapiSubmitRecord(rec, true, true);
 			if(recID){
 				var recDetails = new Object();
@@ -242,20 +243,20 @@ var recordFunctions = {
 			return recDetails;
 		}
 	},
-	
+
 	createRecord: function(type, data){
 		if(type){
 			var newRec = nlapiCreateRecord(type);
 			var selectedLineitem = false;
 			var sublist_group = "";
 			var rec = new Object();
-			
+
 			if(data.length > 0){
 				for(var i=0; i < data.length; i++ ){
 					var field_name = data[i].name,
 						field_value = data[i].value,
 						field_type = data[i].type;
-						
+
 					if(field_type == "sublist"){
 						var field_sublist = data[i].sublist;
 						if(!selectedLineitem){
@@ -267,7 +268,7 @@ var recordFunctions = {
 							newRec.setCurrentLineItemValue(field_sublist, field_name, unescape(field_value));
 						}
 
-						
+
 					} else {
 						if(unescape(field_value) && unescape(field_value) != "undefined"){
 							var value = unescape(field_value.replace(/%2B/g, " "));
@@ -281,7 +282,7 @@ var recordFunctions = {
 					}
 				}
 				newRec.commitLineItem(sublist_group);
-				
+
 				var recID = nlapiSubmitRecord(newRec, true, true);
 				var recDetails = new Object();
 				if(recID){
@@ -298,23 +299,18 @@ var recordFunctions = {
 			}
 		}
 	},
-	
+
 	deleteRecord: function(type, id){
 		if(type && id){
-			var recID = nlapiDeleteRecord(type, id);
+      nlapiSubmitField(type,id,'isinactive','T');
 			var recDetails = new Object();
-			if(recID){
-				recDetails.id = recID;
+				recDetails.id = id;
 				recDetails.message = "Record was deleted";
 				recDetails.status = true;
-			} else {
-				recDetails.message = "Record was not deleted";
-				recDetails.status = false;
-			}
 			return recDetails;
 		}
 	},
-	
+
 	submitMultiField: function(type, id, field, value){
 		if(type && id && field && value){
 			var currentRec = nlapiLoadRecord(type, id);
@@ -329,12 +325,12 @@ var recordFunctions = {
 					currentValue.push(value);
 				}
 			}
-			
+
 			currentRec.setFieldValues(field, currentValue);
 			var recID = nlapiSubmitRecord(currentRec, true, true);
-			
+
 			var recDetails = new Object();
-			
+
 			if(recID){
 				recDetails.id = recID;
 				recDetails.message = "Field was updated";
@@ -346,7 +342,7 @@ var recordFunctions = {
 			return recDetails;
 		}
 	},
-	
+
 	/** Utilities */
 	processFilterData: function(filterData){
 		if(filterData && filterData.length > 0){
@@ -354,29 +350,29 @@ var recordFunctions = {
 			for(var i = 0; i < filterData.length; i++){
 				var filter = new Object();
 				var filterDataArr = filterData[i].split("|");
-				
+
 				filter.field = filterDataArr[0];
 				filter.join = filterDataArr[1];
 				filter.operand = filterDataArr[2];
 				filter.type = filterDataArr[3];
 				filter.value = filterDataArr[4];
-				
+
 				filters.push(filter);
 			}
 			return filters;
 		}
 	},
-	
+
 	processColumnData: function(columnData){
 		if(columnData && columnData.length > 0){
 			var columns = new Array();
 			for(var i = 0; i < columnData.length; i++){
 				var column = new Object();
 				var columnDataArr = columnData[i].split("|");
-				
+
 				column.field = columnDataArr[0];
 				column.join = columnDataArr[1];
-				
+
 				columns.push(column);
 			}
 			return columns;

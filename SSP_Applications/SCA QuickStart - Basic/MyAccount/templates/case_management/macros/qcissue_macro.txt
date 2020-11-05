@@ -1,0 +1,23 @@
+<% registerMacro('qualityCheck', function ( model ) { %>
+<div class="qualitycheck">
+  <div class="case-new-subject control-group">
+    <label for="title"><%= _('Subject').translate() %></label>
+    <input type="text" name="title" id="title" class="case-fields form-control input-xlarge input-case-title" value="<%=model.get('title')%>" ></input>
+  </div>
+
+  <div class="case-new-file control-group">
+    <label>Select a file: (jpeg or png images less than 10MB size)</label>
+    <input style="width:65px;" class="case-fields" type="file" id="myfile" name="myfile">
+    <label style="display:inline;" class="custom-file-label" for="myfile"><%= model.get('filename')?model.get('filename'): "Please select a file" %></label>
+  </div>
+
+  <div class="case-new-message control-group">
+    <label for="message"><%= _('Message').translate() %>: </label>
+    <textarea name="message" id="message" class="case-fields form-control input-xlarge input-case-message" style="width:500px;height:100px;"><%=model.get('message')%></textarea>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary btn-case-submit"><%= _('Submit').translate() %></button>
+  </div>
+</div>
+<% }) %>

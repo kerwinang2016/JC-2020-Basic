@@ -1,0 +1,18 @@
+<% registerMacro('marketingmaterials', function ( model, fields ) {
+  
+%>
+<div class="buttons">
+  <div class="case-new-subject control-group">
+    <label for="title"><%= _('Subject').translate() %></label>
+    <input type="text" name="title" id="title" class="case-fields form-control input-xlarge input-case-title" value="" ></input>
+  </div>
+  <div class="case-new-message control-group">
+    <label for="message"><%= _('Message').translate() %>: </label>
+    <textarea name="message" id="message" class="case-fields form-control input-xlarge input-case-message" style="width:500px;height:100px;"></textarea>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary btn-case-submit"><%= _('Submit').translate() %></button>
+  </div>
+</div>
+<% }) %>

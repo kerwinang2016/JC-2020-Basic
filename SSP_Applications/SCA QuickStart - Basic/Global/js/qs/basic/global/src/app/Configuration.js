@@ -9,7 +9,7 @@
         application.on('beforeStartGlobal', function() {
 
         	var configuration = application.Configuration;
-
+          
         	configuration.navigationTabs = [
 	        	{
 	        		text: _('Home').translate()
@@ -36,11 +36,11 @@
 	        		}
 	        	}
 	        ,	{
-	        		text: _('Materials').translate() //JHD-31
+	        		text: _('Notices').translate()
 	        	,	href: '#'
 	        	,	data: {
-	        			touchpoint: 'home'
-	        		,	hashtag: '#Inventory'
+	        			touchpoint: 'customercenter'
+	        		,	hashtag: '#noticeslist'
 	        		}
 	        	}
 	        ,	{

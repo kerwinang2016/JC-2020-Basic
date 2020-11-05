@@ -1,0 +1,68 @@
+<% registerMacro('meltons', function ( model, fields ) {
+  var monogramtypes = fields.get('monogramtypes');
+  var monogramcolors = fields.get('monogramcolors');
+  var acc = fields.get('accessories');
+  var collarmeltons = _.filter(acc,function(o){
+      return o.custrecord_ap_accessory_type_text == "Collar Melton";
+  });
+%>
+<div class="buttons">
+  <b>You will be invoiced for the cost of the fabric, plus a US$10 shipping and handling fee</b><br/><br/>
+  <div class="case-new-subject control-group">
+    <label for="title"><%= _('Subject').translate() %></label>
+    <input type="text" name="title" id="title" class="case-fields form-control input-xlarge input-case-title" value="" ></input>
+  </div>
+  <div class="case-new-item control-group">
+    <label for="custevent_supportcase_accessory"><%= _('Melton Codes').translate() %></label>
+    <select name="custevent_supportcase_accessory" id="custevent_supportcase_accessory" class="case-fields form-control input-xlarge select-case-custevent_supportcase_accessory">
+      <option value="">Please Select</option>
+      <% _.each(collarmeltons, function (collarmelton) { %>
+        <option value="<%= collarmelton.internalid %>" <% if(model.get('custevent_supportcase_accessory') == collarmelton.internalid){ %> selected<% } %> >
+          <%= collarmelton.custrecord_ap_code %>
+        </option>
+      <% }); %>
+    </select>
+  </div>
+  <div class="case-new-subject control-group">
+    <label for="custevent_supportcase_hasmonogram"><%= _('Include Monogram').translate() %></label>
+    <input type="checkbox" name="custevent_supportcase_hasmonogram" id="custevent_supportcase_hasmonogram" class="case-fields form-control input-xlarge input-case-custevent_supportcase_hasmonogram" <%= model.get('custevent_supportcase_hasmonogram')?"checked":"" %>></input>
+  </div>
+  <% if(model.get('custevent_supportcase_hasmonogram')){ %>
+  <div class="case-new-item control-group">
+    <label for="custevent_supportcase_monogramtype"><%= _('Monogram Type').translate() %></label>
+    <select name="custevent_supportcase_monogramtype" id="custevent_supportcase_monogramtype" class="case-fields form-control input-xlarge select-case-custevent_supportcase_monogramtype">
+      <option value="">Please Select</option>
+      <% _.each(monogramtypes, function (monogramtype) { %>
+        <option value="<%= monogramtype.id %>" <% if(model.get('custevent_supportcase_monogramtype') == monogramtype.id){ %> selected<% } %> >
+          <%= monogramtype.text %>
+        </option>
+      <% }); %>
+    </select>
+  </div>
+  <div class="case-new-item control-group">
+    <label for="custevent_supportcase_monogram_color"><%= _('Monogram Color').translate() %></label>
+    <select name="custevent_supportcase_monogram_color" id="custevent_supportcase_monogram_color" class="case-fields form-control input-xlarge select-case-custevent_supportcase_monogram_color">
+      <option value="">Please Select</option>
+      <% _.each(monogramcolors, function (monogramcolor) { %>
+        <option value="<%= monogramcolor.id %>" <% if(model.get('custevent_supportcase_monogram_color') == monogramcolor.id){ %> selected<% } %> >
+          <%= monogramcolor.text %>
+        </option>
+      <% }); %>
+    </select>
+  </div>
+  <div class="case-custevent_supportcase_monogramtext control-group">
+    <label for="custevent_supportcase_monogramtext"><%= _('Monogram Text').translate() %></label>
+    <input type="text" name="custevent_supportcase_monogramtext" id="custevent_supportcase_monogramtext" class="case-fields form-control input-xlarge input-case-custevent_supportcase_monogramtext" value="<%=model.get('custevent_supportcase_monogramtext')%>" ></input>
+  </div>
+
+  <% } %>
+  <div class="case-new-message control-group">
+    <label for="message"><%= _('Message').translate() %>: </label>
+    <textarea name="message" id="message" class="case-fields form-control input-xlarge input-case-message" style="width:500px;height:100px;"></textarea>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary btn-case-submit"><%= _('Submit').translate() %></button>
+  </div>
+</div>
+<% }) %>

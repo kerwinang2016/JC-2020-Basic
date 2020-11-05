@@ -29,13 +29,13 @@ define('CaseCreate.View', function ()
 			this.application = options.application;
 			this.fields = options.fields;
 			this.user = this.application.getUser();
-			this.model.on('sync', jQuery.proxy(this, 'showSuccess'));			
+			this.model.on('sync', jQuery.proxy(this, 'showSuccess'));
 		}
 
 		// Prevents not desired behaviour when hitting enter
 	,	preventEnter: function(event)
 		{
-			if (event.keyCode === 13) 
+			if (event.keyCode === 13)
 			{
 				event.preventDefault();
 			}
@@ -50,7 +50,7 @@ define('CaseCreate.View', function ()
 		}
 
 	,	showSuccess: function()
-		{	
+		{
 			var case_link_name = _('support case #$(0)').translate(this.model.get('caseNumber'))
 			,	new_case_internalid = this.model.get('internalid')
 			,	case_link = '<a href="/cases/' + new_case_internalid + '">' + case_link_name + '</a>'
@@ -62,13 +62,13 @@ define('CaseCreate.View', function ()
 			Backbone.history.navigate('cases', {trigger: true});
 		}
 
-	,	includeAnotherEmail: function() 
+	,	includeAnotherEmail: function()
 		{
 			this.$('.case-new-email').collapse('toggle');
 
 			var email_input = this.$('.input-case-email');
-			
+
 			email_input.prop('disabled', !email_input.prop('disabled'));
-		} 
+		}
 	});
 });

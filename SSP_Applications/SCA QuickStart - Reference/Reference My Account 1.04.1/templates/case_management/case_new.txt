@@ -7,11 +7,11 @@ var categories = view.fields.get('categories')
 		<h3><%= view.page_header %></h3>
 		<a href="/" class="back-btn">
 			<%= _('&lt; Back to Account').translate() %>
-		</a>				
+		</a>
 	</header>
 
 	<hr class="divider-small" />
-	
+
 	<div data-type="alert-placeholder"></div>
 
 	<form action="#">
@@ -20,7 +20,7 @@ var categories = view.fields.get('categories')
 			<input type="text" name="title" id="title" class="form-control input-xlarge input-case-title" value="" ></input>
 		</div>
 
-		<div class="case-new-category control-group">							
+		<div class="case-new-category control-group">
 			<label for="category"><%= _('Type of inquiry').translate() %></label>
 			<select name="category" id="category" class="form-control input-xlarge select-case-category">
 				<% _.each(categories, function (category) { %>
@@ -46,7 +46,7 @@ var categories = view.fields.get('categories')
 				<input type="email" name="email" id="email" class="form-control input-xlarge input-case-email" value="" disabled="true"></input>
 				<label for="email" class="text-light"><%= _('E.g. yourname@company.com').translate() %></label>
 			</div>
-		</div>		
+		</div>
 
 		<div class="form-actions">
 			<button type="submit" class="btn btn-primary btn-case-submit"><%= _('Submit').translate() %></button>

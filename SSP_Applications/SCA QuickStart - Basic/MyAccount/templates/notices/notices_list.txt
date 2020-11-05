@@ -1,0 +1,32 @@
+<header>
+	<h3><%= view.page_header %></h3>
+</header>
+<% var collection = view.colletion; %>
+<hr/>
+<% if(view.collection.length > 0) { %>
+	<% view.collection.each(function (notice) { %>
+		<% var highimportance = notice.get('custrecord_nb_highimportance') == 'T' %>
+		<div>
+		<a href="#" data-touchpoint="customercenter" data-hashtag="#/noticeslist/<%= notice.get('custrecord_nba_noticeboard_internalid') %>" class="notice" data-id="<%= notice.get('custrecord_nba_noticeboard_internalid') %>">
+			<section>
+				<% if(highimportance){ %>
+				<h2 style="color:#ff0000;" class="span10"><%= notice.get('custrecord_nb_header') %></h2>
+				<% } else{ %>
+				<h2 class="span10"><%= notice.get('custrecord_nb_header') %></h2>
+				<% } %>
+				<span class="span2"><%= notice.get('custrecord_nb_date') %></span>
+				<p class="span10" style="clear:both;">
+					<%= notice.get('custrecord_nb_message').substr(0,100) %>
+					<% if(notice.get('custrecord_nb_message').length > 100){ %>
+						...
+					<% } %>
+				</p>
+				<% if(notice.get('custrecord_nb_fileurl')){ %>
+				<a href="<%=notice.get('custrecord_nb_fileurl')%>">Download</a>
+				<% } %>
+			</section>
+		</a>
+		</div>
+		<hr style="clear:both"/>
+	<% }); %>
+<% } %>

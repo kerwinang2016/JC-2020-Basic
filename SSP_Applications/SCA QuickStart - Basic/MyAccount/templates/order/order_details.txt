@@ -26,11 +26,12 @@
 	//{
 		//elements.push({value: '<a class="request-return" href="/returns/new/order/' + model.get('internalid') + '">' + _('Request return').translate() + '</a>'});
 	//}
-	if(model.get('receipts') && model.get('receipts').length > 0){
-		var url1 = "https://"+window.location.hostname+"/app/site/hosting/scriptlet.nl?script=121&deploy=1&custparam_record_id="+model.get('receipts').models[0].get('internalid')+"&custparam_record_type=invoice&custparam_template=4";
-		elements.push({value: '<a class="download-invoice" target="_blank" href="'+url1+'">' + _('Download Invoice').translate() + '</a>'});
+	if(view.options.application.user_instance.get('hidebillingandcogs') == 'F'){
+		if(model.get('receipts') && model.get('receipts').length > 0){
+			var url1 = "https://"+window.location.hostname+"/app/site/hosting/scriptlet.nl?script=121&deploy=1&custparam_record_id="+model.get('receipts').models[0].get('internalid')+"&custparam_record_type=invoice&custparam_template=4";
+			elements.push({value: '<a class="download-invoice" target="_blank" href="'+url1+'">' + _('Download Invoice').translate() + '</a>'});
+		}
 	}
-
 	elements.push({value: _('Status: <span class="payment-status order-status">$(0)</span>').translate(model.get('status'))});
 %>
 <section>

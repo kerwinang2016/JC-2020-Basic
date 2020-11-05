@@ -1,13 +1,5 @@
 // Case.Router.js
 // -----------------------
-/*
-Change History
---------------
-Date: 06-03-2019
-Changed by: Salman Khan
-Change /Jira Ticket #: JHD-30
-Change Description: Training Guides section to contain links to download the PDF
-*/
 // Router for handling Cases
 define('Case.Router', ['Case.Model', 'Case.Collection', 'CaseFields.Model'], function (CaseModel, CaseCollection, CaseFieldsModel)
 {
@@ -94,7 +86,7 @@ define('Case.Router', ['Case.Model', 'Case.Collection', 'CaseFields.Model'], fun
 				,	fields: case_fields
 				,	model: new CaseModel()
 			});
-			view.model.set('issue',1);
+			//view.model.set('issue',1);
 			jQuery.when(case_fields.fetch()).then(jQuery.proxy(view, 'showContent'));
 		}
 	});

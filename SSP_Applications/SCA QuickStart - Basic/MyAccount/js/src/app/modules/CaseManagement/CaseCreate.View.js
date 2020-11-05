@@ -16,8 +16,9 @@ define('CaseCreate.View', function ()
 	,	events: {
 			'keypress [type="text"]': 'preventEnter'
 		,	'click input[name="include_email"]': 'includeAnotherEmail'
-		, 'change #issue': 'updateIssue'
-		, 'click .btn-case-submit': 'submitCase'
+		, 'change .case-fields': 'updateCaseFields'
+		// , 'click .btn-case-submit': 'submitCase'
+		, 'submit form': 'saveForm'
 		}
 
 	,	attributes: {
@@ -33,30 +34,139 @@ define('CaseCreate.View', function ()
 			this.model.on('sync', jQuery.proxy(this, 'showSuccess'));
 		}
 	, submitCase: function(e){
-		this.model.set('title', jQuery('#title').val());
-		this.model.set('issue', jQuery('#issue').val());
-		if(jQuery('#issue').val() == '1'){
-			this.model.set('item', jQuery('#item').val());
-		}else{
-			this.model.set('item', '');
+		var self = this;
+		if(jQuery('#item').length ==  1 && jQuery('#item').val() == ""){
+			alert('Please Select an item');
+			return;
 		}
-		if(jQuery('#issue').val() == '6'){
-			var fileData = document.getElementById('myfile').files[0];
+		if(jQuery('#issue').length ==  1 && jQuery('#issue').val() == ""){
+			alert('Please Select an issue');
+			return;
+		}
+		if(jQuery('#title').length ==  1 && jQuery('#title').val() == ""){
+			alert('Title cannot be blank');
+			return;
+		}
+		if(jQuery('#message').length ==  1 && jQuery('#message').val() == ""){
+			alert('Message cannot be blank');
+			return;
+		}
 
-			if(fileData.type.indexOf('image') != -1){
-				var reader = new FileReader();
-				reader.readAsBinaryString(fileData);
-				this.model.set('file', reader.result);
-				this.model.set('filetype', fileData.type);
-				this.model.set('filename', fileData.name);
-			}
-		}
-		this.model.set('message', jQuery('#message').val());
-		this.model.save();
+		this.model.set('custevent_supportcase_quantity','');
+		this.model.set('custevent_supportcase_total','');
+		this.model.set('custevent_supportcase_lining','');
+		this.model.set('custevent_supportcase_fabriccode','');
+		this.model.set('custevent_supportcase_accessory','');
+
+
+		self.model.save();
+
 	}
-	, updateIssue: function(e){
-		this.model.set('issue', jQuery('#issue').val());
-		this.showContent();
+	, updateCaseFields: function(e){
+		e.preventDefault();
+		var discount = this.application.user_instance.get("surchargediscount")?parseFloat(this.application.user_instance.get("surchargediscount"))/100:0;
+		var self = this;
+		switch(e.target.id){
+			case "custevent_supportcase_hasmonogram":
+											if(document.getElementById(e.target.id).checked)
+										 		this.model.set(e.target.id, true);
+											else
+												this.model.set(e.target.id, false);
+											this.showContent();
+											break;
+			case "custevent_supportcase_lining":
+			case "custevent_supportcase_quantity":
+
+											this.model.set(e.target.id, jQuery(e.target).val());
+											if(jQuery("#item") == "297480"){
+												if(jQuery("#custevent_supportcase_lining").val() != "" && jQuery("#custevent_supportcase_quantity").val() != ""){
+													var liningObj = _.find(self.fields.get("liningcodes"),function(obj){
+														return obj.id == jQuery("#custevent_supportcase_lining").val();
+													});
+													if(liningObj){
+														var liningprice = parseFloat(liningObj.custrecord_flf_lininglevel);
+														var quantity = parseFloat(jQuery("#custevent_supportcase_quantity").val());
+														var totalprice = (liningprice*quantity);
+														totalprice = totalprice + (totalprice*discount)
+														self.model.set("custevent_supportcase_total",(totalprice).toFixed(2));
+													}
+													this.showContent();
+												}else{
+													self.model.set("custevent_supportcase_total","0.00");
+													this.showContent();
+												}
+											}
+											break;
+			case "custevent_supportcase_accessory":
+			case "custevent_supportcase_small":
+			case "custevent_supportcase_large":
+											this.model.set(e.target.id, jQuery(e.target).val());
+											if(jQuery("#item").val() == "297479"){
+												if(jQuery("#custevent_supportcase_accessory").val() != ""){
+													var acc = self.fields.get('accessories');
+													var buttons = _.filter(acc,function(o){
+													    return o.custrecord_ap_accessory_type_text == "Buttons";
+													});
+													var buttonObj = _.find(buttons,function(obj){
+														return obj.internalid == jQuery("#custevent_supportcase_accessory").val();
+													});
+													var small = 0, large = 0, totalprice = 0;
+													if(jQuery("#custevent_supportcase_small").val() != ""){
+														var smallprice = buttonObj.custrecord_ap_price?parseFloat(buttonObj.custrecord_ap_price):0
+														small = smallprice * parseFloat(jQuery("#custevent_supportcase_small").val());
+													}
+													if(jQuery("#custevent_supportcase_large").val() != ""){
+														var largeprice = buttonObj.custrecord_ap_price2?parseFloat(buttonObj.custrecord_ap_price2):0;
+														large = largeprice * parseFloat(jQuery("#custevent_supportcase_large").val());
+													}
+													totalprice = small + large;
+													totalprice = totalprice + totalprice * discount;
+													self.model.set("custevent_supportcase_total",totalprice.toFixed(2));
+													this.showContent();
+												}else{
+													self.model.set("custevent_supportcase_total","0.00");
+													this.showContent();
+												}
+											}
+											break;
+			case "issue": 	if(jQuery(e.target).val() != '1' && jQuery(e.target).val() != '9')
+										 		this.model.set('item', '');
+											this.model.set(e.target.id, jQuery(e.target).val());
+											this.showContent();
+											break;
+		  case "item": 		this.model.set(e.target.id, jQuery(e.target).val());
+											this.showContent();
+											break;
+			case "myfile":	var fileData = document.getElementById('myfile').files[0];
+											if(fileData){
+												if(fileData.size >= 10000000){
+													jQuery(e.target).val("");
+													self.model.set('filetype', "");
+													self.model.set('filename', "");
+													self.model.set('file', "");
+													alert('File size must be less than 10MB');
+												}
+												if(fileData.type.indexOf('jpeg') == -1 && fileData.type.indexOf('png') == -1 ){
+													jQuery(e.target).val("");
+													self.model.set('filetype', "");
+													self.model.set('filename', "");
+													self.model.set('file', "");
+													alert('File type must be JPEG or PNG only');
+												}else{
+													var reader = new FileReader();
+													self.model.set('filetype', fileData.type);
+													self.model.set('filename', fileData.name);
+													jQuery(e.target).next('.custom-file-label').html(fileData.name);
+													reader.readAsBinaryString(fileData);
+													reader.onload =  function(f){
+														self.model.set('file', btoa(reader.result));
+									    		};
+												}
+											}
+											break;
+				default: this.model.set(e.target.id, jQuery(e.target).val());
+		}
+
 	}
 		// Prevents not desired behaviour when hitting enter
 	,	preventEnter: function(event)

@@ -633,7 +633,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                   var conflict = self.designoptionconflicts[j];
                   var conflictOptions = conflict.custrecord_doc_conflict_option.split(',');
                   if(garmentSelectedOptions[conflict.custrecord_doc_mainoption_parent] == conflict.custrecord_doc_main_option &&
-                    (conflict.custrecord_doc_product_typetext == "" || conflict.custrecord_doc_product_typetext == garments[i])){
+                    (conflict.custrecord_doc_product_type == "" || conflict.custrecord_doc_product_typetext == garments[i])){
                       var selectedConflictOption = garmentSelectedOptions[conflict.custrecord_doc_conflict_op_parent];
                       if(selectedConflictOption){
                         if( conflictOptions.indexOf(selectedConflictOption) != -1 && conflict.custrecord_doc_conflict_typetext == 'Cannot Select'){
@@ -1416,17 +1416,21 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 jQuery("[data-type='alert-placeholder']").empty()
 
                 var selectedItem = null;
-                for (var x = 0; x < SC._applications.Shopping.getCart().get('lines').models.length; x++) {
-                    var currentItem = SC._applications.Shopping.getCart().get('lines').models[x];
+
+                for (var x = 0; x < self.application.getCart().get('lines').models.length; x++) {
+                    var currentItem = self.application.getCart().get('lines').models[x];
+
                     var currentInternalId = currentItem.get('internalid');
-                    if (currentInternalId == SC._applications.Shopping.getLayout().currentView.productList) {
+                    if (currentInternalId == self.productList) {
                         selectedItem = currentItem;
                     }
                 }
+
                 // set options to options placeholder
                 var optionsHolder = {};
                 if (selectedItem) {
                     var options = selectedItem.get('options');
+
                     for (var x = 0; x < options.length; x++) {
                         if (options[x].id == "CUSTCOL_FITPROFILE_MESSAGE") {
                             optionsHolder["CUSTCOL_FITPROFILE_MESSAGE"] = options[x];
@@ -1436,6 +1440,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                         }
                         else if (options[x].id == "CUSTCOL_FABRIC_QUANTITY") {
                             optionsHolder["CUSTCOL_FABRIC_QUANTITY"] = options[x];
+                            jQuery("input#quantity").val(optionsHolder['CUSTCOL_FABRIC_QUANTITY'].value)
                         }
                         else if (options[x].id == "CUSTCOL_DESIGNOPTION_MESSAGE") {
                             optionsHolder["CUSTCOL_DESIGNOPTION_MESSAGE"] = options[x];
@@ -1480,6 +1485,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     // 	jQuery("input#quantity").val(optionsHolder['CUSTCOL_FABRIC_QUANTITY'].value);
                     // }
                     // if from cart, use optionsholder value else window.tempQuantity
+
                     if (self.model.get("custitem_clothing_type") !== '&nbsp;' && self.model.get('itemtype') !== 'InvtPart') {
                         jQuery("input#quantity").val(selectedItem ? optionsHolder['CUSTCOL_FABRIC_QUANTITY'].value : window.tempQuantity);
                     }
@@ -1490,7 +1496,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     self.updateFitProfileDetails(profileView.$el);
 
                     // set fit profile values from cart if item is already in cart
-                    if (SC._applications.Shopping.getLayout().currentView && SC._applications.Shopping.getLayout().currentView.productList) {
+                    if (self.application.getLayout().currentView && self.application.getLayout().currentView.productList) {
                         if (selectedItem && (self.model.get("custitem_clothing_type") !== '&nbsp;' && self.model.get('itemtype') !== 'InvtPart')) {
                             // set fit profiles
                             var fitProfileItems = JSON.parse(optionsHolder['CUSTCOL_FITPROFILE_SUMMARY'].value);
@@ -1575,7 +1581,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             this.application.on('profileRefresh', function () {
               //Prevent Buttons from being shown. because it break links
               jQuery('[id*="profile-actions"]').html("");
-              if(self.cid == SC._applications.Shopping.getLayout().currentView.cid){
+              if(self.cid == self.application.getLayout().currentView.cid){
                 var profileView = new FitProfileViews.ProfileSelector({
                     application: self.application
                     , model: new FitProfileModel(self.application.getUser().get("internalid"))
@@ -1793,10 +1799,10 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
         }
         , showHideGroupedOptions: function(){
           var clothingtypes = this.model.get('custitem_clothing_type').split(',');
+
           for(var i=0;i<clothingtypes.length;i++){
             var clothingType = clothingtypes[i];
-            jQuery("div#design-option-" + clothingType + "").find(":input").each(function () {
-              //console.log(jQuery(this).val());
+            jQuery("div#design-option-" + clothingType.trim() + "").find(":input").each(function () {
               if(jQuery(this).data().showonselection){
                 if(jQuery(this).val() == jQuery(this).data().showonselection){
                   var hiddenoptions = jQuery(this).data().hiddenoption.split(',');

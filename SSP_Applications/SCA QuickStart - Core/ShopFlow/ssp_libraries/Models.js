@@ -3784,7 +3784,10 @@ Application.defineModel('ProductListItem', {
     //nlapiLogExecution('debug','PLI RECORDS LENGTH', records.length)
 		_(records).each(function (productListItemSearchRecord)
 		{
+      if(!productListItemSearchRecord.getValue('custrecord_ns_pl_pli_options') || productListItemSearchRecord.getValue('custrecord_ns_pl_pli_options') == '{}') return;
+
 			var objPlOptions = JSON.parse(productListItemSearchRecord.getValue('custrecord_ns_pl_pli_options') || '{}');
+
 			var hasObjPlOptions = (!isNullOrEmptyObject(objPlOptions)) ? true : false;
 
 			if (hasObjPlOptions)
@@ -3810,7 +3813,9 @@ Application.defineModel('ProductListItem', {
 
 		_(records).each(function (productListItemSearchRecord)
 		{
-			var itemInternalId = productListItemSearchRecord.getValue('custrecord_ns_pl_pli_item')
+      if(!productListItemSearchRecord.getValue('custrecord_ns_pl_pli_options') || productListItemSearchRecord.getValue('custrecord_ns_pl_pli_options') == '{}')
+        return;
+      var itemInternalId = productListItemSearchRecord.getValue('custrecord_ns_pl_pli_item')
 			,	itemType = productListItemSearchRecord.getValue('type', 'custrecord_ns_pl_pli_item')
 			,	productListItem = {
 					internalid: productListItemSearchRecord.getId()

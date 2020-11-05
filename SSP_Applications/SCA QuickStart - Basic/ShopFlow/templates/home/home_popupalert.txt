@@ -2,5 +2,5 @@
   <h3 class="home-popup-title">Urgent Notice:</h3>
 </div>
 <div class="home-popup-section">
-  <p>Jerome will be offline for maintenance on Wednesday 19th August 6:00pm (CEST). This update will take approximately 2 hours. During this time you may not be able to access your account. Please ensure all orders are saved before this period. Thank you. </p>
+  <p>Jerome will be offline for maintenance on Friday 16th October 6:00pm (CEST). This update will take approximately 1 hour. During this time you may not be able to access your account. Please ensure all orders are saved before this period. <br/>Thank you. </p>
 </div>

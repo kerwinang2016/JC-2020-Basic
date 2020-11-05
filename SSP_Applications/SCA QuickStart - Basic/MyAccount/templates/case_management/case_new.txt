@@ -3,7 +3,6 @@ var categories = view.fields.get('categories')
 , issues = view.fields.get('issues')
 , items = view.fields.get('items')
 , user = view.user;
-console.log(view)
 %>
 <section class="newCase">
 	<header>
@@ -16,13 +15,12 @@ console.log(view)
 	<hr class="divider-small" />
 
 	<div data-type="alert-placeholder"></div>
-		<div class="case-new-subject control-group">
-			<label for="title"><%= _('Subject').translate() %></label>
-			<input type="text" name="title" id="title" class="form-control input-xlarge input-case-title" value="" ></input>
-		</div>
-		<div class="case-new-issue control-group">
+<form action="#">
+	<div>
+		<div class="case-new-issue control-group" style="display: inline-block;">
 			<label for="category"><%= _('Issue').translate() %></label>
-			<select name="issue" id="issue" class="form-control input-xlarge select-case-issue">
+			<select name="issue" id="issue" class="case-fields form-control input-xlarge select-case-issue">
+			<option value="">Please Select</option>
 				<% _.each(issues, function (issue) {
 					if(issue.id != '2' && issue.id != '3' && issue.id != '4' && issue.id != '5'){
 				%>
@@ -32,30 +30,47 @@ console.log(view)
 				<% }}); %>
 			</select>
 		</div>
-		<% if(view.model.get('issue') == '1'){ %>
-		<div class="case-new-item control-group">
+
+		<% if(view.model.get('issue') == '1' || view.model.get('issue') == '9'){ %>
+		<div class="case-new-item control-group" style="display: inline-block;">
 			<label for="item"><%= _('Item').translate() %></label>
-			<select name="item" id="item" class="form-control input-xlarge select-case-item">
+			<select name="item" id="item" class="case-fields form-control input-xlarge select-case-item">
+				<option value="">Please Select</option>
 				<% _.each(items, function (item) { %>
-					<option value="<%= item.id %>" >
+					<option value="<%= item.id %>" <% if(view.model.get('item') == item.id){ %> selected<% } %> >
 						<%= item.text %>
 					</option>
 				<% }); %>
 			</select>
 		</div>
 		<% } %>
-		<% if(view.model.get('issue') == '6'){ %>
-		<div class="case-new-file control-group">
-			<label for="myfile">Select a file: (jpeg or png images less than 10MB size)</label>
-			<input type="file" id="myfile" name="myfile">
-		</div>
-		<% } %>
-		<div class="case-new-message control-group">
-			<label for="message"><%= _('Message').translate() %>: </label>
-			<textarea name="message" id="message" class="form-control input-xlarge input-case-message"></textarea>
-		</div>
+	</div>
+	<% if(view.model.get('issue') == '6'){ %>
+		<%= SC.macros.qualityCheck(view.model) %>
+	<% } %>
+	<% if(view.model.get('issue') == '1' || view.model.get('issue') == '9'){ %>
 
-		<div class="form-actions">
-			<button class="btn btn-primary btn-case-submit"><%= _('Submit').translate() %></button>
-		</div>
+		<% if(view.model.get('item') == '297479'){ %>
+			<%= SC.macros.buttons(view.model, view.fields) %>
+		<% } %>
+		<% if(view.model.get('item') == '297482'){ %>
+			<%= SC.macros.fabrics(view.model, view.fields) %>
+		<% } %>
+		<% if(view.model.get('item') == '297480'){ %>
+			<%= SC.macros.linings(view.model, view.fields) %>
+		<% } %>
+		<% if(view.model.get('item') == '297485'){ %>
+			<%= SC.macros.marketingmaterials(view.model, view.fields) %>
+		<% } %>
+		<% if(view.model.get('item') == '297481'){ %>
+			<%= SC.macros.meltons(view.model, view.fields) %>
+		<% } %>
+		<% if(view.model.get('item') == '297483'){ %>
+			<%= SC.macros.shirtcollars(view.model, view.fields) %>
+		<% } %>
+		<% if(view.model.get('item') == '297484'){ %>
+			<%= SC.macros.shirtcuffs(view.model, view.fields) %>
+		<% } %>
+	<% } %>
+</form>
 </section>

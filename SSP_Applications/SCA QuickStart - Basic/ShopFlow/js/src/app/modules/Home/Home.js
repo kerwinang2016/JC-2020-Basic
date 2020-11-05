@@ -44,7 +44,7 @@ define('Home', function ()
 			//
 			// view.template = 'home_popup';
 			// view.page_header = 'IMPORTANT MESSAGE';
-			//
+
 			// view.showInModal({
 			//     className: ('home-popup-') +' iframe-modal'
 			// });

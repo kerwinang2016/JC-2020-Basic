@@ -39,6 +39,7 @@
 		,	'GoogleAnalytics'
 		,	'GoogleUniversalAnalytics'
 		//,	'Receipt'
+		, 'Notices'
 		,	'NavigationHelper'
 		,	'Responsive'
 		,	'SiteSearch'

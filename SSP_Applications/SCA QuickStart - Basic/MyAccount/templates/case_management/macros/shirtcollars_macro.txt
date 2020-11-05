@@ -1,0 +1,121 @@
+<% registerMacro('shirtcollars', function ( model, fields ) {
+  var cmtvendors = fields.get('cmtvendors');
+
+  var monogramtypes = fields.get('monogramtypes');
+  var monogramcolors = fields.get('monogramcolors');
+  var monogramfontsizes = fields.get('monogramfontsizes');
+  var monogrampositions = fields.get('monogrampositions');
+  var acc = fields.get('accessories');
+  var shirtcollars = _.filter(acc,function(o){
+      return o.custrecord_ap_accessory_type_text == "Shirt Collar";
+  });
+%>
+<div class="buttons">
+  <b>You will be invoiced for the cost of the fabric, plus a US$10 shipping and handling fee</b><br/><br/>
+  <div class="case-new-subject control-group">
+    <label for="title"><%= _('Subject').translate() %></label>
+    <input type="text" name="title" id="title" class="case-fields form-control input-xlarge input-case-title" value="<%=model.get('title')%>" ></input>
+  </div>
+  <div class="case-custevent_supportcase_fabriccode control-group">
+    <label for="custevent_supportcase_fabriccode"><%= _('Fabric Code').translate() %></label>
+    <input type="text" name="custevent_supportcase_fabriccode" id="custevent_supportcase_fabriccode" class="case-fields form-control input-xlarge input-case-custevent_supportcase_fabriccode" value="<%=model.get('custevent_supportcase_fabriccode')%>" ></input>
+  </div>
+  <div class="case-new-item control-group">
+    <label for="custevent_supportcase_cmtvendor"><%= _('CMT Vendor').translate() %></label>
+    <select name="custevent_supportcase_cmtvendor" id="custevent_supportcase_cmtvendor" class="case-fields form-control input-xlarge select-case-custevent_supportcase_cmtvendor">
+      <option value="">Please Select</option>
+      <% _.each(cmtvendors, function (cmtvendor) { %>
+        <option value="<%= cmtvendor.id %>" <% if(model.get('custevent_supportcase_cmtvendor') == cmtvendor.id){ %> selected<% } %> >
+          <%= cmtvendor.text %>
+        </option>
+      <% }); %>
+    </select>
+  </div>
+  <div class="case-custevent_supportcase_cmtcollection control-group">
+    <label for="custevent_supportcase_cmtcollection"><%= _('CMT Collection').translate() %></label>
+    <input type="text" name="custevent_supportcase_cmtcollection" id="custevent_supportcase_cmtcollection" class="case-fields form-control input-xlarge input-case-custevent_supportcase_cmtcollection" value="<%=model.get('custevent_supportcase_cmtcollection')%>" ></input>
+  </div>
+  <div class="case-custevent_supportcase_cmtcode control-group">
+    <label for="custevent_supportcase_cmtcode"><%= _('CMT Code').translate() %></label>
+    <input type="text" name="custevent_supportcase_cmtcode" id="custevent_supportcase_cmtcode" class="case-fields form-control input-xlarge input-case-custevent_supportcase_cmtcode" value="<%=model.get('custevent_supportcase_cmtcode')%>" ></input>
+  </div>
+  <div class="case-new-item control-group">
+    <label for="custevent_supportcase_accessory"><%= _('Shirt Collar').translate() %></label>
+    <select name="custevent_supportcase_accessory" id="custevent_supportcase_accessory" class="case-fields form-control input-xlarge select-case-custevent_supportcase_accessory">
+      <option value="">Please Select</option>
+      <% _.each(shirtcollars, function (shirtcollar) { %>
+        <option value="<%= shirtcollar.internalid %>" <% if(model.get('custevent_supportcase_accessory') == shirtcollar.internalid){ %> selected<% } %> >
+          <%= shirtcollar.custrecord_ap_description %>
+        </option>
+      <% }); %>
+    </select>
+  </div>
+  <div class="case-custevent_supportcase_collarfinished control-group">
+    <label for="custevent_supportcase_collarfinished"><%= _('Finished Measurement (CM)').translate() %></label>
+    <input type="text" name="custevent_supportcase_collarfinished" id="custevent_supportcase_collarfinished" class="case-fields form-control input-xlarge input-case-custevent_supportcase_collarfinished" value="<%=model.get('custevent_supportcase_collarfinished')%>" ></input>
+  </div>
+  <div class="case-new-subject control-group">
+    <label for="custevent_supportcase_hasmonogram"><%= _('Include Monogram').translate() %></label>
+    <input type="checkbox" name="custevent_supportcase_hasmonogram" id="custevent_supportcase_hasmonogram" class="case-fields form-control input-xlarge input-case-custevent_supportcase_hasmonogram" <%= model.get('custevent_supportcase_hasmonogram')?"checked":"" %>></input>
+  </div>
+  <% if(model.get('custevent_supportcase_hasmonogram')){ %>
+  <div class="case-new-item control-group">
+    <label for="custevent_supportcase_monogramtype"><%= _('Monogram Type').translate() %></label>
+    <select name="custevent_supportcase_monogramtype" id="custevent_supportcase_monogramtype" class="case-fields form-control input-xlarge select-case-custevent_supportcase_monogramtype">
+      <option value="">Please Select</option>
+      <% _.each(monogramtypes, function (monogramtype) { %>
+        <option value="<%= monogramtype.id %>" <% if(model.get('custevent_supportcase_monogramtype') == monogramtype.id){ %> selected<% } %> >
+          <%= monogramtype.text %>
+        </option>
+      <% }); %>
+    </select>
+  </div>
+  <div class="case-new-item control-group">
+    <label for="custevent_supportcase_monogram_color"><%= _('Monogram Color').translate() %></label>
+    <select name="custevent_supportcase_monogram_color" id="custevent_supportcase_monogram_color" class="case-fields form-control input-xlarge select-case-custevent_supportcase_monogram_color">
+      <option value="">Please Select</option>
+      <% _.each(monogramcolors, function (monogramcolor) { %>
+        <option value="<%= monogramcolor.id %>" <% if(model.get('custevent_supportcase_monogram_color') == monogramcolor.id){ %> selected<% } %> >
+          <%= monogramcolor.text %>
+        </option>
+      <% }); %>
+    </select>
+  </div>
+  <div class="case-new-item control-group">
+    <label for="custevent_supportcase_fontsize"><%= _('Monogram Font Size').translate() %></label>
+    <select name="custevent_supportcase_fontsize" id="custevent_supportcase_fontsize" class="case-fields form-control input-xlarge select-case-custevent_supportcase_fontsize">
+      <option value="">Please Select</option>
+      <% _.each(monogramfontsizes, function (monogramfontsize) { %>
+        <option value="<%= monogramfontsize.id %>" <% if(model.get('custevent_supportcase_fontsize') == monogramfontsize.id){ %> selected<% } %> >
+          <%= monogramfontsize.text %>
+        </option>
+      <% }); %>
+    </select>
+  </div>
+  <div class="case-new-item control-group">
+    <label for="custevent_supportcase_monogram_pos"><%= _('Monogram Position').translate() %></label>
+    <select name="custevent_supportcase_monogram_pos" id="custevent_supportcase_monogram_pos" class="case-fields form-control input-xlarge select-case-custevent_supportcase_monogram_pos">
+      <option value="">Please Select</option>
+      <% _.each(monogrampositions, function (monogramposition) { %>
+        <option value="<%= monogramposition.id %>" <% if(model.get('custevent_supportcase_monogram_pos') == monogramposition.id){ %> selected<% } %> >
+          <%= monogramposition.text %>
+        </option>
+      <% }); %>
+    </select>
+  </div>
+  <div class="case-custevent_supportcase_monogramtext control-group">
+    <label for="custevent_supportcase_monogramtext"><%= _('Monogram Text').translate() %></label>
+    <input type="text" name="custevent_supportcase_monogramtext" id="custevent_supportcase_monogramtext" class="case-fields form-control input-xlarge input-case-custevent_supportcase_monogramtext" value="<%=model.get('custevent_supportcase_monogramtext')%>" ></input>
+  </div>
+  <% } %>
+
+  <div class="case-new-message control-group">
+    <label for="message"><%= _('Message').translate() %>: </label>
+    <textarea name="message" id="message" class="case-fields form-control input-xlarge input-case-message" style="width:500px;height:100px;"><%=model.get('message')%></textarea>
+  </div>
+
+  <div class="form-actions">
+    <button type="submit" class="btn btn-primary btn-case-submit"><%= _('Submit').translate() %></button>
+  </div>
+</div>
+<% }) %>

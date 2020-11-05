@@ -331,6 +331,9 @@ Application.defineModel('Profile', {
 			profile.hidebillingandcogs = _.find(customerFieldValues, function(field){
 				return field.name === 'custentity_hide_billingandcogs';
 			}).value;
+			profile.surchargediscount = _.find(customerFieldValues, function(field){
+				return field.name === 'custentity_surcharge_discount';
+			}).value;
 			profile.surcharges_make_trim_options = _.find(customerFieldValues, function(field){
 	      return field.name === 'custentity_surcharges_make_trims_do';
 	    }).value;
@@ -5551,6 +5554,133 @@ Application.defineModel('Case', {
 
 			discountreasons_option_values.push(discountreasons_option_value);
 		});
+		var liningcodes_field = case_record.getField('custevent_supportcase_lining');
+		var liningcodes_options = liningcodes_field.getSelectOptions();
+		var liningcodes_option_values = [];
+
+		_(liningcodes_options).each(function (liningcodes_option) {
+			var liningcodes_option_value = {
+				id: liningcodes_option.id
+				, text: liningcodes_option.text
+			};
+
+			liningcodes_option_values.push(liningcodes_option_value);
+		});
+		var columns = [], linings_option_record = [];
+		columns.push(new nlobjSearchColumn('internalid'));
+		columns.push(new nlobjSearchColumn('custrecord_flf_ftno'));
+		columns.push(new nlobjSearchColumn('custrecord_flf_ftcode'));
+		columns.push(new nlobjSearchColumn('custrecord_flf_ftstock'));
+		columns.push(new nlobjSearchColumn('custrecord_flf_ftstatus'));
+		columns.push(new nlobjSearchColumn('custrecord_flf_ftorderstock'));
+		columns.push(new nlobjSearchColumn('custrecord_llp_price','custrecord_flf_lininglevel'));
+		var linings = nlapiSearchRecord('customrecord_factory_lining_fabrics',null,
+		[new nlobjSearchFilter('isinactive',null,'is','F'),new nlobjSearchFilter('custrecord_flf_useonsystem',null,'is','T')]
+		,columns);
+		for(var i=0;i<linings.length;i++){
+			linings_option_record.push({
+				internalid: linings[i].getValue('internalid'),
+				custrecord_flf_ftno: linings[i].getValue('custrecord_flf_ftno'),
+				custrecord_flf_ftcode: linings[i].getValue('custrecord_flf_ftcode'),
+				custrecord_flf_ftstock: linings[i].getValue('custrecord_flf_ftstock'),
+				custrecord_flf_ftstatus: linings[i].getValue('custrecord_flf_ftstatus'),
+				custrecord_flf_ftorderstock: linings[i].getValue('custrecord_flf_ftorderstock'),
+				custrecord_flf_lininglevel: linings[i].getValue('custrecord_llp_price','custrecord_flf_lininglevel')
+			});
+		}
+		liningcodes_option_values = _.map(liningcodes_option_values, function(element) {
+		    var lor = _.findWhere(linings_option_record, { internalid: element.id });
+		    return _.extend(element, lor);
+		});
+		liningcodes_option_values = _.filter(liningcodes_option_values,function(element){
+				return element.custrecord_flf_lininglevel != null;
+		});
+		var columns = [], accessories_option_record = [];
+		columns.push(new nlobjSearchColumn('internalid'));
+		columns.push(new nlobjSearchColumn('custrecord_ap_accessory_type'));
+		columns.push(new nlobjSearchColumn('custrecord_ap_code'));
+		columns.push(new nlobjSearchColumn('custrecord_ap_description'));
+		columns.push(new nlobjSearchColumn('custrecord_ap_price'));
+		columns.push(new nlobjSearchColumn('custrecord_ap_price2'));
+		var accessories = nlapiSearchRecord('customrecord_accessory_pricing',null,new nlobjSearchFilter('isinactive',null,'is','F'),columns);
+		for(var i=0;i<accessories.length;i++){
+			accessories_option_record.push({
+				internalid: accessories[i].getValue('internalid'),
+				custrecord_ap_accessory_type_id: accessories[i].getValue('custrecord_ap_accessory_type'),
+				custrecord_ap_accessory_type_text: accessories[i].getText('custrecord_ap_accessory_type'),
+				custrecord_ap_code: accessories[i].getValue('custrecord_ap_code'),
+				custrecord_ap_description: accessories[i].getValue('custrecord_ap_description'),
+				custrecord_ap_price: accessories[i].getValue('custrecord_ap_price'),
+				custrecord_ap_price2: accessories[i].getValue('custrecord_ap_price2')
+			});
+		}
+
+		var monogramtypes_field = case_record.getField('custevent_supportcase_monogramtype');
+		var monogramtypes_options = monogramtypes_field.getSelectOptions();
+		var monogramtypes_option_values = [];
+
+		_(monogramtypes_options).each(function (monogramtypes_option) {
+			var monogramtypes_option_value = {
+				id: monogramtypes_option.id
+				, text: monogramtypes_option.text
+			};
+			monogramtypes_option_values.push(monogramtypes_option_value);
+		});
+		var monogramcolors_field = case_record.getField('custevent_supportcase_monogram_color');
+		var monogramcolors_options = monogramcolors_field.getSelectOptions();
+		var monogramcolors_option_values = [];
+
+		_(monogramcolors_options).each(function (monogramcolors_option) {
+			var monogramcolors_option_value = {
+				id: monogramcolors_option.id
+				, text: monogramcolors_option.text
+			};
+			monogramcolors_option_values.push(monogramcolors_option_value);
+		});
+		var monogramfontsizes_field = case_record.getField('custevent_supportcase_fontsize');
+		var monogramfontsizes_options = monogramfontsizes_field.getSelectOptions();
+		var monogramfontsizes_option_values = [];
+
+		_(monogramfontsizes_options).each(function (monogramfontsizes_option) {
+			var monogramfontsizes_option_value = {
+				id: monogramfontsizes_option.id
+				, text: monogramfontsizes_option.text
+			};
+			monogramfontsizes_option_values.push(monogramfontsizes_option_value);
+		});
+		var monogrampositions_field = case_record.getField('custevent_supportcase_monogram_pos');
+		var monogrampositions_options = monogrampositions_field.getSelectOptions();
+		var monogrampositions_option_values = [];
+
+		_(monogrampositions_options).each(function (monogrampositions_option) {
+			var monogrampositions_option_value = {
+				id: monogrampositions_option.id
+				, text: monogrampositions_option.text
+			};
+			monogrampositions_option_values.push(monogrampositions_option_value);
+		});
+		var cmtvendors_field = case_record.getField('custevent_supportcase_cmtvendor');
+		var cmtvendors_options = cmtvendors_field.getSelectOptions();
+		var cmtvendors_option_values = [];
+
+		_(cmtvendors_options).each(function (cmtvendors_option) {
+			var cmtvendors_option_value = {
+				id: cmtvendors_option.id
+				, text: cmtvendors_option.text
+			};
+			cmtvendors_option_values.push(cmtvendors_option_value);
+		});
+		var cuffpositions_field = case_record.getField('custevent_supportcase_cuff_position');
+		var cuffpositions_options = cuffpositions_field.getSelectOptions();
+		var cuffpositions_option_values = [];
+
+		_(cuffpositions_options).each(function (cuffpositions_option) {
+			var cuffpositions_option_value = {
+				id: cuffpositions_option.id
+				, text: cuffpositions_option.text
+			};
+			cuffpositions_option_values.push(cuffpositions_option_value);
+		});
 
 		// New record to return
 		var newRecord = {
@@ -5561,6 +5691,14 @@ Application.defineModel('Case', {
 			, items: item_option_values
 			, issues: issue_option_values
 			, discountreasons: discountreasons_option_values
+			, liningcodes: liningcodes_option_values
+			, accessories: accessories_option_record
+			, monogramtypes: monogramtypes_option_values
+			, monogramcolors: monogramcolors_option_values
+			, monogramfontsizes: monogramfontsizes_option_values
+			, monogrampositions: monogrampositions_option_values
+			, cmtvendors: cmtvendors_option_values
+			, cuffpositions: cuffpositions_option_values
 		};
 
 		return newRecord;
@@ -5766,37 +5904,53 @@ Application.defineModel('Case', {
 	// Creates a new Case record
 	, create: function (customerId, data) {
 		'use strict';
+		try{
+			customerId = customerId || nlapiGetUser() + '';
 
-		customerId = customerId || nlapiGetUser() + '';
+			var newCaseRecord = nlapiCreateRecord('supportcase');
+			var keys = Object.keys(data);
+			for(var i=0;i<keys.length;i++){
+				if(keys[i] == "file" || keys[i] == "filename" || keys[i] == "filetype") continue;
+				if(keys[i] == "message" || keys[i] == "custevent_supportcase_hasmonogram")
+					data.message && newCaseRecord.setFieldValue('incomingmessage', this.sanitize(data.message));
+				else
+					newCaseRecord.setFieldValue(keys[i], this.sanitize(data[keys[i]]));
+			}
+			if(data.custevent_supportcase_hasmonogram == "on" || data.custevent_supportcase_hasmonogram == true){
+				newCaseRecord.setFieldValue("custevent_supportcase_hasmonogram", "T");
+			}else{
+				newCaseRecord.setFieldValue("custevent_supportcase_hasmonogram", "F");
+			}
+			// data.title && newCaseRecord.setFieldValue('title', this.sanitize(data.title));
+			// data.message && newCaseRecord.setFieldValue('incomingmessage', this.sanitize(data.message));
+			// data.category && newCaseRecord.setFieldValue('category', data.category);
+			// data.email && newCaseRecord.setFieldValue('email', data.email);
+			customerId && newCaseRecord.setFieldValue('company', customerId);
+			// data.issue && newCaseRecord.setFieldValue('issue', data.issue);
+			// data.item && newCaseRecord.setFieldValue('item', data.item);
+			// data.custevent_so_id && newCaseRecord.setFieldValue('custevent_so_id', data.custevent_so_id);
+			// data.custevent_related_sales_order && newCaseRecord.setFieldValue('custevent_related_sales_order', data.custevent_related_sales_order);
+			// data.custevent_discount_reasons && newCaseRecord.setFieldValue('custevent_discount_reasons', data.custevent_discount_reasons);
+			// data.custevent_date_needed && newCaseRecord.setFieldValue('custevent_date_needed', data.custevent_date_needed);
+			// //data.custevent_discount_requested && newCaseRecord.setFieldValue('custevent_discount_requested', data.custevent_discount_requested);
+			// data.custevent_replacement_soid && newCaseRecord.setFieldValue('custevent_replacement_soid', data.custevent_replacement_soid);
+			var default_values = this.configuration.default_values;
 
-		var newCaseRecord = nlapiCreateRecord('supportcase');
-
-		data.title && newCaseRecord.setFieldValue('title', this.sanitize(data.title));
-		data.message && newCaseRecord.setFieldValue('incomingmessage', this.sanitize(data.message));
-		data.category && newCaseRecord.setFieldValue('category', data.category);
-		data.email && newCaseRecord.setFieldValue('email', data.email);
-		customerId && newCaseRecord.setFieldValue('company', customerId);
-		data.issue && newCaseRecord.setFieldValue('issue', data.issue);
-		data.item && newCaseRecord.setFieldValue('item', data.item);
-		data.custevent_so_id && newCaseRecord.setFieldValue('custevent_so_id', data.custevent_so_id);
-		data.custevent_related_sales_order && newCaseRecord.setFieldValue('custevent_related_sales_order', data.custevent_related_sales_order);
-		data.custevent_discount_reasons && newCaseRecord.setFieldValue('custevent_discount_reasons', data.custevent_discount_reasons);
-		data.custevent_date_needed && newCaseRecord.setFieldValue('custevent_date_needed', data.custevent_date_needed);
-		//data.custevent_discount_requested && newCaseRecord.setFieldValue('custevent_discount_requested', data.custevent_discount_requested);
-		data.custevent_replacement_soid && newCaseRecord.setFieldValue('custevent_replacement_soid', data.custevent_replacement_soid);
-		var default_values = this.configuration.default_values;
-
-		newCaseRecord.setFieldValue('status', default_values.status_start.id); // Not Started
-		newCaseRecord.setFieldValue('origin', default_values.origin.id); // Web
-		newCaseRecord.setFieldValue('profile', 2); // Jerome Clothiers
-		var caseid = nlapiSubmitRecord(newCaseRecord);
-		if(data.file){
-			var f = nlapiCreateFile(data.filename, data.filetype, data.file);
-			f.setFolder(1873);
-			var fid = nlapiSubmitFile(f);
-			nlapiAttachRecord("file", fid, "supportcase", caseid);
+			newCaseRecord.setFieldValue('status', default_values.status_start.id); // Not Started
+			newCaseRecord.setFieldValue('origin', default_values.origin.id); // Web
+			newCaseRecord.setFieldValue('profile', 2); // Jerome Clothiers
+			var caseid = nlapiSubmitRecord(newCaseRecord);
+			if(data.file){
+				var r = nlapiRequestURL("https://3857857.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=384&deploy=1&compid=3857857&h=ad5340eb5ddc555adf33",
+					{imageContents:data.file, filename:data.filename, filetype:data.filetype}
+				);
+				nlapiLogExecution('debug','R',JSON.stringify(r));
+				nlapiAttachRecord("file", r.getBody(), "supportcase", caseid);
+			}
+			return caseid;
+		}catch(e){
+				nlapiLogExecution("error","create case", e);
 		}
-		return caseid;
 	}
 
 	, setSortOrder: function (sort, order, columns) {

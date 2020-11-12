@@ -10,9 +10,9 @@ define('CaseList.View', ['ListHeader'], function (ListHeader)
 
 		template: 'case_list'
 
-	,	title: _('Issues').translate()
+	,	title: _('Requests').translate()
 
-	,	page_header: _('Issues').translate()
+	,	page_header: _('Requests').translate()
 
 	,	attributes: {
 			'class': 'caseManagement'
@@ -94,7 +94,7 @@ define('CaseList.View', ['ListHeader'], function (ListHeader)
 	,	sortOptions: [
 			{
 				value: 'caseNumber'
-			,	name: _('by Issue number').translate()
+			,	name: _('by Case number').translate()
 			,	selected: true
 			}
 		,	{

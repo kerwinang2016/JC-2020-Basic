@@ -1,15 +1,15 @@
-<% registerMacro('linings', function ( model, fields ) {
+<% registerMacro('linings', function ( model, fields, inDetailsView ) {
   var linings = fields.get('liningcodes');
 %>
-<div class="buttons">
-  <b>Includes a US$20 shipping and handling fee</b><br/><br/>
+<div>
+
   <div class="case-new-subject control-group">
     <label for="title"><%= _('Subject').translate() %></label>
-    <input type="text" name="title" id="title" class="case-fields form-control input-xlarge input-case-title" value="<%=model.get('title')%>" ></input>
+    <input readonly type="text" name="title" id="title" class="case-fields form-control input-xlarge input-case-title" value="<%=model.get('title')%>" ></input>
   </div>
-
+  <% if(!inDetailsView){ %>
   <div class="case-new-item control-group">
-    <label for="custevent_supportcase_lining"><%= _('Lining Codes').translate() %></label>
+    <label for="custevent_supportcase_lining"><%= _('Lining Code').translate() %></label>
     <select name="custevent_supportcase_lining" id="custevent_supportcase_lining" class="case-fields form-control input-xlarge select-case-custevent_supportcase_lining">
       <option value="">Please Select</option>
       <% _.each(linings, function (lining) { %>
@@ -20,13 +20,16 @@
     </select>
   </div>
   <div class="case-custevent_supportcase_quantity control-group">
-    <label for="custevent_supportcase_quantity"><%= _('Fabric Quantity').translate() %>(in meters)</label>
+    <label for="custevent_supportcase_quantity"><%= _('Lining Quantity').translate() %> (in meters)</label>
     <input type="number" name="custevent_supportcase_quantity" id="custevent_supportcase_quantity" class="case-fields form-control input-xlarge input-case-custevent_supportcase_quantity" value="<%=model.get('custevent_supportcase_quantity')%>" min="0" max="2" ></input>
+    <span style="color:#b23a3a;">(max 2m)</span>
   </div>
   <div class="case-custevent_supportcase_total control-group">
     <label for="custevent_supportcase_total"><%= _('Total').translate() %></label>
     <input readonly type="number" name="custevent_supportcase_total" id="custevent_supportcase_total" class="case-fields form-control input-xlarge input-case-custevent_supportcase_total" value="<%=model.get('custevent_supportcase_total')%>" ></input>
+
   </div>
+  <b style="color:#b23a3a;">(Includes a US$20 shipping and handling fee)</b><br/><br/>
   <div class="case-new-message control-group">
     <label for="message"><%= _('Message').translate() %>: </label>
     <textarea name="message" id="message" class="case-fields form-control input-xlarge input-case-message" style="width:500px;height:100px;"><%=model.get('message')%></textarea>
@@ -35,5 +38,27 @@
   <div class="form-actions">
     <button type="submit" class="btn btn-primary btn-case-submit"><%= _('Submit').translate() %></button>
   </div>
+  <% }else{ %>
+    <div class="case-new-item control-group">
+      <label for="custevent_supportcase_lining"><%= _('Lining Code').translate() %></label>
+      <select readonly name="custevent_supportcase_lining" id="custevent_supportcase_lining" class="case-fields form-control input-xlarge select-case-custevent_supportcase_lining">
+        <option value="">Please Select</option>
+        <% _.each(linings, function (lining) { %>
+          <option value="<%= lining.id %>" <% if(model.get('custevent_supportcase_lining').id == lining.id){ %> selected<% } %> >
+            <%= lining.text %>
+          </option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="case-custevent_supportcase_quantity control-group">
+      <label for="custevent_supportcase_quantity"><%= _('Lining Quantity').translate() %> (in meters)</label>
+      <input readonly type="number" name="custevent_supportcase_quantity" id="custevent_supportcase_quantity" class="case-fields form-control input-xlarge input-case-custevent_supportcase_quantity" value="<%=model.get('custevent_supportcase_quantity')%>" min="0" max="2" ></input>
+      <span style="color:#b23a3a;">(max 2m)</span>
+    </div>
+    <div class="case-custevent_supportcase_total control-group">
+      <label for="custevent_supportcase_total"><%= _('Total').translate() %></label>
+      <input readonly type="number" name="custevent_supportcase_total" id="custevent_supportcase_total" class="case-fields form-control input-xlarge input-case-custevent_supportcase_total" value="<%=model.get('custevent_supportcase_total')%>" ></input>
+    </div>
+  <% } %>
 </div>
 <% }) %>

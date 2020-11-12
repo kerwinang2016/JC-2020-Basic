@@ -26,8 +26,8 @@ function service (request)
 				var data = JSON.parse(request.getBody() || '{}');
 				if(id){
 					recordFunctions.updateNoticesBoardActivities(id, data);
-					//var noticesDetails = recordFunctions.getNoticesList(id);
-					//Application.sendContent(noticesDetails[0]);
+					var noticesDetails = recordFunctions.getNoticesList(data.custrecord_nba_noticeboard_internalid);
+					Application.sendContent(noticesDetails);
 				}
 				break;
 			default:
@@ -36,20 +36,28 @@ function service (request)
 	}
 	catch (e)
 	{
+		nlapiLogExecution('debug','error',e.message);
 		Application.sendError(e);
 	}
 }
 
 var recordFunctions = {
 	updateNoticesBoardActivities: function(id, data){
-		delete data.internalid;
-		var keys = Object.keys(data);
-		//var values = Object.values(data);
-		var vals = [];
-		for(var i=0;i<keys.length;i++){
-			vals.push(data[keys[i]]);
-		}
-		nlapiSubmitField('customrecord_noticeboard_activities',id, keys, vals);
+		// delete data.internalid;
+		// var keys = Object.keys(data);
+		// //var values = Object.values(data);
+		// var vals = [];
+		// for(var i=0;i<keys.length;i++){
+			// vals.push(data[keys[i]]);
+		// }
+		nlapiLogExecution('debug','data',JSON.stringify(data));
+		var keys = [
+			'custrecord_nba_read_notice'
+		];
+		var vals = [
+			data.custrecord_nba_noticeboard_custrecord_nba_read_notice
+		];
+		nlapiSubmitField('customrecord_noticeboard_activities',data.custrecord_nba_noticeboard_internalid, keys, vals);
 	},
 	getNoticesList: function(id, page){
 		var columns = [], filters=[];

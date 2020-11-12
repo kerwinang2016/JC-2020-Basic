@@ -5,7 +5,7 @@ var categories = view.fields.get('categories')
 ,	subject = model.get('title')
 ,	grouped_messages = model.get('grouped_messages')
 ,	messages_count = model.get('messages_count')
-,   collapse_elements = view.application.getConfig('collapseElements')
+, collapse_elements = view.application.getConfig('collapseElements')
 ,	close_status_id = SC.ENVIRONMENT.CASES.CONFIG.default_values.status_close.id;
 %>
 
@@ -15,16 +15,16 @@ var categories = view.fields.get('categories')
 			<span class="field-number"><%= view.page_header %></span>
 			<span class="field-subject text-light"><%- subject %></span>
 		</h3>
-		<a href="/cases" class="back-btn"><%= _('&lt; Back to Cases').translate() %></a>		
-	</header>	
-	
+		<a href="/cases" class="back-btn"><%= _('&lt; Back to Cases').translate() %></a>
+	</header>
+
 	<hr class="divider-small" />
-	
+
 	<div data-confirm-message class="confirm-message"></div>
 
 	<div data-type="alert-placeholder"></div>
 
-	<div class="case-detail-header">		
+	<div class="case-detail-header">
 		<div class="row-fluid">
 			<div class="span12">
 				<span><%= _('Type of inquiry:').translate() %></span>
@@ -50,14 +50,37 @@ var categories = view.fields.get('categories')
 		<div class="row-fluid visible-phone">
 			<span><%= _('Status:').translate() %></span>
 			<span class="field-status status"><%= model.get('status').name %></span>
-		</div>		
-		<% if (model.get('status').id !== close_status_id) { %>
-			<div class="row-fluid case-detail-reply-section">
-				<button type="button" class="btn-close-case btn btn-expanded pull-right" data-action="close-case"><%= _('Close Case').translate() %></button>
-			</div>
-		<% } %>
+		</div>
 	</div>
-	<hr class="divider-small" />	
+	<hr class="divider-small" />
+
+	<% if(view.model.get('issue') == '6'){ %>
+		<%= SC.macros.qualityCheck(view.model, true) %>
+	<% } %>
+	<% if(view.model.get('issue').id == '1' || view.model.get('issue').id == '9'){ %>
+
+		<% if(view.model.get('item').id == '297479'){ %>
+			<%= SC.macros.buttons(view.model, view.fields, true) %>
+		<% } %>
+		<% if(view.model.get('item').id == '297482'){ %>
+			<%= SC.macros.fabrics(view.model, view.fields, true) %>
+		<% } %>
+		<% if(view.model.get('item').id == '297480'){ %>
+			<%= SC.macros.linings(view.model, view.fields, true) %>
+		<% } %>
+		<% if(view.model.get('item').id == '297485'){ %>
+			<%= SC.macros.marketingmaterials(view.model, view.fields, true) %>
+		<% } %>
+		<% if(view.model.get('item').id == '297481'){ %>
+			<%= SC.macros.meltons(view.model, view.fields, true) %>
+		<% } %>
+		<% if(view.model.get('item').id == '297483'){ %>
+			<%= SC.macros.shirtcollars(view.model, view.fields, true) %>
+		<% } %>
+		<% if(view.model.get('item').id == '297484'){ %>
+			<%= SC.macros.shirtcuffs(view.model, view.fields, true) %>
+		<% } %>
+	<% } %>
 	<form action="#">
 		<div class="control-group case-detail-add-reply row-fluid">
 			<div class="row-fluid">
@@ -98,5 +121,5 @@ var categories = view.fields.get('categories')
 			<% }); %>
 		</div>
 	</div>
-	<br />	
+	<br />
 </section>

@@ -1,32 +1,81 @@
+<%
+	console.log(view);
+	var unreadmessages = _.filter(view.collection.models,function(o){
+		return o.get('custrecord_nba_noticeboard_custrecord_nba_read_notice') == 'F';
+	});
+%>
 <header>
-	<h3><%= view.page_header %></h3>
+	<h3><%= view.page_header %>
+
+		<%= _('( $(0) unread )').translate(unreadmessages.length) %>
+	
+	</h3>
 </header>
 <% var collection = view.colletion; %>
 <hr/>
+
 <% if(view.collection.length > 0) { %>
+
+	<%= showingCurrent({
+			current_page: view.options.page
+		,	items_per_page: view.collection.recordsPerPage
+		,	total_items: view.collection.totalRecordsFound
+		,	total_pages: Math.ceil(view.collection.totalRecordsFound / view.collection.recordsPerPage)
+		,	extraClass: 'pull-left'
+	}) %>
+	<%
+		var pagination_result = pagination(_.extend({},
+			view.options.application.getConfig('defaultPaginationSettings'),
+			{
+				currentPage: view.options.page
+			,	totalPages: Math.ceil(view.collection.totalRecordsFound / view.collection.recordsPerPage)
+			,	extraClass: 'pagination-small align-right'
+			,	pager: function (page) {
+					var search = ""
+					if(view.options.search != "")
+						search = "&search="+view.options.search;
+					return (page === 1) ? '/noticeslist':'/noticeslist?page='+page;
+				}
+			}
+		))
+	%>
+	<%= pagination_result %>
+
+	<div class="clearfix"></div>
+	<hr/>
 	<% view.collection.each(function (notice) { %>
-		<% var highimportance = notice.get('custrecord_nb_highimportance') == 'T' %>
-		<div>
-		<a href="#" data-touchpoint="customercenter" data-hashtag="#/noticeslist/<%= notice.get('custrecord_nba_noticeboard_internalid') %>" class="notice" data-id="<%= notice.get('custrecord_nba_noticeboard_internalid') %>">
+		<%
+			var highimportance = notice.get('custrecord_nb_highimportance') == 'T';
+			var headerspan = "span8";
+			var unread = notice.get('custrecord_nba_noticeboard_custrecord_nba_read_notice') == 'T'?"":"background:#f5f5f5;";
+		%>
+		<div style="padding:10px;<%= unread%>">
+		<a href="#" data-touchpoint="customercenter" data-hashtag="#/noticedetails/<%= notice.get('custrecord_nba_noticeboard_internalid') %>" class="notice" data-id="<%= notice.get('custrecord_nba_noticeboard_internalid') %>">
 			<section>
-				<% if(highimportance){ %>
-				<h2 style="color:#ff0000;" class="span10"><%= notice.get('custrecord_nb_header') %></h2>
-				<% } else{ %>
-				<h2 class="span10"><%= notice.get('custrecord_nb_header') %></h2>
-				<% } %>
-				<span class="span2"><%= notice.get('custrecord_nb_date') %></span>
-				<p class="span10" style="clear:both;">
+				<div>
+					<% if(highimportance){ %>
+					<span style="color:#ff0000;" class="<%=headerspan%>"><%= notice.get('custrecord_nb_header') %></span>
+					<% } else{ %>
+					<span class="<%=headerspan%>"><%= notice.get('custrecord_nb_header') %></span>
+					<% } %>
+					<% if(notice.get('custrecord_nb_fileurl')){ %>
+						<a class="fa fa-download span2" target="_blank" href="https://store.jeromeclothiers.com/<%=notice.get('custrecord_nb_fileurl')%>"> Download</a>
+					<% }else{ %>
+							<span class="span2"> &nbsp;</span>
+					<% } %>
+					<span class="span2"><%= notice.get('custrecord_nb_date') %></span>
+				</div>
+				<div style="margin-top:10px;">
 					<%= notice.get('custrecord_nb_message').substr(0,100) %>
 					<% if(notice.get('custrecord_nb_message').length > 100){ %>
 						...
 					<% } %>
-				</p>
-				<% if(notice.get('custrecord_nb_fileurl')){ %>
-				<a href="<%=notice.get('custrecord_nb_fileurl')%>">Download</a>
-				<% } %>
+				</div>
 			</section>
 		</a>
 		</div>
-		<hr style="clear:both"/>
+		<div class="clearfix"></div>
+		<hr style="margin:5px 0;"/>
+
 	<% }); %>
 <% } %>

@@ -6,9 +6,9 @@ define('NoticesDetails.View', function ()
 
 		template: 'notices_details'
 
-	,	title: _('Notices Details').translate()
+	,	title: _('Notice Details').translate()
 
-	,	page_header: _('Notices Details').translate()
+	,	page_header: _('Notice Details').translate()
 
 	,	attributes: {
 			'class': 'notices-details'
@@ -19,16 +19,16 @@ define('NoticesDetails.View', function ()
 			this.options = options;
 			this.application = options.application;
 			this.model = options.model;
-			this.model.set('custrecord_nba_read_notice','T');
-			this.model.save();
 		}
 
 
 	,	showContent: function ()
 		{
-			this.application.getLayout().showContent(this, 'noticesdetails', [{
+			this.model.set('custrecord_nba_noticeboard_custrecord_nba_read_notice','T');
+			this.model.save();
+			this.application.getLayout().showContent(this, 'noticedetails', [{
 				text: this.title
-			,	href: '/noticesdetails'
+			,	href: '/noticedetails/'+this.model.get('internalid')
 			}]);
 		}
 

@@ -18,7 +18,7 @@ var categories = view.fields.get('categories')
 <form action="#">
 	<div>
 		<div class="case-new-issue control-group" style="display: inline-block;">
-			<label for="category"><%= _('Issue').translate() %></label>
+			<label for="category"><%= _('Type of request').translate() %></label>
 			<select name="issue" id="issue" class="case-fields form-control input-xlarge select-case-issue">
 			<option value="">Please Select</option>
 				<% _.each(issues, function (issue) {

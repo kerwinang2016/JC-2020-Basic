@@ -36,11 +36,16 @@
 <li>
 	<a <%= _.objectToAtrributes(item) %>>
 		<%= item.text %>
+<% if(item.count >0){ %>
+		<span style="top: -10px; position: relative; display: inline-block; width: 18px; height: 18px;
+	    border-radius: 50%; font-size: 10px; font-weight: 700; line-height: 18px; text-align: center; color: #fff; background: #b23a3a;">
+	      <%= item.count %>
+	  </span>
+		<% } %>
 	</a>
-	<span style="top: -50px; right: -70px; position: relative; display: inline-block; width: 18px; height: 18px;
-    border-radius: 50%; font-size: 10px; font-weight: 700; line-height: 18px; text-align: center; color: #fff; background: #a00;">
-      item.total
-  </span>
+
+
+
 </li>
 <% } %>
 <% }) %>

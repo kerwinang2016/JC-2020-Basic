@@ -167,7 +167,7 @@ var recordFunctions = {
 					}
 				}
 			}
-      nlapiLogExecution('debug','arrFilter', JSON.stringify(arrFilter));
+      
       var search = nlapiCreateSearch(type, arrFilter, arrColumn);
       var searchSet = search.runSearch();
       var start = 0;

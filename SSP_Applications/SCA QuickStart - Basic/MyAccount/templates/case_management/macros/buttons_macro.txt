@@ -1,15 +1,15 @@
-<% registerMacro('buttons', function ( model, fields ) {
+<% registerMacro('buttons', function ( model, fields, inDetailsView ) {
 var acc = fields.get('accessories');
 var buttons = _.filter(acc,function(o){
     return o.custrecord_ap_accessory_type_text == "Buttons";
 });
 %>
 <div class="buttons">
-  <b>Includes a US$10 shipping and handling fee</b><br/><br/>
   <div class="case-new-subject control-group">
     <label for="title"><%= _('Subject').translate() %></label>
-    <input type="text" name="title" id="title" class="case-fields form-control input-xlarge input-case-title" value="<%=model.get('title')%>" ></input>
+    <input readonly type="text" name="title" id="title" class="case-fields form-control input-xlarge input-case-title" value="<%=model.get('title')%>" ></input>
   </div>
+  <% if(!inDetailsView){ %>
   <div class="case-new-item control-group">
     <label for="custevent_supportcase_accessory"><%= _('Button Codes').translate() %></label>
     <select name="custevent_supportcase_accessory" id="custevent_supportcase_accessory" class="case-fields form-control input-xlarge select-case-custevent_supportcase_accessory">
@@ -33,6 +33,7 @@ var buttons = _.filter(acc,function(o){
     <label for="custevent_supportcase_total"><%= _('Total').translate() %></label>
     <input readonly type="number" name="custevent_supportcase_total" id="custevent_supportcase_total" class="case-fields form-control input-xlarge input-case-custevent_supportcase_total" value="<%=model.get('custevent_supportcase_total')%>" ></input>
   </div>
+  <b style="color:#b23a3a;">(Includes a US$10 shipping and handling fee)</b><br/><br/>
   <div class="case-new-message control-group">
     <label for="message"><%= _('Message').translate() %>: </label>
     <textarea name="message" id="message" class="case-fields form-control input-xlarge input-case-message" style="width:500px;height:100px;"><%=model.get('message')%></textarea>
@@ -40,5 +41,30 @@ var buttons = _.filter(acc,function(o){
   <div class="form-actions">
     <button type="submit" class="btn btn-primary btn-case-submit"><%= _('Submit').translate() %></button>
   </div>
+  <% }else{ %>
+    <div class="case-new-item control-group">
+      <label for="custevent_supportcase_accessory"><%= _('Button Codes').translate() %></label>
+      <select readonly name="custevent_supportcase_accessory" id="custevent_supportcase_accessory" class="case-fields form-control input-xlarge select-case-custevent_supportcase_accessory">
+        <option value="">Please Select</option>
+        <% _.each(buttons, function (button) { %>
+          <option value="<%= button.internalid %>" <% if(model.get('custevent_supportcase_accessory').id == button.internalid){ %> selected<% } %> >
+            <%= button.custrecord_ap_code %>
+          </option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="case-custevent_supportcase_small control-group">
+      <label for="custevent_supportcase_small"><%= _('Small Quantity').translate() %></label>
+      <input readonly type="number" name="custevent_supportcase_small" id="custevent_supportcase_small" class="case-fields form-control input-xlarge input-case-custevent_supportcase_small" value="<%=model.get('custevent_supportcase_small')%>" min="0" ></input>
+    </div>
+    <div class="case-custevent_supportcase_large control-group">
+      <label for="custevent_supportcase_large"><%= _('Large Quantity').translate() %></label>
+      <input readonly type="number" name="custevent_supportcase_large" id="custevent_supportcase_large" class="case-fields form-control input-xlarge input-case-custevent_supportcase_large" value="<%=model.get('custevent_supportcase_large')%>" min="0"></input>
+    </div>
+    <div class="case-custevent_supportcase_total control-group">
+      <label for="custevent_supportcase_total"><%= _('Total').translate() %></label>
+      <input readonly type="number" name="custevent_supportcase_total" id="custevent_supportcase_total" class="case-fields form-control input-xlarge input-case-custevent_supportcase_total" value="<%=model.get('custevent_supportcase_total')%>" ></input>
+    </div>
+  <% } %>
 </div>
 <% }) %>

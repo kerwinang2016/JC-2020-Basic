@@ -9,7 +9,21 @@
         application.on('beforeStartGlobal', function() {
 
         	var configuration = application.Configuration;
-          
+          var count = "";
+          var self = this;
+          var records = [];
+
+          jQuery.ajax({
+    				url: "https://store.jeromeclothiers.com/shopflow/services/notices.ss",
+    				async: false,
+    				success: function(data){
+              self.records = data.records;
+    				}
+    			});
+
+          var count = _.filter(this.records,function(o){
+            return o.custrecord_nba_noticeboard_custrecord_nba_read_notice == 'F';
+          });
         	configuration.navigationTabs = [
 	        	{
 	        		text: _('Home').translate()
@@ -41,7 +55,8 @@
 	        	,	data: {
 	        			touchpoint: 'customercenter'
 	        		,	hashtag: '#noticeslist'
-	        		}
+            },
+            count: count.length
 	        	}
 	        ,	{
 	        		text: _('My Account').translate()

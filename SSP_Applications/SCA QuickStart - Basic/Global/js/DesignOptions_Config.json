@@ -3823,14 +3823,10 @@
                   "name":"T010276",
                   "type":"select",
                   "texts":[
-                     "No",
-                     "Front piece",
-                     "Shoulder"
+                     "No"
                   ],
                   "values":[
-                     "T01027603",
-                     "T01027601",
-                     "T01027602"
+                     "T01027603"
                   ]
                }
             ]

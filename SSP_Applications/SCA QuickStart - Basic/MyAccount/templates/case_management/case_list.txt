@@ -1,8 +1,12 @@
-<% var collection = view.collection; %>
+<%
+	var collection = view.collection;
+	console.log(collection)
+	var unreadcount = _.filter(collection.models,function(o){ return o.get('status').id == '8';});
+%>
 <section class="case-management">
 	<header>
 		<h3>
-			<%= view.page_header %>
+			<%= view.page_header %> <%= _('( $(0) awaiting for reply )').translate(unreadcount.length) %>
 			<div class="pull-right hidden-phone">
 				<a class="pull-right btn btn-expanded btn-primary" href="#" data-touchpoint="customercenter" data-hashtag="#/newcase">
 					<%= _('Create new request').translate() %>
@@ -12,7 +16,7 @@
 	</header>
 
 	<a class="visible-phone btn btn-expanded btn-primary" href="#" data-touchpoint="customercenter" data-hashtag="#/newcase">
-		<%= _('Create new case').translate() %>
+		<%= _('Create new request').translate() %>
 	</a>
 
 	<hr class="divider-small">
@@ -45,9 +49,11 @@
 
 		<% collection.each(function (the_case) { %>
 			<% var id = the_case.get('internalid')
-			,	case_number = the_case.get('caseNumber') %>
+			,	case_number = the_case.get('caseNumber'),
+				highlight = the_case.get('status').id == '8'? true:false;
+			 %>
 
-			<a href="#" class="list-row" data-touchpoint="customercenter" data-id="<%= id %>" data-hashtag="#/cases/<%= id %>" data-case-number="<%= case_number %>">
+			<a <% if(highlight){ %>style="background:#e8e8e8;" <% } %> href="#" class="list-row" data-touchpoint="customercenter" data-id="<%= id %>" data-hashtag="#/cases/<%= id %>" data-case-number="<%= case_number %>">
 				<div class="row-fluid">
 					<div class="span2">
 						<span class="list-row-text id-record">

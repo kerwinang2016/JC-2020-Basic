@@ -2,18 +2,25 @@
 	var notice = view.model;
  %>
 <header>
-	<h3><%= view.page_header %></h3>
+	<h3 class="span10"><%= view.page_header %></h3>
+	<a href="#" class="btn btn-expanded span2" data-hashtag="#noticeslist" data-touchpoint="customercenter">
+			<span class="my-account-notices">Back to Notices</span>
+	</a>
+	<div class="clearfix"></div>
 </header>
 <hr/>
 <section>
-	<h2><%= notice.get('custrecord_nb_header') %></h2>
+	<h2 class="span10"><%= notice.get('custrecord_nb_header') %></h2>
 	<% if(notice.get('custrecord_nb_fileurl')){ %>
-	<a href="notice.get('custrecord_nb_fileurl')">Download</a>
+		<a class="fa fa-download span2" target="_blank" href="https://store.jeromeclothiers.com/<%=notice.get('custrecord_nb_fileurl')%>"> Download</a>
+	<% }else{ %>
+			<span class="span2"> &nbsp;</span>
 	<% } %>
+	<div class="clearfix"></div>
 	<div  class="row-fluid control-group"><span>Date: <%= notice.get('custrecord_nb_date') %></span></div>
 	<div  class="row-fluid control-group">
 	<label>Message:</label>
-	<p>
+	<p style="word-wrap:break-word;">
 		<%= notice.get('custrecord_nb_message') %>
 	</p>
 	</div>

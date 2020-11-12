@@ -5726,6 +5726,30 @@ Application.defineModel('Case', {
 			, new nlobjSearchColumn('custevent_discount_reasons')
 			, new nlobjSearchColumn('custevent_date_needed')
 			, new nlobjSearchColumn('custevent_replacement_soid')
+			, new nlobjSearchColumn('custevent_supportcase_lining')
+			, new nlobjSearchColumn('custevent_supportcase_quantity')
+			, new nlobjSearchColumn('custevent_supportcase_total')
+			, new nlobjSearchColumn('custevent_supportcase_fabriccode')
+			, new nlobjSearchColumn('custevent_supportcase_accessory')
+			, new nlobjSearchColumn('custevent_supportcase_large')
+			, new nlobjSearchColumn('custevent_supportcase_small')
+			, new nlobjSearchColumn('custevent_supportcase_cmtvendor')
+			, new nlobjSearchColumn('custevent_supportcase_collarfinished')
+			, new nlobjSearchColumn('custevent_supportcase_hasmonogram')
+			, new nlobjSearchColumn('custevent_supportcase_monogramtext')
+			, new nlobjSearchColumn('custevent_supportcase_monogramtype')
+			, new nlobjSearchColumn('custevent_supportcase_fontsize')
+			, new nlobjSearchColumn('custevent_supportcase_monogram_pos')
+			, new nlobjSearchColumn('custevent_supportcase_monogram_color')
+			, new nlobjSearchColumn('custevent_supportcase_cmtcollection')
+			, new nlobjSearchColumn('custevent_supportcase_cuff_position')
+			, new nlobjSearchColumn('custevent_sc_accessorycode')
+			, new nlobjSearchColumn('custevent_sc_accessorydescription')
+			, new nlobjSearchColumn('custevent_sc_accessoryprice')
+			, new nlobjSearchColumn('custevent_sc_accessoryprice2')
+			, new nlobjSearchColumn('custevent_is_cmt')
+			, new nlobjSearchColumn('custevent_supportcase_cuffleft')
+			, new nlobjSearchColumn('custevent_supportcase_cuffright')
 		];
 	}
 
@@ -5817,6 +5841,59 @@ Application.defineModel('Case', {
 					, createdDate: nlapiDateToString(created_date ? created_date : self.dummy_date, 'date')
 					, lastMessageDate: nlapiDateToString(last_message_date ? last_message_date : self.dummy_date, 'date')
 					, email: case_record.getValue('email')
+					, custevent_supportcase_lining: {
+						id: case_record.getValue('custevent_supportcase_lining')
+						, name: case_record.getText('custevent_supportcase_lining')
+					}
+					, custevent_supportcase_quantity: case_record.getValue('custevent_supportcase_quantity')
+					, custevent_supportcase_total: case_record.getValue('custevent_supportcase_total')
+					, custevent_supportcase_fabriccode: case_record.getValue('custevent_supportcase_fabriccode')
+					, custevent_supportcase_accessory: {
+						id: case_record.getValue('custevent_supportcase_accessory')
+						, name: case_record.getText('custevent_supportcase_accessory')
+					}
+					, custevent_supportcase_large: case_record.getValue('custevent_supportcase_large')
+					, custevent_supportcase_small: case_record.getValue('custevent_supportcase_small')
+					, custevent_supportcase_collarfinished: case_record.getValue('custevent_supportcase_collarfinished')
+					, custevent_supportcase_hasmonogram: case_record.getValue('custevent_supportcase_hasmonogram')
+					, custevent_supportcase_monogramtext: case_record.getValue('custevent_supportcase_monogramtext')
+					, custevent_supportcase_fontsize: case_record.getValue('custevent_supportcase_fontsize')
+					, custevent_supportcase_cmtcollection: case_record.getValue('custevent_supportcase_cmtcollection')
+					, custevent_supportcase_cmtvendor: {
+						id: case_record.getValue('custevent_supportcase_cmtvendor')
+						, name: case_record.getText('custevent_supportcase_cmtvendor')
+					}
+					, custevent_supportcase_monogramtype: {
+						id: case_record.getValue('custevent_supportcase_monogramtype')
+						, name: case_record.getText('custevent_supportcase_monogramtype')
+					}
+					, custevent_supportcase_monogram_pos: {
+						id: case_record.getValue('custevent_supportcase_monogram_pos')
+						, name: case_record.getText('custevent_supportcase_monogram_pos')
+					}
+					, custevent_supportcase_monogram_color: {
+						id: case_record.getValue('custevent_supportcase_monogram_color')
+						, name: case_record.getText('custevent_supportcase_monogram_color')
+					}
+					, issue: {
+						id: case_record.getValue('issue')
+						, name: case_record.getText('issue')
+					}
+					, item: {
+						id: case_record.getValue('item')
+						, name: case_record.getText('item')
+					}
+					, custevent_sc_accessorycode: case_record.getValue('custevent_sc_accessorycode')
+					, custevent_sc_accessorydescription: case_record.getValue('custevent_sc_accessorydescription')
+					, custevent_sc_accessoryprice: case_record.getValue('custevent_sc_accessoryprice')
+					, custevent_sc_accessoryprice2: case_record.getValue('custevent_sc_accessoryprice2')
+					, custevent_supportcase_cuff_position: {
+						id: case_record.getValue('custevent_supportcase_cuff_position')
+						, name: case_record.getText('custevent_supportcase_cuff_position')
+					}
+					, custevent_is_cmt: case_record.getValue('custevent_is_cmt')
+					, custevent_supportcase_cuffleft: case_record.getValue('custevent_supportcase_cuffleft')
+					, custevent_supportcase_cuffright: case_record.getValue('custevent_supportcase_cuffright')
 				};
 
 			if (join_messages) {

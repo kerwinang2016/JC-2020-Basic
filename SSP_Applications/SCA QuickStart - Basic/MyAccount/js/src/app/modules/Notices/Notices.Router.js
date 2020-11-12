@@ -7,7 +7,8 @@ define('Notices.Router', ['Notices.Model','Notices.Collection','NoticesList.View
 		routes:
 		{
 			'noticeslist': 'noticeslist',
-			'noticeslist/:id': 'noticesdetails'
+			'noticeslist/:options': 'noticeslist',
+			'noticedetails/:id': 'noticedetails'
 		}
 
 	,	initialize: function (application)
@@ -16,18 +17,23 @@ define('Notices.Router', ['Notices.Model','Notices.Collection','NoticesList.View
 		}
 	,	noticeslist: function (options)
 		{
-			var collection = new NoticesCollection();
-			var view = new NoticesListView({
-					application: this.application,
-					collection: collection.records,
-					data: collection
-			});
-			view.collection.on('reset', view.render, view);
-			// view.showContent();
-			jQuery.when(collection.fetch()).then(jQuery.proxy(view, 'showContent'));
-			// view.showContent();
+			var params_options = _.parseUrlOptions(options);
+			this.showNoticesListHelper(params_options)
 		}
-	,	noticesdetails: function (id, options)
+	,	showNoticesListHelper: function(params_options)
+		{
+			var	collection = new NoticesCollection()
+			,	view = new this.application.NoticesModule.NoticesListView({
+					application: this.application
+				,	collection: collection
+				,	options: params_options
+				,	page: (params_options && params_options.page)?params_options.page:1
+				});
+
+			view.collection.on('reset', view.render, view);
+			view.showContent();
+		}
+	,	noticedetails: function (id)
 		{
 			var model = new NoticesModel({ internalid: id });
 			var view = new NoticesDetailsView({

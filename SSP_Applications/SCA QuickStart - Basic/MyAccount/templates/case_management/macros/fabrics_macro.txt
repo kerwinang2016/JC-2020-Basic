@@ -1,26 +1,38 @@
-<% registerMacro('fabrics', function ( model, fields ) {
+<% registerMacro('fabrics', function ( model, fields, inDetailsView ) {
 %>
-<div class="buttons">
-  <b>You will be invoiced for the cost of the fabric, plus a US$20 shipping and handling fee</b><br/><br/>
+<div>
   <div class="case-new-subject control-group">
     <label for="title"><%= _('Subject').translate() %></label>
-    <input type="text" name="title" id="title" class="case-fields form-control input-xlarge input-case-title" value="<%=model.get('title')%>" ></input>
+    <input readonly type="text" name="title" id="title" class="case-fields form-control input-xlarge input-case-title" value="<%=model.get('title')%>" ></input>
   </div>
+  <% if(!inDetailsView){ %>
   <div class="case-custevent_supportcase_fabriccode control-group">
     <label for="custevent_supportcase_fabriccode"><%= _('Fabric Code').translate() %></label>
     <input type="text" name="custevent_supportcase_fabriccode" id="custevent_supportcase_fabriccode" class="case-fields form-control input-xlarge input-case-custevent_supportcase_fabriccode" value="<%=model.get('custevent_supportcase_fabriccode')%>" ></input>
   </div>
   <div class="case-custevent_supportcase_quantity control-group">
-    <label for="custevent_supportcase_quantity"><%= _('Fabric Quantity').translate() %>(in meters)</label>
+    <label for="custevent_supportcase_quantity"><%= _('Fabric Quantity').translate() %> (in meters)</label>
     <input type="number" name="custevent_supportcase_quantity" id="custevent_supportcase_quantity" class="case-fields form-control input-xlarge input-case-custevent_supportcase_quantity" value="<%=model.get('custevent_supportcase_quantity')%>" min="0" max="2" ></input>
+    <span style="color:#b23a3a;">(max 2m)</span>
   </div>
+  <b style="color:#b23a3a;">(You will be invoiced for the cost of the fabric, plus a US$20 shipping and handling fee)</b><br/><br/>
   <div class="case-new-message control-group">
     <label for="message"><%= _('Message').translate() %>: </label>
     <textarea name="message" id="message" class="case-fields form-control input-xlarge input-case-message" style="width:500px;height:100px;"><%=model.get('message')%></textarea>
   </div>
-
   <div class="form-actions">
     <button type="submit" class="btn btn-primary btn-case-submit"><%= _('Submit').translate() %></button>
   </div>
+  <% }else{ %>
+    <div class="case-custevent_supportcase_fabriccode control-group">
+      <label for="custevent_supportcase_fabriccode"><%= _('Fabric Code').translate() %></label>
+      <input readonly type="text" name="custevent_supportcase_fabriccode" id="custevent_supportcase_fabriccode" class="case-fields form-control input-xlarge input-case-custevent_supportcase_fabriccode" value="<%=model.get('custevent_supportcase_fabriccode')%>" ></input>
+    </div>
+    <div class="case-custevent_supportcase_quantity control-group">
+      <label for="custevent_supportcase_quantity"><%= _('Fabric Quantity').translate() %> (in meters)</label>
+      <input readonly type="number" name="custevent_supportcase_quantity" id="custevent_supportcase_quantity" class="case-fields form-control input-xlarge input-case-custevent_supportcase_quantity" value="<%=model.get('custevent_supportcase_quantity')%>" min="0" max="2" ></input>
+      <span style="color:#b23a3a;">(max 2m)</span>
+    </div>
+  <% } %>
 </div>
 <% }) %>

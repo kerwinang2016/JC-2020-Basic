@@ -166,7 +166,7 @@ function (ProductListControlViews, ProductListDetailsView, ProductListCollection
 					application.productListsInstancePromise = jQuery.Deferred();
 					application.productListsInstance = new ProductListCollection();
 					application.productListsInstance.application = application;
-					application.productListsInstance.fetch({data:jQuery.param({customerid:customerid})}).done(function(jsonCollection)
+					application.productListsInstance.fetch({async:true,data:jQuery.param({customerid:customerid})}).done(function(jsonCollection)
 					{
 
 						application.productListsInstance.set(jsonCollection);

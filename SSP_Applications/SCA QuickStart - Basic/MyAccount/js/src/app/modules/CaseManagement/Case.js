@@ -15,7 +15,6 @@ function (CaseDetailView, CaseCollection, CaseModel, CaseRouter, CaseCreateView,
 		}
 
 		return {
-			parent: 'orders',
 			id: function ()
 			{
 				return 'cases';
@@ -23,10 +22,10 @@ function (CaseDetailView, CaseCollection, CaseModel, CaseRouter, CaseCreateView,
 
 		,	name: function ()
 			{
-				return _('Order Requests').translate();
+				return _('Requests').translate();
 			}
 
-		,	index: 3
+		,	index: 1
 
 		,	children: function ()
 			{

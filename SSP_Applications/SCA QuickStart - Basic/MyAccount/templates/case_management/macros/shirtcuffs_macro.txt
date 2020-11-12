@@ -1,4 +1,4 @@
-<% registerMacro('shirtcuffs', function ( model, fields ) {
+<% registerMacro('shirtcuffs', function ( model, fields, inDetailsView ) {
   var cmtvendors = fields.get('cmtvendors');
   var monogramtypes = fields.get('monogramtypes');
   var monogramcolors = fields.get('monogramcolors');
@@ -12,15 +12,22 @@
   var cuffpositions = fields.get('cuffpositions');
 %>
 <div>
-  <b>You will be invoiced for the cost of the fabric, plus a US$10 shipping and handling fee</b><br/><br/>
+
   <div class="case-new-subject control-group">
     <label for="title"><%= _('Subject').translate() %></label>
-    <input type="text" name="title" id="title" class="case-fields form-control input-xlarge input-case-title" value="" ></input>
+    <input readonly type="text" name="title" id="title" class="case-fields form-control input-xlarge input-case-title" value="<%=model.get('title')%>" ></input>
   </div>
+  <% if(!inDetailsView){ %>
   <div class="case-custevent_supportcase_fabriccode control-group">
     <label for="custevent_supportcase_fabriccode"><%= _('Fabric Code').translate() %></label>
     <input type="text" name="custevent_supportcase_fabriccode" id="custevent_supportcase_fabriccode" class="case-fields form-control input-xlarge input-case-custevent_supportcase_fabriccode" value="<%=model.get('custevent_supportcase_fabriccode')%>" ></input>
   </div>
+
+  <div class="case-new-subject control-group">
+    <label for="custevent_is_cmt"><%= _('Is this a CMT Fabric').translate() %></label>
+    <input type="checkbox" name="custevent_is_cmt" id="custevent_is_cmt" class="case-fields form-control input-xlarge input-case-custevent_supportcase_hasmonogram" <%= model.get('custevent_is_cmt')?"checked":"" %>></input>
+  </div>
+  <% if(model.get('custevent_is_cmt')){ %>
   <div class="case-new-item control-group">
     <label for="custevent_supportcase_cmtvendor"><%= _('CMT Vendor').translate() %></label>
     <select name="custevent_supportcase_cmtvendor" id="custevent_supportcase_cmtvendor" class="case-fields form-control input-xlarge select-case-custevent_supportcase_cmtvendor">
@@ -36,10 +43,7 @@
     <label for="custevent_supportcase_cmtcollection"><%= _('CMT Collection').translate() %></label>
     <input type="text" name="custevent_supportcase_cmtcollection" id="custevent_supportcase_cmtcollection" class="case-fields form-control input-xlarge input-case-custevent_supportcase_cmtcollection" value="<%=model.get('custevent_supportcase_cmtcollection')%>" ></input>
   </div>
-  <div class="case-custevent_supportcase_cmtcode control-group">
-    <label for="custevent_supportcase_cmtcode"><%= _('CMT Code').translate() %></label>
-    <input type="text" name="custevent_supportcase_cmtcode" id="custevent_supportcase_cmtcode" class="case-fields form-control input-xlarge input-case-custevent_supportcase_cmtcode" value="<%=model.get('custevent_supportcase_cmtcode')%>" ></input>
-  </div>
+  <% } %>
   <div class="case-new-item control-group">
     <label for="custevent_supportcase_accessory"><%= _('Shirt Cuff').translate() %></label>
     <select name="custevent_supportcase_accessory" id="custevent_supportcase_accessory" class="case-fields form-control input-xlarge select-case-custevent_supportcase_accessory">
@@ -117,7 +121,16 @@
   </div>
 
   <% } %>
+  <div class="case-custevent_supportcase_cuffleft control-group">
+    <label for="custevent_supportcase_cuffleft"><%= _('Cuff Left Measurement (CM)').translate() %></label>
+    <input type="number" name="custevent_supportcase_cuffleft" id="custevent_supportcase_cuffleft" class="case-fields form-control input-xlarge input-case-custevent_supportcase_cuffleft" value="<%=model.get('custevent_supportcase_cuffleft')%>" ></input>
+  </div>
+  <div class="case-custevent_supportcase_cuffright control-group">
+    <label for="custevent_supportcase_cuffright"><%= _('Cuff Right Measurement (CM)').translate() %></label>
+    <input type="number" name="custevent_supportcase_cuffright" id="custevent_supportcase_cuffright" class="case-fields form-control input-xlarge input-case-custevent_supportcase_cuffright" value="<%=model.get('custevent_supportcase_cuffright')%>" ></input>
+  </div>
 
+  <b style="color:b23a3a;">(You will be invoiced for the cost of the fabric, plus a US$10 shipping and handling fee)</b><br/><br/>
   <div class="case-new-message control-group">
     <label for="message"><%= _('Message').translate() %>: </label>
     <textarea name="message" id="message" class="case-fields form-control input-xlarge input-case-message" style="width:500px;height:100px;"></textarea>
@@ -126,5 +139,119 @@
   <div class="form-actions">
     <button type="submit" class="btn btn-primary btn-case-submit"><%= _('Submit').translate() %></button>
   </div>
+  <% }else{ %>
+    <div class="case-custevent_supportcase_fabriccode control-group">
+      <label for="custevent_supportcase_fabriccode"><%= _('Fabric Code').translate() %></label>
+      <input readonly type="text" name="custevent_supportcase_fabriccode" id="custevent_supportcase_fabriccode" class="case-fields form-control input-xlarge input-case-custevent_supportcase_fabriccode" value="<%=model.get('custevent_supportcase_fabriccode')%>" ></input>
+    </div>
+
+    <div class="case-new-subject control-group">
+      <label for="custevent_is_cmt"><%= _('Is this a CMT Fabric').translate() %></label>
+      <input readonly type="checkbox" name="custevent_is_cmt" id="custevent_is_cmt" class="case-fields form-control input-xlarge input-case-custevent_supportcase_hasmonogram" <%= model.get('custevent_is_cmt')?"checked":"" %>></input>
+    </div>
+    <% if(model.get('custevent_is_cmt')){ %>
+    <div class="case-new-item control-group">
+      <label for="custevent_supportcase_cmtvendor"><%= _('CMT Vendor').translate() %></label>
+      <select readonly name="custevent_supportcase_cmtvendor" id="custevent_supportcase_cmtvendor" class="case-fields form-control input-xlarge select-case-custevent_supportcase_cmtvendor">
+        <option value="">Please Select</option>
+        <% _.each(cmtvendors, function (cmtvendor) { %>
+          <option value="<%= cmtvendor.id %>" <% if(model.get('custevent_supportcase_cmtvendor').id == cmtvendor.id){ %> selected<% } %> >
+            <%= cmtvendor.text %>
+          </option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="case-custevent_supportcase_cmtcollection control-group">
+      <label for="custevent_supportcase_cmtcollection"><%= _('CMT Collection').translate() %></label>
+      <input readonly type="text" name="custevent_supportcase_cmtcollection" id="custevent_supportcase_cmtcollection" class="case-fields form-control input-xlarge input-case-custevent_supportcase_cmtcollection" value="<%=model.get('custevent_supportcase_cmtcollection')%>" ></input>
+    </div>
+    <% } %>
+    <div class="case-new-item control-group">
+      <label for="custevent_supportcase_accessory"><%= _('Shirt Cuff').translate() %></label>
+      <select readonly name="custevent_supportcase_accessory" id="custevent_supportcase_accessory" class="case-fields form-control input-xlarge select-case-custevent_supportcase_accessory">
+        <option value="">Please Select</option>
+        <% _.each(shirtcuffs, function (shirtcuff) { %>
+          <option value="<%= shirtcuff.internalid %>" <% if(model.get('custevent_supportcase_accessory').id == shirtcuff.internalid){ %> selected<% } %> >
+            <%= shirtcuff.custrecord_ap_description %>
+          </option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="case-new-item control-group">
+      <label for="custevent_supportcase_cuff_position"><%= _('Cuff position').translate() %></label>
+      <select readonly name="custevent_supportcase_cuff_position" id="custevent_supportcase_cuff_position" class="case-fields form-control input-xlarge select-case-custevent_supportcase_cuff_position">
+        <option value="">Please Select</option>
+        <% _.each(cuffpositions, function (cuffposition) { %>
+          <option value="<%= cuffposition.id %>" <% if(model.get('custevent_supportcase_cuff_position').id == cuffposition.id){ %> selected<% } %> >
+            <%= cuffposition.text %>
+          </option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="case-new-subject control-group">
+      <label for="custevent_supportcase_hasmonogram"><%= _('Include Monogram').translate() %></label>
+      <input readonly type="checkbox" name="custevent_supportcase_hasmonogram" id="custevent_supportcase_hasmonogram" class="case-fields form-control input-xlarge input-case-custevent_supportcase_hasmonogram" <%= model.get('custevent_supportcase_hasmonogram')?"checked":"" %>></input>
+    </div>
+    <% if(model.get('custevent_supportcase_hasmonogram')){ %>
+    <div class="case-new-item control-group">
+      <label for="custevent_supportcase_monogramtype"><%= _('Monogram Type').translate() %></label>
+      <select readonly name="custevent_supportcase_monogramtype" id="custevent_supportcase_monogramtype" class="case-fields form-control input-xlarge select-case-custevent_supportcase_monogramtype">
+        <option value="">Please Select</option>
+        <% _.each(monogramtypes, function (monogramtype) { %>
+          <option value="<%= monogramtype.id %>" <% if(model.get('custevent_supportcase_monogramtype').id == monogramtype.id){ %> selected<% } %> >
+            <%= monogramtype.text %>
+          </option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="case-new-item control-group">
+      <label for="custevent_supportcase_monogram_color"><%= _('Monogram Color').translate() %></label>
+      <select readonly name="custevent_supportcase_monogram_color" id="custevent_supportcase_monogram_color" class="case-fields form-control input-xlarge select-case-custevent_supportcase_monogram_color">
+        <option value="">Please Select</option>
+        <% _.each(monogramcolors, function (monogramcolor) { %>
+          <option value="<%= monogramcolor.id %>" <% if(model.get('custevent_supportcase_monogram_color').id == monogramcolor.id){ %> selected<% } %> >
+            <%= monogramcolor.text %>
+          </option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="case-new-item control-group">
+      <label for="custevent_supportcase_fontsize"><%= _('Monogram Font Size').translate() %></label>
+      <select readonly name="custevent_supportcase_fontsize" id="custevent_supportcase_fontsize" class="case-fields form-control input-xlarge select-case-custevent_supportcase_fontsize">
+        <option value="">Please Select</option>
+        <% _.each(monogramfontsizes, function (monogramfontsize) { %>
+          <option value="<%= monogramfontsize.id %>" <% if(model.get('custevent_supportcase_fontsize').id == monogramfontsize.id){ %> selected<% } %> >
+            <%= monogramfontsize.text %>
+          </option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="case-new-item control-group">
+      <label for="custevent_supportcase_monogram_pos"><%= _('Monogram Position').translate() %></label>
+      <select readonly name="custevent_supportcase_monogram_pos" id="custevent_supportcase_monogram_pos" class="case-fields form-control input-xlarge select-case-custevent_supportcase_monogram_pos">
+        <option value="">Please Select</option>
+        <% _.each(monogrampositions, function (monogramposition) { %>
+          <option value="<%= monogramposition.id %>" <% if(model.get('custevent_supportcase_monogram_pos').id == monogramposition.id){ %> selected<% } %> >
+            <%= monogramposition.text %>
+          </option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="case-custevent_supportcase_monogramtext control-group">
+      <label for="custevent_supportcase_monogramtext"><%= _('Monogram Text').translate() %></label>
+      <input readonly type="text" name="custevent_supportcase_monogramtext" id="custevent_supportcase_monogramtext" class="case-fields form-control input-xlarge input-case-custevent_supportcase_monogramtext" value="<%=model.get('custevent_supportcase_monogramtext')%>" ></input>
+    </div>
+
+    <% } %>
+    <div class="case-custevent_supportcase_cuffleft control-group">
+      <label for="custevent_supportcase_cuffleft"><%= _('Cuff Left Measurement (CM)').translate() %></label>
+      <input readonly type="number" name="custevent_supportcase_cuffleft" id="custevent_supportcase_cuffleft" class="case-fields form-control input-xlarge input-case-custevent_supportcase_cuffleft" value="<%=model.get('custevent_supportcase_cuffleft')%>" ></input>
+    </div>
+    <div class="case-custevent_supportcase_cuffright control-group">
+      <label for="custevent_supportcase_cuffright"><%= _('Cuff Right Measurement (CM)').translate() %></label>
+      <input readonly type="number" name="custevent_supportcase_cuffright" id="custevent_supportcase_cuffright" class="case-fields form-control input-xlarge input-case-custevent_supportcase_cuffright" value="<%=model.get('custevent_supportcase_cuffright')%>" ></input>
+    </div>
+
+  <% } %>
 </div>
 <% }) %>

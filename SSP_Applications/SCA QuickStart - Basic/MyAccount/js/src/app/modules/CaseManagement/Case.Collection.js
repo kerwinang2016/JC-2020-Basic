@@ -23,7 +23,7 @@ define('Case.Collection', ['Case.Model'], function (Model)
                 }
             });
         }
-        
+
     ,   parse: function (response)
         {
             this.totalRecordsFound = response.totalRecordsFound;
@@ -31,7 +31,7 @@ define('Case.Collection', ['Case.Model'], function (Model)
 
             return response.records;
         }
-        
+
 	,   update: function (options)
         {
             var range = options.range || {}

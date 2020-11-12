@@ -26,15 +26,15 @@ function (NoticesListView,NoticesRouter)
 		var app = {};
 		var mountToApp = function (application)
 		{
-			// app = application;
-			// application.NoticesModule = NoticesModule;
+			app = application;
+			application.NoticesModule = NoticesModule;
 
 			// always start our router.
 			return new NoticesRouter(application);
 		};
 
 		return {
-			Views : NoticesListView
+			NoticesListView : NoticesListView
 		,	Router: NoticesRouter
 		,	mountToApp: mountToApp
 		,	MenuItems: notices_menuitems

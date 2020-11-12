@@ -68,6 +68,7 @@ define('CaseCreate.View', function ()
 		var self = this;
 		switch(e.target.id){
 			case "custevent_supportcase_hasmonogram":
+			case "custevent_is_cmt":
 											if(document.getElementById(e.target.id).checked)
 										 		this.model.set(e.target.id, true);
 											else
@@ -76,7 +77,7 @@ define('CaseCreate.View', function ()
 											break;
 			case "custevent_supportcase_lining":
 			case "custevent_supportcase_quantity":
-
+											//Lining
 											this.model.set(e.target.id, jQuery(e.target).val());
 											if(jQuery("#item") == "297480"){
 												if(jQuery("#custevent_supportcase_lining").val() != "" && jQuery("#custevent_supportcase_quantity").val() != ""){
@@ -87,7 +88,10 @@ define('CaseCreate.View', function ()
 														var liningprice = parseFloat(liningObj.custrecord_flf_lininglevel);
 														var quantity = parseFloat(jQuery("#custevent_supportcase_quantity").val());
 														var totalprice = (liningprice*quantity);
+														totalprice += 20;
 														totalprice = totalprice + (totalprice*discount)
+
+
 														self.model.set("custevent_supportcase_total",(totalprice).toFixed(2));
 													}
 													this.showContent();
@@ -100,6 +104,7 @@ define('CaseCreate.View', function ()
 			case "custevent_supportcase_accessory":
 			case "custevent_supportcase_small":
 			case "custevent_supportcase_large":
+											//Buttons
 											this.model.set(e.target.id, jQuery(e.target).val());
 											if(jQuery("#item").val() == "297479"){
 												if(jQuery("#custevent_supportcase_accessory").val() != ""){
@@ -120,7 +125,8 @@ define('CaseCreate.View', function ()
 														large = largeprice * parseFloat(jQuery("#custevent_supportcase_large").val());
 													}
 													totalprice = small + large;
-													totalprice = totalprice + totalprice * discount;
+													totalprice += 10;
+													totalprice = totalprice + (totalprice * discount);
 													self.model.set("custevent_supportcase_total",totalprice.toFixed(2));
 													this.showContent();
 												}else{
@@ -132,9 +138,40 @@ define('CaseCreate.View', function ()
 			case "issue": 	if(jQuery(e.target).val() != '1' && jQuery(e.target).val() != '9')
 										 		this.model.set('item', '');
 											this.model.set(e.target.id, jQuery(e.target).val());
+											var itemtext, issuetext;
+											if(this.model.get('item')){
+												var items = this.fields.get('items');
+												itemtext = _.find(items,function(o){
+													return o.id == self.model.get('item');
+												}).text;
+											}
+											if(this.model.get('issue')){
+												var issues = this.fields.get('issues');
+												issuetext = _.find(issues,function(o){
+													return o.id == self.model.get('issue');
+												}).text;
+											}
+											var title = itemtext?issuetext + " - " + itemtext : issuetext;
+											this.model.set('title', title);
 											this.showContent();
 											break;
 		  case "item": 		this.model.set(e.target.id, jQuery(e.target).val());
+											var itemtext, issuetext;
+
+											if(this.model.get('item')){
+												var items = this.fields.get('items');
+												itemtext = _.find(items,function(o){
+													return o.id == self.model.get('item');
+												}).text;
+											}
+											if(this.model.get('issue')){
+												var issues = this.fields.get('issues');
+												issuetext = _.find(issues,function(o){
+													return o.id == self.model.get('issue');
+												}).text;
+											}
+											var title = itemtext?issuetext + " - " + itemtext : issuetext;
+											this.model.set('title', title);
 											this.showContent();
 											break;
 			case "myfile":	var fileData = document.getElementById('myfile').files[0];

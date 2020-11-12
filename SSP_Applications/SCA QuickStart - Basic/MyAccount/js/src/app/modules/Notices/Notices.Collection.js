@@ -33,9 +33,9 @@ define('Notices.Collection', ['Notices.Model'], function (Model)
 
           this.fetch({
               data: {
-                  filter: filter.value
-              ,   sort: options.sort.value
-              ,   order: options.order
+          //        filter: filter.value
+            //  ,   sort: options.sort.value
+              order: options.order
               ,   from: range.from ? new Date(range.from.replace(/-/g,'/')).getTime() : null
               ,   to: range.to ? new Date(range.to.replace(/-/g,'/')).getTime() : null
               ,   page: options.page

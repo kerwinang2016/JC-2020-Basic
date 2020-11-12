@@ -425,6 +425,9 @@ function userEventAfterSubmitSO(type) {
                   case '44': //Standeven
                         newSORecord.setCurrentLineItemValue('item','povendor','1044');
                         break;
+                  case '45': //Brisbane Moss
+                        newSORecord.setCurrentLineItemValue('item','povendor','1085');
+                        break;
 								}
 							}
 						}
@@ -528,6 +531,9 @@ function userEventAfterSubmitSO(type) {
 										break;
 							case '1045': //Marling & Evans
 										newSORecord.setCurrentLineItemValue('item','custcol_vendorpicked','43');
+										break;
+              case '1085': //Brisbane Moss
+										newSORecord.setCurrentLineItemValue('item','custcol_vendorpicked','45');
 										break;
 						}
 					}
@@ -742,6 +748,7 @@ function userEventAfterSubmitSO(type) {
 								newSORecord.setCurrentLineItemValue('item','price', -1);
 								newSORecord.setCurrentLineItemValue('item','rate',currentRate);
 								newSORecord.setCurrentLineItemValue('item','amount',currentAmount);
+                nlapiLogExecution('debug',newSORecord.getCurrentLineItemText('item','item') + " " + newSORecord.getCurrentLineItemValue('item','amount'))
 								description = newSORecord.getCurrentLineItemText('item','item') + " " + newSORecord.getCurrentLineItemValue('item','amount');
 								//newSORecord.setCurrentLineItemValue('item','description', description);
 

@@ -5,10 +5,10 @@
 define(
 		['N/record', 'N/search', 'N/log', 'N/ui/serverWidget'],
 		function( nr, search, log, ui) {
-			
+
 			function onRequest(context) {
 				try {
-					
+
 					log.audit('onRequest', 'Context Method : ' + context.request.method);
 
 					if (context.request.method === 'GET') {
@@ -38,7 +38,7 @@ define(
 					functionName : "exportOrdersList"
 				});
 				var currentPage = context.request.parameters.page?parseInt(context.request.parameters.page):0;
-			
+
 				var pageSize = 100;
 				// var pagenumber = form.addField({
 					// id: 'custpage_page',
@@ -50,7 +50,7 @@ define(
 					type : ui.SublistType.STATICLIST,
 					label : 'Client Sales Report'
 				});
-				
+
 				var fldsoid = sublist.addField({
 					id : 'custpage_so_id',
 					type : ui.FieldType.TEXT,
@@ -71,7 +71,7 @@ define(
 					type : ui.FieldType.TEXT,
 					label : 'Vendor'
 				});
-				
+
 				sublist.addField({
 					id : 'custpage_additional_fabric_surcharge',
 					type : ui.FieldType.TEXT,
@@ -93,9 +93,9 @@ define(
 				});
 				//Sorting tailor client date created
 				rs.columns[0].sort = search.Sort.DESC;
-		
+
 				var searchResultCount = rs.runPaged().count;
-				
+
 				// for(var i=1; i<= Math.ceil(searchResultCount/pageSize); i++){
 					// pagenumber.addSelectOption({
 						// value: i,
@@ -114,10 +114,10 @@ define(
 					var rscols = searchResult[0].columns;
 					 for (var i = 0; i < searchResult.length; i++) {
 					// rs.run().each(function(result) {
-						
+
 						var result = searchResult[i];
 						var blockvalue = 0;
-						
+
 						OrdersList.push({
 							'custpage_so_id': result.getValue(rscols[0]),
 							'custpage_trandate': result.getValue(rscols[1]),
@@ -132,7 +132,7 @@ define(
 					 }
 				// }while(searchResult.length == 1000)
 				log.debug('OrdersList.length', OrdersList.length);
-				for(var i=0; i<OrdersList.length; i++){	
+				for(var i=0; i<OrdersList.length; i++){
 					sublist.setSublistValue({id: 'custpage_so_id', line: i, value: OrdersList[i].custpage_so_id});
 					sublist.setSublistValue({id: 'custpage_trandate', line: i, value: OrdersList[i].custpage_trandate});
 					sublist.setSublistValue({id: 'custpage_item', line: i, value: OrdersList[i].custpage_item});
@@ -142,7 +142,7 @@ define(
 					sublist.setSublistValue({id: 'custpage_fabric_quantity', line: i, value: OrdersList[i].custpage_fabric_quantity});
 				}
 				return form;
-				
+
 			}
 			return {
 				onRequest : onRequest

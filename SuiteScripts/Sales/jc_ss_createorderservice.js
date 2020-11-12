@@ -11,7 +11,7 @@
 		function execute(context){
 			//Search all orders that are pending approval
 
-      FORCECMT = (runtime.getCurrentScript().getParameter({name: 'custscript_allow_cmt'}) == 'true') ? true : false;
+      FORCECMT = (runtime.getCurrentScript().getParameter({name: 'custscript_allow_cmt'}) == true) ? true : false;
       var soids = runtime.getCurrentScript().getParameter({name: 'custscript_soids'});
       var ordernos = runtime.getCurrentScript().getParameter({name: 'custscript_order_ids'});
       if(ordernos)
@@ -20,6 +20,7 @@
         SOIDSLIST = soids.split(',');
 
       // log.debug('runtime',runtime.getCurrentScript())
+      log.debug({title: 'FORCECMT1', details:runtime.getCurrentScript().getParameter({name: 'custscript_allow_cmt'})});
       log.debug({title: 'FORCECMT', details:FORCECMT});
       log.debug({title: 'ordernolist', details: ordernos});
       log.debug({title: 'soids', details: soids});
@@ -31,7 +32,7 @@
 
 		function getPendingApprovalOrders(errorCodes){
       var filters = [
-      // ['internalid','anyof',[907559]], 'AND',
+      // ['internalid','anyof',[903568]], 'AND',
       ["type", "anyof", "SalesOrd"],"AND",
       ["mainline", "is", true], "AND", ["status", "anyof", "SalesOrd:A"],
       "AND", ["trandate","after","30/7/2020"],
@@ -66,7 +67,7 @@
   				, id:result.id
   				, isDynamic: true
   			});
-  			log.debug('order.id', rec.getValue('tranid'));
+  			//log.debug('order.id', rec.getValue('tranid'));
         try{
 				var orderObj = createOrder(rec);
         if(orderObj){
@@ -92,12 +93,14 @@
 					  id:result.id,
 					  type: result.recordType
 				  });
+          var responseDataJSON = {};
           // responseData = '[{"orderno":"TU27976-1","error_code":"9001"},{"orderno":"TU27976-1","error_code":"1039"},{"orderno":"TU27976-1","error_code":"1040"},{"orderno":"TU26373-1","error_code":"1041"},{"orderno":"TU26373-1","error_code":"1042"},{"orderno":"TU26373-1","error_code":"1043"},{"orderno":"TU26373-1","error_code":"1044"},{"orderno":"TU26373-1","error_code":"1045"},{"orderno":"TU27976-1","error_code":"1046"},{"orderno":"TU27976-1","error_code":"1047"},{"orderno":"TU27976-1","error_code":"1048"},{"orderno":"TU27976-1","error_code":"1392"},{"orderno":"TU27976-1","error_code":"1049"}]';
           // responseData = { 'Result': '100', 'msgid': '200106qN747PLjFw' };
           //Create a log on which the order is processed
           log.debug('responseData', responseData);
           if(responseData.error){
             responseData = JSON.stringify(responseData);
+            responseDataJSON = responseData;
           }else{
             log.debug('responseData type', typeof(responseData));
             responseData = responseData.replace(/'/g,'"');
@@ -106,8 +109,8 @@
           updateOrderStatus(orderObj, responseDataJSON, rec, errorCodes);
           createIntegrationLog(orderObj, responseDataJSON, rec, errorCodes);
   				nlemail.send({
-  					author: 97,
-  					recipients: 97,
+  					author: 915,
+  					recipients: 915,
   					subject: 'JSON DATA for Order: '+ result.getValue('tranid'),//+' pushed using NS Service',
   					body: "Response Data returned from Ustyylit \n" + responseData + "\n **Attached the JSON text.",
   					attachments: [f]//file.load({id: f_id})
@@ -148,7 +151,7 @@
                   //ITEM CREATED SUCCESSFULLY. MsgId:20092525sSVqv8zB
                   rec.selectLine('item',j);
                     rec.setCurrentSublistValue('item','custcolcustcol_api_status_fld','Error');
-                    rec.setCurrentSublistValue('item','custcolcustcol_api_error_desc_fld','Error:'+errordata.toString());
+                    rec.setCurrentSublistValue('item','custcolcustcol_api_error_desc_fld','Error:'+errordata.toString().substr(0,3500));
                   rec.commitLine('item')
                 }
               }
@@ -162,7 +165,7 @@
                 //ITEM CREATED SUCCESSFULLY. MsgId:20092525sSVqv8zB
                 rec.selectLine('item',j);
                   rec.setCurrentSublistValue('item','custcolcustcol_api_status_fld','Success');
-                  rec.setCurrentSublistValue('item','custcolcustcol_api_error_desc_fld','ITEM CREATED SUCCESSFULLY. MsgId:'+data.msgid);
+                  rec.setCurrentSublistValue('item','custcolcustcol_api_error_desc_fld','ITEM CREATED SUCCESSFULLY. MsgId:'+data.msgid.substr(0,3500));
                 rec.commitLine('item');
               }
             }
@@ -351,7 +354,7 @@
 				if(liningcode == 'CMT Lining')
 					liningmode = '02';
 			}
-      log.debug('garmentname', garmentname);
+      //log.debug('garmentname', garmentname);
 			var gm = designoptions.reduce(function(o,p){
 				if(p.name == garmentname){
 					o.push(p);
@@ -359,7 +362,7 @@
 				return o;
 				},[]);
 			garmentmake = gm.length>0?gm[0].value:"";
-      log.debug('garmentmake', garmentmake);
+      //log.debug('garmentmake', garmentmake);
 			// var fitprofile = JSON.parse(rec.getSublistValue('item','custcol_fitprofile_jacket',line));
 			if(measurementmode == '01'){
 				var toc = fitprofile.reduce(function(o,p){
@@ -375,7 +378,8 @@
 					return o;
 					},[]);
 				fitcode = fc.length>0?fc[0].value:'';
-
+      if(measurementmode == '03')
+        fitcode = 'Regular';
 			return {
 			  "orderdetailid":rec.getSublistValue('item','custcol_so_id',line),
 			  "order":rec.getValue('tranid'),
@@ -432,10 +436,11 @@
 						designoptions[z].name == 'T010525' || designoptions[z].name == 'T010422' || designoptions[z].name == 'T010427' || designoptions[z].name == 'T010428' ||
 						designoptions[z].name == 'T010634' || designoptions[z].name == 'T011623' || designoptions[z].name == 'T011628' || designoptions[z].name == 'T027242' ||
             designoptions[z].name == 'T014938' || designoptions[z].name == 'T014942' || designoptions[z].name == 'T014943' || designoptions[z].name == 'T010745' ||
-            designoptions[z].name == 'T010745' || designoptions[z].name == 'T016938' || designoptions[z].name == 'T016942' || designoptions[z].name == 'T016943' ||
-            designoptions[z].name == 'T016945' || designoptions[z].name == 'T016944'){
+            designoptions[z].name == 'T016938' || designoptions[z].name == 'T016942' || designoptions[z].name == 'T016943' || designoptions[z].name == 'T010261' ||
+            designoptions[z].name == 'T016945' || designoptions[z].name == 'T016944' || designoptions[z].name == 'T027251'){
 							optionvalue = encodeURI(value);
 						}
+            // optionvalue.replace("'","%27");
 					options.push({
 					  "orderdetailid": rec.getSublistValue('item','custcol_so_id',line),
 					  "styleno":styleno,
@@ -471,12 +476,12 @@
           case '43':	fitToolGarmentData = garmentData['FitTool_Camp-Shirt']; break;
 				}
 				//BLOCK
-        log.debug('class', garmentclass)
+        //log.debug('class', garmentclass)
 				for(var i=0; i< fitprofile.length; i++){
 					var fitItem = fitprofile[i];
 					var name = fitItem.name;
 					var value = fitItem.value;
-          log.debug('name',name)
+          //log.debug('name',name)
 					// for(var j=0; j< fitToolGarmentData.length; j++){
 					var fitToolValue = fitToolGarmentData[name.toUpperCase()];
 					if(fitToolValue){
@@ -686,7 +691,7 @@
 			};
 			for(var i=0; i<rec.getLineCount('item'); i++){
 				var itemNumber = i+1;
-				if(itemNumber % 2 != 0 && (SOIDSLIST && SOIDSLIST.indexOf(rec.getSublistValue('item','custcol_so_id',i)) != -1 )){
+				if(itemNumber % 2 != 0 && ((SOIDSLIST.length == 0)||(SOIDSLIST.indexOf(rec.getSublistValue('item','custcol_so_id',i)) != -1 ))){
           log.debug('soid',rec.getSublistValue('item','custcol_so_id',i))
 					if(rec.getSublistValue('item','itemtype',i) == 'NonInvtPart'){
             if((rec.getSublistValue('item','item',i) == '253776' && !FORCECMT) || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Hold"

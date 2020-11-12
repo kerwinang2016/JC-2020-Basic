@@ -3,10 +3,10 @@
  * @NScriptType UserEventScript
  * @NAmdConfig /SuiteScripts/amd-config.json
  */
- 
- define(['N/record', 'N/log'], 
+
+ define(['N/record', 'N/log'],
 	function (record, log){
-		
+
 		function beforeLoad(context){
 			if(context.type == context.UserEventType.VIEW){
 				//Show the create order service button
@@ -22,7 +22,7 @@
 					});
 					context.form.addButton({
 						id : "custpage_update_orderstatus_button",
-						label : "Update Order Status",						
+						label : "Update Order Status",
 						functionName : 'updateOrderStatus(' + orderdata + ')'
 					});
 				}
@@ -33,5 +33,3 @@
 		}
 	}
  );
-
- 

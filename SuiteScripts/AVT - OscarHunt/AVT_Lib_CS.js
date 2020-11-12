@@ -534,7 +534,18 @@ var SavePOCMT = function( arg)
 	if(arg) data.bill = true;
 	data.transactions = [];
 	data.action = "savecmt";
-  data = getCMTLines('custpage_subslist0', data, arg);
+
+	var totalTailors = nlapiGetFieldValue('custpage_total_tailors');
+
+	for (var tailorIndex = 0; tailorIndex < totalTailors; tailorIndex++){	//Loop through the TailorList to build a tab and sublist for each tailor
+
+		//Create a sublist for each tailor and use the tailorIndex as the sublist ID
+		var sublistID = 'custpage_subslist'+tailorIndex;
+		sublistID = sublistID.toString();
+		data = getCMTLines(sublistID, data, arg);
+	}
+	/*
+	data = getCMTLines('custpage_subslist0', data, arg);
 	data = getCMTLines('custpage_subslist1', data, arg);
 	data = getCMTLines('custpage_subslist2', data, arg);
 	data = getCMTLines('custpage_subslist3', data, arg);
@@ -581,6 +592,11 @@ var SavePOCMT = function( arg)
 	data = getCMTLines('custpage_subslist44', data, arg);
 	data = getCMTLines('custpage_subslist45', data, arg);
 	data = getCMTLines('custpage_subslist46', data, arg);
+	data = getCMTLines('custpage_subslist47', data, arg);
+	data = getCMTLines('custpage_subslist48', data, arg);
+	data = getCMTLines('custpage_subslist49', data, arg);
+	data = getCMTLines('custpage_subslist50', data, arg);
+	*/
 	if( arg ==  true )
 	{
 		nlapiDisableField( 'custpage_btapprve_bill', true);
@@ -1008,7 +1024,18 @@ var ExportCMT = function(){
 
 	data.contents = "data:text/csv;charset=utf-8,Date,SO-ID,ClientName,Item,FabricVendor,FabricDetail,FabricStatus,CMTStage,ExpectedShipping,ConfirmedShipping,Tracking,DateNeeded,CMTStatus,Notes\n";
 	data.action = 'downloadccsv';
-  data = generateExport(data, 'custpage_subslist0');
+
+	var totalTailors = nlapiGetFieldValue('custpage_total_tailors');
+
+	for (var tailorIndex = 0; tailorIndex < totalTailors; tailorIndex++){	//Loop through the TailorList to build a tab and sublist for each tailor
+
+		//Create a sublist for each tailor and use the tailorIndex as the sublist ID
+		var sublistID = 'custpage_subslist'+tailorIndex;
+		sublistID = sublistID.toString();
+		data = generateExport(data, sublistID);
+	}
+	/*
+	data = generateExport(data, 'custpage_subslist0');
 	data = generateExport(data, 'custpage_subslist1');
 	data = generateExport(data, 'custpage_subslist2');
 	data = generateExport(data, 'custpage_subslist3');
@@ -1055,6 +1082,11 @@ var ExportCMT = function(){
 	data = generateExport(data, 'custpage_subslist44');
 	data = generateExport(data, 'custpage_subslist45');
 	data = generateExport(data, 'custpage_subslist46');
+	data = generateExport(data, 'custpage_subslist47');
+	data = generateExport(data, 'custpage_subslist48');
+	data = generateExport(data, 'custpage_subslist49');
+	data = generateExport(data, 'custpage_subslist50');
+	*/
 	var encodedUri = encodeURI(data.contents);
 	var link = document.createElement("a");
 	link.setAttribute("href", encodedUri);
@@ -1104,7 +1136,7 @@ function SendLineToUstyylit()
 		var isapp = nlapiGetLineItemValue( 'custpage_subslist_app', 'custpage_choose', x);
 		if( isapp == 'T')
 		{
-      custscript_order_ids.push(nlapiGetLineItemValue( 'custpage_subslist_app', 'custcol_so_id', x ));
+      custscript_soids.push(nlapiGetLineItemValue( 'custpage_subslist_app', 'custcol_so_id', x ));
 		}
 	}
   var params = {

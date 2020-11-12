@@ -11,6 +11,8 @@
  * 3.01			30 Sep 2020		Kim Morfe			Modified the Fabric PO Approval dashboards to make the tailor list dynamic
  * 3.02 		01 Oct 2020		Kim Morfe			Modified the Fabric PO Historical dashboards to make the tailor list dynamic
  * 3.03 		13 Oct 2020		Kim Morfe			Fixed issue on CMT PO Approval EU by adding a validation on generateCMTSublist
+ * 3.04			16 Oct 2020		Kim Morfe			Copied the updated scripts in production with Kerwin's changes and added a hidden field on approval dashboards to store the tailor length for Save and Export buttons
+ * 4.00 		20 Oct 2020		Kim Morfe			Added Delivery Factory column on Fabric PO Dashboards and modified the Save button functionality to commit the changes on PO and SO for Delivery Factory
  *
  */
 
@@ -420,18 +422,22 @@ function saveFabric(data){
 				//so.setFieldValue( 'status', 'B');
 				//nlapiSubmitRecord( so, true, true);
 				var count = so.getLineItemCount('item');
+				nlapiLogExecution('debug','PO Item Count', count + ' - tran.items.length: ' + tran.items.length);
 				for( var x = 1;x<=count;x++)
 				{
 					for(var j=0;j<tran.items.length;j++){
 						var object = tran.items[j];
 						var line  =  so.getLineItemValue( 'item', 'lineuniquekey', x);
+						nlapiLogExecution('debug', 'line', line + ' - object.lineno: ' + object.lineno);
 						if( line == object.lineno )
 						{
+							nlapiLogExecution('debug', 'object.custcol_delivery_factory', object.custcol_delivery_factory + ' - object.fabstatus: ' + object.fabstatus);
 							var text = "";
 							solinekey.push(so.getLineItemValue('item','custcol_avt_saleorder_line_key',x));
 							so.setLineItemValue( 'item', 'custcol_avt_tracking', x, object.tracking);
 							so.setLineItemValue( 'item', 'custcol_avt_date_sent', x, object.datesent);
 							so.setLineItemValue( 'item', 'custcol_avt_fabric_status', x, object.fabstatus);
+							so.setLineItemValue( 'item', 'custcol_delivery_factory', x, object.custcol_delivery_factory);
 							if( data.bill == true)
 							so.setLineItemValue( 'item', 'custcol_po_line_status', x, '3');
 
@@ -464,11 +470,13 @@ function saveFabric(data){
 									sorecord.setLineItemValue( 'item', 'custcol_avt_date_sent', y, object.datesent);
 									sorecord.setLineItemValue( 'item', 'custcol_avt_fabric_status', y, object.fabstatus);
 									sorecord.setLineItemValue( 'item', 'custcol_avt_fabric_text', y, text);
+									sorecord.setLineItemValue( 'item', 'custcol_delivery_factory', y, object.custcol_delivery_factory);
+									sorecord.commitLineItem('item');
 								}
 
 							}
 							// break;
-
+							so.commitLineItem('item');
 						}
 					}
 				}
@@ -783,7 +791,7 @@ var MyObj = function( request, response )
 	this.request =  request;
 	this.response  =  response;
 	this.Form_LiningsApprovalLine = function(){
-		var form =  nlapiCreateForm( 'Lining Orders  Lines To Approve');
+		var form =  nlapiCreateForm( 'Lining Orders Items To Approve');
 
 		form.addButton( 'custpage_btapprve', 'Save', 'SavePOLining()');
 		form.addButton( 'custpage_btapprve_bill', 'Bill', 'SavePOLining(true)');
@@ -932,7 +940,7 @@ var MyObj = function( request, response )
 
 	};
 	this.Form_LiningsApprovalHistorical = function(){
-		var form =  nlapiCreateForm( 'Lining Orders  Lines To Historical');
+		var form =  nlapiCreateForm( 'Lining Orders Items To Historical');
 
 		form.setScript( 'customscript_cmt_linings_approval_line');
 
@@ -1121,7 +1129,7 @@ var MyObj = function( request, response )
 
 	this.Form_Approval_Line = function()
 	{
-		var form =  nlapiCreateForm( 'Sales Orders  Lines To Approve');
+		var form =  nlapiCreateForm( 'Sales Orders Items To Approve');
 		form.addButton( 'custpage_btapprve', 'Approve Now', 'ApproveSOLine()');
 		form.addButton( 'custpage_filter', 'Filter', 'FilterSOLine()');
 		form.addButton( 'custpage_btsave', 'Save', 'SaveSO');
@@ -1220,7 +1228,7 @@ var MyObj = function( request, response )
 
 	this.Form_Approval_POLineFabricUK = function()
 	{
-		var form =  nlapiCreateForm( 'Fabric Purchase Order  Lines To Manage UK');
+		var form =  nlapiCreateForm( 'Fabric Purchase Order Items To Manage UK');
 		//var fld_vendor = form.addField( 'custpage_vendor', 'select', 'Vendor', 'vendor');
 
 		form.addButton( 'custpage_btapprve', 'Save', 'SavePOFab()');
@@ -1309,6 +1317,7 @@ var MyObj = function( request, response )
 		cols[ cols.length ] = new nlobjSearchColumn( 'custcol_producttype');
 		cols[ cols.length ] = new nlobjSearchColumn( 'internalid','vendor');
 		cols[ cols.length ] = new nlobjSearchColumn( 'entityid','vendor');
+		cols[ cols.length ] = new nlobjSearchColumn( 'custcol_delivery_factory');
 		var search = nlapiLoadSearch('purchaseorder', searchid);
 		search.addFilters(filter);
 		search.addColumns(cols);
@@ -1358,6 +1367,7 @@ var MyObj = function( request, response )
 
 						quantity:sr[x].getValue('quantity'),
 						custcol_avt_fabric_status:sr[x].getValue('custcol_avt_fabric_status'),
+						custcol_delivery_factory:sr[x].getValue('custcol_delivery_factory'),
 						custcol_avt_date_sent:sr[x].getValue('custcol_avt_date_sent'),
 						custcol_avt_tracking:sr[x].getValue('custcol_avt_tracking'),
 						light:light,
@@ -1385,6 +1395,7 @@ var MyObj = function( request, response )
 		sublist.addField( 'quantity', 'text', 'Meters');
 		var fld_light = sublist.addField( 'light', 'text', 'Status');
 		sublist.addField( 'custcol_avt_fabric_status', 'select', 'Fabric Status',  'customlist_avt_fabric_status_list');
+		var fld_deliveryfactory = sublist.addField('custcol_delivery_factory', 'select' , 'Delivery Factory', 'customlist_delivery_factory_options');
 		var fld_dates = sublist.addField( 'custcol_avt_date_sent', 'date', 'Date Sent');
 		var fld_track = sublist.addField( 'custcol_avt_tracking', 'text', 'Tracking');
 		//var fld_fabdet = sublist.addField('custcol_custom_fabric_details','text', 'Custom Fabric');
@@ -1401,6 +1412,7 @@ var MyObj = function( request, response )
 		fld_track.setDisplayType( 'entry');
 		//fld_fabdet.setDisplayType('inline');
 		fld_status.setDisplayType( 'entry');
+		fld_deliveryfactory.setDisplayType('entry');
 
 		// if( sr != null && sr.length > 0 )
 		// {
@@ -1416,7 +1428,7 @@ var MyObj = function( request, response )
 	};
 	this.Form_Approval_POLineFabricUSA = function()
 	{
-		var form =  nlapiCreateForm( 'Fabric Purchase Order  Lines To Manage NA');
+		var form =  nlapiCreateForm( 'Fabric Purchase Order Items To Manage NA');
 		//var fld_vendor = form.addField( 'custpage_vendor', 'select', 'Vendor', 'vendor');
 
 		form.addButton( 'custpage_btapprve', 'Save', 'SavePOFab()');
@@ -1504,6 +1516,7 @@ var MyObj = function( request, response )
 		cols[ cols.length ] = new nlobjSearchColumn( 'internalid','vendor');
 		cols[ cols.length ] = new nlobjSearchColumn( 'entityid','vendor');
 		cols[ cols.length ] = new nlobjSearchColumn( 'custcol_producttype');
+		cols[ cols.length ] = new nlobjSearchColumn( 'custcol_delivery_factory');
 		var search = nlapiLoadSearch('purchaseorder', searchid);
 		search.addFilters(filter);
 		search.addColumns(cols);
@@ -1552,6 +1565,7 @@ var MyObj = function( request, response )
 						item:sr[x].getValue('item'),
 						quantity:sr[x].getValue('quantity'),
 						custcol_avt_fabric_status:sr[x].getValue('custcol_avt_fabric_status'),
+						custcol_delivery_factory:sr[x].getValue('custcol_delivery_factory'),
 						custcol_avt_date_sent:sr[x].getValue('custcol_avt_date_sent'),
 						custcol_avt_tracking:sr[x].getValue('custcol_avt_tracking'),
 						light:light,
@@ -1579,6 +1593,7 @@ var MyObj = function( request, response )
 		sublist.addField( 'quantity', 'text', 'Meters');
 		var fld_light = sublist.addField( 'light', 'text', 'Status');
 		sublist.addField( 'custcol_avt_fabric_status', 'select', 'Fabric Status',  'customlist_avt_fabric_status_list');
+		var fld_deliveryfactory = sublist.addField('custcol_delivery_factory', 'select' , 'Delivery Factory', 'customlist_delivery_factory_options');
 		var fld_dates = sublist.addField( 'custcol_avt_date_sent', 'date', 'Date Sent');
 		var fld_track = sublist.addField( 'custcol_avt_tracking', 'text', 'Tracking');
 		//var fld_fabdet = sublist.addField('custcol_custom_fabric_details','text', 'Custom Fabric');
@@ -1595,6 +1610,7 @@ var MyObj = function( request, response )
 		fld_track.setDisplayType( 'entry');
 		//fld_fabdet.setDisplayType('inline');
 		fld_status.setDisplayType( 'entry');
+		fld_deliveryfactory.setDisplayType('entry');
 
 		// if( sr != null && sr.length > 0 )
 		// {
@@ -1610,7 +1626,7 @@ var MyObj = function( request, response )
 	};
 	this.Form_Approval_POLineFabric = function()
 	{
-		var form =  nlapiCreateForm( 'Fabric Purchase Order  Lines To Manage Internal');
+		var form =  nlapiCreateForm( 'Fabric Purchase Order Items To Manage Internal');
 
 		form.addButton( 'custpage_btapprve', 'Save', 'SavePOFab()');
 		form.addButton( 'custpage_btapprve_bill', 'Bill', 'SavePOFab(true)');
@@ -1704,6 +1720,7 @@ var MyObj = function( request, response )
 		cols[ cols.length ] = new nlobjSearchColumn( 'internalid','vendor');
 		cols[ cols.length ] = new nlobjSearchColumn( 'entityid','vendor');
 		cols[ cols.length ] = new nlobjSearchColumn( 'custcol_producttype');
+		cols[ cols.length ] = new nlobjSearchColumn( 'custcol_delivery_factory');
 		var search = nlapiLoadSearch('purchaseorder', searchid);
 		search.addFilters(filter);
 		search.addColumns(cols);
@@ -1752,6 +1769,7 @@ var MyObj = function( request, response )
 						itemtext: itemtext,
 						quantity:sr[x].getValue('quantity'),
 						custcol_avt_fabric_status:sr[x].getValue('custcol_avt_fabric_status'),
+						custcol_delivery_factory:sr[x].getValue('custcol_delivery_factory'),
 						custcol_avt_date_sent:sr[x].getValue('custcol_avt_date_sent'),
 						custcol_avt_tracking:sr[x].getValue('custcol_avt_tracking'),
 						light:light
@@ -1778,9 +1796,11 @@ var MyObj = function( request, response )
 		sublist.addField( 'quantity', 'text', 'Meters');
 		var fld_light = sublist.addField( 'light', 'text', 'Status');
 		sublist.addField( 'custcol_avt_fabric_status', 'select', 'Fabric Status',  'customlist_avt_fabric_status_list');
+		var fld_deliveryfactory = sublist.addField('custcol_delivery_factory', 'select' , 'Delivery Factory', 'customlist_delivery_factory_options');
 		var fld_dates = sublist.addField( 'custcol_avt_date_sent', 'date', 'Date Sent');
 		var fld_track = sublist.addField( 'custcol_avt_tracking', 'text', 'Tracking');
 		var fld_status = sublist.addField( 'custpage_status', 'text', 'Status');
+
 		fld_item.setDisplayType( 'hidden');
 		fld_itemtext.setDisplayType('inline');
 		fld_vendor.setDisplayType( 'inline');
@@ -1792,6 +1812,7 @@ var MyObj = function( request, response )
 		fld_dates.setDisplayType( 'entry');
 		fld_track.setDisplayType( 'entry');
 		fld_status.setDisplayType( 'entry');
+		fld_deliveryfactory.setDisplayType('entry');
 
 		sublist.setLineItemValues( mylist );
 
@@ -2333,7 +2354,7 @@ var MyObj = function( request, response )
 		var dateval = this.request.getParameter('expecteddatesent');
 		var cmtstatus = this.request.getParameter('cmtstatus');
 
-		var form =  nlapiCreateForm( 'CMT Purchase Order Lines To Manage UK');
+		var form =  nlapiCreateForm( 'CMT Purchase Order Items To Manage UK');
 		form.addButton( 'custpage_btapprve', 'Save', 'SavePOCMT()');
 		form.addButton( 'custpage_btapprve_bill', 'Bill', 'SavePOCMT(true)');
 		form.addButton( 'custpage_btfilter', 'Filter', 'POCMTFilter()');
@@ -2416,12 +2437,23 @@ var MyObj = function( request, response )
 
 		}
 
+		//Create a hidden field to hold the value of total tailors
+		var totalTailors = form.addField('custpage_total_tailors', 'text', 'Total Tailors');
+		totalTailors.setDisplayType('hidden');
+
+		//Populate the Total Tailors field
+		if (tailorList != null && tailorList != ''){
+			totalTailors.setDefaultValue(tailorList.length);
+		} else {
+			totalTailors.setDefaultValue(0);
+		}
+
 		this.response.writePage( form);
 
 	};
 	this.Form_Approval_POLineCMT_USA = function()
 	{
-		var form =  nlapiCreateForm( 'CMT Purchase Order Lines To Manage NA');
+		var form =  nlapiCreateForm( 'CMT Purchase Order Items To Manage NA');
 		form.addButton( 'custpage_btapprve', 'Save', 'SavePOCMT()');
 		form.addButton( 'custpage_btapprve_bill', 'Bill', 'SavePOCMT(true)');
 		form.addButton( 'custpage_btfilter', 'Filter', 'POCMTFilter()');
@@ -2489,6 +2521,17 @@ var MyObj = function( request, response )
 
 		}
 
+		//Create a hidden field to hold the value of total tailors
+		var totalTailors = form.addField('custpage_total_tailors', 'text', 'Total Tailors');
+		totalTailors.setDisplayType('hidden');
+
+		//Populate the Total Tailors field
+		if (tailorList != null && tailorList != ''){
+			totalTailors.setDefaultValue(tailorList.length);
+		} else {
+			totalTailors.setDefaultValue(0);
+		}
+
 		this.response.writePage( form);
 
 	};
@@ -2497,7 +2540,7 @@ var MyObj = function( request, response )
 		var dateval = this.request.getParameter('expecteddatesent');
 		var cmtstatus = this.request.getParameter('cmtstatus');
 
-		var form =  nlapiCreateForm( 'CMT Purchase Order Lines To Manage (Internal)');
+		var form =  nlapiCreateForm( 'CMT Purchase Order Items To Manage (Internal)');
 		form.addButton( 'custpage_btapprve', 'Save', 'SavePOCMT()');
 		form.addButton( 'custpage_btapprve_bill', 'Bill', 'SavePOCMT(true)');
 		form.addButton( 'custpage_btfilter', 'Filter', 'POCMTFilter()');
@@ -2560,6 +2603,17 @@ var MyObj = function( request, response )
 
 			this.generateCMTSublist(tailorSublist,{'entity':tailorList[tailorIndex].id,'dateval':dateval,'cmtstatus':cmtstatus}, uniqueTailorIDs);
 
+		}
+
+		//Create a hidden field to hold the value of total tailors
+		var totalTailors = form.addField('custpage_total_tailors', 'text', 'Total Tailors');
+		totalTailors.setDisplayType('hidden');
+
+		//Populate the Total Tailors field
+		if (tailorList != null && tailorList != ''){
+			totalTailors.setDefaultValue(tailorList.length);
+		} else {
+			totalTailors.setDefaultValue(0);
 		}
 
 		this.response.writePage( form);
@@ -3268,7 +3322,7 @@ var MyObj = function( request, response )
 	this.Form_Approval_POLineCMTBilled = function()
 	{
 		var dateval = this.request.getParameter('expecteddatesent');
-		var form =  nlapiCreateForm( 'CMT Purchase Order Lines Billed Internal');
+		var form =  nlapiCreateForm( 'CMT Purchase Order Items Billed Internal');
 		form.addButton( 'custpage_btfilter', 'Filter', 'POCMTBilledFilter()');
 		form.setScript( 'customscript_avt_so_approval_cs');
 
@@ -3348,7 +3402,7 @@ var MyObj = function( request, response )
 	this.Form_Approval_POLineCMTBilledUK = function()
 	{
 		var dateval = this.request.getParameter('expecteddatesent');
-		var form =  nlapiCreateForm( 'CMT Purchase Order Lines Billed UK');
+		var form =  nlapiCreateForm( 'CMT Purchase Order Items Billed UK');
 		form.addButton( 'custpage_btfilter', 'Filter', 'POCMTBilledFilter()');
 		form.setScript( 'customscript_avt_so_approval_cs');
 
@@ -3479,7 +3533,7 @@ var MyObj = function( request, response )
 	this.Form_Approval_POLineCMTBilledUSA = function()
 	{
 		var dateval = this.request.getParameter('expecteddatesent');
-		var form =  nlapiCreateForm( 'CMT Purchase Order Lines Billed NA');
+		var form =  nlapiCreateForm( 'CMT Purchase Order Items Billed NA');
 		form.addButton( 'custpage_btfilter', 'Filter', 'POCMTBilledFilter()');
 		form.setScript( 'customscript_avt_so_approval_cs');
 
@@ -3558,7 +3612,7 @@ var MyObj = function( request, response )
 	//START NZ
 	this.Form_Approval_POLineFabricNZ = function()
 	{
-		var form =  nlapiCreateForm( 'PO Approval Dashboard "other"');
+		var form =  nlapiCreateForm( 'PO Current Dashboard "other"');
 		//var fld_vendor = form.addField( 'custpage_vendor', 'select', 'Vendor', 'vendor');
 
 		form.addButton( 'custpage_btapprve', 'Save', 'SavePOFab()');
@@ -3646,6 +3700,7 @@ var MyObj = function( request, response )
 		cols[ cols.length ] = new nlobjSearchColumn( 'internalid','vendor');
 		cols[ cols.length ] = new nlobjSearchColumn( 'entityid','vendor');
 		cols[ cols.length ] = new nlobjSearchColumn( 'custcol_producttype');
+		cols[ cols.length ] = new nlobjSearchColumn( 'custcol_delivery_factory');
 
 		var search = nlapiLoadSearch('purchaseorder', searchid);
 		search.addFilters(filter);
@@ -3696,6 +3751,7 @@ var MyObj = function( request, response )
 						itemtext: itemtext,
 						quantity:sr[x].getValue('quantity'),
 						custcol_avt_fabric_status:sr[x].getValue('custcol_avt_fabric_status'),
+						custcol_delivery_factory:sr[x].getValue('custcol_delivery_factory'),
 						custcol_avt_date_sent:sr[x].getValue('custcol_avt_date_sent'),
 						custcol_avt_tracking:sr[x].getValue('custcol_avt_tracking'),
 						light:light,
@@ -3723,6 +3779,7 @@ var MyObj = function( request, response )
 		sublist.addField( 'quantity', 'text', 'Meters');
 		var fld_light = sublist.addField( 'light', 'text', 'Status');
 		sublist.addField( 'custcol_avt_fabric_status', 'select', 'Fabric Status',  'customlist_avt_fabric_status_list');
+		var fld_deliveryfactory = sublist.addField('custcol_delivery_factory', 'select' , 'Delivery Factory', 'customlist_delivery_factory_options');
 		var fld_dates = sublist.addField( 'custcol_avt_date_sent', 'date', 'Date Sent');
 		var fld_track = sublist.addField( 'custcol_avt_tracking', 'text', 'Tracking');
 		//var fld_fabdet = sublist.addField('custcol_custom_fabric_details','text', 'Custom Fabric');
@@ -3739,6 +3796,7 @@ var MyObj = function( request, response )
 		fld_track.setDisplayType( 'entry');
 		//fld_fabdet.setDisplayType('inline');
 		fld_status.setDisplayType( 'entry');
+		fld_deliveryfactory.setDisplayType('entry');
 
 		// if( sr != null && sr.length > 0 )
 		// {
@@ -3997,6 +4055,17 @@ var MyObj = function( request, response )
 
 		}
 
+		//Create a hidden field to hold the value of total tailors
+		var totalTailors = form.addField('custpage_total_tailors', 'text', 'Total Tailors');
+		totalTailors.setDisplayType('hidden');
+
+		//Populate the Total Tailors field
+		if (tailorList != null && tailorList != ''){
+			totalTailors.setDefaultValue(tailorList.length);
+		} else {
+			totalTailors.setDefaultValue(0);
+		}
+
 		this.response.writePage( form);
 
 	};
@@ -4090,7 +4159,7 @@ var MyObj = function( request, response )
 	*/
 	this.Form_Approval_POLineFabricEurope = function()
 	{
-		var form =  nlapiCreateForm( 'Fabric Purchase Order Lines To Manage Europe');
+		var form =  nlapiCreateForm( 'Fabric Purchase Order Items To Manage Europe');
 		//var fld_vendor = form.addField( 'custpage_vendor', 'select', 'Vendor', 'vendor');
 
 		form.addButton( 'custpage_btapprve', 'Save', 'SavePOFab()');
@@ -4178,6 +4247,7 @@ var MyObj = function( request, response )
 		cols[ cols.length ] = new nlobjSearchColumn( 'internalid','vendor');
 		cols[ cols.length ] = new nlobjSearchColumn( 'entityid','vendor');
 		cols[ cols.length ] = new nlobjSearchColumn( 'custcol_producttype');
+		cols[ cols.length ] = new nlobjSearchColumn( 'custcol_delivery_factory');
 
 		var search = nlapiLoadSearch('purchaseorder', searchid);
 		search.addFilters(filter);
@@ -4227,6 +4297,7 @@ var MyObj = function( request, response )
 						itemtext: itemtext,
 						quantity:sr[x].getValue('quantity'),
 						custcol_avt_fabric_status:sr[x].getValue('custcol_avt_fabric_status'),
+						custcol_delivery_factory:sr[x].getValue('custcol_delivery_factory'),
 						custcol_avt_date_sent:sr[x].getValue('custcol_avt_date_sent'),
 						custcol_avt_tracking:sr[x].getValue('custcol_avt_tracking'),
 						light:light,
@@ -4254,6 +4325,7 @@ var MyObj = function( request, response )
 		sublist.addField( 'quantity', 'text', 'Meters');
 		var fld_light = sublist.addField( 'light', 'text', 'Status');
 		sublist.addField( 'custcol_avt_fabric_status', 'select', 'Fabric Status',  'customlist_avt_fabric_status_list');
+		var fld_deliveryfactory = sublist.addField('custcol_delivery_factory', 'select' , 'Delivery Factory', 'customlist_delivery_factory_options');
 		var fld_dates = sublist.addField( 'custcol_avt_date_sent', 'date', 'Date Sent');
 		var fld_track = sublist.addField( 'custcol_avt_tracking', 'text', 'Tracking');
 		// var fld_fabdet = sublist.addField('custcol_custom_fabric_details','text', 'Custom Fabric');
@@ -4270,6 +4342,7 @@ var MyObj = function( request, response )
 		fld_track.setDisplayType( 'entry');
 		// fld_fabdet.setDisplayType('inline');
 		fld_status.setDisplayType( 'entry');
+		fld_deliveryfactory.setDisplayType('entry');
 
 		// if( sr != null && sr.length > 0 )
 		// {
@@ -4464,7 +4537,7 @@ var MyObj = function( request, response )
 		var dateval = this.request.getParameter('expecteddatesent');
 		var cmtstatus = this.request.getParameter('cmtstatus');
 
-		var form =  nlapiCreateForm( 'CMT Purchase Order Lines To Manage');
+		var form =  nlapiCreateForm( 'CMT Purchase Order Items To Manage');
 		form.addButton( 'custpage_btapprve', 'Save', 'SavePOCMT()');
 		form.addButton( 'custpage_btapprve_bill', 'Bill', 'SavePOCMT(true)');
 		form.addButton( 'custpage_btfilter', 'Filter', 'POCMTFilter()');
@@ -4530,13 +4603,24 @@ var MyObj = function( request, response )
 
 		}
 
+		//Create a hidden field to hold the value of total tailors
+		var totalTailors = form.addField('custpage_total_tailors', 'text', 'Total Tailors');
+		totalTailors.setDisplayType('hidden');
+
+		//Populate the Total Tailors field
+		if (tailorList != null && tailorList != ''){
+			totalTailors.setDefaultValue(tailorList.length);
+		} else {
+			totalTailors.setDefaultValue(0);
+		}
+
 		this.response.writePage( form);
 
 	};
 	this.Form_Approval_POLineCMTBilledEurope = function()
 	{
 		var dateval = this.request.getParameter('expecteddatesent');
-		var form =  nlapiCreateForm( 'CMT Purchase Order Lines Billed');
+		var form =  nlapiCreateForm( 'CMT Purchase Order Items Billed');
 		form.addButton( 'custpage_btfilter', 'Filter', 'POCMTBilledFilter()');
 		form.setScript( 'customscript_avt_so_approval_cs');
 

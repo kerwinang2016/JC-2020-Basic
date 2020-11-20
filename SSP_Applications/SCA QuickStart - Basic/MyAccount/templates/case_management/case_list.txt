@@ -1,6 +1,5 @@
 <%
 	var collection = view.collection;
-	console.log(collection)
 	var unreadcount = _.filter(collection.models,function(o){ return o.get('status').id == '8';});
 %>
 <section class="case-management">

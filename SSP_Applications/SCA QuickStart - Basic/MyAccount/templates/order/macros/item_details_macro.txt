@@ -1,6 +1,49 @@
 <% //TODO: use the formatted values from the backend instead of formatCurrency (eg.: total_formatted)
-registerMacro('itemDetails', function (line) { %>
+registerMacro('itemDetails', function (line, cases) { %>
 <%
+	var orderrequests = "", hasRush = false, hasDiscount = false, hasCancel = false, hasHold = false;
+	for(var i=0; i< cases.length; i++){
+		if(cases[i].columns.issue.internalid == '2'){
+			hasRush = true;
+			if(cases[i].columns.status.internalid == '6'){
+				orderrequests += "Rush Approved ";
+			}else if(cases[i].columns.status.internalid == '7'){
+				orderrequests += "Rush Denied ";
+			}else{
+				orderrequests += "Rush Requested ";
+			}
+		}
+		if(cases[i].columns.issue.internalid == '3'){
+			hasDiscount = true;
+			if(cases[i].columns.status.internalid == '6'){
+				orderrequests += "Discount Approved ";
+			}else if(cases[i].columns.status.internalid == '7'){
+				orderrequests += "Discount Denied ";
+			}else{
+				orderrequests += "Discount Requested ";
+			}
+		}
+		if(cases[i].columns.issue.internalid == '4'){
+			hasCancel = true;
+			if(cases[i].columns.status.internalid == '6'){
+				orderrequests += "Cancel Approved ";
+			}else if(cases[i].columns.status.internalid == '7'){
+				orderrequests += "Cancel Denied ";
+			}else{
+				orderrequests += "Cancel Requested ";
+			}
+		}
+		if(cases[i].columns.issue.internalid == '5'){
+			hasHold = true;
+			if(cases[i].columns.status.internalid == '6'){
+				orderrequests += "Hold Approved ";
+			}else if(cases[i].columns.status.internalid == '7'){
+				orderrequests += "Hold Denied ";
+			}else{
+				orderrequests += "Hold Requested ";
+			}
+		}
+	}
 	var item = line.item;
 	var fabricdetails = _.where(item.get("options"), {id:"custcol_custom_fabric_details"});
 	if(fabricdetails[0]){
@@ -56,12 +99,13 @@ registerMacro('itemDetails', function (line) { %>
 		<td class="product-name">
 			<% if (link_attributes) { %>
 				<a <%= link_attributes %>>
-					<b><%= line.item.get('_name') %></b>
+					<b class="span4"><%= line.item.get('_name') %></b>
 				</a>
 			<% } else { %>
-				<b><%= line.item.get('_name') %></b>
+				<b class="span4"><%= line.item.get('_name') %></b>
 			<% } %>
-			<p style="margin:0px;"><%
+			<p class="span8" style="color:#b23a3a;text-align:right;"><%= orderrequests %></p>
+			<p style="margin:0px;clear:both;"><%
 				var producttype = _.find(line.item.get("options"), function(o){
 					return o.id == "custcol_producttype"});
 					if(producttype){
@@ -126,15 +170,20 @@ registerMacro('itemDetails', function (line) { %>
 			 data-parent-id="<%=line.item.get('parent_internalid') %>">
 				<%= line.quantity > 1 ? _('Reorder these Items').translate() : _('Reorder this Item').translate() %>
 			</button> |
+			<% if(!hasDiscount) { %>
 			<button data-requestdiscount="<%= so_id.value %>" data-line="<%= line.id %>" class="btn-link">Request Discount</button>
-			<% if(cmtstatus == "" || cmtstatus == '1' || cmtstatus == '2' || cmtstatus == '5' || cmtstatus == '7' || cmtstatus == '8') { %> |
+			<% } %>
+			<% if(!hasHold && (cmtstatus == "" || cmtstatus == '1' || cmtstatus == '2' || cmtstatus == '5' || cmtstatus == '7' || cmtstatus == '8')) { %> |
 			<button data-requesthold="<%= so_id.value %>" data-line="<%= line.id %>" class="btn-link">Request Hold</button>
 			<% } %>
 			<% if(cmtstatus == "" || cmtstatus == '1' || cmtstatus == '2' || cmtstatus == '5' || cmtstatus == '6' || cmtstatus == '7' || cmtstatus == '8') { %> |
-			<button data-requestrush="<%= so_id.value %>" data-line="<%= line.id %>" class="btn-link">Request Rush</button> |
-			<button data-requestcancel="<%= so_id.value %>" data-line="<%= line.id %>" class="btn-link">Request Cancel</button>
+				<% if(!hasRush){ %>
+				<button data-requestrush="<%= so_id.value %>" data-line="<%= line.id %>" class="btn-link">Request Rush</button> |
+				<% } %>
+				<% if(!hasCancel){ %>
+				<button data-requestcancel="<%= so_id.value %>" data-line="<%= line.id %>" class="btn-link">Request Cancel</button>
+				<% } %>
 			<% } %>
-
 		<% } else { %>
 			<a data-giftcard-item-link="<%= line.item.get('_url') %>" data-giftcard-item-name="<%= line.item.get('_sku') %>" data-parent-id="<%=line.item.get('parent_internalid') %>" data-item-options='<%= line.format_options %>' href="#">
 			</a>

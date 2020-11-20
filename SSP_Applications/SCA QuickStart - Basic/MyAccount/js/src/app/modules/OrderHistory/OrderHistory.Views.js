@@ -312,10 +312,8 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Mode
 
 			//var orderOptions = _.union(detailsLine.get('options'), selected_line.get('options'));
 
-
 			var clientId = _.findWhere(selected_line.get('options'), { id: 'custcol_tailor_client' }).value;
 			var fitProfiles = JSON.parse(_.findWhere(selected_line.get('options'), { id: 'custcol_fitprofile_summary' }).value);
-
 			var fitProfileCollection = [];
 			var haserror = false;
 			var param = new Object();
@@ -329,7 +327,34 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Mode
 					});
 					_.each(fitProfileCollection, function (el) {
 						try{
-						var fitColumn = "custcol_fitprofile_" + el.custrecord_fp_product_type.toLowerCase();
+							var ptype = el.custrecord_fp_product_type.toLowerCase();
+							switch(el.custrecord_fp_product_type){
+								case 'Short-Sleeves-Shirt':
+											ptype = 'ssshirt';
+											break;
+								case 'Ladies-Jacket':
+											ptype = 'ladiesjacket';
+											break;
+								case 'Ladies-Pants':
+											ptype = 'ladiespants';
+											break;
+								case 'Ladies-Skirt':
+											ptype = 'ladiesskirt';
+											break;
+								case 'Morning-Coat':
+											ptype = 'morning_coat';
+											break;
+								case 'Safari-Jacket':
+											ptype = 'safari_jacket';
+											break;
+								case 'Shirt-Jacket':
+											ptype = 'shirt_jacket';
+											break;
+								case 'Camp-Shirt':
+											ptype = 'camp_shirt';
+											break;
+							}
+						var fitColumn = "custcol_fitprofile_" + ptype;
 						var fitValue = el.custrecord_fp_measure_value;
 						item_to_cart.setOption(fitColumn, fitValue,true);
 					}catch(e){
@@ -338,7 +363,6 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Mode
 						haserror = true;
 					}
 					});
-					//item_to_cart.setOptionsArray(orderOptions, true);
 					item_to_cart.setOptionsArray(selected_line.get('options'), true);
 
 					// Test issue #102
@@ -354,6 +378,7 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Mode
 					item_to_cart.setOption('custcol_avt_date_needed', '1/1/1900');
 					item_to_cart.setOption('custcol_avt_wbs_copy_key', item_to_cart.get('internalid').toString() + '_' + new Date().getTime());
 
+					delete item_to_cart.itemOptions["custcol_avt_cmt_status"];
 					if(haserror) return;
 					application.getCart().addItem(item_to_cart, {
 						success: function () {

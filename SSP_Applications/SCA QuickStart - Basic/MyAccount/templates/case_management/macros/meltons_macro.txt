@@ -10,7 +10,7 @@
 
   <div class="case-new-subject control-group">
     <label for="title"><%= _('Subject').translate() %></label>
-    <input readonly type="text" name="title" id="title" class="case-fields form-control input-xlarge input-case-title" value="" ></input>
+    <input readonly type="text" name="title" id="title" class="case-fields form-control input-xlarge input-case-title" value="<%=model.get('title')%>" ></input>
   </div>
   <% if(!inDetailsView){ %>
   <div class="case-new-item control-group">
@@ -58,7 +58,7 @@
 
   <% } %>
 
-  <b style="color:b23a3a;">(You will be invoiced for the cost of the melton, plus a US$10 shipping and handling fee, or its local currency equivalent)</b><br/><br/>
+  <b style="color:#b23a3a;">(You will be invoiced for the cost of the melton, plus a US$10 shipping and handling fee, or its local currency equivalent)</b><br/><br/>
   <div class="case-new-message control-group">
     <label for="message"><%= _('Message').translate() %>: </label>
     <textarea name="message" id="message" class="case-fields form-control input-xlarge input-case-message" style="width:500px;height:100px;"></textarea>

@@ -2,7 +2,7 @@
 <%
 	var model = view.model
 	,	lines = model.get('lines')
-
+	, cases = model.get('cases')
 	,	any_line_purchasable = lines.any(function (line)
 		{
 			return line.get('item').get('_isPurchasable');
@@ -12,7 +12,6 @@
 		{
 			return line.get('item').get('itemtype') === 'GiftCert';
 		})
-	//Test Issue #111 - Sales order PDF
 	,	url = "https://"+window.location.hostname+"/app/site/hosting/scriptlet.nl?script=121&deploy=1&custparam_record_id=" + model.get('internalid') + "&custparam_record_type=salesorder&custparam_template=5"
 
 	,	elements = [
@@ -22,10 +21,6 @@
 
 	,	return_authorizations = model.get('returnauthorizations');
 
-	//if (SC.ENVIRONMENT.permissions.transactions.tranRtnAuth >= 2 && view.isReturnable())
-	//{
-		//elements.push({value: '<a class="request-return" href="/returns/new/order/' + model.get('internalid') + '">' + _('Request return').translate() + '</a>'});
-	//}
 	if(view.options.application.user_instance.get('hidebillingandcogs') == 'F'){
 		if(model.get('receipts') && model.get('receipts').length > 0){
 			var url1 = "https://"+window.location.hostname+"/app/site/hosting/scriptlet.nl?script=121&deploy=1&custparam_record_id="+model.get('receipts').models[0].get('internalid')+"&custparam_record_type=invoice&custparam_template=4";
@@ -153,9 +148,10 @@ Order created by : <%= model.get('createdby') %>
 										}
 
 									,	shipgroup_subtotal = shipgroup_subtotal + (item_details ? item_details.amount : 0);
-
+									var linesoid = _.find(line.get('options'),function(o){return o.id == "custcol_so_id"});
+									var linecases = linesoid?_.filter(cases,function(o){return o.columns.custevent_so_id == linesoid.value;}):"";
 							%>
-								<%= item_details && itemDetails(item_details) %>
+								<%= item_details && itemDetails(item_details, linecases) %>
 							<% }) %>
 						</tbody>
 					</table>

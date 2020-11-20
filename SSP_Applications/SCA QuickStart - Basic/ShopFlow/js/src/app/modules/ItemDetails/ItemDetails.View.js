@@ -1807,14 +1807,14 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 if(jQuery(this).val() == jQuery(this).data().showonselection){
                   var hiddenoptions = jQuery(this).data().hiddenoption.split(',');
                   for(var j=0;j<hiddenoptions.length;j++){
-                    jQuery('#'+hiddenoptions[j]).parent().parent().show();
+                    jQuery("div#design-option-" + clothingType.trim() +' #'+hiddenoptions[j]).parent().parent().show();
                   }
                 }else{
                   //Make sure to default the values
                   var hiddenoptions = jQuery(this).data().hiddenoption.split(',');
                   for(var j=0;j<hiddenoptions.length;j++){
-                    jQuery('#'+hiddenoptions[j]).val(jQuery('#'+hiddenoptions[j]).data().defaultvalue);
-                    jQuery('#'+hiddenoptions[j]).parent().parent().hide();
+                    jQuery("div#design-option-" + clothingType.trim() +' #'+hiddenoptions[j]).val(jQuery("div#design-option-" + clothingType.trim() +' #'+hiddenoptions[j]).data().defaultvalue);
+                    jQuery("div#design-option-" + clothingType.trim() +' #'+hiddenoptions[j]).parent().parent().hide();
                   }
                 }
               }

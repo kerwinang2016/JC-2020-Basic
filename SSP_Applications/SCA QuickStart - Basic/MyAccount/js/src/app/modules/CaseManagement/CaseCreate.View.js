@@ -79,20 +79,28 @@ define('CaseCreate.View', function ()
 			case "custevent_supportcase_quantity":
 											//Lining
 											this.model.set(e.target.id, jQuery(e.target).val());
-											if(jQuery("#item") == "297480"){
+											if(jQuery("#item").val() == "297480"){
 												if(jQuery("#custevent_supportcase_lining").val() != "" && jQuery("#custevent_supportcase_quantity").val() != ""){
+													// console.log('lining id ' + jQuery("#custevent_supportcase_lining").val());
 													var liningObj = _.find(self.fields.get("liningcodes"),function(obj){
 														return obj.id == jQuery("#custevent_supportcase_lining").val();
 													});
+													// console.log('lining Obj ' + liningObj);
 													if(liningObj){
 														var liningprice = parseFloat(liningObj.custrecord_flf_lininglevel);
 														var quantity = parseFloat(jQuery("#custevent_supportcase_quantity").val());
 														var totalprice = (liningprice*quantity);
 														totalprice += 20;
+														// console.log('total price ' + totalprice );
+														// console.log('lining price ' + liningprice );
 														totalprice = totalprice + (totalprice*discount)
-
+														// console.log('total updated price ' +liningprice );
 
 														self.model.set("custevent_supportcase_total",(totalprice).toFixed(2));
+													}else{
+														totalprice = 20;
+														totalprice = totalprice + (totalprice*discount)
+														self.model.set("custevent_supportcase_total",totalprice.toFixed(2));
 													}
 													this.showContent();
 												}else{
@@ -115,18 +123,30 @@ define('CaseCreate.View', function ()
 													var buttonObj = _.find(buttons,function(obj){
 														return obj.internalid == jQuery("#custevent_supportcase_accessory").val();
 													});
+
+													// console.log('buttons');
+													// console.log(buttons);
+													// console.log('buttonObj');
+													// console.log(buttonObj);
 													var small = 0, large = 0, totalprice = 0;
 													if(jQuery("#custevent_supportcase_small").val() != ""){
+														// console.log('small ' + jQuery("#custevent_supportcase_small").val());
 														var smallprice = buttonObj.custrecord_ap_price?parseFloat(buttonObj.custrecord_ap_price):0
 														small = smallprice * parseFloat(jQuery("#custevent_supportcase_small").val());
 													}
 													if(jQuery("#custevent_supportcase_large").val() != ""){
+														// console.log('large ' + jQuery("#custevent_supportcase_large").val());
 														var largeprice = buttonObj.custrecord_ap_price2?parseFloat(buttonObj.custrecord_ap_price2):0;
 														large = largeprice * parseFloat(jQuery("#custevent_supportcase_large").val());
 													}
+
 													totalprice = small + large;
 													totalprice += 10;
+													// console.log('small ' + small);
+													// console.log('large ' + large);
+													// console.log('total price ' + totalprice)
 													totalprice = totalprice + (totalprice * discount);
+													// console.log('totalprice update ' + totalprice)
 													self.model.set("custevent_supportcase_total",totalprice.toFixed(2));
 													this.showContent();
 												}else{
@@ -174,29 +194,33 @@ define('CaseCreate.View', function ()
 											this.model.set('title', title);
 											this.showContent();
 											break;
-			case "myfile":	var fileData = document.getElementById('myfile').files[0];
+			case "myfile":
+			case "myfile2":
+			case "myfile3":
+											var fileData = document.getElementById(e.target.id).files[0];
+											var fid = e.target.id.split('myfile');
 											if(fileData){
 												if(fileData.size >= 10000000){
 													jQuery(e.target).val("");
-													self.model.set('filetype', "");
-													self.model.set('filename', "");
-													self.model.set('file', "");
+													self.model.set('filetype'+fid[1], "");
+													self.model.set('filename'+fid[1], "");
+													self.model.set('file'+fid[1], "");
 													alert('File size must be less than 10MB');
 												}
 												if(fileData.type.indexOf('jpeg') == -1 && fileData.type.indexOf('png') == -1 ){
 													jQuery(e.target).val("");
-													self.model.set('filetype', "");
-													self.model.set('filename', "");
-													self.model.set('file', "");
+													self.model.set('filetype'+fid[1], "");
+													self.model.set('filename'+fid[1], "");
+													self.model.set('file'+fid[1], "");
 													alert('File type must be JPEG or PNG only');
 												}else{
 													var reader = new FileReader();
-													self.model.set('filetype', fileData.type);
-													self.model.set('filename', fileData.name);
+													self.model.set('filetype'+fid[1], fileData.type);
+													self.model.set('filename'+fid[1], fileData.name);
 													jQuery(e.target).next('.custom-file-label').html(fileData.name);
 													reader.readAsBinaryString(fileData);
 													reader.onload =  function(f){
-														self.model.set('file', btoa(reader.result));
+														self.model.set('file'+fid[1], btoa(reader.result));
 									    		};
 												}
 											}

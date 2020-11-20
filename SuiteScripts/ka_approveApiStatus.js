@@ -4,10 +4,18 @@ function webService_beforeSubmit(type){
 		var approve = true;
 		for(var x=1; x<= nlapiGetLineItemCount('item');x++){
 			if(nlapiLookupField('item',nlapiGetLineItemValue('item','item',x),'custitem_ps_item_available') == 'T' &&
-				((nlapiGetLineItemValue('item','custcolcustcol_api_status_fld',x) != 'Processed' && nlapiGetLineItemValue('item','custcolcustcol_api_status_fld',x) != 'Success') || !nlapiGetLineItemValue('item','custcolcustcol_api_status_fld',x))){
+				nlapiGetLineItemValue('item','isclosed',x) == 'F' &&
+				(
+					(	nlapiGetLineItemValue('item','custcolcustcol_api_status_fld',x) != 'Processed' &&
+						nlapiGetLineItemValue('item','custcolcustcol_api_status_fld',x) != 'Success'
+					) || !nlapiGetLineItemValue('item','custcolcustcol_api_status_fld',x)
+
+				)
+				){
 				approve = false;
 				break;
 			}
+			T && ((T)|| T)
 		}
 		if(approve){
 			nlapiSetFieldValue('orderstatus','B');

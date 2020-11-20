@@ -41,7 +41,7 @@ function service (request)
 
 				case 'POST':
 					var new_case_id = Case.create(customerId, data);
-
+					nlapiLogExecution('debug','newcaseid',new_case_id)
 					Application.sendContent(Case.get(new_case_id));
 				break;
 

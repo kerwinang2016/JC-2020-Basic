@@ -43,11 +43,13 @@
 	var isDisplayDateNeededHoldFabricHoldProduction = true;
 	var isDisplayButtCopy = true;
 	var fabricdetails = _.where(item.get("options"), {id:"CUSTCOL_CUSTOM_FABRIC_DETAILS"})
-	if(fabricdetails[0]){
-		var fabricjson = JSON.parse(fabricdetails[0].value);
-		if(fabricjson.code && fabricjson.collection){
-			var itemsku = item.get('_sku');
-			item.set('_sku', itemsku.replace('CMT Item', fabricjson.collection +'-'+fabricjson.code));
+	if(fabricdetails.length>0){
+		if(item.get('internalid') == '253776'){
+			var fabricjson = JSON.parse(fabricdetails[0].value);
+			if(fabricjson.code && fabricjson.collection){
+				var itemsku = item.get('_name') + " (" + fabricjson.collection + '-' + fabricjson.code + ")";
+				item.set('_name', itemsku );
+			}
 		}
 	}
 	var client_name = "";

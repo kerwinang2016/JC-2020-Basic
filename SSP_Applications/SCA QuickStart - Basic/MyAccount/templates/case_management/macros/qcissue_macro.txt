@@ -6,9 +6,10 @@
   </div>
   <% if(!inDetailsView){ %>
   <div class="case-new-file control-group">
-    <label>Select a file: (jpeg or png images less than 10MB size)</label>
-    <input style="width:65px;" class="case-fields" type="file" id="myfile" name="myfile">
-    <label style="display:inline;" class="custom-file-label" for="myfile"><%= model.get('filename')?model.get('filename'): "Please select a file" %></label>
+    <label>Select a file: (jpeg or png images less than 10MB size) You can upload up to three images. </label>
+    <input class="case-fields" type="file" id="myfile" name="myfile"><br/>
+    <input class="case-fields" type="file" id="myfile2" name="myfile2"><br/>
+    <input class="case-fields" type="file" id="myfile3" name="myfile3"><br/>
   </div>
 
   <div class="case-new-message control-group">

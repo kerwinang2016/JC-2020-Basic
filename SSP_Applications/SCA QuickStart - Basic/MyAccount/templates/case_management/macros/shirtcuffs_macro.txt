@@ -45,7 +45,7 @@
   </div>
   <% } %>
   <div class="case-new-item control-group">
-    <label for="custevent_supportcase_accessory"><%= _('Shirt Cuff').translate() %></label>
+    <label for="custevent_supportcase_accessory"><%= _('Cuff Design').translate() %></label>
     <select name="custevent_supportcase_accessory" id="custevent_supportcase_accessory" class="case-fields form-control input-xlarge select-case-custevent_supportcase_accessory">
       <option value="">Please Select</option>
       <% _.each(shirtcuffs, function (shirtcuff) { %>
@@ -108,11 +108,13 @@
     <label for="custevent_supportcase_monogram_pos"><%= _('Monogram Position').translate() %></label>
     <select name="custevent_supportcase_monogram_pos" id="custevent_supportcase_monogram_pos" class="case-fields form-control input-xlarge select-case-custevent_supportcase_monogram_pos">
       <option value="">Please Select</option>
-      <% _.each(monogrampositions, function (monogramposition) { %>
+      <% _.each(monogrampositions, function (monogramposition) {
+          if(monogramposition.id != '1' && monogramposition.id != '2') {
+      %>
         <option value="<%= monogramposition.id %>" <% if(model.get('custevent_supportcase_monogram_pos') == monogramposition.id){ %> selected<% } %> >
           <%= monogramposition.text %>
         </option>
-      <% }); %>
+      <% }}); %>
     </select>
   </div>
   <div class="case-custevent_supportcase_monogramtext control-group">
@@ -122,15 +124,15 @@
 
   <% } %>
   <div class="case-custevent_supportcase_cuffleft control-group">
-    <label for="custevent_supportcase_cuffleft"><%= _('Cuff Left Measurement (CM)').translate() %></label>
+    <label for="custevent_supportcase_cuffleft"><%= _('Cuff Left Finished Measurement (CM)').translate() %></label>
     <input type="number" name="custevent_supportcase_cuffleft" id="custevent_supportcase_cuffleft" class="case-fields form-control input-xlarge input-case-custevent_supportcase_cuffleft" value="<%=model.get('custevent_supportcase_cuffleft')%>" ></input>
   </div>
   <div class="case-custevent_supportcase_cuffright control-group">
-    <label for="custevent_supportcase_cuffright"><%= _('Cuff Right Measurement (CM)').translate() %></label>
+    <label for="custevent_supportcase_cuffright"><%= _('Cuff Right Finished Measurement (CM)').translate() %></label>
     <input type="number" name="custevent_supportcase_cuffright" id="custevent_supportcase_cuffright" class="case-fields form-control input-xlarge input-case-custevent_supportcase_cuffright" value="<%=model.get('custevent_supportcase_cuffright')%>" ></input>
   </div>
 
-  <b style="color:b23a3a;">(You will be invoiced for the cost of the fabric, plus a US$10 shipping and handling fee)</b><br/><br/>
+  <b style="color:#b23a3a;">(You will be invoiced for the cost of the fabric, plus a US$10 shipping and handling fee, or its local currency equivalent)</b><br/><br/>
   <div class="case-new-message control-group">
     <label for="message"><%= _('Message').translate() %>: </label>
     <textarea name="message" id="message" class="case-fields form-control input-xlarge input-case-message" style="width:500px;height:100px;"></textarea>
@@ -147,9 +149,9 @@
 
     <div class="case-new-subject control-group">
       <label for="custevent_is_cmt"><%= _('Is this a CMT Fabric').translate() %></label>
-      <input readonly type="checkbox" name="custevent_is_cmt" id="custevent_is_cmt" class="case-fields form-control input-xlarge input-case-custevent_supportcase_hasmonogram" <%= model.get('custevent_is_cmt')?"checked":"" %>></input>
+      <input readonly type="checkbox" name="custevent_is_cmt" id="custevent_is_cmt" class="case-fields form-control input-xlarge input-case-custevent_supportcase_hasmonogram" <%= model.get('custevent_is_cmt')=='T'?"checked":"" %>></input>
     </div>
-    <% if(model.get('custevent_is_cmt')){ %>
+    <% if(model.get('custevent_is_cmt') == 'T'){ %>
     <div class="case-new-item control-group">
       <label for="custevent_supportcase_cmtvendor"><%= _('CMT Vendor').translate() %></label>
       <select readonly name="custevent_supportcase_cmtvendor" id="custevent_supportcase_cmtvendor" class="case-fields form-control input-xlarge select-case-custevent_supportcase_cmtvendor">
@@ -167,10 +169,10 @@
     </div>
     <% } %>
     <div class="case-new-item control-group">
-      <label for="custevent_supportcase_accessory"><%= _('Shirt Cuff').translate() %></label>
+      <label for="custevent_supportcase_accessory"><%= _('Cuff Design').translate() %></label>
       <select readonly name="custevent_supportcase_accessory" id="custevent_supportcase_accessory" class="case-fields form-control input-xlarge select-case-custevent_supportcase_accessory">
         <option value="">Please Select</option>
-        <% _.each(shirtcuffs, function (shirtcuff) { %>
+        <% _.each(shirtcuffs, function (shirtcuff) {  %>
           <option value="<%= shirtcuff.internalid %>" <% if(model.get('custevent_supportcase_accessory').id == shirtcuff.internalid){ %> selected<% } %> >
             <%= shirtcuff.custrecord_ap_description %>
           </option>
@@ -244,11 +246,11 @@
 
     <% } %>
     <div class="case-custevent_supportcase_cuffleft control-group">
-      <label for="custevent_supportcase_cuffleft"><%= _('Cuff Left Measurement (CM)').translate() %></label>
+      <label for="custevent_supportcase_cuffleft"><%= _('Cuff Left Finsihed Measurement (CM)').translate() %></label>
       <input readonly type="number" name="custevent_supportcase_cuffleft" id="custevent_supportcase_cuffleft" class="case-fields form-control input-xlarge input-case-custevent_supportcase_cuffleft" value="<%=model.get('custevent_supportcase_cuffleft')%>" ></input>
     </div>
     <div class="case-custevent_supportcase_cuffright control-group">
-      <label for="custevent_supportcase_cuffright"><%= _('Cuff Right Measurement (CM)').translate() %></label>
+      <label for="custevent_supportcase_cuffright"><%= _('Cuff Right Finsihed Measurement (CM)').translate() %></label>
       <input readonly type="number" name="custevent_supportcase_cuffright" id="custevent_supportcase_cuffright" class="case-fields form-control input-xlarge input-case-custevent_supportcase_cuffright" value="<%=model.get('custevent_supportcase_cuffright')%>" ></input>
     </div>
 

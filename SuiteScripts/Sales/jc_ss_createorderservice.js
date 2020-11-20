@@ -695,7 +695,9 @@
           log.debug('soid',rec.getSublistValue('item','custcol_so_id',i))
 					if(rec.getSublistValue('item','itemtype',i) == 'NonInvtPart'){
             if((rec.getSublistValue('item','item',i) == '253776' && !FORCECMT) || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Hold"
-			|| rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Processed"
+            || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Request Cancel"
+            || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Request Hold"
+			      || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Processed"
             || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Success"){
               continue;
             }

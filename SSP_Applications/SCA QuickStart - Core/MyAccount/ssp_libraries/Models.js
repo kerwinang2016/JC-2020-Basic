@@ -5987,11 +5987,13 @@ Application.defineModel('Case', {
 			var newCaseRecord = nlapiCreateRecord('supportcase');
 			var keys = Object.keys(data);
 			for(var i=0;i<keys.length;i++){
-				if(keys[i] == "file" || keys[i] == "filename" || keys[i] == "filetype") continue;
+				if(	keys[i] == "file" || keys[i] == "filename" || keys[i] == "filetype" ||
+						keys[i] == "file2" || keys[i] == "filename2" || keys[i] == "filetype2" ||
+						keys[i] == "file3" || keys[i] == "filename3" || keys[i] == "filetype3") continue;
 				if(keys[i] == "message" || keys[i] == "custevent_supportcase_hasmonogram")
 					data.message && newCaseRecord.setFieldValue('incomingmessage', this.sanitize(data.message));
 				else
-					newCaseRecord.setFieldValue(keys[i], this.sanitize(data[keys[i]]));
+					newCaseRecord.setFieldValue(keys[i], this.sanitize(data[keys[i]].toString()));
 			}
 			if(data.custevent_supportcase_hasmonogram == "on" || data.custevent_supportcase_hasmonogram == true){
 				newCaseRecord.setFieldValue("custevent_supportcase_hasmonogram", "T");
@@ -6021,7 +6023,21 @@ Application.defineModel('Case', {
 				var r = nlapiRequestURL("https://3857857.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=384&deploy=1&compid=3857857&h=ad5340eb5ddc555adf33",
 					{imageContents:data.file, filename:data.filename, filetype:data.filetype}
 				);
-				nlapiLogExecution('debug','R',JSON.stringify(r));
+				// nlapiLogExecution('debug','R',JSON.stringify(r));
+				nlapiAttachRecord("file", r.getBody(), "supportcase", caseid);
+			}
+			if(data.file2){
+				var r = nlapiRequestURL("https://3857857.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=384&deploy=1&compid=3857857&h=ad5340eb5ddc555adf33",
+					{imageContents:data.file2, filename:data.filename2, filetype:data.filetype2}
+				);
+				// nlapiLogExecution('debug','R',JSON.stringify(r));
+				nlapiAttachRecord("file", r.getBody(), "supportcase", caseid);
+			}
+			if(data.file3){
+				var r = nlapiRequestURL("https://3857857.extforms.netsuite.com/app/site/hosting/scriptlet.nl?script=384&deploy=1&compid=3857857&h=ad5340eb5ddc555adf33",
+					{imageContents:data.file3, filename:data.filename3, filetype:data.filetype3}
+				);
+				// nlapiLogExecution('debug','R',JSON.stringify(r));
 				nlapiAttachRecord("file", r.getBody(), "supportcase", caseid);
 			}
 			return caseid;

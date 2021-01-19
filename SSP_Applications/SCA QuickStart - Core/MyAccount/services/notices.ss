@@ -61,7 +61,7 @@ var recordFunctions = {
 	},
 	getNoticesList: function(id, page){
 		var columns = [], filters=[];
-		columns.push(new nlobjSearchColumn('internalid'));
+		columns.push(new nlobjSearchColumn('internalid').setSort(true));
 		columns.push(new nlobjSearchColumn('custrecord_nb_header'));
 		columns.push(new nlobjSearchColumn('custrecord_nb_message'));
 		columns.push(new nlobjSearchColumn('custrecord_nb_date'));

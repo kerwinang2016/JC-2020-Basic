@@ -33,7 +33,15 @@ function userEventBeforeSubmitSO(type){
 		var currentUser = nlapiGetContext().getUser();
 		//nlapiLogExecution('debug','currentUser',currentUser);
 		var status = objRecordSO.getFieldText('orderstatus');
-
+    var dateneeded = objRecordSO.getFieldValue('custbody_date_needed'), dateneededStr = "";
+    nlapiLogExecution('debug','Date Needed', dateneeded);
+    if(dateneeded){
+      var d = dateneeded.split('-');
+      2021-02-25
+      dateneededStr = d[2]+"/"+d[1]+"/"+d[0];
+      objRecordSO.setFieldValue('custbody_date_needed', dateneededStr)
+    }
+    nlapiLogExecution('debug','Date Needed', dateneededStr);
 		if (type == 'create'){//|| (type == 'edit' && status == "Pending Approval")){
 			objRecordSO.setFieldValue('custbody_so_created_by',nlapiGetContext().getUser());
 			//Check if the address is set.. if not use the default address.
@@ -89,11 +97,46 @@ function userEventBeforeSubmitSO(type){
 			}
 			// Loop through all items in the SO
 			var itemCount = objRecordSO.getLineItemCount('item');
-
-
+      var clothingtypeObj = {
+        "2-Piece-Suit":["3","4"],
+        "3-Piece-Suit": ["3","4","6"],
+        "Shirt": ["7"],
+        "Jacket": ["3"],
+        "Trouser": ["4"],
+        "Waistcoat": ["6"],
+        "Overcoat": ["8"],
+        'Trenchcoat': ["13"],
+        'Short-Sleeves-Shirt': ["12"],
+        'Ladies-Jacket': ["14"],
+        'Ladies-Pants': ['15'],
+        'Ladies-Skirt': ['16'],
+        'L-2PC-Skirt': ["14","16"],
+        'L-3PC-Suit': ["15","14","16"],
+        'L-2PC-Pants': ["14","15"],
+        'Morning-Coat': ['27'],
+        'Shorts': ['28'],
+        'Camp-Shirt': ['29'],
+        'Safari-Jacket': ['31'],
+        'Shirt-Jacket': ['30']
+      }
+      var allproducttypes = [];
+      for (var ii = 1; ii <= itemCount; ii++) {
+        var itemtype = objRecordSO.getLineItemValue('item', 'custcol_producttype', ii);
+        if(allproducttypes.indexOf(itemtype) == -1){
+          allproducttypes.push(itemtype);
+        }
+      }
 			//Check the Design Options and have a lookup from the custom record design options surcharge
 			var filters = [];
 			filters.push(new nlobjSearchFilter('isinactive',null,'is','F'));
+      if(allproducttypes.length>0){
+        var ptypeArr = [];
+        for(var jj=0;jj<allproducttypes.length;jj++){
+          ptypeArr = _.union(ptypeArr,clothingtypeObj[allproducttypes[jj]]);
+          // ptypeArr.push(clothingtypeObj[allproducttypes[jj]]);
+        }
+        filters.push(new nlobjSearchFilter('custrecord_do_itemtype', null, 'anyof', ptypeArr));
+      }
 			var cols = [];
 			cols.push(new nlobjSearchColumn('custrecord_do_description'));
 			cols.push(new nlobjSearchColumn('custrecord_do_code'));
@@ -145,7 +188,7 @@ function userEventBeforeSubmitSO(type){
 				}
 				pssearchid += 1000;
 			} while (do_surcharges.length >= 1000);
-
+      nlapiLogExecution('debug','Surcharges Length', surcharges.length);
 
 			filters = [];
 			filters.push(new nlobjSearchFilter('isinactive',null,'is','F'));
@@ -171,6 +214,7 @@ function userEventBeforeSubmitSO(type){
 			var count = 1;
 
 			for (var ii=1; ii<=itemCount; ii++){
+        objRecordSO.setLineItemValue('item','custcol_avt_date_needed',ii,dateneededStr);
 				UpdateFitProfile(ii, objRecordSO, bqm);
 				var tailorCMTDisc = 0;
 				//Start checking the fitprofile if it is synced

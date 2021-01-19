@@ -74,22 +74,22 @@ define('Profile.Router',  ['Profile.Views','PlacedOrder.Collection','Profile.Upd
 				,	model: this.application.getUser()
 				});
 
-			// get latest orders
-			orderCollection
-				.fetch({
-					data: { page: 1 }
-				,	error: function (model, jqXhr)
-					{
-						// this will stop the ErrorManagment module to process this error
-						// as we are taking care of it
-						jqXhr.preventDefault = true;
-					}
-				})
-				.always(function ()
-				{
-					view.recentOrders = orderCollection.models.slice(0, 3);
+			// // get latest orders
+			// orderCollection
+			// 	.fetch({
+			// 		data: { page: 1 }
+			// 	,	error: function (model, jqXhr)
+			// 		{
+			// 			// this will stop the ErrorManagment module to process this error
+			// 			// as we are taking care of it
+			// 			jqXhr.preventDefault = true;
+			// 		}
+			// 	})
+			// 	.always(function ()
+			// 	{
+			// 		view.recentOrders = orderCollection.models.slice(0, 3);
 					view.showContent();
-				});
+				// });
 
 		}
 

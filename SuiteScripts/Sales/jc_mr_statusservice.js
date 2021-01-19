@@ -87,7 +87,7 @@ function (search, record, runtime, log, format, ustyylit) {
 		});
 		log.debug('order.id', result.id);
 		var order = getOrderSOID(rec);
-						
+
 		var orderData = order;
 		log.debug('ss status service orderData', orderData);
 		var responseData = ustyylit.getOrderInfo(JSON.stringify(orderData));
@@ -95,11 +95,11 @@ function (search, record, runtime, log, format, ustyylit) {
 		//[{"orderno":"JETU14513-1","order_status":"1005","shipping_status":"1302","fabric_status":"1202","delivery_no":"4247863955",
 		//"express_company":"0016","deliver_date":"2019-11-18","expect_shipdate":"2019-11-18","Process":[],
 		//"Consume":[{"ft_type":"01","ftcode":"FI10013.132.2","consume":"3.36"},{"ft_type":"02","ftcode":"TR435","consume":"1.22"}]}]
-		
+
 		//[{"orderno":"JETU17434-1","order_status":"1002","shipping_status":"","fabric_status":"","delivery_no":"","express_company":"",
 		//"deliver_date":"","expect_shipdate":"","Process":[],"Consume":[]},
 		//{"orderno":"JETU17434-2","order_status":"1002","shipping_status":"","fabric_status":"","delivery_no":"","express_company":"",
-		//"deliver_date":"","expect_shipdate":"","Process":[],"Consume":[{"ft_type":"01","ftcode":"TSHT004","consume":"0.00"}]}]	
+		//"deliver_date":"","expect_shipdate":"","Process":[],"Consume":[{"ft_type":"01","ftcode":"TSHT004","consume":"0.00"}]}]
 		if(responseData){
 		var jsonData = JSON.parse(responseData);
 		for(var i =0; i<jsonData.length; i++){
@@ -111,10 +111,10 @@ function (search, record, runtime, log, format, ustyylit) {
 					deliveryDateMessage = jsonData[i].delivery_no?jsonData[i].delivery_no:"waiting for factory confirm";
 					deliveryDateMessage = jsonData[i].mother_delivery_no? deliveryDateMessage+"/"+jsonData[i].mother_delivery_no:deliveryDateMessage;
 					if(jsonData[i].order_status){
-						rec.setCurrentSublistValue('item','custcol_avt_cmt_status',mappingData.OrderStatus[jsonData[i].order_status]);	
+						rec.setCurrentSublistValue('item','custcol_avt_cmt_status',mappingData.OrderStatus[jsonData[i].order_status]);
 						txt = mappingData.OrderStatus[jsonData[i].order_status];
 					}
-					
+
 					if(jsonData[i].expect_shipdate){
 						var dateObj = jsonData[i].expect_shipdate.split('-');
 						var d = dateObj[2], m = dateObj[1], y = dateObj[0];
@@ -124,9 +124,9 @@ function (search, record, runtime, log, format, ustyylit) {
 						rec.setCurrentSublistValue('item','custcol_avt_cmt_date_sent',dateNS);
 						txt += '-'+dateStr;
 					}
-					
+
 					if(jsonData[i].delivery_no){
-						rec.setCurrentSublistValue('item','custcol_avt_cmt_tracking',deliveryDateMessage);	
+						rec.setCurrentSublistValue('item','custcol_avt_cmt_tracking',deliveryDateMessage);
 						txt += '-'+deliveryDateMessage;
 					}
 					if(txt != ''){
@@ -134,7 +134,7 @@ function (search, record, runtime, log, format, ustyylit) {
 					}
 				}
 				rec.commitLine('item');
-			}					
+			}
 		}
 		rec.save({
 			enableSourcing : true,
@@ -155,7 +155,7 @@ function (search, record, runtime, log, format, ustyylit) {
 		return newsoid
 	}
 	function getOrderSOID(rec){
-		
+
 		var brand = "TU";
 		if(rec.getValue('entity') == '5' || rec.getValue('entity') == '75')
 			brand = "TU";
@@ -192,7 +192,7 @@ function (search, record, runtime, log, format, ustyylit) {
     function reduce(context) {
 		return true;
     }
-    
+
     /**
     * [summarize description]
     * @param  {[type]} summary [description]
@@ -202,16 +202,16 @@ function (search, record, runtime, log, format, ustyylit) {
       log.debug('Summary Time','Total Seconds: '+summary.seconds);
       log.debug('Summary Usage', 'Total Usage: '+summary.usage);
       log.debug('Summary Yields', 'Total Yields: '+summary.yields);
-      
+
       log.debug('Input Summary: ', JSON.stringify(summary.inputSummary));
       log.debug('Map Summary: ', JSON.stringify(summary.mapSummary));
       log.debug('Reduce Summary: ', JSON.stringify(summary.reduceSummary));
-      
+
       //Grab Map errors
       summary.mapSummary.errors.iterator().each(function(key, value) {
         log.error(key, 'ERROR String: '+value);
-        
-        
+
+
         return true;
       });
     }

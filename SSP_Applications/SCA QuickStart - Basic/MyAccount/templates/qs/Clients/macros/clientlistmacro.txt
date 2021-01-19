@@ -1,0 +1,51 @@
+<% registerMacro('clientlistmacro', function (view) { %>
+		<div id="order-client-contents" style="margin-bottom: 20px;">
+				<div class="row-fluid" style="border-bottom: solid 1px #e5e5e5; margin-bottom: 20px;">
+					<div class="span3">
+						<div class="control-group">
+							<label for="order-client-name" class="control-label">Name</label>
+							<div class="controls">
+								<input type="text" value="<%=view.name%>" name="order-client-name" id="order-client-name" class="input-large" style="width: 100%;">
+							</div>
+						</div>
+					</div>
+
+					<div class="span3">
+						<div class="control-group">
+							<label for="order-client-email" class="control-label">Email</label>
+							<div class="controls">
+								<input type="text" value="<%=view.email%>" name="order-client-email" id="order-client-email" class="input-large" style="width: 100%;">
+							</div>
+						</div>
+					</div>
+
+					<div class="span3">
+						<div class="control-group">
+							<label for="order-client-phone" class="control-label">Phone</label>
+							<div class="controls">
+								<input type="text" value="<%=view.phone%>" name="order-client-phone" id="order-client-phone" class="input-large" style="width: 100%;">
+							</div>
+						</div>
+					</div>
+
+					<div class="span3">
+						<div class="control-group">
+							<label for="order-client-search" class="control-label">&nbsp;</label>
+							<div class="controls">
+								<div class="row-fluid">
+									<div class="span6"><button id="order-client-search" class="btn btn-primary" style="width: 100%;">Search</button></div>
+									<div class="span6"><button id="client-add" data-toggle="show-in-modal" class="btn btn-primary" style="width: 100%; padding-top: 4px; padding-bottom: 4px; padding-left: 0px; padding-right: 0px;">Add</button></div>
+								</div>
+
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+		</div>
+
+
+
+
+<% }) %>

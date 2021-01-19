@@ -11,7 +11,7 @@ SC.sessioncheck = function(){
 	if(SC.SE)
 		clearTimeout(SC.SE);
 	SC.SE = setTimeout(function(){SC.sessioncheck();
-	}, 1140000);
+	}, 900000);
 	//}, 1140000);
 }
 

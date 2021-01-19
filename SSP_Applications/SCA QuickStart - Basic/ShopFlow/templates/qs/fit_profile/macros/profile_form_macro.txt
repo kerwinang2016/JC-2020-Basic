@@ -54,6 +54,7 @@
 					fieldsForm = _.where(fieldsForm.measurement, {type: measurementTypeMeasure})[0];
 
 					model.selected_measurement = fieldsForm;
+
 			%>
 				 <%= SC.macros.measureForm(fieldsForm, profile ? JSON.parse(profile.get("custrecord_fp_measure_value")) : null,profile?profile.get("custrecord_fp_product_type"):null,eventValue) %>
 			<%

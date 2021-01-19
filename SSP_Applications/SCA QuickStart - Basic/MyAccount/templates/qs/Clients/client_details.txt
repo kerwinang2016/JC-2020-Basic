@@ -1,0 +1,20 @@
+<div data-type="alert-placeholder"></div>
+<h3>Client Profile</h3>
+<div id="client-profile-view">
+  <div id="client-profile-details">
+    <%=clientDetails(view.model)%>
+  </div>
+  <div data-confirm-message="" class="confirm-message"></div>
+  <div id="fit-profiles">
+    <%=fitProfilesMacro(view,view.fitProfiles) %>
+  </div>
+  <div id="order-history">
+    <%=orderHistoryMacro(view,view.orderHistory) %>
+  </div>
+  <div id="saveForLaterItems">
+    <%=saveForLaterMacro(view,view.savedItems) %>
+  </div>
+  <div id="alterations">
+    <%=alterationsMacro(view,view.alterations) %>
+  </div>
+</div>

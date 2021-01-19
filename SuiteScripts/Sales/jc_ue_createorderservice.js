@@ -12,12 +12,12 @@
 				//Show the create order service button
 				var status = context.newRecord.getValue('status');
 				if(status == 'Billed'){
-					var orderdata = "{recordType:'salesorder', id:"+context.newRecord.id+"}";
+					var orderdata = '{recordType:"salesorder", id:'+context.newRecord.id+'}';
 					//context.form.clientScriptModulePath  = "SuiteScripts/Sales/jc_cs_createorderservice.js";
 					context.form.clientScriptFileId = 22682;
 					context.form.addButton({
 						id : "custpage_create_order_button",
-						label : "Create Ustyylit Order",						
+						label : "Create Ustyylit Order",
 						functionName : 'createOrder(' + orderdata + ')'
 					});
 					context.form.addButton({

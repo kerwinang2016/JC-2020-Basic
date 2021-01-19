@@ -4,14 +4,14 @@
 		<div class="row-fluid">
 			<div class="span3">
 				<select class="clients-options" id="clients-options">
-					<% 
+					<%
 						var selected = false;
 						var selectedID = "";
 					%>
 					<option value=""><%= _('Select a client').translate() %></option>
-					<% clients.sort() %>
+					
 					<% clients.each(function(client){ %>
-						<% 
+						<%
 							if(client.get("internalid") == SC._applications.MyAccount.getLayout().currentView.model.get("current_client")){
 								selected = true;
 								selectedID = client.get("internalid");
@@ -28,6 +28,6 @@
 					<a id="swx-clients-remove-href" data-toggle="show-in-modal" data-action="remove-rec" data-type="client" data-id="<%= selectedID %>">Remove</a>
 				<% } %>
 			</div>
-		</div>			
+		</div>
 	<% } %>
 <% }) %>

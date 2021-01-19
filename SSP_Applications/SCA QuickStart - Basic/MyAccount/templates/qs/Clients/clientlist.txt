@@ -1,0 +1,82 @@
+<%
+  var name = view.name,
+  phone = view.phone,
+  email = view.email;
+  var params = "";
+  if(name)
+    params += '&name='+name;
+  if(phone)
+    params += '&phone='+phone;
+  if(email)
+    params += '&email='+email;
+%>
+<div data-type="alert-placeholder"></div>
+<h3>Client Profiles</h3>
+<%=clientlistmacro(view)%>
+<% if(view.collection.length > 0) { %>
+
+	<%= showingCurrent({
+			current_page: view.options.page
+		,	items_per_page: view.collection.recordsPerPage
+		,	total_items: view.collection.totalRecordsFound
+		,	total_pages: Math.ceil(view.collection.totalRecordsFound / view.collection.recordsPerPage)
+		,	extraClass: 'pull-left'
+	}) %>
+	<%
+		var pagination_result = pagination(_.extend({},
+			view.options.application.getConfig('defaultPaginationSettings'),
+			{
+				currentPage: view.options.page
+			,	totalPages: Math.ceil(view.collection.totalRecordsFound / view.collection.recordsPerPage)
+			,	extraClass: 'pagination-small align-right'
+			,	pager: function (page) {
+					var search = ""
+
+					if(view.options.search != "")
+						search = "&search="+view.options.search;
+					return '/clientlist?page='+page+params;
+				}
+			}
+		))
+	%>
+	<%= pagination_result %>
+
+	<div class="clearfix"></div>
+	<hr/>
+  <div class="row-fluid" style="border-bottom: solid 1px #e5e5e5; margin-bottom: 8px;">
+    <div class="span10">
+      <div class="row-fluid">
+        <div class="span3" style="padding-bottom: 8px;"><div style="font-weight: 600;">Client Name</div></div>
+        <div class="span4"><div style="font-weight: 600;">Email</div></div>
+        <div class="span3"><div style="font-weight: 600;">Phone</div></div>
+      </div>
+    </div>
+  </div>
+	<% view.collection.each(function (client) { %>
+    <div class="row-fluid" style="border-bottom: solid 1px #e5e5e5; margin-bottom: 8px;">
+      <div class="span10" style="padding-top: 8px;">
+        <div class="row-fluid">
+          <div class="span3">
+            <div style="float: left; font-size: 12px;"><%= client.get('custrecord_tc_first_name') + " " + client.get('custrecord_tc_last_name') %></div>
+            <div style="clear: both;"></div>
+          </div>
+          <div class="span4">
+            <div style="float: left; font-size: 12px;"><%= client.get('custrecord_tc_email') %></div>
+            <div style="clear: both;"></div>
+          </div>
+          <div class="span3">
+            <div style="float: left; font-size: 12px;"><%= client.get('custrecord_tc_phone') %></div>
+            <div style="clear: both;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="span2" style="padding-bottom: 8px;">
+        <div class="row-fluid">
+          <div class="span12">
+            <div><a id="client-profile-select" class="btn" client-id="<%= client.get('internalid') %>" style="width: 100%; padding-top: 4px; padding-bottom: 4px; padding-left: 0px; padding-right: 0px;">Select</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+	<% }); %>
+<% } %>

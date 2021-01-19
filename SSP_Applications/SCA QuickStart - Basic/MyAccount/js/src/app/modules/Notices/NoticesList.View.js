@@ -115,42 +115,43 @@ define('NoticesList.View', ['ListHeader'], function (ListHeader)
 			,	href: '/noticeslist'
 			}]);
 		}
+	//
+	// ,	render: function()
+	// 	{
+	// 		console.log('Triggered Reset')
+	// 		Backbone.View.prototype.render.apply(this, arguments);
+	//
+	// 		// if (!_.isUndefined(this.inform_new_case))
+	// 		// {
+	// 		// 	this.informNewCaseCreation();
+	// 		//
+	// 		// 	if (!this.isLoading)
+	// 		// 	{
+	// 		// 		delete this.inform_new_case;
+	// 		// 	}
+	// 		// }
+	// 	}
 
-	,	render: function()
-		{
-			Backbone.View.prototype.render.apply(this, arguments);
-
-			// if (!_.isUndefined(this.inform_new_case))
-			// {
-			// 	this.informNewCaseCreation();
-			//
-			// 	if (!this.isLoading)
-			// 	{
-			// 		delete this.inform_new_case;
-			// 	}
-			// }
-		}
-
-	,	informNewCaseCreation: function()
-		{
-			// this.highlightNewCase(this.new_case_internalid);
-			// this.showConfirmationMessage(this.new_case_message);
-		}
+	// ,	informNewCaseCreation: function()
+	// 	{
+	// 		// this.highlightNewCase(this.new_case_internalid);
+	// 		// this.showConfirmationMessage(this.new_case_message);
+	// 	}
 
 		// Temporarily highlights the case record just added
-	,	highlightNewCase: function (internalid)
-		{
-			// var $list_dom = jQuery(this.el).find('a[data-id='+ internalid +']');
-			//
-			// if ($list_dom && $list_dom.length === 1)
-			// {
-			// 	$list_dom.addClass('case-list-new-case-highlight');
-			//
-			// 	setTimeout( function ()
-			// 	{
-			// 		$list_dom.removeClass('case-list-new-case-highlight');
-			// 	}, 3000);
-			// }
-		}
+	// ,	highlightNewCase: function (internalid)
+	// 	{
+	// 		// var $list_dom = jQuery(this.el).find('a[data-id='+ internalid +']');
+	// 		//
+	// 		// if ($list_dom && $list_dom.length === 1)
+	// 		// {
+	// 		// 	$list_dom.addClass('case-list-new-case-highlight');
+	// 		//
+	// 		// 	setTimeout( function ()
+	// 		// 	{
+	// 		// 		$list_dom.removeClass('case-list-new-case-highlight');
+	// 		// 	}, 3000);
+	// 		// }
+	// 	}
 	});
 });

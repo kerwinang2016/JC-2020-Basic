@@ -32,7 +32,7 @@ define('FormRenderer.View',  ['Client.Model', 'Profile.Model'], function (Client
 			var type = this.options.mode.split("|")[1],
 				id = this.options.mode.split("|")[0],
 				parent = SC.Application('MyAccount').getUser().get('parent')!=null? SC.Application('MyAccount').getUser().get('parent'):SC.Application('MyAccount').getUser().id;//this.options.mode.split("|")[2],
-				html = ""
+				html = "",
 				Model = "";
 
 			switch(type){

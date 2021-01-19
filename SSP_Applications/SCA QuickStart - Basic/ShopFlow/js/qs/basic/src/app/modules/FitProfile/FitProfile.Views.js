@@ -782,8 +782,10 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 		}
 		, updateAllowanceLookup: function (e) {
 
-			var value = jQuery(e.target).val()
-				, self = this
+			var value = jQuery(e.target).val();
+
+			if(value == 'Select') return;
+			var self = this
 				, lookUpTable = JSON.parse(JSON.stringify(self.fitprofile.selected_measurement["lookup-value"][value]));
 			//, lookUpTable = self.fitprofile.selected_measurement["lookup-value"][value];
 
@@ -960,6 +962,15 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'Profile.Collection
 							return false;
 						}
 					}
+			}else{
+				if (jQuery('[name="fit"]').val() == 'Select' || !jQuery('[name="fit"]').val()) {
+					this.showError(_('Please enter Fit Value').translate());
+					return false;
+				}
+				if (jQuery('[name="units"]').val() == 'Select' || !jQuery('[name="units"]').val()) {
+					this.showError(_('Please enter Units Value').translate());
+					return false;
+				}
 			}
 
 			this.model.set("name", jQuery("#in-modal-name").val());

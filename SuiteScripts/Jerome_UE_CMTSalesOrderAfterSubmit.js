@@ -1,19 +1,19 @@
 
 /**
- * The recordType (internal id) corresponds to the "Applied To" record in your script deployment. 
+ * The recordType (internal id) corresponds to the "Applied To" record in your script deployment.
  * @appliedtorecord salesorder
- * 
+ *
  * @param {String} type Operation types: create, edit, delete, xedit,
  *                      approve, cancel, reject (SO, ER, Time Bill, PO & RMA only)
  *                      pack, ship (IF only)
- *                      dropship, specialorder, orderitems (PO only) 
+ *                      dropship, specialorder, orderitems (PO only)
  *                      paybills (vendor payments)
  * @returns {Void}
  */
 function userEventAfterSubmitSO(type) {
 	nlapiLogExecution('DEBUG', '**********************', 'new function = userEventAfterSubmitSO');
 	nlapiLogExecution('DEBUG', 'userEventAfterSubmitSO', 'type='+type);
-	
+
 	if (type == 'create' || type == 'edit'){
 		var context =  nlapiGetContext();
 		var executionContext =  context.getExecutionContext();
@@ -25,17 +25,17 @@ function userEventAfterSubmitSO(type) {
 				var newSORecord =  nlapiLoadRecord('salesorder', recordID);
 				var soNumber =  newSORecord.getFieldValue('tranid');
 				var customerName =  newSORecord.getFieldValue('custbody_customer_name');
-				
+
 				nlapiLogExecution('DEBUG', 'userEventAfterSubmitSO', 'soNumber='+soNumber);
 				nlapiLogExecution('DEBUG', 'userEventAfterSubmitSO', 'customerName='+customerName);
 				var itemCount = newSORecord.getLineItemCount('item');
 				nlapiLogExecution('DEBUG', 'userEventAfterSubmitSO', 'itemCount='+itemCount);
 				nlapiLogExecution('DEBUG', 'itemCount', itemCount);
-				
+
 				var status = newSORecord.getFieldText('orderstatus');
-				
+
 				if (type == 'create' || (type == 'edit' && status == "Pending Approval")){
-								
+
 					var count = 0;
 					for (var ii=1; ii<=itemCount; ii++){
 						nlapiLogExecution('DEBUG', 'item', ii);
@@ -43,21 +43,22 @@ function userEventAfterSubmitSO(type) {
 						var itemID = newSORecord.getLineItemValue('item', 'item', ii);
 
 						// AVT
-						
+
 						if (type == 'create' && executionContext == 'webstore')
 						{
 							var dateNeededValue = newSORecord.getLineItemValue('item', 'custcol_avt_date_needed', ii);
-							
+
 							newSORecord.selectLineItem('item', ii);
 							newSORecord.setCurrentLineItemValue('item', 'custcol_avt_saleorder_line_key',  recordID.toString() + '_' + new Date().getTime());
-							
+
 							if (dateNeededValue == '1/1/1900')
 							{
-								newSORecord.setCurrentLineItemValue('item', 'custcol_avt_date_needed', '');
+                var dn = newSORecord.getFieldValue('custbody_date_needed');
+								newSORecord.setCurrentLineItemValue('item', 'custcol_avt_date_needed', dn);
 							}
 							newSORecord.commitLineItem('item');
 						}
-						
+
 						nlapiLogExecution('DEBUG', 'userEventAfterSubmitSO', 'itemID='+itemID);
 						var customerName =  newSORecord.getFieldValue('custbody_customer_name');
 						nlapiLogExecution('DEBUG', 'userEventAfterSubmitSO inside loop', 'customerName = '+customerName);
@@ -88,11 +89,11 @@ function userEventAfterSubmitSO(type) {
 												   , 'custcol_avt_hold_production'
 												   //, 'custcol_avt_saleorder_line_key'
 												  ];
-						
+
 						if (isServiceItem != 'T'){
 							count++;
 							arCustomColumnValues = [];
-						} else {		
+						} else {
 							//it is a service item, so copy the details of custom columns from the fabric item line above it and insert it to the service line item.
 							if (ii > 1){
 								for (var columnNumber = 0; columnNumber < arCustomColumnNames.length; columnNumber++){
@@ -101,7 +102,7 @@ function userEventAfterSubmitSO(type) {
 								}
 							}
 						}
-						
+
 						//Set the SO ID column to the unique identifier - SalesOrder_fabric item line number.
 						//both the fabric item and service item will have the same identifier for association purposes.
 						nlapiLogExecution('DEBUG', 'userEventAfterSubmitSO', soNumber + '-' + count);
@@ -109,45 +110,45 @@ function userEventAfterSubmitSO(type) {
 						newSORecord.setCurrentLineItemValue('item', 'custcol_so_id', soNumber + '-' + count);
 						nlapiLogExecution('DEBUG', 'arCustomColumnValues length', arCustomColumnValues.length);
 						//if the fabric item values were retrieved and this is a service item, enter all custom column values into this line from the corresponding fabric line item.
-						if (arCustomColumnValues.length > 0){	
+						if (arCustomColumnValues.length > 0){
 							for (var columnNumber = 0; columnNumber < arCustomColumnNames.length; columnNumber++){
 								nlapiLogExecution('DEBUG', 'columnNumber', columnNumber);
 								//newSORecord.setCurrentLineItemValue('item', arCustomColumnNames[columnNumber], arCustomColumnValues[columnNumber]);
-								
+
 								// AVT
 								if (arCustomColumnNames[columnNumber] == 'custcol_avt_date_needed')
 								{
 									var dateNeededInsertedValue = arCustomColumnValues[columnNumber];
-									
+
 									if (dateNeededInsertedValue == '1/1/1900')
 									{
 										arCustomColumnValues[columnNumber] = '';
 									}
 								}
-								
+
 								newSORecord.setCurrentLineItemValue('item', arCustomColumnNames[columnNumber], arCustomColumnValues[columnNumber]);
 							}
-							
+
 							if (type == 'create' && executionContext == 'webstore')
 							{
 								newSORecord.setCurrentLineItemValue('item', 'custcol_avt_saleorder_line_key', recordID.toString() + '_' + new Date().getTime());
 							}
-							
-							
+
+
 						}
 
 						newSORecord.commitLineItem('item');
-													
+
 					}
 					customerName =  newSORecord.getFieldValue('custbody_customer_name');
 					nlapiLogExecution('DEBUG', 'userEventAfterSubmitSO after loop', 'customerName = '+customerName);
 					var submit = nlapiSubmitRecord(newSORecord);
-					
+
 				}
 			} catch (ex) {
 				var strError = (ex.getCode != null) ? ex.getCode() + '\n' + ex.getDetails() + '\n' + ex.getStackTrace().join('\n') : ex.toString();
 				nlapiLogExecution('ERROR', 'userEventAfterSubmitSO error', strError);
 			}
 		}
-	}	
+	}
 }

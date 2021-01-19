@@ -1,0 +1,199 @@
+<% registerMacro('newmeasureForm', function (fields, values, selectedItemType, favFitToolsFlag, view) { %>
+
+	<%
+		var profile = view.model;
+		var fitObj = _.find(values,function(o){
+			return o.name == 'fit';
+		});
+		var measurementDefaults = null;
+		if(profile.get('custrecord_fp_block_value') && fitObj && fitObj.value && selectedItemType){
+			measurementDefaults = _.filter(view.measurementdefaults,function(b){
+				return b.custrecord_md_blockmeasurement == profile.get('custrecord_fp_block_value') && b.custrecord_md_fitoptionstext == fitObj.value	&& b.custrecord_md_producttypetext == selectedItemType;
+			});
+		}
+		var influences = null;
+		influences = _.filter(view.influences,function(c){
+			return c.custrecord_in_producttypetext== selectedItemType;
+		});
+		var unitsmeasurementvalue = null;
+	%>
+
+	<% if(fields && fields.fieldset && fields.fieldset.length){ %>
+		<h4 class="section-header"><%= _('Measurement Details').translate() %></h4>
+		<% _.each(fields.fieldset, function(fieldset){ %>
+		<% if(fieldset.name == 'main'){ %>
+			<div class="main-section">
+				<% if(fields.type == 'Body'){ %>
+					<% _.each(fieldset.fields, function(field){
+						var mainBodyValue = null;
+						var fieldValue = _.where(values, {name: field.name})
+						if(fieldValue.length){
+							mainBodyValue = fieldValue[0].value;
+						}
+
+						if(!mainBodyValue){
+							mainBodyValue = field.options[0];
+						}
+						if(field.name == "units"){
+							unitsmeasurementvalue = mainBodyValue;
+							if(mainBodyValue == 'Inches'){
+	      				view.itemRangeConfig = view.inchConfig;
+	      			}else if(mainBodyValue == 'CM'){
+								view.itemRangeConfig = view.cmConfig;
+							}
+						}
+					%>
+					<%= SC.macros.newbodyMeasureField(view, field, mainBodyValue, fieldset.name,0,0,selectedItemType) %>
+					<% }) %>
+				<% } else { %>
+
+					<% _.each(fieldset.fields, function(field){
+						var mainBlockValue = null
+						,	fieldValue = _.where(values, {name: field.name})
+						if(fieldValue.length){
+							mainBlockValue = fieldValue[0].value;
+						}
+						var hideField = false, ptData = [];
+						if(view.defaultfavfittools.length>0){
+							var data= view.defaultfavfittools;
+							ptData = _.find(data,function(o){ return o.itemType == selectedItemType;});
+							if(ptData){
+								var hideData = _.find(ptData.measurementValues,function(o){ return o.name == field.name+'-hide-checkbox';});
+								if(hideData && hideData.value == 'true'){
+									hideField = true;
+								}
+							}
+						}
+					%>
+						<%= SC.macros.newBlockMeasureField(view,field, mainBlockValue,null,null,hideField, ptData, measurementDefaults, 0) %>
+					<% }) %>
+				<% } %>
+			</div>
+		<% } else { %>
+		<div class="<%= fieldset.name %>-section">
+			<h4><%= fieldset.label %></h4>
+			<hr />
+			<% if(fields.type == 'Body'){ %>
+				<% if(fieldset.name == "body-measurement"){ %>
+					<div class="row-fluid">
+
+						<div style="width:30%; float:left;margin:0;">&nbsp;</div>
+						<div style="width:20%;margin:0;" class="span3-profile offset2"><%= _('Measurement').translate() %></div>
+						<div style="width:20%;margin:0;" class="span3-profile"><%= _('Allowance').translate() %></div>
+						<div style="width:20%;margin:0; text-align:center;" class="span3-profile"><%= _('Finished').translate() %></div>
+						<div style="width:10%;margin:0;" class="span3-profile"><%= _('Range').translate() %></div>
+					</div>
+
+				<% } %>
+				<% _.each(fieldset.fields, function(field){
+
+					var fieldName = field.name;
+					var bodyValue = 0
+					,	allowance = 0
+					,	baseAllowance = 0;
+					var fieldValue = _.where(values, {name: fieldName});
+					if(fieldValue.length === 0){
+						fieldValue = _.where(values, {name: fieldName.replace('-',' ')});
+						fieldName = fieldName.replace('-',' ');
+					}
+					if(fieldValue.length === 0){
+						fieldValue = _.where(values, {name: fieldName.replace('+',' ')});
+						fieldName = fieldName.replace('+',' ');
+					}
+
+					var	allowFieldValue = _.where(values, {name: "allowance-" + fieldName})
+					var	lookUpField = _.where(values, {name: fields["lookup-key"]});
+
+					if(values) {
+						if(fieldValue.length){
+							bodyValue = fieldValue[0].value;
+						}
+						if(allowFieldValue.length){
+							allowance = allowFieldValue[0].value;
+						}
+						if(lookUpField.length){
+							baseAllowance = _.where(fields["lookup-value"][lookUpField[0].value], {field: field.name})[0];
+							baseAllowance = baseAllowance && baseAllowance.value ? baseAllowance.value : 0;
+						}
+					} else {
+						baseAllowance = _.where(fields["lookup-value"]["Very Slim"], {field: field.name})[0];
+						baseAllowance = baseAllowance && baseAllowance.value ? baseAllowance.value : 0;
+					}
+					if(unitsmeasurementvalue == 'Inches')
+						baseAllowance = (baseAllowance/2.54).toFixed(2);
+				%>
+					<%= SC.macros.newbodyMeasureField(view, field, bodyValue, fieldset.name, baseAllowance, allowance,selectedItemType) %>
+				<% }) %>
+			<% } else { %>
+
+				<div class="row-fluid">
+				<div style="width:30%;float:left;">&nbsp;</div>
+					<div style="width:20%;margin:0;" class="span2 offset3"><%= fieldset["max-label"] %></div>
+					<div style="width:20%;margin:0;"  class="span2 offset5p"><%= fieldset["min-label"] %></div>
+					<% if((fieldset.name == 'length' || fieldset.name == 'horizontals') && !favFitToolsFlag) { %>
+					<div style="width:11%;float:left; color:#c1c1c1;"><%= _('Default').translate() %></div>
+					<div style="width:9%;margin:0; color:#c1c1c1;"  class="span-w-10 offset5p"><%= _('Block').translate() %></div>
+					<div style="width:10%;margin:0; color:#c1c1c1;" class="span-w-10"><%= _('Finished').translate() %></div>
+					<% } else if(!favFitToolsFlag){ %>
+					<div style="width:11%;text-align:left;float: left; color:#c1c1c1;"><%= _('Default').translate() %></div>
+					<div style="width:9%;margin:0; color:#c1c1c1;" class="span3">&nbsp;</div>
+					<div style="width:10%;margin:0; color:#c1c1c1;" class="span3">&nbsp;</div>
+					<% } else { %>
+
+					<% } %>
+
+				</div>
+
+				<% _.each(fieldset.fields, function(field){
+					var blockValueMin = _.where(values, {name: field.name + "-min"})[0]
+					,	blockValueMax = _.where(values, {name: field.name + "-max"})[0]
+					, hideField = _.where(values, {name: field.name + "-hide-checkbox"})[0]
+					,	value = [blockValueMin, blockValueMax];
+
+					var influenceValue = 0;
+					var hideField = false, ptData = [];
+					if(view.defaultfavfittools.length>0){
+						var data= view.defaultfavfittools;
+						ptData = _.find(data,function(o){ return o.itemType == selectedItemType;});
+						if(ptData){
+							var hideData = _.find(ptData.measurementValues,function(o){ return o.name == field.name+'-hide-checkbox';});
+							if(hideData && hideData.value == 'true'){
+								hideField = true;
+							}
+						}
+					}
+					if(influences.length > 0){
+
+						var influencesArr = _.filter(influences, function(o){
+							return o.custrecord_in_in_parttext == field.name;
+						});
+						if(influencesArr.length>0){
+							for(var k=0;k<influencesArr.length;k++){
+								var obj = _.filter(values,function(o){
+									return unescape(o.name).indexOf(influencesArr[k].custrecord_in_bodyparttext) == 0;
+								});
+
+								if(obj.length>0){
+									for(var l=0;l<obj.length;l++){
+									influenceValue = parseFloat(influenceValue) + ((parseFloat(influencesArr[k].custrecord_in_influence)/parseFloat(100)) * parseFloat(obj[l].value));
+
+									}
+								}
+							}
+						}
+					}
+				%>
+					<%= SC.macros.newBlockMeasureField(view, field, value, fields.increment,fieldset,hideField, ptData, measurementDefaults, influenceValue) %>
+				<% }) %>
+			<% } %>
+		</div>
+		<% if(fieldset.name == "body-measurement" && (selectedItemType == 'Jacket' || selectedItemType == 'Waistcoat' ||
+			jQuery('[id*="custrecord_fp_product_type"]').val() == 'Jacket' || jQuery('[id*="custrecord_fp_product_type"]').val() == 'Waistcoat')){ %>
+
+		<p id="optionalmessage">** optional measurement</p>
+		<% } %>
+	<% } %>
+	<% }) %>
+
+	<% } %>
+<% }) %>

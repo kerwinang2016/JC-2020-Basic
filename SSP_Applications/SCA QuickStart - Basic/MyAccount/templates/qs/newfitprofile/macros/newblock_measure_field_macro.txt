@@ -1,0 +1,99 @@
+<% registerMacro('newBlockMeasureField', function (view, field, value, increment,fieldset,hideField,defaultFitTools, measurementDefaults, influenceValue) {
+	var type = field.type
+	,	label = field.label
+	,	name = field.name;
+	//We just need to set the default value here..
+	var fitTools = _.filter(defaultFitTools.measurementValues,function(o){
+		return unescape(o.name).indexOf(field.name) != -1;
+	});
+	var defaultText = "---", defaultValue = '---', finishedValue = "---", changeValue = 0;
+	for(var i=0;i<fitTools.length;i++){
+		var fitTool = fitTools[i];
+		if(fitTool && fitTool.value != "0" && fitTool.value != "Select"){
+			defaultText = fitTool.value;
+		}
+	}
+	if(value){
+		if(value[0] && value[0].value != '0'){
+			changeValue = parseFloat(value[0].value);
+		}
+		if(value[1] && value[1].value != '0'){
+			changeValue = parseFloat(value[1].value);
+		}
+	}
+	defaultValueObj = _.find(measurementDefaults,function(o){
+		return o.custrecord_md_bodyparttext == field.name;
+	});
+	if(defaultValueObj){
+		defaultValue = defaultValueObj.custrecord_md_value;
+	}
+
+	if(defaultValue != "---"){
+		finishedValue = (parseFloat(influenceValue) + parseFloat(defaultValue)).toFixed(2);
+	}
+%>
+<div class="row-fluid" style="<% if(hideField){ %> display:none; <% } %>">
+	<div style="width:30%;margin:0;" class="span3"><%= label %></div>
+	<% if(type == "select"){ %>
+		<% var optionstext = field.optionstext;
+		if(field.options && field.options.length){
+			if(field.name == 'fit'){
+				var customerFitFilter = SC.Application('MyAccount').user_instance.get('fit_restriction')?JSON.parse(SC.Application('MyAccount').user_instance.get('fit_restriction')):{};
+				var fitFilter = customerFitFilter[jQuery('[id*="custrecord_fp_product_type"]').val()];
+
+				if(fitFilter){
+					field.options = field.options.filter(function(o){ return fitFilter.indexOf(o) <0; });
+				}
+			}
+		%>
+			<div style="width:20%;margin:0;padding-right: 20px;"  class="span2"><select class="input input-small" data-field="<%=name%>" id="body-<%=name%>" name="<%=name%>">
+
+				<% for(var i=0;i<field.options.length; i++){
+				var option = field.options[i];
+				var selected = value == option ? 'selected' : '';
+				var optiontext = field.optionstext?field.optionstext[i]:option; %>
+				<option value="<%= option %>" <%= selected %>><%= optiontext %></option>
+				<% } %>
+			</select></div>
+		<% } else { %>
+			<% if(!_.isUndefined(field.max) && !_.isNull(field.max)){ %>
+				<div style="width:20%;margin:0;padding-right: 20px;" class="span2"><select class="input input-small block-measurement-fld" data-field="<%=name%>" id="<%= name %>-max" name="<%= name %>-max" <%= (value && value[0] && value[0].value != '0')?'disabled':'' %>>
+				<% for(var i = 0; i <= field.max; i = i + increment){
+					var selected = !_.isUndefined(value[1]) && parseFloat(value[1].value) == i ? 'selected' : '';
+					%>
+					<option value="<%= i %>" <%= selected %>><%= i %></option>
+				<% } %>
+				</select></div>
+			<% } %>
+			<% if(!_.isUndefined(field.min) && !_.isNull(field.min)){ %>
+				<div style="width:20%;margin:0;padding-right: 20px;" class="span2 offset5p"><select class="input input-small block-measurement-fld" data-field="<%=name%>" id="<%= name %>-min" name="<%= name %>-min" <%= (value && value[1] && value[1].value != '0')?'disabled':'' %>>
+				<% for(var i = 0; i >= field.min; i = i - increment){
+					var selected = !_.isUndefined(value[0]) && parseFloat(value[0].value) == i ? 'selected' : ''; %>
+					<option value="<%= i %>" <%= selected %>><%= i %></option>
+				<% } %>
+				</select></div>
+			<% } %>
+			<% if(fieldset.name == 'length' || fieldset.name == 'horizontals') { %>
+				<div style="width:11%;margin:0;float:left;text-align:left; color:#c1c1c1;" class="span3"><label class="fav-fit-tools-default" id="<%= name %>-default">
+				<%= defaultText %>
+				</label></div>
+				<span style="width:9%;margin:0;padding-right: 20px; color:#c1c1c1;" class="span-w-10 offset5p" data-container="<%=name%>-block">
+				<%= defaultValue %>
+				</span>
+				<span style="width:10%;margin:0;padding-right: 20px; color:#c1c1c1;" class="span-w-10" data-container="<%=name%>-finished">
+				<%= finishedValue %>
+				</span>
+			<% } else { %>
+				<div style="width:11%;margin:0;text-align:left; color:#c1c1c1;" class="span3"><label class="fav-fit-tools-default" id="<%= name %>-default">
+				<%= defaultText %>
+				</label></div>
+
+				<div style="width:9%;margin:0;" class="span3">&nbsp;</div>
+				<div style="width:10%;margin:0;" class="span3">&nbsp;</div>
+			<% } %>
+		<% } %>
+	<% } else { %>
+		<input class="input input-small" type="text" data-field="<%=name%>" id="<%= name %>" name="<%= name %>" />
+	<% } %>
+</div>
+<% }) %>

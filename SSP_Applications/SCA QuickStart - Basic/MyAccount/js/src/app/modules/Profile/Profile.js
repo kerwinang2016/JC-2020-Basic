@@ -1,22 +1,5 @@
 // Profile.js
 // -----------------
-/*
-Change History   
--------------- 
-Date: 28-02-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-11
-Change Description: Default fit tools can be inputted into the my account section
-*/
-
-/*
-Change History   
--------------- 
-Date: 04-03-2019
-Changed by:Shoaib Iqbal
-Change /Jira Ticket #: JHD-27
-Change Description: Remove Email Preferences section
-*/
 // Defines the Profile module (Collection, Views, Router)
 // As the profile is instanciated in the application (without definining a model)
 // the validation is configured here in the mountToApp
@@ -88,7 +71,7 @@ define('Profile', ['Profile.Views','Profile.Router','User.Model'], function (Vie
 					,	name: _('Favourite Options').translate()
 					,	url: 'favouriteoptions'
 					,	index: 7
-					}					
+					}
 				,	{ //JHD-11
 						id: 'favouritefittools'
 					,	name: _('Favourite Fit Tools').translate()
@@ -103,13 +86,13 @@ define('Profile', ['Profile.Views','Profile.Router','User.Model'], function (Vie
 		{
 			var Layout = application.getLayout();
 
-			jQuery.ajax({
-				url: _.getAbsoluteUrl('js/DesignOptions_Config.json'),
-				async: false,
-				success: function(data){
-					window.design_options = data
-				},
-			});
+			// jQuery.ajax({
+			// 	url: _.getAbsoluteUrl('js/DesignOptions_Config.json'),
+			// 	async: false,
+			// 	success: function(data){
+			// 		window.design_options = data
+			// 	},
+			// });
 
 			application.UserModel = UserModel.extend({
 				urlRoot: 'services/profile.ss'

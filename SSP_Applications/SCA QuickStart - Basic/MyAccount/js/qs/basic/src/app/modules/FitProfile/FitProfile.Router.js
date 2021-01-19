@@ -1,15 +1,15 @@
 // Profile.Router.js
 // -----------------------
 // Router for handling profile view/update
-define('FitProFile.Router',  ['FitProFile.Views', 'FitProfile.Model', 'FormRenderer.View'], function (Views, Model, FormRenderer)
+define('FitProFile.Router',  ['FitProFile.Views', 'FitProfile.Model', 'FormRenderer.View'], function ( Views, Model, FormRenderer)
 {
 	'use strict';
 
 	return Backbone.Router.extend({
 
 		routes: {
-			'fitprofile': 'fitProfile'
-		,	'fitprofile/:id': 'renderForm'
+			'fitprofile': 'fitProfile',
+			'fitprofile/:id': 'renderForm'
 		}
 
 	,	initialize: function (application, clients)
@@ -17,7 +17,6 @@ define('FitProFile.Router',  ['FitProFile.Views', 'FitProfile.Model', 'FormRende
 			this.application = application;
 			this.clients = clients;
 		}
-
 		// load the home page
 	,	fitProfile: function ()
 		{
@@ -28,7 +27,6 @@ define('FitProFile.Router',  ['FitProFile.Views', 'FitProfile.Model', 'FormRende
 			,	model: new Model(application.getUser().get("internalid"))
 			});
 			// view.model.on("afterInitialize", function(){
-				//console.log('TESTING')
 				view.showContent();
 			// })
 		}
@@ -40,7 +38,6 @@ define('FitProFile.Router',  ['FitProFile.Views', 'FitProfile.Model', 'FormRende
 			,	profileModel: application.getLayout().currentView.model
 			,	mode: id
 			});
-
 			view.showContent();
 		}
 	});

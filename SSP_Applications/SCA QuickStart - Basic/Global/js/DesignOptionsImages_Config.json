@@ -951,6 +951,315 @@
 	,	"T01162701": ["Trench-Monogram On Lining.png"]
 	,	"T01162702": ["Trench-Monogram On Label.png"]
 
+	,	"T01490101": ["MC_Std Canvas.png"]
+	,	"T01490102": ["MC_Light Canvas.png"]
+
+	,	"T01490201": ["MC_1 Button Closure.png"]
+	,	"T01490202": ["MC_Link Button Closure.png"]
+	,	"T01490203": ["MC_6 Button Closure.png"]
+
+	,	"T01491201": ["MC_Std Shoulder.png"]
+	,	"T01491202": ["MC_Roped Shoulder type.png"]
+	,	"T01491203": ["MC_Soft Shoulder type.png"]
+
+	,	"T01491301": ["MC_Normal Front dart.png"]
+	,	"T01491302": ["MC_Prominent Front dart.png"]
+
+	,	"T01491601": ["MC_Back style with button.png"]
+	,	"T01491602": ["MC_Back style with button n Tabs.png"]
+	,	"T01491603": ["MC_Back style no button.png"]
+
+	,	"T01490602": ["MC_Formal Lapel.png"]
+
+	,	"T01490702": ["MC_Formal Lapel Edge.png"]
+
+	,	"T01490902": ["MC_Formal Breast Pocket.png"]
+
+	,	"T01490802": ["MC_Formal Collar.png"]
+
+	,	"T01490301": ["MC_Notch Lapel.png"]
+	,	"T01490302": ["MC_Notch Lapel.png"]
+	,	"T01490303": ["MC_Notch Lapel.png"]
+	,	"T01490304": ["MC_Notch Lapel.png"]
+	,	"T01490305": ["MC_Notch Lapel.png"]
+	,	"T01490306": ["MC_Notch Lapel.png"]
+	,	"T01490307": ["MC_Peak Lapel.png"]
+	,	"T01490308": ["MC_Peak Lapel.png"]
+	,	"T01490309": ["MC_Peak Lapel.png"]
+	,	"T01490310": ["MC_Peak Lapel.png"]
+	,	"T01490311": ["MC_Peak Lapel.png"]
+
+	,	"T01490401": ["MC_Left Lapel Buttonhole position.png"]
+	,	"T01490402": ["MC_Lapel Buttonhole right.png"]
+	,	"T01490403": ["MC_Left N Right Lapel Buttonhole position.png"]
+	,	"T01490404": ["MC_No Lapel Buttonhole position.png"]
+
+	,	"T01490501": ["MC_NA Lapel Style.png"]
+	,	"T01490502": ["MC_Normal Lapel Style.png"]
+	,	"T01490503": ["MC_Neapolitan Lapel Style.png"]
+	,	"T01490504": ["MC_MB 01 Lapel Style.png"]
+	,	"T01490505": ["MC_MB 02 Lapel Style.png"]
+	,	"T01490506": ["MC_MB 03 Lapel Style.png"]
+	,	"T01490507": ["MC_MB 04 Lapel Style.png"]
+	,	"T01490508": ["MC_MB 05 Lapel Style.png"]
+	,	"T01490509": ["MC_MB 06 Lapel Style.png"]
+	,	"T01490510": ["MC_MB 07 Lapel Style.png"]
+	,	"T01490511": ["MC_MB 01 Long Lapel Style.png"]
+	,	"T01490512": ["MC_MB 08 Lapel Style.png"]
+	,	"T01490513": ["MC_MB 09 Lapel Style.png"]
+	,	"T01490514": ["MC_MB 10 Lapel Style.png"]
+	,	"T01490515": ["MC_MB 11 Lapel Style.png"]
+	,	"T01490516": ["MC_MB 12 Lapel Style.png"]
+	,	"T01490517": ["MC_MB 13 Lapel Style.png"]
+	,	"T01490518": ["MC_MB 14 Lapel Style.png"]
+	,	"T01490519": ["MC_MB 15 Lapel Style.png"]
+	,	"T01490520": ["MC_MB 16 Lapel Style.png"]
+	,	"T01490521": ["MC_MB 17 Lapel Style.png"]
+	,	"T01490522": ["MC_MB 18 Lapel Style.png"]
+	,	"T01490523": ["MC_MB 19 Lapel Style.png"]
+	,	"T01490524": ["MC_MB 20 Lapel Style.png"]
+
+	,	"T01491401": ["MC_Chest Pocket welted 2.8.png"]
+	,	"T01491402": ["MC_Chest Pocket welted 2.png"]
+	,	"T01491403": ["MC_Chest Pocket round welted 2.8.png"]
+	,	"T01491404": ["MC_Chest Pocket Jetted.png"]
+
+	,	"T01491701": ["MC_Vents 0.png"]
+	,	"T01491702": ["MC_Vents 1 Center.png"]
+
+	,	"T01491801": ["MC_Cuff Working buttonholes.png"]
+	,	"T01491802": ["MC_Cuff Imitation buttonholes.png"]
+	,	"T01491803": ["MC_Cuff No buttonholes.png"]
+	,	"T01491804": ["MC_No buttonholes.png"]
+	,	"T01491805": ["MC_Slanted working buttonholes.png"]
+	,	"T01491806": ["MC_Slanted imitation buttonholes.png"]
+
+	,	"T01491901": ["MC_Sleeve Button 1.png"]
+	,	"T01491902": ["MC_Sleeve Button 2.png"]
+	,	"T01491903": ["MC_Sleeve Button 3.png"]
+	,	"T01491904": ["MC_Sleeve Button 4.png"]
+	,	"T01491905": ["MC_Sleeve Button 5.png"]
+
+	,	"T01492001": ["MC_Sleeve Button Spacing Kissing.png"]
+	,	"T01492002": ["MC_Sleeve Button Spacing Non Kissing.png"]
+	,	"T01492003": ["MC_Sleeve Button Spacing NA.png"]
+
+	,	"T01492701": ["MC_Pick Stitching 2mm full.png"]
+	,	"T01492702": ["MC_Pick Stitching 6mm full.png"]
+	,	"T01492703": ["MC_No Pick Stitching.png"]
+
+	,	"T01492401": ["MC_Fully Lined.png"]
+
+	,	"T01493402": ["MC_Interior left pock Classic with fabric.png"]
+
+	,	"T01493501": ["MC_Under collar Monogram.png"]
+
+	,	"T01493901": ["MC_Interior lining Monogram.png"]
+
+	,	"T01070610": ["CS_Cuff Short Sleeve.png"]
+
+	,	"T01690201": ["SJ_Closure-3 Button.png"]
+	,	"T01690202": ["SJ_Closure-4 Button.png"]
+	,	"T01690203": ["SJ_Closure-5 Button.png"]
+	,	"T01690204": ["SJ_Closure-7 Button.png"]
+	,	"T01690205": ["SJ_Closure-5 Button N Zipper.png"]
+	,	"T01690206": ["SJ_Closure-7 Button Zipper.png"]
+
+	,	"T01690601": ["SJ_Shoulder Type STD.png"]
+	,	"T01690602": ["SJ_Shoulder Type Soft.png"]
+	,	"T01690603": ["SJ_Shoulder Type Unconstructed.png"]
+
+	,	"T01691301": ["SJ_Back Style Std.png"]
+	,	"T01691302": ["SJ_Back Style Internal draw string.png"]
+	,	"T01691303": ["SJ_BS Removable Belt Sew Loops Buckle.png"]
+	,	"T01691304": ["SJ_BS Removable Belt Sew Loops.png"]
+
+	,	"T01690401": ["SJ_Lapel Left Position.png"]
+	,	"T01690402": ["SJ_Lapel Right Position.png"]
+	,	"T01690403": ["SJ_Lapel Left N Right Position.png"]
+	,	"T01690404": ["SJ_Lapel No Buttonhole.png"]
+
+	,	"T01691001": ["SJ_SP Curved Patch.png"]
+	,	"T01691002": ["SJ_SP Mitered Patch Rounded.png"]
+	,	"T01691003": ["SJ_SP-Mitered Pointed Patch.png"]
+	,	"T01691004": ["SJ_SP-Patch.png"]
+	,	"T01691005": ["SJ_SP Curved Pleated Patch.png"]
+	,	"T01691006": ["SJ_SP Mitered Pleated Patch.png"]
+	,	"T01691007": ["SJ_SP Mitered Pleated Patch Rounded.png"]
+
+	,	"T01690801": ["SJ_Chest Pocket Curved patch.png"]
+	,	"T01690802": ["SJ_Chest Pocket Patch.png"]
+	,	"T01690803": ["SJ_Chest Pocket Curved Pleated Patch.png"]
+	,	"T01690804": ["SJ_Chest Pocket Mitered Pleated Patch.png"]
+	,	"T01690805": ["SJ_Chest Pocket Mitered Pleated Patch W Rounded.png"]
+	,	"T01690806": ["SJ_Chest Pocket Mitered Patch.png"]
+	,	"T01690807": ["SJ_CP Mitered Patch W Pointed.png"]
+
+	,	"T01690901": ["SJ_CP position Left.png"]
+	,	"T01690902": ["SJ_CP position Right.png"]
+	,	"T01690903": ["SJ_CP position Left N Right.png"]
+	,	"T01690904": ["SJ_CP position NA.png"]
+
+	,	"T01692201": ["SJ_Utility Left.png"]
+	,	"T01692202": ["SJ_Utility Left N Right.png"]
+	,	"T01692203": ["SJ_Utility None.png"]
+
+	,	"T01690301": ["SJ_Collar Notch Lapel W Long.png"]
+	,	"T01690302": ["SJ_Collar Medium No lapel.png"]
+	,	"T01690303": ["SJ_2B Stand up Collar.png"]
+	,	"T01690304": ["SJ_2B Stand up Collar W Detatchable hood.png"]
+	,	"T01690305": ["SJ_2B Stand up Collar W Flap hood.png"]
+	,	"T01690306": ["SJ_Medium Collar W 2b Flap Hood.png"]
+
+	,	"T01691601": ["SJ_CF 1b Sleeve Pleats.png"]
+	,	"T01691602": ["SJ_CF 1B Pointed No Sleeve.png"]
+	,	"T01691603": ["SJ_CF 1B Rounded No Sleeve.png"]
+	,	"T01691604": ["SJ_CF 2B Wide Cuff.png"]
+	,	"T01691605": ["SJ_CF Plain.png"]
+
+	,	"T01692401": ["SJ_Stitching Top 6mm.png"]
+
+	,	"T01692001": ["SJ_Lining Placement Fully.png"]
+	,	"T01692002": ["SJ_Lining Placement Half Q.png"]
+	,	"T01692003": ["SJ_Lining Placement Unlined Butterfly.png"]
+
+	,	"T01693002": ["SJ_Lining edge.png"]
+
+	,	"T01693402": ["SJ_Left Pocket Zipper.png"]
+
+	,	"T01691901": ["SJ_IC Curved French Facing.png"]
+	,	"T01691902": ["SJ_IC Classic Fabric Jetted.png"]
+	,	"T01691903": ["SJ_IC Unlined Fabric Facing.png"]
+
+	,	"T01693201": ["SJ_Exposed seam piping NA.png"]
+	,	"T01693202": ["SJ_Exposed seam piping Half Q.png"]
+
+	,	"T01691101": ["SJ_Back Seam Std.png"]
+	,	"T01691102": ["SJ_Back Seam NA.png"]
+
+	,	"T01691201": ["SJ_Bottom Straight.png"]
+
+	,	"T01690701": ["SJ_Shoulder epaulettes NA.png"]
+	,	"T01690702": ["SJ_Shoulder epaulettes yes.png"]
+
+	,	"T01694601": ["SJ_Breast pocket Emblem.png"]
+
+	,	"T01693501": ["SJ_Monogram under collar yes.png"]
+	,	"T01693502": ["SJ_No Monogram under collar.png"]
+
+	,	"T01693901": ["SJ_Interior Monogram.png"]
+
+	,	"T01070201": ["SJCS_Sleeve Type Long.png"]
+	,	"T01070204": ["SJCS_Sleeve Type Long No Placket.png"]
+
+	,	"T01070301": ["SJCS_Sleeve Pleat 1.png"]
+	,	"T01070302": ["SJCS_Sleeve Pleat 2.png"]
+	,	"T01070303": ["SJCS_Sleeve Pleat 3.png"]
+
+	,	"T01071701": ["SJCS_Bottom Square no vent.png"]
+	,	"T01071702": ["SJCS_Bottom Square 5 vent.png"]
+	,	"T01071703": ["SJCS_Bottom Square 9 vent.png"]
+
+	,	"T01070401": ["SJCS_Collar Camp.png"]
+	,	"T01070402": ["SJCS_Collar No Neckband.png"]
+	,	"T01070403": ["SJCS_Collar Cut away small.png"]
+	,	"T01070404": ["SJCS_Collar Semi cut away.png"]
+	,	"T01070405": ["SJCS_Collar Button Down.png"]
+	,	"T01070406": ["SJCS_Collar Button Down Small.png"]
+	,	"T01070407": ["SJCS_Collar Button Down high.png"]
+	,	"T01070408": ["SJCS_Collar Hidden Button Down.png"]
+	,	"T01070409": ["SJCS_Collar Hidden Button Down high.png"]
+	,	"T01070410": ["SJCS_Collar Classic.png"]
+	,	"T01070411": ["SJCS_Collar Mao 4.png"]
+	,	"T01070412": ["SJCS_Collar Mao 2.png"]
+	,	"T01070413": ["SJCS_Collar Classic Low.png"]
+
+	,	"T01070601": ["SJCS_Cuff Single 1.png"]
+	,	"T01070602": ["SJCS_Cuff Single 2.png"]
+	,	"T01070603": ["SJCS_Cuff Single Curved 1.png"]
+	,	"T01070604": ["SJCS_Cuff Single Curved Narrow 1.png"]
+	,	"T01070605": ["SJCS_Cuff Single Curved 2.png"]
+	,	"T01070606": ["SJCS_Cuff Single 3.png"]
+	,	"T01070608": ["SJCS_Cuff Slanted 2.png"]
+	,	"T01070609": ["SJCS_Cuff Single Curved 2 Adj.png"]
+	,	"T01070611": ["SJCS_Cuff Single Square 1.png"]
+	,	"T01070612": ["SJCS_Cuff Single Square 2.png"]
+	,	"T01070613": ["SJCS_Cuff Single 1 Convert.png"]
+	,	"T01070615": ["SJCS_Cuff Contrast Single 1 btn.png"]
+	,	"T01070616": ["SJCS_Cuff Contrast Single 1 btn half.png"]
+	,	"T01070617": ["SJCS_Cuff Contrast Single 2 btn All.png"]
+	,	"T01070618": ["SJCS_Cuff Contrast Single 2 btn half.png"]
+	,	"T01070619": ["SJCS_Cuff Contrast Single 3 Btn All.png"]
+
+	,	"T01071001": ["SJCS_Collar stays none.png"]
+
+	,	"T01070701": ["SJCS_Sleeve Vent-Low Button.png"]
+	,	"T01070702": ["SJCS_Sleeve Vent-With Button.png"]
+	,	"T01070703": ["SJCS_Sleeve Vent-Hidden Button.png"]
+	,	"T01070704": ["SJCS_Sleeve Vent-No Button.png"]
+	,	"T01070705": ["SJCS_Sleeve Vent-No Placket.png"]
+
+	,	"T01070801": ["SJCS_fusing soft.png"]
+
+	,	"T01070901": ["SJCS_FP No Placket wide fold.png"]
+
+	,	"T01071101": ["SJCS_Back Pleats No.png"]
+
+	,	"T01071201": ["SJCS_Yoke Type 1.png"]
+	,	"T01071202": ["SJCS_Yoke Type 2.png"]
+
+	,	"T01071601": ["SJCS_Back dart without.png"]
+
+	,	"T01071801": ["SJCS_CP None.png"]
+	,	"T01071802": ["SJCS_CP Mitred with pointed.png"]
+	,	"T01071803": ["SJCS_CP Mitred with pointed L&R.png"]
+	,	"T01071804": ["SJCS_CP Mitred with Box pleat Left.png"]
+	,	"T01071805": ["SJCS_CP Mitred with Box pleat L&R.png"]
+	,	"T01071806": ["SJCS_CP SQ Extruded Left.png"]
+	,	"T01071807": ["SJCS_CP SQ Extruded L&R.png"]
+	,	"T01071808": ["SJCS_CP X-Large Left.png"]
+	,	"T01071809": ["SJCS_CP X-Large L&R.png"]
+	,	"T01071810": ["SJCS_CP Rounded Pkt Left.png"]
+	,	"T01071811": ["SJCS_CP Rounded Pkt L&R.png"]
+	,	"T01071812": ["SJCS_SQ W Box Left.png"]
+	,	"T01071813": ["SJCS_SQ W Box L&R.png"]
+
+	,	"T01071901": ["SJCS_SP None.png"]
+	,	"T01071902": ["SJCS_SP Mitred W Pointed.png"]
+	,	"T01071903": ["SJCS_SP SQ W Box.png"]
+	,	"T01071904": ["SJCS_SP SQ Extruded Pkt.png"]
+	,	"T01071905": ["SJCS_SP SQ W Flap & Btn.png"]
+	,	"T01071906": ["SJCS_SP Welted Side Access.png"]
+
+	,	"T01072001": ["SJCS_Stitching 1mm.png"]
+	,	"T01072002": ["SJCS_Stitching 3mm.png"]
+	,	"T01072003": ["SJCS_Stitching 6mm.png"]
+
+	,	"T01072101": ["SJCS_Button Cross.png"]
+	,	"T01072102": ["SJCS_Button Lily.png"]
+
+	,	"T01072201": ["SJCS_Elbow Yes.png"]
+	,	"T01072202": ["SJCS_Elbow No.png"]
+
+	,	"T01074601": ["SJCS_Monogram Block.png"]
+	,	"T01074602": ["SJCS_Monogram Script.png"]
+
+	,	"T01074801": ["SJCS_Monogram Pos Outside Neckband.png"]
+	,	"T01074802": ["SJCS_Monogram Pos Inside Neckband.png"]
+	,	"T01074803": ["SJCS_Monogram Chest pocket.png"]
+	,	"T01074804": ["SJCS_Monogram Chest pocket.png"]
+	,	"T01074805": ["SJCS_Monogram Chest pocket.png"]
+	,	"T01074806": ["SJCS_Monogram Chest pocket.png"]
+	,	"T01074808": ["SJCS_Monogram Left Collar Leaf.png"]
+	,	"T01074809": ["SJCS_Monogram L Cuff.png"]
+	,	"T01074810": ["SJCS_Monogram L Cuff.png"]
+	,	"T01074811": ["SJCS_Monogram R Cuff.png"]
+	,	"T01074812": ["SJCS_Monogram R Cuff.png"]
+	,	"T01074813": ["SJCS_Monogram L Cuff 5.png"]
+	,	"T01074814": ["SJCS_Monogram R Cuff 5.png"]
+	,	"T01074815": ["SJCS_Monogram L Cuff 8.png"]
+	,	"T01074816": ["SJCS_Monogram R Cuff 8.png"]
+
 	,	"JM001": ["image_1.png", "image_2.png", "image_1.png"]
 	,	"JM002": ["image_2.png"]
 	,	"JM003": ["image_1.png", "image_2.png", "image_1.png"]
@@ -1244,7 +1553,6 @@
 	, 	"OCF007": ["image_1.png", "image_2.png", "image_1.png"]
 	, 	"OCF008": ["image_1.png"]
 	, 	"OCF009": ["image_1.png", "image_2.png", "image_1.png"]
-
 	, 	"OB001": ["image_1.png", "image_2.png", "image_1.png"]
 	, 	"OB002": ["image_1.png"]
 
@@ -1428,16 +1736,12 @@
 	, 	"SPT007": ["image_1.png", "image_2.png", "image_1.png"]
 	, 	"SPT008": ["image_1.png", "image_2.png", "image_1.png"]
 	, 	"SPT009": ["image_1.png"]
-
 	, 	"SMC001": ["image_1.png", "image_2.png", "image_1.png"]
 	, 	"SMC002": ["image_1.png"]
-
 	, 	"SMT001": ["image_1.png", "image_2.png", "image_1.png"]
 	, 	"SMT002": ["image_2.png", "image_1.png"]
-
 	, 	"SCT001": ["image_1.png", "image_2.png", "image_1.png"]
 	, 	"SCT002": ["image_1.png", "image_2.png"]
-
 	, 	"SCP001": ["image_1.png", "image_2.png", "image_1.png"]
 	, 	"SCP002": ["image_1.png", "image_2.png"]
 	, 	"SCP003": ["image_1.png"]
@@ -1446,12 +1750,11 @@
 	, 	"SCP006": ["image_1.png"]
 	, 	"SCP007": ["image_1.png", "image_2.png", "image_1.png"]
 	, 	"SCP008": ["image_2.png", "image_1.png"]
-
 	, 	"SCF001": ["image_1.png"]
 	, 	"SCF002": ["image_1.png", "image_2.png", "image_1.png"]
 	,		"FABQTY": ["CMT_fabric_usage.jpg"]
 	,		"li-qty": ["CMT_Lining_9_2020.jpg"]
 	,		"Button Code": ["Jacketbuttons14.jpg","Jacketbuttons13.jpg","Jacketbuttons12.jpg","Jacketbuttons11.jpg","Jacketbuttons10.jpg","Jacketbuttons9.jpg","Jacketbuttons8.jpg",
-		"Jacketbuttons7.jpg","Jacketbuttons6.jpg","Jacketbuttons5.jpg", "Jacketbuttons4.jpg","Jacketbuttons3.jpg","Jacketbuttons2.jpg","Jacketbuttons1.jpg"]
+			"Jacketbuttons7.jpg","Jacketbuttons6.jpg","Jacketbuttons5.jpg", "Jacketbuttons4.jpg","Jacketbuttons3.jpg","Jacketbuttons2.jpg","Jacketbuttons1.jpg"]
 	}
 ]

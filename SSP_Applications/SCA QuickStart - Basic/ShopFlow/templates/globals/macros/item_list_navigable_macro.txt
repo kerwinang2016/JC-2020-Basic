@@ -136,37 +136,6 @@
 				<% if (isDisplayDateNeededHoldFabricHoldProduction) { %>
 						<div class="sku">
 							<div style="margin-bottom: 10px;" class="form-control">
-								<%
-									var defaultDateNeeded = '1/1/1900';
-									var dateNeededValue =  defaultDateNeeded;
-									try
-									{
-										dateNeededValue =  _.where(line.get("options"), {id: "CUSTCOL_AVT_DATE_NEEDED"})[0].value;
-									}
-										catch(ex)
-									{
-										dateNeededValue =  defaultDateNeeded;
-									}
-									var isEmptyDateNeeded = (dateNeededValue == defaultDateNeeded) ? true : false;
-
-									var arrSplitDateNeeded = dateNeededValue.split('/')
-
-									var stDateNeeded = '';
-									var stYear = arrSplitDateNeeded[2];
-									var stMonth = arrSplitDateNeeded[1];
-									var stDate = arrSplitDateNeeded[0];
-									stDateNeeded += stYear;
-									stDateNeeded += '-';
-									stDateNeeded += (stMonth < 10) ? '0' + stMonth : stMonth;
-									stDateNeeded += '-';
-									stDateNeeded += (stDate < 10) ? '0' + stDate : stDate;
-
-
-								%>
-									<label for="custcol_avt_date_needed">
-										<span> <%= _('Date Needed:').translate() %> </span>
-										<input autocomplete="off" data-provide="datepicker" id="custcol_avt_date_needed_<%= line_id %>" placeholder="<%= _('yyyy-mm-dd').translate() %>" name="custcol_avt_date_needed" value="<%= (isEmptyDateNeeded) ? '' : stDateNeeded %>">
-									</label>
 									<input type="hidden" name="internalid" id="update-internalid-<%= line_id %>" class="update-internalid-<%= line_id %>" value="<%- line_id %>">
 							</div>
 						</div>
@@ -178,19 +147,17 @@
 				<div class="item-option selected-options-display">
 					<%= SC.macros.displayDesignOptions(line) %>
 				</div>
-				<% var sitecogs = _.where(line.get('options'), {id: "CUSTCOL_SITE_COGS"})[0];%>
-
-				<% if(sitecogs && application.getUser() && application.getUser().get('hidebillingandcogs') == 'F'){ %>
+				<% if(application.getUser() && application.getUser().get('hidebillingandcogs') == 'F'){ %>
 				<div class="item-cogs">
 					<div class="accordion" id="item-cogs-<%= line.id %>">
 						<div class="accordion-group">
 							<div class="accordion-heading">
-								<a class="accordion-toggle" data-toggle="collapse" data-target="#item-cogs-body-<%= line.id %>" data-parent="#item-cogs-<%= line.id %>">
+								<a class="accordion-toggle" data-internalid="<%= line.id %>" data-toggle="collapse" data-target="#item-cogs-body-<%= line.id %>" data-parent="#item-cogs-<%= line.id %>">
 									COGS
 								</a>
 							</div>
 							<div id="item-cogs-body-<%= line.id %>" style="padding-left: 50px; height: 0;" class="accordion-body collapse">
-									<%= sitecogs.value %>
+								Generating COGS
 							</div>
 						</div>
 					</div>
@@ -257,7 +224,7 @@
 
 		<% if (isDisplayButtCopy) { %>
 			<button data-action="copy-to-cart" class="btn add-to-cart" data-internalid="<%- line.get('internalid') %>"><%= _('Copy').translate() %></button>
-			<% }%>
+		<% }%>
 
 		<% if (is_advanced && application.ProductListModule && application.ProductListModule.isProductListEnabled() && application.name.toLowerCase() === 'shopping') { %>
 			<button class="btn saveforlater" data-action="save-for-later-item" data-internalid="<%- line.get('internalid') %>">
@@ -267,7 +234,6 @@
 		<a class="btn dropdown-toggle show-wishlist" href="/item-types/<%=formtype+'?client='+clientID+'|'+lineID%>">
 			Change Fabric
 		</a>
-
 		<button class="btn remove" data-action="remove-item" data-internalid="<%- line.get('internalid') %>">
 			<%= _('Remove').translate() %>
 		</button>

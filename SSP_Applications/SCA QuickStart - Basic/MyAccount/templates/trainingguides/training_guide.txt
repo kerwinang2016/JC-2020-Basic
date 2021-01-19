@@ -12,13 +12,32 @@
 		</h3>
 	  </div>
 	  <div id="tryonguide" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingOne">
-		<div class="card-block">
-			<a  target="_blank" href="/myaccount/TrainingGuides/Jerome Clothiers TryOn Measurements Guide.pdf" >
-				<img style="border: 2px solid #e5e5e5;" width="200px" height="130px" src="/myaccount/TrainingGuides/blockmeasurementguide.jpg" width="100" height="100">
-			</a>
-			<br>
-			<br>
-		</div>
+			<div class="card-block">
+				<div class="accordion-heading">
+					<h3 class="mb-0">
+						<a class="tablabel accordion-toggle collapsed" data-target="#menstryon" data-toggle="collapse" data-parent="#tryonguide" role="tab">
+						Men's TryOn Measurement Guide
+						</a>
+					</h3>
+				</div>
+				<div id="menstryon" class="accordion-body collapse show" role="tabpanel" style="margin-left:40px;">
+					<a target="_blank" href="/myaccount/TrainingGuides/Jerome Clothiers TryOn Measurements Guide.pdf" >
+						<img style="border: 2px solid #e5e5e5;" src="/myaccount/TrainingGuides/blockmeasurementguide.jpg" width="100" height="100">
+					</a>
+				</div>
+				<div class="accordion-heading">
+					<h3 class="mb-0">
+						<a class="tablabel accordion-toggle collapsed" data-target="#womenstryon" data-toggle="collapse" data-parent="#tryonguide" role="tab">
+						Women's TryOn Measurement Guide
+						</a>
+					</h3>
+				</div>
+				<div id="womenstryon" class="accordion-body collapse show" role="tabpanel" style="margin-left:40px;">
+					<a target="_blank" href="/myaccount/TrainingGuides/Jerome Clothiers Block Measurements Guide - Womens.pdf" >
+						<img style="border: 2px solid #e5e5e5;" width="100px" height="100px" src="/myaccount/TrainingGuides/womenstryon.png">
+					</a>
+				</div>
+			</div>
 	  </div>
 	</div>
 	<div class="accordion-group">
@@ -31,10 +50,71 @@
 	  </div>
 	  <div id="tryonchart" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingTwo">
 		<div class="card-block">
-			<a  target="_blank" href="/myaccount/TrainingGuides/TryOn Measurement Charts (CM).pdf" >
-				<img style="border: 2px solid #e5e5e5;" width="200px" height="130px" src="/myaccount/TrainingGuides/blockmeasurementcharts.jpg" width="100" height="100">
-			</a>
+			<div class="accordion-heading">
+				<h3 class="mb-0">
+					<a target="_blank" class="tablabel accordion-toggle" href="https://store.jeromeclothiers.com/myaccount/TrainingGuides/TryOn Measurement Charts (CM).pdf">
+					Jacket, Trouser, Waistcoat
+					</a>
+				</h3>
+			</div>
+			<div class="accordion-heading">
+				<h3 class="mb-0">
+					<a target="_blank" class="tablabel accordion-toggle" href="https://store.jeromeclothiers.com/myaccount/TrainingGuides/SHIRT-TRY ON.pdf">
+					Shirt
+					</a>
+				</h3>
+			</div>
+			<div class="accordion-heading">
+				<h3 class="mb-0">
+					<a target="_blank" class="tablabel accordion-toggle" href="https://store.jeromeclothiers.com/myaccount/TrainingGuides/Shirt Jacket Charts.pdf">
+					Shirt Jacket
+					</a>
+				</h3>
+			</div>
+			<div class="accordion-heading">
+				<h3 class="mb-0">
+					<a target="_blank" class="tablabel accordion-toggle" href="https://store.jeromeclothiers.com/myaccount/TrainingGuides/Consolidated.pdf">
+					Shorts
+					</a>
+				</h3>
+			</div>
+			<div class="accordion-heading">
+				<h3 class="mb-0">
+					<a target="_blank" class="tablabel accordion-toggle" href="https://store.jeromeclothiers.com/myaccount/TrainingGuides/OVER COAT20170907 -try on.pdf">
+					Overcoat
+					</a>
+				</h3>
+			</div>
+			<div class="accordion-heading">
+				<h3 class="mb-0">
+					<a target="_blank" class="tablabel accordion-toggle" href="https://store.jeromeclothiers.com/myaccount/TrainingGuides/TRENCH COAT SIZE-2019-6-21.pdf">
+					Trenchcoat
+					</a>
+				</h3>
+			</div>
+			<div class="accordion-heading">
+				<h3 class="mb-0">
+					<a target="_blank" class="tablabel accordion-toggle" href="https://store.jeromeclothiers.com/myaccount/TrainingGuides/Morning coat-Size-2020.08.28.xls">
+					Morningcoat
+					</a>
+				</h3>
+			</div>
+			<div class="accordion-heading">
+				<h3 class="mb-0">
+					<a target="_blank" class="tablabel accordion-toggle" href="https://store.jeromeclothiers.com/myaccount/TrainingGuides/Safari Jacket.pdf">
+					Safari Jacket
+					</a>
+				</h3>
+			</div>
+			<div class="accordion-heading">
+				<h3 class="mb-0">
+					<a target="_blank" class="tablabel accordion-toggle" href="https://store.jeromeclothiers.com/myaccount/TrainingGuides/WOMENSWEARSIZECHARTS1.pdf">
+					Women's Items
+					</a>
+				</h3>
+			</div>
 		</div>
+
 	  </div>
 	</div>
 	<div class="accordion-group">
@@ -1143,7 +1223,7 @@
 			<div id="jtw" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingThree_1">
 				<div class="card-block">
 				<a target="_blank" href="/myaccount/TrainingGuides/FW20_Designs/PDF_Manuals/Jacket_Trouser_Waistcoat.pdf" >
-					<img style="border: 2px solid #e5e5e5;" width="200px" height="130px" src="/myaccount/TrainingGuides/Platform_Icons/Catalogue Icons.jpg" width="100" height="100">
+					<img style="border: 2px solid #e5e5e5;" src="/myaccount/TrainingGuides/FW20_Designs/Platform_Icons/Catalogue Icons.jpg" width="100" height="100">
 				</a>
 				</div>
 			</div>
@@ -1157,7 +1237,7 @@
 			<div id="shirt" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingThree_2">
 				<div class="card-block">
 				<a target="_blank" href="/myaccount/TrainingGuides/FW20_Designs/PDF_Manuals/Shirt.pdf" >
-					<img style="border: 2px solid #e5e5e5;" width="200px" height="130px" src="/myaccount/TrainingGuides/Platform_Icons/Catalogue Icons2.jpg" width="100" height="100">
+					<img style="border: 2px solid #e5e5e5;" src="/myaccount/TrainingGuides/FW20_Designs/Platform_Icons/Catalogue Icons2.jpg" width="100" height="100">
 				</a>
 				</div>
 			</div>
@@ -1171,7 +1251,7 @@
 			<div id="coats" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingThree_3">
 				<div class="card-block">
 				<a target="_blank" href="/myaccount/TrainingGuides/FW20_Designs/PDF_Manuals/Overcoat_Trenchcoat.pdf" >
-					<img style="border: 2px solid #e5e5e5;" width="200px" height="130px" src="/myaccount/TrainingGuides/Platform_Icons/Catalogue Icons3.jpg" width="100" height="100">
+					<img style="border: 2px solid #e5e5e5;" src="/myaccount/TrainingGuides/FW20_Designs/Platform_Icons/Catalogue Icons3.jpg" width="100" height="100">
 				</a>
 				</div>
 			</div>
@@ -1185,21 +1265,21 @@
 			<div id="safari" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingThree_4">
 				<div class="card-block">
 				<a target="_blank" href="/myaccount/TrainingGuides/FW20_Designs/PDF_Manuals/Safari Jacket.pdf" >
-					<img style="border: 2px solid #e5e5e5;" width="200px" height="130px" src="/myaccount/TrainingGuides/Platform_Icons/Catalogue Icons4.jpg" width="100" height="100">
+					<img style="border: 2px solid #e5e5e5;" src="/myaccount/TrainingGuides/FW20_Designs/Platform_Icons/Catalogue Icons5.jpg" width="100" height="100">
 				</a>
 				</div>
 			</div>
 			<div class="accordion-heading">
 				<h3 class="mb-0">
-				  <a class="tablabel accordion-toggle collapsed" data-target="#safari" data-toggle="collapse" data-parent="#mensdesigns" aria-expanded="false" aria-controls="bodymeasurementguide" role="tab" id="headingThree_5">
+				  <a class="tablabel accordion-toggle collapsed" data-target="#shirtjacket" data-toggle="collapse" data-parent="#mensdesigns" aria-expanded="false" aria-controls="bodymeasurementguide" role="tab" id="headingThree_5">
 					Shirt Jacket & Overshirt
 				  </a>
 				</h3>
 			</div>
-			<div id="safari" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingThree_5">
+			<div id="shirtjacket" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingThree_5">
 				<div class="card-block">
 				<a target="_blank" href="/myaccount/TrainingGuides/FW20_Designs/PDF_Manuals/ShirtJacket_Overshirt.pdf" >
-					<img style="border: 2px solid #e5e5e5;" width="200px" height="130px" src="/myaccount/TrainingGuides/Platform_Icons/Catalogue Icons5.jpg" width="100" height="100">
+					<img style="border: 2px solid #e5e5e5;" src="/myaccount/TrainingGuides/FW20_Designs/Platform_Icons/Catalogue Icons6.jpg" width="100" height="100">
 				</a>
 				</div>
 			</div>
@@ -1213,7 +1293,7 @@
 			<div id="morningcoat" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingThree_6">
 				<div class="card-block">
 				<a target="_blank" href="/myaccount/TrainingGuides/FW20_Designs/PDF_Manuals/MorningCoat.pdf" >
-					<img style="border: 2px solid #e5e5e5;" width="200px" height="130px" src="/myaccount/TrainingGuides/Platform_Icons/Catalogue Icons6.jpg" width="100" height="100">
+					<img style="border: 2px solid #e5e5e5;" src="/myaccount/TrainingGuides/FW20_Designs/Platform_Icons/Catalogue Icons4.jpg" width="100" height="100">
 				</a>
 				</div>
 			</div>
@@ -1230,8 +1310,8 @@
 	  </div>
 	  <div id="womensdesigns" class="accordion-body collapse show" role="tabpanel" aria-labelledby="headingFour">
 		<div class="card-block">
-		<a  target="_blank" href="/myaccount/TrainingGuides/SS20 Women's Designs - Highlights.pdf" >
-			<img style="border: 2px solid #e5e5e5;" width="200px" height="130px" src="/myaccount/TrainingGuides/womensdesign.jpg" width="100" height="100">
+		<a  target="_blank" href="/myaccount/TrainingGuides/FW20_Designs/PDF_Manuals/Women_s.pdf" >
+			<img style="border: 2px solid #e5e5e5;" src="/myaccount/TrainingGuides/FW20_Designs/Platform_Icons/Catalogue Icons7.jpg" width="100" height="100">
 		</a>
 		</div>
 	  </div>

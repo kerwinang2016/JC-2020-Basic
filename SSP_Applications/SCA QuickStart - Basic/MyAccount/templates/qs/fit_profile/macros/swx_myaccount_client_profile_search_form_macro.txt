@@ -5,11 +5,11 @@
 		var filterClientName = objRef['name'];
 		var filterClientEmail = objRef['email'];
 		var filterClientPhone = objRef['phone'];
-		
+
 		var isDisplayForm = paramToggleDisplay;
 	%>
-	
-	
+
+
 	<% if (isDisplayForm) { %>
 		<div id="swx-order-client-contents" style="margin-bottom: 20px;">
 	<% } else { %>
@@ -23,8 +23,8 @@
 								<input type="text" value="<%=filterClientName%>" name="swx-order-client-name" id="swx-order-client-name" class="input-large" style="width: 100%;">
 							</div>
 						</div>
-					</div>	
-		
+					</div>
+
 					<div class="span3">
 						<div class="control-group">
 							<label for="swx-order-client-email" class="control-label">Email</label>
@@ -32,8 +32,8 @@
 								<input type="text" value="<%=filterClientEmail%>" name="swx-order-client-email" id="swx-order-client-email" class="input-large" style="width: 100%;">
 							</div>
 						</div>
-					</div>	
-		
+					</div>
+
 					<div class="span3">
 						<div class="control-group">
 							<label for="swx-order-client-phone" class="control-label">Phone</label>
@@ -41,8 +41,8 @@
 								<input type="text" value="<%=filterClientPhone%>" name="swx-order-client-phone" id="swx-order-client-phone" class="input-large" style="width: 100%;">
 							</div>
 						</div>
-					</div>	
-		
+					</div>
+
 					<div class="span3">
 						<div class="control-group">
 							<label for="swx-order-client-search" class="control-label">&nbsp;</label>
@@ -51,16 +51,16 @@
 									<div class="span6"><button id="swx-order-client-search" class="btn btn-primary" style="width: 100%;">Search</button></div>
 									<div class="span6"><a href="/fitprofile/new|client|<%=paramCurrentUserInternalId%>" data-toggle="show-in-modal" class="btn btn-primary" style="width: 100%; padding-top: 4px; padding-bottom: 4px; padding-left: 0px; padding-right: 0px;">Add</a></div>
 								</div>
-								
+
 							</div>
 						</div>
-	
-					</div>	
+
+					</div>
 				</div>
-			
+
 		</div>
 
-	
+
 
 
 <% }) %>

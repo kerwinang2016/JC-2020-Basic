@@ -1,5 +1,4 @@
 <% registerMacro('productListDisplayFull', function(item, view, options) {
-
 	var product = item.get('item')
 	,	quantity = item.get('quantity')
 	,	priority = item.get('priority')

@@ -10,9 +10,11 @@
 			<% if(parent){ %>
 				<br/>Your Order has been placed on your main company <%= SC.Application('Checkout').getUser().get('parentname') %>
 			<% } %>
+			<br/>
+
 		<% } else { %>
 			<%= view.confirmationNumber %>
-			
+
 		<% } %>
 
 		</strong></big>
@@ -22,5 +24,6 @@
 	<% } %>
 	<p>
 		<a class="btn btn-success" href="/" data-touchpoint="home" data-hashtag="#/">Continue Ordering</a>
+		<a class="btn btn-success" href="#" data-touchpoint="customercenter" data-hashtag="#/ordershistory/view/<%= view.orderId %>">Request Discount or Request Rush</a>
 	</p>
 </div>

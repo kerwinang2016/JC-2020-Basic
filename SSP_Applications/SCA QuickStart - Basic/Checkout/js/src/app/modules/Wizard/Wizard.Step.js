@@ -395,18 +395,22 @@ define('Wizard.Step', function ()
 	,	submit: function (e)
 		{
 			var self = this;
-			
+
 			var clientids =[];
 			if(this.wizard.currentStep == 'opc'){
 				var cart = SC.Application('Checkout').getCart();
+				if(cart.get('options').custbody_date_needed == ""){
+					self.submitErrorHandler('Please enter Date Needed in Cart');
+					return ;
+				}
 				cart.get('lines').each(function (line){
 					var itemoptions = line.get('item').get('options');
 					for(var i=0;i<itemoptions.length;i++){
 						if(itemoptions[i].id == "CUSTCOL_TAILOR_CLIENT"){
 							if(clientids.indexOf(itemoptions[i].value) == -1){
-									clientids.push(itemoptions[i].value);									
+									clientids.push(itemoptions[i].value);
 								}
-							
+
 						}
 					}
 				});
@@ -415,8 +419,8 @@ define('Wizard.Step', function ()
 				return ;
 			}
 			}
-			
-				
+
+
 			// Disables the navigation Buttons
 			e && this.disableNavButtons();
 

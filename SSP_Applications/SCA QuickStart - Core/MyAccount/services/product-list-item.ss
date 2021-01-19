@@ -15,6 +15,7 @@ function service (request)
 		,	product_list_id = request.getParameter('productlistid') ? request.getParameter('productlistid') : data.productlistid
 		,	ProductListItem = Application.getModel('ProductListItem');
 		var customerid = request.getParameter('customerid');
+		var clientid = request.getParameter('clientid');
 		switch (method)
 		{
 			case 'GET':
@@ -22,7 +23,7 @@ function service (request)
 						sort: request.getParameter('sort') ? request.getParameter('sort') : data.sort // Column name
 					,	order: request.getParameter('order') ? request.getParameter('order') : data.order // Sort direction
 					,	page: request.getParameter('page') || -1
-				},customerid));
+				},customerid,clientid));
 			break;
 
 			case 'POST':

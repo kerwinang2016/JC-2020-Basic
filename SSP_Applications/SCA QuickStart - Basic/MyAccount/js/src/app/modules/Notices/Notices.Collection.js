@@ -40,7 +40,7 @@ define('Notices.Collection', ['Notices.Model'], function (Model)
               ,   to: range.to ? new Date(range.to.replace(/-/g,'/')).getTime() : null
               ,   page: options.page
               }
-          ,   reset: true
+					,   reset: true
           ,   killerId: options.killerId
           });
       }

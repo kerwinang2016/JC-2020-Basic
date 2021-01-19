@@ -99,7 +99,7 @@ define('NavigationHelper', ['Session', 'UrlHelper'], function (Session)
 							original_view.$containerModal.modal('hide');
 							return promise;
 						}
-						
+
 						if (view && _.isFunction(view.showInModal))
 						{
 							// Then we just call the show in modal of the same view that we were passed in.
@@ -303,10 +303,9 @@ define('NavigationHelper', ['Session', 'UrlHelper'], function (Session)
 						{
 							target_touchpoint += (~target_touchpoint.indexOf('?') ? '&' : '?') + target_data.parameters;
 						}
-
 						if (hashtag && hashtag !== '#' && hashtag !== '#/')
 						{
-							new_url = _.fixUrl(target_touchpoint + (~target_touchpoint.indexOf('?') ? '&' : '?') + 'fragment=' + clean_hashtag);
+							new_url = _.fixUrl(target_touchpoint + (~target_touchpoint.indexOf('?') ? '&' : '?') + '#' + clean_hashtag);
 						}
 						else
 						{

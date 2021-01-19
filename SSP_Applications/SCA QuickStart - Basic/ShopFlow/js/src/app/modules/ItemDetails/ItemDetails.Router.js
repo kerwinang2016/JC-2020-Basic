@@ -178,15 +178,84 @@ define('ItemDetails.Router', [], function ()
 								model.setOption('custcol_producttype',plist.split('|')[3]);
 							}
 						}
+
+
 						// we first prepare the view
 						view.prepView();
-						_.suiteRest('getVendorLink', model.get('internalid')).always(function (data) {
-                if (data) {
-                    window.vendor = data;
-                }
-								// then we show the content
-								view.showContent();
-            });
+						jQuery.when(
+							_.suiteRest('getVendorLink', model.get('internalid')).always(function (data) {
+								if (data) {
+					         window.vendor = data;
+					     }
+						 }),
+						 jQuery.ajax({
+ 							url:_.getAbsoluteUrl('js/extraQuantity.json'),
+ 							success: function (data) {
+ 									window.extraQuantity = data;
+ 							}
+ 						}),
+ 						jQuery.ajax({
+ 							url:_.getAbsoluteUrl('js/itemRangeConfig.json'),
+ 							success: function (data) {
+ 									window.cmConfig = data;
+ 							}
+ 						}),
+ 						jQuery.ajax({
+ 							url:_.getAbsoluteUrl('js/itemRangeConfigInches.json'),
+ 							success: function (data) {
+ 									window.inchConfig = data;
+ 							}
+ 						}),
+ 						jQuery.ajax({
+ 							url:_.getAbsoluteUrl('services/liningfabrics.ss'),
+ 							success: function (data) {
+ 									view.liningfabrics = data;
+ 							}
+ 						}),
+             //ADD THE PRODUCT TYPE HERE SO WILL LOAD FASTER
+             jQuery.ajax({
+ 							url:_.getAbsoluteUrl('services/measurementdefaults.ss'),
+               data: JSON.stringify({producttype:options.product}),
+ 							success: function (data) {
+                   view.measurementdefaults = data;
+ 							}
+ 						}),
+             jQuery.ajax({
+ 							url:_.getAbsoluteUrl('services/influences.ss'),
+               data: JSON.stringify({producttype:options.product}),
+ 							success: function (data) {
+                   view.influences = data;
+ 							}
+ 						}),
+             jQuery.ajax({
+               url:_.getAbsoluteUrl('services/bodyBlockMeasurements.ss'),
+               data: JSON.stringify({producttype:options.product}),
+               success: function (data) {
+                   window.bodyBlockMeasurements = data;
+               }
+             }),
+             jQuery.ajax({
+               url:_.getAbsoluteUrl('services/blockQuantity.ss'),
+               data: JSON.stringify({producttype:options.product}),
+               success: function (data) {
+                   window.blockQuantity = data;
+               }
+             }),
+             jQuery.ajax({
+               url:_.getAbsoluteUrl('services/designoptionconflicts.ss'),
+               data: JSON.stringify({producttype:options.product}),
+               success: function (data) {
+                   view.designoptionconflicts  = data;
+               }
+             })
+						).then(jQuery.proxy(view, 'showContent'));
+						//
+            //     if (data) {
+            //         window.vendor = data;
+            //     }
+						// 		// then we show the content
+						// 		view.showContent();
+            // });
 					}
 					else
 					{

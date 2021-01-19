@@ -29,9 +29,8 @@ define('Notices.Router', ['Notices.Model','Notices.Collection','NoticesList.View
 				,	options: params_options
 				,	page: (params_options && params_options.page)?params_options.page:1
 				});
-
-			view.collection.on('reset', view.render, view);
-			view.showContent();
+			view.collection.on('reset', view.showContent, view);
+			// view.showContent();
 		}
 	,	noticedetails: function (id)
 		{

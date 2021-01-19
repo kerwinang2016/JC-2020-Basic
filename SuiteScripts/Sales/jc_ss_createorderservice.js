@@ -34,15 +34,21 @@
       var filters = [
       // ['internalid','anyof',[903568]], 'AND',
       ["type", "anyof", "SalesOrd"],"AND",
-      ["mainline", "is", true], "AND", ["status", "anyof", "SalesOrd:A"],
-      "AND", ["trandate","after","30/7/2020"],
-      "AND", ["custbodycustbody_api_sales_ord_st_json","isnot","Success"],
-      "AND", ["custbodycustbody_api_sales_ord_st_json","isnot","Hold Order"],
-      "AND", ["custbodycustbody_api_sales_ord_st_json","isnot","Processed"]
+      ["mainline", "is", true],
+      "AND", ["trandate","after","30/7/2020"]
       ];
       if(ORDERNOLIST.length >0){
         filters.push("AND");
         filters.push(["internalid",'anyof',ORDERNOLIST]);
+      }else{
+        filters.push("AND");
+        filters.push(["status", "anyof", "SalesOrd:A"]);
+        filters.push("AND");
+        filters.push(["custbodycustbody_api_sales_ord_st_json","isnot","Success"]);
+        filters.push("AND");
+        filters.push(["custbodycustbody_api_sales_ord_st_json","isnot","Hold Order"]);
+        filters.push("AND");
+        filters.push(["custbodycustbody_api_sales_ord_st_json","isnot","Processed"]);
       }
       var rs = search.create({
 				type : "salesorder",
@@ -59,6 +65,7 @@
 			var orders = [];
 			var orderLists = [];
 			var searchResultCount = rs.runPaged().count;
+      log.debug('Search Result Count',searchResultCount)
 			rs.run().each(function(result) {
 				//Create Orders
 				var order = [];
@@ -70,6 +77,7 @@
   			//log.debug('order.id', rec.getValue('tranid'));
         try{
 				var orderObj = createOrder(rec);
+        log.debug('orderObj', orderObj);
         if(orderObj){
   				order.push(orderObj);
   				orderLists.push(orderObj);
@@ -86,7 +94,7 @@
   					folder: '2042'
   				})
   				var f_id = f.save();
-
+          log.debug('Saved JSON File', f_id);
   				var responseData = "";
   				  responseData = ustyylit.receiveOrder(receiveOrderData);
 				  orders.push({
@@ -156,7 +164,7 @@
                 }
               }
           }
-      }else if(typeof(data) == "object"){
+      }else if(typeof(data) == "object" && data.Result == "100"){
         //must be Success
         for(var i=0; i<orderObj.OrderDetails.length; i++){
             var soid = orderObj.OrderDetails[i].orderdetailid; //soid
@@ -170,7 +178,19 @@
               }
             }
         }
-      }
+      }else{
+		for(var i=0; i<orderObj.OrderDetails.length; i++){
+            var soid = orderObj.OrderDetails[i].orderdetailid; //soid
+            for(var j=0;j<rec.getLineCount('item');j++){
+              if(soid == rec.getSublistValue('item','custcol_so_id',j)){
+                rec.selectLine('item',j);
+                  rec.setCurrentSublistValue('item','custcolcustcol_api_status_fld','Error');
+                  rec.setCurrentSublistValue('item','custcolcustcol_api_error_desc_fld','Error. MsgId:'+data.msgid.substr(0,3500));
+                rec.commitLine('item');
+              }
+            }
+        }
+	  }
       //rec.setValue('custbodycustbody_api_sales_ord_st_json','Processed');
       rec.save();
     }
@@ -229,6 +249,7 @@
 				addrphone = addrSubrecord.getValue('addrphone'),
 				address1 = addrSubrecord.getValue("addr1");
 				var orderDetailsObj = createOrderDetails(rec);
+        log.debug('orderDetailsObj', orderDetailsObj);
         if(orderDetailsObj.orderdetails.length>0){
     			var orderObj = {
     				"brand":brand,
@@ -423,7 +444,7 @@
 				&& designoptions[z].name.indexOf(liningprefix) == -1
 				&& designoptions[z].name.indexOf(garmentname) == -1 ){
 					var value = designoptions[z].value;
-					if(designoptions[z].value == 'other'){
+					if(designoptions[z].value.toLowerCase() == 'other'){
 						var other = designoptions.reduce(function(o,p){
 							if(p.name == designoptions[z].name + othersuffix)
 								o.push(p);
@@ -692,16 +713,17 @@
 			for(var i=0; i<rec.getLineCount('item'); i++){
 				var itemNumber = i+1;
 				if(itemNumber % 2 != 0 && ((SOIDSLIST.length == 0)||(SOIDSLIST.indexOf(rec.getSublistValue('item','custcol_so_id',i)) != -1 ))){
-          log.debug('soid',rec.getSublistValue('item','custcol_so_id',i))
+          log.debug('itemtype',rec.getSublistValue('item','itemtype',i));
 					if(rec.getSublistValue('item','itemtype',i) == 'NonInvtPart'){
             if((rec.getSublistValue('item','item',i) == '253776' && !FORCECMT) || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Hold"
             || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Request Cancel"
             || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Request Hold"
 			      || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Processed"
             || rec.getSublistValue('item','custcolcustcol_api_status_fld',i) == "Success"){
+              log.debug('Continue and not Process',rec.getSublistValue('item','custcol_so_id',i))
               continue;
             }
-
+            log.debug('process soid',rec.getSublistValue('item','custcol_so_id',i))
 						var producttype = rec.getSublistValue('item','custcol_producttype',i);
 						var clf = '0', fabricmode = '02';
 						if(

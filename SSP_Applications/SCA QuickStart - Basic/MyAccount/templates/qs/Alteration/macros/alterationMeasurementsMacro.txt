@@ -1,0 +1,19 @@
+<% registerMacro('alterationMeasurementsMacro', function (view, alterationJSON, field,i) { %>
+<% if(Object.keys(field).length != 0){ %>
+<div class="span6">
+    <div style="padding:0 10px;">
+
+      <% if(field.isTitle) {%>
+        <label for=""><b><%= field.name %></b></label>
+      <% }else{ %>
+        <label for=""><%= field.name%></label>
+      <% } %>
+        <input type="text" maxlength="24" class="form-control pull-right" id="<%=field.value+i%>" name="<%=field.value+i%>" value="<%=alterationJSON[field.value+i]%>">
+
+    </div>
+</div>
+<% }else{ %>
+<div class="clear">
+</div>
+<% } %>
+<% }) %>

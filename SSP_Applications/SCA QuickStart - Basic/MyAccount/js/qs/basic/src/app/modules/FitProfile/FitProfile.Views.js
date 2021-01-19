@@ -1,13 +1,12 @@
 // Profile.Views.js
 // -----------------------
 // Views for profile's operations
-define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory.Collection', 'ItemDetails.Model', 'ProductList.Model', 'ProductListItem.Model', 'ProductListDetails.View'], function (ClientModel, ProfileModel, Collection, ItemDetailsModel, ProductListModel, ProductListItemModel, ProductListDetailsView) {
+define('FitProFile.Views', ['Profile.Model', 'ClientOrderHistory.Collection', 'ItemDetails.Model', 'ProductList.Model', 'ProductListItem.Model', 'ProductListDetails.View'], function (ProfileModel, Collection, ItemDetailsModel, ProductListModel, ProductListItemModel, ProductListDetailsView) {
 	'use strict';
 
 	var Views = {};
 	var saveForLaterItems = [];
 	var saveForlater = [];
-
 	// home page view
 	Views.Home = Backbone.View.extend({
 
@@ -739,10 +738,7 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 					if(imageSrc){
 						jQuery("#image-logo-id").attr("src", imageSrc);
 					}
-
 				}
-
-
 			} else {
 					jQuery("#alterations-actions").html("<a id='swx-alterations-dropdown-add' data-action='add-alterations' data-toggle='show-in-modal' data-type='profile'>Add</a>");
 					// check if event was triggered by add button
@@ -959,7 +955,6 @@ define('FitProFile.Views', ['Client.Model', 'Profile.Model', 'ClientOrderHistory
 			_.requestUrl("customscript_ps_sl_set_scafieldset", "customdeploy_ps_sl_set_scafieldset", "POST", param).always(function (data) {
 				data = JSON.parse(data.responseText);
 				if (data.status) {
-					console.log('submitAlterationForm')
 					var profileView = new Views.Profile({
 						model: new ProfileModel()
 						, application: self.application

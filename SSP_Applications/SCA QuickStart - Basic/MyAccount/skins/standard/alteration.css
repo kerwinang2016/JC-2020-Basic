@@ -1,0 +1,11 @@
+.alterationformview .span4{ width: 32%; margin:0 auto;display:inline-block;}
+.alterationformview .span2{ width: 25%; margin:0 auto;display:inline-block;}
+.alterationformview .span6{ width: 50%; margin:0 auto;display:inline-block;}
+.section{padding-bottom:20px;}
+[data-fieldtype="alteration-quantity"] {
+  width:50px;
+}
+.modal-alterationformview .modal-dialog{
+  width:815px;
+}
+.clear{ clear:both;}

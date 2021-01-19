@@ -31,6 +31,7 @@ define('ProductListItem.Collection', ['ProductListItem.Model'], function (Model)
 				,	order: options.order
 				,	page: options.page
 				, customerid: customerid
+				, clientid: options.clientid
 				}
 			,	reset: true
 			,	killerId: options.killerId

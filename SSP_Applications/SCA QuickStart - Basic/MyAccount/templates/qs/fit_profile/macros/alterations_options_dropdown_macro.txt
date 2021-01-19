@@ -9,7 +9,7 @@
 					<%
 						var selected = false;
 						var selectedID = "";
-					%> 
+					%>
 					<% alterationsData.each(function(alteration){ %>
 						<%
 							if(alteration.get("internalid") == SC._applications.MyAccount.getLayout().currentView.model.get("current_profile")){
@@ -20,7 +20,7 @@
 						<option value="<%= alteration.get("internalid") %>" <%= alteration.get("internalid") == SC._applications.MyAccount.getLayout().currentView.model.get("current_profile") ? 'selected' : ''%>><%= alteration.get("name") %></option>
 					<% }) %>
 				</select>
-				</div> 
+				</div>
 				<div class="span3" id="profile-actions">
 					<a href="/fitprofile" id="swx-alterations-dropdown-add" data-action='add-alterations' data-toggle='show-in-modal' data-type='profile'>Add</a>
 					<% if(selected){ %>

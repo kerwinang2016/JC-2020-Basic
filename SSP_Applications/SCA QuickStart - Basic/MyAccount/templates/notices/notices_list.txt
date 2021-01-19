@@ -8,7 +8,7 @@
 	<h3><%= view.page_header %>
 
 		<%= _('( $(0) unread )').translate(unreadmessages.length) %>
-	
+
 	</h3>
 </header>
 <% var collection = view.colletion; %>
@@ -63,9 +63,9 @@
 					<% }else{ %>
 							<span class="span2"> &nbsp;</span>
 					<% } %>
-					<span class="span2"><%= notice.get('custrecord_nb_date') %></span>
+					<span class="span2" style="text-align:right;"><%= notice.get('custrecord_nb_date') %></span>
 				</div>
-				<div style="margin-top:10px;">
+				<div style="margin-top:10px;clear:both;">
 					<%= notice.get('custrecord_nb_message').substr(0,100) %>
 					<% if(notice.get('custrecord_nb_message').length > 100){ %>
 						...

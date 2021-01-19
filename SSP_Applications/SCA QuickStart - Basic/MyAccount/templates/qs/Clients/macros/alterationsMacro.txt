@@ -1,0 +1,113 @@
+<% registerMacro('alterationsMacro', function (view,collection) {
+  console.log(collection);
+%>
+
+			<style>
+				#alterations-list .accordion-toggle:after {
+					font-family: FontAwesome;
+					font-style: normal;
+					font-weight: normal;
+					content: "\f054"; /*Font awesome icon chevron right*/
+					float: right;
+					color: grey;
+				}
+
+				#alterations-list .accordion-toggle:hover{
+					text-decoration: none;
+					color: grey;
+				}
+
+				#alterations-list .accordion-toggle.collapsed:after {
+					content: "\f078";/* Font awesome chevron down*/
+				}
+
+
+			</style>
+			<div id="alterations-list" style="margin-bottom: 10px;">
+				<div class="row-fluid togglecontainer" style="border-bottom: solid 1px #e5e5e5; margin-bottom: 18px; padding-bottom: 10px; padding-top: 20px">
+					<div class="span12">
+						<span style="font-size: 20px; font-weight: 400; color: #a6a6a6;">
+							<a data-target="#alterationsHistory" data-toggle="collapse"   aria-expanded="true" aria-controls="collapseOne" class="accordion-toggle" style="text-decoration:none;color:grey;">
+								Alterations
+							</a>
+						</span>
+					</div>
+				</div>
+
+				<!--Collapses body-->
+				<div id="alterationsHistory" class="collapse">
+					<!-- start alteration header -->
+					<div class="row-fluid" style="border-bottom: solid 1px #e5e5e5; margin-bottom: 8px;">
+						<div class="span10">
+							<div class="row-fluid">
+								<div class="span4" style="padding-bottom: 8px;">
+									<div style="font-weight: 600;">Name</div>
+								</div>
+								<div class="span4">
+									<div style="font-weight: 600;">Date Last Edited</div>
+								</div>
+							</div>
+						</div>
+						<div class="span2" style="margin-bottom:10px;">
+							<div class="row-fluid">
+								<div class="span12">
+									<div><a  id="alterations-add" class="btn" style="width: 100%; padding-top: 4px; padding-bottom: 4px; padding-left: 0px; padding-right: 0px;">Add Alterations</a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end alteration header -->
+	<% if (collection.length>0) { %>
+					<% _.each(collection.models, function(alteration) { %>
+
+						<%
+						var alterationInternalId = alteration.get('internalid');
+						var alterationName = alteration.get('name');
+						var alterationLastModifiedDate = alteration.get('lastmodified');
+						%>
+							<!-- start alteration row -->
+
+							<div class="row-fluid" style="border-bottom: solid 1px #e5e5e5; margin-bottom: 8px;">
+								<div class="span10" style="padding-top: 8px;">
+
+									<div class="row-fluid">
+
+										<div class="span4">
+											<div style="float: left; font-size: 12px;">
+												<%= alterationName %>
+											</div>
+											<div style="clear: both;"></div>
+										</div>
+
+
+										<div class="span4">
+											<div style="float: left; font-size: 12px;">
+												<%=alterationLastModifiedDate%>
+											</div>
+											<div style="clear: both;"></div>
+										</div>
+
+									</div>
+
+								</div>
+
+								<div class="span2" style="padding-bottom: 8px;">
+									<div class="row-fluid">
+										<div class="span10">
+											<div><a id="alteration-viewedit" class="btn" data-id="<%=alterationInternalId%>" style="width: 100%; padding-top: 4px; padding-bottom: 4px; padding-left: 0px; padding-right: 0px;">View & Edit</a></div>
+											<div id="mobile-only" style="height: 10px;"></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!-- end alteration row -->
+
+							<% }) %>
+              			<% } %>
+
+				</div>
+				<!--end of Fit alteration Collapse body-->
+
+			</div>
+
+<% }) %>

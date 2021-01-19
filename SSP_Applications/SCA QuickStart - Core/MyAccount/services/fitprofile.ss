@@ -136,25 +136,19 @@ var recordFunctions = {
 				arrColumn = [],
 				results = [];
       arrFilter.push(new nlobjSearchFilter('isinactive', null, 'is', 'F'));
-			//arrFilter.push(['isinactive','is','F']);
 			if(filters.length > 0){
 				for(var i=0; i < filters.length; i++){
-					//arrFilter.push('AND');
 					var filter = filters[i];
 					if(filter.type == "list"){
 						 arrFilter.push(new nlobjSearchFilter(filter.field, filter.join, filter.operand, filter.value.split(",")));
-						//arrFilter.push([filter.field,filter.operand,filter.value.split(",")]);
 					} else {
 						 arrFilter.push(new nlobjSearchFilter(filter.field, filter.join, filter.operand, filter.value));
-						//arrFilter.push([filter.field,filter.operand,filter.value]);
 					}
 				}
 			}
 
 			if(additionalfilters && additionalfilters.length >0){
         arrFilter = arrFilter.concat(additionalfilters);
-				//arrFilter.push("AND");
-				//arrFilter.push(additionalfilters);
 			}
 			if(columns.length > 0){
 				for(var k=0; k < columns.length; k++){
@@ -167,7 +161,7 @@ var recordFunctions = {
 					}
 				}
 			}
-      
+
       var search = nlapiCreateSearch(type, arrFilter, arrColumn);
       var searchSet = search.runSearch();
       var start = 0;
@@ -192,7 +186,6 @@ var recordFunctions = {
 							}
 						}
 					}
-
 					if(result){
 						results.push(result);
 					}

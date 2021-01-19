@@ -59,9 +59,9 @@
 						if(selectedField && selectedField.length >0){
 
 							selectedField = selectedField[0];
-							
+
 							for(var i = 0;i < selectedField.values.length; i++){
-							
+
 								if(selectedField.type == 'text' || selectedField.type == 'number'){
 									var value = new Object();
 									value.label = selectedField.label;

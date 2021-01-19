@@ -1,0 +1,286 @@
+<%
+   console.log('clientalter');
+   console.log(view);
+   var enableFields = true;
+   if(view.model.get('internalid'))
+   enableFields = false;
+
+	 var alterationData = view.model.get('custrecord_alterations_measure_values');
+	 var alterationArr = [], alterationJSON = {};
+	 if(alterationData){
+		 alterationArr = JSON.parse(alterationData);
+	 }
+	 for(var i=0; i<alterationArr.length;i++){
+		 alterationJSON[alterationArr[i].name] = alterationArr[i].value;
+	 }
+	 var jacketQuantity = view.jacketQuantity?view.jacketQuantity:parseFloat(alterationJSON["alteration_jkt"]?alterationJSON["alteration_jkt"]:0);
+	 var waistcoatQuantity = view.waistcoatQuantity?view.waistcoatQuantity:parseFloat(alterationJSON["alteration_wst"]?alterationJSON["alteration_wst"]:0);
+	 var trouserQuantity = view.trouserQuantity?view.trouserQuantity:parseFloat(alterationJSON["alteration_trs"]?alterationJSON["alteration_trs"]:0);
+	 var shirtQuantity = view.shirtQuantity?view.shirtQuantity:parseFloat(alterationJSON["alteration_sht"]?alterationJSON["alteration_sht"]:0);
+	 var overcoatQuantity = view.overcoatQuantity?view.overcoatQuantity:parseFloat(alterationJSON["alteration_ovc"]?alterationJSON["alteration_ovc"]:0);
+	 var jacketOvercoatQuantity = enableFields?view.jacketOvercoatQuantity:jacketQuantity + overcoatQuantity;
+	 var ordernumber = view.ordernumber?view.ordernumber:alterationJSON["alteration_order_no"];
+	 var clientname = alterationJSON["alteration_client_name"]?alterationJSON["alteration_client_name"]:view.client.get('custrecord_tc_first_name') + " " + view.client.get('custrecord_tc_last_name');
+	 var alterationdate = view.alterationdate?view.alterationdate:alterationJSON["alteration_date"];
+   var notes = alterationJSON["notes_comment"];
+   var jacketFields = [
+   	{name:'Erect/Stooping', value:'alteration_erect_stooping_'},
+   	{name:'Sleeve Position', value:'alteration_sleeve_'},
+   	{name:'Collar Height', value:'alteration_collar_height_'},
+   	{name:'Shorten Lapels', value:'alteration_shorten_lapels_'},
+   	{name:'Shoulder Height L', value:'alteration_shoulder_height_'},
+   	{name:'Shoulder Position', value:'alteration_shoulder_position_'},
+    {name:'Shoulder Height R', value:'alteration_Shoulder_height2_'},
+   	{name:'Left Shoulder Height', value:'alteration_left_shoulder_'},
+   	{name:'Back', value:'alteration_back_'},
+   	{name:'Right Shoulder Height', value:'alteration_right_shoulder_'},
+   	{name:'Chest', value:'alteration_Chest_'},
+   	{name:'Closing Button Height', value:'alteration_clos_btn_ht_'},
+   	{name:'Waist', value:'alteration_waist_'},
+   	{name:'Skirt', value:'alteration_skirt_'},
+    {name:'Hips', value:'alteration_hips_'},
+   	{name:'Upper Arm L', value:'alteration_upper_arm_'},
+   	{name:'Upper Arm R', value:'alteration_upper_arm2_'},
+   	{name:'Hand Width L', value:'alteration_hand_width_'},
+   	{name:'Hand Width R', value:'alteration_hand_width2_'},
+   	{name:'Sway Back', value:'alteration_sway_back_'},
+   	{name:'Jacket Length', value:'alteration_jacket_length_'},
+   	{name:'Stooped', value:'alteration_stooped_'},
+   	{name:'Sleeve Length', value:'alteration_sleeve_length_'},
+   	{name:'Erect', value:'alteration_erect_'},
+   	{name:'Other', value:'alteration_other_'}
+   	];
+   var trouserFields = [
+   	{name:'Waist', value:'alteration_Trouser_waist_'},
+   	{name:'Total Rise', value:'alteration_total_raise_'},
+   	{name:'Seat', value:'alteration_seat_'},
+   	{name:'Front Rise', value:'alteration_front_rise_'},
+   	{name:'Hip', value:'alteration_trouser_hip_'},
+   	{name:'Back Rise', value:'alteration_back_rise_'},
+   	{name:'Crotch', value:'alteration_trouser_crotch_'},
+    {name:'Flat Seat', value:'alteration_flat_seat_'},
+   	{name:'Thigh', value:'alteration_trouser_thigh_'},
+    {},
+   	{name:'Knee', value:'alteration_trouser_knee_'},
+    {},
+   	{name:'Hem', value:'alteration_trouser_hem_'},
+    {},
+   	{name:'Length', value:'alteration_trouser_length_'},
+    {},
+   	{name:'Other', value:'alteration_trouser_other_'}
+   	];
+
+   var shirtFields = [
+   	{name:'Neck', value:'alteration_shirt_neck_'},
+   	{name:'Chest', value:'alteration_shirt_chest_'},
+   	{name:'Chest', value:'alteration_shirt_chest1_'},
+   	{name:'Shoulder', value:'alteration_shirt_shoulder_'},
+   	{name:'Waist', value:'alteration_shirt_waist1_'},
+   	{name:'Waist', value:'alteration_waist2_'},
+   	{name:'Seat', value:'alteration_seat1_'},
+    {name:'Seat', value:'alteration_shirt_seat2_'},
+   	{name:'Bicep', value:'alteration_bicep_'},
+   	{name:'Sleeve L', value:'alteration_shirt_sleeve_left_'},
+   	{name:'Cuff', value:'alteration_cuff_'},
+   	{name:'Sleeve R', value:'alteration_shirt_sleeve_r_'},
+   	{name:'Sleeve Length', value:'alteration_shirt_sleeve_length_'},
+    {},
+   	{name:'Length', value:'alteration_shirt_length_'},
+    {},
+   	{name:'Other', value:'alteration_shirt_other_'}
+   	];
+   var waistcoatFields = [
+    {name:'Chest', value:'alteration_wc_chest_'},
+    {name:'Posture', value:'alteration_wc_posture_'},
+    {name:'Waist', value:'alteration_wc_waist_'},
+    {name:'Shoulder Height L', value:'alteration_wc_shoulder_left_'},
+    {name:'Seat', value:'alteration_wc_seat_'},
+    {name:'Shoulder Height R', value:'alteration_wc_shoulder_r_'},
+    {name:'Back', value:'alteration_wc_back_'},
+    {name:'Armhole', value:'alteration_wc_armhole_'},
+    {name:'Length', value:'alteration_wc_length_'},
+    {name:'Closing Button Height', value:'alteration_wc_btn_'},
+    {name:'Shoulder', value:'alteration_wc_shoulder_'},
+    {},
+    {name:'Other', value:'alteration_wc_other_'}
+   ];
+   %>
+<style>
+   .image-logo {
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+   width: 25%;
+   }
+</style>
+<div data-type="alert-placeholder"></div>
+<div>
+	<div>
+	   <img class="image-logo"  id="image-logo-id" alt="" src="<%= view.application.user_instance.get('LogoUrl')%> ">
+	</div>
+	<form id="alteration-form" class="form-inline">
+	   <fieldset>
+	   <div class="section clear"><b>INFO</b>
+	   </div>
+	   <div class="section clear">
+		  <div class="section span4">
+			 <div class="form-group">
+				<label for="Date">Date</label>
+				<input value="<%= alterationdate %>" style="width: 185px;" type="date" class="form-control" id="alteration_date" name="alteration_date" data-field="alteration-fields">
+			 </div>
+		  </div>
+		  <div class="span4">
+			 <div class="form-group">
+				<label for="alterationClientName">Client Name</label>
+				<input style="width: 139px;" type="text" class="form-control" id="alteration_client_name" disabled
+				   value="<%= clientname %>" name="alteration_client_name" data-field="alteration-fields">
+			 </div>
+		  </div>
+		  <div class="span4">
+			 <div class="form-group">
+				<label for="alterationOrderNumber">Order #</label>
+				<input style="width: 167px;" type="text" class="form-control" id="alteration_order_no"
+				   value="<%= ordernumber %>" name="alteration_order_no" data-field="alteration-fields">
+			 </div>
+		  </div>
+	   </div>
+	   <div class="section clear" style="text-align: center;">
+		  <div class="form-group" style="display:inline-block;">
+			 <div class="checkbox" style="padding:0 10px;">
+				<label class="checkbox2">JKT <input type="number" onkeypress="return event.charCode != 45"  min="0" id="alteration_jkt"
+				   name="alteration_jkt" data-field="alteration-fields" data-fieldtype="alteration-quantity" value="<%= jacketQuantity %>" <%=enableFields?"":'readonly'%>></label>
+			 </div>
+		  </div>
+		  <div class="form-group"  style="display:inline-block;">
+			 <div class="checkbox" style="padding:0 10px;">
+				<label class="checkbox2">TRS
+				<input type="number" onkeypress="return event.charCode != 45"  min="0" id="alteration_trs"
+				   name="alteration_trs" data-field="alteration-fields" data-fieldtype="alteration-quantity" value="<%= trouserQuantity %>" <%=enableFields?"":'readonly'%>></label>
+			 </div>
+		  </div>
+		  <div class="form-group" style="display:inline-block;">
+			 <div class="checkbox" style="padding:0 10px;">
+				<label class="checkbox2">WST
+				<input type="number" onkeypress="return event.charCode != 45"  min="0" id="alteration_wst"
+				   name="alteration_wst" data-field="alteration-fields" data-fieldtype="alteration-quantity" value="<%= waistcoatQuantity %>" <%=enableFields?"":'readonly'%>></label>
+			 </div>
+		  </div>
+		  <div class="form-group"  style="display:inline-block;">
+			 <div class="checkbox" style="padding:0 10px;">
+				<label class="checkbox2">SHT <input type="number" onkeypress="return event.charCode != 45"  min="0" id="alteration_sht"
+				   name="alteration_sht" data-field="alteration-fields" data-fieldtype="alteration-quantity" value="<%= shirtQuantity %>" <%=enableFields?"":'readonly'%>></label>
+			 </div>
+		  </div>
+		  <div class="form-group" style="display:inline-block;">
+			 <div class="checkbox" style="padding:0 10px;">
+				<label class="checkbox2">OVC <input type="number" onkeypress="return event.charCode != 45"  min="0" id="alteration_ovc"
+				   name="alteration_ovc" data-field="alteration-fields" data-fieldtype="alteration-quantity" value="<%= overcoatQuantity %>" <%=enableFields?"":'readonly'%>></label>
+			 </div>
+		  </div>
+	   </div>
+	   <hr class="clear"/>
+	   <div id="alterations-measurements-html" class="clear">
+		   <div class="span6">
+			  <p style="text-align: center;margin-bottom: 22px;"><b>Alterations</b></p>
+		   </div>
+		   <div class="span6">
+			  <p style="text-align: center;margin-bottom: 22px;"><b>Fit Profile Updates</b></p>
+		   </div>
+		   <% if(jacketOvercoatQuantity && jacketOvercoatQuantity != 0){ %>
+		   <% for(var i = 0; i < jacketOvercoatQuantity; i++){ %>
+		   <div class="span6">
+			  <div class="" style="padding:0 10px;">
+				 <label for=""><b>JACKET/OVERCOAT</b></label>
+				 <input style="margin-bottom: 20px;" type="text" class="form-control pull-right"
+					id="alteration_jck_ovc_<%= i %>" name="alteration_jck_ovc_<%= i %>" placeholder="Insert item details"
+					value="<%=alterationJSON['alteration_jck_ovc_'+i]%>">
+			  </div>
+		   </div>
+		   <div class="clear"></div>
+		  <% for(var j=0; j<jacketFields.length; j++){ %>
+		  <%=alterationMeasurementsMacro(view, alterationJSON, jacketFields[j],i) %>
+		  <% } %>
+		  <% } %>
+				 <hr class="clear"/>
+		  <% } %>
+		  <% if(trouserQuantity && trouserQuantity != 0){ %>
+		  <% for(var i = 0; i < trouserQuantity; i++){ %>
+		  <div class="span6">
+			 <div class="" style="padding:0 10px;">
+				<label for=""><b>TROUSER</b></label>
+				<input style="margin-bottom: 20px;" type="text" class="form-control pull-right"
+				   id="alteration_trouser_<%= i %>" name="alteration_trouser_<%= i %>" placeholder="Insert item details"
+				   value="<%=alterationJSON['alteration_trouser_'+i]%>">
+			 </div>
+		  </div>
+		  <div class="clear"></div>
+		 <% for(var j=0; j<trouserFields.length; j++){ %>
+		 <%=alterationMeasurementsMacro(view, alterationJSON, trouserFields[j],i) %>
+		 <% } %>
+		 <% } %>
+
+ 			 <hr class="clear"/>
+		 <% } %>
+		 <% if(shirtQuantity && shirtQuantity != 0){ %>
+		 <% for(var i = 0; i < shirtQuantity; i++){ %>
+		 <div class="span6">
+			<div class="" style="padding:0 10px;">
+			   <label for=""><b>SHIRT</b></label>
+			   <input style="margin-bottom: 20px;" type="text" class="form-control pull-right"
+				  id="alteration_shirt_<%= i %>" name="alteration_shirt_<%= i %>" placeholder="Insert item details"
+				  value="<%=alterationJSON['alteration_shirt_'+i]%>">
+			</div>
+		 </div>
+
+		 <div class="clear"></div>
+		<% for(var j=0; j<shirtFields.length; j++){ %>
+		<%=alterationMeasurementsMacro(view,alterationJSON, shirtFields[j],i) %>
+		<% } %>
+		<% } %>
+
+			 <hr class="clear"/>
+		<% } %>
+		<% if(waistcoatQuantity && waistcoatQuantity != 0){ %>
+		<% for(var i = 0; i < waistcoatQuantity; i++){%>
+		<div class="span6">
+		   <div class="" style="padding:0 10px;">
+			  <label for=""><b>WAISTCOAT</b></label>
+			  <input style="margin-bottom: 20px;" type="text" class="form-control pull-right"
+				 id="alteration_waistcoat_<%= i %>" name="alteration_waistcoat_<%= i %>" placeholder="Insert item details" value="<%=alterationJSON['alteration_waistcoat_'+i]%>">
+		   </div>
+		</div>
+    <div class="clear"></div>
+		<% for(var j=0; j<waistcoatFields.length; j++){ %>
+		<%=alterationMeasurementsMacro(view,alterationJSON, waistcoatFields[j],i) %>
+		<% } %>
+		<% } %>
+			 <hr class="clear"/>
+		<% } %>
+		 <div class="clear">
+			<p><b style="margin-left: 15px;">Notes</b></p>
+		 </div>
+		 <div class="">
+			<div class="">
+			   <textarea class="form-control" style="width:75%" id="notes_comment" name="notes_comment">
+         <%= notes %>
+         </textarea>
+			</div>
+		 </div>
+		 <input type="hidden" id="alteration_client_id" name="alteration_client_id" value="<%=alterationJSON['alteration_client_id']%>">
+		 <input type="hidden" id="alteration_rec_id" name="alteration_rec_id" value="<%=view.model.get('internalid')%>">
+		 </div>
+		</fieldset>
+		<div class="" style="margin: 10px 0; border: none; padding: 0px;">
+				 <button id="alteration-modal-close" type="button" class="btn" data-dismiss="modal" style="float:right;font-weight: 600;">Cancel</button>
+				 <button id="alteration-modal-submit" type="button" class="btn" style="float:right;font-weight: 600; margin-left: 5px;">Submit</button>
+				 <% if(enableFields){ %>
+				<button id="alteration-modal-submit-with-pdf" type="button" class="btn" style="float:right;font-weight: 600; margin-left: 5px;">Submit & PDf</button>
+			 <% }else{ %>
+			 <button id="alteration-modal-remove" type="button" class="btn" style="float:right;font-weight: 600; margin-left: 5px;">Remove</button>
+			 <button id="alteration-modal-print" type="button" class="btn" style="float:right;font-weight: 600; margin-left: 5px;">Print</button>
+			 <button id="alteration-modal-download" type="button" class="btn" style="float:right;font-weight: 600; margin-left: 5px;">Download</button>
+			 <% } %>
+		  </div>
+		  <div class="clear"></div>
+	</form>
+</div>

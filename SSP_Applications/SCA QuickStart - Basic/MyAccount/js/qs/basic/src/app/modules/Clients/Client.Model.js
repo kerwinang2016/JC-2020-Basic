@@ -7,11 +7,11 @@ define('Client.Model', function ()
 
 	return Backbone.Model.extend(
 	{
+		urlRoot: _.getAbsoluteUrl('services/tailorclients.ss'),
 		validation: {
 			custrecord_tc_first_name: { required: true, msg: _('First Name is required').translate() }
 		,	custrecord_tc_last_name: { required: true, msg: _('Last Name is required').translate() }
 		,	custrecord_tc_email: { required: true, msg: _('Email is required').translate() }
-		,	custrecord_tc_phone: { fn: _.validatePhone }
 		}
 	});
 });

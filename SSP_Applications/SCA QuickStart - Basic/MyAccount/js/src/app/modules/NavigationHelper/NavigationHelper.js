@@ -303,10 +303,9 @@ define('NavigationHelper', ['Session', 'UrlHelper'], function (Session)
 						{
 							target_touchpoint += (~target_touchpoint.indexOf('?') ? '&' : '?') + target_data.parameters;
 						}
-
 						if (hashtag && hashtag !== '#' && hashtag !== '#/')
 						{
-							new_url = _.fixUrl(target_touchpoint + (~target_touchpoint.indexOf('?') ? '&' : '?') + 'fragment=' + clean_hashtag);
+							new_url = _.fixUrl(target_touchpoint + (~target_touchpoint.indexOf('?') ? '&' : '?') + '#' + clean_hashtag);
 						}
 						else
 						{

@@ -4,7 +4,7 @@
 		var eventValue = (!_.isNullOrEmpty(paramEvent) && paramEvent == 'add') ? 'add' : 'viewedit';
 		var isAddEvent = (eventValue == 'add') ? true : false;
 		var isViewEdit = (eventValue == 'viewedit') ? true : false;
-		
+
 	%>
 
 	<% if(fields && fields.fieldset && fields.fieldset.length){ %>

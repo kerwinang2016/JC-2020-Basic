@@ -12,14 +12,31 @@
           var count = "";
           var self = this;
           var records = [];
-
-          jQuery.ajax({
-    				url: "https://store.jeromeclothiers.com/shopflow/services/notices.ss",
-    				async: false,
-    				success: function(data){
-              self.records = data.records;
-    				}
-    			});
+          if(configuration.currentTouchpoint == 'home'){
+            jQuery.ajax({
+      				url: "/shopflow/services/notices.ss",
+      				async: false,
+      				success: function(data){
+                self.records = data.records;
+      				}
+      			});
+          }else if(configuration.currentTouchpoint == 'customercenter'){
+            jQuery.ajax({
+      				url: "/myaccount/services/notices.ss",
+      				async: false,
+      				success: function(data){
+                self.records = data.records;
+      				}
+      			});
+          }else{
+            jQuery.ajax({
+      				url: "/checkout/services/notices.ss",
+      				async: false,
+      				success: function(data){
+                self.records = data.records;
+      				}
+      			});
+          }
 
           var count = _.filter(this.records,function(o){
             return o.custrecord_nba_noticeboard_custrecord_nba_read_notice == 'F';
@@ -46,7 +63,7 @@
 	        	,	href: '#'
 	        	,	data: {
 	        			touchpoint: 'customercenter'
-	        		,	hashtag: '#fitprofile'
+	        		,	hashtag: '#clientlist'
 	        		}
 	        	}
 	        ,	{

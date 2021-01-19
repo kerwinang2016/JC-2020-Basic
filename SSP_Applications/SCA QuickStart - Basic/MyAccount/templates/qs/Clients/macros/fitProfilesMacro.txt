@@ -1,0 +1,125 @@
+<% registerMacro('fitProfilesMacro', function (view,collection) { %>
+
+			<style>
+				#fiprofile-list .accordion-toggle:after {
+					font-family: FontAwesome;
+					font-style: normal;
+					font-weight: normal;
+					content: "\f054"; /*Font awesome icon chevron right*/
+					float: right;
+					color: grey;
+				}
+
+				#fiprofile-list .accordion-toggle:hover{
+					text-decoration: none;
+					color: grey;
+				}
+
+				#fiprofile-list .accordion-toggle.collapsed:after {
+					content: "\f078";/* Font awesome chevron down*/
+				}
+
+				#fitProfileOrderHistoryList .accordion-toggle:after {
+					font-family: FontAwesome;
+					font-style: normal;
+					font-weight: normal;
+					content: "\f054"; /*Font awesome icon chevron right*/
+					float: right;
+					color: grey;
+				}
+
+				#fitProfileOrderHistoryList .accordion-toggle:hover{
+					text-decoration: none;
+					color: grey;
+				}
+
+				#fitProfileOrderHistoryList .accordion-toggle.collapsed:after {
+					content: "\f078";/* Font awesome chevron down*/
+				}
+
+
+			</style>
+			<div id="fiprofile-list" style="margin-bottom: 10px;">
+				<div class="row-fluid togglecontainer" style="border-bottom: solid 1px #e5e5e5; margin-bottom: 18px; padding-bottom: 10px; padding-top: 20px">
+					<div class="span12">
+						<span style="font-size: 20px; font-weight: 400; color: #a6a6a6;">
+							<a data-target="#fitProfilesHistory" data-toggle="collapse"   aria-expanded="true" aria-controls="collapseOne" class="accordion-toggle" style="text-decoration:none;color:grey;">
+								Fit Profiles
+							</a>
+						</span>
+					</div>
+				</div>
+				<!--Collapses body-->
+				<div id="fitProfilesHistory" class="collapse">
+					<!-- start fitprofile header -->
+					<div class="row-fluid" style="border-bottom: solid 1px #e5e5e5; margin-bottom: 8px;">
+						<div class="span10">
+							<div class="row-fluid">
+								<div class="span4" style="padding-bottom: 8px;">
+									<div style="font-weight: 600;">Product Type</div>
+								</div>
+								<div class="span4">
+									<div style="font-weight: 600;">Fit Profile Name</div>
+								</div>
+								<div class="span4">
+									<div style="font-weight: 600;">Date Last Edited</div>
+								</div>
+							</div>
+						</div>
+						<div class="span2" style="margin-bottom:10px;">
+							<div class="row-fluid">
+								<div class="span12">
+									<div><a  id="fitprofile-butt-add" class="btn" style="width: 80%; padding-top: 4px; padding-bottom: 4px; padding-left: 0px; padding-right: 0px;">Add Fit Profile</a></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- end fitprofile header -->
+					<% if (collection.length>0) { %>
+					<% _.each(collection.models,function(profile) { %>
+
+						<%
+						var fitProfileInternalId = profile.get('internalid');
+						var fitProfileName = profile.get('name');
+						var fitProfileProdType = profile.get('custrecord_fp_product_typetext');
+						var fitProfileLastModifiedDate = profile.get('lastmodified');
+						%>
+							<!-- start fitprofile row -->
+
+							<div class="row-fluid" style="border-bottom: solid 1px #e5e5e5; margin-bottom: 8px;">
+								<div class="span10" style="padding-top: 8px;">
+									<div class="row-fluid">
+										<div class="span4">
+											<div style="float: left; font-size: 12px;">
+												<%= fitProfileProdType %>
+											</div>
+											<div style="clear: both;"></div>
+										</div>
+                    <div class="span4">
+											<div style="float: left; font-size: 12px;">
+												<%= fitProfileName %>
+											</div>
+											<div style="clear: both;"></div>
+										</div>
+                    <div class="span4">
+											<div style="float: left; font-size: 12px;">
+												<%=fitProfileLastModifiedDate%>
+											</div>
+											<div style="clear: both;"></div>
+										</div>
+                  </div>
+
+								</div>
+                <div class="span2" style="padding-bottom: 8px;">
+									<div class="row-fluid">
+										<div class="span10">
+											<div><a id="fitprofile-viewedit" class="btn" data-id="<%=fitProfileInternalId%>" style="width: 100%; padding-top: 4px; padding-bottom: 4px; padding-left: 0px; padding-right: 0px;">View & Edit</a></div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<% }) %>
+							<% } %>
+				</div>
+			</div>
+<% }) %>

@@ -37,18 +37,19 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 		,	'submit form[data-action="estimate-tax-ship"]': 'estimateTaxShip'
 		,	'click [data-action="remove-shipping-address"]': 'removeShippingAddress'
 		,	'change [data-action="estimate-tax-ship-country"]': 'changeCountry'
-		,	'change #orderdiscount': 'updateDiscount'
+		// ,	'change #orderdiscount': 'updateDiscount'
+		, 'click .item-cogs': "showCogs"
 		//,	'blur [name="custcol_avt_date_needed"]': 'swxSetDateNeeded'
 		//,	'keyup [name="custcol_avt_date_needed"]': 'swxSetDateNeeded'
 		//,	'submit [data-action="update-dateneeded"]': 'swxSetDateNeededFormSubmit'
-		, 'change [name="custcol_avt_date_needed"]': 'swxSetDateNeeded'
+		//, 'change [name="custcol_avt_date_needed"]': 'swxSetDateNeeded'
 		, 'change [name="order_list_line_item_total"]': 'swxSetLineItemTotal' //JHD-34
 		,	'click [id="swx-butt-save-for-later-filter"]': 'swxFilterSaveForLaterClick'
 		,	'click [id="swx-butt-save-for-later-filter-clear"]': 'swxFilterSaveForLaterClearClick'
 		, 'click [id="add-multiple-save-for-later"]': 'addMultipleItemsToCart'
 		,	'click [data-action="copy-to-cart"]' : 'copyItemToCartHandler'
 		, 'click [id="btn-proceed-checkout"]': 'validateItems'
-
+		, 'blur [name="custbody_date_needed"]': 'setCustBodyDateNeeded'
 		, 'click [data-action="archive"]': 'archiveItems'
 		, 'click #btn-download-pdf' : 'downloadQuote'
 		// , 'click [data-action="show-archived-items"]': 'filterArchivedItems'
@@ -66,10 +67,24 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 			jQuery.get(_.getAbsoluteUrl('services/liningfabrics.ss')).done(function (data) {
 				self.liningfabrics = data;
 			});
-
-			//SC.sessioncheck();	//KM Commented out and put the sessioncheck on Starter.js
 			this.updateproductlist = false;
 		}
+	, showCogs: function(e){
+		e.preventDefault();
+		var self = this;
+		var linedata = _.find(this.model.get('lines').models,function(o){return o.get('internalid') == jQuery(e.target).data().internalid;});
+		var lineid = jQuery(e.target).data().internalid;
+		jQuery.ajax({
+				url: _.getAbsoluteUrl('services/cogsdata.ss'),
+				type: 'post',
+				data: JSON.stringify(linedata.toJSON()),
+				dataType: 'text',
+				success: function (d) {
+					self.$el.find('[id*="item-cogs-body-'+lineid+'"]').html(d);
+
+				}
+		});
+	}
 	, validateItems: function(e){
 			e.preventDefault();
 			var self = this;
@@ -81,10 +96,18 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 			var previousClientId = '';
 			var differentClientIdError = false;
 			var enableCustomTailorPricing = self.application.getUser().get('enablecustomtailorpricing');
+			var optionsData = this.model.get('options');
+			var tempDateNeeded = optionsData.custbody_date_needed;
+			var dateNeeded = new Date(jQuery('[name="custbody_date_needed"]').val());
 			//Checking for Vendor Picked is Jerome Clothiers
 			if(self.application.getUser().get('isoverdue') == 'T'){
 				jQuery("#cart-alert-placeholder").append(SC.macros.message('You cannot process orders until you have paid your outstanding invoices.', 'error', true));
 				return;
+			}
+
+			if(isNaN(dateNeeded.getTime())){
+					jQuery("#cart-alert-placeholder").append(SC.macros.message('Date Needed is Required', 'error', true));
+					return;
 			}
 			cart.get('lines').each(function (line){
 
@@ -223,14 +246,17 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				var itemid = line.get('item').id;
 				var item = line.get('item');
 
-				//JHD-8 Start
+				// Removed Date Needed
 				var tempDateExpected = jQuery('#expected-date-' + line.get('internalid')).text();
-				var tempDateNeeded = jQuery('#custcol_avt_date_needed_' + line.get('internalid')).val();
+				// var tempDateNeeded = optionsData.custbody_date_needed;
 				var dateExpected = new Date(tempDateExpected);
-				var dateNeeded = new Date(tempDateNeeded);
-				if (dateNeeded < dateExpected) {
+				// var dateNeeded = new Date(tempDateNeeded);
+
+				if (dateNeeded.getTime() < dateExpected.getTime()) {
 					hasError = true;
+					console.log('failed date')
 					jQuery("#" + line.get('internalid') + " .item .alert-placeholder").append(SC.macros.message('You cannot process an item where the date needed is earlier than the expected delivery date', 'error', true));
+
 				}
 				//JHD-8 End
 
@@ -280,17 +306,18 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 						}
 					}
 				}
-				for(var i=0;i<itemoptions.length;i++){
-					if(itemoptions[i].id == "CUSTCOL_AVT_DATE_NEEDED"){
-						if(itemoptions[i].value == '1/1/1900'){
-								hasError = true;
-								//errorMessages.push('Date Needed is Required');
-								//jQuery("[data-id='"+itemid+"']").find('[data-type="alert-placeholder"]')[0].append(SC.macros.message('Date Needed is Required', 'error', true));
-								jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Date Needed is Required', 'error', true));
-						}
-					}
-				}
-				//Add a check for fitprofile
+				//Removed Date Needed
+				// for(var i=0;i<itemoptions.length;i++){
+				// 	if(itemoptions[i].id == "CUSTCOL_AVT_DATE_NEEDED"){
+				// 		if(itemoptions[i].value == '1/1/1900'){
+				// 				hasError = true;
+				// 				//errorMessages.push('Date Needed is Required');
+				// 				//jQuery("[data-id='"+itemid+"']").find('[data-type="alert-placeholder"]')[0].append(SC.macros.message('Date Needed is Required', 'error', true));
+				// 				jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Date Needed is Required', 'error', true));
+				// 		}
+				// 	}
+				// }
+				// //Add a check for fitprofile
 
 				var ptype = _.where(line.get("options"), {id: "CUSTCOL_PRODUCTTYPE"})[0].value;
 				var ProductTypeProfileMap = {
@@ -806,8 +833,26 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				// jQuery('#show-inactive-items')[0].checked = false;
 			});
 		}
+	, setCustBodyDateNeeded: function(e){
+		e.preventDefault();
+		var optionsData = this.model.get('options');
+		// console.log(jQuery(e.target).val());
+
+		var unformattedDate = new Date(jQuery(e.target).val());
+		var month = parseFloat(unformattedDate.getMonth())+parseFloat(1)
+		var dateneeded = unformattedDate.getDate()+'/'+month+'/'+unformattedDate.getFullYear();
+		// var d = jQuery(e.target).val()?jQuery(e.target).val():"";
+		// if(d){
+		// 	var da = d.getDate();
+		// 	var mo = d.getMonth()+1;
+		// }
+		optionsData.custbody_date_needed = dateneeded;
+		this.model.set("options", optionsData);
+		this.model.save();
+	}
 	,	swxSetDateNeeded: function (e){
 			e.preventDefault();
+
 			this.updateproductlist = true;
 			var self = this;
 			var item = jQuery(e.target).closest('article')[0].id;
@@ -826,7 +871,6 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 							 model.save().done(function(){
 								 // self.showContent();
 							 });
-
 						});
 						// setTimeout(function(){
 							self.model.save().done(function(data){
@@ -1572,7 +1616,6 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 			}
 		}
 	});
-
 	// Views.Confirmation:
 	// Cart Confirmation Modal
 	Views.Confirmation = Backbone.View.extend({

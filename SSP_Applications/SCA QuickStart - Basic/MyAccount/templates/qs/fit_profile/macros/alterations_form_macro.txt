@@ -1,6 +1,6 @@
-<% registerMacro('alterationsForm', function (model, paramEvent, clientName, isTrue) { 
+<% registerMacro('alterationsForm', function (model, paramEvent, clientName, isTrue) {
 	var clientId = model.get("current_client");
-	
+
 	var eventValue = (!_.isNullOrEmpty(paramEvent) && paramEvent == 'add') ? 'add' : 'viewedit';
 	var isAddEvent = (eventValue == 'add') ? true : false;
 	var isViewEdit = (eventValue == 'viewedit') ? true : false;
@@ -47,7 +47,7 @@
 						width: 180px !important;
 					}
 
-					
+
 				}
 
 				#div-modal-body form input {
@@ -146,7 +146,7 @@
 					width: 25%;
 				}
 			</style>
-			<div id="div-modal-body" class="modal-body">			
+			<div id="div-modal-body" class="modal-body">
 			<div>
 				<img class="image-logo"  id="image-logo-id" alt="">
 			</div>

@@ -686,11 +686,8 @@ Application.defineModel('LiveOrder', {
 , getFabricCogs: function(tailorID,line_data,requestfields, fabric_surcharges,fabric_customsurcharges){
   //nlapiLogExecution('debug','GetFabric COGS');
   var self = this;
-  // var customerfieldsStr = requestfields.customerfields;
   var totaladditionalsurcharge = 0;
   var customerfields = requestfields.customerfields;
-	// var itemfieldsStr = requestfields.itemfields;
-  //nlapiRequestURL(nlapiResolveURL('suitelet','customscript_myaccountsuitelet','customdeploy1','external'),{action:'getitemfields',}).getBody();
 	var itemfields = requestfields.itemfields;
   var currentRate = itemfields.price;
   var currentAmount = itemfields.price;
@@ -703,9 +700,6 @@ Application.defineModel('LiveOrder', {
     var fabCollection = itemfields.custitem_fabric_collection;
 		var prodType = line_data.options.custcol_producttype;
 		var currentPricelevel = customerfields.pricelevel;
-    // nlapiLogExecution('debug','pricelevel',currentPricelevel);
-    // nlapiLogExecution('debug','custrecord_dtp_fab_collection',fabCollection);
-    // nlapiLogExecution('debug','prodType',prodType);
 		if(fabCollection && prodType && currentPricelevel != ""){
       var prodTypeId = "";
 			switch(prodType){
@@ -794,25 +788,6 @@ Application.defineModel('LiveOrder', {
 		if(itemfields.price != ""){
 			var price = parseFloat(itemfields.price);
 			var itemtype = line_data.options.custcol_producttype;
-			// switch(itemtype){
-			// 	case '2-Piece-Suit' : currentAmount = price * 3.3; break;
-			// 	case '3-Piece-Suit': currentAmount = price * 3.7; break;
-			// 	case 'Jacket': currentAmount = price * 2; break;
-			// 	case 'Trouser': currentAmount = price * 2; break;
-			// 	case 'Waistcoat': currentAmount = price * 1; break;
-			// 	case 'Overcoat': currentAmount = price * 2.5; break;
-			// 	case 'Shirt': currentAmount = price * 2; break;
-      //
-			// 	case 'Trenchcoat' : currentAmount = price * 2.5; break;
-			// 	case 'Short-Sleeves-Shirt': currentAmount = price * 2; break;
-			// 	case 'Ladies-Jacket': currentAmount = price * 1.8; break;
-			// 	case 'Ladies-Pants': currentAmount = price * 1.8; break;
-			// 	case 'Ladies-Skirt': currentAmount = price * 1; break;
-			// 	case 'L-2PC-Skirt': currentAmount = price * 2.5; break;
-			// 	case 'L-3PC-Suit': currentAmount = price * 3.9; break;
-			// 	case 'L-2PC-Pants': currentAmount = price * 3.1; break;
-			// 	default:
-			// }
       if(quantity[itemtype])
       currentAmount = price * parseFloat(quantity[itemtype]);
 			currentRate = currentAmount/parseFloat(fabric_quantity);
@@ -845,10 +820,19 @@ Application.defineModel('LiveOrder', {
 					( parseFloat(z.min) <= maxblockvalue && parseFloat(z.max) >= maxblockvalue);
 				});
 				if(blockSurcharges.length>0){
-					returnObj.fabrictext += "<li>Large Size Surcharge ";
-					returnObj.fabrictext += parseFloat(currentAmount * parseFloat(blockSurcharges[0].surchargerate)).toFixed(2) + "</li>";
+          var customSurcharge = _.find(fabric_customsurcharges, function(z) {
+            return z.fabricinvoicerecord == blockSurcharges[0].internalid && tailor == z.tailor;
+          });
+          if (customSurcharge) {
+            returnObj.fabrictext += "<li>Large Size Surcharge ";
+            returnObj.fabrictext += (parseFloat(currentAmount) * customSurcharge.customsurcharge).toFixed(2);
+            totaladditionalsurcharge += parseFloat(customSurcharge.customsurcharge);
+          } else {
+  					returnObj.fabrictext += "<li>Large Size Surcharge ";
+  					returnObj.fabrictext += parseFloat(currentAmount * parseFloat(blockSurcharges[0].surchargerate)).toFixed(2) + "</li>";
 
-					totaladditionalsurcharge += parseFloat(currentAmount * blockSurcharges[0].surchargerate);
+  					totaladditionalsurcharge += parseFloat(currentAmount * blockSurcharges[0].surchargerate);
+          }
 				}
 			}
 			var itemtypes = [];
@@ -900,7 +884,6 @@ Application.defineModel('LiveOrder', {
           returnObj.fabrictext += (currentAmount * t_surcharge.rate).toFixed(2) + "</li>";
           totaladditionalsurcharge += parseFloat(currentAmount * t_surcharge.rate);
         }
-
 			}
 			else if(ptype == 'L-3PC-Suit'){
 				var j_surcharge = self.getSurcharge(ptype,line_data.options.custcol_designoptions_ladiesjacket,fabric_surcharges,fabric_customsurcharges);
@@ -1765,45 +1748,75 @@ Application.defineModel('LiveOrder', {
   }
   return fabric_surcharges;
 }
+, getCogs: function(line_data){
+  var self=this;
+  var Profile = Application.getModel('Profile')
+  ,	customer_values = Profile.get();
+
+  var tailorID = customer_values.parent?customer_values.parent:nlapiGetUser();
+  var parent = tailorID;
+  var surcharges = this.getDesignOptionSurcharges();
+  var shippingsurcharges = this.getShippingSurcharges();
+  var fabricsurcharges = this.getFabricSurcharges();
+  var fabric_customsurcharges = this.getFabricCustomSurcharges();
+  var url = myaccountsuiteleturl;
+  var response = {};
+
+  var requestfieldsStr = nlapiRequestURL(nlapiResolveURL('suitelet','customscript_myaccountsuitelet','customdeploy1','external'),
+  {action:'getfabriccmtdescriptions',user:tailorID,item:line_data.item.internalid,pricelevel:customer_values.priceLevel,currency:customer_values.currency.internalid}).getBody();
+  var requestfields = JSON.parse(requestfieldsStr);
+  var f_cogs = self.getFabricCogs(tailorID,line_data,requestfields,fabricsurcharges,fabric_customsurcharges);
+  var cmt_cogs = self.getCMTCogs(tailorID,line_data,requestfields, surcharges);
+  var shipping_cogs = self.getShippingCogs(tailorID,line_data,shippingsurcharges);
+  var totalcogs = parseFloat(f_cogs.amount?f_cogs.amount:0);
+  totalcogs+= parseFloat(cmt_cogs.amount?cmt_cogs.amount:0);
+  totalcogs += parseFloat(shipping_cogs.amount?shipping_cogs.amount:0);
+  var fabrictext = f_cogs.text;
+  fabrictext += cmt_cogs.text;
+  fabrictext += shipping_cogs.text;
+  fabrictext += "<div><b>Total COGS:</b> "+totalcogs.toFixed(2)+"</div>";
+  return fabrictext.toString();
+}
 ,	addLines: function (lines_data)
 	{
 		'use strict';
 
 		var items = [];
     var self = this;
-    var Profile = Application.getModel('Profile')
-    ,	customer_values = Profile.get();
+    // var Profile = Application.getModel('Profile')
+    // ,	customer_values = Profile.get();
 
-    var tailorID = customer_values.parent?customer_values.parent:nlapiGetUser();
-    var parent = tailorID;
-    var surcharges = this.getDesignOptionSurcharges();
-    var shippingsurcharges = this.getShippingSurcharges();
-    var fabricsurcharges = this.getFabricSurcharges();
-    var fabric_customsurcharges = this.getFabricCustomSurcharges();
-    var url = myaccountsuiteleturl;
-		var response = {};
-		// var res = nlapiRequestURL(url+"&action=getparent&user="+nlapiGetUser());
-    // var body = JSON.parse(res.getBody());
-		// var parent = body[0];
+    // var tailorID = customer_values.parent?customer_values.parent:nlapiGetUser();
+    // var parent = tailorID;
+    // var surcharges = this.getDesignOptionSurcharges();
+    // var shippingsurcharges = this.getShippingSurcharges();
+    // var fabricsurcharges = this.getFabricSurcharges();
+    // var fabric_customsurcharges = this.getFabricCustomSurcharges();
+    // var url = myaccountsuiteleturl;
+		// var response = {};
 
 		_.each(lines_data, function (line_data)
 		{
+      // var requestfieldsStr = nlapiRequestURL(nlapiResolveURL('suitelet','customscript_myaccountsuitelet','customdeploy1','external'),
+      // {action:'getfabriccmtdescriptions',user:tailorID,item:line_data.item.internalid,pricelevel:customer_values.priceLevel,currency:customer_values.currency.internalid}).getBody();
+
       //Add the two options
-      var requestfieldsStr = nlapiRequestURL(nlapiResolveURL('suitelet','customscript_myaccountsuitelet','customdeploy1','external'),
-      {action:'getfabriccmtdescriptions',user:tailorID,item:line_data.item.internalid,pricelevel:customer_values.priceLevel,currency:customer_values.currency.internalid}).getBody();
-      var requestfields = JSON.parse(requestfieldsStr);
-      var f_cogs = self.getFabricCogs(tailorID,line_data,requestfields,fabricsurcharges,fabric_customsurcharges);
-      var cmt_cogs = self.getCMTCogs(tailorID,line_data,requestfields, surcharges);
-      var shipping_cogs = self.getShippingCogs(tailorID,line_data,shippingsurcharges);
-      var totalcogs = parseFloat(f_cogs.amount?f_cogs.amount:0);
-      totalcogs+= parseFloat(cmt_cogs.amount?cmt_cogs.amount:0);
-      totalcogs += parseFloat(shipping_cogs.amount?shipping_cogs.amount:0);
-      var fabrictext = f_cogs.text;
-      fabrictext += cmt_cogs.text;
-      fabrictext += shipping_cogs.text;
-      fabrictext += "<div><b>Total COGS:</b> "+totalcogs.toFixed(2)+"</div>";
-      //nlapiLogExecution('debug','data',fabrictext);
-      line_data.options.custcol_site_cogs = fabrictext.toString();
+      // var requestfieldsStr = nlapiRequestURL(nlapiResolveURL('suitelet','customscript_myaccountsuitelet','customdeploy1','external'),
+      // {action:'getfabriccmtdescriptions',user:tailorID,item:line_data.item.internalid,pricelevel:customer_values.priceLevel,currency:customer_values.currency.internalid}).getBody();
+      // var requestfields = JSON.parse(requestfieldsStr);
+      // var f_cogs = self.getFabricCogs(tailorID,line_data,requestfields,fabricsurcharges,fabric_customsurcharges);
+      // var cmt_cogs = self.getCMTCogs(tailorID,line_data,requestfields, surcharges);
+      // var shipping_cogs = self.getShippingCogs(tailorID,line_data,shippingsurcharges);
+      // var totalcogs = parseFloat(f_cogs.amount?f_cogs.amount:0);
+      // totalcogs+= parseFloat(cmt_cogs.amount?cmt_cogs.amount:0);
+      // totalcogs += parseFloat(shipping_cogs.amount?shipping_cogs.amount:0);
+      // var fabrictext = f_cogs.text;
+      // fabrictext += cmt_cogs.text;
+      // fabrictext += shipping_cogs.text;
+      // fabrictext += "<div><b>Total COGS:</b> "+totalcogs.toFixed(2)+"</div>";
+      // line_data.options.custcol_site_cogs = fabrictext.toString();
+
+
       // var tcrec = nlapiLoadRecord('customrecord_sc_tailor_client',line_data.options.custcol_tailor_client);
       // if(tcrec.getFieldValue('custrecord_tc_tailor') == nlapiGetUser() ||
         // tcrec.getFieldValue('custrecord_tc_tailor') == parent){
@@ -2125,14 +2138,14 @@ Application.defineModel('LiveOrder', {
 
 		var options = {};
 
-		if (this.isSecure)
-		{
+		// if (this.isSecure)
+		// {
 			_.each(order.getCustomFieldValues(), function (option)
 			{
 				options[option.name] = option.value;
 			});
 
-		}
+		// }
 		return options;
 	}
 
@@ -2594,7 +2607,8 @@ Application.defineModel('LiveOrder', {
 	{
 		'use strict';
 		// Transaction Body Field
-		if (this.isSecure && !_.isEmpty(data.options))
+		if (!_.isEmpty(data.options))
+      //this.isSecure && )
 		{
 			order.setCustomFieldValues(data.options);
 		}

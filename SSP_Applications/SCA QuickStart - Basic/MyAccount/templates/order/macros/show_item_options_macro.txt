@@ -90,8 +90,14 @@
 								value.label = selectedField.label;
 								value.value = selectedField.texts?selectedField.texts[i]:'';
 								formatted_values.push(value);
+							}else if(selectedField.type == 'text'){
+								var value = new Object();
+								value.label = selectedField.label;
+								value.value = option_value.value;
+								formatted_values.push(value);
 							}
 						}
+
 					}
 
 				});

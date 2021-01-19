@@ -1,14 +1,20 @@
-/*jshint laxcomma:true*/
+SC.SESSIONTIME = new Date();
+SC.SE = null;
+
 SC.sessioncheck = function(){
 	self = this;
 	console.log('hastimedout myaccount');
 	jQuery.ajax({
-		url: '/myaccount/services/live-order.ss'
+		url: window.location.origin+'/myaccount/services/live-order.ss'
 	});
-	setTimeout(function(){
-		SC.sessioncheck();
-	}, 1140000);
+	SC.SESSIONTIME = new Date();
+	if(SC.SE)
+		clearTimeout(SC.SE);
+	SC.SE = setTimeout(function(){SC.sessioncheck();
+	}, 900000);
+	//}, 1140000);
 }
+/*jshint laxcomma:true*/
 jQuery(document).ready(function ()
 {
 	'use strict';

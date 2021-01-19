@@ -24,6 +24,15 @@ define('ProductList.Router', ['ProductList.Model'], function (ProductListModel)
 		// /productlist/tmpl_$(templateid) in the case the record doesn't exist yet (predefined lists)
 	,	showProductListDetails: function (id, options)
 		{
+
+
+			jQuery.ajax({
+				url: _.getAbsoluteUrl('js/DesignOptions_Config.json'),
+				async: false,
+				success: function(data){
+					window.design_options = data
+				},
+			});
 			var prefix = 'tmpl_'
 			,	self = this
 
@@ -77,7 +86,6 @@ define('ProductList.Router', ['ProductList.Model'], function (ProductListModel)
 			,	model: model
 			,	includeSortingFilteringHeader: true
 			});
-
 			view.showContent('productlist_' + (model.get('internalid') ? model.get('internalid') : 'tmpl_' + model.get('templateid')));
 		}
 

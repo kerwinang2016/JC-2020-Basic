@@ -5,7 +5,7 @@
 
 	var summary = cart.get('summary')
 	,	item_count = _.reduce(cart.get('lines').pluck('quantity'), function (memo, quantity) { return memo + (parseFloat(quantity) || 1); }, 0)
-
+	, dateNeeded = cart.get('options').custbody_date_needed
 	,	shipping_address = cart.get('addresses').get(cart.get('shipaddress')) || new Backbone.Model()
 	,	default_county = shipping_address.get('country') || siteSettings.defaultshipcountry
 	,	shipping_zipcode = shipping_address.get('zip')
@@ -21,6 +21,16 @@
 	,	paypal_express = checkout.paypalexpress
 	,	subtotal = 0
 	, discount = 0;
+	if(dateNeeded){
+		tmpNeeded = dateNeeded.split('/');
+		var day = tmpNeeded[0];
+		if(day.length == 1)
+			day = "0"+day;
+		var month = tmpNeeded[1];
+		if(month.length == 1)
+			month = "0"+month;
+		dateNeeded = tmpNeeded[2]+"-"+month+"-"+day;
+	}
 	if(enableCustomTailorPricing == 'T') {
 
 	//Custom subtotal computation
@@ -190,7 +200,13 @@
 			</p>
 		</div>
 	<% } %>
-
+	<div class="box-wells-body">
+		<label for="custbody_date_needed">
+			<span class="span6" style="line-height: 25px;"> Date Needed: </span>
+			<input style="width:200px;font-size:10px;height:25px;" name="custbody_date_needed" value="<%=dateNeeded%>" type="date"
+			autocomplete="off" data-format="dd/mm/yyyy" data-todayhighlight="true" placeholder="dd/mm/yyyy"/>
+		</label>
+	</div>
 	<% if (options.showActions) { %>
 		<div class="box-wells-footer shopping-cart-action-buttons">
 			<a id="btn-proceed-checkout" class="btn btn-large btn-block btn-primary btn-proceed-checkout" href="#"  data-hashtag="#">

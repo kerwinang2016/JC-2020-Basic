@@ -64,6 +64,7 @@
 		//,	'Quote'
 		,	'Case'
 		, 'TrainingGuides'
+		, 'Clients'
 		]
 
 	,	paymentWizardSteps: [

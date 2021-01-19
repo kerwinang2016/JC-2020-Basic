@@ -57,16 +57,28 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
         }
         , initialize: function (options) {
             var self = this;
-            jQuery.get(_.getAbsoluteUrl('js/extraQuantity.json')).done(function (data) {
-                window.extraQuantity = data;
-            });
-            jQuery.get(_.getAbsoluteUrl('js/itemRangeConfig.json')).done(function (data) {
-                window.cmConfig = data;
-            });
+            // jQuery.ajax({
+						// 	url:_.getAbsoluteUrl('js/extraQuantity.json'),
+						// 	async:false,
+						// 	success: function (data) {
+            //       window.extraQuantity = data;
+						// 	}
+						// });
+            // jQuery.ajax({
+						// 	url:_.getAbsoluteUrl('js/itemRangeConfig.json'),
+						// 	async:false,
+						// 	success: function (data) {
+            //       window.cmConfig = data;
+						// 	}
+						// });
+            // jQuery.ajax({
+						// 	url:_.getAbsoluteUrl('js/itemRangeConfigInches.json'),
+						// 	async:false,
+						// 	success: function (data) {
+            //       window.inchConfig = data;
+						// 	}
+						// });
 
-            jQuery.get(_.getAbsoluteUrl('js/itemRangeConfigInches.json')).done(function (data) {
-                window.inchConfig = data;
-            });
             this.application = options.application;
             this.counted_clicks = {};
             //SC.sessioncheck();  //KM Commented out and put the sessioncheck on Starter.js
@@ -87,26 +99,55 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 this.itemList = this.getClientId(historyFragment).split('|')[2];
               }
             }
-
-            jQuery.get(_.getAbsoluteUrl('services/liningfabrics.ss')).done(function (data) {
-              self.liningfabrics = data;
-            });
-            //ADD THE PRODUCT TYPE HERE SO WILL LOAD FASTER
-            jQuery.get(_.getAbsoluteUrl('services/measurementdefaults.ss'),{producttype:options.options.product}).done(function (data) {
-              self.measurementdefaults = data;
-            });
-            jQuery.get(_.getAbsoluteUrl('services/influences.ss'),{producttype:options.options.product}).done(function (data) {
-              self.influences = data;
-            });
-            jQuery.get(_.getAbsoluteUrl('services/bodyBlockMeasurements.ss'),{producttype:options.options.product}).done(function (data) {
-              window.bodyBlockMeasurements = data;
-            });
-            jQuery.get(_.getAbsoluteUrl('services/blockQuantity.ss'),{producttype:options.options.product}).done(function (data) {
-              window.blockQuantity = data;
-            });
-            jQuery.get(_.getAbsoluteUrl('services/designoptionconflicts.ss'),{producttype:options.options.product}).done(function (data) {
-              self.designoptionconflicts  = data;
-            });
+            // jQuery.ajax({
+						// 	url:_.getAbsoluteUrl('services/liningfabrics.ss'),
+						// 	async:false,
+						// 	success: function (data) {
+            //       self.liningfabrics = data;
+						// 	}
+						// });
+            //
+            // //ADD THE PRODUCT TYPE HERE SO WILL LOAD FASTER
+            // jQuery.ajax({
+						// 	url:_.getAbsoluteUrl('services/measurementdefaults.ss'),
+						// 	async:false,
+            //   data: JSON.stringify({producttype:options.options.product}),
+						// 	success: function (data) {
+            //       self.measurementdefaults = data;
+						// 	}
+						// });
+            // jQuery.ajax({
+						// 	url:_.getAbsoluteUrl('services/influences.ss'),
+						// 	async:false,
+            //   data: JSON.stringify({producttype:options.options.product}),
+						// 	success: function (data) {
+            //       self.influences = data;
+						// 	}
+						// });
+            // jQuery.ajax({
+            //   url:_.getAbsoluteUrl('services/bodyBlockMeasurements.ss'),
+            //   async:false,
+            //   data: JSON.stringify({producttype:options.options.product}),
+            //   success: function (data) {
+            //       window.bodyBlockMeasurements = data;
+            //   }
+            // });
+            // jQuery.ajax({
+            //   url:_.getAbsoluteUrl('services/blockQuantity.ss'),
+            //   async:false,
+            //   data: JSON.stringify({producttype:options.options.product}),
+            //   success: function (data) {
+            //       window.blockQuantity = data;
+            //   }
+            // });
+            // jQuery.ajax({
+            //   url:_.getAbsoluteUrl('services/designoptionconflicts.ss'),
+            //   async:false,
+            //   data: JSON.stringify({producttype:options.options.product}),
+            //   success: function (data) {
+            //       self.designoptionconflicts  = data;
+            //   }
+            // });
 
             if (!this.model) {
                 throw new Error('A model is needed');
@@ -745,6 +786,8 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 if (this.model.get('custitem_clothing_type') && this.model.get('custitem_clothing_type') != "&nbsp;") {
                     clothingTypes = this.model.get('custitem_clothing_type').split(', ');
                     var selectedUnits = "CM";
+                    var hasFitProfileDesignConflict = false;
+                    var fpDOConflictMessage = "";
                     _.each(clothingTypes, function (clothingType) {
                         var usedClothingType = clothingType;
                         if(clothingType == 'Ladies-Jacket')
@@ -775,6 +818,19 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                             var fitValue = window.currentFitProfile.profile_collection.get(selectedProfile).get('custrecord_fp_measure_value');
 
                             var fitProfileValue = JSON.parse(fitValue);
+
+                            //Adding the FitProfile-DesignOptions Conflicts
+                            //Hardcoded now since few.. probably create a record next time
+                            if(usedClothingType == 'Trouser'){
+                              var _fit = _.find(fitProfileValue,function(o){return o.name == 'fit';});
+                              if(_fit && _fit.value == "Slim V2" && jQuery('#T010501').val() == 'T01050103'){
+                                hasFitProfileDesignConflict = true;
+                                fpDOConflictMessage = "You cannot select Pleat Quantity 2 Pleats for a fit profile that has Slim V2";
+                                //break;
+                              }
+                            }
+                            //End Adding the FitProfile-DesignOptions Conflicts
+
                             var fpvIN = JSON.parse(JSON.stringify(fitProfileValue));
                             if (fitProfileValue[0].value == 'Inches') {
                                 _.each(fitProfileValue, function (value, key, obj) {
@@ -804,7 +860,10 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                             self.model.setOption(fitColumn, JSON.stringify(fitProfileValue));
                         }
                     });
-
+                    if(hasFitProfileDesignConflict){
+                      _.displayModalWindow("Fit Profile and Design Options Conflict", fpDOConflictMessage, true)
+                      return false;
+                    }
                     // Updates the quantity of the model
 
                     self.model.setOption('custcol_fabric_quantity', this.$('[name="custcol_fabric_quantity"]').val());
@@ -1387,17 +1446,6 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 }
             }
         }
-        ,
-        recurring: function () {
-            self = this;
-
-            jQuery.ajax({
-                url: window.location.origin+'/api/items?fieldset=relateditems_details&language=en&country=AU&currency=USD&pricelevel=1&c=3857857&n=2&id=42461'
-            });
-            setTimeout(function () {
-                self.recurring();
-            }, 1140000);
-        }
 
         , showContent: function (options) {
             jQuery(document).ready(function () {
@@ -1492,6 +1540,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 // });
 
                 profileView.model.on("afterProfileFetch", function () {
+
                     profileView.render();
                     self.updateFitProfileDetails(profileView.$el);
 
@@ -1625,23 +1674,26 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                         var extra = 0;
                         if(jQuery('#fabric_extra').val() != "" && jQuery('#fabric_extra').val() != "Please Select")
                           extra = parseFloat(jQuery('#fabric_extra').val())
-                        for (var i = 0; i < window.tempFitProfile.length; i++) {
-                          var ptype = window.tempFitProfile[i].name;
-                          var designQuantityCodes = _.find(window.extraQuantity[0].values,function(temp){
-                            return temp.code == ptype;
-                          });
-                          if(designQuantityCodes){
-                          _.each(jQuery('[data-type="fav-option-customization"]'),function(temp){
-                            var val = _.find(designQuantityCodes.design,function(temp2){
-                              return temp2.code == temp.value
-                            });
-                            if(val && val.value != "")
-                              extra+= parseFloat(val.value);
 
-                          });
-                          }
-                        }
-                        jQuery('[name="custcol_fabric_quantity"]').val((qty + extra).toFixed(2));
+                          setTimeout(function () {
+                            for (var m = 0; m < window.tempFitProfile.length; m++) {
+                              var ptype = window.tempFitProfile[m].name;
+                              var designQuantityCodes = _.find(window.extraQuantity[0].values,function(temp){
+                                return temp.code == ptype;
+                              });
+                              if(designQuantityCodes){
+                              _.each(jQuery('[data-type="fav-option-customization"]'),function(temp){
+                                var val = _.find(designQuantityCodes.design,function(temp2){
+                                  return temp2.code == temp.value
+                                });
+                                if(val && val.value != "")
+                                  extra+= parseFloat(val.value);
+                              });
+                              }
+                            }
+                            jQuery('[name="custcol_fabric_quantity"]').val((qty + extra).toFixed(2));
+                          }, 500);
+
                     }
                 });
                 self.showHideGroupedOptions();

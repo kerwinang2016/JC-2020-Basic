@@ -4505,7 +4505,7 @@ Application.defineModel('ProductList', {
 		var filters = [new nlobjSearchFilter('internalid', null, 'is', id)
 			, new nlobjSearchFilter('isinactive', null, 'is', 'F')
 			, new nlobjSearchFilter('custrecord_ns_pl_pl_owner', null, 'is', parseInt(parent,10))]
-			, product_lists = this.searchHelper(filters, this.getColumns(), true, null, null, parent);
+			, product_lists = this.searchHelper(filters, this.getColumns(), true, null, null, parent, true,true);
 
 		if (product_lists.length >= 1) {
 			return product_lists[0];
@@ -4526,7 +4526,7 @@ Application.defineModel('ProductList', {
 		var filters = [new nlobjSearchFilter('custrecord_ns_pl_pl_type', null, 'is', this.later_type_id)
 			, new nlobjSearchFilter('custrecord_ns_pl_pl_owner', null, 'is', parent)
 			, new nlobjSearchFilter('isinactive', null, 'is', 'F')]
-			, product_lists = this.searchHelper(filters, this.getColumns(), true,null, null, parent,true);
+			, product_lists = this.searchHelper(filters, this.getColumns(), true,null, null, parent);
 
 		if (product_lists.length >= 1) {
 			return product_lists[0];
@@ -4560,7 +4560,7 @@ Application.defineModel('ProductList', {
 		return text ? text.replace(/<br>/g, '\n').replace(/</g, '&lt;').replace(/\>/g, '&gt;') : '';
 	}
 
-	, searchHelper: function (filters, columns, include_store_items, order, template_ids, parentparam, saveforlater) {
+	, searchHelper: function (filters, columns, include_store_items, order, template_ids, parentparam, saveforlater, includeitems) {
 		'use strict';
 
 		// Sets the sort order
@@ -4604,18 +4604,19 @@ Application.defineModel('ProductList', {
 
 			productLists.push(productList);
 		});
-		var plitems = ProductListItem.search(null, include_store_items, {
-			sort: 'created'
-			, order: '-1'
-			, page: -1
-		},parentparam);
-		for(var i=0; i<productLists.length; i++){
-			var items = _.filter(plitems, function(pli){
-				return pli.productListId == productLists[i].internalid;
-			});
-			productLists[i].items = items;
+		if(includeitems){
+			var plitems = ProductListItem.search(null, include_store_items, {
+				sort: 'created'
+				, order: '-1'
+				, page: -1
+			},parentparam);
+			for(var i=0; i<productLists.length; i++){
+				var items = _.filter(plitems, function(pli){
+					return pli.productListId == productLists[i].internalid;
+				});
+				productLists[i].items = items;
+			}
 		}
-
 		//Sort the product list.. get the first name by splitting space, sort if number
 		var numberedlists = [];
 		var textlist = [];
@@ -4651,7 +4652,7 @@ Application.defineModel('ProductList', {
 		var filters = [new nlobjSearchFilter('isinactive', null, 'is', 'F')
 			, new nlobjSearchFilter('custrecord_ns_pl_pl_owner', null, 'is', parseInt(parent,10))]
 			, template_ids = []
-			, product_lists = this.searchHelper(filters, this.getColumns(), true, order, template_ids, parent)
+			, product_lists = this.searchHelper(filters, this.getColumns(), true, order, template_ids, parent,false,false)
 			, self = this;
 
 		// Add possible missing predefined list templates
@@ -4915,7 +4916,7 @@ Application.defineModel('ProductListItem', {
 	}
 
 	// Retrieves all Product List Items related to the given Product List Id
-	, search: function (product_list_id, include_store_item, sort_and_paging_data, parentparam) {
+	, search: function (product_list_id, include_store_item, sort_and_paging_data, parentparam, clientid) {
 		'use strict';
 
 		this.verifySession();
@@ -4938,7 +4939,10 @@ Application.defineModel('ProductListItem', {
 			,	new nlobjSearchFilter('isinactive', 'custrecord_ns_pl_pli_item', 'is', 'F' )]
 			, sort_column = sort_and_paging_data.sort
 			, sort_direction = sort_and_paging_data.order;
-
+		if(clientid){
+			filters.push(new nlobjSearchFilter('custrecord_ns_pl_pli_tailorclient',null,'anyof',['@NONE@',clientid]));
+			filters.push(new nlobjSearchFilter('custrecord_ns_pl_pli_options',null,'contains',clientid));
+		}
 		if(product_list_id){
       filters.push(new nlobjSearchFilter('custrecord_ns_pl_pli_productlist', null, 'is', product_list_id));
     }
@@ -4979,6 +4983,7 @@ Application.defineModel('ProductListItem', {
 			, productlist_items = []
 			, StoreItem = Application.getModel('StoreItem')
 			, self = this;
+			nlapiLogExecution('debug','records', records.length);
 		_(records).each(function (productListItemSearchRecord) {
 			var itemInternalId = productListItemSearchRecord.getValue('custrecord_ns_pl_pli_item')
 				, itemType = productListItemSearchRecord.getValue('type', 'custrecord_ns_pl_pli_item')

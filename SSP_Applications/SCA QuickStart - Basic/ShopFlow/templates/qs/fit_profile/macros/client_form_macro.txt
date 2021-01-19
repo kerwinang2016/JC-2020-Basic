@@ -1,5 +1,5 @@
 <% registerMacro('clientForm', function (client, parent) { %>
-<% 
+<%
 	var clientRec = client
 	,	site_settings = SC.ENVIRONMENT.siteSettings
 	,	countries = SC.ENVIRONMENT.siteSettings.countries
@@ -44,13 +44,10 @@
 			<input type="email" class="input-xlarge" id="email" name="custrecord_tc_email" value="<%- clientRec.get("custrecord_tc_email") %>" data-rectype="field">
 		</div>
 	</div>
-	
+
 	<div class="control-group"  data-input="phone">
 		<label class="control-label" for="phone">
 			<%= _('Phone Number').translate() %>
-			<small>
-				<%= _('(required)').translate() %>
-			</small>
 		</label>
 		<div class="controls">
 			<input type="tel" class="input-xlarge" id="phone" name="custrecord_tc_phone" value="<%- clientRec.get("custrecord_tc_phone") %>" data-type="phone" data-rectype="field">
@@ -83,7 +80,7 @@
 			<%= _('Example: Apt. 3 or Suite #1516').translate() %>
 		</span>
 	</div>
-	
+
 	<div class="control-group" data-input="city">
 		<label class="control-label" for="city">
 			<%= _('City').translate() %>

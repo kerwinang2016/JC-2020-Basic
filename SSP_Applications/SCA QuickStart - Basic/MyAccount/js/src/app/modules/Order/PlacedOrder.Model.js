@@ -32,9 +32,7 @@ define('PlacedOrder.Model'
 			{
 				model.set('returnauthorizations', new ReturnAuthorizationCollection(returnauthorizations), {silent: true});
 			});
-			this.trigger('change:returnauthorizations', this, attributes && attributes.returnauthorizations || []);
-			
-			
+			this.trigger('change:returnauthorizations', this, attributes && attributes.returnauthorizations || []);			
 		}
 	});
 });

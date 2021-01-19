@@ -6,7 +6,7 @@
 		<div class='mensbanner fa'>Mens</div>
 			<% if(clientId) { %>
 				<div style="float:right;">
-					<a href="https://store.jeromeclothiers.com/myaccount/index.ssp?#/productlists/?id=<%=clientId%>" class="btn">My Product List</a>
+					<a href="#" data-touchpoint="customercenter" data-hashtag="#/productlists/?id=<%=clientId%>" class="btn">My Product List</a>
 				</div>
 			<% } %>
 		</div>

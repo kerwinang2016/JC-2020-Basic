@@ -54,6 +54,7 @@ define('OrderHistory.Router',  ['OrderHistory.Views', 'PlacedOrder.Model','Place
 					killerId: this.application.killerId
 				,	data: options
 				,	reset: true
+				, async: true
 				});
 			//collection.on('change:dateneeded',this.someAction, this);
 		}
@@ -70,6 +71,13 @@ define('OrderHistory.Router',  ['OrderHistory.Views', 'PlacedOrder.Model','Place
 				,	model: model
 				});
 
+			jQuery.ajax({
+				url: _.getAbsoluteUrl('js/DesignOptions_Config.json'),
+				async: false,
+				success: function(data){
+					window.design_options = data
+				},
+			});
 			model
 				.on('change', view.showContent, view)
 				.fetch({data:jQuery.param({internalid: id,customerid:customerid})});

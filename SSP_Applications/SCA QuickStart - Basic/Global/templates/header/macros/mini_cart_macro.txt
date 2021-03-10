@@ -1,13 +1,3 @@
-<!--
-Change History
---------------
-Date: 18-03-2019
-Changed by:Shoaib Iqbal
-Change /Jira Ticket #: JHD-38
-Change Description: Remove the pricing from the mini-cart
--->
-
-
 	<% registerMacro('miniCart', function (cart, application) { %>
 	<%
 		var lines = cart.get('lines')
@@ -89,12 +79,7 @@ Change Description: Remove the pricing from the mini-cart
 			</p> -->
 				<div class="mini-cart-actions row-fluid">
 
-					<% if (!isSecureSite) { %>
-						<a style="background:none;" id="swx-minicart-gotocart" href="/cart" data-touchpoint="<%= has_cart_router ? current_touchpoint : 'viewcart' %>" data-hashtag="#cart" class="btn btn-view-cart span">
-					<% } else { %>
-						<a style="background:none;" id="swx-minicart-gotocart" href="/cart" data-touchpoint="home" data-hashtag="#cart" class="btn btn-view-cart span">
-					<% } %>
-
+						<a style="background:none;" id="swx-minicart-gotocart2" href="#" data-touchpoint="home" data-hashtag="#cart" class="btn btn-view-cart span">
 						<%= _('View Cart').translate() %>
 					</a>
 				</div>
@@ -116,7 +101,6 @@ Change Description: Remove the pricing from the mini-cart
 					<% } %>
 				</a>
 			</li>
-			<li style="display: none"><a style="background:none;" id="swx-minicart-gotocart" href="/cart" data-touchpoint="<%= has_cart_router ? current_touchpoint : 'viewcart' %>" data-hashtag="#cart"></li>
 		</ul>
 	<% } %>
 	</div>

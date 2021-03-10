@@ -2090,3 +2090,6 @@ button.btn.remove{
 button.btn.remove:hover{
   background:#f8beba;
 }
+.modal-ModalImageGallery .modal-dialog{
+  width: 1200px;
+}

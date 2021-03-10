@@ -78,7 +78,6 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
             //       window.inchConfig = data;
 						// 	}
 						// });
-
             this.application = options.application;
             this.counted_clicks = {};
             //SC.sessioncheck();  //KM Commented out and put the sessioncheck on Starter.js
@@ -278,11 +277,14 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
         }
 
         , fabricChecked: function () {
+
             var status = true
                 , self = this;
+            if(this.model.get('custitem_clothing_type') != 'Sneakers'){
             if(jQuery('#chkItem:checked').length == 0){
                 self.showError(_('You must tick the box under fabric availability to confirm that this fabric is currently in stock').translate());
                 status = false;
+            }
             }
             return status;
         }
@@ -877,6 +879,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
 
                     //self.model.setOption('custcol_itm_category_url', _.where(self.model.get("facets"), {id: "category"})[0].values[0].values[0].values[0].id.replace('Home/', ''));
                     self.model.setOption('custcol_itm_category_url', _.where(categories, { url: "Item Types" })[0].values[0].id.replace('Home/', ''));
+
                     var fitProfileSummary = []
                         , measureList = []
                         , measureType = ""
@@ -933,6 +936,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                 self.holdproduction = 'F';
                 self.model.setOption('custcol_avt_date_needed', self.dateneeded);
                 self.model.setOption('custcol_fabric_extra',jQuery('#fabric_extra option:selected').text());
+                self.model.setOption('custcol_order_block_size',jQuery('#product_size option:selected').text());
                 //self.model.setOption('custcol_order_list_line_item_total', '0.00'); //JHD-34
                 //self.model.setOption('custcolcustcol_item_check','T');
                 self.model.setOption('custcolcustcol_item_check', jQuery("#chkItem").is(':checked')?'T':'F');
@@ -1503,6 +1507,9 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                         else if( options[x].id == 'CUSTCOL_FABRIC_EXTRA'){
                           optionsHolder['CUSTCOL_FABRIC_EXTRA'] = options[x];//jQuery("#fabric_extra option[name=" + options[x].value +"]").prop("selected",true) ;
                         }
+                        else if( options[x].id == 'CUSTCOL_ORDER_BLOCK_SIZE'){
+                          optionsHolder['CUSTCOL_ORDER_BLOCK_SIZE'] = options[x];//jQuery("#fabric_extra option[name=" + options[x].value +"]").prop("selected",true) ;
+                        }
                         else if( options[x].id == 'CUSTCOL_OTHERVENDORNAME'){
                           jQuery('#fabric-cmt-othervendorname').val(options[x].value);
                         }
@@ -1534,7 +1541,7 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                     // }
                     // if from cart, use optionsholder value else window.tempQuantity
 
-                    if (self.model.get("custitem_clothing_type") !== '&nbsp;' && self.model.get('itemtype') !== 'InvtPart') {
+                    if (self.model.get("custitem_clothing_type") !== '&nbsp;' && self.model.get("custitem_clothing_type") != 'Sneakers' && self.model.get('itemtype') !== 'InvtPart') {
                         jQuery("input#quantity").val(selectedItem ? optionsHolder['CUSTCOL_FABRIC_QUANTITY'].value : window.tempQuantity);
                     }
                 // });
@@ -1568,6 +1575,9 @@ define('ItemDetails.View', ['FitProFile.Views', 'FitProfile.Model', 'Facets.Tran
                             }
                             if(optionsHolder['CUSTCOL_FABRIC_EXTRA']){
                               jQuery("#fabric_extra option[name='" + optionsHolder['CUSTCOL_FABRIC_EXTRA'].value +"']").prop("selected",true) ;
+                            }
+                            if(optionsHolder['CUSTCOL_ORDER_BLOCK_SIZE']){
+                              jQuery("#product_size option[name='" + optionsHolder['CUSTCOL_ORDER_BLOCK_SIZE'].value +"']").prop("selected",true);
                             }
                         } else { }
                     } else {

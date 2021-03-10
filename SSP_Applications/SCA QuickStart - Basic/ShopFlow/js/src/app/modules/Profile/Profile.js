@@ -158,6 +158,7 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 			tag['Shirt-Jacket'] = 'shj';
 			tag['Camp-Shirt'] = 'cs';
 			tag['Safari-Jacket'] = 'sj';
+			tag['Sneakers'] = 'sn';
 			var currentItemTypes;
 
 			var stCartLines = JSON.stringify(userOptions.shoppingCartLines) || '[]';
@@ -316,10 +317,6 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 				,	numberOfItemsDisplayed: application.getConfig('recentlyViewedItems.numberOfItemsDisplayed')
 				});
 				var self = this;
-				jQuery.get(_.getAbsoluteUrl('services/UstyylitApplications.Service.ss')).done(function(data){
-					self.customerliningurl = JSON.parse(data[0]).url;
-					self.stylecarturl = JSON.parse(data[1]).url;
-				});
 				application.getLayout().on('afterAppendView', function (view)
 				{
 					if (view.$('[data-type="recently-viewed-placeholder"]').length)
@@ -328,8 +325,27 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 					}
 					// only include userOptions when on product details page
 					if(!_.isEmpty(window.tempOptions) && application.getLayout().currentView.template == "product_details" && !view.inModal){
+						jQuery.ajax({
+							url:_.getAbsoluteUrl('services/UstyylitApplications.Service.ss'),
+							async:false,
+							success: function (data) {
+									self.customerliningurl = JSON.parse(data[0]).url;
+									self.stylecarturl = JSON.parse(data[1]).url;
+							}
+						});
+
 						designOptionMessage = window.tempOptionsNotes ? window.tempOptionsNotes : "";
 						application.getUser().setUserOptionConfig(function(userOptions){
+							if(!self.customerliningurl){
+							jQuery.ajax({
+								url:_.getAbsoluteUrl('services/UstyylitApplications.Service.ss'),
+								async:false,
+								success: function (data) {
+										self.customerliningurl = JSON.parse(data[0]).url;
+										self.stylecarturl = JSON.parse(data[1]).url;
+								}
+							});
+							}
 							application.getUser().displayDesignOptions(view, userOptions, self.customerliningurl);
 							jQuery("#designoption-message").val(designOptionMessage);
 							view.showHideGroupedOptions();
@@ -484,6 +500,15 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 														}
 													});
 												}
+												if(item.get("options").custcol_designoptions_sneakers){
+													var opValues = JSON.parse(item.get("options").custcol_designoptions_sneakers.value);
+
+													_.each(opValues, function(value){
+														if(value){
+															values[value.name] = value.value;
+														}
+													});
+												}
 												if(item.get("options").custcol_designoption_message){
 													designOptionMessage = item.get("options").custcol_designoption_message.value;
 												}
@@ -493,6 +518,16 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 
 									}
 									application.getUser().setUserOptionConfig(function(userOptions){
+										if(!self.customerliningurl){
+										jQuery.ajax({
+											url:_.getAbsoluteUrl('services/UstyylitApplications.Service.ss'),
+											async:false,
+											success: function (data) {
+													self.customerliningurl = JSON.parse(data[0]).url;
+													self.stylecarturl = JSON.parse(data[1]).url;
+											}
+										});
+										}
 										application.getUser().displayDesignOptions(view, userOptions, self.customerliningurl);
 										jQuery("#designoption-message").val(designOptionMessage);
 										view.showHideGroupedOptions();
@@ -519,7 +554,8 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 										|| internalid == "custcol_designoptions_ladiesskirt" || internalid == "custcol_designoptions_trenchcoat"
 										|| internalid == "custcol_designoptions_ssshirt" || internalid == "custcol_designoptions_shorts"
 									|| internalid == "custcol_designoptions_camp_shirt" || internalid == "custcol_designoptions_shirt_jacket"
-								|| internalid == "custcol_designoptions_morning_coat" || internalid == "custcol_designoptions_safari_jacket" ){
+								|| internalid == "custcol_designoptions_morning_coat" || internalid == "custcol_designoptions_safari_jacket"
+							|| internalid == "custcol_designoptions_sneakers" ){
 											var opValues = JSON.parse(option.value);
 
 											_.each(opValues, function(value){
@@ -533,6 +569,16 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 									});
 								}
 								application.getUser().setUserOptionConfig(function(userOptions){
+									if(!self.customerliningurl){
+									jQuery.ajax({
+										url:_.getAbsoluteUrl('services/UstyylitApplications.Service.ss'),
+										async:false,
+										success: function (data) {
+												self.customerliningurl = JSON.parse(data[0]).url;
+												self.stylecarturl = JSON.parse(data[1]).url;
+										}
+									});
+									}
 									application.getUser().displayDesignOptions(view, userOptions, self.customerliningurl);
 									jQuery("#designoption-message").val(designOptionMessage);
 									view.showHideGroupedOptions();
@@ -574,6 +620,16 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 											});
 										}
 										application.getUser().setUserOptionConfig(function(userOptions){
+											if(!self.customerliningurl){
+											jQuery.ajax({
+												url:_.getAbsoluteUrl('services/UstyylitApplications.Service.ss'),
+												async:false,
+												success: function (data) {
+														self.customerliningurl = JSON.parse(data[0]).url;
+														self.stylecarturl = JSON.parse(data[1]).url;
+												}
+											});
+											}
 											application.getUser().displayDesignOptions(view, userOptions, self.customerliningurl);
 											jQuery("#designoption-message").val(designOptionMessage);
 											view.showHideGroupedOptions();
@@ -584,6 +640,16 @@ define('Profile', ['Facets.Model'], function (FacetsModel)
 
 						} else {
 							application.getUser().setUserOptionConfig(function(userOptions){
+								if(!self.customerliningurl){
+								jQuery.ajax({
+									url:_.getAbsoluteUrl('services/UstyylitApplications.Service.ss'),
+									async:false,
+									success: function (data) {
+											self.customerliningurl = JSON.parse(data[0]).url;
+											self.stylecarturl = JSON.parse(data[1]).url;
+									}
+								});
+								}
 								application.getUser().displayDesignOptions(view, userOptions, self.customerliningurl);
 								view.showHideGroupedOptions();
 							}, values);

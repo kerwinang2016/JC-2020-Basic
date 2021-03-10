@@ -1,13 +1,5 @@
 // Configuration.js
 // ----------------
-/*
-Change History   
--------------- 
-Date: 04-03-2019
-Changed by:Salman Khan
-Change /Jira Ticket #: JHD-22
-Change Description: Remove �edit� from profile and shipping address in the front-end
-*/
 // All of the applications configurable defaults
 // Each section is comented with a title, please continue reading
 (function (application)
@@ -634,7 +626,7 @@ checkoutSteps: [											//an array with the step groups conforming The Checko
 	,	isSearchGlobal: true
 
 		// url for the not available image
-	,	imageNotAvailable: _.getAbsoluteUrl('img/no_image_available.jpeg')
+	,	imageNotAvailable: _.getAbsoluteUrl('img/no_image_available_blank.jpg')
 
 		// map of image custom image sizes
 		// usefull to be customized for smaller screens

@@ -1,4 +1,6 @@
-
+<%
+	var subtailors = view.application.user_instance.get('subtailors');
+%>
 <div style="padding:15px 0;">
 <h3 class="pull-left"><%= view.page_header %></h3>
 
@@ -6,7 +8,7 @@
 	<div id="site-search-container" class="site-search-container">
 		<form class="form-search site-search" style="float:left;">
 		<div class="input-append">
-			<input class="input-medium search-query" placeholder="Search" type="search" name="keywords" autocomplete="off" maxlength="40" rel='search' value="<%= view.options.search %>">
+			<input class="input-medium search-query" placeholder="Search" type="search" name="keywords" autocomplete="off" maxlength="40" rel='search' value="<%= view.options.search?view.options.search:'SO-' %>">
 			<button type="submit" class="btn" rel='search'>
 				<i class="fa fa-search"></i>
 			</button>
@@ -68,6 +70,17 @@
 	background-repeat: no-repeat;
 	background-position: center;
 	background-color: #e6e6e6;">&nbsp;</button>
+	</div>
+
+	<div class="">
+		<div class="list-header-view-datepicker-container-input">
+			<select style="font-size:12px; width:250px; color:#4D5256;" id="filter_subtailor" class="subtailor">
+				<option value="">Subtailors</option>
+				<% _.each(subtailors, function (order, index) { %>
+				<option value="<%=order.internalid%>" <% if( view.subtailor == order.internalid){ %> selected <% } %>><%=order.name%></option>
+				<%  })%>
+			</select>
+		</div>
 	</div>
 </div>
 <div class="recentOrdersWidget" data-permissions="transactions.tranFind.1,transactions.tranSalesOrd.1">

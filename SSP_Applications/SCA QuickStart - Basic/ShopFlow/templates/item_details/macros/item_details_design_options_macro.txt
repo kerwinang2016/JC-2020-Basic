@@ -14,7 +14,8 @@
 	SafariJacket = ['Monogram Underside Collar','Monogram Lining','Branding','Chest Pocket Emblem or Monogram'],
 	MorningCoat = ['Monogram Underside Collar','Monogram Lining','Branding'],
 	ShirtJacket = ['Contrast','Monogram','Branding and Presentation'],
-	ShortSleevesShirt = ['Monogram','Chest Pocket Emblem','Branding and Presentation'];
+	ShortSleevesShirt = ['Monogram','Chest Pocket Emblem','Branding and Presentation'],
+	Sneakers = [];
 	var collapse = [];
 	collapse['Jacket'] = Jacket;
 	collapse['Trouser'] = Trouser;
@@ -31,6 +32,7 @@
 	collapse['Shirt-Jacket'] = ShirtJacket;
 	collapse['Camp-Shirt'] = CampShirt;
 	collapse['Safari-Jacket'] = SafariJacket;
+	collapse['Sneakers'] = Sneakers;
 		%>
 
 	<% if (designOptions && Object.keys(designOptions).length > 0) { %>

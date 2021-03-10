@@ -1,6 +1,5 @@
 [
-	{
-
+	{ "jm-ms-j": ["Jacket_Half_Canvas.png","J_W_Full Canvas.png","J_Handmade.png","J_O_Unconstructed.png","Jacket_Unconstructed_Handmade.png","J_Semi traditional.png"]
 		"Half canvas": ["Jacket_Half_Canvas.png"]
 	,	"Full canvas": ["J_W_Full Canvas.png"]
 	,	"Handmade": ["J_Handmade.png"]
@@ -1752,7 +1751,9 @@
 	, 	"SCP008": ["image_2.png", "image_1.png"]
 	, 	"SCF001": ["image_1.png"]
 	, 	"SCF002": ["image_1.png", "image_2.png", "image_1.png"]
-	,		"FABQTY": ["CMT_fabric_usage.jpg"]
+	,		"FABQTY_MENS": ["CMT abricusage-mens.jpg"]
+	,		"FABQTY_WOMENS": ["CMTfabricusage-womens.jpg"]
+	,		"FABQTY_SHIRTS": ["CMTfabricusage-shirts.jpg"]
 	,		"li-qty": ["CMT_Lining_9_2020.jpg"]
 	,		"Button Code": ["Jacketbuttons14.jpg","Jacketbuttons13.jpg","Jacketbuttons12.jpg","Jacketbuttons11.jpg","Jacketbuttons10.jpg","Jacketbuttons9.jpg","Jacketbuttons8.jpg",
 			"Jacketbuttons7.jpg","Jacketbuttons6.jpg","Jacketbuttons5.jpg", "Jacketbuttons4.jpg","Jacketbuttons3.jpg","Jacketbuttons2.jpg","Jacketbuttons1.jpg"]

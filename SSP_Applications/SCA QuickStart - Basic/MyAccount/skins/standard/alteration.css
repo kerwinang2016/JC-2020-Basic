@@ -9,3 +9,14 @@
   width:815px;
 }
 .clear{ clear:both;}
+/* Chrome, Safari, Edge, Opera */
+.alterationformview input::-webkit-outer-spin-button,
+.alterationformview input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.alterationformview input[type=number] {
+  -moz-appearance: textfield;
+}

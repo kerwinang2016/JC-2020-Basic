@@ -47,6 +47,24 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Mode
 			, 'click [data-requestdiscount]' : 'requestDiscount'
 			, 'click [data-requestcancel]' : 'requestCancel'
 			, 'click [data-requesthold]' : 'requestHold'
+			, 'click [id*="cogs-options-"]': "showCogs"
+		}
+
+		, showCogs: function(e){
+			e.preventDefault();
+			var self = this;
+			var lineid = jQuery(e.target).data().target.split('#cogs-option-')[1];
+			var linedata = _.find(this.model.get('lines').models,function(o){return o.get('internalid') == lineid;});
+			// var lineid = jQuery(e.target).data().internalid;
+			jQuery.ajax({
+					url: _.getAbsoluteUrl('services/cogsdata.ss'),
+					type: 'post',
+					data: JSON.stringify(linedata.toJSON()),
+					dataType: 'text',
+					success: function (d) {
+						self.$el.find('[id*="cogs-option-'+lineid+'"]').html(d);
+					}
+			});
 		}
 		, requestRush: function(e){
 			var cm = new CaseModel();
@@ -481,7 +499,7 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Mode
 			'click [rel=clickover]': 'showTrakingNumbers'
 			, 'click button[rel=search]': 'searchorders'
 			, 'click button[id="sortred"]': 'sortRed'
-			, 'blur [name="oh_dateneeded"]': 'updateDateNeeded'
+			, 'change [name="oh_dateneeded"]': 'updateDateNeeded'
 			,	'change [data-name="flag"]': 'updateFlag'
 			, 'click #modalContainerSave' : 'updateFlagDetails'
 			, 'click [data-dismiss="modal"]': 'closemodal'
@@ -490,6 +508,7 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Mode
 			, 'click #clearfilters': 'clearFilters'
 			, 'click [data-name*="downloadfile"]': 'downloadCheckboxClicked'
 			, 'click #searchorders': 'searchorders'
+
 		}
 		, downloadCheckboxClicked: function(e){
 			if(jQuery('#selectall').prop('checked') == true){
@@ -503,6 +522,7 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Mode
 				jQuery('#filter_cmtstatus').val("");
 				jQuery('#cmtdate').val("");
 				jQuery('[rel="search"]').val("");
+				jQuery('#filter_subtailor').val("");
 		}
 		, selectAll: function(e){
 			if(jQuery('#selectall').prop('checked') == true){
@@ -520,7 +540,7 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Mode
 
 			if(jQuery('#selectall').prop('checked') == true){
 				//if it is checked
-
+				var subtailor = jQuery('#filter_subtailor').val()?jQuery('#filter_subtailor').val().toString():"";
 				var data = {
 					page: 'all'
 					,	search: jQuery("input[rel=search]").val()
@@ -529,6 +549,7 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Mode
 					, enddate: jQuery('#to').val()?jQuery('#to').val().split('/').join('-'):""
 					, cmtstatus: jQuery('#filter_cmtstatus').val()
 					, cmtdate: jQuery('#cmtdate').val()?jQuery('#cmtdate').val().split('/').join('-'):""
+					, subtailor: subtailor
 				};
 				this.collection.fetch({
 					data: data
@@ -620,9 +641,11 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Mode
 			var startdate = jQuery('#from').val()?jQuery('#from').val().split('/').join('-'):"";
 			var enddate = jQuery('#to').val()?jQuery('#to').val().split('/').join('-'):"";
 			var cmtdate = jQuery('#cmtdate').val()?jQuery('#cmtdate').val().split('/').join('-'):"";
+			var subtailor = jQuery('#filter_subtailor').val()?jQuery('#filter_subtailor').val().toString():"";
 			var	url = "ordershistory?search=" + search_keyword+"&cmtdate="+cmtdate+
 				"&startdate="+startdate+"&enddate="+enddate+
-				"&cmtstatus="+jQuery('#filter_cmtstatus').val();
+				"&cmtstatus="+jQuery('#filter_cmtstatus').val()+
+				"&subtailor="+subtailor;
 			Backbone.history.navigate(url, true);
 		}
 
@@ -632,9 +655,11 @@ define('OrderHistory.Views', ['ItemDetails.Model', 'TrackingServices','Case.Mode
 			var startdate = jQuery('#from').val()?jQuery('#from').val().split('/').join('-'):"";
 			var enddate = jQuery('#to').val()?jQuery('#to').val().split('/').join('-'):"";
 			var cmtdate = jQuery('#cmtdate').val()?jQuery('#cmtdate').val().split('/').join('-'):"";
+			var subtailor = jQuery('#filter_subtailor').val()?jQuery('#filter_subtailor').val().toString():"";
 			var	url = "ordershistory?sort=true&search=" + search_keyword+"&cmtdate="+cmtdate+
 				"&startdate="+startdate+"&enddate="+enddate+
-				"&cmtstatus="+jQuery('#filter_cmtstatus').val();
+				"&cmtstatus="+jQuery('#filter_cmtstatus').val()+
+				"&subtailor="+subtailor;
 			Backbone.history.navigate(url, true);
 		}
 

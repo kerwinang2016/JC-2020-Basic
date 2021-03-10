@@ -83,7 +83,7 @@
 		// flag for showing or not, "add to cart" button in facet views
 	,	addToCartFromFacetsView: false
 		// url for the not available image
-	,	imageNotAvailable: _.getAbsoluteUrl('img/no_image_available.jpeg')
+	,	imageNotAvailable: _.getAbsoluteUrl('img/no_image_available_blank.jpg')
 		// default macros
 	,	macros: {
 			facet: 'facetList'

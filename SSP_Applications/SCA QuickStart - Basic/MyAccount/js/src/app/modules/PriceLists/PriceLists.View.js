@@ -1,7 +1,7 @@
 // Price.View.js
 // -----------------------
 // Views for viewing Price list.
-define('PriceLists.View', function ()
+define('PriceLists.View', ['PDFLIB'],function (PDFLIB)
 {
 	'use strict';
 
@@ -47,8 +47,14 @@ define('PriceLists.View', function ()
 			});
 		}
 	,	events: {
-			'click [data-action="downloadCMTStockedFabric"]': 'downloadCMTStockedFabric'
+				'click [data-action="downloadCMTStockedFabric"]': 'downloadCMTStockedFabric'
+			,	'click [data-action="downloadAllPricelist"]': 'downloadAllPricelist'
 		}
+
+	, downloadAllPricelist: function(e){
+		e.preventDefault();
+		var data1 = {};
+	}
 	, downloadCMTStockedFabric: function(e){
 		e.preventDefault();
 		var data1 = {};
@@ -70,17 +76,17 @@ define('PriceLists.View', function ()
 					data1.contents += cmt.trenchcoat?cmt.trenchcoat+",":",";
 					data1.contents += cmt.trenchcoatfivebtn?cmt.trenchcoatfivebtn+",":",";
 					data1.contents += cmt.trenchcoattenbtn?cmt.trenchcoattenbtn+",":",";
-					data1.contents += cmt.shorts?cmt.shorts:",";
-					data1.contents += cmt.morningcoat?cmt.morningcoat:",";
-					data1.contents += cmt.shirtjacket?cmt.shirtjacket:",";
-					data1.contents += cmt.safarijacket?cmt.safarijacket:",";
-					data1.contents += cmt.campshirt?cmt.campshirt:",";
+					data1.contents += cmt.shorts?cmt.shorts+",":",";
+					data1.contents += cmt.morningcoat?cmt.morningcoat+",":",";
+					data1.contents += cmt.shirtjacket?cmt.shirtjacket+",":",";
+					data1.contents += cmt.safarijacket?cmt.safarijacket+",":",";
+					data1.contents += cmt.campshirt?cmt.campshirt+",":",";
 					data1.contents += cmt.ladiesthreepc?cmt.ladiesthreepc+",":",";
 					data1.contents += cmt.twopcpants?cmt.twopcpants+",":",";
 					data1.contents += cmt.twopcskirt?cmt.twopcskirt+",":",";
 					data1.contents += cmt.ladiesjacket?cmt.ladiesjacket+",":",";
 					data1.contents += cmt.ladiespants?cmt.ladiespants+",":",";
-					data1.contents += cmt.ladiesskirt?cmt.ladiesskirt:"";
+					data1.contents += cmt.ladiesskirt?cmt.ladiesskirt+",":"";
 					data1.contents += "\n";
 				}
 			}

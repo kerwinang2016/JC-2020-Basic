@@ -33,16 +33,21 @@ function userEventBeforeSubmitSO(type){
 		var currentUser = nlapiGetContext().getUser();
 		//nlapiLogExecution('debug','currentUser',currentUser);
 		var status = objRecordSO.getFieldText('orderstatus');
-    var dateneeded = objRecordSO.getFieldValue('custbody_date_needed'), dateneededStr = "";
-    nlapiLogExecution('debug','Date Needed', dateneeded);
-    if(dateneeded){
-      var d = dateneeded.split('-');
-      2021-02-25
-      dateneededStr = d[2]+"/"+d[1]+"/"+d[0];
-      objRecordSO.setFieldValue('custbody_date_needed', dateneededStr)
-    }
+    var dateneededStr = objRecordSO.getFieldValue('custbody_date_needed');
+    nlapiLogExecution('debug','Date Needed', dateneededStr);
+    // if(dateneeded){
+      // var d = dateneeded.split('-');
+      //2021-02-25
+	  // if(d[2])
+      // dateneededStr = d[2]+"/"+d[1]+"/"+d[0];
+      // objRecordSO.setFieldValue('custbody_date_needed', dateneededStr)
+    // }
     nlapiLogExecution('debug','Date Needed', dateneededStr);
 		if (type == 'create'){//|| (type == 'edit' && status == "Pending Approval")){
+
+      // var sneakerOrders = nlapiCreateRecord('salesorder',{recordmode: 'dynamic'});
+      // var hasSneakerItems = false, hasGarmentOrder = false;
+
 			objRecordSO.setFieldValue('custbody_so_created_by',nlapiGetContext().getUser());
 			//Check if the address is set.. if not use the default address.
 
@@ -54,6 +59,15 @@ function userEventBeforeSubmitSO(type){
 			var tailorID = objRecordSO.getFieldValue('entity');
 			var createdBy = objRecordSO.getFieldValue('custbody_so_created_by');
 			// From the tailor record, get the CMT service preference and discount rate
+
+      // //InitializeSneakerOrder
+      // sneakerOrders.setFieldValue('entity', tailorID);
+      // sneakerOrders.setFieldValue('custbody_customer_name',objRecordSO.getFieldValue('custbody_customer_name'));
+      // sneakerOrders.setFieldValue('custbody_so_created_by',objRecordSO.getFieldValue('custbody_so_created_by'));
+      // sneakerOrders.setFieldValue('custbody_is_sneaker_order','T');
+      // sneakerOrders.setFieldValue('custbody_date_needed',objRecordSO.getFieldValue('custbody_date_needed'));
+      // sneakerOrders.setFieldValue('memo',objRecordSO.getFieldValue('memo'));
+
 
 			var customer = nlapiLoadRecord('customer',parent);
 			if(!objRecordSO.getFieldValue('shipaddress')){
@@ -117,8 +131,50 @@ function userEventBeforeSubmitSO(type){
         'Shorts': ['28'],
         'Camp-Shirt': ['29'],
         'Safari-Jacket': ['31'],
-        'Shirt-Jacket': ['30']
+        'Shirt-Jacket': ['30'],
+        'Sneakers': ['32']
       }
+      // for (var ii = 1; ii <= itemCount; ii++) {
+      //   var prodType = objRecordSO.getLineItemValue('item','custcol_producttype',ii);
+      //   if(prodType == 'Sneakers'){
+      //     //RemoveSneakers and Create a new SalesOrder for it
+      //     hasSneakerItems = true;
+      //   }else{
+      //     hasGarmentOrder = true;
+      //   }
+      // }
+      // if(hasSneakerItems && hasGarmentOrder){
+      //   var soNumber =  sneakerOrders.getFieldValue( 'tranid');
+      //   var sneakersCount = 1;
+      //   for (var ii = 1; ii <= itemCount; ii++) {
+      //     var prodType = objRecordSO.getLineItemValue('item','custcol_producttype',ii);
+      //
+      //     if(prodType == 'Sneakers'){
+      //       //RemoveSneakers and Create a new SalesOrder for it
+      //       sneakerOrders.selectNewLineItem('item');
+      //       sneakerOrders.setCurrentLineItemValue('item','item',objRecordSO.getLineItemValue('item','item',ii));
+      //       sneakerOrders.setCurrentLineItemValue('item', 'custcol_so_id', soNumber + '-' + sneakersCount);
+      //       // sneakerOrders.setCurrentLineItemValue('item','custcol_so_id',objRecordSO.getLineItemValue('item','custcol_so_id',ii));
+      //       sneakerOrders.setCurrentLineItemValue('item','quantity',objRecordSO.getLineItemValue('item','quantity',ii));
+      //       sneakerOrders.setCurrentLineItemValue('item','custcol_othervendorname',objRecordSO.getLineItemValue('item','custcol_othervendorname',ii));
+      //       sneakerOrders.setCurrentLineItemValue('item','description',objRecordSO.getLineItemValue('item','description',ii));
+      //       sneakerOrders.setCurrentLineItemValue('item','custcol_designoptions_sneakers',objRecordSO.getLineItemValue('item','custcol_designoptions_sneakers',ii));
+      //       sneakerOrders.setCurrentLineItemValue('item','custcol_tailor_client_name',objRecordSO.getLineItemValue('item','custcol_tailor_client_name',ii));
+      //       sneakerOrders.setCurrentLineItemValue('item','custcol_ps_cart_item_id',objRecordSO.getLineItemValue('item','custcol_ps_cart_item_id',ii));
+      //       sneakerOrders.setCurrentLineItemValue('item','custcol_tailor_client_name',objRecordSO.getLineItemValue('item','custcol_tailor_client_name',ii));
+      //       sneakerOrders.setCurrentLineItemValue('item','custcol_avt_date_needed',objRecordSO.getLineItemValue('item','custcol_avt_date_needed',ii));
+      //       sneakerOrders.setCurrentLineItemValue('item','custcol_avt_saleorder_line_key',objRecordSO.getLineItemValue('item','custcol_avt_saleorder_line_key',ii));
+      //       sneakerOrders.setCurrentLineItemValue('item','custcol_producttype',objRecordSO.getLineItemValue('item','custcol_producttype',ii));
+      //       sneakerOrders.commitLineItem('item');
+      //       objRecordSO.removeLineItem('item', ii);
+      //       sneakersCount++ ;
+      //     }
+      //   }
+      //   nlapiSubmitRecord(sneakerOrders);
+      // }else if(hasSneakerItems && !hasGarmentOrder){
+      //   objRecordSO.setFieldValue('custbody_is_sneaker_order','T');
+      // }
+      // itemCount = objRecordSO.getLineItemCount('item');
       var allproducttypes = [];
       for (var ii = 1; ii <= itemCount; ii++) {
         var itemtype = objRecordSO.getLineItemValue('item', 'custcol_producttype', ii);
@@ -214,13 +270,41 @@ function userEventBeforeSubmitSO(type){
 			var count = 1;
 
 			for (var ii=1; ii<=itemCount; ii++){
-        objRecordSO.setLineItemValue('item','custcol_avt_date_needed',ii,dateneededStr);
-				UpdateFitProfile(ii, objRecordSO, bqm);
+        //If the product type is sneakers.. maybe just do not do anything.
+
+				objRecordSO.setLineItemValue('item','custcol_avt_date_needed',ii,dateneededStr);
+        var prodType = objRecordSO.getLineItemValue('item','custcol_producttype',ii);
+        // if(prodType != 'Sneakers'){
+        //   //RemoveSneakers and Create a new SalesOrder for it
+        //   if(hasSneakerItems){
+        //
+        //   }else{
+        //     hasSneakerItems = true;
+        //   }
+        //   sneakerOrders.selectNewLineItem('item');
+        //   sneakerOrders.setCurrentLineItemValue('item','item',objRecordSO.getLineItemValue('item','item',ii));
+        //   sneakerOrders.setCurrentLineItemValue('item','custcol_so_id',objRecordSO.getLineItemValue('item','custcol_so_id',ii));
+        //   sneakerOrders.setCurrentLineItemValue('item','quantity',objRecordSO.getLineItemValue('item','quantity',ii));
+        //   sneakerOrders.setCurrentLineItemValue('item','custcol_othervendorname',objRecordSO.getLineItemValue('item','custcol_othervendorname',ii));
+        //   sneakerOrders.setCurrentLineItemValue('item','description',objRecordSO.getLineItemValue('item','description',ii));
+        //   sneakerOrders.setCurrentLineItemValue('item','custcol_designoptions_sneakers',objRecordSO.getLineItemValue('item','custcol_designoptions_sneakers',ii));
+        //   sneakerOrders.setCurrentLineItemValue('item','custcol_tailor_client_name',objRecordSO.getLineItemValue('item','custcol_tailor_client_name',ii));
+        //   sneakerOrders.setCurrentLineItemValue('item','custcol_ps_cart_item_id',objRecordSO.getLineItemValue('item','custcol_ps_cart_item_id',ii));
+        //   sneakerOrders.setCurrentLineItemValue('item','custcol_tailor_client_name',objRecordSO.getLineItemValue('item','custcol_tailor_client_name',ii));
+        //   sneakerOrders.setCurrentLineItemValue('item','custcol_avt_date_needed',objRecordSO.getLineItemValue('item','custcol_avt_date_needed',ii));
+        //   sneakerOrders.setCurrentLineItemValue('item','custcol_avt_saleorder_line_key',objRecordSO.getLineItemValue('item','custcol_avt_saleorder_line_key',ii));
+        //   sneakerOrders.setCurrentLineItemValue('item','custcol_producttype',objRecordSO.getLineItemValue('item','custcol_producttype',ii));
+        //   sneakerOrders.commitLineItem('item');
+        //   objRecordSO.removeLineItem('item', ii);
+        // }
+        if(prodType != 'Sneakers'){
+				   UpdateFitProfile(ii, objRecordSO, bqm);
+         }
 				var tailorCMTDisc = 0;
 				//Start checking the fitprofile if it is synced
 				if(objRecordSO.getLineItemValue('item','povendor',ii) == '17' || objRecordSO.getLineItemValue('item','povendor',ii) == '671'){
 					var fabCollection = nlapiLookupField('item',objRecordSO.getLineItemValue('item','item',ii),'custitem_fabric_collection',true);
-					var prodType = objRecordSO.getLineItemValue('item','custcol_producttype',ii);
+
 					var currentPricelevel = customerfields.custentity_dayang_pricelevel?customerfields.custentity_dayang_pricelevel:customerfields.pricelevel;
 					//nlapiLogExecution('debug','FABRIC TAX RATE BEFORE', objRecordSO.getLineItemValue('item','taxrate1',ii));
 					if(fabCollection && prodType && currentPricelevel != ""){
@@ -1019,6 +1103,32 @@ function userEventBeforeSubmitSO(type){
 						}
 					}
 				}
+				if(objRecordSO.getLineItemValue('item', 'custcol_designoptions_sneakers', ii)){
+					var itemsurcharges = surcharges.filter(function(i){return i.type == "Sneakers";});
+					var dop = JSON.parse(objRecordSO.getLineItemValue('item', 'custcol_designoptions_sneakers', ii));
+					for(var kk=0;kk<itemsurcharges.length;kk++){
+						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name})
+						if(dop_value){
+							var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value});
+
+							if(dop_surcharge){
+							var isExempt = dop_surcharge.exemptfromsurcharge.indexOf(tailorID)!=-1?true:false;
+							var surchargeDiscount = _.find(surcharges_discount,function(x){return x.do_internalid == dop_surcharge.internalid});
+							var percentdiscount = 0;
+							if(surchargeDiscount){
+								percentdiscount = parseFloat(surchargeDiscount.ratepercent?surchargeDiscount.ratepercent:0)/100;
+							}
+							var surcharge = (parseFloat(dop_surcharge.surcharge)).toFixed(2);
+							if(isExempt)
+								surcharge = 0;
+							surcharge = (1-percentdiscount) * parseFloat(surcharge);
+							surcharge = parseFloat(surcharge) + parseFloat(surcharge*tailorSurchargeDisc/100);
+							surcharge = Math.round(surcharge);
+							surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge)).toFixed(2);
+							surchargedescription += "Sneakers " + dop_surcharge.description + " " + parseFloat(surcharge).toFixed(2) +"\n";}
+						}
+					}
+				}
 				var tailorCMTPref;
 				if (typeof arItemType === 'string' && arItemType == 'Shirt'){
 					tailorCMTPref = 'Basic CMT';
@@ -1030,151 +1140,153 @@ function userEventBeforeSubmitSO(type){
 				try{
 					var cmtServiceItem;
 					var cmtServicePrice;
-					switch (tailorCMTPref){
-						case 'Premium CMT':
-							if(arItemType){
-								//var itemTypeArray = arItemType.split(',');
-								//if(itemTypeArray.length == 2){
-								if(arItemType == '2-Piece-Suit'){
-									cmtServiceItem = '9910';
-								}
-								else if(arItemType == '3-Piece-Suit'){//if(itemTypeArray.length == 3){
-									cmtServiceItem = '9911';
-								}
-								else if(arItemType == 'Shirt'){
-									cmtServiceItem = '9909';
-								}
-								else if(arItemType == 'Jacket'){
-									cmtServiceItem = '9905';
-								}
-								else if(arItemType == 'Trouser'){
-									cmtServiceItem = '9906';
-								}
-								else if(arItemType == 'Waistcoat'){
-									cmtServiceItem = '9907';
-								}
-								else if(arItemType == 'Overcoat'){
-									cmtServiceItem = '9908';
-								}
-								else if(arItemType == 'Trenchcoat'){
-									cmtServiceItem = '292321';
-								}
-								else if(arItemType == 'Short-Sleeves-Shirt'){
-											cmtServiceItem = '292329';
-										}
-								else if(arItemType == 'Ladies-Skirt'){
-											cmtServiceItem = '292326';
-										}
-								else if(arItemType == 'Ladies-Jacket'){
-											cmtServiceItem = '292328';
-										}
-								else if(arItemType == 'Ladies-Pants'){
-											cmtServiceItem = '292327';
-										}
-								else if(arItemType == 'L-3PC-Suit'){
-											cmtServiceItem = '292332';
-										}
-								else if(arItemType == 'L-2PC-Pants'){
-											cmtServiceItem = '292331';
-										}
-								else if(arItemType == 'L-2PC-Skirt'){
-											cmtServiceItem = '292330';
-								}
-								else if(arItemType == 'Morning-Coat'){
-									cmtServiceItem = '296339';
-								}
-								else if(arItemType == 'Shorts'){
-									cmtServiceItem = '296338';
-								}
-								else if(arItemType == 'Safari-Jacket'){
-									cmtServiceItem = '296340';
-								}
-								else if(arItemType == 'Shirt-Jacket'){
-									cmtServiceItem = '296341';
-								}
-								else if(arItemType == 'Camp-Shirt'){
-									cmtServiceItem = '296342';
-								}
-							}
-							//cmtServiceItem = nlapiLookupField('noninventoryitem', itemID, 'custitem_jerome_cmt_premium');
-							cmtServicePrice = nlapiLookupField('noninventoryitem', cmtServiceItem, 'custitem_jerome_cmt_basic_price',false);
-							break;
-						case 'Basic CMT':
-						default:
-							if(arItemType){
-								//var itemTypeArray = arItemType.split(',');
-								//if(itemTypeArray.length == 2){
-								if(arItemType == '2-Piece-Suit'){
-									cmtServiceItem = '9903';
-								}
-								else if(arItemType == '3-Piece-Suit'){//if(itemTypeArray.length == 3){
-									cmtServiceItem = '9904';
-								}
-								else if(arItemType == 'Shirt'){
-									cmtServiceItem = '9902';
-								}
-								else if(arItemType == 'Jacket'){
-									cmtServiceItem = '9898';
-								}
-								else if(arItemType == 'Trouser'){
-									cmtServiceItem = '9899';
-								}
-								else if(arItemType == 'Waistcoat'){
-									cmtServiceItem = '9900';
-								}
-								else if(arItemType == 'Overcoat'){
-									cmtServiceItem = '9901';
-								}
-								else if(arItemType == 'Trenchcoat'){
-									cmtServiceItem = '292321';
-								}
-								else if(arItemType == 'Short-Sleeves-Shirt'){
-											cmtServiceItem = '292329';
-										}
-								else if(arItemType == 'Ladies-Skirt'){
-											cmtServiceItem = '292326';
-										}
-								else if(arItemType == 'Ladies-Jacket'){
-											cmtServiceItem = '292328';
-										}
-								else if(arItemType == 'Ladies-Pants'){
-											cmtServiceItem = '292327';
-										}
-								else if(arItemType == 'L-3PC-Suit'){
-											cmtServiceItem = '292332';
-										}
-								else if(arItemType == 'L-2PC-Pants'){
-											cmtServiceItem = '292331';
-										}
-								else if(arItemType == 'L-2PC-Skirt'){
-											cmtServiceItem = '292330';
-								}
-								else if(arItemType == 'Morning-Coat'){
-									cmtServiceItem = '296339';
-								}
-								else if(arItemType == 'Shorts'){
-									cmtServiceItem = '296338';
-								}
-								else if(arItemType == 'Safari-Jacket'){
-									cmtServiceItem = '296340';
-								}
-								else if(arItemType == 'Shirt-Jacket'){
-									cmtServiceItem = '296341';
-								}
-								else if(arItemType == 'Camp-Shirt'){
-									cmtServiceItem = '296342';
-								}
-							}
-							//cmtServiceItem = nlapiLookupField('noninventoryitem', itemID, 'custitem_jerome_cmt_basic',false);
-							cmtServicePrice = nlapiLookupField('noninventoryitem', cmtServiceItem, 'custitem_jerome_cmt_basic_price',false);
-							break;
-					}
+          if(prodType != 'Sneakers'){
+  					switch (tailorCMTPref){
+  						case 'Premium CMT':
+  							if(arItemType){
+  								//var itemTypeArray = arItemType.split(',');
+  								//if(itemTypeArray.length == 2){
+  								if(arItemType == '2-Piece-Suit'){
+  									cmtServiceItem = '9910';
+  								}
+  								else if(arItemType == '3-Piece-Suit'){//if(itemTypeArray.length == 3){
+  									cmtServiceItem = '9911';
+  								}
+  								else if(arItemType == 'Shirt'){
+  									cmtServiceItem = '9909';
+  								}
+  								else if(arItemType == 'Jacket'){
+  									cmtServiceItem = '9905';
+  								}
+  								else if(arItemType == 'Trouser'){
+  									cmtServiceItem = '9906';
+  								}
+  								else if(arItemType == 'Waistcoat'){
+  									cmtServiceItem = '9907';
+  								}
+  								else if(arItemType == 'Overcoat'){
+  									cmtServiceItem = '9908';
+  								}
+  								else if(arItemType == 'Trenchcoat'){
+  									cmtServiceItem = '292321';
+  								}
+  								else if(arItemType == 'Short-Sleeves-Shirt'){
+  											cmtServiceItem = '292329';
+  										}
+  								else if(arItemType == 'Ladies-Skirt'){
+  											cmtServiceItem = '292326';
+  										}
+  								else if(arItemType == 'Ladies-Jacket'){
+  											cmtServiceItem = '292328';
+  										}
+  								else if(arItemType == 'Ladies-Pants'){
+  											cmtServiceItem = '292327';
+  										}
+  								else if(arItemType == 'L-3PC-Suit'){
+  											cmtServiceItem = '292332';
+  										}
+  								else if(arItemType == 'L-2PC-Pants'){
+  											cmtServiceItem = '292331';
+  										}
+  								else if(arItemType == 'L-2PC-Skirt'){
+  											cmtServiceItem = '292330';
+  								}
+  								else if(arItemType == 'Morning-Coat'){
+  									cmtServiceItem = '296339';
+  								}
+  								else if(arItemType == 'Shorts'){
+  									cmtServiceItem = '296338';
+  								}
+  								else if(arItemType == 'Safari-Jacket'){
+  									cmtServiceItem = '296340';
+  								}
+  								else if(arItemType == 'Shirt-Jacket'){
+  									cmtServiceItem = '296341';
+  								}
+  								else if(arItemType == 'Camp-Shirt'){
+  									cmtServiceItem = '296342';
+  								}
+  							}
+  							//cmtServiceItem = nlapiLookupField('noninventoryitem', itemID, 'custitem_jerome_cmt_premium');
+  							cmtServicePrice = nlapiLookupField('noninventoryitem', cmtServiceItem, 'custitem_jerome_cmt_basic_price',false);
+  							break;
+  						case 'Basic CMT':
+  						default:
+  							if(arItemType){
+  								//var itemTypeArray = arItemType.split(',');
+  								//if(itemTypeArray.length == 2){
+  								if(arItemType == '2-Piece-Suit'){
+  									cmtServiceItem = '9903';
+  								}
+  								else if(arItemType == '3-Piece-Suit'){//if(itemTypeArray.length == 3){
+  									cmtServiceItem = '9904';
+  								}
+  								else if(arItemType == 'Shirt'){
+  									cmtServiceItem = '9902';
+  								}
+  								else if(arItemType == 'Jacket'){
+  									cmtServiceItem = '9898';
+  								}
+  								else if(arItemType == 'Trouser'){
+  									cmtServiceItem = '9899';
+  								}
+  								else if(arItemType == 'Waistcoat'){
+  									cmtServiceItem = '9900';
+  								}
+  								else if(arItemType == 'Overcoat'){
+  									cmtServiceItem = '9901';
+  								}
+  								else if(arItemType == 'Trenchcoat'){
+  									cmtServiceItem = '292321';
+  								}
+  								else if(arItemType == 'Short-Sleeves-Shirt'){
+  											cmtServiceItem = '292329';
+  										}
+  								else if(arItemType == 'Ladies-Skirt'){
+  											cmtServiceItem = '292326';
+  										}
+  								else if(arItemType == 'Ladies-Jacket'){
+  											cmtServiceItem = '292328';
+  										}
+  								else if(arItemType == 'Ladies-Pants'){
+  											cmtServiceItem = '292327';
+  										}
+  								else if(arItemType == 'L-3PC-Suit'){
+  											cmtServiceItem = '292332';
+  										}
+  								else if(arItemType == 'L-2PC-Pants'){
+  											cmtServiceItem = '292331';
+  										}
+  								else if(arItemType == 'L-2PC-Skirt'){
+  											cmtServiceItem = '292330';
+  								}
+  								else if(arItemType == 'Morning-Coat'){
+  									cmtServiceItem = '296339';
+  								}
+  								else if(arItemType == 'Shorts'){
+  									cmtServiceItem = '296338';
+  								}
+  								else if(arItemType == 'Safari-Jacket'){
+  									cmtServiceItem = '296340';
+  								}
+  								else if(arItemType == 'Shirt-Jacket'){
+  									cmtServiceItem = '296341';
+  								}
+  								else if(arItemType == 'Camp-Shirt'){
+  									cmtServiceItem = '296342';
+  								}
+  							}
+  							//cmtServiceItem = nlapiLookupField('noninventoryitem', itemID, 'custitem_jerome_cmt_basic',false);
+  							cmtServicePrice = nlapiLookupField('noninventoryitem', cmtServiceItem, 'custitem_jerome_cmt_basic_price',false);
+  							break;
+  					}
+          }
 
 
 					// go in to the service item, and look up the price based on premium or basic preference.
 
 
-					if (!Function.isUndefinedNullOrEmpty(cmtServiceItem) && !Function.isUndefinedNullOrEmpty(cmtServicePrice)){
+					if (!Function.isUndefinedNullOrEmpty(cmtServiceItem) && !Function.isUndefinedNullOrEmpty(cmtServicePrice) && prodType != 'Sneakers'){
 						var price = (parseFloat(cmtServicePrice) + (parseFloat(cmtServicePrice*tailorCMTDisc/100))).toFixed(2);
 						var description = tailorCMTPref + " " + price +"\n";
 
@@ -1212,7 +1324,31 @@ function userEventBeforeSubmitSO(type){
 						itemCount = objRecordSO.getLineItemCount('item');
 
 
-					} else {
+					}else if(prodType == 'Sneakers'){
+            var sneakerPrice = objRecordSO.getLineItemValue('item', 'rate', ii);
+            var price = (parseFloat(sneakerPrice) + (parseFloat(sneakerPrice*tailorSurchargeDisc/100))).toFixed(2);
+						var description = objRecordSO.getLineItemText('item', 'item', ii); + " " + price +"\n";
+
+						//Update the price here to include the surcharges
+						//calculate the service item price
+						var serviceItemPrice = (parseFloat(surchargeamount) +parseFloat(sneakerPrice) + (parseFloat(sneakerPrice*tailorSurchargeDisc/100))).toFixed(2);
+
+						description+= surchargedescription;
+
+						//Insert line after the current line item
+						objRecordSO.selectLineItem('item', ii);
+						objRecordSO.setLineItemValue('item', 'description', ii, description);
+						//Set the price to the calculated service item price above
+						objRecordSO.setLineItemValue('item', 'price', ii, -1);
+						//nlapiLogExecution('debug','RATE', serviceItemPrice);
+						objRecordSO.setLineItemValue('item', 'rate', ii, serviceItemPrice);
+
+						//nlapiLogExecution('debug','CMT TAX RATE AFTER', objRecordSO.getLineItemValue('item','taxrate1',ii));
+						var soNumber =  objRecordSO.getFieldValue( 'tranid');
+						//SO Line ID
+						objRecordSO.setLineItemValue('item', 'custcol_so_id', ii, soNumber + '-' + count);
+
+          } else {
 						if (Function.isUndefinedNullOrEmpty(cmtServiceItem)){
 							nlapiLogExecution('ERROR', 'Error:', "Service item for item " + itemID + " is blank in the item record.");
 						} else {
@@ -1224,7 +1360,13 @@ function userEventBeforeSubmitSO(type){
 					nlapiLogExecution('DEBUG', 'Error', e.message);
 				}
 				//}
-			}
+			// }else if(prodType == 'Sneakers'){
+      //   var soNumber =  objRecordSO.getFieldValue( 'tranid');
+      //   //SO Line ID
+      //   objRecordSO.setLineItemValue('item', 'custcol_so_id', ii, soNumber + '-' + ii);
+      //
+      // }
+      }
 			custName = objRecordSO.getFieldValue('custbody_customer_name');
 
 			//nlapiLogExecution('DEBUG', 'custName after loop', custName);

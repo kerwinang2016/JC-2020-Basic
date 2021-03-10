@@ -2,7 +2,8 @@
 	<% var mens_items_per_row = 5, womens_items_per_row = 4;
 		var count = 0;
 		var mensspan = 2, womensspan = 3;
-
+		console.log('items');
+		console.log(items);
 	%>
 	<% if(isCategory){ %>
 	<div>
@@ -43,7 +44,7 @@
 					<div id="womensbanner" class="collapse" style="height:0px;">
 					<div class="row-fluid" style="margin-top:20px;">
 				<% } %>
-				<% if ((count % womens_items_per_row) == 0 && index != 19){
+				<% if ((count % womens_items_per_row) == 0 && index != 20){
 					count = 0;
 				%>
 					</div>
@@ -58,7 +59,7 @@
 						<% } %>
 					</div>
 
-					<% if(index == 19){ %>
+					<% if(index == 20){ %>
 						</div>
 						</div>
 					<% } %>

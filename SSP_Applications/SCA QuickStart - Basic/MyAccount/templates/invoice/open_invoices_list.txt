@@ -19,6 +19,7 @@
 			<span>|</span>
 			<a href="/paid-invoices" class="InvoicePaidInFull"><%= _('Paid in Full').translate() %></a>
 			<% if (invoices.length) { %>
+				<a data-action="consolidateinvoices" class="btn btn-expanded btn-primary pull-right" style="margin-left:10px;"> Consolidate Invoices</a>
 				<a data-action="downloadinvoices" class="btn btn-expanded btn-primary pull-right" style="margin-left:10px;"> Download</a>
 				<a data-permissions="transactions.tranCustPymt.2, transactions.tranCustInvc.1" data-type="make-a-payment" class="btn btn-expanded btn-primary pull-right" <%= selected_invoices_length > 0 ? 'href="/make-a-payment"' : 'disabled' %> >
 					<% if (selected_invoices_length > 0 ) { %>

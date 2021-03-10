@@ -55,7 +55,7 @@ function posurcharge(type){
 		var itemCount = order.getLineItemCount('item');
 		for (var ii=1; ii<=itemCount; ii++){
 			var isServiceItem = nlapiLookupField('noninventoryitem', order.getLineItemValue('item', 'item', ii), 'custitem_jerome_cmt_serviceitem');
-			if(isServiceItem == 'T'){
+			if(isServiceItem == 'T' || order.getLineItemValue('item', 'custcol_producttype', ii) == 'Sneakers'){
 				var surchargeamount = 0;
 				var surchargedescription = "";
 				if(order.getLineItemValue('item', 'custcol_designoptions_jacket', ii)){
@@ -245,7 +245,7 @@ function posurcharge(type){
 					}
 				}
 				if(order.getLineItemValue('item', 'custcol_designoptions_ladiesskirt', ii)){
-					var itemsurcharges = surcharges.filter(function(i){return i.type == "Shirt";});
+					var itemsurcharges = surcharges.filter(function(i){return i.type == "Ladies-Skirt";});
 					var dop = JSON.parse(order.getLineItemValue('item', 'custcol_designoptions_ladiesskirt', ii));
 					for(var kk=0;kk<itemsurcharges.length;kk++){
 						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name})
@@ -411,6 +411,21 @@ function posurcharge(type){
 							var surcharge = (parseFloat(dop_surcharge.surcharge?dop_surcharge.surcharge:0)).toFixed(2);
 							surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge?surcharge:0)).toFixed(2);
 							surchargedescription += "Shirt-Jacket " + dop_surcharge.description + " " + parseFloat(surcharge?surcharge:0).toFixed(2) +"\n";}
+						}
+					}
+				}
+
+				if(order.getLineItemValue('item', 'custcol_designoptions_sneakers', ii)){
+					var itemsurcharges = surcharges.filter(function(i){return i.type == "Sneakers";});
+					var dop = JSON.parse(order.getLineItemValue('item', 'custcol_designoptions_sneakers', ii));
+					for(var kk=0;kk<itemsurcharges.length;kk++){
+						var dop_value = _.find(dop,function(x){return x.name == itemsurcharges[kk].name})
+						if(dop_value){
+							var dop_surcharge = _.find(itemsurcharges[kk].values,function(x){return x.code == dop_value.value})
+							if(dop_surcharge){
+							var surcharge = (parseFloat(dop_surcharge.surcharge?dop_surcharge.surcharge:0)).toFixed(2);
+							surchargeamount = (parseFloat(surchargeamount) + parseFloat(surcharge?surcharge:0)).toFixed(2);
+							surchargedescription += "Sneakers " + dop_surcharge.description + " " + parseFloat(surcharge?surcharge:0).toFixed(2) +"\n";}
 						}
 					}
 				}

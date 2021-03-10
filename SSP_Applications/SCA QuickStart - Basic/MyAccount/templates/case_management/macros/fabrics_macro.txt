@@ -5,7 +5,13 @@
     <label for="title"><%= _('Subject').translate() %></label>
     <input readonly type="text" name="title" id="title" class="case-fields form-control input-xlarge input-case-title" value="<%=model.get('title')%>" ></input>
   </div>
+
+
   <% if(!inDetailsView){ %>
+  <div class="case-new-requestedby control-group">
+    <label for="title"><%= _('Your Name (so we can contact you):').translate() %></label>
+    <input type="text" name="custevent_requested_by" id="custevent_requested_by" class="case-fields form-control input-xlarge input-case-title" value="<%=model.get('custevent_requested_by')%>" ></input>
+  </div>
   <div class="case-custevent_supportcase_fabriccode control-group">
     <label for="custevent_supportcase_fabriccode"><%= _('Fabric Code').translate() %></label>
     <input type="text" name="custevent_supportcase_fabriccode" id="custevent_supportcase_fabriccode" class="case-fields form-control input-xlarge input-case-custevent_supportcase_fabriccode" value="<%=model.get('custevent_supportcase_fabriccode')%>" ></input>
@@ -24,6 +30,10 @@
     <button type="submit" class="btn btn-primary btn-case-submit"><%= _('Submit').translate() %></button>
   </div>
   <% }else{ %>
+  <div class="case-new-requestedby control-group">
+    <label for="title"><%= _('Your Name:').translate() %></label>
+    <input readonly type="text" name="custevent_requested_by" id="custevent_requested_by" class="case-fields form-control input-xlarge input-case-title" value="<%=model.get('custevent_requested_by')%>" ></input>
+  </div>
     <div class="case-custevent_supportcase_fabriccode control-group">
       <label for="custevent_supportcase_fabriccode"><%= _('Fabric Code').translate() %></label>
       <input readonly type="text" name="custevent_supportcase_fabriccode" id="custevent_supportcase_fabriccode" class="case-fields form-control input-xlarge input-case-custevent_supportcase_fabriccode" value="<%=model.get('custevent_supportcase_fabriccode')%>" ></input>

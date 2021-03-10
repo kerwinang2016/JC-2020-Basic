@@ -36,38 +36,38 @@
 				<img width="225px" height="225px" src="<%= view.options.application.resizeImage(thumbnail.url, 'thumbnail') %>" alt="<%= thumbnail.altimagetext %>" itemprop="image">
 			</a>
 		</div>
-		<h2 class="item-cell-name">
+		<h2 class="item-cell-name" style="padding:0 72.5px">
 			<a href="<%= item.get('_url') %><%= client %>">
 				<span itemprop="name">
 					<%= item.get('_name') %>
 				</span>
 			</a>
 		</h2>
-		<h4 class="item-cell-vendorname">
+		<h4 class="item-cell-vendorname" style="padding:0 72.5px">
 				<span itemprop="vendorname" >
 					<%= item.get('vendorname') %>
 				</span>
 		</h2>
 		<% if(item.get('outofstockmessage') == "Low Stock" || item.get('outofstockmessage') == "Out of Stock" || item.get('outofstockmessage') == "Temp Soldout" || item.get('outofstockmessage') == "Soldout"){ %>
-		<h2 class="item-cell-stockstatus">
+		<h2 class="item-cell-stockstatus" style="padding:0 72.5px">
 				<span itemprop="outofstockmessage" class="outofstockmessage">
 					<%= item.get('outofstockmessage') %>
 				</span>
 		</h2>
 		<% }else if(item.get('custitem_ftorderstock') && parseFloat(item.get('custitem_ftorderstock'))>0){ %>
-		<h2 class="item-cell-stockstatus">
+		<h2 class="item-cell-stockstatus" style="padding:0 72.5px">
 				<span itemprop="instockmessage" class="instockmessage">
 					In stock(m): <%= item.get('custitem_ftorderstock') %>
 				</span>
 		</h2>
 		<% }else if(item.get('_name').indexOf('TWDM') != 0 || item.get('_name').indexOf('TWDN') != 0 || item.get('_name').indexOf('TWJN') != 0 || item.get('_name').indexOf('TWPN') != 0){ %>
-		<h2 class="item-cell-stockstatus">
+		<h2 class="item-cell-stockstatus" style="padding:0 72.5px">
 				<span itemprop="instockmessage" class="instockmessage">
 					<%= item.get('outofstockmessage') %>
 				</span>
 		</h2>
 		<% }else{ %>
-		<h2 class="item-cell-stockstatus">
+		<h2 class="item-cell-stockstatus" style="padding:0 72.5px">
 				<span itemprop="instockmessage" class="checkstockmessage">
 					<% if(item.get('custitem_checkstockmessage')){ %>
 						<%= item.get('custitem_checkstockmessage') %>
@@ -90,14 +90,14 @@
 		<!-- </div> -->
 
 		<!-- Stock Availability Date-->
-		<div class="item">
+		<!--<div class="item">
 			<% if (!item.get('custitem_ps_item_available')){ %>
 				<span> Availability Date:</span>
 				<span class="fabric-unavailable" itemprop="custitem_ps_item_availability_date">
 					<%= item.get('custitem_ps_item_availability_date') %>
 				</span>
 			<% } %>
-		</div>
+		</div>-->
 		<% if (view.options.application.getConfig('addToCartFromFacetsView') && item.isReadyForCart()) { %>
 			<form data-toggle="add-to-cart">
 				<input type="hidden" value="<%= item.get('_id') %>" name="item_id">

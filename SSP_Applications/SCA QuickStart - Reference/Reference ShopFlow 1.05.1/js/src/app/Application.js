@@ -14,22 +14,22 @@
 (function (Shopping)
 {
 	'use strict';
-	
+
 	// Get the layout from the application
 	var Layout = Shopping.getLayout();
-	
+
 	// This will change the url when a "select" DOM element
 	// of the type "navigator" is changed
 	_.extend(Layout, {
-		
-		changeUrl: function (e) 
+
+		changeUrl: function (e)
 		{
 			// Get the value of the select and navigate to it
 			// http://backbonejs.org/#Router-navigate
 			Backbone.history.navigate(this.$(e.target).val(), {trigger: true});
 		}
 	});
-	
+
 	_.extend(Layout.events, {
 		'change select[data-type="navigator"]': 'changeUrl'
 	});
@@ -54,5 +54,5 @@
 		jQuery('.main-nav.in').collapse('hide');
 	});
 
-	
+
 })(SC.Application('Shopping'));

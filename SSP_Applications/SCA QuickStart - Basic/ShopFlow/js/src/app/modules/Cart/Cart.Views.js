@@ -49,7 +49,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 		, 'click [id="add-multiple-save-for-later"]': 'addMultipleItemsToCart'
 		,	'click [data-action="copy-to-cart"]' : 'copyItemToCartHandler'
 		, 'click [id="btn-proceed-checkout"]': 'validateItems'
-		, 'blur [name="custbody_date_needed"]': 'setCustBodyDateNeeded'
+		, 'change [name="custbody_date_needed"]': 'setCustBodyDateNeeded'
 		, 'click [data-action="archive"]': 'archiveItems'
 		, 'click #btn-download-pdf' : 'downloadQuote'
 		// , 'click [data-action="show-archived-items"]': 'filterArchivedItems'
@@ -251,7 +251,8 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				// var tempDateNeeded = optionsData.custbody_date_needed;
 				var dateExpected = new Date(tempDateExpected);
 				// var dateNeeded = new Date(tempDateNeeded);
-
+				console.log(dateNeeded);
+				console.log(dateExpected)
 				if (dateNeeded.getTime() < dateExpected.getTime()) {
 					hasError = true;
 					console.log('failed date')
@@ -352,7 +353,8 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 					'Safari-Jacket': 'CUSTCOL_DESIGNOPTIONS_SAFARI_JACKET',
 					'Morning-Coat': 'CUSTCOL_DESIGNOPTIONS_MORNING_COAT',
 					'Shirt-Jacket': 'CUSTCOL_DESIGNOPTIONS_SHIRT_JACKET',
-					'Camp-Shirt': 'CUSTCOL_DESIGNOPTIONS_CAMP_SHIRT'
+					'Camp-Shirt': 'CUSTCOL_DESIGNOPTIONS_CAMP_SHIRT',
+					'Sneakers': "CUSTCOL_DESIGNOPTIONS_SNEAKERS"
 				}
 				if(ptype){
 					switch(ptype){
@@ -494,12 +496,14 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 								}
 								break;
 						default:
+							if(ptype != 'Sneakers'){
 								var ptype_profile = _.where(line.get("options"), {id: ProductTypeProfileMap[ptype]});
 
 								if(!ptype_profile || ptype_profile.length == 0 || ptype_profile[0].value == "[]" || ptype_profile[0].value == ""){
 									hasError = true;
 									jQuery("#"+line.get('internalid')+" .item .alert-placeholder").append(SC.macros.message('Items cannot be processed without fit profiles', 'error', true));
 								}
+							}
 								var ptype_dop = _.where(line.get("options"), {id: ProductTypeOptionsMap[ptype]});
 
 								if(!ptype_dop || ptype_dop.length == 0 || ptype_dop[0].value == "[]" || ptype_dop[0].value == ""){
@@ -836,11 +840,17 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 	, setCustBodyDateNeeded: function(e){
 		e.preventDefault();
 		var optionsData = this.model.get('options');
-		// console.log(jQuery(e.target).val());
+		console.log(e)
+		console.log(jQuery(e.target).val());
 
 		var unformattedDate = new Date(jQuery(e.target).val());
-		var month = parseFloat(unformattedDate.getMonth())+parseFloat(1)
-		var dateneeded = unformattedDate.getDate()+'/'+month+'/'+unformattedDate.getFullYear();
+		var month = (parseFloat(unformattedDate.getMonth())+parseFloat(1)).toString()
+		var day = unformattedDate.getDate().toString();
+		if(day.length == 1)
+			day = "0"+day;
+		if(month.length == 1)
+			month = "0"+month;
+		var dateneeded = day+'/'+month+'/'+unformattedDate.getFullYear();
 		// var d = jQuery(e.target).val()?jQuery(e.target).val():"";
 		// if(d){
 		// 	var da = d.getDate();
@@ -1043,7 +1053,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				ptype.value == 'Shirt' || ptype.value == 'Overcoat' || ptype.value == 'Short-Sleeves-Shirt' ||
 				ptype.value == 'Ladies-Jacket' || ptype.value == 'Ladies-Pants' || ptype.value == 'Ladies-Skirt' ||
 				ptype.value == 'Trenchcoat' || ptype.value == 'Shorts' || ptype.value == 'Shirt-Jacket' || ptype.value == 'Safari-Jacket' ||
-				ptype.value == 'Camp-Shirt' || ptype.value == 'Morning-Coat' ){
+				ptype.value == 'Camp-Shirt' || ptype.value == 'Morning-Coat' || ptype.value == 'Sneakers'){
 
 				var selected_item = product.get('item');
 				var selected_item_internalid = selected_item.get('internalid');
@@ -1484,6 +1494,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				,	displayOptionsSafariJacket = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_SAFARI_JACKET"})
 				,	displayOptionsShirtJacket = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_SHIRT_JACKET"})
 				,	displayOptionsCampShirt = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_CAMP_SHIRT"})
+				,	displayOptionsSneakers = _.where(line.get("options"), {id: "CUSTCOL_DESIGNOPTIONS_SNEAKERS"})
 				,	fitProfileJacket = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_JACKET"})
 				,	fitProfileTrouser = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_TROUSER"})
 				,	fitProfileWaistcoat = _.where(line.get("options"), {id: "CUSTCOL_FITPROFILE_WAISTCOAT"})
@@ -1554,6 +1565,7 @@ define('Cart.Views', ['ErrorManagement', 'FitProfile.Model', 'ItemDetails.Model'
 				cartLine.displayOptionsSafariJacket = self.getColumnValue(displayOptionsSafariJacket);
 				cartLine.displayOptionsShirtJacket = self.getColumnValue(displayOptionsShirtJacket);
 				cartLine.displayOptionsCampShirt = self.getColumnValue(displayOptionsCampShirt);
+				cartLine.displayOptionsSneakers = self.getColumnValue(displayOptionsSneakers);
 				cartLine.fitProfileJacket = self.getColumnValue(fitProfileJacket);
 				cartLine.fitProfileTrouser = self.getColumnValue(fitProfileTrouser);
 				cartLine.fitProfileWaistcoat = self.getColumnValue(fitProfileWaistcoat);

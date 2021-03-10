@@ -11,6 +11,10 @@ define('ModalGallery.Views',  ['Client.Model'], function (ClientModel)
 		template: 'modal_gallery'
 	,	title: ''
 	,	events: {}
+	, attributes: {
+				'id': 'ModalImageGallery'
+			,	'class': 'modal-image-gallery'
+		}
 	,	initialize: function (options)
 		{
 

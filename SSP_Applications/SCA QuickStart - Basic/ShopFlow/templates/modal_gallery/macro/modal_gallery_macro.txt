@@ -10,14 +10,14 @@
 		<ul class="bxslider" data-slider>
 		<% _.each(images, function (image) { %>
 			<li class="pinterest-image" data-zoom data-share-hover-pint-it-button="true">
-				<img src="<%= resizeImage(image, image_resize_id) %>" alt="<%= image.altimagetext %>" itemprop="image">
+				<img src="<%= image %>" alt="<%= image.altimagetext %>" itemprop="image">
 			</li>
 		<% }) %>
 		</ul>
 	<% } else { %>
 		<% var image = images[0]; %>
 		<div class="item-detailed-image pinterest-image" data-zoom data-share-hover-pint-it-button="true">
-			<img class="center-block" src="<%= resizeImage(image, image_resize_id) %>" alt="<%= image.altimagetext %>" itemprop="image">
+			<img class="center-block" src="<%= image %>" alt="<%= image.altimagetext %>" itemprop="image">
 		</div>
 	<% } %>
 <% } %>

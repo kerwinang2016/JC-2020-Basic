@@ -1,6 +1,7 @@
-<header>
+<header style="display:inline-block;">
 	<h3><%= view.page_header %></h3>
 </header>
+<div id="downloadAllPricelist" style="display:inline-block; float:right;" class="btn" data-action="downloadAllPricelist">Download</div>
 <div class="pricelists" id="accordion" role="tablist" aria-multiselectable="true">
 	<div class="accordion-group">
 	  <div class="accordion-heading">
@@ -26,12 +27,20 @@
 	  </div>
 	  <div id="surcharges" class="accordion-body collapse show" role="tabpanel" aria-labelledby="surcharges">
 			<div class="card-block">
-				<div><a target="_blank" href="<%=window.location.origin+view.surchargesformakeandtrim.url%>">Surcharges for Make, Trims & Design Options</a></div>
+				<div>
+				<a class="tablabel accordion-toggle collapsed" data-target="#surchargesmakeandtrim" data-toggle="collapse" data-parent="#surcharges" aria-expanded="false" role="tab" id="heading_surchargesmakeandtrim">
+				Surcharges for Make, Trims & Design Options</a></div>
+			  <div id="surchargesmakeandtrim" class="accordion-body collapse show" role="tabpanel" aria-labelledby="surchargesmakeandtrim">
+					<div class="card-block" id="surchargesmakeandtrimmacro">
+						<%= SC.macros.surchargesMakeAndTrim(view) %>
+					</div>
+			  </div>
 				<br/>
 				<div><a target="_blank" href="https://store.jeromeclothiers.com/myaccount/downloads/Surcharges.xlsx">Surcharges on Fabric Prices</a></div>
 				<br/>
 			</div>
 	  </div>
+
 	</div>
 	<% if(view.cutlengthfabricvendors.length>0){ %>
 	<div class="accordion-group">

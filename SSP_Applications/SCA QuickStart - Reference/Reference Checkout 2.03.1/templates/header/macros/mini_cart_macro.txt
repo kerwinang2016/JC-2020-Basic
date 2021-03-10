@@ -58,10 +58,10 @@
 				</span>
 			</p>
 			<div class="mini-cart-actions">
-				<a href="/cart" data-touchpoint="<%= has_cart_router ? current_touchpoint : 'viewcart' %>" data-hashtag="#cart" class="btn btn-view-cart">
+				<a href="#" data-touchpoint="<%= has_cart_router ? current_touchpoint : 'viewcart' %>" data-hashtag="#cart" class="btn btn-view-cart">
 					<%= _('View Cart').translate() %>
 				</a>
-				<a href="#" href="#" data-touchpoint="checkout" data-hashtag="#" class="btn btn-primary btn-checkout">
+				<a href="#" data-touchpoint="checkout" data-hashtag="#" class="btn btn-primary btn-checkout">
 					<%= _('Checkout').translate() %>
 				</a>
 			</div>

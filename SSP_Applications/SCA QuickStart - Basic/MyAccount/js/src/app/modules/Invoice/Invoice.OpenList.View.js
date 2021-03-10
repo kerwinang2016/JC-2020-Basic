@@ -25,7 +25,8 @@ define('Invoice.OpenList.View', ['Invoice.Collection', 'ListHeader','js/libs/jsz
 
 	,	events: {
 			'click [data-type="invoice"]': 'toggleInvoiceHandler',
-			'click [data-action="downloadinvoices"]': 'downloadInvoices'
+			'click [data-action="downloadinvoices"]': 'downloadInvoices',
+			'click [data-action="consolidateinvoices"]': 'consolidateInvoices'
 		}
 
 	,	initialize : function (options)
@@ -108,6 +109,77 @@ define('Invoice.OpenList.View', ['Invoice.Collection', 'ListHeader','js/libs/jsz
 			// see FileSaver.js
 			saveAs(content, "Invoices.zip");
 		});
+	}
+	, consolidateInvoices: function(e){
+		e.preventDefault();
+		var self = this;
+		var count = jQuery('[data-action="select"]:checked').length;
+		var count2 = 0;
+		var fileData = [];
+		var csvContent = "data:text/csv;charset=utf-8,Invoice Number, Date, Due Date, Amount, Order, Customer, Type\r\n";
+
+		var fileid = new Date();
+		var filename = "ConsolidatedInvoices_"+fileid.getTime()+".csv";
+		console.log('clicked download consolidate')
+		//Invoice Number, Date, Due Date, Amount, Order, Customer, Type
+		if(jQuery('#select-all').prop('checked') == false){
+			if(count > 0){
+				var ids = [];
+				jQuery('[data-action="select"]:checked').each(function(f,g){
+					var id = jQuery(g).val();
+					var data = [];
+					//Get the Details of the lists from open invoices collection
+					var inv = _.find(self.collection.models,function (invoice){
+						return invoice.get('internalid') == id;
+					});
+					if(inv){
+						var invoicenumber = "Invoice "+inv.get('tranid');
+						var trandate = inv.get('trandate');
+						var duedate = inv.get('duedate');
+						var amount = inv.get('summary').total.toString().replace(/,/g,'');
+						var order = inv.get('createdfrom');
+						var client = inv.get('custbody_customer_name');
+						var ordertype = inv.get('custbody_customer_name')?'Production':'Other';
+
+						data.push(invoicenumber);
+						data.push(trandate);
+						data.push(duedate);
+						data.push(amount);
+						data.push(order);
+						data.push(client);
+						data.push(ordertype);
+						fileData.push(data);
+					}
+	    	});
+			}
+		}else{
+			//Select all has been selected
+
+			this.collection.each(function (invoice)
+			{
+				var data = [];
+				data.push("Invoice "+invoice.get('tranid'));
+				data.push(invoice.get('trandate'));
+				data.push(invoice.get('duedate'));
+				data.push(invoice.get('summary').total.toStrig().replace(/,/g,''));
+				data.push(invoice.get('createdfrom'));
+				data.push(invoice.get('custbody_customer_name'));
+				data.push(invoice.get('custbody_customer_name')?'Production':'Other');
+				fileData.push(data);
+			});
+		}
+		if(fileData.length>0){
+			fileData.forEach(function(rowArray) {
+			    var row = rowArray.join(",");
+			    csvContent += row + "\r\n";
+			});
+			var encodedUri = encodeURI(csvContent);
+			var link = document.createElement("a");
+			link.setAttribute("href", encodedUri);
+			link.setAttribute("download", filename);
+			document.body.appendChild(link);
+			link.click();
+		}
 	}
 	, downloadInvoices: function(e){
 		e.preventDefault();

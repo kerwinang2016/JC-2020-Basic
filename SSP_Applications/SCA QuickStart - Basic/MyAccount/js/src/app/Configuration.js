@@ -244,7 +244,7 @@
 	,	isSearchGlobal: true
 
 		// url for the not available image
-	,	imageNotAvailable: _.getAbsoluteUrl('img/no_image_available.jpeg')
+	,	imageNotAvailable: _.getAbsoluteUrl('img/no_image_available_blank.jpg')
 
 		// map of image custom image sizes
 		// usefull to be customized for smaller screens

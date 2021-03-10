@@ -91,8 +91,11 @@
 			<!-- <strong>The factory will be closed from 1st-7th October. This will impact all orders placed from Thursday 19th September or orders that fabric has not arrived by this date</strong>
 			<br/>-->
 			<!--<span style="font-weight:bold;">Reminder: Italian Summer holiday closures are in place from 6th-26th August</span><br/>-->
+				<% if(hash.indexOf('Sneakers') == -1){ %>
 				* The following vendors are searchable: AC Shirt, Ariston, Carnet, Dormeuil, Drago, Dugdale Bros, Filarte, Harrisons, Loro Piana, Solbiati, Thomas Mason <br>
-
+				<% }else { %>
+				* The following vendors are searchable: Mata<br>
+				<% } %>
 			</div>
     </div>
     <%= facetsDisplayResults %>

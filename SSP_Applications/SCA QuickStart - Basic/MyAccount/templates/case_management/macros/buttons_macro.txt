@@ -9,7 +9,13 @@ var buttons = _.filter(acc,function(o){
     <label for="title"><%= _('Subject').translate() %></label>
     <input readonly type="text" name="title" id="title" class="case-fields form-control input-xlarge input-case-title" value="<%=model.get('title')%>" ></input>
   </div>
+
+
   <% if(!inDetailsView){ %>
+  <div class="case-new-requestedby control-group">
+    <label for="title"><%= _('Your Name (so we can contact you):').translate() %></label>
+    <input type="text" name="custevent_requested_by" id="custevent_requested_by" class="case-fields form-control input-xlarge input-case-title" value="<%=model.get('custevent_requested_by')%>" ></input>
+  </div>
   <div class="case-new-item control-group">
     <label for="custevent_supportcase_accessory"><%= _('Button Codes').translate() %></label>
     <select name="custevent_supportcase_accessory" id="custevent_supportcase_accessory" class="case-fields form-control input-xlarge select-case-custevent_supportcase_accessory">
@@ -42,6 +48,10 @@ var buttons = _.filter(acc,function(o){
     <button type="submit" class="btn btn-primary btn-case-submit"><%= _('Submit').translate() %></button>
   </div>
   <% }else{ %>
+  <div class="case-new-requestedby control-group">
+    <label for="title"><%= _('Your Name:').translate() %></label>
+    <input readonly type="text" name="custevent_requested_by" id="custevent_requested_by" class="case-fields form-control input-xlarge input-case-title" value="<%=model.get('custevent_requested_by')%>" ></input>
+  </div>
     <div class="case-new-item control-group">
       <label for="custevent_supportcase_accessory"><%= _('Button Codes').translate() %></label>
       <select readonly name="custevent_supportcase_accessory" id="custevent_supportcase_accessory" class="case-fields form-control input-xlarge select-case-custevent_supportcase_accessory">

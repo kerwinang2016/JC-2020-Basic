@@ -9,6 +9,7 @@
 			FabricQuantity = {name:"Fabric Quantity", value: null},
 			COGS = {name:"COGS", value: null},
 			ClientName = {name:"Client Name", value:null},
+			SOID = {name:"SO ID", value:null},
 			HoldFabric = {name:"Hold Fabric", value:null},
 			HoldProduction = {name:"Hold Production", value: null},
 			Flag = {name:"Flag", value:null},
@@ -66,8 +67,10 @@
 			case "custcol_designoptions_ladiesjacket":
 				type = "Ladies-Jacket";
 				break;
+			case "custcol_designoptions_sneakers":
+				type = "Sneakers";
+				break;
 		}
-
 		if(type){
 			type_option = _.where(window.design_options, {item_type: type})[0];
 			option_values = JSON.parse(option.value);
@@ -103,7 +106,6 @@
 				});
 			});
 		}
-
 		if(option.name.indexOf('Design Options') != -1){
 				if(option.id == 'custcol_designoption_message'){
 					DesignOptions.value.push({
@@ -125,6 +127,8 @@
 			});
 		}else if(option.name == 'Client Name'){
 			ClientName.value = option.value;
+		}else if(option.name == 'SOID'){
+			SOID.value = option.value;
 		}else if(option.name == 'Fabric Quantity'){
 			FabricQuantity.value = option.value;
 
@@ -155,6 +159,9 @@
 %>
 <div class="clientname">
 	<%= ClientName.name + ': '+ ClientName.value %>
+</div>
+<div class="soid">
+	<%= SOID.name + ': '+ SOID.value %>
 </div>
 <!--<div class="holdfabric">
 	<%= HoldFabric.name + ': '+ HoldFabric.value %>

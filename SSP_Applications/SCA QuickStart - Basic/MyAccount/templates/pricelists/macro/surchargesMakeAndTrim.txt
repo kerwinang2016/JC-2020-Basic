@@ -1,0 +1,203 @@
+<% registerMacro('surchargesMakeAndTrim', function(view) { %>
+<%
+var surchargeOrder = [
+	"Lining Surcharges",
+	"Make Surcharges",
+	"Formal Surcharges",
+	"Other Surcharges",
+	"Button Surcharges",
+	"Other Shirt Surcharges"
+];
+var liningcolumnsmens = {
+	'3-Piece-Suit': '3P Suit',
+	'2-Piece-Suit': '2P Suit',
+	'Jacket': 'Jacket/Morning Coat',
+	'Trouser': 'Trouser/Shorts',
+	'Waistcoat': 'Waistcoat',
+	'Overcoat': 'Overcoat/Trenchcoat',
+	'Safari-Jacket': 'Safari Jacket',
+  'Sleeve Lining': 'Sleeve Llining'
+};
+var othercolumnsmens = {
+	'3-Piece-Suit': '3P Suit',
+	'2-Piece-Suit': '2P Suit',
+	'Jacket': 'Jacket/Morning Coat',
+	'Trouser': 'Trouser/Shorts',
+	'Waistcoat': 'Waistcoat',
+	'Overcoat': 'Overcoat/Trenchcoat',
+	'Safari-Jacket': 'Safari Jacket',
+	'Shirt': 'Shirt/Shirt Jacket'
+};
+var liningcolumnswomens = {
+	'L-3PC-Suit': 'L 3P Suit',
+	'L-2PC-Pants': 'L 2P Suit',
+	'Ladies-Jacket': 'Jacket',
+	'Sleeve Lining': 'Sleeve Lining',
+	'Half Lined': 'Half Lined'
+};
+var othercolumnswomens = {
+	'L-3PC-Suit': 'L 3P Suit',
+	'L-2PC-Pants': 'L 2P Suit',
+	'Ladies-Jacket': 'Jacket',
+	'Ladies-Pants': 'Pant',
+	'Ladies-Skirt': 'Skirt'
+};
+var col1length = Object.keys(liningcolumnsmens),
+		col2length = Object.keys(othercolumnsmens),
+		col3length = Object.keys(liningcolumnswomens),
+		col4length = Object.keys(othercolumnswomens);
+var surcharges = view.surchargesformakeandtrim,
+		surchargeskeys = Object.keys(surcharges);
+%>
+<div id="surchargesMakeAndTrimMacro">
+	<% for(var i=0; i<surchargeskeys.length;i++){ %>
+		<div class="div_label">
+			<%= surchargeskeys[i] %>
+		</div>
+		<!-- MENS -->
+		<% if(surchargeskeys[i] == 'Lining Surcharges'){ %>
+		<table class="table_surcharges" style="font-size:14px;">
+			<tr>
+				<th class="span2"></th>
+				<% for(var j=0; j<col1length.length; j++) { %>
+				<th class="span1">
+					<%= liningcolumnsmens[col1length[j]] %>
+				</th>
+				<% } %>
+			</tr>
+			<% for(var k=0; k<surcharges[surchargeskeys[i]].length; k++){ %>
+			<%
+				var skeys = Object.keys(surcharges[surchargeskeys[i]][k]);
+			%>
+			<tr>
+				<td><%= skeys[0] %></td>
+				<% for(var j=0; j<col1length.length; j++) { %>
+					<% if(surcharges[surchargeskeys[i]][k][skeys[0]][col1length[j]] != undefined){ %>
+					<td style="text-align:right;">
+						<%= surcharges[surchargeskeys[i]][k][skeys[0]][col1length[j]] %>
+					</td>
+					<% }else{ %>
+					<td></td>
+					<% } %>
+				<% } %>
+			</tr>
+			<% } %>
+		</table>
+		<% } %>
+		<% if(surchargeskeys[i] != 'Lining Surcharges' && surchargeskeys[i] != 'Other Shirt Surcharges'){ %>
+		<table class="table_surcharges" style="font-size:14px;">
+			<tr>
+			<th class="span2"></th>
+			<% for(var j=0; j<col2length.length; j++) { %>
+			<th class="span1">
+				<%= othercolumnsmens[col2length[j]] %>
+			</th>
+			<% } %>
+			</tr>
+			<% for(var k=0; k<surcharges[surchargeskeys[i]].length; k++){ %>
+			<%
+				var skeys = Object.keys(surcharges[surchargeskeys[i]][k]);
+			%>
+			<tr>
+				<td><%= skeys[0] %></td>
+				<% for(var j=0; j<col2length.length; j++) { %>
+					<% if(surcharges[surchargeskeys[i]][k][skeys[0]][col2length[j]] != undefined){ %>
+					<td style="text-align:center;">
+						<%= surcharges[surchargeskeys[i]][k][skeys[0]][col2length[j]] %>
+					</td>
+					<% }else{ %>
+					<td></td>
+					<% } %>
+				<% } %>
+			</tr>
+			<% } %>
+		</table>
+		<% } %>
+		<!-- WOMENS -->
+		<% if(surchargeskeys[i] == 'Lining Surcharges'){ %>
+		<table class="table_surcharges" style="font-size:14px;">
+			<tr>
+			<th class="span2"></th>
+			<% for(var j=0; j<col3length.length; j++) { %>
+			<th class="span1">
+				<%= liningcolumnswomens[col3length[j]] %>
+			</th>
+			<% } %>
+			</tr>
+			<% for(var k=0; k<surcharges[surchargeskeys[i]].length; k++){ %>
+			<%
+				var skeys = Object.keys(surcharges[surchargeskeys[i]][k]);
+			%>
+			<% if(skeys[0] == 'L9' || skeys[0] == 'L10' || skeys[0] == 'L11' || skeys[0] == 'L12' || skeys[0] == 'L13' || skeys[0] == 'L14') continue;%>
+			<tr>
+				<td><%= skeys[0] %></td>
+				<% for(var j=0; j<col3length.length; j++) { %>
+					<% if(surcharges[surchargeskeys[i]][k][skeys[0]][col3length[j]] != undefined){ %>
+					<td style="text-align:center;">
+						<%= surcharges[surchargeskeys[i]][k][skeys[0]][col3length[j]] %>
+					</td>
+					<% }else{ %>
+					<td></td>
+					<% } %>
+				<% } %>
+			</tr>
+			<% } %>
+		</table>
+		<% } %>
+		<% if(surchargeskeys[i] != 'Lining Surcharges' && surchargeskeys[i] != 'Other Shirt Surcharges' && surchargeskeys[i] != 'Make Surcharges'){ %>
+		<table class="table_surcharges" style="font-size:14px;">
+			<tr>
+			<th class="span2"></th>
+			<% for(var j=0; j<col4length.length; j++) { %>
+			<th class="span1">
+				<%= othercolumnswomens[col4length[j]] %>
+			</th>
+			<% } %>
+			</tr>
+			<% for(var k=0; k<surcharges[surchargeskeys[i]].length; k++){ %>
+			<%
+				var skeys = Object.keys(surcharges[surchargeskeys[i]][k]);
+			%>
+			<% if(surchargeskeys[i] == 'Other Surcharges' && k > 7) continue;%>
+			<% if(surchargeskeys[i] == 'Button Surcharges' && k > 5) continue;%>
+			<tr>
+				<td><%= skeys[0] %></td>
+				<% for(var j=0; j<col4length.length; j++) { %>
+					<% if(surcharges[surchargeskeys[i]][k][skeys[0]][col4length[j]] != undefined){ %>
+					<td style="text-align:center;">
+						<%= surcharges[surchargeskeys[i]][k][skeys[0]][col4length[j]] %>
+					</td>
+					<% }else{ %>
+					<td></td>
+					<% } %>
+				<% } %>
+			</tr>
+			<% } %>
+		</table>
+		<% } %>
+		<% if(surchargeskeys[i] == 'Other Shirt Surcharges'){ %>
+		<table class="table_surcharges" style="font-size:14px;">
+			<tr>
+			<th class="span2"></th>
+			<th class="span1">Shirt/Shirt Jacket</th>
+			</tr>
+			<% for(var k=0; k<surcharges[surchargeskeys[i]].length; k++){ %>
+			<%
+				var skeys = Object.keys(surcharges[surchargeskeys[i]][k]);
+			%>
+			<tr>
+				<td><%= skeys[0] %></td>
+					<% if(surcharges[surchargeskeys[i]][k][skeys[0]]['Shirt'] != undefined){ %>
+					<td style="text-align:center;">
+						<%= surcharges[surchargeskeys[i]][k][skeys[0]]['Shirt'] %>
+					</td>
+					<% }else{ %>
+					<td></td>
+					<% } %>
+			</tr>
+			<% } %>
+		</table>
+		<% } %>
+	<% } %>
+</div>
+<%})%>

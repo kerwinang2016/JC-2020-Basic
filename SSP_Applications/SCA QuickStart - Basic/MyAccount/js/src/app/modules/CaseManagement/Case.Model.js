@@ -1,4 +1,4 @@
-// Case.Model.js 
+// Case.Model.js
 // -----------------------
 // Model for handling Support Cases (CRUD)
 define('Case.Model', function ()
@@ -26,12 +26,14 @@ define('Case.Model', function ()
 				required: true
 			,	msg: _('Subject is required').translate()
 			}
-
-		,	message: {
+		,	custevent_requested_by: {
 				required: true
-			,	msg: _('Message is required').translate()
+			,	msg: _('Your Name is required').translate()
 			}
-
+		// ,	message: {
+		// 		required: true
+		// 	,	msg: _('Message is required').translate()
+		// 	}
 		,	reply: {
 				required: true
 			,	msg: _('Reply is required').translate()

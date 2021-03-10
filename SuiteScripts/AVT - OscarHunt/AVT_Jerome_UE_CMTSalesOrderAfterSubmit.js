@@ -212,7 +212,8 @@ function userEventAfterSubmitSO(type) {
         'Shorts': '28',
         'Camp-Shirt': '29',
         'Safari-Jacket': '31',
-        'Shirt-Jacket': '30'
+        'Shirt-Jacket': '30',
+        'Sneakers': '32'
       }
       //10
       var newSORecord = nlapiLoadRecord('salesorder', recordID);
@@ -258,6 +259,7 @@ function userEventAfterSubmitSO(type) {
       //30
       //Get the surcharges for calculation of shipping
       var do_surcharges = nlapiSearchRecord('customrecord_item_shipping_charges', null, filter, cols);
+      if(do_surcharges){
       for (var k = 0; k < do_surcharges.length; k++) {
         //name:location,
         //values:{[]}
@@ -267,6 +269,8 @@ function userEventAfterSubmitSO(type) {
           producttype: do_surcharges[k].getValue('custrecord_iscf_product_type')
         });
       }
+      }
+      //if(shippingcharges)
       nlapiLogExecution('debug','shippingcharges length', shippingcharges.length);
       filter = [], cols = [];
       filter.push(['isinactive', 'is', 'F']);
@@ -660,7 +664,8 @@ function userEventAfterSubmitSO(type) {
             var soid = newSORecord.getLineItemValue('item', 'custcol_so_id', ii);
             var povendor = newSORecord.getLineItemValue('item', 'povendor', ii);
             var itemtype = newSORecord.getLineItemValue('item', 'custcol_producttype', ii);
-            if (povendor != '671' && povendor != '17') {
+
+            if (povendor != '671' && povendor != '17' &&  itemtype != 'Sneakers') {
               //The vendor is not Jerome... get the prices and the quantity computation
               var quantity = {
                 '2-Piece-Suit': '3.3',
@@ -920,6 +925,10 @@ function userEventAfterSubmitSO(type) {
                   // nlapiLogExecution('debug','totaladditionalsurcharge',totaladditionalsurcharge);
                 }
               }
+              // nlapiLogExecution('debug','product type', ptype);
+              // if (ptype == 'Sneakers') {
+              //  singlesurcharge = getSurcharge(ptype, newSORecord.getCurrentLineItemValue('item', 'custcol_designoptions_sneakers'), fabric_surcharges, fabric_customsurcharges, tailor);
+              // }
               //Check for fabric extra
               var fextra = newSORecord.getCurrentLineItemValue('item', 'custcol_fabric_extra');
               if (fextra) {
@@ -1025,11 +1034,17 @@ function sendConfirmationEmail() {
   records['transaction'] = nlapiGetRecordId(); //internal id of Transaction
   var renderer = nlapiCreateTemplateRenderer();
   var record = nlapiLoadRecord(nlapiGetRecordType(), nlapiGetRecordId());
+  var additionalEmails = nlapiLookupField('customer',record.getFieldValue('entity'),'custentity_additional_emails');
+  if(additionalEmails != "")
+    additionalEmails = additionalEmails.split(',');
+  else {
+    additionalEmails = [];
+  }
   renderer.addRecord('transaction', record);
   renderer.setTemplate(emailBody);
   renderBody = renderer.renderToString();
   var stSubject = emailTemp.getFieldValue('subject');
-  nlapiSendEmail(98, record.getFieldValue('entity'), "Your order no. " + record.getFieldValue('tranid') + " has been received", renderBody, null, null, records, null, true, null);
+  nlapiSendEmail(98, record.getFieldValue('entity'), "Your order no. " + record.getFieldValue('tranid') + " has been received", renderBody, additionalEmails, null, records, null, true, null);
 }
 
 function getSurcharge(ptype, dop, fabric_surcharges, fabric_customsurcharges, tailor) {

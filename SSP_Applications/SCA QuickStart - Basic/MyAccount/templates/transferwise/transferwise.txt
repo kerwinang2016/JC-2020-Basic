@@ -1,4 +1,4 @@
-<h3 style="float:left;">ACCOUNT BALANCE & INVOICE LOCATION</h3> <a style="float:right;" target="_blank" href="https://3857857.app.netsuite.com/core/media/media.nl?id=266378&c=3857857&h=1b84f060122de5339be5&_xt=.pdf">DOWNLOAD</a><br style="clear:both;"/>
+<h3 style="float:left;">ACCOUNT BALANCE & INVOICE LOCATION</h3> <a style="float:right;" target="_blank" href="https://3857857.app.netsuite.com/core/media/media.nl?id=364037&c=3857857&h=Wihp0AWnAGonbfrsDyz1pbGYYO2T-c6XT5rwZ23DOxuGS0YI&_xt=.pdf&fcts=20210301013405&whence=">DOWNLOAD</a><br style="clear:both;"/>
 
 <p>Total account balance can be viewed anytime under the billing section of your ordering system. The balance shown is the total
 amount of open invoices, not invoices which are due for payment.</p><br/>
@@ -19,9 +19,9 @@ surcharge of 3.5-4% of the total transaction amount.</p>
 <small>Note: All additional transaction fees will be invoiced to your account. Payment of transaction fees can be made upon your next billing cycle.</small>
 <br/><br/>
 <h3>ACCOUNT DETAILS SPECIFIED BY CURRENCY</h3>
-<div class="span4">
+<div class="span3" style="margin:0;font-size:12px;">
 <b>CURRENCY: EURO</b></br>
-<b>Account Holder:</b><br/>
+<b>TW Account Holder:</b><br/>
 Jerome Clothiers Pty. Ltd.<br/><br/>
 <b>IBAN:</b></br>
 BE96 9670 1911 2905</br></br>
@@ -29,18 +29,19 @@ BE96 9670 1911 2905</br></br>
 TRWIBEB1XXX</br></br>
 <b>Address:</b></br>
 TransferWise Europe SA</br>
-Square de Meeus 38 bte 40</br>
+Avenue Louise 54, Room S52</br>
 Brussels</br>
-1000</br>
+1050</br>
 Belgium
 </div>
-<div class="span4">
+<div class="span3" style="margin:0;font-size:12px;margin-left:10px;">
+<span style="color:#b23a3a;">*Only for banks located within the UK.</span><br/>
 <b>CURRENCY: GREAT BRITISH POUNDS</b></br>
 <b>Account Holder:</b></br>
 Jerome Clothiers Pty. Ltd.</br></br>
 <b>Account number:</b></br>
 52267222</br></br>
-<b>IBAN (to receive GBP from UK only):</b></br>
+<b>IBAN:</b></br>
 GB74 TRWI 2314 7052 2672 22</br></br>
 <b>UK Sort Code:</b></br>
 23-14-70</br></br>
@@ -51,18 +52,32 @@ London</br>
 E1 6JJ</br>
 United Kingdom
 </div>
-<div class="span4">
+<div class="span3" style="margin:0;font-size:12px;margin-left:10px;">
+<span style="color:#b23a3a;">*Only for banks located within the USA.</span><br/>
+<b>CURRENCY: UNITED STATES DOLLAR</b></br>
+<b>Account Holder:</b></br>
+Jerome Clothiers Pty. Ltd.</br></br>
+<b>Account number:</b></br>
+9600000000015643</br></br>
+<b>Routing Number (ACH or wire):</b></br>
+084009519</br></br>
+<b>Address:</b></br>
+TransferWise</br>
+19 W 24th Street,</br>
+New York</br>
+10010</br>
+United States <br/><br/>
+<span style="font-style:italic">Note: A $7.50 transaction fee will incur and be passed back on all wire trasfers. To avoid this fee, please pay via ACH transfer.</span>
+</div>
+<div class="span3" style="margin:0;font-size:12px;margin-left:10px;">
+<span style="color:#b23a3a;">*Only for banks located outside the USA.</span><br/>
 <b>CURRENCY: UNITED STATES DOLLAR</b></br>
 <b>Account Holder:</b></br>
 Jerome Clothiers Pty. Ltd.</br></br>
 <b>Account number:</b></br>
 8310488287</br></br>
-<b>Wire transfer number:</b></br>
-026073008</br></br>
 <b>Bank code (SWIFT / BIC):</b></br>
 CMFGUS33</br></br>
-<b>Routing number (ACH or ABA):</b></br>
-026073150</br></br>
 <b>Address:</b></br>
 TransferWise</br>
 19 W 24th Street,</br>

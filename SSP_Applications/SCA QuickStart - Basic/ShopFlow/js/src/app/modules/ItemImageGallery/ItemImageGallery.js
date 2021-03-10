@@ -80,7 +80,7 @@ define('ItemImageGallery', ['ItemDetails.View'], function (ItemDetailsView)
 		ItemImageGallery: ItemImageGallery
 
 	,	resizeZoom: function (url)
-		{	
+		{
 			return this.resizeImage(url, 'zoom');
 		}
 

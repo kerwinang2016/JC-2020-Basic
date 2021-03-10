@@ -6,6 +6,10 @@
     <label for="title"><%= _('Subject').translate() %></label>
     <input readonly type="text" name="title" id="title" class="case-fields form-control input-xlarge input-case-title" value="" ></input>
   </div>
+  <div class="case-new-requestedby control-group">
+    <label for="title"><%= _('Your Name (so we can contact you):').translate() %></label>
+    <input readonly type="text" name="custevent_requested_by" id="custevent_requested_by" class="case-fields form-control input-xlarge input-case-title" value="<%=model.get('custevent_requested_by')%>" ></input>
+  </div>
   <div class="case-new-message control-group">
     <label for="message"><%= _('Message').translate() %>: </label>
     <textarea name="message" id="message" class="case-fields form-control input-xlarge input-case-message" style="width:500px;height:100px;"></textarea>

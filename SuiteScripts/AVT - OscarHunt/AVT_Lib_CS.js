@@ -660,6 +660,7 @@ var SavePOFab = function(arg)
 			object.fabstatus = nlapiGetLineItemValue( 'custpage_subslist1', 'custcol_avt_fabric_status', x);
 			object.tracking = nlapiGetLineItemValue('custpage_subslist1', 'custcol_avt_tracking', x);
 			object.custcol_so_id = nlapiGetLineItemValue('custpage_subslist1','custcol_so_id',x);
+			object.custcol_delivery_factory = nlapiGetLineItemValue('custpage_subslist1','custcol_delivery_factory',x);
 			if(arg == true)
 			{
 				object.bill = true;
@@ -676,12 +677,12 @@ var SavePOFab = function(arg)
 			}
 			console.log("Added", JSON.stringify( object));
 			if(data.transactions.length%10 == 0 && data.transactions.length>0){
-			DATA_Approve.push(data);
-			data = {};
-			if(arg) data.bill = true;
-			data.transactions = [];
-			data.action = "savefabric";
-		}
+				DATA_Approve.push(data);
+				data = {};
+				if(arg) data.bill = true;
+				data.transactions = [];
+				data.action = "savefabric";
+			}
 		}
 
 	}
@@ -852,7 +853,6 @@ var Run_SavePOFabResponse_rest = function(response){
 	Run_SavePOFab();
 }
 
-
 var Run_SavePOCMT = function()
 {
 	// console.log( 'url ' + URL_SavePOCMT);
@@ -960,9 +960,6 @@ var Run_SavePOCMTResponse_rest = function(response){
 				for(var j=0; j<data.transactions[i].items.length;j++){
 					nlapiSetLineItemValue( data.transactions[i].items[j].sublist, 'custpage_status', data.transactions[i].items[j].id, 'Processed');
 				}
-				//jQuery( '#item_' + data.id).attr('checked',false);
-				//jQuery('html, body').animate({ scrollTop:  jQuery( '#item_' + data.id).offset().top - 50 }, 'slow');
-				//jQuery( '#item_' + data.id).animate( { scrollTop: jQuerytarget.offset().top }, 1000 );
 			}
 		}
 	}
@@ -1034,59 +1031,6 @@ var ExportCMT = function(){
 		sublistID = sublistID.toString();
 		data = generateExport(data, sublistID);
 	}
-	/*
-	data = generateExport(data, 'custpage_subslist0');
-	data = generateExport(data, 'custpage_subslist1');
-	data = generateExport(data, 'custpage_subslist2');
-	data = generateExport(data, 'custpage_subslist3');
-	data = generateExport(data, 'custpage_subslist4');
-	data = generateExport(data, 'custpage_subslist5');
-	data = generateExport(data, 'custpage_subslist6');
-	data = generateExport(data, 'custpage_subslist7');
-	data = generateExport(data, 'custpage_subslist8');
-	data = generateExport(data, 'custpage_subslist9');
-	data = generateExport(data, 'custpage_subslist10');
-	data = generateExport(data, 'custpage_subslist11');
-	data = generateExport(data, 'custpage_subslist12');
-	data = generateExport(data, 'custpage_subslist13');
-	data = generateExport(data, 'custpage_subslist14');
-	data = generateExport(data, 'custpage_subslist15');
-	data = generateExport(data, 'custpage_subslist16');
-	data = generateExport(data, 'custpage_subslist17');
-	data = generateExport(data, 'custpage_subslist18');
-	data = generateExport(data, 'custpage_subslist19');
-	data = generateExport(data, 'custpage_subslist20');
-	data = generateExport(data, 'custpage_subslist21');
-	data = generateExport(data, 'custpage_subslist22');
-	data = generateExport(data, 'custpage_subslist23');
-	data = generateExport(data, 'custpage_subslist24');
-	data = generateExport(data, 'custpage_subslist25');
-	data = generateExport(data, 'custpage_subslist26');
-	data = generateExport(data, 'custpage_subslist27');
-	data = generateExport(data, 'custpage_subslist28');
-	data = generateExport(data, 'custpage_subslist29');
-	data = generateExport(data, 'custpage_subslist30');
-	data = generateExport(data, 'custpage_subslist31');
-	data = generateExport(data, 'custpage_subslist32');
-	data = generateExport(data, 'custpage_subslist33');
-	data = generateExport(data, 'custpage_subslist34');
-	data = generateExport(data, 'custpage_subslist35');
-	data = generateExport(data, 'custpage_subslist36');
-	data = generateExport(data, 'custpage_subslist37');
-	data = generateExport(data, 'custpage_subslist38');
-	data = generateExport(data, 'custpage_subslist39');
-	data = generateExport(data, 'custpage_subslist40');
-	data = generateExport(data, 'custpage_subslist41');
-	data = generateExport(data, 'custpage_subslist42');
-	data = generateExport(data, 'custpage_subslist43');
-	data = generateExport(data, 'custpage_subslist44');
-	data = generateExport(data, 'custpage_subslist45');
-	data = generateExport(data, 'custpage_subslist46');
-	data = generateExport(data, 'custpage_subslist47');
-	data = generateExport(data, 'custpage_subslist48');
-	data = generateExport(data, 'custpage_subslist49');
-	data = generateExport(data, 'custpage_subslist50');
-	*/
 	var encodedUri = encodeURI(data.contents);
 	var link = document.createElement("a");
 	link.setAttribute("href", encodedUri);
@@ -1171,4 +1115,167 @@ function SendToUstyylit(){
   nlapiRequestURL(url,JSON.stringify(params));
   // nlapiScheduleScript('customscript_ss_createorderservice', 'customdeploy_dashboardtrigger1', params);
   alert('Scheduled to execute and send to Ustyylit');
+}
+
+var SavePOSneakers = function(arg)
+{
+	var count = nlapiGetLineItemCount( 'custpage_subslist1');
+	var data = {};
+	if(arg) data.bill = true;
+	data.transactions = [];
+	data.action = "saveSneakers";
+	for( var x=1; x<=count;x++)
+	{
+		var isapp = nlapiGetLineItemValue( 'custpage_subslist1', 'custpage_choose', x);
+		if( isapp == 'T')
+		{
+			//SearchTransactions if there is already an internalid for that po
+			var internalid = nlapiGetLineItemValue( 'custpage_subslist1', 'internalid', x);
+			var index = data.transactions.map(function(y) {return y.internalid; }).indexOf(internalid);
+			if(index == -1){
+			var transactionAdd = {};
+			transactionAdd.internalid = nlapiGetLineItemValue( 'custpage_subslist1', 'internalid', x);
+			transactionAdd.items = [];
+			}
+			//objToSend.transactions.push(transactionAdd);
+
+			var object = new Object();
+			object.internalid  = nlapiGetLineItemValue( 'custpage_subslist1', 'internalid', x);
+			object.id = x;
+			object.lineno = nlapiGetLineItemValue( 'custpage_subslist1', 'lineuniquekey', x);
+			object.item = nlapiGetLineItemValue( 'custpage_subslist1', 'item', x);
+			object.cmt_datesent = nlapiGetLineItemValue( 'custpage_subslist1', 'custcol_avt_cmt_date_sent', x);
+			object.cmt_tracking = nlapiGetLineItemValue( 'custpage_subslist1', 'custcol_avt_cmt_tracking', x);
+			object.notes = nlapiGetLineItemValue('custpage_subslist1', 'custcol_column_notes', x);
+			object.custcol_so_id = nlapiGetLineItemValue('custpage_subslist1','custcol_so_id',x);
+			if(arg == true)
+			{
+				object.bill = true;
+        object.cmtdelivery = "Shipped";
+			}
+			//DATA_Approve.push(object);
+			if(index == -1){
+				//new
+				transactionAdd.items.push(object);
+				data.transactions.push(transactionAdd);
+			}
+			else{
+				//not new
+				data.transactions[index].items.push(object);
+			}
+			if(data.transactions.length%10 == 0 && data.transactions.length>0){
+				DATA_Approve.push(data);
+				data = {};
+				if(arg) data.bill = true;
+				data.transactions = [];
+				data.action = "saveSneakers";
+			}
+		}
+
+	}
+	if( arg ==  true )
+	{
+		nlapiDisableField( 'custpage_btapprve_bill', true);
+	}else
+	{
+		nlapiDisableField( 'custpage_btapprve', true);
+	}
+	if(data.transactions.length != 0)
+		DATA_Approve.push( data);
+	Run_SavePOSneakers();
+};
+
+var Run_SavePOSneakers = function()
+{
+	// console.log( 'url ' + URL_SavePOFab);
+	// console.log( 'DATA ' + JSON.stringify(DATA_Approve));
+
+	if( DATA_Approve[0] != null )
+	{
+	  // jQuery.ajax({
+          // type : 'POST',
+          // url : URL_SavePOFab,
+          // data : DATA_Approve[0],
+          // success : Run_SavePOFabResponse,
+          // error : Run_SavePOFabResponseError,
+          // dataType : 'json',
+      // });
+		var xhr = new XMLHttpRequest();
+		var url = nlapiResolveURL('SUITELET','179','1')
+		xhr.open('POST',url);
+		xhr.setRequestHeader('Content-Type','application/json');
+		xhr.send(JSON.stringify(DATA_Approve[0]));
+		xhr.onreadystatechange = function() {
+		if (xhr.readyState == XMLHttpRequest.DONE) {
+				Run_SavePOSneakersResponse_rest(xhr);
+			}
+		}
+	}else
+	{
+		console.log( "Nothing to send...All finished");
+	}
+};
+
+var Run_SavePOSneakersResponse_rest = function(response){
+
+	if(response)
+	{
+		var data  = JSON.parse(response.responseText);
+
+		for(var i =0; i<data.transactions.length; i++){
+			if( data.transactions[i].status == false || data.transactions[i].status == 'false')
+			{
+				for(var j=0; j<data.transactions[i].items.length;j++){
+					nlapiSetLineItemValue( 'custpage_subslist1', 'custpage_status', data.transactions[i].items[j].id, 'Error processing');
+				}
+			}else
+			{
+				for(var j=0; j<data.transactions[i].items.length;j++){
+					nlapiSetLineItemValue( 'custpage_subslist1', 'custpage_status', data.transactions[i].items[j].id, 'Processed');
+				}
+			}
+		}
+	}
+	DATA_Approve.shift();
+	Run_SavePOSneakers();
+}
+
+var ExportSneakers = function(){
+	var data = {};
+
+	data.contents = "data:text/csv;charset=utf-8,Date,SO-ID,ClientName,Item,Vendor,ConfirmedShipping,Tracking,Notes\n";
+	data.action = 'downloadccsv';
+
+	var totalTailors = nlapiGetFieldValue('custpage_total_tailors');
+
+		var sublistID = 'custpage_subslist1';
+		sublistID = sublistID.toString();
+		data = generateExportSneakers(data, sublistID);
+
+	var encodedUri = encodeURI(data.contents);
+	var link = document.createElement("a");
+	link.setAttribute("href", encodedUri);
+	link.setAttribute("download", "SneakerOrderDetails.csv");
+	document.body.appendChild(link);
+	link.click();
+}
+
+function generateExportSneakers(data, sublist){
+	var replace = new Array("\r", ",", "\n");
+	var count = nlapiGetLineItemCount(sublist);
+	for( var x=1; x<=count;x++)
+	{
+		var isapp = nlapiGetLineItemValue(sublist, 'custpage_choose', x);
+		if(isapp == 'T'){
+			data.contents += nlapiGetLineItemValue(sublist, 'trandate', x) +',';
+			data.contents +=nlapiGetLineItemValue(sublist, 'custcol_so_id', x) +',';
+			data.contents +=nlapiGetLineItemValue(sublist, 'custcol_tailor_client_name', x) +',';
+			data.contents +=nlapiGetLineItemValue(sublist, 'item', x) +',';
+			data.contents +="Mata Shoes" +',';
+			data.contents +=nlapiGetLineItemValue(sublist,'custcol_avt_cmt_date_sent',x) +',';
+			data.contents +=nlapiGetLineItemValue(sublist, 'custcol_avt_cmt_tracking', x) +',';
+			data.contents +=nlapiGetLineItemValue(sublist,'custcol_column_notes',x) +'\n';
+		}
+	}
+	return data;
 }

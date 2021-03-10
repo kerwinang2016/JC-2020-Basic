@@ -11,11 +11,14 @@ function MyAccountPOST(request, response) {
     //nlapiLogExecution('debug','action',action);
     var returnObj = "";
     switch (action) {
+        case "getsubtailors":
+            returnObj = getSubtailors(user);
+            break;
         case "getcmtandstockedfabric":
             returnObj = getCMTandStockedFabric(user);
             break;
         case "getsurchargesformakeandtrim":
-            returnObj = getSurchagesForMakeAndTrim(user);
+            returnObj = getSurchargesForMakeAndTrim(user);
             break;
         case "getcutlengthfabricvendors":
             returnObj = getCutLengthFabricVendors(user);
@@ -128,7 +131,25 @@ function MyAccountPOST(request, response) {
         response.write(JSON.stringify(returnObj));
     }
 }
+function getSubtailors(user){
+	var filters = [], subtailors = [];
+    filters.push(new nlobjSearchFilter('parent', null, 'anyof', user));
+    filters.push(new nlobjSearchFilter('isinactive', null, 'is', 'F'));
+    var cols = [];
+    cols.push(new nlobjSearchColumn('internalid'));
+    cols.push(new nlobjSearchColumn('altname'));
+    var dpl_results = nlapiSearchRecord('customer', null, filters, cols);
+    if (dpl_results) {
+        for (var i = 0; i < dpl_results.length; i++) {
+            subtailors.push({
+                internalid: dpl_results[i].getValue('internalid'),
+                name: dpl_results[i].getValue('altname')
+            });
+        }
+    }
+	return subtailors;
 
+}
 function getCMTandStockedFabric(user) {
     var returnObj = {},
         dayangPrices = [],
@@ -367,37 +388,97 @@ function buildCMTPrices(productTypes, customerfields, discountPercentages) {
 
 }
 
-function getSurchagesForMakeAndTrim(user) {
+function getSurchargesForMakeAndTrim(user) {
     var returnObj = {};
+    var surchargeOrder = [
+      "Lining Surcharges",
+      "Make Surcharges",
+      "Formal Surcharges",
+      "Other Surcharges",
+      "Button Surcharges",
+      "Other Shirt Surcharges"
+    ];
     if (user) {
-        var defaultFiles = [];
-        defaultFiles['2'] = '267216'; //USD
-        defaultFiles['5'] = '267214'; //GBP
-        defaultFiles['4'] = '267213'; //EUR
+        var customerfields = getCustomerDetails(user);
+        var surchargediscount = customerfields.custentity_surcharge_discount?parseFloat(customerfields.custentity_surcharge_discount):0;
+        //customrecord_design_options_surcharge_we
         var cols = [];
-        cols.push(new nlobjSearchColumn('name'));
-        cols.push(new nlobjSearchColumn('url'));
-        cols.push(new nlobjSearchColumn('modified'));
-        var customerFields = nlapiLookupField('customer', user, ['currency', 'custentity_surcharges_make_trims_do']);
-        if (customerFields.custentity_surcharges_make_trims_do) {
-            var results = nlapiSearchRecord('file', null, [new nlobjSearchFilter('internalid', null, 'is', customerFields.custentity_surcharges_make_trims_do)], cols);
-            if (results && results.length > 0) {
-                returnObj = {
-                    filename: results[0].getValue('name'),
-                    url: results[0].getValue('url'),
-                    lastupdated: results[0].getValue('modified')
-                };
-            }
-        } else {
-            var results = nlapiSearchRecord('file', null, [new nlobjSearchFilter('internalid', null, 'is', defaultFiles[customerFields.currency])], cols);
-            if (results && results.length > 0) {
-                returnObj = {
-                    filename: results[0].getValue('name'),
-                    url: results[0].getValue('url'),
-                    lastupdated: results[0].getValue('modified')
-                };
-            }
+        cols.push(new nlobjSearchColumn('custrecord_dow_description'));
+        cols.push(new nlobjSearchColumn('custrecord_dow_surcharge_category'));
+        cols.push(new nlobjSearchColumn('custrecord_dow_order'));
+        cols.push(new nlobjSearchColumn('custrecord_dow_product_type'));
+        cols.push(new nlobjSearchColumn('custrecord_dow_surcharge_amount'));
+
+        var results = nlapiSearchRecord('customrecord_design_options_surcharge_we', null,
+          [new nlobjSearchFilter('isinactive', null, 'is', 'F')],
+          cols);
+        var designOptions = [];
+        if (results && results.length > 0) {
+          for(var i=0; i<results.length; i++){
+            var amt = parseFloat(results[i].getValue('custrecord_dow_surcharge_amount'));
+            var amount = amt + (amt*surchargediscount/100);
+            designOptions.push({
+              description: results[i].getValue('custrecord_dow_description'),
+              category: results[i].getValue('custrecord_dow_surcharge_category'),
+              categorytext: results[i].getText('custrecord_dow_surcharge_category'),
+              order: results[i].getValue('custrecord_dow_order'),
+              producttype: results[i].getValue('custrecord_dow_product_type'),
+              producttypetext: results[i].getText('custrecord_dow_product_type'),
+              amount: amount
+            });
+          }
         }
+
+      //Arrange the output by category and also product type
+      for(var i=0; i<surchargeOrder.length;i++){
+        // var data = {};
+        var design = _.filter(designOptions,function(o){
+          return o.categorytext == surchargeOrder[i];
+        });
+        design.sort(function(a,b){
+          if(parseFloat(a.order) > parseFloat(b.order)) return 1;
+          if(parseFloat(a.order) < parseFloat(b.order)) return -1;
+          if(parseFloat(a.order) == parseFloat(b.order)) return 0;
+        });
+        // var temp1 = design.map(function(a) {return a.prodycttypetext;});
+        // temp1 = _.uniq(temp1);
+        //Now that we sorted it out.. we need to place them in an array of object per product type
+        // {
+        //   LiningSurcharge: [{
+        //     L1:{
+        //       2Piece: 10,
+        //       3Piece: 20}
+        //   }]
+        // }
+        var surchargeData = [], currentOrder = "", data = {},currentData = {}, description = "";
+
+        for(var j=0; j<design.length; j++){
+
+          if(currentOrder != design[j].order){
+            if(!currentOrder){
+              currentOrder = design[j].order;
+              description = design[j].description;
+            }else{
+              // if(design[j].description == description){
+                data[description] = currentData;
+                surchargeData.push(data);
+                currentOrder = design[j].order;
+              // }
+              currentData = {};
+              data = {};
+              description = design[j].description;
+            }
+          }
+          currentData[design[j].producttypetext] = design[j].amount;
+          if(j == design.length -1){
+            data[description] = currentData;
+            surchargeData.push(data);
+            currentData = {};
+            data = {};
+          }
+        }
+        returnObj[surchargeOrder[i]] = surchargeData;
+      }
     }
     return returnObj;
 }
@@ -1076,7 +1157,7 @@ function getOrdersV2(request) {
         startdate = request.getParameter('startdate') == 'null' ? '' : request.getParameter('startdate'),
         enddate = request.getParameter('enddate') == 'null' ? '' : request.getParameter('enddate'),
         cmtstatus = request.getParameter('cmtstatus') == 'null' ? '' : request.getParameter('cmtstatus'),
-        subtailor = request.getParameter('subtailor') == 'null' ? '' : request.getParameter('subtailor'),
+        subtailor = request.getParameter('subtailor') ? request.getParameter('subtailor').split(','): "",
         cmtdate = request.getParameter('cmtdate') == 'null' ? '' : request.getParameter('cmtdate');
     var total_field = 'custbody_total_tailor_price',
         filters = [
@@ -1365,9 +1446,9 @@ function getOrders(request) {
     startdate = request.getParameter('startdate') == 'null' ? '' : request.getParameter('startdate'),
         enddate = request.getParameter('enddate') == 'null' ? '' : request.getParameter('enddate'),
         cmtstatus = request.getParameter('cmtstatus') == 'null' ? '' : request.getParameter('cmtstatus'),
-        subtailor = request.getParameter('subtailor') == 'null' ? '' : request.getParameter('subtailor'),
+        subtailor = request.getParameter('subtailor') ? request.getParameter('subtailor').split(',') : "",
         cmtdate = request.getParameter('cmtdate') == 'null' ? '' : request.getParameter('cmtdate');
-    //nlapiLogExecution('debug','PARAMETERS', request.getParameter('clientid'));
+    nlapiLogExecution('debug','PARAMETERS', request.getParameter('clientid'));
     var total_field = 'custbody_total_tailor_price',
         filters = [
             //new nlobjSearchFilter('custcol_itm_category_url', null, 'isnotempty')
@@ -2158,6 +2239,18 @@ function setLinesV2(placed_order, result, user) {
                     ismandatory: false
                 });
             }
+
+            if (placed_order.getLineItemValue('item', 'custcol_designoptions_sneakers', i)) {
+                lineOption.push({
+                    id: 'custcol_designoptions_sneakers',
+                    cartOptionId: 'custcol_designoptions_sneakers',
+                    label: 'Design Options - Sneakers',
+                    value: {
+                        internalid: placed_order.getLineItemValue('item', 'custcol_designoptions_sneakers', i)
+                    },
+                    ismandatory: false
+                });
+            }
             if (placed_order.getLineItemValue('item', 'custcol_designoptions_overcoat', i)) {
                 lineOption.push({
                     id: 'custcol_designoptions_overcoat',
@@ -2855,6 +2948,23 @@ function setLines(placed_order, result, user) {
                     cartOptionId: 'custcol_designoptions_jacket',
                     name: 'Design Options - Jacket',
                     value: placed_order.getLineItemValue('item', 'custcol_designoptions_jacket', i)
+                });
+            }
+            if (placed_order.getLineItemValue('item', 'custcol_designoptions_sneakers', i)) {
+                lineOption.push({
+                    id: 'custcol_designoptions_sneakers',
+                    cartOptionId: 'custcol_designoptions_sneakers',
+                    name: 'Design Options - Sneakers',
+                    value: placed_order.getLineItemValue('item', 'custcol_designoptions_sneakers', i)
+                });
+            }
+
+            if (placed_order.getLineItemValue('item', 'custcol_order_block_size', i)) {
+                lineOption.push({
+                    id: 'custcol_order_block_size',
+                    cartOptionId: 'custcol_order_block_size',
+                    name: 'Product Size',
+                    value: placed_order.getLineItemValue('item', 'custcol_order_block_size', i)
                 });
             }
             if (placed_order.getLineItemValue('item', 'custcol_designoptions_overcoat', i)) {

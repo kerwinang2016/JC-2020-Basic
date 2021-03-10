@@ -188,7 +188,7 @@
 		   </div>
 		   <% if(jacketOvercoatQuantity && jacketOvercoatQuantity != 0){ %>
 		   <% for(var i = 0; i < jacketOvercoatQuantity; i++){ %>
-		   <div class="span6">
+		   <div class="span6" style="clear:both;padding-top:10px;">
 			  <div class="" style="padding:0 10px;">
 				 <label for=""><b>JACKET/OVERCOAT</b></label>
 				 <input style="margin-bottom: 20px;" type="text" class="form-control pull-right"
@@ -205,7 +205,7 @@
 		  <% } %>
 		  <% if(trouserQuantity && trouserQuantity != 0){ %>
 		  <% for(var i = 0; i < trouserQuantity; i++){ %>
-		  <div class="span6">
+		  <div class="span6"  style="clear:both;padding-top:10px;">
 			 <div class="" style="padding:0 10px;">
 				<label for=""><b>TROUSER</b></label>
 				<input style="margin-bottom: 20px;" type="text" class="form-control pull-right"
@@ -223,7 +223,7 @@
 		 <% } %>
 		 <% if(shirtQuantity && shirtQuantity != 0){ %>
 		 <% for(var i = 0; i < shirtQuantity; i++){ %>
-		 <div class="span6">
+		 <div class="span6" style="clear:both;padding-top:10px;">
 			<div class="" style="padding:0 10px;">
 			   <label for=""><b>SHIRT</b></label>
 			   <input style="margin-bottom: 20px;" type="text" class="form-control pull-right"
@@ -242,7 +242,7 @@
 		<% } %>
 		<% if(waistcoatQuantity && waistcoatQuantity != 0){ %>
 		<% for(var i = 0; i < waistcoatQuantity; i++){%>
-		<div class="span6">
+		<div class="span6" style="clear:both;padding-top:10px;">
 		   <div class="" style="padding:0 10px;">
 			  <label for=""><b>WAISTCOAT</b></label>
 			  <input style="margin-bottom: 20px;" type="text" class="form-control pull-right"

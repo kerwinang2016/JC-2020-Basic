@@ -90,7 +90,6 @@
 				var categories = _.findWhere(item.get('facets'), {id: 'category'});
 				// var productType = item.get('custcol_producttype'),
 				var product = item.itemOptions.custcol_producttype.internalid;
-
 				var	walkCategories = function walkCategories(category)
 					{
 						var hasProductList = (!_.isNullOrEmpty(productList)) ? true : false;

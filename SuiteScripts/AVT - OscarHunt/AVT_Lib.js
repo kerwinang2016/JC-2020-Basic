@@ -95,6 +95,8 @@ function dashBoardRequest(request){
       case "sendordertoustyylit":
         returnObj = sendOrderToUstyylit(datain);
         break;
+      case "saveSneakers":
+        returnObj = saveSneakers(datain);
 			default:{
 				nlapiLogExecution('debug','Action Not Supported');
 				returnObj.status = false;
@@ -262,6 +264,126 @@ function saveLining(data){
 	}
 	return returnObj;
 }
+
+function saveSneakers(data){
+	for(var i=0; i<data.transactions.length; i++){
+		var tran = data.transactions[i];
+		var sorecord;
+		try
+		{
+			var po = nlapiLoadRecord( 'purchaseorder', tran.internalid);
+			if(po.getFieldValue('createdfrom'))
+				sorecord = nlapiLoadRecord( 'salesorder', po.getFieldValue( 'createdfrom'));
+			else{
+				data.transactions[i].status = false;
+				continue
+			}
+			var solinekey = [];
+			if(po)
+			{
+				var count = po.getLineItemCount( 'item');
+
+				for( var x = 1;x<=count;x++)
+				{
+					var line  =  po.getLineItemValue( 'item', 'lineuniquekey', x);
+					for(var j=0;j<tran.items.length;j++){
+						var object = tran.items[j];
+						var text = "";
+						if( line == object.lineno )
+						{
+							solinekey.push(po.getLineItemValue('item','custcol_avt_saleorder_line_key',x));
+							po.setLineItemValue( 'item', 'custcol_avt_cmt_date_sent',x, object.cmt_datesent);
+							po.setLineItemValue( 'item', 'custcol_avt_cmt_tracking',x, object.cmt_tracking);
+              po.setLineItemValue( 'item', 'custcol_avt_cmt_status',x, object.cmt_tracking);
+							po.setLineItemValue('item','custcol_column_notes',x,object.notes);
+							if(data.bill == true)
+							po.setLineItemValue('item','custcol_po_line_status',x,'3');
+							text  =  po.getLineItemText( 'item', 'custcol_avt_cmt_status', x);
+							if(object.cmt_datesent  != null && object.cmt_datesent != '')
+							{
+								text += '-' + object.cmt_datesent;
+							}
+							else if(object.cmtdelivery != null && object.cmtdelivery != ''){
+								text += '-' + object.cmtdelivery;
+							}
+							if( object.cmt_tracking  != null && object.cmt_tracking != '')
+							{
+								text += '-' + object.cmt_tracking;
+							}
+
+							po.setLineItemValue( 'item', 'custcol_avt_cmt_status_text',x, text);
+							if(sorecord){
+
+								var socount = sorecord.getLineItemCount('item');
+								//var lineKEY = so.getLineItemValue('item','custcol_avt_saleorder_line_key',x)
+								//var lineKEY = so.getLineItemValue('item','custcol_so_id',x)
+								var lineKEY = object.custcol_so_id;
+								for( var y=1; y<=socount; y++)
+								{
+									// var soline = sorecord.getLineItemValue( 'item', 'item', y);
+									//var soline = sorecord.getLineItemValue( 'item', 'custcol_avt_saleorder_line_key', y);
+									var soline = sorecord.getLineItemValue( 'item', 'custcol_so_id', y);
+									if( lineKEY == soline )
+									{
+                    sorecord.setLineItemValue( 'item', 'custcol_avt_cmt_date_sent',y, object.cmt_datesent);
+										sorecord.setLineItemValue( 'item', 'custcol_avt_cmt_tracking',y, object.cmt_tracking);
+										sorecord.setLineItemValue( 'item', 'custcol_avt_cmt_status_text',y, text);
+									}
+								}
+							}
+						}
+					}
+				}
+				try
+				{
+					nlapiSubmitRecord( sorecord, true, true);
+					// break;
+				}catch( Error )
+				{
+					log( "Error saving SO");
+					loge(Error);
+
+				}
+				nlapiSubmitRecord( po, true, true);
+			}
+			if( data.bill == true)
+			{
+				try
+				{
+					//var vbrecord  = nlapiTransformRecord( 'purchaseorder', object.internalid, 'vendorbill', {recordmode:'dynamic'});
+					var vbrecord  = nlapiTransformRecord( 'purchaseorder', tran.internalid, 'vendorbill', {recordmode:'dynamic'});
+					log( "Record transformed - going to submit...", JSON.stringify(vbrecord));
+					for(var j=1; j<=vbrecord.getLineItemCount('item'); j++){
+							if(solinekey.indexOf(vbrecord.getLineItemValue('item','custcol_avt_saleorder_line_key',j)) == -1){
+								vbrecord.removeLineItem('item',j);
+								j--;
+							}
+						}
+
+					//vbrecord.setLineItemValue()
+					if(vbrecord.getLineItemCount('item') >0)
+					nlapiSubmitRecord( vbrecord, true, true);
+				}catch( Error)
+				{
+					log( "Error - Transforming to vendorbill");
+					if( Error instanceof nlobjError)
+					{
+						log( "error", Error.getStackTrace() + ' ' + Error.getDetails() );
+					}
+					loge(Error);
+					tran.status = false;
+				}
+			}
+			tran.status = true;
+		}catch( Error)
+		{
+			tran.status = false;
+			nlapiLogExecution('error','Error Saving PO',Error);
+		}
+	}
+	return data;
+}
+
 function saveCMT(data){
 	for(var i=0; i<data.transactions.length; i++){
 		var tran = data.transactions[i];
@@ -785,11 +907,85 @@ var Run_POLinesCMTBilledNZ = function( request, response)
 		obj.Form_Approval_POLineCMTBilledNZ();
 	}
 };
+
+var Run_POSneakers = function( request, response)
+{
+	if( request.getMethod() == 'GET')
+	{
+		var obj = new MyObj( request, response);
+		obj.Form_Approval_POSneakers();
+	}
+};
+
+var Run_POSneakersBilled = function( request, response)
+{
+	if( request.getMethod() == 'GET')
+	{
+		var obj = new MyObj( request, response);
+		obj.Form_Approval_POSneakersBilled();
+	}
+};
 //END
 var MyObj = function( request, response )
 {
 	this.request =  request;
 	this.response  =  response;
+
+  this.Form_Approval_POSneakersBilled = function()
+  {
+    var form =  nlapiCreateForm( 'Sneakers Billed Dashboard');
+    form.setScript( 'customscript_avt_so_approval_cs');
+
+    //Create tabs in multiples of 10
+    var tabIndex = 0;
+    var tabID = '';
+
+    //Perform a Purchase Order Search to retrieve the data to populate the sublist
+    searchSneakersPurchaseOrdersBilled();
+
+      var tailorIndex = "0";
+      //Create a sublist for each tailor and use the tailorIndex as the sublist ID
+      var sublistID = 'custpage_subslist'+tailorIndex;
+      sublistID = sublistID.toString();
+      var tailorSublist = form.addSubList(sublistID, 'list', "PO Sneakers History");
+
+      this.generateSneakersBilledSublist(tailorSublist);
+    // }
+    this.response.writePage( form);
+
+  };
+
+	this.Form_Approval_POSneakers = function()
+	{
+		var cmtstatus = this.request.getParameter('cmtstatus');
+
+		var form =  nlapiCreateForm( 'Sneakers Purchase Order Items To Manage');
+		form.addButton( 'custpage_btapprve', 'Save', 'SavePOSneakers()');
+		form.addButton( 'custpage_btapprve_bill', 'Bill', 'SavePOSneakers(true)');
+		form.addButton( 'custpage_btexport', 'Export', 'ExportSneakers()');
+		form.setScript( 'customscript_avt_so_approval_cs');
+
+
+		var context = nlapiGetContext();
+		// var tailorRegion = context.getSetting('SCRIPT', 'custscript_cmt_tailor_region_au');	//Retrieve the Tailor Region from the script parameter
+
+		//Perform a Purchase Order Search to retrieve the data to populate the sublist
+		searchSneakersPurchaseOrders();
+
+		//Create tabs in multiples of 10
+		var tabIndex = 0;
+		var tabID = '';
+    var tailorIndex = 1;
+			//Create a sublist for each tailor and use the tailorIndex as the sublist ID
+			var sublistID = 'custpage_subslist'+tailorIndex;
+			sublistID = sublistID.toString();
+			var tailorSublist = form.addSubList(sublistID, 'list', "Approved Sneaker Orders");
+
+			this.generateSneakersSublist(tailorSublist);
+
+		this.response.writePage( form);
+
+	};
 	this.Form_LiningsApprovalLine = function(){
 		var form =  nlapiCreateForm( 'Lining Orders Items To Approve');
 
@@ -3319,6 +3515,415 @@ var MyObj = function( request, response )
 			}
 		}
 	};
+
+	this.generateSneakersSublist = function(sublist){
+		var createdFromList = new Array();
+		var mylist = new Array();
+		var getSOLines  =  null;
+
+		if (searchResultList != null && searchResultList != ''){	//Proceed with getting the fields from the saved search result if searchResultList is not empty
+			//log('searchResultList is not empty');
+			var searchid = 0;
+			//log('dataRetrieved', dataRetrieved);
+			if (!dataRetrieved){
+				log('retrieving data from search');
+				do{
+					var sr = searchResultList.getResults(searchid,searchid+1000);
+					if(sr){
+						for( var x in sr )
+						{
+							var object = new Object();
+							object.trandate = sr[x].getValue('trandate');
+							object.soid  =  sr[x].getValue( 'custcol_so_id');
+							object.line  =  sr[x].getValue( 'lineuniquekey');
+							object.createdfrom =  sr[x].getValue( 'custbody_avt_salesorder_ref');
+							object.createdfrom == null || object.createdfrom == ''? object.createdfrom = sr[x].getValue('createdfrom'): null;
+							object.internalid  =  sr[x].getValue( 'internalid');
+							object.entity  =  sr[x].getValue( 'entity');
+							object.item =  sr[x].getValue( 'item');
+							object.cmt_datesent = sr[x].getValue( 'custcol_avt_cmt_date_sent');
+							object.cmt_tracking = sr[x].getValue( 'custcol_avt_cmt_tracking');
+							object.notes = sr[x].getValue('custcol_column_notes');
+
+							if( createdFromList[ object.createdfrom ] ==  null)
+							{
+								createdFromList[ object.createdfrom ] = object.createdfrom;
+							}
+							object.clientname  = sr[x].getValue( 'custcol_tailor_client_name');
+							mylist.push( object);
+						}
+						searchid+= 1000;
+					}
+				}while(sr.length == 1000);
+				dataRetrieved = true;
+
+				//Populate the createdFromMasterList and cmtList
+				createdFromMasterList = createdFromList;
+				cmtList = mylist;
+
+			} else {
+				createdFromList	= createdFromMasterList;	//Get the value of createdFromList from createdFromMasterList
+				mylist = cmtList;	//Get the value of mylist from cmtList
+
+			}
+			//return;
+
+			if(createdFromList.length > 0 )
+			{
+				if (!soLinesList){
+					//log('soLinesList is empty');
+					getSOLines = this.getSneakersSOLineJoin( createdFromList);
+				} else {
+					//log('soLinesList is not empty');
+					getSOLines = soLinesList;
+				}
+
+			}
+
+
+		} else {	//Perform a search if the searchResultList is empty
+
+			var filter = new Array();
+			filter[ filter.length ] = new nlobjSearchFilter( 'mainline', null, 'is', 'F');
+			var context = nlapiGetContext();
+
+			var searchid = 'customsearch_sneakers_so_to_approve';
+
+			var search = nlapiLoadSearch('purchaseorder', searchid);
+			search.addFilters(filter);
+
+			var resultSet = search.runSearch();
+			var searchid = 0;
+
+
+			do{
+				var sr = resultSet.getResults(searchid,searchid+1000);
+				if(sr){
+					for( var x in sr )
+					{
+						var object = new Object();
+						object.trandate = sr[x].getValue('trandate');
+						object.soid  =  sr[x].getValue( 'custcol_so_id');
+						object.line  =  sr[x].getValue( 'lineuniquekey');
+						object.createdfrom =  sr[x].getValue( 'custbody_avt_salesorder_ref');
+						object.createdfrom == null || object.createdfrom == ''? object.createdfrom = sr[x].getValue('createdfrom'): null;
+						object.internalid  =  sr[x].getValue( 'internalid');
+						object.entity  =  sr[x].getValue( 'entity');
+						object.item =  sr[x].getValue( 'item');
+						object.cmt_datesent = sr[x].getValue( 'custcol_avt_cmt_date_sent');
+						object.cmt_tracking = sr[x].getValue( 'custcol_avt_cmt_tracking');
+						object.notes = sr[x].getValue('custcol_column_notes');
+
+						if( createdFromList[ object.createdfrom ] ==  null)
+						{
+							createdFromList[ object.createdfrom ] = object.createdfrom;
+						}
+						object.clientname  = sr[x].getValue( 'custcol_tailor_client_name');
+						mylist.push( object);
+					}
+					searchid+= 1000;
+				}
+			}while(sr.length == 1000);
+
+			if(createdFromList.length > 0 )
+			{
+				getSOLines = this.getSneakersSOLineJoin( createdFromList);
+			}
+
+		}
+
+		if( getSOLines != null && !myListDataPopulated)
+		{
+			for(var x in mylist)
+			{
+				for( var k in getSOLines)
+				{
+					var id = mylist[x].soid.split( '-');
+
+					if( mylist[x].createdfrom ==  getSOLines[k].internalid  &&
+							mylist[x].item !=  getSOLines[k].item && id[1] == getSOLines[k].line)
+					{
+		        mylist[x].expsentdate = getSOLines[k].expsentdate;
+						mylist[x].tailor  =  getSOLines[k].entity;
+						mylist[x].tailorid = getSOLines[k].entityid;
+						mylist[x].custcol_tailor_delivery_days = getSOLines[k].custcol_tailor_delivery_days;
+						mylist[x].custcol_cmt_production_time = getSOLines[k].custcol_cmt_production_time;
+
+						break;
+					}
+				}
+			}
+			myListDataPopulated = true;
+		}
+		sublist.addMarkAllButtons();
+		sublist.addField( 'custpage_choose', 'checkbox');
+		sublist.addField( 'trandate', 'date', 'Date');
+
+		var fld_line = sublist.addField( 'lineuniquekey', 'text', 'Line ID');
+		var fld_so = sublist.addField( 'createdfrom', 'select', 'Order', 'salesorder' );
+		var fld_po =  sublist.addField( 'internalid', 'select', 'PO', 'purchaseorder');
+		var fld_cust = sublist.addField( 'custpage_entity', 'text', 'Tailor');
+		var fld_soineid = sublist.addField( 'custcol_so_id', 'text', 'SO ID');
+		var fld_item = sublist.addField( 'item', 'select', 'Sneaker Item', 'item');
+		var fld_client = sublist.addField( 'custcol_tailor_client_name', 'text', 'Client Name');
+
+		var fld_dates = sublist.addField( 'custcol_avt_cmt_date_sent', 'date', 'Current Shipping');
+		var fld_track = sublist.addField( 'custcol_avt_cmt_tracking', 'text', 'Tracking');
+		var fld_notes = sublist.addField('custcol_column_notes', 'text', 'Notes');
+		var fld_status = sublist.addField( 'custpage_status', 'text', 'Status');
+		fld_soineid.setDisplayType( 'inline');
+		fld_line.setDisplayType( 'hidden');
+		fld_item.setDisplayType( 'inline');
+		fld_so.setDisplayType( 'hidden');
+		fld_po.setDisplayType( 'hidden');
+		fld_cust.setDisplayType( 'hidden');
+		fld_dates.setDisplayType( 'entry');
+		fld_track.setDisplayType( 'entry');
+		fld_status.setDisplayType( 'entry');
+		fld_notes.setDisplayType('entry');
+
+		if (sr != null) log('sr length', sr.length);
+		//log('mylist length', mylist.length);
+		//if( sr != null && sr.length > 0 )
+		if( mylist != null && mylist.length > 0 )
+		{
+			var count =1 ;
+			var today = new Date();
+			for( var x in mylist)
+			{
+				var expFabDateNeeded = null,dateNeeded = null,confirmedDate = null;
+				sublist.setLineItemValue( 'trandate', count, mylist[x].trandate );
+				sublist.setLineItemValue( 'custcol_so_id', count, mylist[x].soid );
+				sublist.setLineItemValue( 'lineuniquekey', count, mylist[x].line );
+				sublist.setLineItemValue( 'createdfrom', count, mylist[x].createdfrom );
+				sublist.setLineItemValue( 'internalid', count, mylist[x].internalid );
+				sublist.setLineItemValue( 'custpage_entity', count, mylist[x].tailor );
+				sublist.setLineItemValue( 'item', count, mylist[x].item );
+				sublist.setLineItemValue( 'custcol_tailor_client_name',count, mylist[x].clientname );
+				sublist.setLineItemValue( 'custcol_avt_cmt_date_sent', count, mylist[x].cmt_datesent );
+				sublist.setLineItemValue( 'custcol_avt_cmt_tracking', count, mylist[x].cmt_tracking );
+				sublist.setLineItemValue('custcol_column_notes',count, mylist[x].notes);
+
+				count++;
+			}
+		}
+	};
+	this.generateSneakersBilledSublist = function(sublist){
+
+		var createdFromList = new Array();
+		var mylist = new Array();
+		var getSOLines  =  null;
+
+		if (searchResultList != null && searchResultList != ''){	//Proceed with getting the fields from the saved search result if searchResultList is not empty
+			//log('searchResultList is not empty');
+			var searchid = 0;
+			//log('dataRetrieved', dataRetrieved);
+			if (!dataRetrieved){
+				log('retrieving data from search');
+				do{
+					var sr = searchResultList.getResults(searchid,searchid+1000);
+					if(sr){
+						for( var x=0; x<sr.length;x++ )
+						{
+							var object = new Object();
+							object.trandate = sr[x].getValue('trandate');
+							object.soid  =  sr[x].getValue( 'custcol_so_id');
+							object.line  =  sr[x].getValue( 'lineuniquekey');
+							object.createdfrom =  sr[x].getValue( 'custbody_avt_salesorder_ref');
+							object.createdfrom == null || object.createdfrom == ''? object.createdfrom = sr[x].getValue('createdfrom'): null;
+							object.internalid  =  sr[x].getValue( 'internalid');
+							object.entity  =  sr[x].getValue( 'entity');
+							object.item =  sr[x].getValue( 'item');
+							object.cmt_datesent = sr[x].getValue( 'custcol_avt_cmt_date_sent');
+							object.cmt_tracking = sr[x].getValue( 'custcol_avt_cmt_tracking');
+							object.notes = sr[x].getValue('custcol_column_notes');
+							if( createdFromList[ object.createdfrom ] ==  null)
+							{
+								createdFromList[ object.createdfrom ] = object.createdfrom;
+							}
+							object.clientname  = sr[x].getValue( 'custcol_tailor_client_name');
+							mylist.push( object);
+						}
+						searchid += sr.length;
+					}
+				}while(sr.length == 1000);
+				dataRetrieved = true;
+
+				//Populate the createdFromMasterList and cmtBilledList
+				createdFromMasterList = createdFromList;
+				cmtBilledList = mylist;
+
+			} else {
+				//log('retrieving from createdFromMasterList', createdFromMasterList);
+				createdFromList	= createdFromMasterList;	//Get the value of createdFromList from createdFromMasterList
+				mylist = cmtBilledList;	//Get the value of mylist from cmtBilledList
+
+			}
+			//return;
+			//log('createdFromList : ', createdFromList);
+			if(createdFromList.length > 0 )
+			{
+
+				//log('createdFromList length: ' + createdFromList.length);
+				if (!soLinesList){
+					//log('soLinesList is empty');
+					getSOLines = this.getSneakersSOLineJoin( createdFromList);
+				} else {
+					//log('soLinesList is not empty');
+					getSOLines = soLinesList;
+				}
+
+			}
+
+
+		} else {
+
+			var filter = new Array();
+			filter[ filter.length ] = new nlobjSearchFilter( 'mainline', null, 'is', 'F');
+
+			var context = nlapiGetContext();
+
+			var searchid = 'customsearch_sneakers_so_billed';
+
+			var cols = new Array();
+			cols[ cols.length ] =  new nlobjSearchColumn( 'trandate');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'tranid');
+			//cols[ cols.length ] =  new nlobjSearchColumn( 'period');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'entity');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'internalid');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_so_id');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'custbody_avt_salesorder_ref');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'createdfrom');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'item');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_avt_cmt_tracking');
+			cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_avt_cmt_date_sent');
+			cols[ cols.length ] = new nlobjSearchColumn( 'lineuniquekey');
+			cols[ cols.length ] = new nlobjSearchColumn( 'custcol_tailor_client_name');
+			cols[ cols.length ] = new nlobjSearchColumn('custcol_column_notes');
+
+			//var sr = nlapiSearchRecord( 'purchaseorder', searchid, filter, cols);
+
+			var search = nlapiLoadSearch('purchaseorder', searchid);
+			search.addFilters(filter);
+			search.addColumns(cols);
+			var searchid = 0;
+			var createdFromList = new Array();
+			var mylist = new Array();
+
+			var resultSet = search.runSearch();
+			do{
+				var sr = resultSet.getResults(searchid,searchid+1000);
+				if(sr){
+					for( var x=0; x<sr.length;x++ )
+					{
+						var object = new Object();
+						object.trandate = sr[x].getValue('trandate');
+						object.soid  =  sr[x].getValue( 'custcol_so_id');
+						object.line  =  sr[x].getValue( 'lineuniquekey');
+						object.createdfrom =  sr[x].getValue( 'custbody_avt_salesorder_ref');
+						object.createdfrom == null || object.createdfrom == ''? object.createdfrom = sr[x].getValue('createdfrom'): null;
+						object.internalid  =  sr[x].getValue( 'internalid');
+						object.entity  =  sr[x].getValue( 'entity');
+						object.item =  sr[x].getValue( 'item');
+						object.cmt_datesent = sr[x].getValue( 'custcol_avt_cmt_date_sent');
+						object.cmt_tracking = sr[x].getValue( 'custcol_avt_cmt_tracking');
+						object.notes = sr[x].getValue('custcol_column_notes');
+						if( createdFromList[ object.createdfrom ] ==  null)
+						{
+							createdFromList[ object.createdfrom ] = object.createdfrom;
+						}
+						object.clientname  = sr[x].getValue( 'custcol_tailor_client_name');
+						mylist.push( object);
+					}
+					searchid += sr.length;
+				}
+			}while(sr.length == 1000);
+
+			var getSOLines  =  null;
+			if(createdFromList.length > 0 )
+			{
+				getSOLines = this.getSneakersSOLineJoin( createdFromList);
+			}
+		}
+
+		if( getSOLines != null && !myListDataPopulated)
+		{
+			log('mylist length', mylist.length + ' - getSOLines length: ' + getSOLines.length);
+			for(var x in mylist)
+			{
+				for( var k in getSOLines)
+				{
+					var id = mylist[x].soid.split( '-');
+					if( mylist[x].createdfrom ==  getSOLines[k].internalid  &&
+							mylist[x].item !=  getSOLines[k].item && id[1] == getSOLines[k].line)
+					{
+            mylist[x].tailor  =  getSOLines[k].entity;
+						mylist[x].tailorid = getSOLines[k].entityid;
+						mylist[x].custcol_tailor_delivery_days = getSOLines[k].custcol_tailor_delivery_days;
+						mylist[x].custcol_cmt_production_time = getSOLines[k].custcol_cmt_production_time;
+						break;
+					}
+					else{
+						//nlapiLogExecution('audit','Something got removed',JSON.stringify(mylist[x]))
+					}
+				}
+			}
+			myListDataPopulated = true;
+		}
+
+
+		// var sublist = form.addSubList( 'custpage_subslist1', 'list', 'Order Lines To Approve');
+		//sublist.addMarkAllButtons();
+		//sublist.addField( 'custpage_choose', 'checkbox');
+		sublist.addField( 'trandate', 'date', 'Date');
+
+		var fld_line = sublist.addField( 'lineuniquekey', 'text', 'Line ID');
+		var fld_so = sublist.addField( 'createdfrom', 'select', 'Order', 'salesorder' );
+		var fld_po =  sublist.addField( 'internalid', 'select', 'PO', 'purchaseorder');
+		var fld_cust = sublist.addField( 'custpage_entity', 'text', 'Tailor');
+		var fld_soineid = sublist.addField( 'custcol_so_id', 'text', 'SO ID');
+		var fld_item = sublist.addField( 'item', 'select', 'CMT Item', 'item');
+		var fld_client = sublist.addField( 'custcol_tailor_client_name', 'text', 'Client Name');
+		var fld_dates = sublist.addField( 'custcol_avt_cmt_date_sent', 'date', 'Confirmed Shipping');
+		var fld_track = sublist.addField( 'custcol_avt_cmt_tracking', 'text', 'Tracking');
+		//Added Notes Column
+		var fld_notes = sublist.addField('custcol_column_notes', 'text', 'Notes');
+		var fld_status = sublist.addField( 'custpage_status', 'text', 'Status');
+		fld_soineid.setDisplayType( 'inline');
+		fld_line.setDisplayType( 'hidden');
+		fld_item.setDisplayType( 'hidden');
+		fld_so.setDisplayType( 'hidden');
+		fld_po.setDisplayType( 'hidden');
+		fld_cust.setDisplayType( 'hidden');
+		fld_dates.setDisplayType( 'entry');
+		fld_track.setDisplayType( 'entry');
+		fld_status.setDisplayType( 'entry');
+		fld_notes.setDisplayType('entry');
+    //if( sr != null && sr.length > 0 )
+		if( mylist != null && mylist.length > 0 )
+		{
+			//log('mylist: ' + mylist.length);
+			var count =1 ;
+			var today = new Date();
+			for( var x in mylist)
+			{
+				var expFabDateNeeded = null,dateNeeded = null,confirmedDate = null;
+				sublist.setLineItemValue( 'trandate', count, mylist[x].trandate );
+				sublist.setLineItemValue( 'custcol_so_id', count, mylist[x].soid );
+				sublist.setLineItemValue( 'lineuniquekey', count, mylist[x].line );
+				sublist.setLineItemValue( 'createdfrom', count, mylist[x].createdfrom );
+				sublist.setLineItemValue( 'internalid', count, mylist[x].internalid );
+				sublist.setLineItemValue( 'custpage_entity', count, mylist[x].tailor );
+				sublist.setLineItemValue( 'item', count, mylist[x].item );
+				sublist.setLineItemValue( 'custcol_tailor_client_name',count, mylist[x].clientname );
+				sublist.setLineItemValue( 'custcol_avt_cmt_date_sent', count, mylist[x].cmt_datesent );
+				sublist.setLineItemValue( 'custcol_avt_cmt_tracking', count, mylist[x].cmt_tracking );
+				sublist.setLineItemValue( 'custcol_column_notes', count, mylist[x].notes);
+
+				count++;
+			}
+		}
+	};
 	this.Form_Approval_POLineCMTBilled = function()
 	{
 		var dateval = this.request.getParameter('expecteddatesent');
@@ -4895,6 +5500,61 @@ var MyObj = function( request, response )
 		return list;
 	};
 
+	this.getSneakersSOLineJoin = function( createdfrom)
+	{
+
+		var filter = new Array();
+		filter[ filter.length ] = new nlobjSearchFilter( 'mainline', null, 'is', 'F');
+		filter[ filter.length ] = new nlobjSearchFilter( 'internalid', null, 'anyof', createdfrom );
+
+		var cols = [];
+		cols[ cols.length ] = new nlobjSearchColumn('custcol_producttype');
+		var search = nlapiLoadSearch('salesorder', 'customsearch_sojoin_sneakers');
+		search.addFilters(filter);
+		search.addColumns(cols);
+		var resultSet = search.runSearch();
+		var searchid = 0;
+		var list = new Array();
+		do{
+			var sr = resultSet.getResults(searchid,searchid+1000);
+			if(sr){
+				for( var x in sr )
+				{
+          var itemtext = sr[x].getText('item');
+					if(sr[x].getValue('custcol_producttype') && itemtext.indexOf(sr[x].getValue('custcol_producttype')) == -1){
+						itemtext += '-' + sr[x].getValue('custcol_producttype');
+					}
+
+					var object = new Object();
+					object.internalid  = sr[x].getValue( 'internalid');
+					object.line =  sr[x].getValue( 'custcol_so_id');
+					try{
+						var line  = object.line.split('-');
+						object.line = line[1];
+					}catch( Error){nlapiLogExecution('error','In Line',Error);}
+					object.tranid = sr[x].getValue( 'tranid');
+					object.item =  sr[x].getValue( 'item');
+					object.itemtext = itemtext;
+					object.expsentdate =  sr[x].getValue( 'custcol_avt_expected_sent_date');
+					object.entity =  sr[x].getText( 'entity');
+					object.entityid = sr[x].getValue('entity');
+					object.custcol_avt_date_needed = sr[x].getValue('custcol_avt_date_needed');
+					object.custcol_tailor_delivery_days = sr[x].getValue('custcol_tailor_delivery_days');
+					object.custcol_expected_production_date = sr[x].getValue('custcol_expected_production_date');
+					object.custcol_cmt_production_time = sr[x].getValue('custcol_cmt_production_time');
+					object.custcol_confirmedshipping = sr[x].getValue('custcol_confirmedshipping');
+					object.custcol_inproductiondate = sr[x].getValue('custcol_inproductiondate');
+					list.push( object);
+				}
+				searchid += sr.length;
+			}
+		}while(sr.length == 1000);
+
+		soLinesList = list;
+
+		return list;
+	};
+
 	this.getAllSOLineJoin = function( createdfrom, tailorsIDs)
 	{
 
@@ -5599,17 +6259,19 @@ function searchCMTPurchaseOrdersBilled(parameters, tailorsIDs){
 
 function searchTailors(tailorRegion){
 	try {
-
+    var filters = [
+       ["isperson","is","F"],
+       "AND",
+       ["parent","anyof","@NONE@"],
+       "AND",
+       ["isinactive","is","F"]
+    ];
+    if(tailorRegion){
+      filters.push("AND")
+      filters.push(["custentity_cmt_tailor_region","anyof",tailorRegion])
+    }
 		var customerSearch = nlapiSearchRecord("customer",null,
-			[
-			   ["isperson","is","F"],
-			   "AND",
-			   ["parent","anyof","@NONE@"],
-			   "AND",
-			   ["custentity_cmt_tailor_region","anyof",tailorRegion],
-			   "AND",
-			   ["isinactive","is","F"]
-			],
+			filters,
 			[
 			   new nlobjSearchColumn("entityid"),
 			   new nlobjSearchColumn("isperson"),
@@ -5638,6 +6300,73 @@ function searchTailors(tailorRegion){
 		log('An error occurred on searchTailors()', e);
 	}
 };
+
+function searchSneakersPurchaseOrders(parameters){
+	try {
+		var filter = new Array();
+		filter.push(new nlobjSearchFilter( 'mainline', null, 'is', 'F'));
+		if(parameters.dateval){
+			filter.push(new nlobjSearchFilter( 'custcol_avt_cmt_date_sent', null, 'on', parameters.dateval));
+		}
+		if(parameters.cmtstatus){
+			filter.push(new nlobjSearchFilter( 'custcol_avt_cmt_status', null, 'anyof', parameters.cmtstatus.split(',')));
+		}
+		// filter.push(new nlobjSearchFilter('entity','createdfrom','anyof',tailorsIDs));
+
+		var searchid = 'customsearch_sneakers_so_to_approve';
+
+		var search = nlapiLoadSearch('purchaseorder', searchid);
+		search.addFilters(filter);
+
+		var resultSet = search.runSearch();
+		searchResultList = resultSet;
+	} catch (e){
+		// log('An error occurred on searchSneakersPurchaseOrders()', e);
+	}
+}
+
+function searchSneakersPurchaseOrdersBilled(){
+	try {
+
+		var filter = new Array();
+		filter.push(new nlobjSearchFilter( 'mainline', null, 'is', 'F'));
+
+		/*if(parameters.cmtstatus){
+			filter.push(new nlobjSearchFilter( 'custcol_avt_cmt_status', null, 'anyof', parameters.cmtstatus.split(',')));
+		}*/
+		// filter.push(new nlobjSearchFilter('entity','createdfrom','anyof',tailorsIDs));
+
+		var searchid = 'customsearch_sneakers_so_billed';
+		var cols = new Array();
+		cols[ cols.length ] =  new nlobjSearchColumn( 'trandate');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'tranid');
+		//cols[ cols.length ] =  new nlobjSearchColumn( 'period');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'entity');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'internalid');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_so_id');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'custbody_avt_salesorder_ref');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'createdfrom');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'item');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_avt_cmt_tracking');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_avt_cmt_date_sent');
+		cols[ cols.length ] =  new nlobjSearchColumn( 'custcol_avt_cmt_status');
+		cols[ cols.length ] = new nlobjSearchColumn( 'lineuniquekey');
+		cols[ cols.length ] = new nlobjSearchColumn( 'custcol_tailor_client_name');
+		cols[ cols.length ] = new nlobjSearchColumn('custcol_column_notes');
+
+		var search = nlapiLoadSearch('purchaseorder', searchid);
+		search.addFilters(filter);
+		search.addColumns(cols);
+		var resultSet = search.runSearch();
+
+		searchResultList = resultSet;
+		log('resultSet', resultSet);
+
+
+	} catch (e){
+		log('An error occurred on searchSneakersPurchaseOrders()', e);
+	}
+}
 
 var log  = function(  param1, param2 )
 {

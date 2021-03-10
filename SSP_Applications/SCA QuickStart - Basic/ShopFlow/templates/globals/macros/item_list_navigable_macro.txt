@@ -57,6 +57,10 @@
 	if(client_name_find.length > 0){
 		client_name = client_name_find[0].value;
 	}
+	var size_find = _.where(item.get("options"), {id:"CUSTCOL_ORDER_BLOCK_SIZE"}), size="";
+	if(size_find.length > 0){
+		size = size_find[0].value;
+	}
 %>
 
 	<style>
@@ -126,12 +130,17 @@
 
 					<%= _('Client Name: $(0)').translate(client_name)%>
 				</div>
-
+				<% if(formtype == "Sneakers"){ %>
+				<div class="size">
+					<%= _('Size: $(0)').translate(size)%>
+				</div>
+				<% } %>
+				<% if(formtype != "Sneakers"){ %>
 					<div class="name">
 						<%= _('Estimated Shipping Date :').translate()%>
 						<span id="expected-date-<%= line_id %>"></span>
 					</div>
-
+				<% } %>
 
 				<% if (isDisplayDateNeededHoldFabricHoldProduction) { %>
 						<div class="sku">
@@ -147,7 +156,7 @@
 				<div class="item-option selected-options-display">
 					<%= SC.macros.displayDesignOptions(line) %>
 				</div>
-				<% if(application.getUser() && application.getUser().get('hidebillingandcogs') == 'F'){ %>
+				<% if(application.getUser() && application.getUser().get('hidebillingandcogs') == 'F' && formtype != "Sneakers"){ %>
 				<div class="item-cogs">
 					<div class="accordion" id="item-cogs-<%= line.id %>">
 						<div class="accordion-group">

@@ -26,8 +26,8 @@ function service (request)
 			, cmtdate = request.getParameter('cmtdate')
 			, startdate = request.getParameter('startdate')
 			, enddate = request.getParameter('enddate')
-			, cmtstatus = request.getParameter('cmtstatus');
-
+			, cmtstatus = request.getParameter('cmtstatus')
+			, subtailor = request.getParameter('subtailor');
 			if(search){
 				if(search.indexOf('SO-') == 0)
 				soid = search.split('SO-')[1];
@@ -45,7 +45,7 @@ function service (request)
 					//if (clientNameandSOID){
 					//	Application.sendContent(id ? PlacedOrder.get(id) : (PlacedOrder.list(page, clientName,soid,sort,clientId) || []));
 					//} else {
-						Application.sendContent(id ? PlacedOrder.get(id,customerid) : (PlacedOrder.list(page,clientName,soid,sort,clientid,customerid,cmtdate,startdate,enddate,cmtstatus) || []));
+						Application.sendContent(id ? PlacedOrder.get(id,customerid) : (PlacedOrder.list(page,clientName,soid,sort,clientid,customerid,cmtdate,startdate,enddate,cmtstatus,subtailor) || []));
 					//}
 
 				break;

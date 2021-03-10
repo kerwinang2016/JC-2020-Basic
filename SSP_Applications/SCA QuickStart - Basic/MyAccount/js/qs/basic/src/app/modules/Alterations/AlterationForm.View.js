@@ -167,7 +167,10 @@ define('AlterationForm.View',  ['Alterations.Collection'], function (Alterations
 				break;
 			}
 			this.jacketOvercoatQuantity = this.jacketQuantity?parseFloat(this.jacketQuantity):0 + this.overcoatQuantity?parseFloat(this.overcoatQuantity):0;
+			this.focusElementId = jQuery(e.target).attr('id');
 			this.showInModal();
+			this.$el.find('[id*="'+this.focusElementId+'"]').focus();
+			//jQuery(e.target).focus()
 		}
 	});
 });
